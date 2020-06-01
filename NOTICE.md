@@ -6,7 +6,7 @@ This documentation website uses the following libraries:
 - MkDocs-material
 
 Those libraries import other libraries including:
-- lunar.js
+- lunr.js
 - modernizr.js
 - jquery
 

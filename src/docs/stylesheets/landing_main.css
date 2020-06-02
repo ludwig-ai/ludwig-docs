@@ -1201,6 +1201,15 @@ h1.intro-header::before {
     background-color: black;
 }
 
+#waves-video {
+    position: absolute;
+    min-width: 100%;
+    min-height: 100%;
+    left: 0px;
+    top: 0px;
+    z-index: -1;
+    background-color: black;
+}
 /* -------------------------------------------------------------------
  * menu trigger - (_site-layout.css)
  * ------------------------------------------------------------------- */

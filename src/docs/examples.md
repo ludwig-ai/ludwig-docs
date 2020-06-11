@@ -65,7 +65,7 @@ input_features:
         cell_type: lstm
         reduce_output: null
         preprocessing:
-          word_format: space
+          word_tokenizer: space
 
 output_features:
     -
@@ -104,7 +104,7 @@ input_features:
         num_layers: 2
         reduce_output: null
         preprocessing:
-          word_format: space
+          word_tokenizer: space
 
 output_features:
     -
@@ -147,7 +147,7 @@ input_features:
         cell_type: lstm
         reduce_output: null
         preprocessing:
-          word_format: english_tokenize
+          word_tokenizer: english_tokenize
 
 output_features:
     -
@@ -160,7 +160,7 @@ output_features:
         loss:
             type: sampled_softmax_cross_entropy
         preprocessing:
-          word_format: italian_tokenize
+          word_tokenizer: italian_tokenize
 
 training:
     batch_size: 96

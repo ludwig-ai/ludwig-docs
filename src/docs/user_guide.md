@@ -708,7 +708,7 @@ A Ludwig model can be exported as a [Neuropod](https://github.com/uber/neuropod)
 In order to export a Ludwig model as a Neuropod, first make sure the `neuropod` package is installed in your environment, then run the following command:
 
 ```
-python -m ludwig.neuropod --ludwig_model_path <LUDWIG_MODEL_PATH> --neuropod_path <NEUROPOD_PATH>
+python -m ludwig.utils.neuropod_utils --ludwig_model_path <LUDWIG_MODEL_PATH> --neuropod_path <NEUROPOD_PATH>
 ```
 
 where `ludwig_model_path` is the path to a trained Ludwig model and `neuropod_path` is the path where to save the Neuropod contaning the model.
@@ -716,9 +716,9 @@ Be aware that, if a file already exists at `neuropod_path` it will be overridden
 
 These are the available arguments:
 ```
-usage: neuropod.py [-h] -m LUDWIG_MODEL_PATH
-                   [-l {critical,error,warning,info,debug,notset}] -n
-                   NEUROPOD_PATH [-nm NEUROPOD_MODEL_NAME]
+usage: neuropod_utils.py [-h] -m LUDWIG_MODEL_PATH
+                         [-l {critical,error,warning,info,debug,notset}] -n
+                         NEUROPOD_PATH [-nm NEUROPOD_MODEL_NAME]
 
 This script exports a Ludwig model in the Neuropod format
 

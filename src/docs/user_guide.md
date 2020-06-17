@@ -713,12 +713,13 @@ python -m ludwig.utils.neuropod_utils --ludwig_model_path <LUDWIG_MODEL_PATH> --
 
 where `ludwig_model_path` is the path to a trained Ludwig model and `neuropod_path` is the path where to save the Neuropod contaning the model.
 Be aware that, if a file already exists at `neuropod_path` it will be overridden.
+By default the Neuropod package produced is a ZIP file, but you can obtain a directory instead with the `--package_as_dir` argument.
 
 These are the available arguments:
 ```
 usage: neuropod_utils.py [-h] -m LUDWIG_MODEL_PATH
                          [-l {critical,error,warning,info,debug,notset}] -n
-                         NEUROPOD_PATH [-nm NEUROPOD_MODEL_NAME]
+                         NEUROPOD_PATH [-nm NEUROPOD_MODEL_NAME] [-d]
 
 This script exports a Ludwig model in the Neuropod format
 
@@ -732,6 +733,8 @@ optional arguments:
                         path of the output Neuropod package file
   -nm NEUROPOD_MODEL_NAME, --neuropod_model_name NEUROPOD_MODEL_NAME
                         path of the output Neuropod package file
+  -d, --package_as_dir  output the Neuropod package a directory (by default it
+                        is a zip file)
 ```
 
 This functionality has been tested with `neuropod==0.1.1`.

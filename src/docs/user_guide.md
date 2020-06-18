@@ -705,7 +705,7 @@ WIP
 
 A Ludwig model can be exported as a [Neuropod](https://github.com/uber/neuropod), a mechanism that allows it to be executed in a framework agnostic way.
 
-In order to export a Ludwig model as a Neuropod, first make sure the `neuropod` package is installed in your environment, then run the following command:
+In order to export a Ludwig model as a Neuropod, first make sure the `neuropod` package is installed in your environment together with the approrpiate backend (only use Python 3.7+), then run the following command:
 
 ```
 python -m ludwig.utils.neuropod_utils --ludwig_model_path <LUDWIG_MODEL_PATH> --neuropod_path <NEUROPOD_PATH>
@@ -737,7 +737,7 @@ optional arguments:
                         is a zip file)
 ```
 
-This functionality has been tested with `neuropod==0.1.1`.
+This functionality has been tested with `neuropod==0.2.0`.
 
 
 Data Preprocessing

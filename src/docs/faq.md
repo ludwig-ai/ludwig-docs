@@ -1,3 +1,8 @@
+## What is the Roadmap for the develpment of Ludwig?
+
+We keep an updatet set of tasks ordered by priority in the [GitHub Projects page](https://github.com/uber/ludwig/projects).
+
+
 ## Do you support \[feature | encoder | decoder\] in Ludwig?
 
 The list of encoders for each feature type is specified in the [User Guide](user_guide.md).

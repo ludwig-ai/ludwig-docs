@@ -3672,7 +3672,7 @@ Those are more experimental functionalities, once solidified they will be added 
 <p>WIP</p>
 <h4 id="neuropod-export">Neuropod export<a class="headerlink" href="#neuropod-export" title="Permanent link">&para;</a></h4>
 <p>A Ludwig model can be exported as a <a href="https://github.com/uber/neuropod">Neuropod</a>, a mechanism that allows it to be executed in a framework agnostic way.</p>
-<p>In order to export a Ludwig model as a Neuropod, first make sure the <code>neuropod</code> package is installed in your environment, then run the following command:</p>
+<p>In order to export a Ludwig model as a Neuropod, first make sure the <code>neuropod</code> package is installed in your environment together with the approrpiate backend (only use Python 3.7+), then run the following command:</p>
 <div class="codehilite"><pre><span></span><code>python -m ludwig.utils.neuropod_utils --ludwig_model_path &lt;LUDWIG_MODEL_PATH&gt; --neuropod_path &lt;NEUROPOD_PATH&gt;
 </code></pre></div>
 
@@ -3702,7 +3702,7 @@ optional arguments:
 </code></pre></div>
 
 
-<p>This functionality has been tested with <code>neuropod==0.1.1</code>.</p>
+<p>This functionality has been tested with <code>neuropod==0.2.0</code>.</p>
 <h2 id="data-preprocessing">Data Preprocessing<a class="headerlink" href="#data-preprocessing" title="Permanent link">&para;</a></h2>
 <p>Ludwig data preprocessing maps raw data coming in UTF-8 encoded CSV format into an HDF5 file containing tensors and a JSON file containing mappings from strings to tensors when needed.
 This mapping is performed when a UTF-8 encoded CSV is provided as input and both HDF5 and JSON files are saved in the same directory as the input CSV, unless the argument <code>--skip_save_processed_input</code> is used (both in <code>train</code> and <code>experiment</code> commands).

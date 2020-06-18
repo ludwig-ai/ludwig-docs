@@ -705,20 +705,21 @@ WIP
 
 A Ludwig model can be exported as a [Neuropod](https://github.com/uber/neuropod), a mechanism that allows it to be executed in a framework agnostic way.
 
-In order to export a Ludwig model as a Neuropod, first make sure the `neuropod` package is installed in your environment, then run the following command:
+In order to export a Ludwig model as a Neuropod, first make sure the `neuropod` package is installed in your environment together with the approrpiate backend (only use Python 3.7+), then run the following command:
 
 ```
-python -m ludwig.neuropod --ludwig_model_path <LUDWIG_MODEL_PATH> --neuropod_path <NEUROPOD_PATH>
+python -m ludwig.utils.neuropod_utils --ludwig_model_path <LUDWIG_MODEL_PATH> --neuropod_path <NEUROPOD_PATH>
 ```
 
 where `ludwig_model_path` is the path to a trained Ludwig model and `neuropod_path` is the path where to save the Neuropod contaning the model.
 Be aware that, if a file already exists at `neuropod_path` it will be overridden.
+By default the Neuropod package produced is a ZIP file, but you can obtain a directory instead with the `--package_as_dir` argument.
 
 These are the available arguments:
 ```
-usage: neuropod.py [-h] -m LUDWIG_MODEL_PATH
-                   [-l {critical,error,warning,info,debug,notset}] -n
-                   NEUROPOD_PATH [-nm NEUROPOD_MODEL_NAME]
+usage: neuropod_utils.py [-h] -m LUDWIG_MODEL_PATH
+                         [-l {critical,error,warning,info,debug,notset}] -n
+                         NEUROPOD_PATH [-nm NEUROPOD_MODEL_NAME] [-d]
 
 This script exports a Ludwig model in the Neuropod format
 
@@ -732,9 +733,11 @@ optional arguments:
                         path of the output Neuropod package file
   -nm NEUROPOD_MODEL_NAME, --neuropod_model_name NEUROPOD_MODEL_NAME
                         path of the output Neuropod package file
+  -d, --package_as_dir  output the Neuropod package a directory (by default it
+                        is a zip file)
 ```
 
-This functionality has been tested with `neuropod==0.1.1`.
+This functionality has been tested with `neuropod==0.2.0`.
 
 
 Data Preprocessing

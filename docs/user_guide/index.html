@@ -17,7 +17,7 @@
         <meta name="author" content="Piero Molino">
       
       <link rel="shortcut icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.2.3">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.3.0">
     
     
       
@@ -59,8 +59,9 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="grey" data-md-color-accent="grey">
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="grey">
   
+    
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
@@ -1656,6 +1657,18 @@
         
       </ul>
     </nav>
+  </li>
+
+        
+        
+        
+        
+
+
+  <li class="md-nav__item">
+    <a href="../community/" title="Community" class="md-nav__link">
+      Community
+    </a>
   </li>
 
         
@@ -3659,17 +3672,18 @@ Those are more experimental functionalities, once solidified they will be added 
 <p>WIP</p>
 <h4 id="neuropod-export">Neuropod export<a class="headerlink" href="#neuropod-export" title="Permanent link">&para;</a></h4>
 <p>A Ludwig model can be exported as a <a href="https://github.com/uber/neuropod">Neuropod</a>, a mechanism that allows it to be executed in a framework agnostic way.</p>
-<p>In order to export a Ludwig model as a Neuropod, first make sure the <code>neuropod</code> package is installed in your environment, then run the following command:</p>
-<div class="codehilite"><pre><span></span><code>python -m ludwig.neuropod --ludwig_model_path &lt;LUDWIG_MODEL_PATH&gt; --neuropod_path &lt;NEUROPOD_PATH&gt;
+<p>In order to export a Ludwig model as a Neuropod, first make sure the <code>neuropod</code> package is installed in your environment together with the approrpiate backend (only use Python 3.7+), then run the following command:</p>
+<div class="codehilite"><pre><span></span><code>python -m ludwig.utils.neuropod_utils --ludwig_model_path &lt;LUDWIG_MODEL_PATH&gt; --neuropod_path &lt;NEUROPOD_PATH&gt;
 </code></pre></div>
 
 
 <p>where <code>ludwig_model_path</code> is the path to a trained Ludwig model and <code>neuropod_path</code> is the path where to save the Neuropod contaning the model.
-Be aware that, if a file already exists at <code>neuropod_path</code> it will be overridden.</p>
+Be aware that, if a file already exists at <code>neuropod_path</code> it will be overridden.
+By default the Neuropod package produced is a ZIP file, but you can obtain a directory instead with the <code>--package_as_dir</code> argument.</p>
 <p>These are the available arguments:</p>
-<div class="codehilite"><pre><span></span><code>usage: neuropod.py [-h] -m LUDWIG_MODEL_PATH
-                   [-l {critical,error,warning,info,debug,notset}] -n
-                   NEUROPOD_PATH [-nm NEUROPOD_MODEL_NAME]
+<div class="codehilite"><pre><span></span><code>usage: neuropod_utils.py [-h] -m LUDWIG_MODEL_PATH
+                         [-l {critical,error,warning,info,debug,notset}] -n
+                         NEUROPOD_PATH [-nm NEUROPOD_MODEL_NAME] [-d]
 
 This script exports a Ludwig model in the Neuropod format
 
@@ -3683,10 +3697,12 @@ optional arguments:
                         path of the output Neuropod package file
   -nm NEUROPOD_MODEL_NAME, --neuropod_model_name NEUROPOD_MODEL_NAME
                         path of the output Neuropod package file
+  -d, --package_as_dir  output the Neuropod package a directory (by default it
+                        is a zip file)
 </code></pre></div>
 
 
-<p>This functionality has been tested with <code>neuropod==0.1.1</code>.</p>
+<p>This functionality has been tested with <code>neuropod==0.2.0</code>.</p>
 <h2 id="data-preprocessing">Data Preprocessing<a class="headerlink" href="#data-preprocessing" title="Permanent link">&para;</a></h2>
 <p>Ludwig data preprocessing maps raw data coming in UTF-8 encoded CSV format into an HDF5 file containing tensors and a JSON file containing mappings from strings to tensors when needed.
 This mapping is performed when a UTF-8 encoded CSV is provided as input and both HDF5 and JSON files are saved in the same directory as the input CSV, unless the argument <code>--skip_save_processed_input</code> is used (both in <code>train</code> and <code>experiment</code> commands).
@@ -6254,14 +6270,14 @@ The classes on the x axis are sorted by f1 score.</p>
     </div>
     
       <script src="../assets/javascripts/vendor.d710d30a.min.js"></script>
-      <script src="../assets/javascripts/bundle.a45f732b.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../assets/javascripts/bundle.a14cc5fd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
       
       <script>
         app = initialize({
           base: "..",
           features: [],
           search: Object.assign({
-            worker: "../assets/javascripts/worker/search.c03f0417.min.js"
+            worker: "../assets/javascripts/worker/search.7a2ea5ba.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

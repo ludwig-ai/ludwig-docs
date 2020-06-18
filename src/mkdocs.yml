@@ -22,6 +22,7 @@ nav:
   - API:
       - 'LudwigModel': 'api/LudwigModel.md'
       - 'Visualization': 'api/visualization.md'
+  - Community: 'community.md'
   - FAQ: 'faq.md'
 
 # Configuration
@@ -33,6 +34,7 @@ theme:
   favicon: 'favicon.ico'
   custom_dir: 'custom/'
   palette:
+    scheme: 'slate'
     primary: 'grey'
     accent: 'grey'
 

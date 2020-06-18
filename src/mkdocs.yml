@@ -22,6 +22,7 @@ nav:
   - API:
       - 'LudwigModel': 'api/LudwigModel.md'
       - 'Visualization': 'api/visualization.md'
+  - Community: 'community.md'
   - FAQ: 'faq.md'
 
 # Configuration

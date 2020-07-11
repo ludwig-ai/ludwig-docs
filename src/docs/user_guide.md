@@ -7,6 +7,7 @@ Ludwig provides six command line interface entry points
 - predict
 - test
 - experiment
+- hyperopt
 - visualize
 - collect_weights
 - collect_activations
@@ -457,6 +458,112 @@ Example:
 ludwig experiment --data_csv reuters-allcats.csv --model_definition "{input_features: [{name: text, type: text, encoder: parallel_cnn, level: word}], output_features: [{name: class, type: category}]}"
 ```
 
+hyperopt
+---------
+
+This command lets you perform an hyper-parameter search with a given strategy and parameters.
+You can call it with:
+
+```
+ludwig hyperopt [options]
+```
+
+or with
+
+```
+python -m ludwig.hyperopt [options]
+```
+
+from within Ludwig's main directory.
+
+These are the available arguments:
+
+```
+usage: ludwig hyperopt [options]
+
+This script trains and tests a model with sampled hyperparameters with a given strategy and parameters
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --output_directory OUTPUT_DIRECTORY
+                        directory that contains the results
+  --experiment_name EXPERIMENT_NAME
+                        experiment name
+  --model_name MODEL_NAME
+                        name for the model
+  --data_csv DATA_CSV   input data CSV file. If it has a split column, it will
+                        be used for splitting (0: train, 1: validation, 2:
+                        test), otherwise the dataset will be randomly split
+  --data_train_csv DATA_TRAIN_CSV
+                        input train data CSV file
+  --data_validation_csv DATA_VALIDATION_CSV
+                        input validation data CSV file
+  --data_test_csv DATA_TEST_CSV
+                        input test data CSV file
+  --data_hdf5 DATA_HDF5
+                        input data HDF5 file. It is an intermediate preprocess
+                        version of the input CSV created the first time a CSV
+                        file is used in the same directory with the same name
+                        and a hdf5 extension
+  --data_train_hdf5 DATA_TRAIN_HDF5
+                        input train data HDF5 file. It is an intermediate
+                        preprocess version of the input CSV created the first
+                        time a CSV file is used in the same directory with the
+                        same name and a hdf5 extension
+  --data_validation_hdf5 DATA_VALIDATION_HDF5
+                        input validation data HDF5 file. It is an intermediate
+                        preprocess version of the input CSV created the first
+                        time a CSV file is used in the same directory with the
+                        same name and a hdf5 extension
+  --data_test_hdf5 DATA_TEST_HDF5
+                        input test data HDF5 file. It is an intermediate
+                        preprocess version of the input CSV created the first
+                        time a CSV file is used in the same directory with the
+                        same name and a hdf5 extension
+  --train_set_metadata_json TRAIN_SET_METADATA_JSON
+                        input train set metadata JSON file. It is an intermediate
+                        preprocess file containing the mappings of the input
+                        CSV created the first time a CSV file is used in the
+                        same directory with the same name and a json extension
+  -sspi, --skip_save_processed_input
+                        skips saving intermediate HDF5 and JSON files
+  -ssuo, --skip_save_unprocessed_output
+                        skips saving intermediate NPY output files
+  -sshs, --skip_save_hyperopt_statistics
+                        skips saving hyperopt statistics file
+  -md MODEL_DEFINITION, --model_definition MODEL_DEFINITION
+                        model definition
+  -mdf MODEL_DEFINITION_FILE, --model_definition_file MODEL_DEFINITION_FILE
+                        YAML file describing the model. Ignores
+                        --model_hyperparameters
+  -ssp SKIP_SAVE_PROGRESS_WEIGHTS, --skip_save_progress SKIP_SAVE_PROGRESS_WEIGHTS
+                        disables saving weights after each epoch. By default
+                        Ludwig saves weights after each epoch for enabling
+                        resuming of training, but if the model is really big
+                        that can be time consuming and will use twice as much
+                        storage space, use this parameter to skip it.
+  -rs RANDOM_SEED, --random_seed RANDOM_SEED
+                        a random seed that is going to be used anywhere there
+                        is a call to a random number generator: data
+                        splitting, parameter initialization and training set
+                        shuffling
+  -g GPUS [GPUS ...], --gpus GPUS [GPUS ...]
+                        list of gpus to use
+  -gf GPU_FRACTION, --gpu_fraction GPU_FRACTION
+                        fraction of gpu memory to initialize the process with
+  -dbg, --debug         enables debugging mode
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use
+```
+
+The parameters combine parameters from both [train](#train) and [test](#test) so refer to those sections for an in depth explanation.
+The output directory will contain a `hyperopt_statistics.json` file that summarizes the results obtained.
+
+In order to perform an hyper-parameter optimization, the `hyperopt` section needs to be provided within the model definition.
+In the `hyperopt` section you will be able to define what metric to optimize, what aprameters, what strategy to use to optimize them and how to execute the optimization.
+For details on the `hyperopt` section see the detailed description in the [Hyper-parameter Optimization](#hyper-parameter-optimization) section.
+
+
 visualize
 ---------
 
@@ -487,26 +594,34 @@ optional arguments:
                         raw data file
   -g GROUND_TRUTH, --ground_truth GROUND_TRUTH
                         ground truth file
-  -gts GROUND_TRUTH_SPLIT, --ground_truth_split GROUND_TRUTH_SPLIT
-                       ground truth split - 0:train, 1:validation, 2:test split
   -gm GROUND_TRUTH_METADATA, --ground_truth_metadata GROUND_TRUTH_METADATA
                         input metadata JSON file
-  -v {compare_performance,compare_classifiers_performance_from_prob,compare_classifiers_performance_from_pred,compare_classifiers_performance_changing_k,compare_classifiers_performance_subset,compare_classifiers_predictions,compare_classifiers_predictions_distribution,confidence_thresholding,confidence_thresholding_2thresholds_3d,confidence_thresholding_data_vs_acc,confidence_thresholding_2thresholds_2d,confidence_thresholding_data_vs_acc_subset,confidence_thresholding_data_vs_acc_subset_per_class,binary_threshold_vs_metric,roc_curves,roc_curves_from_test_statistics,data_vs_acc_subset,data_vs_acc_subset_per_class,calibration_1_vs_all,calibration_multiclass,confusion_matrix,compare_classifiers_multiclass_multimetric,frequency_vs_f1,learning_curves}, --visualization {compare_performance,compare_classifiers_performance_from_prob,compare_classifiers_performance_from_pred,compare_classifiers_performance_changing_k,compare_classifiers_performance_subset,compare_classifiers_predictions,compare_classifiers_predictions_distribution,confidence_thresholding,confidence_thresholding_2thresholds_3d,confidence_thresholding_data_vs_acc,confidence_thresholding_2thresholds_2d,confidence_thresholding_data_vs_acc_subset,confidence_thresholding_data_vs_acc_subset_per_class,binary_threshold_vs_metric,roc_curves,roc_curves_from_test_statistics,data_vs_acc_subset,data_vs_acc_subset_per_class,calibration_1_vs_all,calibration_multiclass,confusion_matrix,compare_classifiers_multiclass_multimetric,frequency_vs_f1,learning_curves}
+  -od OUTPUT_DIRECTORY, --output_directory OUTPUT_DIRECTORY
+                        directory where to save plots.If not specified, plots
+                        will be displayed in a window
+  -ff {pdf,png}, --file_format {pdf,png}
+                        file format of output plots
+  -v {binary_threshold_vs_metric,calibration_1_vs_all,calibration_multiclass,compare_classifiers_multiclass_multimetric,compare_classifiers_performance_changing_k,compare_classifiers_performance_from_pred,compare_classifiers_performance_from_prob,compare_classifiers_performance_subset,compare_classifiers_predictions,compare_classifiers_predictions_distribution,compare_performance,confidence_thresholding,confidence_thresholding_2thresholds_2d,confidence_thresholding_2thresholds_3d,confidence_thresholding_data_vs_acc,confidence_thresholding_data_vs_acc_subset,confidence_thresholding_data_vs_acc_subset_per_class,confusion_matrix,frequency_vs_f1,hyperopt_hiplot,hyperopt_report,learning_curves,roc_curves,roc_curves_from_test_statistics}, --visualization {binary_threshold_vs_metric,calibration_1_vs_all,calibration_multiclass,compare_classifiers_multiclass_multimetric,compare_classifiers_performance_changing_k,compare_classifiers_performance_from_pred,compare_classifiers_performance_from_prob,compare_classifiers_performance_subset,compare_classifiers_predictions,compare_classifiers_predictions_distribution,compare_performance,confidence_thresholding,confidence_thresholding_2thresholds_2d,confidence_thresholding_2thresholds_3d,confidence_thresholding_data_vs_acc,confidence_thresholding_data_vs_acc_subset,confidence_thresholding_data_vs_acc_subset_per_class,confusion_matrix,frequency_vs_f1,hyperopt_hiplot,hyperopt_report,learning_curves,roc_curves,roc_curves_from_test_statistics}
                         type of visualization
-  -f FIELD, --field FIELD
-                        field containing ground truth
-  -tf THRESHOLD_FIELDS [THRESHOLD_FIELDS ...], --threshold_fields THRESHOLD_FIELDS [THRESHOLD_FIELDS ...]
-                        fields for 2d threshold
+  -f OUTPUT_FEATURE_NAME, --output_feature_name OUTPUT_FEATURE_NAME
+                        name of the output feature to visualize
+  -gts GROUND_TRUTH_SPLIT, --ground_truth_split GROUND_TRUTH_SPLIT
+                        ground truth split - 0:train, 1:validation, 2:test
+                        split
+  -tf THRESHOLD_OUTPUT_FEATURE_NAMES [THRESHOLD_OUTPUT_FEATURE_NAMES ...], --threshold_output_feature_names THRESHOLD_OUTPUT_FEATURE_NAMES [THRESHOLD_OUTPUT_FEATURE_NAMES ...]
+                        names of output features for 2d threshold
   -pred PREDICTIONS [PREDICTIONS ...], --predictions PREDICTIONS [PREDICTIONS ...]
                         predictions files
   -prob PROBABILITIES [PROBABILITIES ...], --probabilities PROBABILITIES [PROBABILITIES ...]
                         probabilities files
-  -trs TRAINING_STATS [TRAINING_STATS ...], --training_statistics TRAINING_STATS [TRAINING_STATS ...]
+  -trs TRAINING_STATISTICS [TRAINING_STATISTICS ...], --training_statistics TRAINING_STATISTICS [TRAINING_STATISTICS ...]
                         training stats files
-  -tes TEST_STATS [TEST_STATS ...], --test_statistics TEST_STATS [TEST_STATS ...]
+  -tes TEST_STATISTICS [TEST_STATISTICS ...], --test_statistics TEST_STATISTICS [TEST_STATISTICS ...]
                         test stats files
-  -alg ALGORITHMS [ALGORITHMS ...], --algorithms ALGORITHMS [ALGORITHMS ...]
-                        names of the algorithms (for better graphs)
+  -hs HYPEROPT_STATS_PATH, --hyperopt_stats_path HYPEROPT_STATS_PATH
+                        hyperopt stats file
+  -mn MODEL_NAMES [MODEL_NAMES ...], --model_names MODEL_NAMES [MODEL_NAMES ...]
+                        names of the models to use as labels
   -tn TOP_N_CLASSES [TOP_N_CLASSES ...], --top_n_classes TOP_N_CLASSES [TOP_N_CLASSES ...]
                         number of classes to plot
   -k TOP_K, --top_k TOP_K
@@ -3098,6 +3213,240 @@ The same applies to `experiment`, `predict` and `test`.
 More details on Horovod installation and run parameters can be found in [Horovod's documentation](https://github.com/uber/horovod).
 
 
+Hyper-parameter optimization
+============================
+
+In order to perform hyper-parameter optimization, its configuration has to be provided inside the Ludwig model definition as a root key `hyperopt`.
+Its configuration contains what metric to optimize, which parameters to optimize, strategy to use, how to execute the optimization.
+
+The different parameters that could be defined in the `hyperopt` configuration are:
+- `goal` which indicates if to minimize or maximize a metric or a loss of any of the output features on any of the dataset splits. Available values are: `minimize` (default) or `maximize`.
+- `output_feature` is a `str` containing the name of the output feature that we want to optimize the metric or loss of. Available values are `combined` (default) or the name of any output feature provided in the model definition. `combined` is a special output feature that allows to optimize for the aggregated loss and metrics of all output features.
+- `metric` is the metric that we want to optimize for. The default one is `loss`, but depending on the tye of the feature defined in `output_feature`, different metrics and losses are available. Check the metrics section of the specific output feature type to figure out what metrics are available to use.
+- `split` is the split of data that we want to compute our metric on. By default it is the `validation` split, but you have the flexibility to specify also `train` or `test` splits.
+- `parameters` section consists of a set of hyper-parameters to optimize. They are provided as keys (the names of the parameters) and values associated with them (that define the search space). The values vary depending on the type of the hyper-parameter. Types can be `float`, `int` and `category`.
+- `strategy` section contains the strategy type to be used for sampling hyper-paramters values and its configuration. Currently available strategy types are `grid` and `random`. The strategy configuration parameters modify the strategy behavior, for instance for `random` you can set how many random samples to draw. 
+- `executor` section specifies how to execute the hyper-parameter optimization. The execution could happen locally in a serial manner or in parallely across multiple workers and with GPUs as well if available.
+
+Example:
+```yaml
+hyperopt:
+  goal: minimize
+  output_feature: combined
+  metric: loss
+  split: validation
+  parameters:
+    utterance.cell_type: ...
+    utterance.num_layers: ...
+    combiner.num_fc_layers: ...
+    section.embedding_size: ...
+    preprocessing.text.vocab_size: ...
+    training.learning_rate: ...
+    training.optimizer.type: ...
+    ...
+  strategy:
+    type: grid  # random
+    # strategy parameters...
+  executor:
+    type: serial  # parallel
+    # executor parameters...
+```
+
+In the `parameters` section, `.` is used to reference an parameter nested inside a section of the model definition.
+For instance, to reference the `learning_rate`, one would have to use the name `training.learning_rate`.
+If the parameter to reference is inside in an input or output feature, the name of that feature will be be used as starting point.
+For instance, for referencing the `cell_type` of the `utterance` feature, use the name `utterance.cell_type`.
+
+
+Hyper-parameters
+----------------
+
+### Float parameters
+
+For a `float` value, the parameters to specify are:
+
+- `low`: minimum value
+- `high`: maximum value
+- `scale`: `linear` (default) or `log`
+- `steps`: OPTIONAL number of steps.
+
+For instance `low: 0.0, high: 1.0, steps: 3` would yield `[0.0, 0.5, 1.0]` as potential values to sample from, while if `steps` is not specified, the full range between `0.0` and `1.0` will be used.
+
+Example:
+```yaml
+training.learning_rate:
+  type: float
+  low: 0.001
+  high: 0.1
+  steps: 4
+  scale: linear
+```
+
+
+### Int parameters
+
+For an `int` value, the parameters to specify are:
+
+- `low`: minimum value
+- `high`: maximum value
+- `steps`: OPTIONAL number of steps. 
+
+For instance `low: 0, high: 10, steps: 3` would yield `[0, 5, 10]` for the search, while if `steps` is not specified, `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]` will be used.
+
+Example:
+```yaml
+combiner.num_fc_layers:
+  type: int
+  low: 1
+  high: 4
+```
+
+
+### Category parameters
+
+For a `category` value, the parameters to specify are:
+- `values`: a list of possible values. The type of each value of the list is not important (they could be strings, integers, floats and anything else, even entire dictionaries).
+
+Example:
+```yaml
+utterance.cell_type:
+  type: category
+  values: [rnn, gru, lstm]
+```
+
+
+Strategy
+--------
+
+### Grid Strategy
+
+The `grid` strategy creates a search space exhaustively selecting all elements from the outer product of all possible values of the hyper-parameters provided in the `parameters` section.
+For `float` parameters, it is required to specify the number of `steps`.
+
+Example:
+```yaml
+strategy:
+  type: grid
+```
+
+### Random Strategy
+
+The `random` strategy samples hyper-parameters values randomly from the parameters search space.
+`num_samples` (default: `10`) can be specified in `strategy` section.
+
+Example:
+```yaml
+strategy:
+  type: random
+  num_samples: 10
+```
+
+
+Executor
+--------
+
+### Serial Executor
+
+The `serial`executor performs hyper-parameter optimization locally in a serial manner, executing the elements in the set of sampled parameters obtained by the selected strategy one at a time.
+
+Example:
+```yaml
+executor:
+  type: serial
+```
+
+### Parallel Executor
+
+The `parallel` executor performs hyper-parameter optimization in parallel, executing the elements in the set of sampled parameters obtained by the selected strategy at the same time.
+The maximum numer of parallel workers that train and evaluate models is defined by the parameter `num_workers` (default: `2`).
+
+In case of training with GPUs, the `gpus` argument provided to the command line interface contains the list of GPUs to use, while if no `gpus` parameter is provided, all available GPUs will be used.
+The `gpu_fraction` argument can be provided as well, but it gets modified according to the `num_workers` to execute tasks parallely.
+For example, if `num_workers: 4` and 2 GPUs are available, if the provided `gpu_fraction` is above `0.5`, if will be replaced by `0.5`.
+An `epsilon` (default: `0.01`) parameter is also provided to allow for additional free GPU memory: the GPU franction to use is defined as `(#gpus / #workers) - epsilon`.
+
+Example:
+```yaml
+executor:
+  type: parallel
+  num_workers: 2
+  epsilon: 0.01
+```
+
+
+Full hyper-parameter optimization example
+-----------------------------------------
+
+Example YAML:
+
+```yaml
+input_features:
+  -
+    name: utterance
+    type: text
+    encoder: rnn
+    cell_type: lstm
+    num_layers: 2
+  -
+    name: section
+    type: category
+    representation: dense
+    embedding_size: 100
+combiner:
+  type: concat
+  num_fc_layers: 1
+output_features:
+  -
+    name: class
+    type: category
+preprocessing:
+  text:
+    word_vocab_size: 10000
+training:
+  learning_rate: 0.001
+  optimizer:
+    type: adam
+hyperopt:
+  goal: maximize
+  output_feature: class
+  metric: accuracy
+  split: validation
+  parameters:
+    training.learning_rate:
+      type: float
+      low: 0.0001
+      high: 0.1
+      steps: 4
+      scale: log
+    training.optimizaer.type:
+      type: category
+      values: [sgd, adam, adagrad]
+    preprocessing.text.word_vocab_size:
+      type: int
+      low: 700
+      high: 1200
+      steps: 5
+    combiner.num_fc_layers:
+      type: int
+      low: 1
+      high: 5
+    utterance.cell_type:
+      type: category
+      values: [rnn, gru, lstm]
+  strategy:
+    type: random
+    num_samples: 12
+  executor:
+    type: parallel
+    num_workers: 4
+```
+
+Example CLI command:
+```
+ludwig hyperopt --data_csv reuters-allcats.csv --model_definition "{input_features: [{name: utterance, type: text, encoder: rnn, cell_type: lstm, num_layers: 2}], output_features: [{name: class, type: category}], training: {learning_rate: 0.001}, hyperopt: {goal: maximize, output_feature: class, metric: accuracy, split: validation, parameters: {training.learning_rate: {type: float, low: 0.0001, high: 0.1, steps: 4, scale: log}, utterance.cell_type: {type: category, values: [rnn, gru, lstm]}}, strategy: {type: grid}, executor: {type: serial}}}"
+```
+
+
 Integrations
 ============
 
@@ -3198,20 +3547,30 @@ optional arguments:
                         ground truth file
   -gm GROUND_TRUTH_METADATA, --ground_truth_metadata GROUND_TRUTH_METADATA
                         input metadata JSON file
-  -v {learning_curves,compare_performance,compare_classifiers_performance_from_prob,compare_classifiers_performance_from_pred,compare_classifiers_performance_subset,compare_classifiers_performance_changing_k,compare_classifiers_multiclass_multimetric,compare_classifiers_predictions,compare_classifiers_predictions_distribution,confidence_thresholding,confidence_thresholding_data_vs_acc,confidence_thresholding_data_vs_acc_subset,confidence_thresholding_data_vs_acc_subset_per_class,confidence_thresholding_2thresholds_2d,confidence_thresholding_2thresholds_3d,binary_threshold_vs_metric,roc_curves,roc_curves_from_test_statistics,calibration_1_vs_all,calibration_multiclass,confusion_matrix,frequency_vs_f1}, --visualization {learning_curves,compare_performance,compare_classifiers_performance_from_prob,compare_classifiers_performance_from_pred,compare_classifiers_performance_subset,compare_classifiers_performance_changing_k,compare_classifiers_multiclass_multimetric,compare_classifiers_predictions,compare_classifiers_predictions_distribution,confidence_thresholding,confidence_thresholding_data_vs_acc,confidence_thresholding_data_vs_acc_subset,confidence_thresholding_data_vs_acc_subset_per_class,confidence_thresholding_2thresholds_2d,confidence_thresholding_2thresholds_3d,binary_threshold_vs_metric,roc_curves,roc_curves_from_test_statistics,calibration_1_vs_all,calibration_multiclass,confusion_matrix,frequency_vs_f1}
+  -od OUTPUT_DIRECTORY, --output_directory OUTPUT_DIRECTORY
+                        directory where to save plots.If not specified, plots
+                        will be displayed in a window
+  -ff {pdf,png}, --file_format {pdf,png}
+                        file format of output plots
+  -v {binary_threshold_vs_metric,calibration_1_vs_all,calibration_multiclass,compare_classifiers_multiclass_multimetric,compare_classifiers_performance_changing_k,compare_classifiers_performance_from_pred,compare_classifiers_performance_from_prob,compare_classifiers_performance_subset,compare_classifiers_predictions,compare_classifiers_predictions_distribution,compare_performance,confidence_thresholding,confidence_thresholding_2thresholds_2d,confidence_thresholding_2thresholds_3d,confidence_thresholding_data_vs_acc,confidence_thresholding_data_vs_acc_subset,confidence_thresholding_data_vs_acc_subset_per_class,confusion_matrix,frequency_vs_f1,hyperopt_hiplot,hyperopt_report,learning_curves,roc_curves,roc_curves_from_test_statistics}, --visualization {binary_threshold_vs_metric,calibration_1_vs_all,calibration_multiclass,compare_classifiers_multiclass_multimetric,compare_classifiers_performance_changing_k,compare_classifiers_performance_from_pred,compare_classifiers_performance_from_prob,compare_classifiers_performance_subset,compare_classifiers_predictions,compare_classifiers_predictions_distribution,compare_performance,confidence_thresholding,confidence_thresholding_2thresholds_2d,confidence_thresholding_2thresholds_3d,confidence_thresholding_data_vs_acc,confidence_thresholding_data_vs_acc_subset,confidence_thresholding_data_vs_acc_subset_per_class,confusion_matrix,frequency_vs_f1,hyperopt_hiplot,hyperopt_report,learning_curves,roc_curves,roc_curves_from_test_statistics}
                         type of visualization
-  -f FIELD, --field FIELD
-                        field containing ground truth
-  -tf THRESHOLD_FIELDS [THRESHOLD_FIELDS ...], --threshold_fields THRESHOLD_FIELDS [THRESHOLD_FIELDS ...]
-                        fields for 2d threshold
+  -f OUTPUT_FEATURE_NAME, --output_feature_name OUTPUT_FEATURE_NAME
+                        name of the output feature to visualize
+  -gts GROUND_TRUTH_SPLIT, --ground_truth_split GROUND_TRUTH_SPLIT
+                        ground truth split - 0:train, 1:validation, 2:test
+                        split
+  -tf THRESHOLD_OUTPUT_FEATURE_NAMES [THRESHOLD_OUTPUT_FEATURE_NAMES ...], --threshold_output_feature_names THRESHOLD_OUTPUT_FEATURE_NAMES [THRESHOLD_OUTPUT_FEATURE_NAMES ...]
+                        names of output features for 2d threshold
   -pred PREDICTIONS [PREDICTIONS ...], --predictions PREDICTIONS [PREDICTIONS ...]
                         predictions files
   -prob PROBABILITIES [PROBABILITIES ...], --probabilities PROBABILITIES [PROBABILITIES ...]
                         probabilities files
-  -trs TRAINING_STATS [TRAINING_STATS ...], --training_statistics TRAINING_STATS [TRAINING_STATS ...]
+  -trs TRAINING_STATISTICS [TRAINING_STATISTICS ...], --training_statistics TRAINING_STATISTICS [TRAINING_STATISTICS ...]
                         training stats files
-  -tes TEST_STATS [TEST_STATS ...], --test_statistics TEST_STATS [TEST_STATS ...]
+  -tes TEST_STATISTICS [TEST_STATISTICS ...], --test_statistics TEST_STATISTICS [TEST_STATISTICS ...]
                         test stats files
+  -hs HYPEROPT_STATS_PATH, --hyperopt_stats_path HYPEROPT_STATS_PATH
+                        hyperopt stats file
   -mn MODEL_NAMES [MODEL_NAMES ...], --model_names MODEL_NAMES [MODEL_NAMES ...]
                         names of the models to use as labels
   -tn TOP_N_CLASSES [TOP_N_CLASSES ...], --top_n_classes TOP_N_CLASSES [TOP_N_CLASSES ...]
@@ -3249,7 +3608,7 @@ ludwig experiment --experiment_name titanic --model_name Model1 --data_csv train
 ludwig experiment --experiment_name titanic --model_name Model2 --data_csv train.csv -mdf titanic_model2.yaml
 ```
 
-For this, you need to download the Kaggle Titanic dataset to get `train.csv`.
+For this, you need to download the [Titanic Kaggle competition dataset](https://www.kaggle.com/c/titanic/) to get `train.csv`.
 Note that the images associated with each visualization below are not from the Titanic dataset.
 The two models are defined with `titanic_model1.yaml`
 
@@ -3324,7 +3683,7 @@ For each model (in the aligned lists of `training_statistics` and `model_names`)
 Example command:
 
 ```
-ludwig visualize --visualization learning_curves --model_names Model1 Model2 --training_statistics results\titanic_Model1_0\training_statistics.json results\titanic_Model2_0\training_statistics.json
+ludwig visualize --visualization learning_curves --model_names Model1 Model2 --training_statistics results/titanic_Model1_0/training_statistics.json results/titanic_Model2_0/training_statistics.json
 ```
 
 ![Learning Curves Loss](images/learning_curves_loss.png "Learning Curves Loss")
@@ -3343,7 +3702,7 @@ The value of `top_n_classes` limits the heatmap to the `n` most frequent classes
 
 Example command:
 ```
-ludwig visualize --visualization confusion_matrix --top_n_classes 2 --test_statistics results\titanic_Model1_0\test_statistics.json --ground_truth_metadata results\titanic_Model1_0\model\train_set_metadata.json
+ludwig visualize --visualization confusion_matrix --top_n_classes 2 --test_statistics results/titanic_Model1_0/test_statistics.json --ground_truth_metadata results/titanic_Model1_0/model/train_set_metadata.json
 ```
 
 ![Confusion Matrix](images/confusion_matrix.png "Confusion Matrix")
@@ -3363,7 +3722,7 @@ For each model (in the aligned lists of `test_statistics` and `model_names`) it 
 
 Example command:
 ```
-ludwig visualize --visualization compare_performance --model_names Model1 Model2 --test_statistics results\titanic_Model1_0\test_statistics.json results\titanic_Model2_0\test_statistics.json --field Survived
+ludwig visualize --visualization compare_performance --model_names Model1 Model2 --test_statistics results/titanic_Model1_0/test_statistics.json results/titanic_Model2_0/test_statistics.json --field Survived
 ```
 
 ![Compare Classifiers Performance](images/compare_performance.png "Compare Classifiers Performance")
@@ -3377,7 +3736,7 @@ For each model (in the aligned lists of `probabilities` and `model_names`) it pr
 
 Example command:
 ```
-ludwig visualize --visualization compare_classifiers_performance_from_prob --model_names Model1 Model2 --ground_truth train.hdf5 --field Survived --probabilities results\titanic_Model1_0\Survived_probabilities.csv results\titanic_Model2_0\Survived_probabilities.csv
+ludwig visualize --visualization compare_classifiers_performance_from_prob --model_names Model1 Model2 --ground_truth train.hdf5 --field Survived --probabilities results/titanic_Model1_0/Survived_probabilities.csv results/titanic_Model2_0/Survived_probabilities.csv
 ```
 
 ![Compare Classifiers Performance from Probabilities](images/compare_classifiers_performance_from_prob.png "Compare Classifiers Performance from probabilities")
@@ -3391,7 +3750,7 @@ For each model (in the aligned lists of `predictions` and `model_names`) it prod
 
 Example command:
 ```
-ludwig visualize --visualization compare_classifiers_performance_from_pred --model_names Model1 Model2 --ground_truth train.hdf5 --field Survived --ground_truth_metadata train.json --predictions results\titanic_Model1_0\Survived_predictions.csv results\titanic_Model2_0\Survived_predictions.csv
+ludwig visualize --visualization compare_classifiers_performance_from_pred --model_names Model1 Model2 --ground_truth train.hdf5 --field Survived --ground_truth_metadata train.json --predictions results/titanic_Model1_0/Survived_predictions.csv results/titanic_Model2_0/Survived_predictions.csv
 ```
 
 ![Compare Classifiers Performance from Predictions](images/compare_classifiers_performance_from_pred.png "Compare Classifiers Performance from Predictions")
@@ -3408,7 +3767,7 @@ If the values of `subset` is `ground_truth`, then only datapoints where the grou
 
 Example command:
 ```
-ludwig visualize --visualization compare_classifiers_performance_subset --model_names Model1 Model2 --top_n_classes 2 --subset ground_truth --ground_truth train.hdf5 --field Survived --ground_truth_metadata train.json --probabilities results\titanic_Model1_0\Survived_probabilities.csv results\titanic_Model2_0\Survived_probabilities.csv
+ludwig visualize --visualization compare_classifiers_performance_subset --model_names Model1 Model2 --top_n_classes 2 --subset ground_truth --ground_truth train.hdf5 --field Survived --ground_truth_metadata train.json --probabilities results/titanic_Model1_0/Survived_probabilities.csv results/titanic_Model2_0/Survived_probabilities.csv
 ```
 
 ![Compare Classifiers Performance Subset Ground Truth](images/compare_classifiers_performance_subset_gt.png "Compare Classifiers Performance Subset Ground Truth")
@@ -3426,7 +3785,7 @@ For each model (in the aligned lists of `probabilities` and `model_names`) it pr
 
 Example command:
 ```
-ludwig visualize --visualization compare_classifiers_performance_changing_k --model_names Model1 Model2 --top_k 5 --ground_truth train.hdf5 --field Survived --probabilities results\titanic_Model1_0\Survived_probabilities.csv results\titanic_Model2_0\Survived_probabilities.csv
+ludwig visualize --visualization compare_classifiers_performance_changing_k --model_names Model1 Model2 --top_k 5 --ground_truth train.hdf5 --field Survived --probabilities results/titanic_Model1_0/Survived_probabilities.csv results/titanic_Model2_0/Survived_probabilities.csv
 ```
 
 ![Compare Classifiers Performance Changing K](images/compare_classifiers_performance_changing_k.png "Compare Classifiers Performance Changing K")
@@ -3466,7 +3825,7 @@ This visualization produces a pie chart comparing the predictions of the two mod
 
 Example command:
 ```
-ludwig visualize --visualization compare_classifiers_predictions --model_names Model1 Model2 --ground_truth train.hdf5 --field Survived --predictions results\titanic_Model1_0\Survived_predictions.csv results\titanic_Model2_0\Survived_predictions.csv
+ludwig visualize --visualization compare_classifiers_predictions --model_names Model1 Model2 --ground_truth train.hdf5 --field Survived --predictions results/titanic_Model1_0/Survived_predictions.csv results/titanic_Model2_0/Survived_predictions.csv
 ```
 ![Compare Classifiers Predictions](images/compare_classifiers_predictions.png "Compare Classifiers Predictions")
 
@@ -3656,3 +4015,37 @@ The classes on the x axis are sorted by f1 score.
 The second plot has the same structure of the first one, but the axes are flipped and the classes on the x axis are sorted by frequency.
 
 ![Frequency vs F1 sorted by Frequency](images/freq_vs_f1_sorted_freq.png "Frequency vs F1 sorted by Frequency")
+
+
+Hyper-parameter optimization visualization
+------------------------------------------
+
+The examples of the hyper-parameter visualizations shown here are obtained by running a random search with 100 samples on the [ATIS dataset](https://www.kaggle.com/siddhadev/ms-cntk-atis) used for classifying intents given user utterances.
+ 
+### hyperopt_report
+
+This visualization uses the `hyperopt_stats_path` parameter.
+
+The visualization creates one plot for each hyper-parameter in the file at `hyperopt_stats_path`, plus an additional one containing a pair plot.
+
+Each plot will show the distribution of the parameters with respect to the metric to optimize.
+For `float` and `int` parameters, a scatter plot is used, while for `category` parameters, a violin plot is used instead. 
+
+![Float hyperopt plot](images/hyperopt_float.png "Float hyperopt plot")
+
+![Int hyperopt plot](images/hyperopt_int.png "Int hyperopt plot")
+
+![Category hyperopt plot](images/hyperopt_category.png "Category hyperopt plot")
+
+The pair plot shows a heatmap of how the values of pairs of hyper-parameters correlate with the metric to optimize.
+
+![Pait hyperopt plot](images/hyperopt_pair.png "Pait hyperopt plot")
+
+### hyperopt_hiplot
+
+This visualization uses the `hyperopt_stats_path` parameter.
+
+The visualization creates an interactive HTML page visualizing all the results from the hyper-parameter optimization at once, using a parallel coordinate plot.
+
+![Hiplot hyperopt plot](images/hyperopt_hiplot.jpeg "Hiplot hyperopt plot")
+

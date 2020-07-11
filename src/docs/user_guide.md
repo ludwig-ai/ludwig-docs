@@ -806,7 +806,7 @@ Ludwig provides a number of additional entry points for specific tasks.
 Those are more experimental functionalities, once solidified they will be added as additional commands in the Ludwig CLI.
 
 
-### Dataset Synthesys
+### Dataset Synthesis
 
 WIP
 

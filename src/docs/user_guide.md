@@ -3373,6 +3373,105 @@ executor:
   epsilon: 0.01
 ```
 
+### Fiber Executor
+
+[Fiber](https://github.com/uber/fiber) is a Python distributed computing library for modern computer clusters.
+The `fiber` executor performs hyper-parameter optimization in parallel on a computer cluster so that massive parallelism can be achieved.
+Check [this](https://uber.github.io/fiber/platforms/) for supported cluster types.
+
+Fiber Executor requires `fiber` to be installed:
+
+```bash
+pip install fiber
+```
+
+**Parameters:**
+
+- `num_workers`: The number of parallel workers that is used to train and evaluate models. The default value is `2`.
+- `num_cpus_per_worker`: How many CPU cores are allocated per worker.
+- `num_gpus_per_worker`: How many GPUs are allocated per worker.
+- `fiber_backend`: Fiber backend to use. This needs to be set if you want to run hyper-parameter optimization on a cluster. The default value is `local`. Available values are `local`, `kubernetes`, `docker`. Check [Fiber's documentation](https://uber.github.io/fiber/platforms/) for details on the supported platforms.
+
+Example:
+
+```yaml
+executor:
+  type: fiber
+  num_workers: 10
+  fiber_backend: kubernetes
+  num_cpus_per_worker: 2
+  num_gpus_per_worker: 1
+```
+
+**Running Fiber Executor:**
+
+Fiber runs on a computer cluster and uses Docker to encapsulate all the code and dependencies.
+To run a hyper-parameter search powered by Fiber, you have to create a Docker file to encapsulate your code and dependencies.
+
+Example Dockerfile:
+
+```dockerfile
+FROM tensorflow/tensorflow:1.15.2-gpu-py3
+
+RUN apt-get -y update && apt-get -y install git libsndfile1
+
+RUN git clone --depth=1 https://github.com/uber/ludwig.git
+RUN cd ludwig/ \
+    && pip install -r requirements.txt -r requirements_text.txt \
+          -r requirements_image.txt -r requirements_audio.txt \
+          -r requirements_serve.txt -r requirements_viz.txt \
+    && python setup.py install
+
+RUN pip install fiber
+
+RUN mkdir /data
+ADD train.csv /data/data.csv
+ADD hyperopt.yaml /data/hyperopt.yaml
+
+WORKDIR /data
+```
+
+In this Dockerfile, the data `data.csv` is embedded in the docker together with `hyperopt.yaml` that specifies the model and hyper-parameter optimization parameters.
+An example `hyperopt.yaml` looks like:
+
+```yaml
+input_features:
+  -
+    name: x
+    type: numerical
+output_features:
+  -
+    name: y
+    type: category
+training:
+  epochs: 1
+hyperopt:
+  strategy:
+    type: random
+    num_samples: 50
+  executor:
+    type: fiber
+    num_workers: 10
+    fiber_backend: kubernetes
+    num_cpus_per_worker: 2
+    num_gpus_per_worker: 1
+  parameters:
+    training.learning_rate:
+      type: float
+      low: 0.0001
+      high: 0.1
+    y.num_fc_layers:
+      type: int
+      low: 0
+      high: 2
+```
+
+Running hyper-parameter optimization with Fiber is a little bit different from other executors because there are docker building and pushing involved, so here `fiber run` command, which takes care of those aspects, is used to run hyper-parameter optimization on a cluster:
+
+`fiber run ludwig hyperopt --data_csv train.csv -mdf hyperopt.yaml`
+
+Check out [Fiber's documentation](https://uber.github.io/fiber/getting-started/#running-on-a-computer-cluster) for more details on running on clusters.
+
 
 Full hyper-parameter optimization example
 -----------------------------------------

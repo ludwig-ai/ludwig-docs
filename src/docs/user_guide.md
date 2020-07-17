@@ -165,7 +165,7 @@ The directory will contain
 
 - `description.json` - a file containing a description of the training process with all the information to reproduce it.
 - `training_statistics.json` which contains records of all measures and losses for each epoch.
-- `model` - a directory containing model hyperparameters, weights, checkpoints and logs (for TensorBoard).
+- `model` - a directory containing model hyper-parameters, weights, checkpoints and logs (for TensorBoard).
 - `kfold_training_statistics.json` - an optional file that is created when the `--k_fold` parameter is specified.  This file contains metrics from k-fold cross validation run.  In addition to the metrics for each fold, there is an `overall` key that shows mean and standard deviation for metrics across all folds.
 - `kfold_split_indicies.json` - this file is present if `--k_fold` parameter is specified and `--skip_save_k_fold_split_indices` is not specified.  This file contains for each fold the row index values for the training data that creates the training and hold-out test folds.  These indices can be used to reproduce the fold splits.
 
@@ -1278,7 +1278,7 @@ These are the available parameters of a binary output feature
 - `reduce_input` (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order tensor, on the first dimension 9second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension).
 - `dependencies` (default `[]`): the output features this one is dependent on. For a detailed explanation refer to [Output Features Dependencies](#output-features-dependencies).
 - `reduce_dependencies` (default `sum`): defines how to reduce the output of a dependent feature that is not a vector, but a matrix or a higher order tensor, on the first dimension 9second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension).
-- `loss` (default `{type: cross_entropy, confidence_penalty: 0, robust_lambda: 0, positive_class_weight: 1}`): is a dictionary containing a loss `type` and its hyperparameters. The only available loss `type` is `cross_entropy` (cross entropy), and the optional parameters are `confidence_penalty` (an additional term that penalizes too confident predictions by adding a `a * (max_entropy - entropy) / max_entropy` term to the loss, where a is the value of this parameter), `robust_lambda` (replaces the loss with `(1 - robust_lambda) * loss + robust_lambda / 2` which is useful in case of noisy labels) and `positive_class_weight` (multiplies the loss for the positive class, increasing its importance).
+- `loss` (default `{type: cross_entropy, confidence_penalty: 0, robust_lambda: 0, positive_class_weight: 1}`): is a dictionary containing a loss `type` and its hyper-parameters. The only available loss `type` is `cross_entropy` (cross entropy), and the optional parameters are `confidence_penalty` (an additional term that penalizes too confident predictions by adding a `a * (max_entropy - entropy) / max_entropy` term to the loss, where a is the value of this parameter), `robust_lambda` (replaces the loss with `(1 - robust_lambda) * loss + robust_lambda / 2` which is useful in case of noisy labels) and `positive_class_weight` (multiplies the loss for the positive class, increasing its importance).
 
 These are the available parameters of a binary output feature decoder
 
@@ -2152,7 +2152,7 @@ reduce_output: last
 The [BERT](https://arxiv.org/abs/1810.04805) encoder allows for loading a pre-trained bert model.
 Models are available on [GitHub](https://github.com/google-research/bert) for download.
 The downloaded pretrained model directory contains:
-- `bert_config.json` which holds the hyperparameters of the bert architecture,
+- `bert_config.json` which holds the hyper-parameters of the bert architecture,
 - `vocab.txt` which contains the vocabulary of BPE word pieces the model was trained on,
 - `bert_model.ckpt` files (`.meta`, `.index` and `.data-00000-of-00001`) which contain the names of the tensors and the weights.
 
@@ -3261,21 +3261,20 @@ For instance, for referencing the `cell_type` of the `utterance` feature, use th
 Hyper-parameters
 ----------------
 
-### Float parameters
+### Real parameters
 
-For a `float` value, the parameters to specify are:
+For a `real` value, the parameters to specify are:
 
-- `low`: minimum value
-- `high`: maximum value
+- `range`: a tuple of `(minimum value, maximum value)`
 - `scale`: `linear` (default) or `log`
 - `steps`: OPTIONAL number of steps.
 
-For instance `low: 0.0, high: 1.0, steps: 3` would yield `[0.0, 0.5, 1.0]` as potential values to sample from, while if `steps` is not specified, the full range between `0.0` and `1.0` will be used.
+For instance `range: (0.0, 1.0), steps: 3` would yield `[0.0, 0.5, 1.0]` as potential values to sample from, while if `steps` is not specified, the full range between `0.0` and `1.0` will be used.
 
 Example:
 ```yaml
 training.learning_rate:
-  type: float
+  type: real
   low: 0.001
   high: 0.1
   steps: 4
@@ -3287,11 +3286,10 @@ training.learning_rate:
 
 For an `int` value, the parameters to specify are:
 
-- `low`: minimum value
-- `high`: maximum value
+- `range`: a tuple of `(minimum value, maximum value)`
 - `steps`: OPTIONAL number of steps. 
 
-For instance `low: 0, high: 10, steps: 3` would yield `[0, 5, 10]` for the search, while if `steps` is not specified, `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]` will be used.
+For instance `range: (0, 10), steps: 3` would yield `[0, 5, 10]` for the search, while if `steps` is not specified, `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]` will be used.
 
 Example:
 ```yaml

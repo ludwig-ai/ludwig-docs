@@ -2,7 +2,7 @@
 site_name: 'Ludwig'
 site_description: 'Deep learning toolbox'
 site_author: 'Piero Molino'
-site_url: 'https://uber.github.io/ludwig/'
+site_url: 'https://ludwig-ai.github.io/ludwig-docs/'
 
 # Repository
 repo_name: 'uber/ludwig'

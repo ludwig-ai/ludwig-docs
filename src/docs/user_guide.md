@@ -3430,6 +3430,7 @@ WORKDIR /data
 ```
 
 In this Dockerfile, the data `data.csv` is embedded in the docker together with `hyperopt.yaml` that specifies the model and hyper-parameter optimization parameters.
+If your data is too big to be added directly in the docker image, refer to the [Fiber's documentation](https://uber.github.io/fiber/advanced/#working-with-persistent-storage) for instructions on how to work with shared persistent storage for Fiber workers.
 An example `hyperopt.yaml` looks like:
 
 ```yaml

@@ -461,7 +461,7 @@ ludwig experiment --data_csv reuters-allcats.csv --model_definition "{input_feat
 hyperopt
 ---------
 
-This command lets you perform an hyper-parameter search with a given strategy and parameters.
+This command lets you perform an hyper-parameter search with a given sampler and parameters.
 You can call it with:
 
 ```
@@ -481,7 +481,7 @@ These are the available arguments:
 ```
 usage: ludwig hyperopt [options]
 
-This script trains and tests a model with sampled hyperparameters with a given strategy and parameters
+This script trains and tests a model with sampled hyperparameters with a given sampler and parameters
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -560,7 +560,7 @@ The parameters combine parameters from both [train](#train) and [test](#test) so
 The output directory will contain a `hyperopt_statistics.json` file that summarizes the results obtained.
 
 In order to perform an hyper-parameter optimization, the `hyperopt` section needs to be provided within the model definition.
-In the `hyperopt` section you will be able to define what metric to optimize, what aprameters, what strategy to use to optimize them and how to execute the optimization.
+In the `hyperopt` section you will be able to define what metric to optimize, what aprameters, what sampler to use to optimize them and how to execute the optimization.
 For details on the `hyperopt` section see the detailed description in the [Hyper-parameter Optimization](#hyper-parameter-optimization) section.
 
 
@@ -3217,7 +3217,7 @@ Hyper-parameter optimization
 ============================
 
 In order to perform hyper-parameter optimization, its configuration has to be provided inside the Ludwig model definition as a root key `hyperopt`.
-Its configuration contains what metric to optimize, which parameters to optimize, strategy to use, how to execute the optimization.
+Its configuration contains what metric to optimize, which parameters to optimize, sampler to use, how to execute the optimization.
 
 The different parameters that could be defined in the `hyperopt` configuration are:
 - `goal` which indicates if to minimize or maximize a metric or a loss of any of the output features on any of the dataset splits. Available values are: `minimize` (default) or `maximize`.
@@ -3225,7 +3225,7 @@ The different parameters that could be defined in the `hyperopt` configuration a
 - `metric` is the metric that we want to optimize for. The default one is `loss`, but depending on the tye of the feature defined in `output_feature`, different metrics and losses are available. Check the metrics section of the specific output feature type to figure out what metrics are available to use.
 - `split` is the split of data that we want to compute our metric on. By default it is the `validation` split, but you have the flexibility to specify also `train` or `test` splits.
 - `parameters` section consists of a set of hyper-parameters to optimize. They are provided as keys (the names of the parameters) and values associated with them (that define the search space). The values vary depending on the type of the hyper-parameter. Types can be `float`, `int` and `category`.
-- `strategy` section contains the strategy type to be used for sampling hyper-paramters values and its configuration. Currently available strategy types are `grid` and `random`. The strategy configuration parameters modify the strategy behavior, for instance for `random` you can set how many random samples to draw. 
+- `sampler` section contains the sampler type to be used for sampling hyper-paramters values and its configuration. Currently available sampler types are `grid` and `random`. The sampler configuration parameters modify the sampler behavior, for instance for `random` you can set how many random samples to draw. 
 - `executor` section specifies how to execute the hyper-parameter optimization. The execution could happen locally in a serial manner or in parallely across multiple workers and with GPUs as well if available.
 
 Example:
@@ -3244,11 +3244,11 @@ hyperopt:
     training.learning_rate: ...
     training.optimizer.type: ...
     ...
-  strategy:
-    type: grid  # random
-    # strategy parameters...
+  sampler:
+    type: grid  # random, ...
+    # sampler parameters...
   executor:
-    type: serial  # parallel
+    type: serial  # parallel, ...
     # executor parameters...
 ```
 
@@ -3261,11 +3261,12 @@ For instance, for referencing the `cell_type` of the `utterance` feature, use th
 Hyper-parameters
 ----------------
 
-### Real parameters
+### Float parameters
 
-For a `real` value, the parameters to specify are:
+For a `float` value, the parameters to specify are:
 
-- `range`: a tuple of `(minimum value, maximum value)`
+- `low`: the minimum value the parameter can have
+- `high`: the maximum value the parameter can have
 - `scale`: `linear` (default) or `log`
 - `steps`: OPTIONAL number of steps.
 
@@ -3286,7 +3287,8 @@ training.learning_rate:
 
 For an `int` value, the parameters to specify are:
 
-- `range`: a tuple of `(minimum value, maximum value)`
+- `low`: the minimum value the parameter can have
+- `high`: the maximum value the parameter can have
 - `steps`: OPTIONAL number of steps. 
 
 For instance `range: (0, 10), steps: 3` would yield `[0, 5, 10]` for the search, while if `steps` is not specified, `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]` will be used.
@@ -3313,30 +3315,43 @@ utterance.cell_type:
 ```
 
 
-Strategy
---------
+Sampler
+-------
 
-### Grid Strategy
+### Grid sampler
 
-The `grid` strategy creates a search space exhaustively selecting all elements from the outer product of all possible values of the hyper-parameters provided in the `parameters` section.
+The `grid` sampler creates a search space exhaustively selecting all elements from the outer product of all possible values of the hyper-parameters provided in the `parameters` section.
 For `float` parameters, it is required to specify the number of `steps`.
 
 Example:
 ```yaml
-strategy:
+sampler:
   type: grid
 ```
 
-### Random Strategy
+### Random sampler
 
-The `random` strategy samples hyper-parameters values randomly from the parameters search space.
-`num_samples` (default: `10`) can be specified in `strategy` section.
+The `random` sampler samples hyper-parameters values randomly from the parameters search space.
+`num_samples` (default: `10`) can be specified in the `sampler` section.
 
 Example:
 ```yaml
-strategy:
+sampler:
   type: random
   num_samples: 10
+```
+
+
+### PySOT sampler
+
+The `pysot` sampler uses the [pySOT](https://github.com/dme65/pySOT) package for Bayesian optimization, which uses the [POAP](https://arxiv.org/abs/1908.00420) event drive framework.
+
+# TODO add parameter description and in the example
+
+Example:
+```yaml
+sampler:
+  type: pysot
 ```
 
 
@@ -3345,7 +3360,7 @@ Executor
 
 ### Serial Executor
 
-The `serial`executor performs hyper-parameter optimization locally in a serial manner, executing the elements in the set of sampled parameters obtained by the selected strategy one at a time.
+The `serial`executor performs hyper-parameter optimization locally in a serial manner, executing the elements in the set of sampled parameters obtained by the selected sampler one at a time.
 
 Example:
 ```yaml
@@ -3355,7 +3370,7 @@ executor:
 
 ### Parallel Executor
 
-The `parallel` executor performs hyper-parameter optimization in parallel, executing the elements in the set of sampled parameters obtained by the selected strategy at the same time.
+The `parallel` executor performs hyper-parameter optimization in parallel, executing the elements in the set of sampled parameters obtained by the selected sampler at the same time.
 The maximum numer of parallel workers that train and evaluate models is defined by the parameter `num_workers` (default: `2`).
 
 In case of training with GPUs, the `gpus` argument provided to the command line interface contains the list of GPUs to use, while if no `gpus` parameter is provided, all available GPUs will be used.
@@ -3445,7 +3460,7 @@ output_features:
 training:
   epochs: 1
 hyperopt:
-  strategy:
+  sampler:
     type: random
     num_samples: 50
   executor:
@@ -3531,7 +3546,7 @@ hyperopt:
     utterance.cell_type:
       type: category
       values: [rnn, gru, lstm]
-  strategy:
+  sampler:
     type: random
     num_samples: 12
   executor:
@@ -3541,7 +3556,7 @@ hyperopt:
 
 Example CLI command:
 ```
-ludwig hyperopt --data_csv reuters-allcats.csv --model_definition "{input_features: [{name: utterance, type: text, encoder: rnn, cell_type: lstm, num_layers: 2}], output_features: [{name: class, type: category}], training: {learning_rate: 0.001}, hyperopt: {goal: maximize, output_feature: class, metric: accuracy, split: validation, parameters: {training.learning_rate: {type: float, low: 0.0001, high: 0.1, steps: 4, scale: log}, utterance.cell_type: {type: category, values: [rnn, gru, lstm]}}, strategy: {type: grid}, executor: {type: serial}}}"
+ludwig hyperopt --data_csv reuters-allcats.csv --model_definition "{input_features: [{name: utterance, type: text, encoder: rnn, cell_type: lstm, num_layers: 2}], output_features: [{name: class, type: category}], training: {learning_rate: 0.001}, hyperopt: {goal: maximize, output_feature: class, metric: accuracy, split: validation, parameters: {training.learning_rate: {type: float, low: 0.0001, high: 0.1, steps: 4, scale: log}, utterance.cell_type: {type: category, values: [rnn, gru, lstm]}}, sampler: {type: grid}, executor: {type: serial}}}"
 ```
 
 

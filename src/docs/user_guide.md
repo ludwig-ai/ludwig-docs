@@ -3114,28 +3114,38 @@ Other features that have a `b x h` rank 2 tensor output will be replicated `s` t
 The final output is a `b x s x h'` tensor where `h'` is the size of the concatenation of the `h` dimensions of all input features.
 
 ```
-+-----------+
-|Input      |
-|Feature 1  +-+
-+-----------+ |            +---------+
-+-----------+ | +------+   |Fully    |
-|...        +--->Concat+--->Connected+->
-+-----------+ | +------+   |Layers   |
-+-----------+ |            +---------+
-|Input      +-+
-|Feature N  |
-+-----------+
+Sequence
+Feature
+Output
+
++---------+
+|emb seq 1|
++---------+
+|...      +--+
++---------+  |  +-----------------+
+|emb seq n|  |  |emb seq 1|emb oth|   +------+
++---------+  |  +-----------------+   |      |
+             +-->...      |...    +-->+Reduce+->
+Other        |  +-----------------+   |      |
+Feature      |  |emb seq n|emb oth|   +------+
+Output       |  +-----------------+
+             |
++-------+    |
+|emb oth+----+
++-------+
 ```
 
 These are the available parameters of a sequence concat combiner
 
 - `main_sequence_feature` (default `null`): name of the sequence / text/ time series feature to concatenate the outputs of the other features to. If no `main_sequence_feature` is specified, the combiner will look through all the features in the order they are defined in the model definition and will look for a feature with a rank 3 tensor output (sequence, text or time series). If it cannot find one it will raise an exception, otherwise the output of that feature will be used for concatenating the other features along the sequence `s` dimension. If there are other input features with a rank 3 output tensor, the combiner will concatenate them alongside the `s` dimension, which means that all of them must have identical `s` dimension, otherwise an error will be thrown.
+- `reduce_output` (default `null`): describes the strategy to use to aggregate the embeddings of the items of the set. Possible values are `null`, `sum`, `mean` and `sqrt` (the weighted sum divided by the square root of the sum of the squares of the weights).
 
 Example sequence concat combiner in the model definition:
 
 ```yaml
 type: sequence_concat
 main_sequence_feature: null
+reduce_output: null
 ```
 
 ### Sequence Combiner
@@ -3167,7 +3177,7 @@ Output       |  +-----------------+
 +-------+
 ```
 
-Example sequence concat combiner in the model definition:
+Example sequence combiner in the model definition:
 
 ```yaml
 type: sequence

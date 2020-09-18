@@ -3354,11 +3354,14 @@ sampler:
 
 ### PySOT sampler
 
-The `pysot` sampler uses the [pySOT](https://arxiv.org/pdf/1908.00420.pdf) package for asynchronous surrogate optimization.  This package implements many popular methods from Bayesian optimization and surrogate optimization.  By default, pySOT uses the Stochastic RBF (SRBF) method by [Regis and Shoemaker](https://pubsonline.informs.org/doi/10.1287/ijoc.1060.0182).  SRBF starts by evaluating a symmetric Latin hypercube design of size 2 * d + 1, where d is the number of hyperparameters that are optimized.  When these points have been evaluated, SRBF fits a radial basis function surrogate and uses this surrogate together with an acquisition function to select the next sample(s).  We recommend using at least 10 * d total samples to allow the algorithm to converge.
+The `pysot` sampler uses the [pySOT](https://arxiv.org/pdf/1908.00420.pdf) package for asynchronous surrogate optimization.  This package implements many popular methods from Bayesian optimization and surrogate optimization.
+By default, pySOT uses the Stochastic RBF (SRBF) method by [Regis and Shoemaker](https://pubsonline.informs.org/doi/10.1287/ijoc.1060.0182).
+SRBF starts by evaluating a symmetric Latin hypercube design of size `2 * d + 1`, where d is the number of hyperparameters that are optimized.
+When these points have been evaluated, SRBF fits a radial basis function surrogate and uses this surrogate together with an acquisition function to select the next sample(s).
+We recommend using at least `10 * d` total samples to allow the algorithm to converge.
 
 More details are available on the GitHub page: https://github.com/dme65/pySOT.
 
-# TODO add parameter description and in the example
 
 Example:
 ```yaml

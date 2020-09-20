@@ -133,6 +133,7 @@ a footnote-ref::before {
 .md-typeset table:not([class]) th {
     background-color: #202124;
     font-weight: bold;
+    color: #ececec;
 }
 
 table, th, td {

@@ -1543,7 +1543,8 @@ Set Features
 
 ### Set Features Preprocessing
 
-Set features are transformed into a binary (int8 actually) valued matrix of size `n x l` (where `n` is the size of the dataset and `l` is the minimum of the size of the biggest set and a `max_size` parameter) and added to HDF5 with a key that reflects the name of column in the CSV.
+Set features are expected to be provided as a string of elements separated by whitespace, e.g. "elem5 elem9 elem6".
+The string values are transformed into a binary (int8 actually) valued matrix of size `n x l` (where `n` is the size of the dataset and `l` is the minimum of the size of the biggest set and a `max_size` parameter) and added to HDF5 with a key that reflects the name of column in the CSV.
 The way sets are mapped into integers consists in first using a formatter to map from strings to sequences of set items (by default this is done by splitting on spaces).
 Then a dictionary of all the different set item strings present in the column of the CSV is collected, then they are ranked by frequency and an increasing integer ID is assigned to them from the most frequent to the most rare (with 0 being assigned to `<PAD>` used for padding and 1 assigned to `<UNK>` item).
 The column name is added to the JSON file, with an associated dictionary containing
@@ -1671,6 +1672,7 @@ Bag Features
 
 ### Bag Features Preprocessing
 
+Bag features are expected to be provided as a string of elements separated by whitespace, e.g. "elem5 elem9 elem6".
 Bag features are treated in the same way of set features, with the only difference being that the matrix had float values (frequencies).
 
 ### Bag Input Features and Encoders

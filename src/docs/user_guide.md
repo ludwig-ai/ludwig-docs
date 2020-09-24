@@ -970,11 +970,11 @@ The column name is added to the JSON file, with an associated dictionary contain
 CSV Format
 ----------
 
-Ludwig uses Pandas under the hood to read the UTF-8 encoded CSV files.
-Pandas tries to automatically identify the separator (generally `','`) from the data.
-The default escape character is `'\'`.
-For example, if `','` is the column separator and one of your data columns has a `','` in it, Pandas would fail to load the data properly.
-To handle such cases, we expect the values in the columns to be escaped with backslashes (replace `','` in the data with `'\\,'`).
+Ludwig uses Pandas under the hood to read the UTF-8 encoded CSV (comma seperated values) files.
+Pandas tries to automatically identify the separator (generally `,`) from the data.
+The default escape character is `\`.
+For example, if `,` is the column separator and one of your data columns has a `,` in it, Pandas would fail to load the data properly.
+To handle such cases, we expect the values in the columns to be escaped with backslashes (replace `,` in the data with `\\,`).
 
 
 Data Postprocessing

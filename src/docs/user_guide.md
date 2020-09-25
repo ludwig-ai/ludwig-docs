@@ -481,67 +481,68 @@ These are the available arguments:
 ```
 usage: ludwig hyperopt [options]
 
-This script trains and tests a model with sampled hyperparameters with a given sampler and parameters
+This script searches for optimal hyperparameters with a given sampler and parameters
 
 optional arguments:
   -h, --help            show this help message and exit
+  -sshs, --skip_save_hyperopt_statistics
+                        skips saving hyperopt statistics file
   --output_directory OUTPUT_DIRECTORY
                         directory that contains the results
   --experiment_name EXPERIMENT_NAME
                         experiment name
   --model_name MODEL_NAME
                         name for the model
-  --data_csv DATA_CSV   input data CSV file. If it has a split column, it will
-                        be used for splitting (0: train, 1: validation, 2:
-                        test), otherwise the dataset will be randomly split
-  --data_train_csv DATA_TRAIN_CSV
-                        input train data CSV file
-  --data_validation_csv DATA_VALIDATION_CSV
-                        input validation data CSV file
-  --data_test_csv DATA_TEST_CSV
-                        input test data CSV file
-  --data_hdf5 DATA_HDF5
-                        input data HDF5 file. It is an intermediate preprocess
-                        version of the input CSV created the first time a CSV
-                        file is used in the same directory with the same name
-                        and a hdf5 extension
-  --data_train_hdf5 DATA_TRAIN_HDF5
-                        input train data HDF5 file. It is an intermediate
-                        preprocess version of the input CSV created the first
-                        time a CSV file is used in the same directory with the
-                        same name and a hdf5 extension
-  --data_validation_hdf5 DATA_VALIDATION_HDF5
-                        input validation data HDF5 file. It is an intermediate
-                        preprocess version of the input CSV created the first
-                        time a CSV file is used in the same directory with the
-                        same name and a hdf5 extension
-  --data_test_hdf5 DATA_TEST_HDF5
-                        input test data HDF5 file. It is an intermediate
-                        preprocess version of the input CSV created the first
-                        time a CSV file is used in the same directory with the
-                        same name and a hdf5 extension
-  --train_set_metadata_json TRAIN_SET_METADATA_JSON
-                        input train set metadata JSON file. It is an intermediate
+  --dataset DATASET     input data file path. If it has a split column, it
+                        will be used for splitting (0: train, 1: validation,
+                        2: test), otherwise the dataset will be randomly split
+  --training_set TRAINING_SET
+                        input train data file path
+  --validation_set VALIDATION_SET
+                        input validation data file path
+  --test_set TEST_SET   input test data file path
+  --training_set_metadata TRAINING_SET_METADATA
+                        input metadata JSON file path. An intermediate
                         preprocess file containing the mappings of the input
-                        CSV created the first time a CSV file is used in the
-                        same directory with the same name and a json extension
+                        file created the first time a file is used, in the
+                        same directory with the same name and a .json
+                        extension
+  --data_format {auto,csv,hdf5}
+                        format of the input data
   -sspi, --skip_save_processed_input
                         skips saving intermediate HDF5 and JSON files
-  -ssuo, --skip_save_unprocessed_output
-                        skips saving intermediate NPY output files
-  -sshs, --skip_save_hyperopt_statistics
-                        skips saving hyperopt statistics file
   -md MODEL_DEFINITION, --model_definition MODEL_DEFINITION
                         model definition
   -mdf MODEL_DEFINITION_FILE, --model_definition_file MODEL_DEFINITION_FILE
                         YAML file describing the model. Ignores
                         --model_hyperparameters
-  -ssp SKIP_SAVE_PROGRESS_WEIGHTS, --skip_save_progress SKIP_SAVE_PROGRESS_WEIGHTS
+  -mlp MODEL_LOAD_PATH, --model_load_path MODEL_LOAD_PATH
+                        path of a pretrained model to load as initialization
+  -mrp MODEL_RESUME_PATH, --model_resume_path MODEL_RESUME_PATH
+                        path of a the model directory to resume training of
+  -sstd, --skip_save_training_description
+                        disables saving the description JSON file
+  -ssts, --skip_save_training_statistics
+                        disables saving training statistics JSON file
+  -ssm, --skip_save_model
+                        disables saving weights each time the model imrpoves.
+                        By default Ludwig saves weights after each epoch the
+                        validation metric imrpvoes, but if the model is really
+                        big that can be time consuming if you do not want to
+                        keep the weights and just find out what performance
+                        can a model get with a set of hyperparameters, use
+                        this parameter to skip it
+  -ssp, --skip_save_progress
                         disables saving weights after each epoch. By default
-                        Ludwig saves weights after each epoch for enabling
+                        ludwig saves weights after each epoch for enabling
                         resuming of training, but if the model is really big
-                        that can be time consuming and will use twice as much
-                        storage space, use this parameter to skip it.
+                        that can be time consuming and will save twice as much
+                        space, use this parameter to skip it
+  -ssl, --skip_save_log
+                        disables saving TensorBoard logs. By default Ludwig
+                        saves logs for the TensorBoard, but if it is not
+                        needed turning it off can slightly increase the
+                        overall speed
   -rs RANDOM_SEED, --random_seed RANDOM_SEED
                         a random seed that is going to be used anywhere there
                         is a call to a random number generator: data
@@ -549,8 +550,9 @@ optional arguments:
                         shuffling
   -g GPUS [GPUS ...], --gpus GPUS [GPUS ...]
                         list of gpus to use
-  -gf GPU_FRACTION, --gpu_fraction GPU_FRACTION
-                        fraction of gpu memory to initialize the process with
+  -gml GPU_MEMORY_LIMIT, --gpu_memory_limit GPU_MEMORY_LIMIT
+                        maximum memory in MB to allocate per GPU device
+  -uh, --use_horovod    uses horovod for distributed training
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use

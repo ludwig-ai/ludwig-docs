@@ -14,13 +14,13 @@ Be sure that you installe version of `Markdown>=3.0.1`. Then generate `api.md` f
 python code_doc_autogen.py
 ```
 
-Test it (from the `mkdocs` directory):
+Test it (from the `src` directory):
 
 ```
 mkdocs serve
 ```
 
-Finally build the static website (from the `mkdocs` directory):
+Finally build the static website (from the `src` directory):
 
 ```
 mkdocs build

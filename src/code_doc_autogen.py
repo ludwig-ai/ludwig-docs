@@ -28,6 +28,7 @@ import re
 import sys
 
 from ludwig.api import kfold_cross_validate
+from ludwig.hyperopt.run import hyperopt
 from ludwig.visualize import learning_curves, compare_performance, \
     compare_classifiers_performance_from_prob, \
     compare_classifiers_performance_from_pred, \
@@ -91,7 +92,8 @@ PAGES = [
             (LudwigModel, "*")
         ],
         'functions': [
-            kfold_cross_validate
+            kfold_cross_validate,
+            hyperopt
         ]
     },
     {

@@ -4159,7 +4159,7 @@ The examples of the hyper-parameter visualizations shown here are obtained by ru
 
 This visualization uses the `hyperopt_stats_path` parameter.
 
-The visualization creates one plot for each hyper-parameter in the file at `hyperopt_stats_path`, plus an additional one containing a pair plot.
+The visualization creates one plot for each hyper-parameter in the file at `hyperopt_stats_path`, plus an additional one containing a pair plot of hyper-parameters interactions.
 
 Each plot will show the distribution of the parameters with respect to the metric to optimize.
 For `float` and `int` parameters, a scatter plot is used, while for `category` parameters, a violin plot is used instead. 

@@ -41,7 +41,7 @@ from ludwig.visualize import learning_curves, compare_performance, \
     confidence_thresholding_data_vs_acc_subset, binary_threshold_vs_metric, \
     roc_curves, roc_curves_from_test_statistics, calibration_1_vs_all, \
     calibration_multiclass, confusion_matrix, frequency_vs_f1, \
-    hyperopt_report
+    hyperopt_report, hyperopt_hiplot
 
 sys.path.append("../")
 
@@ -121,6 +121,7 @@ PAGES = [
             confusion_matrix,
             frequency_vs_f1,
             hyperopt_report,
+            hyperopt_hiplot
         ]
     }
     # {

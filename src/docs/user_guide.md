@@ -800,6 +800,22 @@ Once running, you can make a POST request on the `/predict` endpoint to run infe
 ##### Both Text and File
 `curl http://0.0.0.0:8000/predict -X POST -F 'text=mixed together with' -F 'image=@path_to_image/example.png'`
 
+#### Batch prediction
+
+You can also make a POST request on the `/batch_predict` endpoint to run inference on multiple samples at once.
+
+Requests must be submitted as form data, with one of fields being `dataset`: a JSON encoded string representation
+of the data to be predicted.
+
+The `dataset` JSON string is expected to be in the Pandas "split" format to reduce payload size. This format 
+divides the dataset into three parts:
+
+1. columns: `List[str]`
+2. index (optional): `List[Union[str, int]]`
+3. data: `List[List[object]]`
+
+##### Example
+`curl http://0.0.0.0:8000/batch_predict -X POST -F 'dataset={"columns": ["a", "b"], "data": [[1, 2], [3, 4]]}' -F 'image=@path_to_image/example.png'`
 
 Additional executables
 ----------------------

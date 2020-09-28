@@ -814,8 +814,10 @@ divides the dataset into three parts:
 2. index (optional): `List[Union[str, int]]`
 3. data: `List[List[object]]`
 
+Additional form fields can be used to provide file resources like images that are referenced within the dataset.
+
 ##### Example
-`curl http://0.0.0.0:8000/batch_predict -X POST -F 'dataset={"columns": ["a", "b"], "data": [[1, 2], [3, 4]]}' -F 'image=@path_to_image/example.png'`
+`curl http://0.0.0.0:8000/batch_predict -X POST -F 'dataset={"columns": ["a", "b"], "data": [[1, 2], [3, 4]]}'`
 
 Additional executables
 ----------------------

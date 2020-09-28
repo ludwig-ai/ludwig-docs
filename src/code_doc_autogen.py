@@ -28,6 +28,7 @@ import re
 import sys
 
 from ludwig.api import kfold_cross_validate
+from ludwig.hyperopt.run import hyperopt
 from ludwig.visualize import learning_curves, compare_performance, \
     compare_classifiers_performance_from_prob, \
     compare_classifiers_performance_from_pred, \
@@ -39,7 +40,8 @@ from ludwig.visualize import learning_curves, compare_performance, \
     confidence_thresholding_data_vs_acc, \
     confidence_thresholding_data_vs_acc_subset, binary_threshold_vs_metric, \
     roc_curves, roc_curves_from_test_statistics, calibration_1_vs_all, \
-    calibration_multiclass, confusion_matrix, frequency_vs_f1
+    calibration_multiclass, confusion_matrix, frequency_vs_f1, \
+    hyperopt_report, hyperopt_hiplot
 
 sys.path.append("../")
 
@@ -91,7 +93,8 @@ PAGES = [
             (LudwigModel, "*")
         ],
         'functions': [
-            kfold_cross_validate
+            kfold_cross_validate,
+            hyperopt
         ]
     },
     {
@@ -117,6 +120,8 @@ PAGES = [
             calibration_multiclass,
             confusion_matrix,
             frequency_vs_f1,
+            hyperopt_report,
+            hyperopt_hiplot
         ]
     }
     # {

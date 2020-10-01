@@ -721,9 +721,10 @@ arguments, so they will be described one by one in the [Visualizations](#visuali
 collect_weights
 ---------------
 
-This command lets you load a pre-trained model and collect the tensors with a specific name in order to save them in a NPY format.
-This may be useful in order to visualize the learned weights (for instance collecting embedding matrices) and for some post-hoc analyses.
-You can call it with:
+This command lets you load a pre-trained model and collect the tensors with a 
+specific name in order to save them in a NPY format.  This may be useful in order 
+to visualize the learned weights (for instance collecting embedding matrices) and 
+for some post-hoc analyses.  You can call it with:
 
 ```
 ludwig collect_weights [options]
@@ -756,9 +757,14 @@ optional arguments:
                         the level of logging to use
 ```
 
-The three most important arguments are `--model_path` where you have to specify the path of the model to load, `--tensors` that lets you specify a list of tensor names in the TensorFlow graph that contain the weights you want to collect, and finally `--output_directory` that lets you specify where the NPY files (one for each tensor name specified) will be saved.
+The three most important arguments are `--model_path` where you have to specify 
+the path of the model to load, `--tensors` that lets you specify a list of 
+tensor names in the TensorFlow graph that contain the weights you want to collect, 
+and finally `--output_directory` that lets you specify where the NPY files (one 
+for each tensor name specified) will be saved.
 
-In order to figure out the names of the tensors containing the weights you want to collect, the best way is to inspect the graph of the model with TensorBoard.
+In order to figure out the names of the tensors containing the weights you want 
+to collect, the best way is to inspect the graph of the model with TensorBoard.
 
 ```
 tensorboard --logdir /path/to/model/log

@@ -48,42 +48,25 @@ optional arguments:
                         experiment name
   --model_name MODEL_NAME
                         name for the model
-  --data_csv DATA_CSV   input data CSV file. If it has a split column, it will
-                        be used for splitting (0: train, 1: validation, 2:
-                        test), otherwise the dataset will be randomly split
-  --data_train_csv DATA_TRAIN_CSV
-                        input train data CSV file
-  --data_validation_csv DATA_VALIDATION_CSV
-                        input validation data CSV file
-  --data_test_csv DATA_TEST_CSV
-                        input test data CSV file
-  --data_hdf5 DATA_HDF5
-                        input data HDF5 file. It is an intermediate preprocess
-                        version of the input CSV created the first time a CSV
-                        file is used in the same directory with the same name
-                        and a hdf5 extension
-  --data_train_hdf5 DATA_TRAIN_HDF5
-                        input train data HDF5 file. It is an intermediate
-                        preprocess version of the input CSV created the first
-                        time a CSV file is used in the same directory with the
-                        same name and a hdf5 extension
-  --data_validation_hdf5 DATA_VALIDATION_HDF5
-                        input validation data HDF5 file. It is an intermediate
-                        preprocess version of the input CSV created the first
-                        time a CSV file is used in the same directory with the
-                        same name and a hdf5 extension
-  --data_test_hdf5 DATA_TEST_HDF5
-                        input test data HDF5 file. It is an intermediate
-                        preprocess version of the input CSV created the first
-                        time a CSV file is used in the same directory with the
-                        same name and a hdf5 extension
+  --dataset  DATASET   input dataset used for training. If it has a split 
+                        column, it will be used for splitting (0: train, 
+                        1: validation, 2: test), otherwise the dataset 
+                        will be randomly split
+  --training_set TRAINING_SET
+                        input training data
+  --validation_set VALIDATION_SET
+                        input validation data
+  --test_set TEST_SET
+                        input test data
+  --data_format DATA_FORMAT  format of the dataset.  Valid values are auto,
+                        csv, excel, feature, fwf, hdf5, html, tables, json,
+                        json, jsonl, parquet, pickle, sas, spss, stata, tsv
+
   --train_set_metadata_json TRAIN_SET_METADATA_JSON
                         input metadata JSON file. It is an intermediate
                         preprocess file containing the mappings of the input
                         CSV created the first time a CSV file is used in the
                         same directory with the same name and a json extension
-  -sspi, --skip_save_processed_input
-                        skips saving intermediate HDF5 and JSON files
   -md MODEL_DEFINITION, --model_definition MODEL_DEFINITION
                         model definition
   -mdf MODEL_DEFINITION_FILE, --model_definition_file MODEL_DEFINITION_FILE
@@ -93,6 +76,10 @@ optional arguments:
                         path of a pretrained model to load as initialization
   -mrp MODEL_RESUME_PATH, --model_resume_path MODEL_RESUME_PATH
                         path of a the model directory to resume training of
+  -sstd, --skip_save_training_description
+                        disables saving the description JSON file.
+  -ssts, --skip_save_training_statistics
+                        disables saving training statistics JSON file
   -ssm, --skip_save_model
                         disables saving weights each time the model imrpoves. By
                         default Ludwig saves weights after each epoch the
@@ -112,22 +99,18 @@ optional arguments:
                         saves logs for the TensorBoard, but if it is not
                         needed turning it off can slightly increase the
                         overall speed.
-  -skfsi, --skip_save_k_fold_split_indices
-                        disables saving indices generated to split training 
-                        data set for the k-fold cross validation run, but if it 
-                        is not needed turning it off can slightly increase the 
-                        overall speed
+  -sspi, --skip_save_processed_input
+                        skips saving intermediate HDF5 and JSON files
   -rs RANDOM_SEED, --random_seed RANDOM_SEED
                         a random seed that is going to be used anywhere there
                         is a call to a random number generator: data
                         splitting, parameter initialization and training set
                         shuffling
-  -kf K_FOLD, --k_fold K_FOLD
-                        number of folds for a k-fold cross validation run
   -g GPUS [GPUS ...], --gpus GPUS [GPUS ...]
                         list of gpus to use
-  -gf GPU_FRACTION, --gpu_fraction GPU_FRACTION
-                        fraction of gpu memory to initialize the process with
+  -gml GPU_MEMORY, --gpu_memory_limit GPU_MEMORY
+                        maximum memory in MB of gpu memory to allocate per
+                        GPU device
   -uh, --use_horovod    uses horovod for distributed training
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
@@ -139,20 +122,20 @@ The HDF5 file contains the data mapped to numpy ndarrays, while the JSON file co
 
 For instance, for a categorical feature with 3 possible values, the HDF5 file will contain integers from 0 to 3 (with 0 being a `<UNK>` category), while the JSON file will contain a `idx2str` list containing all tokens (`[<UNK>, label_1, label_2, label_3]`), a `str2idx` dictionary (`{"<UNK>": 0, "label_1": 1, "label_2": 2, "label_3": 3}`) and a `str2freq` dictionary (`{"<UNK>": 0, "label_1": 93, "label_2": 55, "label_3": 24}`).
 
-The reason to have those  intermediate files is two-fold: on one hand, if you are going to train your model again Ludwig will try to load them instead of recomputing all tensors, which saves a consistent amount of time, and on the other hand when you want to use your model to predict, data has to be mapped to tensors in exactly the same way it was mapped during training, so you'll be required to load the JSON metadata file in the `predict` command.
-The way this works is: the first time you provide a UTF-8 encoded CSV (`--data_csv`), the HDF5 and JSON files are created, from the second time on Ludwig will load them instead of the CSV even if you specify the CSV (it looks in the same directory for files names in the same way but with a different extension), finally you can directly specify the HDF5 and JSON files (`--data_hdf5` and `--train_set_metadata_json`).
+The reason to have those  intermediate files is two-fold: on one hand, if you are going to train your model again Ludwig will try to load them instead of recomputing all tensors, which saves a considerable amount of time, and on the other hand when you want to use your model to predict, data has to be mapped to tensors in exactly the same way it was mapped during training, so you'll be required to load the JSON metadata file in the `predict` command.
+The way this works is: the first time you provide a UTF-8 encoded DATASET (`--dataset`), the HDF5 and JSON files are created, from the second time on Ludwig will load them instead of the DATASET even if you specify the DATASET (it looks in the same directory for files names in the same way but with a different extension), finally you can directly specify the HDF5 and JSON files.
 
-As the mapping from raw data to tensors depends on the type of feature that you specify in your model definition, if you change type (for instance from `sequential` to `text`) you also have to redo the preprocessing, which is achieved by deleting the HDF5 and JSON files.
+As the mapping from raw data to tensors depends on the type of feature that you specify in your model definition, if you change type (for instance from `sequence` to `text`) you also have to redo the preprocessing, which is achieved by deleting the HDF5 and JSON files.
 Alternatively you can skip saving the HDF5 and JSON files specifying `--skip_save_processed_input`.
 
 Splitting between train, validation and test set can be done in several ways.
 This allows for a few possible input data scenarios:
 
-- one single UTF-8 encoded CSV file is provided (`-data_csv`). In this case if the CSV contains a `split` column with values `0` for training, `1` for validation and `2` for test, this split will be used. If you want to ignore the split column and perform a random split, use a `force_split` argument in the model definition. In the case when there is no split column, a random `70-20-10` split will be performed. You can set the percentages and specify if you want stratified sampling in the model definition preprocessing section.
+- one single UTF-8 encoded DATASET file is provided (`-dataset`). In this case if the DATASET contains a `split` column with values `0` for training, `1` for validation and `2` for test, this split will be used. If you want to ignore the split column and perform a random split, use a `force_split` argument in the model definition. In the case when there is no split column, a random `70-20-10` split will be performed. You can set the percentages and specify if you want stratified sampling in the model definition preprocessing section.
 
-- you can provide separate UTF-8 encoded train, validation and test CSVs (`--data_train_csv`, `--data_validation_csv`, `--data_test_csv`).
+- you can provide separate UTF-8 encoded training, validation and test sets  (`--training_set`, `--validation_set`, `--test_set`).
 
-- the HDF5 and JSON file indications specified in the case of a single CSV file apply also in the multiple files case (`--data_train_hdf5`, `--data_validation_hdf5`, `--data_test_hdf5`), with the only difference that you need to specify only one JSON file (`--train_set_metadata_json`) instead of three.
+- the HDF5 and JSON file indications specified in the case of a single DATASET file apply also in the multiple files case, with the only difference that you need to specify only one JSON file (`--train_set_metadata_json`).
 The validation set is optional, but if absent the training wil continue until the end of the training epochs, while when there's a validation set the default behavior is to perform early stopping after the validation measure does not improve for a certain amount of epochs.
 The test set is optional too.
 
@@ -166,8 +149,6 @@ The directory will contain
 - `description.json` - a file containing a description of the training process with all the information to reproduce it.
 - `training_statistics.json` which contains records of all measures and losses for each epoch.
 - `model` - a directory containing model hyper-parameters, weights, checkpoints and logs (for TensorBoard).
-- `kfold_training_statistics.json` - an optional file that is created when the `--k_fold` parameter is specified.  This file contains metrics from k-fold cross validation run.  In addition to the metrics for each fold, there is an `overall` key that shows mean and standard deviation for metrics across all folds.
-- `kfold_split_indicies.json` - this file is present if `--k_fold` parameter is specified and `--skip_save_k_fold_split_indices` is not specified.  This file contains for each fold the row index values for the training data that creates the training and hold-out test folds.  These indices can be used to reproduce the fold splits.
 
 The model definition can be provided either as a string (`--model_definition`) or as YAML file (`--model_definition_file`).
 Details on how to write your model definition are provided in the [Model Definition](#model-definition) section.
@@ -181,22 +162,22 @@ Another available option is to load a previously trained model as an initializat
 In this case Ludwig will start a new training process, without knowing any progress of the previous model, no training statistics, nor the number of epochs the model has been trained on so far.
 It's not resuming training, just initializing training with a previously trained model with the same model definition, and it is accomplished through the `--model_load_path` argument.
 
-You can request a k-fold cross validation run by specifing the `--k_fold` parameter.
-
 You can specify a random seed to be used by the python environment, python random package, numpy and TensorFlow with the `--random_seed` argument.
 This is useful for reproducibility.
 Be aware that due to asynchronicity in the TensorFlow GPU execution, when training on GPU results may not be reproducible.
 
 You can manage which GPUs on your machine are used with the `--gpus` argument, which accepts a string identical to the format of `CUDA_VISIBLE_DEVICES` environment variable, namely a list of integers separated by comma.
-You can also specify the fraction of the GPU memory that will be initially assigned to TensorFlow with `--gpu_fraction`.
-By default it is 1.0, but you can set it, for instance, to 0.2 to use only 1/5 of the available memory.
-If TensorFlow will need more GPU memory it will try to increase this amount.
+You can also specify the amount of GPU memory that will be initially assigned to TensorFlow with `--gpu_memory_limit`.
+By default all of memory is allocated.  If less than all of memory is allcoated, TensorFlow will 
+need more GPU memory it will try to increase this amount.
+
+If parameter `--use_horovod` is set `True`, will use Horovod for distributed processing. 
 
 Finally the `--logging_level` argument lets you set the amount of logging that you want to see during training and the `--debug` argument turns on TensorFlow's `tfdbg`. Be careful when doing so, as it will help in catching errors, in particular infs and NaNs but it will consume much more memory.
 
 Example:
 ```
-ludwig train --data_csv reuters-allcats.csv --model_definition "{input_features: [{name: text, type: text, encoder: parallel_cnn, level: word}], output_features: [{name: class, type: category}]}"
+ludwig train --dataset reuters-allcats.csv --model_definition "{input_features: [{name: text, type: text, encoder: parallel_cnn, level: word}], output_features: [{name: class, type: category}]}"
 ```
 
 predict

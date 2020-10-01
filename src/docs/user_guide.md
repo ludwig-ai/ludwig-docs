@@ -390,7 +390,7 @@ optional arguments:
 All parameters are the same of [predict](#predict) and the behavior is the same.
 The only difference isthat `evaluate` requires the dataset to contain also 
 columns with the same name of output features.
-This is needed because `test` compares the predictions produced by the model 
+This is needed because `evaluate` compares the predictions produced by the model 
 with the ground truth and will save all those statistics in a 
 `test_statistics.json` file in the result directory.
 
@@ -401,7 +401,7 @@ it means that the data does not contain the columns for each output feature to u
 
 Example:
 ```
-ludwig test --data_csv reuters-allcats.csv --model_path results/experiment_run_0/model/
+ludwig evaluate --data_csv reuters-allcats.csv --model_path results/experiment_run_0/model/
 ```
 
 experiment

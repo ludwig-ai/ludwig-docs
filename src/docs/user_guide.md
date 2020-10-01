@@ -801,9 +801,10 @@ datapoint in the dataset.
 
 optional arguments:
   -h, --help            show this help message and exit
-  --data_csv DATA_CSV   input data CSV file
-  --data_hdf5 DATA_HDF5
-                        input data HDF5 file
+  --dataset  DATASET    filepath for input dataset
+  --data_format DATA_FORMAT  format of the dataset.  Valid values are auto,
+                        csv, excel, feature, fwf, hdf5, html, tables, json,
+                        json, jsonl, parquet, pickle, sas, spss, stata, tsv
   -s {training,validation,test,full}, --split {training,validation,test,full}
                         the split to test the model on
   -m MODEL_PATH, --model_path MODEL_PATH

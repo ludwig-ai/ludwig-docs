@@ -773,9 +773,11 @@ tensorboard --logdir /path/to/model/log
 collect_activations
 -------------------
 
-This command lets you load a pre-trained model and input data and collects the values of activations contained in tensors with a specific name in order to save them in a NPY format.
-This may be useful in order to visualize the activations (for instance collecting last layer's activations as embeddings representations of the input datapoint) and for some post-hoc analyses.
-You can call it with:
+This command lets you load a pre-trained model and input data and collects the 
+values of activations contained in tensors with a specific name in order to save 
+them in a NPY format.  This may be useful in order to visualize the activations 
+(for instance collecting last layer's activations as embeddings representations 
+of the input datapoint) and for some post-hoc analyses.  You can call it with:
 
 ```
 ludwig collect_activations [options]

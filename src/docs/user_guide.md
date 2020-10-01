@@ -809,24 +809,33 @@ optional arguments:
                         the split to test the model on
   -m MODEL_PATH, --model_path MODEL_PATH
                         model to load
-  -t TENSORS [TENSORS ..], --tensors TENSORS [TENSORS ..]
-                        tensors to collect
+  -lyr LAYER [LAYER ..], --layers LAYER [LAYER ..]
+                        layers to collect
   -od OUTPUT_DIRECTORY, --output_directory OUTPUT_DIRECTORY
                         directory that contains the results
   -bs BATCH_SIZE, --batch_size BATCH_SIZE
                         size of batches
   -g GPUS, --gpus GPUS  list of gpu to use
-  -gf GPU_FRACTION, --gpu_fraction GPU_FRACTION
-                        fraction of gpu memory to initialize the process with
+  -gml GPU_MEMORY, --gpu_memory_limit GPU_MEMORY
+                        maximum memory in MB of gpu memory to allocate per
+                        GPU device
+  -dpt, --disable_parallel_threads
+                        disable Tensorflow from using multithreading
+                        for reproducibility
+  -uh, --use_horovod    uses horovod for distributed training
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
 ```
 
-The data related and runtime related arguments (GPUs, batch size, etc.) are the same used in [predict](#predict), you can refer to that section for an explanation.
-The collect specific arguments `--model_path`, `--tensors` and `--output_directory` are the same used in [collect_weights](#collect_weights), you can refer to that section for an explanation.
+The data related and runtime related arguments (GPUs, batch size, etc.) are the 
+same used in [predict](#predict), you can refer to that section for an explanation.
+The collect specific arguments `--model_path`, `--tensors` and `--output_directory` 
+are the same used in [collect_weights](#collect_weights), you can refer to that 
+section for an explanation.
 
-In order to figure out the names of the tensors containing the activations you want to collect, the best way is to inspect the graph of the model with TensorBoard.
+In order to figure out the names of the tensors containing the activations you 
+want to collect, the best way is to inspect the graph of the model with TensorBoard.
 
 ```
 tensorboard --logdir /path/to/model/log

@@ -975,40 +975,72 @@ WIP
 WIP
 
 
-### Neuropod export
+### savedmodel export
 
-A Ludwig model can be exported as a [Neuropod](https://github.com/uber/neuropod), a mechanism that allows it to be executed in a framework agnostic way.
-
-In order to export a Ludwig model as a Neuropod, first make sure the `neuropod` package is installed in your environment together with the approrpiate backend (only use Python 3.7+), then run the following command:
+Exports a pre-trained model to Tensorflow `SavedModel` format.
 
 ```
-python -m ludwig.utils.neuropod_utils --ludwig_model_path <LUDWIG_MODEL_PATH> --neuropod_path <NEUROPOD_PATH>
+ludwig export_savedmodel [options]
 ```
 
-where `ludwig_model_path` is the path to a trained Ludwig model and `neuropod_path` is the path where to save the Neuropod contaning the model.
-Be aware that, if a file already exists at `neuropod_path` it will be overridden.
-By default the Neuropod package produced is a ZIP file, but you can obtain a directory instead with the `--package_as_dir` argument.
+or with
+
+```
+python -m ludwig.export savedmodel [options]
+```
 
 These are the available arguments:
 ```
-usage: neuropod_utils.py [-h] -m LUDWIG_MODEL_PATH
-                         [-l {critical,error,warning,info,debug,notset}] -n
-                         NEUROPOD_PATH [-nm NEUROPOD_MODEL_NAME] [-d]
+usage: ludwig export_savedmodel [options]
 
-This script exports a Ludwig model in the Neuropod format
+This script loads a pretrained model and uses it collect weights.
 
 optional arguments:
   -h, --help            show this help message and exit
-  -m LUDWIG_MODEL_PATH, --ludwig_model_path LUDWIG_MODEL_PATH
-                        path to the Ludwig model to export
+  -m MODEL_PATH, --model_path MODEL_PATH
+                        model to load
+  -od OUTPUT_PATH, --output_path OUTPUT_PATH
+                        path where to save the export model  
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
-  -n NEUROPOD_PATH, --neuropod_path NEUROPOD_PATH
-                        path of the output Neuropod package file
-  -nm NEUROPOD_MODEL_NAME, --neuropod_model_name NEUROPOD_MODEL_NAME
-                        path of the output Neuropod package file
-  -d, --package_as_dir  output the Neuropod package a directory (by default it
-                        is a zip file)
+```
+
+
+### Neuropod export
+
+A Ludwig model can be exported as a [Neuropod](https://github.com/uber/neuropod), 
+a mechanism that allows it to be executed in a framework agnostic way.
+
+In order to export a Ludwig model as a Neuropod, first make sure the `neuropod` 
+package is installed in your environment together with the approrpiate backend 
+(only use Python 3.7+), then run the following command:
+
+```
+ludwig export_neuropod [options]
+```
+
+or with
+
+```
+python -m ludwig.export neuropod [options]
+```
+
+These are the available arguments:
+```
+usage: ludwig export_neuropod [options]
+
+This script loads a pretrained model and uses it collect weights.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -m MODEL_PATH, --model_path MODEL_PATH
+                        model to load
+  -mn MODEL_NAME, --model_name MODEL_NAME
+                        model name
+  -od OUTPUT_PATH, --output_path OUTPUT_PATH
+                        path where to save the export model  
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use
 ```
 
 This functionality has been tested with `neuropod==0.2.0`.

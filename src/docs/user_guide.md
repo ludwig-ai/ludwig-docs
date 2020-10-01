@@ -407,7 +407,7 @@ ludwig evaluate --data_csv reuters-allcats.csv --model_path results/experiment_r
 experiment
 ----------
 
-This command combines training and test into a single handy command.
+This command combines training and evaluation into a single handy command.
 You can call it with:
 
 ```
@@ -427,7 +427,7 @@ These are the available arguments:
 ```
 usage: ludwig experiment [options]
 
-This script trains and tests a model.
+This script trains and evaluates a model.
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -437,40 +437,25 @@ optional arguments:
                         experiment name
   --model_name MODEL_NAME
                         name for the model
-  --data_csv DATA_CSV   input data CSV file. If it has a split column, it will
-                        be used for splitting (0: train, 1: validation, 2:
-                        test), otherwise the dataset will be randomly split
-  --data_train_csv DATA_TRAIN_CSV
-                        input train data CSV file
-  --data_validation_csv DATA_VALIDATION_CSV
-                        input validation data CSV file
-  --data_test_csv DATA_TEST_CSV
-                        input test data CSV file
-  --data_hdf5 DATA_HDF5
-                        input data HDF5 file. It is an intermediate preprocess
-                        version of the input CSV created the first time a CSV
-                        file is used in the same directory with the same name
-                        and a hdf5 extension
-  --data_train_hdf5 DATA_TRAIN_HDF5
-                        input train data HDF5 file. It is an intermediate
-                        preprocess version of the input CSV created the first
-                        time a CSV file is used in the same directory with the
-                        same name and a hdf5 extension
-  --data_validation_hdf5 DATA_VALIDATION_HDF5
-                        input validation data HDF5 file. It is an intermediate
-                        preprocess version of the input CSV created the first
-                        time a CSV file is used in the same directory with the
-                        same name and a hdf5 extension
-  --data_test_hdf5 DATA_TEST_HDF5
-                        input test data HDF5 file. It is an intermediate
-                        preprocess version of the input CSV created the first
-                        time a CSV file is used in the same directory with the
-                        same name and a hdf5 extension
+  --dataset  DATASET   input dataset used for training. If it has a split
+                        column, it will be used for splitting (0: train,
+                        1: validation, 2: test), otherwise the dataset
+                        will be randomly split
+  --training_set TRAINING_SET
+                        input training data
+  --validation_set VALIDATION_SET
+                        input validation data
+  --test_set TEST_SET
+                        input test data
+  --data_format DATA_FORMAT  format of the dataset.  Valid values are auto,
+                        csv, excel, feature, fwf, hdf5, html, tables, json,
+                        json, jsonl, parquet, pickle, sas, spss, stata, tsv
   --train_set_metadata_json TRAIN_SET_METADATA_JSON
                         input train set metadata JSON file. It is an intermediate
                         preprocess file containing the mappings of the input
-                        CSV created the first time a CSV file is used in the
+                        dataset created the first time the file is used in the
                         same directory with the same name and a json extension
+  -es, --eval_split     the split to evaluate the model on
   -sspi, --skip_save_processed_input
                         skips saving intermediate HDF5 and JSON files
   -ssuo, --skip_save_unprocessed_output
@@ -484,12 +469,34 @@ optional arguments:
                         path of a pretrained model to load as initialization
   -mrp MODEL_RESUME_PATH, --model_resume_path MODEL_RESUME_PATH
                         path of a the model directory to resume training of
-  -ssp SKIP_SAVE_PROGRESS_WEIGHTS, --skip_save_progress SKIP_SAVE_PROGRESS_WEIGHTS
+  -sstd, --skip_save_training_description
+                        disables saving the description JSON file.
+  -ssts --skip_save_training_statistics
+                        disable saving training statistics JSON file.
+  -sstp --skip_save_predictions
+                        disable saving test predictions CSV file.
+  -sstes --skip_save_eval_stats
+                        disable saving evaluation statistics JSON file
+  -ssm --skip_save_model
+                        disables saving model weights and hyperparameters each time 
+                        the model improves. By default Ludwig saves model weights  
+                        after each epoch the validation metric imprvoes, but if 
+                        the model is really big  that can be time consuming if 
+                        you do not want to keep the weights and just find out 
+                        what performance can a model get with a set of hyperparameters, 
+                        use this parameter to skip it, but the model will not 
+                        be loadable later on
+  -ssp, --skip_save_progress SKIP_SAVE_PROGRESS
                         disables saving weights after each epoch. By default
                         Ludwig saves weights after each epoch for enabling
                         resuming of training, but if the model is really big
                         that can be time consuming and will use twice as much
-                        storage space, use this parameter to skip it.
+                        storage space, use this parameter to skip it, but 
+                        training cannot be resumed later on.
+  -ssl, --skip_save_log
+                        disable saving TensorBoard logs. By default Ludwig saves
+                        logs for TensorBoard, but if it is not needed turning it off
+                        can slightly increase the overall speed.
   -rs RANDOM_SEED, --random_seed RANDOM_SEED
                         a random seed that is going to be used anywhere there
                         is a call to a random number generator: data
@@ -497,19 +504,26 @@ optional arguments:
                         shuffling
   -g GPUS [GPUS ...], --gpus GPUS [GPUS ...]
                         list of gpus to use
-  -gf GPU_FRACTION, --gpu_fraction GPU_FRACTION
-                        fraction of gpu memory to initialize the process with
+  -gml GPU_MEMORY, --gpu_memory_limit GPU_MEMORY
+                        maximum memory in MB of gpu memory to allocate per
+                        GPU device
+  -dpt, --disable_parallel_threads
+                        disable Tensorflow from using multithreading
+                        for reproducibility
+
+  -uh, --use_horovod    uses horovod for distributed training
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
 ```
 
-The parameters combine parameters from both [train](#train) and [test](#test) so refer to those sections for an in depth explanation.
+The parameters combine parameters from both [train](#train) and [test](#test) so 
+refer to those sections for an in depth explanation.
 The output directory will contain the outputs both commands produce.
 
 Example:
 ```
-ludwig experiment --data_csv reuters-allcats.csv --model_definition "{input_features: [{name: text, type: text, encoder: parallel_cnn, level: word}], output_features: [{name: class, type: category}]}"
+ludwig experiment --dataset reuters-allcats.csv --model_definition "{input_features: [{name: text, type: text, encoder: parallel_cnn, level: word}], output_features: [{name: class, type: category}]}"
 ```
 
 hyperopt

@@ -65,8 +65,9 @@ optional arguments:
   --train_set_metadata_json TRAIN_SET_METADATA_JSON
                         input metadata JSON file. It is an intermediate
                         preprocess file containing the mappings of the input
-                        CSV created the first time a CSV file is used in the
-                        same directory with the same name and a json extension
+                        DATASET created the first time the DATASET file is 
+                        used in the same directory with the same name 
+                        and a json extension.
   -md MODEL_DEFINITION, --model_definition MODEL_DEFINITION
                         model definition
   -mdf MODEL_DEFINITION_FILE, --model_definition_file MODEL_DEFINITION_FILE
@@ -111,6 +112,9 @@ optional arguments:
   -gml GPU_MEMORY, --gpu_memory_limit GPU_MEMORY
                         maximum memory in MB of gpu memory to allocate per
                         GPU device
+  -dpt, --disable_parallel_threads
+                        disable Tensorflow from using multithreading 
+                        for reproducibility
   -uh, --use_horovod    uses horovod for distributed training
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
@@ -207,19 +211,19 @@ This script loads a pretrained model and uses it to predict.
 
 optional arguments:
   -h, --help            show this help message and exit
-  --data_csv DATA_CSV   input data CSV file. If it has a split column, it will
-                        be used for splitting (0: train, 1: validation, 2:
-                        test), otherwise the dataset will be randomly split
-  --data_hdf5 DATA_HDF5
-                        input data HDF5 file. It is an intermediate preprocess
-                        version of the input CSV created the first time a CSV
-                        file is used in the same directory with the same name
-                        and a hdf5 extension
+  --dataset  DATASET   input dataset used for training. If it has a split 
+                       column, it will be used for splitting (0: train, 
+                       1: validation, 2: test), otherwise the dataset 
+                       will be randomly split.
+  --data_format DATA_FORMAT  format of the dataset.  Valid values are auto,
+                       csv, excel, feature, fwf, hdf5, html, tables, json,
+                       json, jsonl, parquet, pickle, sas, spss, stata, tsv
   --train_set_metadata_json TRAIN_SET_METADATA_JSON
                         input metadata JSON file. It is an intermediate
                         preprocess file containing the mappings of the input
-                        CSV created the first time a CSV file is used in the
-                        same directory with the same name and a json extension
+                        DATASET created the first time the DATASET file is 
+                        used in the same directory with the same name 
+                        and a json extension.
   -s {training,validation,test,full}, --split {training,validation,test,full}
                         the split to test the model on
   -m MODEL_PATH, --model_path MODEL_PATH
@@ -228,23 +232,35 @@ optional arguments:
                         directory that contains the results
   -ssuo, --skip_save_unprocessed_output
                         skips saving intermediate NPY output files
+  -sstp, --skip_save_predictions
+                        skip saving predictions CSV files
   -bs BATCH_SIZE, --batch_size BATCH_SIZE
                         size of batches
   -g GPUS, --gpus GPUS  list of gpu to use
-  -gf GPU_FRACTION, --gpu_fraction GPU_FRACTION
-                        fraction of gpu memory to initialize the process with
+  -gml GPU_MEMORY, --gpu_memory_limit GPU_MEMORY
+                        maximum memory in MB of gpu memory to allocate per
+                        GPU device
+  -dpt, --disable_parallel_threads
+                        disable Tensorflow from using multithreading 
+                        for reproducibility
   -uh, --use_horovod    uses horovod for distributed training
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
 ```
 
-The same distinction between UTF-8 encoded CSV files and HDF5 / JSON files explained in the [train](#train) section also applies here.
-In either case, the JSON metadata file obtained during training is needed in order to map the new data into tensors.
-If the new data contains a split column, you can specify which split to use to calculate the predictions with the `--split` argument. By default it's `full` which means all the splits will be used.
+The same distinction between UTF-8 encoded DATASET files and HDF5 / JSON files 
+explained in the [train](#train) section also applies here.
+In either case, the JSON metadata file obtained during training is needed 
+in order to map the new data into tensors.
+If the new data contains a split column, you can specify which split to use to 
+calculate the predictions with the `--split` argument. By default it's `full` 
+which means all the splits will be used.
 
 A model to load is needed, and you can specify its path with the `--model_path` argument.
-If you trained a model previously and got the results in, for instance, `./results/experiment_run_0`, you have to specify `./results/experiment_run_0/model` for using it to predict.
+If you trained a model previously and got the results in, for instance, 
+`./results/experiment_run_0`, you have to specify 
+`./results/experiment_run_0/model` for using it to predict.
 
 You can specify an output directory with the argument `--output-directory`, by default it will be `./result_0`, with increasing numbers if a directory with the same name is present.
 
@@ -253,11 +269,13 @@ You can specify not to save the raw NPY output files with the argument `skip_sav
 
 A specific batch size for speeding up the prediction can be specified using the argument `--batch_size`.
 
-Finally the `--logging_level`, `--debug` and `--gpus` related arguments behave exactly like described in the train command section.
+Finally the `--logging_level`, `--debug`, `--gpus`, `--gpu_memory_limit` 
+and `--disable_parallel_threads`  related arguments behave exactly like described 
+in the train command section.
 
 Example:
 ```
-ludwig predict --data_csv reuters-allcats.csv --model_path results/experiment_run_0/model/
+ludwig predict --dataset reuters-allcats.csv --model_path results/experiment_run_0/model/
 ```
 
 test

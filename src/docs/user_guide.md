@@ -407,8 +407,9 @@ ludwig evaluate --data_csv reuters-allcats.csv --model_path results/experiment_r
 experiment
 ----------
 
-This command combines training and evaluation into a single handy command.
-You can call it with:
+This command combines training and evaluation into a single handy command.  
+You can request a k-fold cross validation run by specifing the `--k_fold`
+parameter.  You can call it with:
 
 ```
 ludwig experiment [options]
@@ -460,6 +461,13 @@ optional arguments:
                         skips saving intermediate HDF5 and JSON files
   -ssuo, --skip_save_unprocessed_output
                         skips saving intermediate NPY output files
+  -kf K_FOLD, --k_fold K_FOLD
+                        number of folds for a k-fold cross validation run
+  -skfsi, --skip_save_k_fold_split_indices
+                        disables saving indices generated to split training
+                        data set for the k-fold cross validation run, but if it
+                        is not needed turning it off can slightly increase the
+                        overall speed
   -md MODEL_DEFINITION, --model_definition MODEL_DEFINITION
                         model definition
   -mdf MODEL_DEFINITION_FILE, --model_definition_file MODEL_DEFINITION_FILE

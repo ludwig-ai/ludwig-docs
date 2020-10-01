@@ -641,8 +641,8 @@ section see the detailed description in the
 visualize
 ---------
 
-This command lets you visualize training and prediction statistics, alongside with comparing different models performances and predictions.
-You can call it with:
+This command lets you visualize training and prediction statistics, alongside 
+with comparing different models performances and predictions.  You can call it with:
 
 ```
 ludwig visualize [options]
@@ -714,8 +714,9 @@ optional arguments:
                         the level of logging to use
 ```
 
-As the `--visualization` parameters suggests, there is a vast number of visualizations readily available.
-Each of them requires a different subset of this command's arguments, so they will be described one by one in the [Visualizations](#visualizations) section.
+As the `--visualization` parameters suggests, there is a vast number of visualizations 
+readily available.  Each of them requires a different subset of this command's 
+arguments, so they will be described one by one in the [Visualizations](#visualizations) section.
 
 collect_weights
 ---------------

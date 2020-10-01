@@ -726,6 +726,41 @@ As the `--visualization` parameters suggests, there is a vast number of visualiz
 readily available.  Each of them requires a different subset of this command's 
 arguments, so they will be described one by one in the [Visualizations](#visualizations) section.
 
+
+collect_summary
+---------------
+
+This command loads a pretrained model and prints names of weights and layers
+activations to use with `collect_weights` or `collect_activations`.
+
+```
+ludwig collect_summary [options]
+```
+
+or with
+
+```
+python -m ludwig.collect names [options]
+```
+
+from within Ludwig's main directory.
+
+These are the available arguments:
+
+```
+usage: ludwig collect_summary [options]
+
+This script loads a pretrained model and print names of weights and layer activations.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -m MODEL_PATH, --model_path MODEL_PATH
+                        model to load
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use
+```
+
+
 collect_weights
 ---------------
 

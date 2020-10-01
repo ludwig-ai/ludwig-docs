@@ -626,12 +626,16 @@ optional arguments:
                         the level of logging to use
 ```
 
-The parameters combine parameters from both [train](#train) and [test](#test) so refer to those sections for an in depth explanation.
-The output directory will contain a `hyperopt_statistics.json` file that summarizes the results obtained.
+The parameters combine parameters from both [train](#train) and [test](#test) so 
+refer to those sections for an in depth explanation. The output directory will 
+contain a `hyperopt_statistics.json` file that summarizes the results obtained.
 
-In order to perform an hyper-parameter optimization, the `hyperopt` section needs to be provided within the model definition.
-In the `hyperopt` section you will be able to define what metric to optimize, what aprameters, what sampler to use to optimize them and how to execute the optimization.
-For details on the `hyperopt` section see the detailed description in the [Hyper-parameter Optimization](#hyper-parameter-optimization) section.
+In order to perform an hyper-parameter optimization, the `hyperopt` section needs 
+to be provided within the model definition.  In the `hyperopt` section you will 
+be able to define what metric to optimize, what aprameters, what sampler to use 
+to optimize them and how to execute the optimization.  For details on the `hyperopt` 
+section see the detailed description in the 
+[Hyper-parameter Optimization](#hyper-parameter-optimization) section.
 
 
 visualize

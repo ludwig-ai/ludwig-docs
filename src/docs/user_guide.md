@@ -876,9 +876,11 @@ optional arguments:
   -H HOST, --host HOST  host for server (default: 0.0.0.0)
 ```
 
-The most important argument is `--model_path` where you have to specify the path of the model to load. 
+The most important argument is `--model_path` where you have to specify the path 
+of the model to load. 
 
-Once running, you can make a POST request on the `/predict` endpoint to run inference on the form data submitted. 
+Once running, you can make a POST request on the `/predict` endpoint to run 
+inference on the form data submitted. 
 
 #### Example curl
 
@@ -893,19 +895,22 @@ Once running, you can make a POST request on the `/predict` endpoint to run infe
 
 #### Batch prediction
 
-You can also make a POST request on the `/batch_predict` endpoint to run inference on multiple samples at once.
+You can also make a POST request on the `/batch_predict` endpoint to run 
+inference on multiple samples at once.
 
-Requests must be submitted as form data, with one of fields being `dataset`: a JSON encoded string representation
+Requests must be submitted as form data, with one of fields being `dataset`: a 
+JSON encoded string representation
 of the data to be predicted.
 
-The `dataset` JSON string is expected to be in the Pandas "split" format to reduce payload size. This format 
-divides the dataset into three parts:
+The `dataset` JSON string is expected to be in the Pandas "split" format to 
+reduce payload size. This format divides the dataset into three parts:
 
 1. columns: `List[str]`
 2. index (optional): `List[Union[str, int]]`
 3. data: `List[List[object]]`
 
-Additional form fields can be used to provide file resources like images that are referenced within the dataset.
+Additional form fields can be used to provide file resources like images that 
+are referenced within the dataset.
 
 ##### Example
 `curl http://0.0.0.0:8000/batch_predict -X POST -F 'dataset={"columns": ["a", "b"], "data": [[1, 2], [3, 4]]}'`

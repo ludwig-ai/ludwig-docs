@@ -1051,6 +1051,7 @@ Data Preprocessing
 
 Ludwig is able to read UTF-8 encoded data from 14 file formats.  Supported
 formats are
+
 * Comma Separated Values (`csv`)
 * Excel Workbooks (`excel`)
 * Feather (`feather`)

@@ -1570,7 +1570,64 @@ for large datasets and big batches.
 
 ### Optimizers details
 
+The `learning_rate` parameter the optimizer will use come from the `training` 
+section.  Other optimizer specific parameters, shown with their Ludwig default 
+settings, follow:
 
+* `sgd` (aka `stochastic_gradient_descent`, `gd`, `gradient_descent`) 
+```
+'momentum': 0.0,
+'nesterov': False
+```
+
+* `adam`
+```
+'beta_1': 0.9,
+'beta_2': 0.999,
+'epsilon': 1e-08
+```
+
+* `adadelta`
+```
+'rho': 0.95,
+'epsilon': 1e-08
+```
+
+* `adagrad`
+```
+'initial_accumulator_value': 0.1,
+'epsilon': 1e-07
+```
+
+* `adamax`
+```
+'beta_1': 0.9, 
+'beta_2': 0.999, 
+'epsilon': 1e-07
+```
+
+* `ftrl`
+``` 
+'learning_rate_power': -0.5, 
+'initial_accumulator_value': 0.1,
+'l1_regularization_strength': 0.0, 
+'l2_regularization_strength': 0.0,
+```
+
+* `nadam`,
+```
+'beta_1': 0.9, 
+'beta_2': 0.999, 
+'epsilon': 1e-07
+```
+
+* `rmsprop`
+``` 
+'decay': 0.9,
+'momentum': 0.0,
+'epsilon': 1e-10,
+'centered': False
+```
 
 
 Preprocessing

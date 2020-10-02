@@ -1493,33 +1493,80 @@ used for the final layer before projecting in the output class space of the
 Training
 --------
 
-The `training` section of the model definition lets you specify some parameters of the training process, like for instance the number of epochs or the learning rate.
+The `training` section of the model definition lets you specify some parameters 
+of the training process, like for instance the number of epochs or the learning rate.
 
 These are the available training parameters:
 
 - `batch_size` (default `128`): size of the batch used for training the model.
-- `eval_batch_size` (default `0`): size of the batch used for evaluating the model. If it is `0`, the same value of `batch_size` is used. This is usefult to speedup evaluation with a much bigger batch size than training, if enough memory is available, or to decrease the batch size when `sampled_softmax_cross_entropy` is used as loss for sequential and categorical features with big vocabulary sizes (evaluation needs to be performed on the full vocabulary, so a much smaller batch size may be needed to fit the activation tensors in memory).
+- `eval_batch_size` (default `0`): size of the batch used for evaluating the model. 
+If it is `0`, the same value of `batch_size` is used. This is usefult to speedup 
+evaluation with a much bigger batch size than training, if enough memory is 
+available, or to decrease the batch size when `sampled_softmax_cross_entropy` is 
+used as loss for sequential and categorical features with big vocabulary sizes 
+(evaluation needs to be performed on the full vocabulary, so a much smaller batch 
+size may be needed to fit the activation tensors in memory).
 - `epochs` (default `100`): number of epochs the training process will run for.
-- `early_stop` (default `5`): if there's a validation set, number of epochs of patience without an improvement on the validation measure before the training is stopped.
-- `optimizer` (default `{type: adam, beta1: 0.9, beta2: 0.999, epsilon: 1e-08}`): which optimizer to use with the relative parameters. The available optimizers are: `sgd` (or `stochastic_gradient_descent`, `gd`, `gradient_descent`, they are all the same), `adam`, `adadelta`, `adagrad`, `adagradda`, `momentum`, `ftrl`, `proximalgd`, `proximaladagrad`, `rmsprop`. To know their parameters check [TensorFlow's optimizer documentation](https://www.tensorflow.org/api_docs/python/tf/train).
+- `early_stop` (default `5`): if there's a validation set, number of epochs of 
+patience without an improvement on the validation measure before the training is stopped.
+- `optimizer` (default `{type: adam, beta1: 0.9, beta2: 0.999, epsilon: 1e-08}`): 
+which optimizer to use with the relative parameters. The available optimizers 
+are: `sgd` (or `stochastic_gradient_descent`, `gd`, `gradient_descent`, they are all the same), 
+`adam`, `adadelta`, `adagrad`, `adamax`, `ftrl`, `nadam`,
+`rmsprop`. To know their parameters check 
+[TensorFlow's optimizer documentation](https://www.tensorflow.org/api_docs/python/tf/train).
 - `learning_rate` (default `0.001`): the learning rate to use.
 - `decay` (default `false`): if to use exponential decay of the learning rate or not.
 - `decay_rate` (default `0.96`): the rate of the exponential learning rate decay.
 - `decay_steps` (default `10000`): the number of steps of the exponential learning rate decay.
 - `staircase` (default `false`): decays the learning rate at discrete intervals.
-- `regularization_lambda` (default `0`): the lambda parameter used for adding a l2 regularization loss to the overall loss.
-- `dropout_rate` (default `0.0`): the probability to drop neurons in dropout. The `dropout_rate` is used throughout the whole model, but to decide which parts of the model will use it, use the `dropout` boolean parameter available in each encoder, combiner and decoder.
-- `reduce_learning_rate_on_plateau` (default `0`): if there's a validation set, how many times to reduce the learning rate when a plateau of validation measure is reached.
-- `reduce_learning_rate_on_plateau_patience` (default `5`): if there's a validation set, number of epochs of patience without an improvement on the validation measure before reducing the learning rate.
-- `reduce_learning_rate_on_plateau_rate` (default `0.5`): if there's a validation set, the reduction rate of the learning rate.
-- `increase_batch_size_on_plateau` (default `0`): if there's a validation set, how many times to increase the batch size when a plateau of validation measure is reached.
-- `increase_batch_size_on_plateau_patience` (default `5`): if there's a validation set, number of epochs of patience without an improvement on the validation measure before increasing the learning rate.
-- `increase_batch_size_on_plateau_rate` (default `2`): if there's a validation set, the increase rate of the batch size.
-- `increase_batch_size_on_plateau_max` (default `512`): if there's a validation set, the maximum value of batch size.
-- `validation_field` (default `combined`): when there is more than one output feature, which one to use for computing if there was an improvement on validation. The measure to use to determine if there was an improvement can be set with the `validation_measure` parameter. Different datatypes have different available measures, refer to the datatype-specific section for more details. `combined` indicates the use the combination of all features. For instance the combination of `combined` and `loss` as measure uses a decrease in the combined loss of all output features to check for improvement on validation, while `combined` and `accuracy` considers on how many datapoints the predictions for all output features were correct (but consider that for some features, for instance `numeric` there is no accuracy measure, so you should use `accuracy` only if all your output features have an accuracy measure).
-- `validation_measure:` (default `loss`): the measure to use to determine if there was an improvement. The measure is considered for the output feature specified in `validation_field`. Different datatypes have different available measures, refer to the datatype-specific section for more details.
-- `bucketing_field` (default `null`): when not `null`, when creating batches, instead of shuffling randomly, the length along the last dimension of the matrix of the specified input feature is used for bucketing datapoints and then randomly shuffled datapoints from the same bin are sampled. Padding is trimmed to the longest datapoint in the batch. The specified feature should be either a `sequence` or `text` feature and the encoder encoding it has to be `rnn`. When used, bucketing improves speed of `rnn` encoding up to 1.5x, depending on the length distribution of the inputs.
-- `learning_rate_warmup_epochs` (default `1`): It's the number or training epochs where learning rate warmup will be used. It is calculated as described in [Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour](https://arxiv.org/abs/1706.02677). In the paper the authors suggest `6` epochs of warmup, that parameter is suggested for large datasets and big batches.
+- `regularization_lambda` (default `0`): the lambda parameter used for adding a 
+l2 regularization loss to the overall loss.
+- `reduce_learning_rate_on_plateau` (default `0`): if there's a validation set, 
+how many times to reduce the learning rate when a plateau of validation measure 
+is reached.
+- `reduce_learning_rate_on_plateau_patience` (default `5`): if there's a 
+validation set, number of epochs of patience without an improvement on the 
+validation measure before reducing the learning rate.
+- `reduce_learning_rate_on_plateau_rate` (default `0.5`): if there's a validation 
+set, the reduction rate of the learning rate.
+- `increase_batch_size_on_plateau` (default `0`): if there's a validation set, 
+how many times to increase the batch size when a plateau of validation measure is reached.
+- `increase_batch_size_on_plateau_patience` (default `5`): if there's a validation 
+set, number of epochs of patience without an improvement on the validation measure 
+before increasing the learning rate.
+- `increase_batch_size_on_plateau_rate` (default `2`): if there's a validation set, 
+the increase rate of the batch size.
+- `increase_batch_size_on_plateau_max` (default `512`): if there's a validation set, 
+the maximum value of batch size.
+- `validation_field` (default `combined`): when there is more than one output feature, 
+which one to use for computing if there was an improvement on validation. The measure 
+to use to determine if there was an improvement can be set with the `validation_measure` 
+parameter. Different datatypes have different available measures, refer to the 
+datatype-specific section for more details. `combined` indicates the use the 
+combination of all features. For instance the combination of `combined` and `loss` 
+as measure uses a decrease in the combined loss of all output features to check 
+for improvement on validation, while `combined` and `accuracy` considers on how 
+many datapoints the predictions for all output features were correct (but consider 
+that for some features, for instance `numeric` there is no accuracy measure, so 
+you should use `accuracy` only if all your output features have an accuracy measure).
+- `validation_metric:` (default `loss`): the metric to use to determine if 
+there was an improvement. The metric is considered for the output feature specified 
+in `validation_field`. Different datatypes have different available metrics, 
+refer to the datatype-specific section for more details.
+- `bucketing_field` (default `null`): when not `null`, when creating batches, 
+instead of shuffling randomly, the length along the last dimension of the matrix 
+of the specified input feature is used for bucketing datapoints and then randomly 
+shuffled datapoints from the same bin are sampled. Padding is trimmed to the 
+longest datapoint in the batch. The specified feature should be either a `sequence` 
+or `text` feature and the encoder encoding it has to be `rnn`. When used, bucketing 
+improves speed of `rnn` encoding up to 1.5x, depending on the length distribution 
+of the inputs.
+- `learning_rate_warmup_epochs` (default `1`): It's the number or training epochs 
+where learning rate warmup will be used. It is calculated as described 
+in [Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour](https://arxiv.org/abs/1706.02677). 
+In the paper the authors suggest `6` epochs of warmup, that parameter is suggested 
+for large datasets and big batches.
 
 ### Optimizers details
 
@@ -1529,36 +1576,49 @@ These are the available training parameters:
 Preprocessing
 -------------
 
-The `preprocessing` section of the model definition makes it possible to specify datatype specific parameters to perform data preprocessing.
-The preprocessing dictionary contains one key of each datatype, but you have to specify only the ones that apply to your case, the other ones will be kept as defaults.
-Moreover, the preprocessing dictionary contains parameters related to how to split the data that are not feature specific.
+The `preprocessing` section of the model definition makes it possible to specify 
+datatype specific parameters to perform data preprocessing.
+The preprocessing dictionary contains one key of each datatype, but you have to 
+specify only the ones that apply to your case, the other ones will be kept as 
+defaults.  Moreover, the preprocessing dictionary contains parameters related to 
+how to split the data that are not feature specific.
 
-- `force_split` (default `false`): if `true` the `split` column in the CSV data file is ignored and the dataset is randomly split. If `false` the `split` column is used if available.
-- `split_probabilities` (default `[0.7, 0.1, 0.2]`): the proportion of the CSV data to end up in training, validation and test. The three values have to sum up to one.
-- `stratify` (default `null`): if `null` the split is random, otherwise you can specify the name of a `category` feature and the split will be stratified on that feature.
+- `force_split` (default `False`): if `True` the `split` column in the DATASET 
+file is ignored and the dataset is randomly split. If `False` the `split` column 
+is used if available.
+- `split_probabilities` (default `[0.7, 0.1, 0.2]`): the proportion of the DATASET data 
+to end up in training, validation and test, respectively. The three values have 
+to sum up to one.
+- `stratify` (default `None`): if `None` the split is random, otherwise you can 
+specify the name of a `category` feature and the split will be stratified on that feature.
 
 Example preprocessing dictionary (showing default values):
 
 ```yaml
 preprocessing:
-    force_split: false
+    force_split: False
     split_probabilities: [0.7, 0.1, 0.2]
-    stratify: null
+    stratify: None
     category: {...}
     sequence: {...}
     text: {...}
     ...
 ```
 
-The details about the preprocessing parameters that each datatype accepts will be provided in the datatype-specific sections.
+The details about the preprocessing parameters that each datatype accepts will 
+be provided in the datatype-specific sections.
 
-It is important to point out that different features within the same datatype may require different preprocessing.
-For instance a document classification model may have two text input features, one for the title of the document and one for the body.
+It is important to point out that different features within the same datatype 
+may require different preprocessing.  For instance a document classification 
+model may have two text input features, one for the title of the document and one for the body.
 
-As the length of the title is much shorter than the length of the body, the parameter `word_length_limit` should be set to 10 for the title and 2000 for the body, but both of them share the same parameter `most_common_words` with value 10000.
+As the length of the title is much shorter than the length of the body, the 
+parameter `word_length_limit` should be set to 10 for the title and 2000 for the 
+body, but both of them share the same parameter `most_common_words` with value 10000.
 
-The way to do this is adding a `preprocessing` key inside the title `input_feature` dictionary and one in the `body` input feature dictionary containing the desired parameter and value.
-The model definition will look like:
+The way to do this is adding a `preprocessing` key inside the title `input_feature` 
+dictionary and one in the `body` input feature dictionary containing the desired 
+parameter and value.  The model definition will look like:
 
 ```yaml
 preprocessing:

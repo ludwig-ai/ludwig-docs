@@ -1711,16 +1711,37 @@ The parameters available for preprocessing are
 
 ### Binary Input Features and Encoders
 
-Binary features have no encoder, the raw binary values coming from the input placeholders are just returned as outputs.
-By consequence there are no encoding parameters.
-Inputs are of size `b` while outputs are of size `b x 1` where `b` is the batch size.
+Binary features have two encoders.  One encoder (`passthrough'`) takes the raw binary values coming from the input placeholders are just returned as outputs.  Inputs are of size `b` while outputs are of size `b x 1` where `b` is the batch size.  The other encoder (`'dense'`) passes the raw binary values through a fully connected layers.  In this case the inputs of size `b` are transformed to size `b x h`.  
 
 Example binary feature entry in the output features list:
 
 ```yaml
 name: binary_csv_column_name
 type: binary
+encoder: passthrough
 ```
+
+Binary input feature parameters are
+
+- `encoder` (default `'passthrough'`) encodes the binary feature.  Valid choices:  `'passthrough'`: binary feature is passed through as-is, `'dense'`: binary feature is fed through a fully connected layer.
+
+
+There are no additional parameters for the `passthrough` encoder.  For the `dense` encoder these are the available parameters.
+
+### Dense Encoder Parameters
+
+- `num_layers` (default `1`): this is the number of stacked fully connected layers that the input to the feature passes through. Their output is projected in the feature's output space.
+- `fc_size` (default `256`):
+- `use_bias` (default `True`):
+- `weights_initializer` (default `'glorot_uniform'`):
+- `bias_initializer` (default `'zeros'`):
+- `weights_regularizer` (default `None`):
+- `bias_regularizer` (default `None`):
+- `activity_regularizer` (default `None`):
+- `norm` (default `None`):
+- `norm_params` (default `None`):
+- `activation` (default `'relu'`):
+- `dropout` (default `0`):
 
 ### Binary Output Features and Decoders
 
@@ -1741,9 +1762,21 @@ These are the available parameters of a binary output feature decoder
 - `fc_size` (default `256`): if a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
-- `dropout` (default `false`): determines if there should be a dropout layer after each layer.
+- `dropout` (default `0`): dropout rate.
+**********************************
 - `initializer` (default `null`): the initializer to use. If `null`, the default initialized of each variable is used (`glorot_uniform` in most cases). Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
 - `regularize` (default `true`): if `true` the wights of the layers are added to the set of weights that get regularized by a regularization loss (if the `regularization_lambda` in `training` is greater than 0).
+***********************************************
+
+- `use_base` (default `True`): boolean, whether the layer uses a bias vector.
+- `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `bias_initializer` (default `'zeros'`): initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `weights_regularizer` (default `None`): regularizer function applied to the .weights matrix.
+- `bias_regularizer` (default `None`): regularizer function applied to the bias vector.
+- `activity_regularizer` (default `None`): regurlizer function applied to the output of the layer.
+
+
+
 - `threshold` (default `0.5`): The threshold above (greater or equal) which the predicted output of the sigmoid will be mapped to 1.
 
 Example binary feature entry (with default parameters) in the output features list:

@@ -1301,30 +1301,50 @@ training: {}
 preprocessing: {}
 ```
 
-Only `input_features` and `output_features` are required, the other three fields have default values, but you are free to modify them.
+Only `input_features` and `output_features` are required, the other three fields 
+have default values, but you are free to modify them.
 
 Input features
 --------------
 
-The `input_features` list contains a list of dictionaries, each of them containing two required fields `name` and `type`.
-`name` is the name of the feature and is the same name of the column of the CSV input file, `type` is one of the supported datatypes.
-Input features may have different ways to be encoded and the parameter to decide it is `encoder`.
+The `input_features` list contains a list of dictionaries, each of them containing 
+two required fields `name` and `type`.
+`name` is the name of the feature and is the same name of the column of the DATASET 
+input file, `type` is one of the supported datatypes.  Input features may have 
+different ways to be encoded and the parameter to decide it is `encoder`.
 
-All the other parameters you specify in an input feature will be passed as parameters to the function that build the encoder, and each encoder can have different parameters.
+All the other parameters you specify in an input feature will be passed as 
+parameters to the function that build the encoder, and each encoder can have 
+different parameters.
 
-For instance a `sequence` feature can be encoded by a `stacked_cnn` or by and `rnn`, but only the `stacked_cnn` will accept the parameter `num_filters` while only the `rnn` will accept the parameter `bidirectional`.
+For instance a `sequence` feature can be encoded by a `stacked_cnn` or by and 
+`rnn`, but only the `stacked_cnn` will accept the parameter `num_filters` while 
+only the `rnn` will accept the parameter `bidirectional`.
 
-A list of all the encoders available for all the datatypes alongside with the description of all parameters will be provided in the datatype-specific sections.
+A list of all the encoders available for all the datatypes alongside with the 
+description of all parameters will be provided in the datatype-specific sections.
 Some datatypes have only one type of encoder, so you are not required to specify it.
 
-The role of the encoders is to map inputs into tensors, usually vectors in the case of datatype without a temporal / sequential aspect, matrices in case there is a temporal / sequential aspect or higher rank tensors in case there is a spatial or a spatio-temporal aspect to the input data.
+The role of the encoders is to map inputs into tensors, usually vectors in the 
+case of datatype without a temporal / sequential aspect, matrices in case there 
+is a temporal / sequential aspect or higher rank tensors in case there is a 
+spatial or a spatio-temporal aspect to the input data.
 
-Different configurations of the same encoder may return a tensor with different rank, for instance a sequential encoder may return a vector of size `h` that is either the final vector of a sequence or the result of pooling over the sequence length, or it can return a matrix of size `l x h` where `l` is the length of the sequence and `h` is the hidden dimension if you specify the pooling reduce operation (`reduce_output`) to be `null`.
-For the sake of simplicity you can imagine the output to be a vector in most of the cases, but there is a `reduce_output` parameter one can specify to change the default behavior.
+Different configurations of the same encoder may return a tensor with different 
+rank, for instance a sequential encoder may return a vector of size `h` that is 
+either the final vector of a sequence or the result of pooling over the sequence 
+length, or it can return a matrix of size `l x h` where `l` is the length of the 
+sequence and `h` is the hidden dimension if you specify the pooling reduce 
+operation (`reduce_output`) to be `null`.  For the sake of simplicity you can 
+imagine the output to be a vector in most of the cases, but there is a 
+`reduce_output` parameter one can specify to change the default behavior.
 
-An additional feature that ludwig provides is the option to have tied weights between different encoders.
-For instance if my model takes two sentences as input and return the probability of their entailment, I may want to encode both sentences with the same encoder.
-The way to do it is by specifying the `tied-weights` parameter of the second feature you define to be the name of the first feature you defined.
+An additional feature that Ludwig provides is the option to have tied weights 
+between different encoders.  For instance if my model takes two sentences as 
+input and return the probability of their entailment, I may want to encode both 
+sentences with the same encoder.  The way to do it is by specifying the 
+`tied-weights` parameter of the second feature you define to be the name of the 
+first feature you defined.
 
 ```yaml
 input_features:
@@ -1337,15 +1357,20 @@ input_features:
         tied_weights: sentence1
 ```
 
-If you specify a name of an input feature that has not been defined yet, it will result in an error.
-Also, in order to be able to have tied weights, all encoder parameters have to be identical between the two input features.
+If you specify a name of an input feature that has not been defined yet, it will 
+result in an error.  Also, in order to be able to have tied weights, all encoder 
+parameters have to be identical between the two input features.
 
 Combiner
 --------
 
-Combiners are part of the model that take all the outputs of the different input features and combine them in a single representation that is passed to the outputs.
+Combiners are part of the model that take all the outputs of the different input 
+features and combine them in a single representation that is passed to the outputs.
 You can specify which one to use in the `combiner` section of the model definition.
-Different combiners implement different combination logic, but the default one `concat` just concatenates all outputs of input feature encoders and optionally passes the concatenation through fully connected layers, with the output of the last layer being forwarded to the outputs decoders.
+Different combiners implement different combination logic, but the default one 
+`concat` just concatenates all outputs of input feature encoders and optionally 
+passes the concatenation through fully connected layers, with the output of the 
+last layer being forwarded to the outputs decoders.
 
 ```
 +-----------+
@@ -1361,31 +1386,52 @@ Different combiners implement different combination logic, but the default one `
 +-----------+
 ```
 
-For the sake of simplicity you can imagine the both inputs and outputs are vectors in most of the cases, but there are `reduce_input` and `reduce_output` parameters to specify to change the default behavior.
+For the sake of simplicity you can imagine the both inputs and outputs are 
+vectors in most of the cases, but there are `reduce_input` and `reduce_output` 
+parameters to specify to change the default behavior.
 
 Output Features
 ---------------
 
-The `output_features` list has the same structure of the `input_features` list: it is a list of dictionaries containing a `name` and a `type`.
+The `output_features` list has the same structure of the `input_features` list: 
+it is a list of dictionaries containing a `name` and a `type`.
 They represent outputs / targets that you want your model to predict.
-In most machine learning tasks you want to predict only one target variable, but in Ludwig you are allowed to specify as many outputs as you want and they are going to be optimized in a multi-task fashion, using a weighted sum of their losses as a combined loss to optimize.
+In most machine learning tasks you want to predict only one target variable, 
+but in Ludwig you are allowed to specify as many outputs as you want and they 
+are going to be optimized in a multi-task fashion, using a weighted sum of their 
+losses as a combined loss to optimize.
 
-Instead of having `encoders`, output features have `decoders`, but most of them have only one decoder so you don't have to specify it.
+Instead of having `encoders`, output features have `decoders`, but most of them 
+have only one decoder so you don't have to specify it.
 
-Decoders take the output of the combiner as input, process it further, for instance passing it through fully connected layers, and finally predict values and compute a loss and some measures (depending on the datatype different losses and measures apply).
+Decoders take the output of the combiner as input, process it further, for 
+instance passing it through fully connected layers, and finally predict values 
+and compute a loss and some measures (depending on the datatype different losses 
+and measures apply).
 
-Decoders have additional parameters, in particular `loss` that allows you to specify a different loss to optimize for this specific decoder, for instance numerical features support both `mean_squared_error` and `mean_absolute_error` as losses.
-Details about the available decoders and losses alongside with the description of all parameters will be provided in the datatype-specific sections.
+Decoders have additional parameters, in particular `loss` that allows you to 
+specify a different loss to optimize for this specific decoder, for instance 
+numerical features support both `mean_squared_error` and `mean_absolute_error` 
+as losses.  Details about the available decoders and losses alongside with the 
+description of all parameters will be provided in the datatype-specific sections.
 
-For the sake of simplicity you can imagine the input coming from the combiner to be a vector in most of the cases, but there is a `reduce_input` parameter one can specify to change the default behavior.
+For the sake of simplicity you can imagine the input coming from the combiner to 
+be a vector in most of the cases, but there is a `reduce_input` parameter one 
+can specify to change the default behavior.
 
 ### Multi-task Learning
 
-As Ludwig allows for multiple output features to be specified and each output feature can be seen as a task the model is learning to perform, by consequence Ludwig supports Multi-task learning natively.
-When multiple output features are specified, the loss that is optimized is a weighted sum of the losses of each individual output feature.
-By default each loss weight is `1`, but it can be changed by specifying a value for the `weight` parameter in the `loss` section of each output feature definition.
+As Ludwig allows for multiple output features to be specified and each output 
+feature can be seen as a task the model is learning to perform, by consequence 
+Ludwig supports Multi-task learning natively.  When multiple output features are 
+specified, the loss that is optimized is a weighted sum of the losses of each 
+individual output feature.  By default each loss weight is `1`, but it can be 
+changed by specifying a value for the `weight` parameter in the `loss` section 
+of each output feature definition.
 
-For example, given a `category` feature `A` and `numerical` feature `B`, in order to optimize the loss `loss_total = 1.5 * loss_A + 0.8 + loss_B` the `output_feature` section of the model definition should look like:
+For example, given a `category` feature `A` and `numerical` feature `B`, in 
+order to optimize the loss `loss_total = 1.5 * loss_A + 0.8 + loss_B` the 
+`output_feature` section of the model definition should look like:
 
 ```yaml
 output_features:
@@ -1403,14 +1449,20 @@ output_features:
 
 ### Output Features Dependencies
 
-An additional feature that Ludwig provides is the concept of dependency between `output_features`.
-You can specify a list of output features as dependencies when you write the dictionary of a specific feature.
-At model building time Ludwig checks that no cyclic dependency exists.
-If you do so Ludwig will concatenate all the final representations before the prediction of those output features to the original input of the decoder.
-The reason is that if different output features have a causal dependency, knowing which prediction has been made for one can help making the prediction of the other.
+An additional feature that Ludwig provides is the concept of dependency between 
+`output_features`.  You can specify a list of output features as dependencies 
+when you write the dictionary of a specific feature.  At model building time 
+Ludwig checks that no cyclic dependency exists.  If you do so Ludwig will 
+concatenate all the final representations before the prediction of those output 
+features to the original input of the decoder.  The reason is that if different 
+output features have a causal dependency, knowing which prediction has been made 
+for one can help making the prediction of the other.
 
-For instance if two output features are one coarse grained category and one fine-grained category that are in a hierarchical structure with each other, knowing the prediction made for coarse grained restricts the possible categories to predict for the fine-grained.
-In this case the following model definition structure can be used:
+For instance if two output features are one coarse grained category and one 
+fine-grained category that are in a hierarchical structure with each other, 
+knowing the prediction made for coarse grained restricts the possible categories 
+to predict for the fine-grained.  In this case the following model definition 
+structure can be used:
 
 ```yaml
 output_features:
@@ -1428,8 +1480,15 @@ output_features:
         fc_size: 64
 ```
 
-Assuming the input coming from the combiner has hidden dimension `h` 128, there are two fully connected layers that return a vector with hidden size 64 at the end of the `coarse_class` decoder (that vector will be used for the final layer before projecting in the output `coarse_class` space)
-In the decoder of `fine_class`, the 64 dimensional vector of `coarse_class` will be concatenated to the combiner output vector, making a vector of hidden size 192 that will be passed through a fully connected layer and the 64 dimensional output will be used for the final layer before projecting in the output class space of the `fine_class`.
+Assuming the input coming from the combiner has hidden dimension `h` 128, there 
+are two fully connected layers that return a vector with hidden size 64 at the 
+end of the `coarse_class` decoder (that vector will be used for the final layer 
+before projecting in the output `coarse_class` space).  In the decoder of 
+`fine_class`, the 64 dimensional vector of `coarse_class` will be concatenated 
+to the combiner output vector, making a vector of hidden size 192 that will be 
+passed through a fully connected layer and the 64 dimensional output will be 
+used for the final layer before projecting in the output class space of the 
+`fine_class`.
 
 Training
 --------

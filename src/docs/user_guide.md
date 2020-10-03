@@ -1924,9 +1924,9 @@ The parameters available for preprocessing are
 - `padding_symbol` (default `<PAD>`): the string used as a padding symbol. Is is mapped to the integer ID 0 in the vocabulary.
 - `unknown_symbol` (default `<UNK>`): the string used as a unknown symbol. Is is mapped to the integer ID 1 in the vocabulary.
 - `padding` (default `right`): the direction of the padding. `right` and `left` are available options.
-- `tokenizer` (default `space`): defines how to map from the raw string content of the DATASET column to a sequence of elements. The default value `space` splits the string on spaces. Other options are: `underscore` (splits on underscore), `comma`(splits on comma), `json` (decodes the string into a set or a list through a JSON parser).
+- `tokenizer` (default `space`): defines how to map from the raw string content of the DATASET column to a sequence of elements.
 - `lowercase` (default `False`): if the string has to be lowercase before being handled by the formatter.
-- `vocab_file` (default `None):
+- `vocab_file` (default `None`)  filepath string to a UTF-8 encoded file to build the sequence's vocabulary.  Format of the file is one vocabulary term per line.
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
 - `fill_value` (default `""`): the value to replace the missing values with in case the `missing_value_strategy` is `fill_value`.
 

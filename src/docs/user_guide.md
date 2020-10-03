@@ -132,45 +132,20 @@ JSON file will contain a `idx2str` list containing all tokens
 (`{"<UNK>": 0, "label_1": 1, "label_2": 2, "label_3": 3}`) and a `str2freq` 
 dictionary (`{"<UNK>": 0, "label_1": 93, "label_2": 55, "label_3": 24}`).
 
-The reason to have those  intermediate files is two-fold: on one hand, if you 
-are going to train your model again Ludwig will try to load them instead of 
-recomputing all tensors, which saves a considerable amount of time, and on the 
-other hand when you want to use your model to predict, data has to be mapped to 
-tensors in exactly the same way it was mapped during training, so you'll be 
-required to load the JSON metadata file in the `predict` command.
-The way this works is: the first time you provide a UTF-8 encoded DATASET 
-(`--dataset`), the HDF5 and JSON files are created, from the second time on 
-Ludwig will load them instead of the DATASET even if you specify the DATASET 
-(it looks in the same directory for files names in the same way but with a 
-different extension), finally you can directly specify the HDF5 and JSON files.
+The reason to have those  intermediate files is two-fold: on one hand, if you are going to train your model again Ludwig will try to load them instead of recomputing all tensors, which saves a considerable amount of time, and on the other hand when you want to use your model to predict, data has to be mapped to tensors in exactly the same way it was mapped during training, so you'll be required to load the JSON metadata file in the `predict` command.
+The way this works is: the first time you provide a UTF-8 encoded DATASET (`--dataset`), the HDF5 and JSON files are created, from the second time on Ludwig will load them instead of the DATASET even if you specify the DATASET (it looks in the same directory for files names in the same way but with a different extension), finally you can directly specify the HDF5 and JSON files.
 
-As the mapping from raw data to tensors depends on the type of feature that you 
-specify in your model definition, if you change type (for instance from 
-`sequence` to `text`) you also have to redo the preprocessing, which is achieved 
-by deleting the HDF5 and JSON files.
+As the mapping from raw data to tensors depends on the type of feature that you specify in your model definition, if you change type (for instance from `sequence` to `text`) you also have to redo the preprocessing, which is achieved by deleting the HDF5 and JSON files.
 Alternatively you can skip saving the HDF5 and JSON files specifying `--skip_save_processed_input`.
 
 Splitting between train, validation and test set can be done in several ways.
 This allows for a few possible input data scenarios:
 
-- one single UTF-8 encoded DATASET file is provided (`-dataset`). In this case 
-if the DATASET contains a `split` column with values `0` for training, `1` for 
-validation and `2` for test, this split will be used. If you want to ignore the 
-split column and perform a random split, use a `force_split` argument in the 
-model definition. In the case when there is no split column, a random `70-20-10` 
-split will be performed. You can set the percentages and specify if you want 
-stratified sampling in the model definition preprocessing section.
+- one single UTF-8 encoded DATASET file is provided (`-dataset`). In this case if the DATASET contains a `split` column with values `0` for training, `1` for validation and `2` for test, this split will be used. If you want to ignore the split column and perform a random split, use a `force_split` argument in the model definition. In the case when there is no split column, a random `70-20-10` split will be performed. You can set the percentages and specify if you want stratified sampling in the model definition preprocessing section.
+- you can provide separate UTF-8 encoded training, validation and test sets  (`--training_set`, `--validation_set`, `--test_set`).
+- the HDF5 and JSON file indications specified in the case of a single DATASET file apply also in the multiple files case, with the only difference that you need to specify only one JSON file (`--train_set_metadata_json`).
 
-- you can provide separate UTF-8 encoded training, validation and test sets  
-(`--training_set`, `--validation_set`, `--test_set`).
-
-- the HDF5 and JSON file indications specified in the case of a single DATASET 
-file apply also in the multiple files case, with the only difference that you 
-need to specify only one JSON file (`--train_set_metadata_json`).
-The validation set is optional, but if absent the training wil continue until 
-the end of the training epochs, while when there's a validation set the default 
-behavior is to perform early stopping after the validation measure does not 
-improve for a certain amount of epochs. The test set is optional too.
+The validation set is optional, but if absent the training wil continue until the end of the training epochs, while when there's a validation set the default behavior is to perform early stopping after the validation measure does not improve for a certain amount of epochs. The test set is optional too.
 
 Other optional arguments are `--output_directory`, `--experiment_name` and `--model name`.
 By default the output directory is `./results`.
@@ -181,12 +156,9 @@ at the end of the name wil be increased.
 If neither of them is specified the directory will be named `run_0`.
 The directory will contain
 
-- `description.json` - a file containing a description of the training process 
-with all the information to reproduce it.
-- `training_statistics.json` - a file containing records of all measures and losses 
-for each epoch.
-- `model` - a directory containing model hyper-parameters, weights, checkpoints 
-and logs (for TensorBoard).
+- `description.json` - a file containing a description of the training process with all the information to reproduce it.
+- `training_statistics.json` - a file containing records of all measures and losses for each epoch.
+- `model` - a directory containing model hyper-parameters, weights, checkpoints and logs (for TensorBoard).
 
 The model definition can be provided either as a string (`--model_definition`) 
 or as YAML file (`--model_definition_file`).
@@ -198,35 +170,21 @@ measure was achieved and one that is the weights at the end of the latest epoch.
 The reason for keeping the second set is to be able to resume training in case 
 the training process gets interrupted somehow.
 
-To resume training using the latest weights and the whole history of progress 
-so far you have to specify the `--model_resume_path` argument.  You can avoid 
-saving the latest weights and the overall progress so far by using 
-the argument `--skip_save_progress`, but you will not be able to resume it afterwards.
-Another available option is to load a previously trained model as an initialization 
-for a new training process.  In this case Ludwig will start a new training 
-process, without knowing any progress of the previous model, no training statistics, 
-nor the number of epochs the model has been trained on so far.
-It's not resuming training, just initializing training with a previously trained 
-model with the same model definition, and it is accomplished through the `--model_load_path` argument.
+To resume training using the latest weights and the whole history of progress so far you have to specify the `--model_resume_path` argument.  You can avoid saving the latest weights and the overall progress so far by using the argument `--skip_save_progress`, but you will not be able to resume it afterwards.
+Another available option is to load a previously trained model as an initialization for a new training process.  In this case Ludwig will start a new training process, without knowing any progress of the previous model, no training statistics, nor the number of epochs the model has been trained on so far.
+It's not resuming training, just initializing training with a previously trained model with the same model definition, and it is accomplished through the `--model_load_path` argument.
 
-You can specify a random seed to be used by the python environment, python 
-random package, numpy and TensorFlow with the `--random_seed` argument.
+You can specify a random seed to be used by the python environment, python random package, numpy and TensorFlow with the `--random_seed` argument.
 This is useful for reproducibility.
 Be aware that due to asynchronicity in the TensorFlow GPU execution, when training on GPU results may not be reproducible.
 
-You can manage which GPUs on your machine are used with the `--gpus` argument, 
-which accepts a string identical to the format of `CUDA_VISIBLE_DEVICES` 
-environment variable, namely a list of integers separated by comma.
+You can manage which GPUs on your machine are used with the `--gpus` argument, which accepts a string identical to the format of `CUDA_VISIBLE_DEVICES` environment variable, namely a list of integers separated by comma.
 You can also specify the amount of GPU memory that will be initially assigned to TensorFlow with `--gpu_memory_limit`.
-By default all of memory is allocated.  If less than all of memory is allcoated, TensorFlow will 
-need more GPU memory it will try to increase this amount.
+By default all of memory is allocated.  If less than all of memory is allcoated, TensorFlow will need more GPU memory it will try to increase this amount.
 
-If parameter `--use_horovod` is set `True`, will use Horovod for distributed processing. 
+If parameter `--use_horovod` is set `True`, will use Horovod for distributed processing.
 
-Finally the `--logging_level` argument lets you set the amount of logging that 
-you want to see during training and the `--debug` argument turns on TensorFlow's 
-`tfdbg`. Be careful when doing so, as it will help in catching errors, in particular 
-`infs` and `NaNs` but it will consume much more memory.
+Finally the `--logging_level` argument lets you set the amount of logging that you want to see during training and the `--debug` argument turns on TensorFlow's `tfdbg`. Be careful when doing so, as it will help in catching errors, in particular `infs` and `NaNs` but it will consume much more memory.
 
 Example:
 ```
@@ -292,13 +250,9 @@ optional arguments:
                         the level of logging to use
 ```
 
-The same distinction between UTF-8 encoded DATASET files and HDF5 / JSON files 
-explained in the [train](#train) section also applies here.
-In either case, the JSON metadata file obtained during training is needed 
-in order to map the new data into tensors.
-If the new data contains a split column, you can specify which split to use to 
-calculate the predictions with the `--split` argument. By default it's `full` 
-which means all the splits will be used.
+The same distinction between UTF-8 encoded DATASET files and HDF5 / JSON files explained in the [train](#train) section also applies here.
+In either case, the JSON metadata file obtained during training is needed in order to map the new data into tensors.
+If the new data contains a split column, you can specify which split to use to calculate the predictions with the `--split` argument. By default it's `full` which means all the splits will be used.
 
 A model to load is needed, and you can specify its path with the `--model_path` argument.
 If you trained a model previously and got the results in, for instance, 
@@ -314,9 +268,7 @@ You can specify not to save the raw NPY output files with the argument `skip_sav
 
 A specific batch size for speeding up the prediction can be specified using the argument `--batch_size`.
 
-Finally the `--logging_level`, `--debug`, `--gpus`, `--gpu_memory_limit` 
-and `--disable_parallel_threads`  related arguments behave exactly like described 
-in the train command section.
+Finally the `--logging_level`, `--debug`, `--gpus`, `--gpu_memory_limit` and `--disable_parallel_threads`  related arguments behave exactly like described in the train command section.
 
 Example:
 ```
@@ -388,11 +340,8 @@ optional arguments:
 ```
 
 All parameters are the same of [predict](#predict) and the behavior is the same.
-The only difference isthat `evaluate` requires the dataset to contain also 
-columns with the same name of output features.
-This is needed because `evaluate` compares the predictions produced by the model 
-with the ground truth and will save all those statistics in a 
-`test_statistics.json` file in the result directory.
+The only difference isthat `evaluate` requires the dataset to contain also columns with the same name of output features.
+This is needed because `evaluate` compares the predictions produced by the model with the ground truth and will save all those statistics in a `test_statistics.json` file in the result directory.
 
 Note that the data must contain columns for each output feature with ground 
 truth output values in order to compute the performance statistics.
@@ -634,23 +583,15 @@ optional arguments:
                         the level of logging to use
 ```
 
-The parameters combine parameters from both [train](#train) and [test](#test) so 
-refer to those sections for an in depth explanation. The output directory will 
-contain a `hyperopt_statistics.json` file that summarizes the results obtained.
+The parameters combine parameters from both [train](#train) and [test](#test) so refer to those sections for an in depth explanation. The output directory will contain a `hyperopt_statistics.json` file that summarizes the results obtained.
 
-In order to perform an hyper-parameter optimization, the `hyperopt` section needs 
-to be provided within the model definition.  In the `hyperopt` section you will 
-be able to define what metric to optimize, what aprameters, what sampler to use 
-to optimize them and how to execute the optimization.  For details on the `hyperopt` 
-section see the detailed description in the 
-[Hyper-parameter Optimization](#hyper-parameter-optimization) section.
+In order to perform an hyper-parameter optimization, the `hyperopt` section needs to be provided within the model definition.  In the `hyperopt` section you will be able to define what metric to optimize, what aprameters, what sampler to use to optimize them and how to execute the optimization.  For details on the `hyperopt` section see the detailed description in the [Hyper-parameter Optimization](#hyper-parameter-optimization) section.
 
 
 visualize
 ---------
 
-This command lets you visualize training and prediction statistics, alongside 
-with comparing different models performances and predictions.  You can call it with:
+This command lets you visualize training and prediction statistics, alongside with comparing different models performances and predictions.  You can call it with:
 
 ```
 ludwig visualize [options]
@@ -722,9 +663,7 @@ optional arguments:
                         the level of logging to use
 ```
 
-As the `--visualization` parameters suggests, there is a vast number of visualizations 
-readily available.  Each of them requires a different subset of this command's 
-arguments, so they will be described one by one in the [Visualizations](#visualizations) section.
+As the `--visualization` parameters suggests, there is a vast number of visualizations readily available.  Each of them requires a different subset of this command's arguments, so they will be described one by one in the [Visualizations](#visualizations) section.
 
 
 collect_summary
@@ -761,13 +700,44 @@ optional arguments:
 ```
 
 
+
+collect_summary
+---------------
+
+This command loads a pretrained model and prints names of weights and layers activations to use with `collect_weights` or `collect_activations`.
+
+```
+ludwig collect_summary [options]
+```
+
+or with
+
+```
+python -m ludwig.collect names [options]
+```
+
+from within Ludwig's main directory.
+
+These are the available arguments:
+
+```
+usage: ludwig collect_summary [options]
+
+This script loads a pretrained model and print names of weights and layer activations.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -m MODEL_PATH, --model_path MODEL_PATH
+                        model to load
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use
+```
+
+
 collect_weights
 ---------------
 
-This command lets you load a pre-trained model and collect the tensors with a 
-specific name in order to save them in a NPY format.  This may be useful in order 
-to visualize the learned weights (for instance collecting embedding matrices) and 
-for some post-hoc analyses.  You can call it with:
+This command lets you load a pre-trained model and collect the tensors with a specific name in order to save them in a NPY format.  This may be useful in order to visualize the learned weights (for instance collecting embedding matrices) and for some post-hoc analyses.  You can call it with:
 
 ```
 ludwig collect_weights [options]
@@ -800,14 +770,9 @@ optional arguments:
                         the level of logging to use
 ```
 
-The three most important arguments are `--model_path` where you have to specify 
-the path of the model to load, `--tensors` that lets you specify a list of 
-tensor names in the TensorFlow graph that contain the weights you want to collect, 
-and finally `--output_directory` that lets you specify where the NPY files (one 
-for each tensor name specified) will be saved.
+The three most important arguments are `--model_path` where you have to specify the path of the model to load, `--tensors` that lets you specify a list of tensor names in the TensorFlow graph that contain the weights you want to collect, and finally `--output_directory` that lets you specify where the NPY files (one for each tensor name specified) will be saved.
 
-In order to figure out the names of the tensors containing the weights you want 
-to collect, the best way is to inspect the graph of the model with TensorBoard.
+In order to figure out the names of the tensors containing the weights you want to collect, the best way is to inspect the graph of the model with TensorBoard.
 
 ```
 tensorboard --logdir /path/to/model/log
@@ -816,11 +781,7 @@ tensorboard --logdir /path/to/model/log
 collect_activations
 -------------------
 
-This command lets you load a pre-trained model and input data and collects the 
-values of activations contained in tensors with a specific name in order to save 
-them in a NPY format.  This may be useful in order to visualize the activations 
-(for instance collecting last layer's activations as embeddings representations 
-of the input datapoint) and for some post-hoc analyses.  You can call it with:
+This command lets you load a pre-trained model and input data and collects the values of activations contained in tensors with a specific name in order to save them in a NPY format.  This may be useful in order to visualize the activations (for instance collecting last layer's activations as embeddings representations of the input datapoint) and for some post-hoc analyses.  You can call it with:
 
 ```
 ludwig collect_activations [options]
@@ -871,14 +832,10 @@ optional arguments:
                         the level of logging to use
 ```
 
-The data related and runtime related arguments (GPUs, batch size, etc.) are the 
-same used in [predict](#predict), you can refer to that section for an explanation.
-The collect specific arguments `--model_path`, `--tensors` and `--output_directory` 
-are the same used in [collect_weights](#collect_weights), you can refer to that 
-section for an explanation.
+The data related and runtime related arguments (GPUs, batch size, etc.) are the same used in [predict](#predict), you can refer to that section for an explanation.
+The collect specific arguments `--model_path`, `--tensors` and `--output_directory` are the same used in [collect_weights](#collect_weights), you can refer to that section for an explanation.
 
-In order to figure out the names of the tensors containing the activations you 
-want to collect, the best way is to inspect the graph of the model with TensorBoard.
+In order to figure out the names of the tensors containing the activations you want to collect, the best way is to inspect the graph of the model with TensorBoard.
 
 ```
 tensorboard --logdir /path/to/model/log
@@ -919,11 +876,9 @@ optional arguments:
   -H HOST, --host HOST  host for server (default: 0.0.0.0)
 ```
 
-The most important argument is `--model_path` where you have to specify the path 
-of the model to load. 
+The most important argument is `--model_path` where you have to specify the path of the model to load.
 
-Once running, you can make a POST request on the `/predict` endpoint to run 
-inference on the form data submitted. 
+Once running, you can make a POST request on the `/predict` endpoint to run inference on the form data submitted.
 
 #### Example curl
 
@@ -938,22 +893,17 @@ inference on the form data submitted.
 
 #### Batch prediction
 
-You can also make a POST request on the `/batch_predict` endpoint to run 
-inference on multiple samples at once.
+You can also make a POST request on the `/batch_predict` endpoint to run inference on multiple samples at once.
 
-Requests must be submitted as form data, with one of fields being `dataset`: a 
-JSON encoded string representation
-of the data to be predicted.
+Requests must be submitted as form data, with one of fields being `dataset`: a JSON encoded string representation of the data to be predicted.
 
-The `dataset` JSON string is expected to be in the Pandas "split" format to 
-reduce payload size. This format divides the dataset into three parts:
+The `dataset` JSON string is expected to be in the Pandas "split" format to reduce payload size. This format divides the dataset into three parts:
 
 1. columns: `List[str]`
 2. index (optional): `List[Union[str, int]]`
 3. data: `List[List[object]]`
 
-Additional form fields can be used to provide file resources like images that 
-are referenced within the dataset.
+Additional form fields can be used to provide file resources like images that are referenced within the dataset.
 
 ##### Example
 `curl http://0.0.0.0:8000/batch_predict -X POST -F 'dataset={"columns": ["a", "b"], "data": [[1, 2], [3, 4]]}'`
@@ -1008,12 +958,9 @@ optional arguments:
 
 ### Neuropod export
 
-A Ludwig model can be exported as a [Neuropod](https://github.com/uber/neuropod), 
-a mechanism that allows it to be executed in a framework agnostic way.
+A Ludwig model can be exported as a [Neuropod](https://github.com/uber/neuropod), a mechanism that allows it to be executed in a framework agnostic way.
 
-In order to export a Ludwig model as a Neuropod, first make sure the `neuropod` 
-package is installed in your environment together with the approrpiate backend 
-(only use Python 3.7+), then run the following command:
+In order to export a Ludwig model as a Neuropod, first make sure the `neuropod` package is installed in your environment together with the approrpiate backend (only use Python 3.7+), then run the following command:
 
 ```
 ludwig export_neuropod [options]
@@ -1049,8 +996,8 @@ This functionality has been tested with `neuropod==0.2.0`.
 Data Preprocessing
 ==================
 
-Ludwig is able to read UTF-8 encoded data from 14 file formats.  Supported
-formats are
+Ludwig is able to read UTF-8 encoded data from 14 file formats.
+Supportedformats are:
 
 * Comma Separated Values (`csv`)
 * Excel Workbooks (`excel`)
@@ -1066,28 +1013,15 @@ formats are
 * Stata file (`stata`)
 * Tab Separated Values (`tsv`)
 
-Ludwig data preprocessing maps raw data in a supported DATASET into 
-an HDF5 file containing tensors and a JSON file containing mappings from strings 
-to tensors when needed.
-This mapping is performed when a UTF-8 encoded data is provided as input and both 
-HDF5 and JSON files are saved in the same directory as the input dataset, unless the 
-argument `--skip_save_processed_input` is used (both in `train` and `experiment` commands).
-The reason to save those files is both to provide a cache and avoid performing 
-the preprocessing again (as, depending on the type of features involved, 
-it could be time consuming) and to provide the needed mappings to be able to 
-map unseen data into tensors.
+Ludwig data preprocessing maps raw data in a supported DATASET into an HDF5 file containing tensors and a JSON file containing mappings from strings to tensors when needed.
+This mapping is performed when a UTF-8 encoded data is provided as input and both HDF5 and JSON files are saved in the same directory as the input dataset, unless the argument `--skip_save_processed_input` is used (both in `train` and `experiment` commands).
+The reason to save those files is both to provide a cache and avoid performing the preprocessing again (as, depending on the type of features involved, it could be time consuming) and to provide the needed mappings to be able to map unseen data into tensors.
 
-The preprocessing process is personalizable to fit the specifics of your data 
-format, but the basic assumption is always that your UTF-8 encoded DATASET 
-contains one row for each datapoint and one column for each feature (either 
-input or output), and that you are able to determine the type of that column 
-among the ones supported by Ludwig.
-The reason for that is that each data type is mapped into tensors in a 
-different way and expects the content to be formatted in a specific way.
+The preprocessing process is personalizable to fit the specifics of your data format, but the basic assumption is always that your UTF-8 encoded DATASET contains one row for each datapoint and one column for each feature (either input or output), and that you are able to determine the type of that column among the ones supported by Ludwig.
+The reason for that is that each data type is mapped into tensors in a different way and expects the content to be formatted in a specific way.
 Different datatypes may have different formatters that format the values of a cell.
 
-For instance the value of a cell of a sequence feature column by default is 
-managed by a `space` formatter, that splits the content of the value into a list 
+For instance the value of a cell of a sequence feature column by default is managed by a `space` formatter, that splits the content of the value into a list 
 of strings using space.
 
 | before formatter       | after formatter          |
@@ -1095,9 +1029,7 @@ of strings using space.
 | "token3 token4 token2" | [token3, token4, token2] |
 | "token3 token1"        | [token3, token1]         |
 
-Then a list `idx2str` and two dictionaries `str2idx` and `str2freq` are created 
-containing all the tokens in all the lists obtained by splitting all the rows of 
-the column and an integer id is assigned to each of them (in order of frequency).
+Then a list `idx2str` and two dictionaries `str2idx` and `str2freq` are created containing all the tokens in all the lists obtained by splitting all the rows of the column and an integer id is assigned to each of them (in order of frequency).
 
 ```json
 {
@@ -1130,41 +1062,24 @@ the column and an integer id is assigned to each of them (in order of frequency)
 }
 ```
 
-Finally a numpy matrix is created with sizes `n x l` where `n` is the number of 
-rows in the column and `l` is the minimum of the longest tokenized list and a 
-`max_length` parameter that can be set.  All sequences shorter than `l` are 
-padded on the right (but this behavior may also be modified through a parameter).
+Finally a numpy matrix is created with sizes `n x l` where `n` is the number of rows in the column and `l` is the minimum of the longest tokenized list and a `max_length` parameter that can be set.  All sequences shorter than `l` are padded on the right (but this behavior may also be modified through a parameter).
 
 | after formatter          | numpy matrix |
 |--------------------------|--------------|
 | [token3, token4, token2] | 2 4 3        |
 | [token3, token1]         | 2 5 0        |
 
-The final result matrix is saved in the HDF5 the name of the original column in 
-the DATASET as key, while the mapping from token to integer ID (and its inverse 
-mapping) is saved in the JSON file.
+The final result matrix is saved in the HDF5 the name of the original column in the DATASET as key, while the mapping from token to integer ID (and its inverse mapping) is saved in the JSON file.
 
-Each datatype is preprocessed in a different way, using different parameters and 
-different formatters.  Details on how to set those parameters for each feature 
-type and for each specific feature will be described in the [Model Definition - Preprocessing](#preprocessing) section.
+Each datatype is preprocessed in a different way, using different parameters and different formatters.  Details on how to set those parameters for each feature type and for each specific feature will be described in the [Model Definition - Preprocessing](#preprocessing) section.
 
-`Binary` features are directly transformed into a binary valued vector of length 
-`n` (where `n` is the size of the dataset) and added to HDF5 with a key that 
-reflects the name of column in the CSV.
+`Binary` features are directly transformed into a binary valued vector of length `n` (where `n` is the size of the dataset) and added to HDF5 with a key that reflects the name of column in the CSV.
 No additional information about them is available in the JSON metadata file.
 
-`Numerical` features are directly transformed into a float valued vector of length 
-`n` (where `n` is the size of the dataset) and added to HDF5 with a key that reflects the name of column in the CSV.
+`Numerical` features are directly transformed into a float valued vector of length `n` (where `n` is the size of the dataset) and added to HDF5 with a key that reflects the name of column in the CSV.
 No additional information about them is available in the JSON metadata file.
 
-`Category` features are transformed into an integer valued vector of size `n` 
-(where `n` is the size of the dataset) and added to HDF5 with a key that reflects 
-the name of column in the CSV.  The way categories are mapped into integers consists 
-in first collecting a dictionary of all the different category strings present in 
-the column of the DATASET, then rank them by frequency and then assign them an 
-increasing integer ID from the most frequent to the most rare (with 0 being 
-assigned to a `<UNK>` token).  The column name is added to the JSON file, with 
-an associated dictionary containing
+`Category` features are transformed into an integer valued vector of size `n` (where `n` is the size of the dataset) and added to HDF5 with a key that reflects the name of column in the CSV.  The way categories are mapped into integers consists in first collecting a dictionary of all the different category strings present in the column of the DATASET, then rank them by frequency and then assign them an increasing integer ID from the most frequent to the most rare (with 0 being assigned to a `<UNK>` token).  The column name is added to the JSON file, with an associated dictionary containing:
 
 1. the mapping from integer to string (`idx2str`)
 2. the mapping from string to id (`str2idx`)
@@ -1173,17 +1088,7 @@ an associated dictionary containing
 5. additional preprocessing information (by default how to fill missing values 
 and what token to use to fill missing values)
 
-`Set` features are transformed into a binary (int8 actually) valued matrix of 
-size `n x l` (where `n` is the size of the dataset and `l` is the minimum of the 
-size of the biggest set and a `max_size` parameter) and added to HDF5 with a key 
-that reflects the name of column in the DATASET.  The way sets are mapped into 
-integers consists in first using a formatter to map from strings to sequences of 
-set items (by default this is done by splitting on spaces).  Then a dictionary of 
-all the different set item strings present in the column of the DATASET is collected, 
-then they are ranked by frequency and an increasing integer ID is assigned to 
-them from the most frequent to the most rare (with 0 being assigned to `<PAD>` 
-used for padding and 1 assigned to `<UNK>` item).  The column name is added to 
-the JSON file, with an associated dictionary containing
+`Set` features are transformed into a binary (int8 actually) valued matrix of size `n x l` (where `n` is the size of the dataset and `l` is the minimum of the size of the biggest set and a `max_size` parameter) and added to HDF5 with a key that reflects the name of column in the DATASET.  The way sets are mapped into integers consists in first using a formatter to map from strings to sequences of set items (by default this is done by splitting on spaces).  Then a dictionary of all the different set item strings present in the column of the DATASET is collected, then they are ranked by frequency and an increasing integer ID is assigned to them from the most frequent to the most rare (with 0 being assigned to `<PAD>` used for padding and 1 assigned to `<UNK>` item).  The column name is added to the JSON file, with an associated dictionary containing:
 
 1. the mapping from integer to string (`idx2str`)
 2. the mapping from string to id (`str2idx`)
@@ -1192,20 +1097,9 @@ the JSON file, with an associated dictionary containing
 5. additional preprocessing information (by default how to fill missing values 
 and what token to use to fill missing values)
 
-`Bag` features are treated in the same way of set features, with the only 
-difference being that the matrix had float values (frequencies).
+`Bag` features are treated in the same way of set features, with the only difference being that the matrix had float values (frequencies).
 
-`Sequence` features are transformed into an integer valued matrix of size `n x l` 
-(where `n` is the size of the dataset and `l` is the minimum of the length of 
-the longest sequence and a `sequence_length_limit` parameter) and added to HDF5 
-with a key that reflects the name of column in the DATASET.  The way sets are 
-mapped into integers consists in first using a formatter to map from strings to 
-sequences of tokens (by default this is done by splitting on spaces).  Then a 
-dictionary of all the different token strings present in the column of the DATASET 
-is collected, then they are ranked by frequency and an increasing integer ID is 
-assigned to them from the most frequent to the most rare (with 0 being assigned 
-to `<PAD>` used for padding and 1 assigned to `<UNK>` item).  The column name is 
-added to the JSON file, with an associated dictionary containing
+`Sequence` features are transformed into an integer valued matrix of size `n x l` (where `n` is the size of the dataset and `l` is the minimum of the length of the longest sequence and a `sequence_length_limit` parameter) and added to HDF5 with a key that reflects the name of column in the DATASET.  The way sets are mapped into integers consists in first using a formatter to map from strings to sequences of tokens (by default this is done by splitting on spaces).  Then a dictionary of all the different token strings present in the column of the DATASET is collected, then they are ranked by frequency and an increasing integer ID is assigned to them from the most frequent to the most rare (with 0 being assigned to `<PAD>` used for padding and 1 assigned to `<UNK>` item).  The column name is added to the JSON file, with an associated dictionary containing:
 
 1. the mapping from integer to string (`idx2str`)
 2. the mapping from string to id (`str2idx`)
@@ -1214,26 +1108,11 @@ added to the JSON file, with an associated dictionary containing
 5. additional preprocessing information (by default how to fill missing values 
 and what token to use to fill missing values)
 
-`Text` features are treated in the same way of sequence features, with a couple 
-differences.  Two different formatting/splitting happen, one that splits at every 
-character and one that uses a spaCy based tokenizer (and removes stopwords) are 
-used, and two different key are added to the HDF5 file, one containing the matrix 
-of characters and one containing the matrix of words.  The same thing happens in 
-the JSON file, where there are dictionaries for mapping characters to integers 
-(and the inverse) and words to integers (and their inverse).  In the model 
-definition you are able to specify which level of representation to use, if the 
-character level or the word level.
+`Text` features are treated in the same way of sequence features, with a couple differences.  Two different formatting/splitting happen, one that splits at every character and one that uses a spaCy based tokenizer (and removes stopwords) are used, and two different key are added to the HDF5 file, one containing the matrix of characters and one containing the matrix of words.  The same thing happens in the JSON file, where there are dictionaries for mapping characters to integers (and the inverse) and words to integers (and their inverse).  In the model definition you are able to specify which level of representation to use, if the character level or the word level.
 
-`Timeseries` features are treated in the same way of sequence features, with the 
-only difference being that the matrix in the HDF5 file does not have integer 
-values, but float values.  Moreover, there is no need for any mapping in the JSON file.
+`Timeseries` features are treated in the same way of sequence features, with the only difference being that the matrix in the HDF5 file does not have integer values, but float values.  Moreover, there is no need for any mapping in the JSON file.
 
-`Image` features are transformed into a int8 valued tensor of size `n x h x w x c` 
-(where `n` is the size of the dataset and `h x w` is a specific resizing of the 
-image that can be set, and `c` is the number of color channels) and added to 
-HDF5 with a key that reflects the name of column in the DATASET.  The column name 
-is added to the JSON file, with an associated dictionary containing preprocessing 
-information about the sizes of the resizing.
+`Image` features are transformed into a int8 valued tensor of size `n x h x w x c` (where `n` is the size of the dataset and `h x w` is a specific resizing of the image that can be set, and `c` is the number of color channels) and added to HDF5 with a key that reflects the name of column in the DATASET.  The column name is added to the JSON file, with an associated dictionary containing preprocessing information about the sizes of the resizing.
 
 CSV Format
 ----------
@@ -1248,31 +1127,14 @@ To handle such cases, we expect the values in the columns to be escaped with bac
 Data Postprocessing
 ===================
 
-The JSON file obtained from preprocessing is used also for postprocessing: Ludwig 
-models return output predictions and, depending on their datatype they are mapped 
-back into the original space.  Numerical and timeseries are returned as they are, 
-while category, set, sequence, and text features output integers, those integers 
-are mapped back into the original tokens / names using the `idx2str` in the JSON 
-file.  When you run `experiment` or `predict` you will find both a CSV file for 
-each output containing the mapped predictions, a probability CSV file containing 
-the probability of that prediction, a probabilities CSV file containing the 
-probabilities for all alternatives (for instance, the probabilities of all the 
-categories in case of a categorical feature).  You will also find the unmapped 
-NPY files.  If you don't need them you can use the `--skip_save_unprocessed_output` argument.
+The JSON file obtained from preprocessing is used also for postprocessing: Ludwig models return output predictions and, depending on their datatype they are mapped back into the original space.  Numerical and timeseries are returned as they are, while category, set, sequence, and text features output integers, those integers are mapped back into the original tokens / names using the `idx2str` in the JSON file.  When you run `experiment` or `predict` you will find both a CSV file for each output containing the mapped predictions, a probability CSV file containing the probability of that prediction, a probabilities CSV file containing the probabilities for all alternatives (for instance, the probabilities of all the categories in case of a categorical feature).  You will also find the unmapped NPY files.  If you don't need them you can use the `--skip_save_unprocessed_output` argument.
 
 Model Definition
 ================
 
 The model definition is the core of Ludwig.
-It is a dictionary that contains all the information needed to build and train a 
-Ludwig model.  It mixes ease of use, by means of reasonable defaults, with 
-flexibility, by means of detailed control over the parameters of your model.  It is 
-provided to both `experiment` and `train` commands either as a string 
-(`--model_definition`) or as a file (`--model_definition_file`).  The string or 
-the content of the file will be parsed by PyYAML into a dictionary in memory, so 
-any style of YAML accepted by the parser is considered to be valid, so both 
-multiline and oneline formats are accepted.  For instance a list of dictionaries 
-can be written both as
+It is a dictionary that contains all the information needed to build and train a Ludwig model.  It mixes ease of use, by means of reasonable defaults, with flexibility, by means of detailed control over the parameters of your model.  It is provided to both `experiment` and `train` commands either as a string (`--model_definition`) or as a file (`--model_definition_file`).  The string or the content of the file will be parsed by PyYAML into a dictionary in memory, so any style of YAML accepted by the parser is considered to be valid, so both multiline and oneline formats are accepted.  For instance a list of dictionaries can be written both as:
+
 ```yaml
 mylist: [{name: item1, score: 2}, {name: item2, score: 1}, {name: item3, score: 4}]
 ```
@@ -1308,44 +1170,21 @@ have default values, but you are free to modify them.
 Input features
 --------------
 
-The `input_features` list contains a list of dictionaries, each of them containing 
-two required fields `name` and `type`.
-`name` is the name of the feature and is the same name of the column of the DATASET 
-input file, `type` is one of the supported datatypes.  Input features may have 
-different ways to be encoded and the parameter to decide it is `encoder`.
+The `input_features` list contains a list of dictionaries, each of them containing two required fields `name` and `type`.
+`name` is the name of the feature and is the same name of the column of the DATASET input file, `type` is one of the supported datatypes.  Input features may have different ways to be encoded and the parameter to decide it is `encoder`.
 
-All the other parameters you specify in an input feature will be passed as 
-parameters to the function that build the encoder, and each encoder can have 
-different parameters.
+All the other parameters you specify in an input feature will be passed as parameters to the function that build the encoder, and each encoder can have different parameters.
 
-For instance a `sequence` feature can be encoded by a `stacked_cnn` or by and 
-`rnn`, but only the `stacked_cnn` will accept the parameter `num_filters` while 
-only the `rnn` will accept the parameter `bidirectional`.
+For instance a `sequence` feature can be encoded by a `stacked_cnn` or by and `rnn`, but only the `stacked_cnn` will accept the parameter `num_filters` while only the `rnn` will accept the parameter `bidirectional`.
 
-A list of all the encoders available for all the datatypes alongside with the 
-description of all parameters will be provided in the datatype-specific sections.
+A list of all the encoders available for all the datatypes alongside with the description of all parameters will be provided in the datatype-specific sections.
 Some datatypes have only one type of encoder, so you are not required to specify it.
 
-The role of the encoders is to map inputs into tensors, usually vectors in the 
-case of datatype without a temporal / sequential aspect, matrices in case there 
-is a temporal / sequential aspect or higher rank tensors in case there is a 
-spatial or a spatio-temporal aspect to the input data.
+The role of the encoders is to map inputs into tensors, usually vectors in the case of datatype without a temporal / sequential aspect, matrices in case there is a temporal / sequential aspect or higher rank tensors in case there is a spatial or a spatio-temporal aspect to the input data.
 
-Different configurations of the same encoder may return a tensor with different 
-rank, for instance a sequential encoder may return a vector of size `h` that is 
-either the final vector of a sequence or the result of pooling over the sequence 
-length, or it can return a matrix of size `l x h` where `l` is the length of the 
-sequence and `h` is the hidden dimension if you specify the pooling reduce 
-operation (`reduce_output`) to be `null`.  For the sake of simplicity you can 
-imagine the output to be a vector in most of the cases, but there is a 
-`reduce_output` parameter one can specify to change the default behavior.
+Different configurations of the same encoder may return a tensor with different rank, for instance a sequential encoder may return a vector of size `h` that is either the final vector of a sequence or the result of pooling over the sequence length, or it can return a matrix of size `l x h` where `l` is the length of the sequence and `h` is the hidden dimension if you specify the pooling reduce operation (`reduce_output`) to be `null`.  For the sake of simplicity you can imagine the output to be a vector in most of the cases, but there is a `reduce_output` parameter one can specify to change the default behavior.
 
-An additional feature that Ludwig provides is the option to have tied weights 
-between different encoders.  For instance if my model takes two sentences as 
-input and return the probability of their entailment, I may want to encode both 
-sentences with the same encoder.  The way to do it is by specifying the 
-`tied-weights` parameter of the second feature you define to be the name of the 
-first feature you defined.
+An additional feature that Ludwig provides is the option to have tied weights between different encoders.  For instance if my model takes two sentences as input and return the probability of their entailment, I may want to encode both sentences with the same encoder.  The way to do it is by specifying the `tied-weights` parameter of the second feature you define to be the name of the first feature you defined.
 
 ```yaml
 input_features:
@@ -1358,20 +1197,14 @@ input_features:
         tied_weights: sentence1
 ```
 
-If you specify a name of an input feature that has not been defined yet, it will 
-result in an error.  Also, in order to be able to have tied weights, all encoder 
-parameters have to be identical between the two input features.
+If you specify a name of an input feature that has not been defined yet, it will result in an error.  Also, in order to be able to have tied weights, all encoder parameters have to be identical between the two input features.
 
 Combiner
 --------
 
-Combiners are part of the model that take all the outputs of the different input 
-features and combine them in a single representation that is passed to the outputs.
+Combiners are part of the model that take all the outputs of the different input features and combine them in a single representation that is passed to the outputs.
 You can specify which one to use in the `combiner` section of the model definition.
-Different combiners implement different combination logic, but the default one 
-`concat` just concatenates all outputs of input feature encoders and optionally 
-passes the concatenation through fully connected layers, with the output of the 
-last layer being forwarded to the outputs decoders.
+Different combiners implement different combination logic, but the default one `concat` just concatenates all outputs of input feature encoders and optionally passes the concatenation through fully connected layers, with the output of the last layer being forwarded to the outputs decoders.
 
 ```
 +-----------+
@@ -1387,52 +1220,28 @@ last layer being forwarded to the outputs decoders.
 +-----------+
 ```
 
-For the sake of simplicity you can imagine the both inputs and outputs are 
-vectors in most of the cases, but there are `reduce_input` and `reduce_output` 
-parameters to specify to change the default behavior.
+For the sake of simplicity you can imagine the both inputs and outputs are vectors in most of the cases, but there are `reduce_input` and `reduce_output` parameters to specify to change the default behavior.
 
 Output Features
 ---------------
 
-The `output_features` list has the same structure of the `input_features` list: 
-it is a list of dictionaries containing a `name` and a `type`.
+The `output_features` list has the same structure of the `input_features` list: it is a list of dictionaries containing a `name` and a `type`.
 They represent outputs / targets that you want your model to predict.
-In most machine learning tasks you want to predict only one target variable, 
-but in Ludwig you are allowed to specify as many outputs as you want and they 
-are going to be optimized in a multi-task fashion, using a weighted sum of their 
-losses as a combined loss to optimize.
+In most machine learning tasks you want to predict only one target variable, but in Ludwig you are allowed to specify as many outputs as you want and they are going to be optimized in a multi-task fashion, using a weighted sum of their losses as a combined loss to optimize.
 
-Instead of having `encoders`, output features have `decoders`, but most of them 
-have only one decoder so you don't have to specify it.
+Instead of having `encoders`, output features have `decoders`, but most of them have only one decoder so you don't have to specify it.
 
-Decoders take the output of the combiner as input, process it further, for 
-instance passing it through fully connected layers, and finally predict values 
-and compute a loss and some measures (depending on the datatype different losses 
-and measures apply).
+Decoders take the output of the combiner as input, process it further, for instance passing it through fully connected layers, and finally predict values and compute a loss and some measures (depending on the datatype different losses and measures apply).
 
-Decoders have additional parameters, in particular `loss` that allows you to 
-specify a different loss to optimize for this specific decoder, for instance 
-numerical features support both `mean_squared_error` and `mean_absolute_error` 
-as losses.  Details about the available decoders and losses alongside with the 
-description of all parameters will be provided in the datatype-specific sections.
+Decoders have additional parameters, in particular `loss` that allows you to specify a different loss to optimize for this specific decoder, for instance numerical features support both `mean_squared_error` and `mean_absolute_error` as losses.  Details about the available decoders and losses alongside with the description of all parameters will be provided in the datatype-specific sections.
 
-For the sake of simplicity you can imagine the input coming from the combiner to 
-be a vector in most of the cases, but there is a `reduce_input` parameter one 
-can specify to change the default behavior.
+For the sake of simplicity you can imagine the input coming from the combiner to be a vector in most of the cases, but there is a `reduce_input` parameter one can specify to change the default behavior.
 
 ### Multi-task Learning
 
-As Ludwig allows for multiple output features to be specified and each output 
-feature can be seen as a task the model is learning to perform, by consequence 
-Ludwig supports Multi-task learning natively.  When multiple output features are 
-specified, the loss that is optimized is a weighted sum of the losses of each 
-individual output feature.  By default each loss weight is `1`, but it can be 
-changed by specifying a value for the `weight` parameter in the `loss` section 
-of each output feature definition.
+As Ludwig allows for multiple output features to be specified and each output feature can be seen as a task the model is learning to perform, by consequence Ludwig supports Multi-task learning natively.  When multiple output features are specified, the loss that is optimized is a weighted sum of the losses of each individual output feature.  By default each loss weight is `1`, but it can be changed by specifying a value for the `weight` parameter in the `loss` section of each output feature definition.
 
-For example, given a `category` feature `A` and `numerical` feature `B`, in 
-order to optimize the loss `loss_total = 1.5 * loss_A + 0.8 + loss_B` the 
-`output_feature` section of the model definition should look like:
+For example, given a `category` feature `A` and `numerical` feature `B`, in order to optimize the loss `loss_total = 1.5 * loss_A + 0.8 + loss_B` the `output_feature` section of the model definition should look like:
 
 ```yaml
 output_features:
@@ -1450,20 +1259,9 @@ output_features:
 
 ### Output Features Dependencies
 
-An additional feature that Ludwig provides is the concept of dependency between 
-`output_features`.  You can specify a list of output features as dependencies 
-when you write the dictionary of a specific feature.  At model building time 
-Ludwig checks that no cyclic dependency exists.  If you do so Ludwig will 
-concatenate all the final representations before the prediction of those output 
-features to the original input of the decoder.  The reason is that if different 
-output features have a causal dependency, knowing which prediction has been made 
-for one can help making the prediction of the other.
+An additional feature that Ludwig provides is the concept of dependency between `output_features`.  You can specify a list of output features as dependencies when you write the dictionary of a specific feature.  At model building time Ludwig checks that no cyclic dependency exists.  If you do so Ludwig will concatenate all the final representations before the prediction of those output features to the original input of the decoder.  The reason is that if different output features have a causal dependency, knowing which prediction has been made for one can help making the prediction of the other.
 
-For instance if two output features are one coarse grained category and one 
-fine-grained category that are in a hierarchical structure with each other, 
-knowing the prediction made for coarse grained restricts the possible categories 
-to predict for the fine-grained.  In this case the following model definition 
-structure can be used:
+For instance if two output features are one coarse grained category and one fine-grained category that are in a hierarchical structure with each other, knowing the prediction made for coarse grained restricts the possible categories to predict for the fine-grained.  In this case the following model definition structure can be used:
 
 ```yaml
 output_features:
@@ -1481,101 +1279,44 @@ output_features:
         fc_size: 64
 ```
 
-Assuming the input coming from the combiner has hidden dimension `h` 128, there 
-are two fully connected layers that return a vector with hidden size 64 at the 
-end of the `coarse_class` decoder (that vector will be used for the final layer 
-before projecting in the output `coarse_class` space).  In the decoder of 
-`fine_class`, the 64 dimensional vector of `coarse_class` will be concatenated 
-to the combiner output vector, making a vector of hidden size 192 that will be 
-passed through a fully connected layer and the 64 dimensional output will be 
-used for the final layer before projecting in the output class space of the 
-`fine_class`.
+Assuming the input coming from the combiner has hidden dimension `h` 128, there are two fully connected layers that return a vector with hidden size 64 at the end of the `coarse_class` decoder (that vector will be used for the final layer before projecting in the output `coarse_class` space).  In the decoder of `fine_class`, the 64 dimensional vector of `coarse_class` will be concatenated to the combiner output vector, making a vector of hidden size 192 that will be passed through a fully connected layer and the 64 dimensional output will be used for the final layer before projecting in the output class space of the `fine_class`.
 
 Training
 --------
 
-The `training` section of the model definition lets you specify some parameters 
-of the training process, like for instance the number of epochs or the learning rate.
+The `training` section of the model definition lets you specify some parameters of the training process, like for instance the number of epochs or the learning rate.
 
 These are the available training parameters:
 
 - `batch_size` (default `128`): size of the batch used for training the model.
-- `eval_batch_size` (default `0`): size of the batch used for evaluating the model. 
-If it is `0`, the same value of `batch_size` is used. This is usefult to speedup 
-evaluation with a much bigger batch size than training, if enough memory is 
-available, or to decrease the batch size when `sampled_softmax_cross_entropy` is 
-used as loss for sequential and categorical features with big vocabulary sizes 
-(evaluation needs to be performed on the full vocabulary, so a much smaller batch 
-size may be needed to fit the activation tensors in memory).
+- `eval_batch_size` (default `0`): size of the batch used for evaluating the model. If it is `0`, the same value of `batch_size` is used. This is usefult to speedup evaluation with a much bigger batch size than training, if enough memory is available, or to decrease the batch size when `sampled_softmax_cross_entropy` is used as loss for sequential and categorical features with big vocabulary sizes (evaluation needs to be performed on the full vocabulary, so a much smaller batch size may be needed to fit the activation tensors in memory).
 - `epochs` (default `100`): number of epochs the training process will run for.
-- `early_stop` (default `5`): if there's a validation set, number of epochs of 
-patience without an improvement on the validation measure before the training is stopped.
-- `optimizer` (default `{type: adam, beta1: 0.9, beta2: 0.999, epsilon: 1e-08}`): 
-which optimizer to use with the relative parameters. The available optimizers 
-are: `sgd` (or `stochastic_gradient_descent`, `gd`, `gradient_descent`, they are all the same), 
-`adam`, `adadelta`, `adagrad`, `adamax`, `ftrl`, `nadam`,
-`rmsprop`. To know their parameters check 
-[TensorFlow's optimizer documentation](https://www.tensorflow.org/api_docs/python/tf/train).
+- `early_stop` (default `5`): if there's a validation set, number of epochs of patience without an improvement on the validation measure before the training is stopped.
+- `optimizer` (default `{type: adam, beta1: 0.9, beta2: 0.999, epsilon: 1e-08}`): which optimizer to use with the relative parameters. The available optimizers are: `sgd` (or `stochastic_gradient_descent`, `gd`, `gradient_descent`, they are all the same), `adam`, `adadelta`, `adagrad`, `adamax`, `ftrl`, `nadam`,
+`rmsprop`. To know their parameters check [TensorFlow's optimizer documentation](https://www.tensorflow.org/api_docs/python/tf/train).
 - `learning_rate` (default `0.001`): the learning rate to use.
 - `decay` (default `false`): if to use exponential decay of the learning rate or not.
 - `decay_rate` (default `0.96`): the rate of the exponential learning rate decay.
 - `decay_steps` (default `10000`): the number of steps of the exponential learning rate decay.
 - `staircase` (default `false`): decays the learning rate at discrete intervals.
-- `regularization_lambda` (default `0`): the lambda parameter used for adding a 
-l2 regularization loss to the overall loss.
-- `reduce_learning_rate_on_plateau` (default `0`): if there's a validation set, 
-how many times to reduce the learning rate when a plateau of validation measure 
-is reached.
-- `reduce_learning_rate_on_plateau_patience` (default `5`): if there's a 
-validation set, number of epochs of patience without an improvement on the 
-validation measure before reducing the learning rate.
-- `reduce_learning_rate_on_plateau_rate` (default `0.5`): if there's a validation 
-set, the reduction rate of the learning rate.
-- `increase_batch_size_on_plateau` (default `0`): if there's a validation set, 
-how many times to increase the batch size when a plateau of validation measure is reached.
-- `increase_batch_size_on_plateau_patience` (default `5`): if there's a validation 
-set, number of epochs of patience without an improvement on the validation measure 
-before increasing the learning rate.
-- `increase_batch_size_on_plateau_rate` (default `2`): if there's a validation set, 
-the increase rate of the batch size.
-- `increase_batch_size_on_plateau_max` (default `512`): if there's a validation set, 
-the maximum value of batch size.
-- `validation_field` (default `combined`): when there is more than one output feature, 
-which one to use for computing if there was an improvement on validation. The measure 
-to use to determine if there was an improvement can be set with the `validation_measure` 
-parameter. Different datatypes have different available measures, refer to the 
-datatype-specific section for more details. `combined` indicates the use the 
-combination of all features. For instance the combination of `combined` and `loss` 
-as measure uses a decrease in the combined loss of all output features to check 
-for improvement on validation, while `combined` and `accuracy` considers on how 
-many datapoints the predictions for all output features were correct (but consider 
-that for some features, for instance `numeric` there is no accuracy measure, so 
-you should use `accuracy` only if all your output features have an accuracy measure).
-- `validation_metric:` (default `loss`): the metric to use to determine if 
-there was an improvement. The metric is considered for the output feature specified 
-in `validation_field`. Different datatypes have different available metrics, 
-refer to the datatype-specific section for more details.
-- `bucketing_field` (default `null`): when not `null`, when creating batches, 
-instead of shuffling randomly, the length along the last dimension of the matrix 
-of the specified input feature is used for bucketing datapoints and then randomly 
-shuffled datapoints from the same bin are sampled. Padding is trimmed to the 
-longest datapoint in the batch. The specified feature should be either a `sequence` 
-or `text` feature and the encoder encoding it has to be `rnn`. When used, bucketing 
-improves speed of `rnn` encoding up to 1.5x, depending on the length distribution 
-of the inputs.
-- `learning_rate_warmup_epochs` (default `1`): It's the number or training epochs 
-where learning rate warmup will be used. It is calculated as described 
-in [Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour](https://arxiv.org/abs/1706.02677). 
-In the paper the authors suggest `6` epochs of warmup, that parameter is suggested 
-for large datasets and big batches.
+- `regularization_lambda` (default `0`): the lambda parameter used for adding a l2 regularization loss to the overall loss.
+- `reduce_learning_rate_on_plateau` (default `0`): if there's a validation set, how many times to reduce the learning rate when a plateau of validation measure is reached.
+- `reduce_learning_rate_on_plateau_patience` (default `5`): if there's a validation set, number of epochs of patience without an improvement on the validation measure before reducing the learning rate.
+- `reduce_learning_rate_on_plateau_rate` (default `0.5`): if there's a validation set, the reduction rate of the learning rate.
+- `increase_batch_size_on_plateau` (default `0`): if there's a validation set, how many times to increase the batch size when a plateau of validation measure is reached.
+- `increase_batch_size_on_plateau_patience` (default `5`): if there's a validation set, number of epochs of patience without an improvement on the validation measure before increasing the learning rate.
+- `increase_batch_size_on_plateau_rate` (default `2`): if there's a validation set, the increase rate of the batch size.
+- `increase_batch_size_on_plateau_max` (default `512`): if there's a validation set, the maximum value of batch size.
+- `validation_field` (default `combined`): when there is more than one output feature, which one to use for computing if there was an improvement on validation. The measure to use to determine if there was an improvement can be set with the `validation_measure` parameter. Different datatypes have different available measures, refer to the datatype-specific section for more details. `combined` indicates the use the combination of all features. For instance the combination of `combined` and `loss` as measure uses a decrease in the combined loss of all output features to check for improvement on validation, while `combined` and `accuracy` considers on how many datapoints the predictions for all output features were correct (but consider that for some features, for instance `numeric` there is no accuracy measure, so you should use `accuracy` only if all your output features have an accuracy measure).
+- `validation_metric:` (default `loss`): the metric to use to determine if there was an improvement. The metric is considered for the output feature specified in `validation_field`. Different datatypes have different available metrics, refer to the datatype-specific section for more details.
+- `bucketing_field` (default `null`): when not `null`, when creating batches, instead of shuffling randomly, the length along the last dimension of the matrix of the specified input feature is used for bucketing datapoints and then randomly shuffled datapoints from the same bin are sampled. Padding is trimmed to the longest datapoint in the batch. The specified feature should be either a `sequence` or `text` feature and the encoder encoding it has to be `rnn`. When used, bucketing improves speed of `rnn` encoding up to 1.5x, depending on the length distribution of the inputs.
+- `learning_rate_warmup_epochs` (default `1`): It's the number or training epochs where learning rate warmup will be used. It is calculated as described in [Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour](https://arxiv.org/abs/1706.02677). In the paper the authors suggest `6` epochs of warmup, that parameter is suggested for large datasets and big batches.
 
 ### Optimizers details
 
-The `learning_rate` parameter the optimizer will use come from the `training` 
-section.  Other optimizer specific parameters, shown with their Ludwig default 
-settings, follow:
+The `learning_rate` parameter the optimizer will use come from the `training` section.  Other optimizer specific parameters, shown with their Ludwig default settings, follow:
 
-* `sgd` (aka `stochastic_gradient_descent`, `gd`, `gradient_descent`) 
+* `sgd` (or `stochastic_gradient_descent`, `gd`, `gradient_descent`)
 ```
 'momentum': 0.0,
 'nesterov': False
@@ -1634,21 +1375,12 @@ settings, follow:
 Preprocessing
 -------------
 
-The `preprocessing` section of the model definition makes it possible to specify 
-datatype specific parameters to perform data preprocessing.
-The preprocessing dictionary contains one key of each datatype, but you have to 
-specify only the ones that apply to your case, the other ones will be kept as 
-defaults.  Moreover, the preprocessing dictionary contains parameters related to 
-how to split the data that are not feature specific.
+The `preprocessing` section of the model definition makes it possible to specify datatype specific parameters to perform data preprocessing.
+The preprocessing dictionary contains one key of each datatype, but you have to specify only the ones that apply to your case, the other ones will be kept as defaults.  Moreover, the preprocessing dictionary contains parameters related to how to split the data that are not feature specific.
 
-- `force_split` (default `False`): if `True` the `split` column in the DATASET 
-file is ignored and the dataset is randomly split. If `False` the `split` column 
-is used if available.
-- `split_probabilities` (default `[0.7, 0.1, 0.2]`): the proportion of the DATASET data 
-to end up in training, validation and test, respectively. The three values have 
-to sum up to one.
-- `stratify` (default `None`): if `None` the split is random, otherwise you can 
-specify the name of a `category` feature and the split will be stratified on that feature.
+- `force_split` (default `False`): if `True` the `split` column in the DATASET file is ignored and the dataset is randomly split. If `False` the `split` column is used if available.
+- `split_probabilities` (default `[0.7, 0.1, 0.2]`): the proportion of the DATASET data to end up in training, validation and test, respectively. The three values have to sum up to one.
+- `stratify` (default `None`): if `None` the split is random, otherwise you can specify the name of a `category` feature and the split will be stratified on that feature.
 
 Example preprocessing dictionary (showing default values):
 
@@ -1663,20 +1395,13 @@ preprocessing:
     ...
 ```
 
-The details about the preprocessing parameters that each datatype accepts will 
-be provided in the datatype-specific sections.
+The details about the preprocessing parameters that each datatype accepts will be provided in the datatype-specific sections.
 
-It is important to point out that different features within the same datatype 
-may require different preprocessing.  For instance a document classification 
-model may have two text input features, one for the title of the document and one for the body.
+It is important to point out that different features within the same datatype may require different preprocessing.  For instance a document classification model may have two text input features, one for the title of the document and one for the body.
 
-As the length of the title is much shorter than the length of the body, the 
-parameter `word_length_limit` should be set to 10 for the title and 2000 for the 
-body, but both of them share the same parameter `most_common_words` with value 10000.
+As the length of the title is much shorter than the length of the body, the parameter `word_length_limit` should be set to 10 for the title and 2000 for the body, but both of them share the same parameter `most_common_words` with value 10000.
 
-The way to do this is adding a `preprocessing` key inside the title `input_feature` 
-dictionary and one in the `body` input feature dictionary containing the desired 
-parameter and value.  The model definition will look like:
+The way to do this is adding a `preprocessing` key inside the title `input_feature` dictionary and one in the `body` input feature dictionary containing the desired parameter and value.  The model definition will look like:
 
 ```yaml
 preprocessing:

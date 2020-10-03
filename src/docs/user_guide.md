@@ -1924,9 +1924,9 @@ The parameters available for preprocessing are
 - `padding_symbol` (default `<PAD>`): the string used as a padding symbol. Is is mapped to the integer ID 0 in the vocabulary.
 - `unknown_symbol` (default `<UNK>`): the string used as a unknown symbol. Is is mapped to the integer ID 1 in the vocabulary.
 - `padding` (default `right`): the direction of the padding. `right` and `left` are available options.
-- `tokenizer` (default `space`): defines how to map from the raw string content of the DATASET column to a sequence of elements.
+- `tokenizer` (default `space`): defines how to map from the raw string content of the DATASET column to a sequence of elements.  Languages supported: Chinese, Danish, Dutch, English, German, Greek, Italian, Japanese, Lithuanian, Norwegian, Polish, Portuguese, Romanian and Spanish.
 - `lowercase` (default `False`): if the string has to be lowercase before being handled by the formatter.
-- `vocab_file` (default `None`)  filepath string to a UTF-8 encoded file containing the sequence's vocabulary.  Format of the file is one vocabulary term per line.
+- `vocab_file` (default `None`)  filepath string to a UTF-8 encoded file containing the sequence's vocabulary.  On each line the first string until `\t` or `\n` is considered a word.
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
 - `fill_value` (default `""`): the value to replace the missing values with in case the `missing_value_strategy` is `fill_value`.
 
@@ -2146,7 +2146,7 @@ These are the parameters available for the stack cnn encoder:
 - `dropout` (default `0`): dropout rate
 - `reduce_output` (default `max`): defines how to reduce the output tensor of the convolutional layers along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and `None` or `None` (which does not reduce and returns the full tensor).
 
-Example sequence feature entry in the output features list using a parallel cnn encoder:
+Example sequence feature entry in the input features list using a parallel cnn encoder:
 
 ```yaml
 name: sequence_column_name
@@ -2242,7 +2242,7 @@ These are the available parameters for the stack parallel cnn encoder:
 - `dropout` (default `0`): dropout rate
 - `reduce_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and `None` or `None` (which does not reduce and returns the full tensor).
 
-Example sequence feature entry in the output features list using a parallel cnn encoder:
+Example sequence feature entry in the input features list using a parallel cnn encoder:
 
 ```yaml
 name: sequence_csv_column_name
@@ -2334,7 +2334,7 @@ These are the available parameters for the rnn encoder:
 - `fc_dropout` (default `0`): dropout rate
 - `reduce_output` (default `last`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and `None` or `None` (which does not reduce and returns the full tensor).
 
-Example sequence feature entry in the output features list using a parallel cnn encoder:
+Example sequence feature entry in the input features list using a parallel cnn encoder:
 
 ```yaml
 name: sequence_column_name
@@ -2404,19 +2404,19 @@ These are the available parameters of the cnn rnn encoder:
 - `pretrained_embeddings` (default `None`): by default `dense` embeddings are initialized randomly, but this parameter allow to specify a path to a file containing embeddings in the [GloVe format](https://nlp.stanford.edu/projects/glove/). When the file containing the embeddings is loaded, only the embeddings with labels present in the vocabulary are kept, the others are discarded. If the vocabulary contains strings that have no match in the embeddings file, their embeddings are initialized with the average of all other embedding plus some random noise to make them different from each other. This parameter has effect only if `representation` is `dense`.
 - `embeddings_on_cpu` (default `False`): by default embeddings matrices are stored on GPU memory if a GPU is used, as it allows for faster access, but in some cases the embedding matrix may be really big and this parameter forces the placement of the embedding matrix in regular memory and the CPU is used to resolve them, slightly slowing down the process as a result of data transfer between CPU and GPU memory.
 - `conv_layers` (default `None`): it is a list of dictionaries containing the parameters of all the convolutional layers. The length of the list determines the number of stacked convolutional layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `filter_size`, `num_filters`, `pool_size`, `norm`, `activation` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both `conv_layers` and `num_conv_layers` are `None`, a default list will be assigned to `conv_layers` with the value `[{filter_size: 7, pool_size: 3, regularize: False}, {filter_size: 7, pool_size: 3, regularize: False}, {filter_size: 3, pool_size: None, regularize: False}, {filter_size: 3, pool_size: None, regularize: False}, {filter_size: 3, pool_size: None, regularize: True}, {filter_size: 3, pool_size: 3, regularize: True}]`.
-- `num_conv_layers` (default `None`): if `conv_layers` is `None`, this is the number of stacked convolutional layers.
+- `num_conv_layers` (default `1`): the number of stacked convolutional layers.
 - `num_filters` (default `256`): if a `num_filters` is not already specified in `conv_layers` this is the default `num_filters` that will be used for each layer. It indicates the number of filters, and by consequence the output channels of the 1d convolution.
 - `filter_size` (default `5`): if a `filter_size` is not already specified in `conv_layers` this is the default `filter_size` that will be used for each layer. It indicates how wide is the 1d convolutional filter.
 - `strides` (default `1`): stride length of the convolution
 - `padding` (default `same`):  one of `valid` or `same`.
 - `dilation_rate` (default `1`): dilation rate to use for dilated convolution
 - `conv_activation` (default `relu`): activation for the convolution layer
-- `conv_dropout` (default 0.0): dropout rate for the convolution layer
+- `conv_dropout` (default `0.0`): dropout rate for the convolution layer
 - `pool_function` (default `max`):  pooling function: `max` will select the maximum value.  Any of these--`average`, `avg` or `mean`--will compute the mean value.
 - `pool_size` (default 2 ): if a `pool_size` is not already specified in `conv_layers` this is the default `pool_size` that will be used for each layer. It indicates the size of the max pooling that will be performed along the `s` sequence dimension after the convolution operation.
 - `pool_strides` (default `None`): factor to scale down
 - `pool_padding` (default `same`): one of `valid` or `same`
-- `num_rec_layers` (default `1`): 
+- `num_rec_layers` (default `1`): the number of recurrent layers
 - `state_size` (default `256`): the size of the state of the rnn.
 - `cell_type` (default `rnn`): the type of recurrent cell to use. Available values are: `rnn`, `lstm`, `lstm_block`, `lstm`, `ln`, `lstm_cudnn`, `gru`, `gru_block`, `gru_cudnn`. For reference about the differences between the cells please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/nn/rnn_cell). We suggest to use the `block` variants on CPU and the `cudnn` variants on GPU because of their increased speed.
 - `bidirectional` (default `False`): if `True` two recurrent networks will perform encoding in the forward and backward direction and their outputs will be concatenated.
@@ -2442,32 +2442,55 @@ These are the available parameters of the cnn rnn encoder:
 - `fc_dropout` (default `0`): dropout rate
 - `reduce_output` (default `last`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and `None` or `None` (which does not reduce and returns the full tensor).
 
-Example sequence feature entry in the output features list using a parallel cnn encoder:
+Example sequence feature entry in the inputs features list using a cnn rnn encoder:
 
 ```yaml
-name: sequence_csv_column_name
+name: sequence_column_name
 type: sequence
 encoder: cnnrnn
 tied_weights: None
 representation: dense
 embedding_size: 256
-embeddings_on_cpu: False
-pretrained_embeddings: None
 embeddings_trainable: True
+pretrained_embeddings: None
+embeddings_on_cpu: False
 conv_layers: None
-num_conv_layers: None
-filter_size: 3
+num_conv_layers: 1
 num_filters: 256
-pool_size: None
-norm: None
-activation: relu
+filter_size: 5
+strides: 1
+padding: same
+dilation_rate: 1
+conv_activation: relu
+conv_dropout: 0.0) 
+pool_function: max
+pool_size: 2
+pool_strides: None
+pool_padding: same
 num_rec_layers: 1
-cell_type: rnn
 state_size: 256
+cell_type: rnn
 bidirectional: False
-dropout: False
-initializer: None
-regularize: True
+activation: tanh
+recurrent_activation: sigmoid
+unit_forget_bias: True
+recurrent_initializer: orthogonal
+recurrent_regularizer: None
+dropout: 0.0
+recurrent_dropout: 0.0
+fc_layers: None
+num_fc_layers: None
+fc_size: 256
+use_bias: True
+weights_initializer: glorot_uniform
+bias_initializer: zeros
+weights_regularizer: None
+bias_regularizer: None
+activity_regularizer: None
+norm: None
+norm_params: None
+fc_activation: relu
+fc_dropout: 0
 reduce_output: last
 ```
 

@@ -132,45 +132,19 @@ JSON file will contain a `idx2str` list containing all tokens
 (`{"<UNK>": 0, "label_1": 1, "label_2": 2, "label_3": 3}`) and a `str2freq` 
 dictionary (`{"<UNK>": 0, "label_1": 93, "label_2": 55, "label_3": 24}`).
 
-The reason to have those  intermediate files is two-fold: on one hand, if you 
-are going to train your model again Ludwig will try to load them instead of 
-recomputing all tensors, which saves a considerable amount of time, and on the 
-other hand when you want to use your model to predict, data has to be mapped to 
-tensors in exactly the same way it was mapped during training, so you'll be 
-required to load the JSON metadata file in the `predict` command.
-The way this works is: the first time you provide a UTF-8 encoded DATASET 
-(`--dataset`), the HDF5 and JSON files are created, from the second time on 
-Ludwig will load them instead of the DATASET even if you specify the DATASET 
-(it looks in the same directory for files names in the same way but with a 
-different extension), finally you can directly specify the HDF5 and JSON files.
+The reason to have those  intermediate files is two-fold: on one hand, if you are going to train your model again Ludwig will try to load them instead of recomputing all tensors, which saves a considerable amount of time, and on the other hand when you want to use your model to predict, data has to be mapped to tensors in exactly the same way it was mapped during training, so you'll be required to load the JSON metadata file in the `predict` command.
+The way this works is: the first time you provide a UTF-8 encoded DATASET (`--dataset`), the HDF5 and JSON files are created, from the second time on Ludwig will load them instead of the DATASET even if you specify the DATASET (it looks in the same directory for files names in the same way but with a different extension), finally you can directly specify the HDF5 and JSON files.
 
-As the mapping from raw data to tensors depends on the type of feature that you 
-specify in your model definition, if you change type (for instance from 
-`sequence` to `text`) you also have to redo the preprocessing, which is achieved 
-by deleting the HDF5 and JSON files.
+As the mapping from raw data to tensors depends on the type of feature that you specify in your model definition, if you change type (for instance from `sequence` to `text`) you also have to redo the preprocessing, which is achieved by deleting the HDF5 and JSON files.
 Alternatively you can skip saving the HDF5 and JSON files specifying `--skip_save_processed_input`.
 
 Splitting between train, validation and test set can be done in several ways.
 This allows for a few possible input data scenarios:
 
-- one single UTF-8 encoded DATASET file is provided (`-dataset`). In this case 
-if the DATASET contains a `split` column with values `0` for training, `1` for 
-validation and `2` for test, this split will be used. If you want to ignore the 
-split column and perform a random split, use a `force_split` argument in the 
-model definition. In the case when there is no split column, a random `70-20-10` 
-split will be performed. You can set the percentages and specify if you want 
-stratified sampling in the model definition preprocessing section.
-
-- you can provide separate UTF-8 encoded training, validation and test sets  
-(`--training_set`, `--validation_set`, `--test_set`).
-
-- the HDF5 and JSON file indications specified in the case of a single DATASET 
-file apply also in the multiple files case, with the only difference that you 
-need to specify only one JSON file (`--train_set_metadata_json`).
-The validation set is optional, but if absent the training wil continue until 
-the end of the training epochs, while when there's a validation set the default 
-behavior is to perform early stopping after the validation measure does not 
-improve for a certain amount of epochs. The test set is optional too.
+- one single UTF-8 encoded DATASET file is provided (`-dataset`). In this case if the DATASET contains a `split` column with values `0` for training, `1` for validation and `2` for test, this split will be used. If you want to ignore the split column and perform a random split, use a `force_split` argument in the model definition. In the case when there is no split column, a random `70-20-10` split will be performed. You can set the percentages and specify if you want stratified sampling in the model definition preprocessing section.
+- you can provide separate UTF-8 encoded training, validation and test sets  (`--training_set`, `--validation_set`, `--test_set`).
+- the HDF5 and JSON file indications specified in the case of a single DATASET file apply also in the multiple files case, with the only difference that you need to specify only one JSON file (`--train_set_metadata_json`).
+The validation set is optional, but if absent the training wil continue until the end of the training epochs, while when there's a validation set the default behavior is to perform early stopping after the validation measure does not improve for a certain amount of epochs. The test set is optional too.
 
 Other optional arguments are `--output_directory`, `--experiment_name` and `--model name`.
 By default the output directory is `./results`.
@@ -181,12 +155,9 @@ at the end of the name wil be increased.
 If neither of them is specified the directory will be named `run_0`.
 The directory will contain
 
-- `description.json` - a file containing a description of the training process 
-with all the information to reproduce it.
-- `training_statistics.json` - a file containing records of all measures and losses 
-for each epoch.
-- `model` - a directory containing model hyper-parameters, weights, checkpoints 
-and logs (for TensorBoard).
+- `description.json` - a file containing a description of the training process with all the information to reproduce it.
+- `training_statistics.json` - a file containing records of all measures and losses for each epoch.
+- `model` - a directory containing model hyper-parameters, weights, checkpoints and logs (for TensorBoard).
 
 The model definition can be provided either as a string (`--model_definition`) 
 or as YAML file (`--model_definition_file`).
@@ -198,35 +169,21 @@ measure was achieved and one that is the weights at the end of the latest epoch.
 The reason for keeping the second set is to be able to resume training in case 
 the training process gets interrupted somehow.
 
-To resume training using the latest weights and the whole history of progress 
-so far you have to specify the `--model_resume_path` argument.  You can avoid 
-saving the latest weights and the overall progress so far by using 
-the argument `--skip_save_progress`, but you will not be able to resume it afterwards.
-Another available option is to load a previously trained model as an initialization 
-for a new training process.  In this case Ludwig will start a new training 
-process, without knowing any progress of the previous model, no training statistics, 
-nor the number of epochs the model has been trained on so far.
-It's not resuming training, just initializing training with a previously trained 
-model with the same model definition, and it is accomplished through the `--model_load_path` argument.
+To resume training using the latest weights and the whole history of progress so far you have to specify the `--model_resume_path` argument.  You can avoid saving the latest weights and the overall progress so far by using the argument `--skip_save_progress`, but you will not be able to resume it afterwards.
+Another available option is to load a previously trained model as an initialization for a new training process.  In this case Ludwig will start a new training process, without knowing any progress of the previous model, no training statistics, nor the number of epochs the model has been trained on so far.
+It's not resuming training, just initializing training with a previously trained model with the same model definition, and it is accomplished through the `--model_load_path` argument.
 
-You can specify a random seed to be used by the python environment, python 
-random package, numpy and TensorFlow with the `--random_seed` argument.
+You can specify a random seed to be used by the python environment, python random package, numpy and TensorFlow with the `--random_seed` argument.
 This is useful for reproducibility.
 Be aware that due to asynchronicity in the TensorFlow GPU execution, when training on GPU results may not be reproducible.
 
-You can manage which GPUs on your machine are used with the `--gpus` argument, 
-which accepts a string identical to the format of `CUDA_VISIBLE_DEVICES` 
-environment variable, namely a list of integers separated by comma.
+You can manage which GPUs on your machine are used with the `--gpus` argument, which accepts a string identical to the format of `CUDA_VISIBLE_DEVICES` environment variable, namely a list of integers separated by comma.
 You can also specify the amount of GPU memory that will be initially assigned to TensorFlow with `--gpu_memory_limit`.
-By default all of memory is allocated.  If less than all of memory is allcoated, TensorFlow will 
-need more GPU memory it will try to increase this amount.
+By default all of memory is allocated.  If less than all of memory is allcoated, TensorFlow will need more GPU memory it will try to increase this amount.
 
-If parameter `--use_horovod` is set `True`, will use Horovod for distributed processing. 
+If parameter `--use_horovod` is set `True`, will use Horovod for distributed processing.
 
-Finally the `--logging_level` argument lets you set the amount of logging that 
-you want to see during training and the `--debug` argument turns on TensorFlow's 
-`tfdbg`. Be careful when doing so, as it will help in catching errors, in particular 
-`infs` and `NaNs` but it will consume much more memory.
+Finally the `--logging_level` argument lets you set the amount of logging that you want to see during training and the `--debug` argument turns on TensorFlow's `tfdbg`. Be careful when doing so, as it will help in catching errors, in particular `infs` and `NaNs` but it will consume much more memory.
 
 Example:
 ```
@@ -292,13 +249,9 @@ optional arguments:
                         the level of logging to use
 ```
 
-The same distinction between UTF-8 encoded DATASET files and HDF5 / JSON files 
-explained in the [train](#train) section also applies here.
-In either case, the JSON metadata file obtained during training is needed 
-in order to map the new data into tensors.
-If the new data contains a split column, you can specify which split to use to 
-calculate the predictions with the `--split` argument. By default it's `full` 
-which means all the splits will be used.
+The same distinction between UTF-8 encoded DATASET files and HDF5 / JSON files explained in the [train](#train) section also applies here.
+In either case, the JSON metadata file obtained during training is needed in order to map the new data into tensors.
+If the new data contains a split column, you can specify which split to use to calculate the predictions with the `--split` argument. By default it's `full` which means all the splits will be used.
 
 A model to load is needed, and you can specify its path with the `--model_path` argument.
 If you trained a model previously and got the results in, for instance, 
@@ -314,9 +267,7 @@ You can specify not to save the raw NPY output files with the argument `skip_sav
 
 A specific batch size for speeding up the prediction can be specified using the argument `--batch_size`.
 
-Finally the `--logging_level`, `--debug`, `--gpus`, `--gpu_memory_limit` 
-and `--disable_parallel_threads`  related arguments behave exactly like described 
-in the train command section.
+Finally the `--logging_level`, `--debug`, `--gpus`, `--gpu_memory_limit` and `--disable_parallel_threads`  related arguments behave exactly like described in the train command section.
 
 Example:
 ```
@@ -388,11 +339,8 @@ optional arguments:
 ```
 
 All parameters are the same of [predict](#predict) and the behavior is the same.
-The only difference isthat `evaluate` requires the dataset to contain also 
-columns with the same name of output features.
-This is needed because `evaluate` compares the predictions produced by the model 
-with the ground truth and will save all those statistics in a 
-`test_statistics.json` file in the result directory.
+The only difference isthat `evaluate` requires the dataset to contain also columns with the same name of output features.
+This is needed because `evaluate` compares the predictions produced by the model with the ground truth and will save all those statistics in a `test_statistics.json` file in the result directory.
 
 Note that the data must contain columns for each output feature with ground 
 truth output values in order to compute the performance statistics.
@@ -634,23 +582,15 @@ optional arguments:
                         the level of logging to use
 ```
 
-The parameters combine parameters from both [train](#train) and [test](#test) so 
-refer to those sections for an in depth explanation. The output directory will 
-contain a `hyperopt_statistics.json` file that summarizes the results obtained.
+The parameters combine parameters from both [train](#train) and [test](#test) so refer to those sections for an in depth explanation. The output directory will contain a `hyperopt_statistics.json` file that summarizes the results obtained.
 
-In order to perform an hyper-parameter optimization, the `hyperopt` section needs 
-to be provided within the model definition.  In the `hyperopt` section you will 
-be able to define what metric to optimize, what aprameters, what sampler to use 
-to optimize them and how to execute the optimization.  For details on the `hyperopt` 
-section see the detailed description in the 
-[Hyper-parameter Optimization](#hyper-parameter-optimization) section.
+In order to perform an hyper-parameter optimization, the `hyperopt` section needs to be provided within the model definition.  In the `hyperopt` section you will be able to define what metric to optimize, what aprameters, what sampler to use to optimize them and how to execute the optimization.  For details on the `hyperopt` section see the detailed description in the [Hyper-parameter Optimization](#hyper-parameter-optimization) section.
 
 
 visualize
 ---------
 
-This command lets you visualize training and prediction statistics, alongside 
-with comparing different models performances and predictions.  You can call it with:
+This command lets you visualize training and prediction statistics, alongside with comparing different models performances and predictions.  You can call it with:
 
 ```
 ludwig visualize [options]
@@ -761,13 +701,44 @@ optional arguments:
 ```
 
 
+
+collect_summary
+---------------
+
+This command loads a pretrained model and prints names of weights and layers activations to use with `collect_weights` or `collect_activations`.
+
+```
+ludwig collect_summary [options]
+```
+
+or with
+
+```
+python -m ludwig.collect names [options]
+```
+
+from within Ludwig's main directory.
+
+These are the available arguments:
+
+```
+usage: ludwig collect_summary [options]
+
+This script loads a pretrained model and print names of weights and layer activations.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -m MODEL_PATH, --model_path MODEL_PATH
+                        model to load
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use
+```
+
+
 collect_weights
 ---------------
 
-This command lets you load a pre-trained model and collect the tensors with a 
-specific name in order to save them in a NPY format.  This may be useful in order 
-to visualize the learned weights (for instance collecting embedding matrices) and 
-for some post-hoc analyses.  You can call it with:
+This command lets you load a pre-trained model and collect the tensors with a specific name in order to save them in a NPY format.  This may be useful in order to visualize the learned weights (for instance collecting embedding matrices) and for some post-hoc analyses.  You can call it with:
 
 ```
 ludwig collect_weights [options]
@@ -816,11 +787,7 @@ tensorboard --logdir /path/to/model/log
 collect_activations
 -------------------
 
-This command lets you load a pre-trained model and input data and collects the 
-values of activations contained in tensors with a specific name in order to save 
-them in a NPY format.  This may be useful in order to visualize the activations 
-(for instance collecting last layer's activations as embeddings representations 
-of the input datapoint) and for some post-hoc analyses.  You can call it with:
+This command lets you load a pre-trained model and input data and collects the values of activations contained in tensors with a specific name in order to save them in a NPY format.  This may be useful in order to visualize the activations (for instance collecting last layer's activations as embeddings representations of the input datapoint) and for some post-hoc analyses.  You can call it with:
 
 ```
 ludwig collect_activations [options]
@@ -941,12 +908,9 @@ inference on the form data submitted.
 You can also make a POST request on the `/batch_predict` endpoint to run 
 inference on multiple samples at once.
 
-Requests must be submitted as form data, with one of fields being `dataset`: a 
-JSON encoded string representation
-of the data to be predicted.
+Requests must be submitted as form data, with one of fields being `dataset`: a JSON encoded string representation of the data to be predicted.
 
-The `dataset` JSON string is expected to be in the Pandas "split" format to 
-reduce payload size. This format divides the dataset into three parts:
+The `dataset` JSON string is expected to be in the Pandas "split" format to reduce payload size. This format divides the dataset into three parts:
 
 1. columns: `List[str]`
 2. index (optional): `List[Union[str, int]]`

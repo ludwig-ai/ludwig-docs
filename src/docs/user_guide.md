@@ -144,6 +144,7 @@ This allows for a few possible input data scenarios:
 - one single UTF-8 encoded DATASET file is provided (`-dataset`). In this case if the DATASET contains a `split` column with values `0` for training, `1` for validation and `2` for test, this split will be used. If you want to ignore the split column and perform a random split, use a `force_split` argument in the model definition. In the case when there is no split column, a random `70-20-10` split will be performed. You can set the percentages and specify if you want stratified sampling in the model definition preprocessing section.
 - you can provide separate UTF-8 encoded training, validation and test sets  (`--training_set`, `--validation_set`, `--test_set`).
 - the HDF5 and JSON file indications specified in the case of a single DATASET file apply also in the multiple files case, with the only difference that you need to specify only one JSON file (`--train_set_metadata_json`).
+
 The validation set is optional, but if absent the training wil continue until the end of the training epochs, while when there's a validation set the default behavior is to perform early stopping after the validation measure does not improve for a certain amount of epochs. The test set is optional too.
 
 Other optional arguments are `--output_directory`, `--experiment_name` and `--model name`.
@@ -771,8 +772,7 @@ optional arguments:
 
 The three most important arguments are `--model_path` where you have to specify the path of the model to load, `--tensors` that lets you specify a list of tensor names in the TensorFlow graph that contain the weights you want to collect, and finally `--output_directory` that lets you specify where the NPY files (one for each tensor name specified) will be saved.
 
-In order to figure out the names of the tensors containing the weights you want 
-to collect, the best way is to inspect the graph of the model with TensorBoard.
+In order to figure out the names of the tensors containing the weights you want to collect, the best way is to inspect the graph of the model with TensorBoard.
 
 ```
 tensorboard --logdir /path/to/model/log
@@ -832,8 +832,7 @@ optional arguments:
                         the level of logging to use
 ```
 
-The data related and runtime related arguments (GPUs, batch size, etc.) are the 
-same used in [predict](#predict), you can refer to that section for an explanation.
+The data related and runtime related arguments (GPUs, batch size, etc.) are the same used in [predict](#predict), you can refer to that section for an explanation.
 The collect specific arguments `--model_path`, `--tensors` and `--output_directory` are the same used in [collect_weights](#collect_weights), you can refer to that section for an explanation.
 
 In order to figure out the names of the tensors containing the activations you want to collect, the best way is to inspect the graph of the model with TensorBoard.
@@ -998,7 +997,7 @@ Data Preprocessing
 ==================
 
 Ludwig is able to read UTF-8 encoded data from 14 file formats.
-Supportedformats are
+Supportedformats are:
 
 * Comma Separated Values (`csv`)
 * Excel Workbooks (`excel`)
@@ -1022,7 +1021,8 @@ The preprocessing process is personalizable to fit the specifics of your data fo
 The reason for that is that each data type is mapped into tensors in a different way and expects the content to be formatted in a specific way.
 Different datatypes may have different formatters that format the values of a cell.
 
-For instance the value of a cell of a sequence feature column by default is managed by a `space` formatter, that splits the content of the value into a list of strings using space.
+For instance the value of a cell of a sequence feature column by default is managed by a `space` formatter, that splits the content of the value into a list 
+of strings using space.
 
 | before formatter       | after formatter          |
 |------------------------|--------------------------|
@@ -1133,8 +1133,7 @@ Model Definition
 ================
 
 The model definition is the core of Ludwig.
-It is a dictionary that contains all the information needed to build and train a Ludwig model.
-It mixes ease of use, by means of reasonable defaults, with flexibility, by means of detailed control over the parameters of your model.  It is provided to both `experiment` and `train` commands either as a string (`--model_definition`) or as a file (`--model_definition_file`).  The string or the content of the file will be parsed by PyYAML into a dictionary in memory, so any style of YAML accepted by the parser is considered to be valid, so both multiline and oneline formats are accepted.  For instance a list of dictionaries can be written both as:
+It is a dictionary that contains all the information needed to build and train a Ludwig model.  It mixes ease of use, by means of reasonable defaults, with flexibility, by means of detailed control over the parameters of your model.  It is provided to both `experiment` and `train` commands either as a string (`--model_definition`) or as a file (`--model_definition_file`).  The string or the content of the file will be parsed by PyYAML into a dictionary in memory, so any style of YAML accepted by the parser is considered to be valid, so both multiline and oneline formats are accepted.  For instance a list of dictionaries can be written both as:
 
 ```yaml
 mylist: [{name: item1, score: 2}, {name: item2, score: 1}, {name: item3, score: 4}]
@@ -1290,11 +1289,11 @@ The `training` section of the model definition lets you specify some parameters 
 These are the available training parameters:
 
 - `batch_size` (default `128`): size of the batch used for training the model.
-- `eval_batch_size` (default `0`): size of the batch used for evaluating the model.
-If it is `0`, the same value of `batch_size` is used. This is usefult to speedup evaluation with a much bigger batch size than training, if enough memory is available, or to decrease the batch size when `sampled_softmax_cross_entropy` is used as loss for sequential and categorical features with big vocabulary sizes (evaluation needs to be performed on the full vocabulary, so a much smaller batch size may be needed to fit the activation tensors in memory).
+- `eval_batch_size` (default `0`): size of the batch used for evaluating the model. If it is `0`, the same value of `batch_size` is used. This is usefult to speedup evaluation with a much bigger batch size than training, if enough memory is available, or to decrease the batch size when `sampled_softmax_cross_entropy` is used as loss for sequential and categorical features with big vocabulary sizes (evaluation needs to be performed on the full vocabulary, so a much smaller batch size may be needed to fit the activation tensors in memory).
 - `epochs` (default `100`): number of epochs the training process will run for.
 - `early_stop` (default `5`): if there's a validation set, number of epochs of patience without an improvement on the validation measure before the training is stopped.
-- `optimizer` (default `{type: adam, beta1: 0.9, beta2: 0.999, epsilon: 1e-08}`): which optimizer to use with the relative parameters. The available optimizers are: `sgd` (or `stochastic_gradient_descent`, `gd`, `gradient_descent`, they are all the same), `adam`, `adadelta`, `adagrad`, `adamax`, `ftrl`, `nadam`, `rmsprop`. To know their parameters check [TensorFlow's optimizer documentation](https://www.tensorflow.org/api_docs/python/tf/train).
+- `optimizer` (default `{type: adam, beta1: 0.9, beta2: 0.999, epsilon: 1e-08}`): which optimizer to use with the relative parameters. The available optimizers are: `sgd` (or `stochastic_gradient_descent`, `gd`, `gradient_descent`, they are all the same), `adam`, `adadelta`, `adagrad`, `adamax`, `ftrl`, `nadam`,
+`rmsprop`. To know their parameters check [TensorFlow's optimizer documentation](https://www.tensorflow.org/api_docs/python/tf/train).
 - `learning_rate` (default `0.001`): the learning rate to use.
 - `decay` (default `false`): if to use exponential decay of the learning rate or not.
 - `decay_rate` (default `0.96`): the rate of the exponential learning rate decay.
@@ -1317,7 +1316,7 @@ If it is `0`, the same value of `batch_size` is used. This is usefult to speedup
 
 The `learning_rate` parameter the optimizer will use come from the `training` section.  Other optimizer specific parameters, shown with their Ludwig default settings, follow:
 
-* `sgd` (or `stochastic_gradient_descent`, `gd`, `gradient_descent`) 
+* `sgd` (or `stochastic_gradient_descent`, `gd`, `gradient_descent`)
 ```
 'momentum': 0.0,
 'nesterov': False
@@ -1626,17 +1625,14 @@ dependencies: []
 reduce_dependencies: sum
 loss:
     type: mean_squared_error
-fc_layers: None
+fc_layers: null
 num_fc_layers: 0
 fc_size: 256
 activation: relu
-norm: None
-dropout: 0
-use_bias: True
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-weights_regularizer: None
-bias_regularizer: None
+norm: null
+dropout: false
+initializer: null
+regularize: true
 ```
 
 ### Numerical Features Measures

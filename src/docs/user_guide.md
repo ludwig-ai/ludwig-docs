@@ -2494,7 +2494,9 @@ fc_dropout: 0
 reduce_output: last
 ```
 
-#### BERT Encoder
+#### Transformer Encoder
+
+TODO Need overview of Transformer encoder
 
 The [BERT](https://arxiv.org/abs/1810.04805) encoder allows for loading a pre-trained bert model.
 Models are available on [GitHub](https://github.com/google-research/bert) for download.
@@ -2531,43 +2533,67 @@ In this case the first and last element of the tesnor along the `s` dimension wi
 
 ```
 
-These are the parameters available for the embed encoder
+These are the parameters available for the Transformer encoder.
 
-- `config_path`: is the path to the BERT configuration JSON file.
-- `checkpoint_path` (default `None`): is the path to the BERT checkpoint file. `bert_model.ckpt` should be specified, without `.index`, `.meta` or `.data*`.
-- `do_lower_case` (default `True`): this parameter should be set according to the pretrained model to use.
-- `reduce_output` (default `True`): The tensor is reduced by selecting the first output vector, the one in correspondence to the `[CLS]` token, to obtain a single vector of size `h` for each element of the batch.
-If you want to output the full `b x s x h` tensor, you can specify `None`. In this case the first and last element of the tesnor along the `s` dimension will be removed, as the correspond to the special tokens and not to the word pieces in the input.
+- `representation'` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are initialized randomly, `sparse` means they are initialized to be one-hot encodings.
+- `embedding_size` (default `256`): it is the maximum embedding size, the actual size will be `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse` encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the column the feature is named after (plus 1 for `<UNK>`).
+- `embeddings_trainable` (default `True`): If `True` embeddings are trained during the training process, if `False` embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter has effect only for `representation` is `dense` as `sparse` one-hot encodings are not trainable.
+- `pretrained_embeddings` (default `None`): by default `dense` embeddings are initialized randomly, but this parameter allow to specify a path to a file containing embeddings in the [GloVe format](https://nlp.stanford.edu/projects/glove/). When the file containing the embeddings is loaded, only the embeddings with labels present in the vocabulary are kept, the others are discarded. If the vocabulary contains strings that have no match in the embeddings file, their embeddings are initialized with the average of all other embedding plus some random noise to make them different from each other. This parameter has effect only if `representation` is `dense`.
+- `embeddings_on_cpu` (default `False`): by default embeddings matrices are stored on GPU memory if a GPU is used, as it allows for faster access, but in some cases the embedding matrix may be really big and this parameter forces the placement of the embedding matrix in regular memory and the CPU is used to resolve them, slightly slowing down the process as a result of data transfer between CPU and GPU memory.
+- `num_layers` (default `1`): number of transformer blocks
+- `hidden_size` (default `256'): TODO need description
+- `num_heads` (default `8`):  TODO need description
+- `transformer_fc_size` (default `256'):  TODO Description
+- `dropout` (default `0.1`): dropout rate for the transformer block
+- `fc_layers` (default `None`): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`, `activation`,  `initializer` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both `fc_layers` and `num_fc_layers` are `None`, a default list will be assigned to `fc_layers` with the value `[{fc_size: 512}, {fc_size: 256}]`. (only applies if `reduce_output` is not `None`).
+- `num_fc_layers` (default `0`): This is the number of stacked fully connected layers (only applies if `reduce_output` is not `None`).
+- `fc_size` (default `256`): if a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
+- `use_bias` (default `True`): boolean, whether the layer uses a bias vector.
+- `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `weights_regularizer` (default `None`): regularizer function applied to the .weights matrix.  Valid values are `l1`, `l2` or `l1_l2`.
+- `bias_regularizer` (default `None`): regularizer function applied to the bias vector.  Valid values are `l1`, `l2` or `l1_l2`.
+- `activity_regularizer` (default `None`): regurlizer function applied to the output of the layer.  Valid values are `l1`, `l2` or `l1_l2`.
+- `norm` (default `None`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `None`, `batch` or `layer`.
+- `norm_params` (default `None`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
+- `fc_activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
+- `fc_dropout` (default `0`): dropout rate
+- `reduce_output` (default `last`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and `None` or `None` (which does not reduce and returns the full tensor).
 
-A BERT tokenizer should be specified as tokenizer in preprocessing the input feature.
-Its parameters should include:
-- `tokenizer: bert` (`word_tokenizer: bert` in case of text features)
-- `vocab_file: <path_to_bert_vocab.txt>` (`word_vocab_file: <path_to_bert_vocab.txt>` in case of text features)
-- `padding_symbol: '[PAD]'`
-- `unknown_symbol: '[UNK]'`
-
-Example sequence feature entry in the output features list using a BERT encoder:
+Example sequence feature entry in the inputs features list using a Transformer encoder:
 
 ```yaml
 name: sequence_csv_column_name
 type: sequence
-encoder: bert
-config_path: <path_to_bert_config.json>
-checkpoint_path: <path_to_bert_model.ckpt>
-do_lower_case: True
-preprocessing:
-	tokenizer: bert
-	vocab_file: <path_to_bert_vocab.txt>
-	padding_symbol: '[PAD]'
-	unknown_symbol: '[UNK]'
-reduce_output: True
+encoder: transformer
+tied_weights: None
+representation: dense
+embedding_size: 256
+embeddings_trainable: True
+pretrained_embeddings: None
+embeddings_on_cpu: False
+num_layers: 1
+hidden_size: 256
+num_heads: 8
+transformer_fc_size: 256
+dropout: 0.1
+fc_layers: None
+num_fc_layers: 0
+fc_size: 256
+use_bias: True
+weights_initializer: glorot_uniform
+bias_initializer: zeros
+weights_regularizer: None
+bias_regularizer: None
+activity_regularizer: None
+norm: None
+norm_params: None
+fc_activation: relu
+fc_dropout: 0
+reduce_output: last
 ```
 
-When using a BERT encoder and fine-tuning it we suggest using small learning rates around `0.00002` and turning on learning rate warm up for the best results.
-Be mindful that `BERT` is a pbig model with large activations, meaning it requires a lot of RAM / VRAM to be utilized.
-By consequence, if your machine is not equipped with sufficient resources, it is likely that the training process will go out of memory and will be killed during the computation of the first batch already.
-If this occurs, we suggest to decrease the batch size to `32` or lower, sepending on your configuration.
-Check out the [Training](#training) section for details on how to set `learning_rate` and `batch_szie`.
+
 
 
 #### Passthrough Encoder
@@ -2593,7 +2619,7 @@ These are the parameters available for the passthrough encoder
 
 - `reduce_output` (default `None`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and `None` or `None` (which does not reduce and returns the full tensor).
 
-Example sequence feature entry in the output features list using an embed encoder:
+Example sequence feature entry in the input features list using a passthrough encoder:
 
 ```yaml
 name: sequence_csv_column_name

@@ -1783,19 +1783,29 @@ The available encoder parameters are
 - `reduce_output` (default `sum`): describes the strategy to use to aggregate the embeddings of the items of the set. Possible values are `sum`, `mean` and `sqrt` (the weighted sum divided by the square root of the sum of the squares of the weights).
 - `tied_weights` (default `None`): name of the input feature to tie the weights the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
 
-Example set feature entry in the output features list:
+Example set feature entry in the input features list:
 
 ```yaml
 name: set_column_name
 type: set
 representation: dense
 embedding_size: 50
-embeddings_on_cpu: False
-pretrained_embeddings: None
 embeddings_trainable: True
-dropout: False
-initializer: None
-regularize: True
+pretrained_embeddings: None
+embeddings_on_cpu: False
+fc_layers: None
+num_fc_layers: 0
+fc_size: 10
+use_bias: True
+weights_initializer: glorot_uniform
+bias_initializer: zeros
+weights_regularizer: None
+bias_regularizer: None
+activity_regularizer: None
+norm: None
+norm_params: None
+activation: relu
+dropout: 0.0
 reduce_output: sum
 tied_weights: None
 ```

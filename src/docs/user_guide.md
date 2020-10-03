@@ -1444,7 +1444,7 @@ Inputs are of size `b` while outputs are of size `b x 1` where `b` is the batch 
 Example binary feature entry in the output features list:
 
 ```yaml
-name: binary_csv_column_name
+name: binary_column_name
 type: binary
 ```
 
@@ -1475,7 +1475,7 @@ These are the available parameters of a binary output feature decoder
 Example binary feature entry (with default parameters) in the output features list:
 
 ```yaml
-name: binary_csv_column_name
+name: binary_column_name
 type: binary
 reduce_input: sum
 dependencies: []
@@ -1528,7 +1528,7 @@ The available encoder parameters are:
 Example numerical feature entry in the output features list:
 
 ```yaml
-name: numerical_csv_column_name
+name: numerical_column_name
 type: numerical
 norm: null
 tied_weights: null
@@ -1561,7 +1561,7 @@ These are the available parameters of a numerical output feature decoder
 Example numerical feature entry (with default parameters) in the output features list:
 
 ```yaml
-name: numerical_csv_column_name
+name: numerical_column_name
 type: numerical
 reduce_input: sum
 dependencies: []
@@ -1624,7 +1624,7 @@ The available encoder parameters are
 Example category feature entry in the input features list:
 
 ```yaml
-name: category_csv_column_name
+name: category_column_name
 type: category
 representation: dense
 embedding_size: 256
@@ -1685,7 +1685,7 @@ These are the available parameters of a category output feature decoder
 Example category feature entry (with default parameters) in the output features list:
 
 ```yaml
-name: category_csv_column_name
+name: category_column_name
 type: category
 reduce_input: sum
 dependencies: []
@@ -1728,13 +1728,14 @@ The string values are transformed into a binary (int8 actually) valued matrix of
 The way sets are mapped into integers consists in first using a formatter to map from strings to sequences of set items (by default this is done by splitting on spaces).
 Then a dictionary of all the different set item strings present in the column of the CSV is collected, then they are ranked by frequency and an increasing integer ID is assigned to them from the most frequent to the most rare (with 0 being assigned to `<PAD>` used for padding and 1 assigned to `<UNK>` item).
 The column name is added to the JSON file, with an associated dictionary containing
+
 1. the mapping from integer to string (`idx2str`)
 2. the mapping from string to id (`str2idx`)
 3. the mapping from string to frequency (`str2freq`)
 4. the maximum size of all sets (`max_set_size`)
 5. additional preprocessing information (by default how to fill missing values and what token to use to fill missing values)
 
-The parameters available for preprocessing arehe parameters available for preprocessing are
+The parameters available for preprocessing are
 
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
 - `fill_value` (default `0`): the value to replace the missing values with in case the `missing_value_strategy` is `fill-value`.
@@ -1775,7 +1776,7 @@ The available encoder parameters are
 Example set feature entry in the output features list:
 
 ```yaml
-name: set_csv_column_name
+name: set_column_name
 type: set
 representation: dense
 embedding_size: 50
@@ -1824,7 +1825,7 @@ These are the available parameters of a set output feature decoder
 Example set feature entry (with default parameters) in the output features list:
 
 ```yaml
-name: set_csv_column_name
+name: set_column_name
 type: set
 reduce_input: sum
 dependencies: []

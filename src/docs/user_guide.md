@@ -2602,18 +2602,21 @@ In the model definition you are able to specify which level of representation to
 
 The parameters available for preprocessing are:
 
-- `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
-- `fill_value` (default `""`): the value to replace the missing values with in case the `missing_value_strategy` is `fill-value`.
-- `padding` (default `right`): the direction of the padding. `right` and `left` are available options.
+- `char_tokenizer` (default `characters`): defines how to map from the raw string content of the CSV column to a sequence of characters. The default value and only available option is `characters` and the behavior is to split the string at each character.
+- `char_vocab_file` (default `null`):
+- `char_sequence_length_limit` (default `1024`): the maximum length of the text in characters. Texts that are longer than this value will be truncated, while sequences that are shorter will be padded.
+- `char_most_common` (default `70`): the maximum number of most common characters to be considered. if the data contains more than this amount, the most infrequent characters will be treated as unknown.
+- `word_tokenizer` (default `space_punct`): defines how to map from the raw string content of the CSV column to a sequence of words. The default value `space_punct` splits the string using a regular expression that separates also punctuation. Other options are: `space` (splits on space), `underscore` (splits on underscore), `comma`(splits on comma), `json` (decodes the string into a set or a list through a JSON parser), and a set of format functions that rely on [spaCy](https://spacy.io).
+- `pretrained_model_name_or_path` (default `null`):
+- `word_vocab_file` (default `null`):
+- `word_sequence_length_limit` (default `256`): the maximum length of the text in words. Texts that are longer than this value will be truncated, while texts that are shorter will be padded.
+- `word_most_common` (default `20000`): the maximum number of most common words to be considered. If the data contains more than this amount, the most infrequent words will be treated as unknown.
 - `padding_symbol` (default `<PAD>`): the string used as a padding symbol. Is is mapped to the integer ID 0 in the vocabulary.
 - `unknown_symbol` (default `<UNK>`): the string used as a unknown symbol. Is is mapped to the integer ID 1 in the vocabulary.
+- `padding` (default `right`): the direction of the padding. `right` and `left` are available options.
 - `lowercase` (default `false`): if the string has to be lowercased before being handled by the formatter.
-- `word_sequence_length_limit` (default `256`): the maximum length of the text in words. Texts that are longer than this value will be truncated, while texts that are shorter will be padded.
-- `word_tokenizer` (default `space_punct`): defines how to map from the raw string content of the CSV column to a sequence of words. The default value `space_punct` splits the string using a regular expression that separates also punctuation. Other options are: `space` (splits on space), `underscore` (splits on underscore), `comma`(splits on comma), `json` (decodes the string into a set or a list through a JSON parser), and a set of format functions that rely on [spaCy](https://spacy.io).
-- `word_most_common` (default `20000`): the maximum number of most common words to be considered. If the data contains more than this amount, the most infrequent words will be treated as unknown.
-- `char_sequence_length_limit` (default `1024`): the maximum length of the text in characters. Texts that are longer than this value will be truncated, while sequences that are shorter will be padded.
-- `char_tokenizer` (default `characters`): defines how to map from the raw string content of the CSV column to a sequence of characters. The default value and only available option is `characters` and the behavior is to split the string at each character.
-- `char_most_common` (default `70`): the maximum number of most common characters to be considered. if the data contains more than this amount, the most infrequent characters will be treated as unknown.
+- `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
+- `fill_value` (default `""`): the value to replace the missing values with in case the `missing_value_strategy` is `fill-value`.
 
 #### spaCy based word format options
 
@@ -2636,8 +2639,36 @@ More details on the models can be found in the [spaCy documentation](https://spa
 
 ### Text Input Features and Encoders
 
-The encoders are the same used for the [Sequence Features](#sequence-input-features-and-encoders).
-The only difference is that you can specify an additional `level` parameter with possible values `word` or `char` to force to use the text words or characters as inputs (by default the encoder will use `word`).
+Text input feature parameters are
+
+- `encoder` (default `parallel_cnn`): encoder to use for the input text feature. The available encoders come from [Sequence Features](#sequence-input-features-and-encoders) and these text specific encoders: `bert`, `gpt`, `gpt2`, `xlnet`, `xlm`, `roberta`, `distilbert`, `ctrl`, `camembert`, `albert`, `t5`, `xlmroberta`, `flaubert`, `electra`, `longformer` and `auto-transformer`.
+- `level` (default `word`): `word` specifies using text words, `char` use individual characters.
+- `tied_weights` (default `null`): name of the input feature to tie the weights the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
+
+Example text input feature using default values:
+
+```yaml
+name: text_column_name
+type: text
+level: word
+tied_weights: null
+preprocessing:
+    char_tokenizer: characters
+    char_vocab_file: null
+    char_sequence_length_limit: 1024
+    char_most_common: 70
+    word_tokenizer: space_punct
+    pretrained_model_name_or_path: null
+    word_vocab_file: null
+    word_sequence_length_limit: 256
+    word_most_common: 20000
+    padding_symbol: <PAD>
+    unknown_symbol: <UNK>
+    padding: right
+    lowercase: false
+    missing_value_strategy: fill_with_const
+    fill_value: ""
+```
 
 ### Text Output Features and Decoders
 

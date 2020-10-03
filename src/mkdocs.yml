@@ -10,7 +10,7 @@ repo_url: 'https://github.com/uber/ludwig'
 edit_uri: edit/master/mkdocs/docs/
 
 # Copyright
-copyright: 'Copyright &copy; 2018 - 2019 Uber Technologies Inc.'
+copyright: 'Copyright &copy; 2018 - 2020 Uber Technologies Inc.'
 
 # Navigation
 nav:

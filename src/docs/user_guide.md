@@ -997,7 +997,7 @@ Data Preprocessing
 ==================
 
 Ludwig is able to read UTF-8 encoded data from 14 file formats.
-Supportedformats are:
+Supported formats are:
 
 * Comma Separated Values (`csv`)
 * Excel Workbooks (`excel`)
@@ -1021,8 +1021,7 @@ The preprocessing process is personalizable to fit the specifics of your data fo
 The reason for that is that each data type is mapped into tensors in a different way and expects the content to be formatted in a specific way.
 Different datatypes may have different formatters that format the values of a cell.
 
-For instance the value of a cell of a sequence feature column by default is managed by a `space` formatter, that splits the content of the value into a list 
-of strings using space.
+For instance the value of a cell of a sequence feature column by default is managed by a `space` formatter, that splits the content of the value into a list of strings using space.
 
 | before formatter       | after formatter          |
 |------------------------|--------------------------|
@@ -1133,7 +1132,8 @@ Model Definition
 ================
 
 The model definition is the core of Ludwig.
-It is a dictionary that contains all the information needed to build and train a Ludwig model.  It mixes ease of use, by means of reasonable defaults, with flexibility, by means of detailed control over the parameters of your model.  It is provided to both `experiment` and `train` commands either as a string (`--model_definition`) or as a file (`--model_definition_file`).  The string or the content of the file will be parsed by PyYAML into a dictionary in memory, so any style of YAML accepted by the parser is considered to be valid, so both multiline and oneline formats are accepted.  For instance a list of dictionaries can be written both as:
+It is a dictionary that contains all the information needed to build and train a Ludwig model.  It mixes ease of use, by means of reasonable defaults, with flexibility, by means of detailed control over the parameters of your model.  It is provided to both `experiment` and `train` commands either as a string (`--model_definition`) or as a file (`--model_definition_file`).
+The string or the content of the file will be parsed by PyYAML into a dictionary in memory, so any style of YAML accepted by the parser is considered to be valid, so both multiline and oneline formats are accepted.  For instance a list of dictionaries can be written both as:
 
 ```yaml
 mylist: [{name: item1, score: 2}, {name: item2, score: 1}, {name: item3, score: 4}]
@@ -1451,9 +1451,11 @@ Binary input feature parameters are
 - `encoder` (default `'passthrough'`) encodes the binary feature.  Valid choices:  `'passthrough'`: binary feature is passed through as-is, `'dense'`: binary feature is fed through a fully connected layer.
 
 
-There are no additional parameters for the `passthrough` encoder.  For the `dense` encoder these are the available parameters.
+There are no additional parameters for the `passthrough` encoder.
 
 ### Dense Encoder Parameters
+
+For the `dense` encoder these are the available parameters.
 
 - `num_layers` (default `1`): this is the number of stacked fully connected layers that the input to the feature passes through. Their output is projected in the feature's output space.
 - `fc_size` (default `256`): f a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
@@ -1551,7 +1553,11 @@ The available encoder parameters are:
 - `norm'` (default `None`): norm to apply after the single neuron. It can be `None`, `batch` or `layer`.
 - `tied_weights` (default `None`): name of the input feature to tie the weights the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
 
-There are no additional parameters for the `passthrough` encoder.  For the `dense` encoder these are the available parameters.
+There are no additional parameters for the `passthrough` encoder.
+
+### Dense Encoder Parameters
+
+For the `dense` encoder these are the available parameters.
 
 - `num_layers` (default `1`): this is the number of stacked fully connected layers that the input to the feature passes through. Their output is projected in the feature's output space.
 - `fc_size` (default `256`): f a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
@@ -1670,7 +1676,9 @@ The parameters available for preprocessing are
 
 ### Category Input Features and Encoders
 
-Category features have three encoders. The `passthrough` encoder passes the raw integer values coming from the input placeholders to outputs of size `b x 1`.  The other two encoders map to either `dense` or `sparse` embeddings (one-hot encodings) and returned as outputs of size `b x h`, where `b` is the batch size and `h` is the dimenionsality of the embeddings.
+Category features have three encoders.
+The `passthrough` encoder passes the raw integer values coming from the input placeholders to outputs of size `b x 1`.
+The other two encoders map to either `dense` or `sparse` embeddings (one-hot encodings) and returned as outputs of size `b x h`, where `b` is the batch size and `h` is the dimenionsality of the embeddings.
 
 Input feature parameters.
 

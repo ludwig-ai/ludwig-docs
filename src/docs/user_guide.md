@@ -1926,7 +1926,7 @@ The parameters available for preprocessing are
 - `padding` (default `right`): the direction of the padding. `right` and `left` are available options.
 - `tokenizer` (default `space`): defines how to map from the raw string content of the DATASET column to a sequence of elements.
 - `lowercase` (default `False`): if the string has to be lowercase before being handled by the formatter.
-- `vocab_file` (default `None`)  filepath string to a UTF-8 encoded file to build the sequence's vocabulary.  Format of the file is one vocabulary term per line.
+- `vocab_file` (default `None`)  filepath string to a UTF-8 encoded file containing the sequence's vocabulary.  Format of the file is one vocabulary term per line.
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
 - `fill_value` (default `""`): the value to replace the missing values with in case the `missing_value_strategy` is `fill_value`.
 
@@ -1940,7 +1940,7 @@ For instance the `parallel_cnn` encoder, by default pools and flattens the seque
 
 Sequence input feature parameters are
 
-- `encoder` (default ``parallel_cnn``): the name of the encoder to use to encode the sequence. The available ones are  `embed`, `parallel_cnn`, `stacked_cnn`, `stacked_parallel_cnn`, `rnn`, `cnnrnn` and `passthrough` (equivalent to specify `None` or `None`).
+- `encoder` (default ``parallel_cnn``): the name of the encoder to use to encode the sequence. The available ones are  `embed`, `parallel_cnn`, `stacked_cnn`, `stacked_parallel_cnn`, `rnn`, `cnnrnn`, `transformer` and `passthrough` (equivalent to specify `None` or `'None'`).
 - `tied_weights` (default `None`): name of the input feature to tie the weights the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
 
 #### Embed Encoder
@@ -1970,30 +1970,30 @@ If you want to output the full `b x s x h` tensor, you can specify `reduce_outpu
 These are the parameters available for the embed encoder
 
 - `representation'` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are initialized randomly, `sparse` means they are initialized to be one-hot encodings.
-- `embedding_size` (default `50`): it is the maximum embedding size, the actual size will be `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse` encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the column the feature is named after (plus 1 for `<UNK>`).
-- `embeddings_on_cpu` (default `False`): by default embeddings matrices are stored on GPU memory if a GPU is used, as it allows for faster access, but in some cases the embedding matrix may be really big and this parameter forces the placement of the embedding matrix in regular memory and the CPU is used to resolve them, slightly slowing down the process as a result of data transfer between CPU and GPU memory.
-- `pretrained_embeddings` (default `None`): by default `dense` embeddings are initialized randomly, but this parameter allow to specify a path to a file containing embeddings in the [GloVe format](https://nlp.stanford.edu/projects/glove/). When the file containing the embeddings is loaded, only the embeddings with labels present in the vocabulary are kept, the others are discarded. If the vocabulary contains strings that have no match in the embeddings file, their embeddings are initialized with the average of all other embedding plus some random noise to make them different from each other. This parameter has effect only if `representation` is `dense`.
+- `embedding_size` (default `256`): it is the maximum embedding size, the actual size will be `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse` encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the column the feature is named after (plus 1 for `<UNK>`).
 - `embeddings_trainable` (default `True`): If `True` embeddings are trained during the training process, if `False` embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter has effect only for `representation` is `dense` as `sparse` one-hot encodings are not trainable.
-- `dropout` (default `False`): determines if there should be a dropout layer before returning the encoder output.
-- `initializer` (default `None`): the initializer to use. If `None`, the default initialized of each variable is used (`glorot_uniform` in most cases). Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `regularize` (default `True`): if `True` the embedding weights are added to the set of weights that get regularized by a regularization loss (if the `regularization_lambda` in `training` is greater than 0).
+- `pretrained_embeddings` (default `None`): by default `dense` embeddings are initialized randomly, but this parameter allow to specify a path to a file containing embeddings in the [GloVe format](https://nlp.stanford.edu/projects/glove/). When the file containing the embeddings is loaded, only the embeddings with labels present in the vocabulary are kept, the others are discarded. If the vocabulary contains strings that have no match in the embeddings file, their embeddings are initialized with the average of all other embedding plus some random noise to make them different from each other. This parameter has effect only if `representation` is `dense`.
+- `embeddings_on_cpu` (default `False`): by default embeddings matrices are stored on GPU memory if a GPU is used, as it allows for faster access, but in some cases the embedding matrix may be really big and this parameter forces the placement of the embedding matrix in regular memory and the CPU is used to resolve them, slightly slowing down the process as a result of data transfer between CPU and GPU memory.
+- `dropout` (default `0`): dropout rate.
+- `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `weights_regularizer` (default `None`): regularizer function applied to the .weights matrix.  Valid values are `l1`, `l2` or `l1_l2`.
 - `reduce_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and `None` or `None` (which does not reduce and returns the full tensor).
 
-Example sequence feature entry in the output features list using an embed encoder:
+Example sequence feature entry in the input features list using an embed encoder:
 
 ```yaml
-name: sequence_csv_column_name
+name: sequence_column_name
 type: sequence
 encoder: embed
 tied_weights: None
 representation: dense
 embedding_size: 256
-embeddings_on_cpu: False
-pretrained_embeddings: None
 embeddings_trainable: True
-dropout: False
-initializer: None
-regularize: True
+pretrained_embeddings: None
+embeddings_on_cpu: False
+dropout: 0
+weights_initializer: None
+weights_regularizer: None
 reduce_output: sum
 ```
 

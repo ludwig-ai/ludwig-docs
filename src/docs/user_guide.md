@@ -1533,7 +1533,7 @@ Numerical Features
 
 ### Numerical Features Preprocessing
 
-Numerical features are directly transformed into a float valued vector of length `n` (where `n` is the size of the dataset) and added to HDF5 with a key that reflects the name of column in the CSV.
+Numerical features are directly transformed into a float valued vector of length `n` (where `n` is the size of the dataset) and added to HDF5 with a key that reflects the name of column in the DATASET.
 No additional information about them is available in the JSON metadata file.
 
 Parameters available for preprocessing are
@@ -1544,12 +1544,12 @@ Parameters available for preprocessing are
 
 ### Numerical Input Features and Encoders
 
-Numerical features have two encoders.  One encoder (`passthrough'`) takes the raw binary values coming from the input placeholders are just returned as outputs.  Inputs are of size `b` while outputs are of size `b x 1` where `b` is the batch size.  The other encoder (`'dense'`) passes the raw binary values through a fully connected layers.  In this case the inputs of size `b` are transformed to size `b x h`.  
+Numerical features have two encoders.  One encoder (`passthrough'`) takes the raw binary values coming from the input placeholders are just returned as outputs.  Inputs are of size `b` while outputs are of size `b x 1` where `b` is the batch size.  The other encoder (`'dense'`) passes the raw binary values through fully connected layers.  In this case the inputs of size `b` are transformed to size `b x h`.  
 
 The available encoder parameters are:
 
-- `norm'` (default `null`): norm to apply after the single neuron. It can be `null`, `batch` or `layer`.
-- `tied_weights` (default `null`): name of the input feature to tie the weights the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
+- `norm'` (default `None`): norm to apply after the single neuron. It can be `None`, `batch` or `layer`.
+- `tied_weights` (default `None`): name of the input feature to tie the weights the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
 
 There are no additional parameters for the `passthrough` encoder.  For the `dense` encoder these are the available parameters.
 
@@ -1600,7 +1600,7 @@ These are the available parameters of a numerical output feature
 
 These are the available parameters of a numerical output feature decoder
 
-- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`, `activation`, `dropout`, `initializer` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.
+- `fc_layers` (default `None`): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`, `activation`, `dropout`, `initializer` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.
 - `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes through. Their output is projected in the feature's output space.
 - `fc_size` (default `256`): if a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
@@ -1613,7 +1613,7 @@ These are the available parameters of a numerical output feature decoder
 - `weights_regularizer` (default `None`): regularizer function applied to the .weights matrix.  Valid values are `l1`, `l2` or `l1_l2`.
 - `bias_regularizer` (default `None`): regularizer function applied to the bias vector.  Valid values are `l1`, `l2` or `l1_l2`.
 - `activity_regularizer` (default `None`): regurlizer function applied to the output of the layer.  Valid values are `l1`, `l2` or `l1_l2`.
-- `clip` (default `null`): If not `null` it specifies a minimum and maximum value the predictions will be clipped to. The value can be either a list or a tuple of length 2, with the first value representing the minimum and the second the maximum. For instance `(-5,5)` will make it so that all predictions will be clipped in the `[-5,5]` interval.
+- `clip` (default `None`): If not `None` it specifies a minimum and maximum value the predictions will be clipped to. The value can be either a list or a tuple of length 2, with the first value representing the minimum and the second the maximum. For instance `(-5,5)` will make it so that all predictions will be clipped in the `[-5,5]` interval.
 
 Example numerical feature entry (with default parameters) in the output features list:
 
@@ -1625,14 +1625,20 @@ dependencies: []
 reduce_dependencies: sum
 loss:
     type: mean_squared_error
-fc_layers: null
+fc_layers: None
 num_fc_layers: 0
 fc_size: 256
 activation: relu
-norm: null
-dropout: false
-initializer: null
-regularize: true
+norm: None
+norm_params: None
+dropout: 0
+use_bias: True
+weights_initializer: glorot_uniform
+bias_initializer: zeros
+weights_regularizer: None
+bias_regularizer: None
+activity_regularizer: None
+clip: None
 ```
 
 ### Numerical Features Measures
@@ -1648,11 +1654,12 @@ Category Features
 Category features are transformed into an integer valued vector of size `n` (where `n` is the size of the dataset) and added to HDF5 with a key that reflects the name of column in the CSV.
 The way categories are mapped into integers consists in first collecting a dictionary of all the different category strings present in the column of the CSV, then rank them by frequency and then assign them an increasing integer ID from the most frequent to the most rare (with 0 being assigned to a `<UNK>` token).
 The column name is added to the JSON file, with an associated dictionary containing
+
 1. the mapping from integer to string (`idx2str`)
 2. the mapping from string to id (`str2idx`)
 3. the mapping from string to frequency (`str2freq`)
 4. the size of the set of all tokens (`vocab_size`)
-4. additional preprocessing information (by default how to fill missing values and what token to use to fill missing values)
+5. additional preprocessing information (by default how to fill missing values and what token to use to fill missing values)
 
 The parameters available for preprocessing are
 

@@ -2462,7 +2462,7 @@ strides: 1
 padding: same
 dilation_rate: 1
 conv_activation: relu
-conv_dropout: 0.0) 
+conv_dropout: 0.0
 pool_function: max
 pool_size: 2
 pool_strides: None

@@ -18,7 +18,7 @@ Other datasets available on the same webpage, like [OHSUMED](http://boston.lti.c
 
 ```
 ludwig experiment \
-  --data_csv text_classification.csv \
+  --dataset text_classification.csv \
   --model_definition_file model_definition.yaml
 ```
 
@@ -49,7 +49,7 @@ Named Entity Recognition Tagging
 
 ```
 ludwig experiment \
-  --data_csv sequence_tags.csv \
+  --dataset sequence_tags.csv \
   --model_definition_file model_definition.yaml
 ```
 
@@ -86,7 +86,7 @@ Natural Language Understanding
 
 ```
 ludwig experiment \
-  --data_csv nlu.csv \
+  --dataset nlu.csv \
   --model_definition_file model_definition.yaml
 ```
 
@@ -131,7 +131,7 @@ Machine Translation
 
 ```
 ludwig experiment \
-  --data_csv translation.csv \
+  --dataset translation.csv \
   --model_definition_file model_definition.yaml
 ```
 
@@ -178,7 +178,7 @@ Chit-Chat Dialogue Modeling through Sequence2Sequence
 
 ```
 ludwig experiment \
-  --data_csv chitchat.csv \
+  --dataset chitchat.csv \
   --model_definition_file model_definition.yaml
 ```
 
@@ -221,7 +221,7 @@ Sentiment Analysis
 
 ```
 ludwig experiment \
-  --data_csv sentiment.csv \
+  --dataset sentiment.csv \
   --model_definition_file model_definition.yaml
 ```
 
@@ -253,7 +253,7 @@ Image Classification
 
 ```
 ludwig experiment \
-  --data_csv image_classification.csv \
+  --dataset image_classification.csv \
   --model_definition_file model_definition.yaml
 ```
 
@@ -277,7 +277,8 @@ Image Classification (MNIST)
 This is a complete example of training an image classification model on the MNIST
 dataset.
 
-## Download the MNIST dataset.
+## Download the MNIST dataset
+
 ```
 git clone https://github.com/myleott/mnist_png.git
 cd mnist_png/
@@ -285,7 +286,8 @@ tar -xf mnist_png.tar.gz
 cd mnist_png/
 ```
 
-## Create train and test CSVs.
+## Create train and test CSVs
+
 Open python shell in the same directory and run this:
 ```
 import os
@@ -309,13 +311,13 @@ containing 60000 and 10000 examples correspondingly and having the following for
 | training/0/24537.png |  0    |
 | training/0/25629.png |  0    |
 
-## Train a model.
+## Train a model
 
 From the directory where you have virtual environment with ludwig installed:
 ```
 ludwig train \
-  --data_train_csv <PATH_TO_MNIST_DATASET_TRAINING_CSV> \
-  --data_test_csv <PATH_TO_MNIST_DATASET_TEST_CSV> \
+  --training_set <PATH_TO_MNIST_DATASET_TRAINING_CSV> \
+  --test_set <PATH_TO_MNIST_DATASET_TEST_CSV> \
   --model_definition_file model_definition.yaml
 ```
 
@@ -364,7 +366,7 @@ Image Captioning
 
 ```
 ludwig experiment \
---data_csv image captioning.csv \
+--dataset image captioning.csv \
   --model_definition_file model_definition.yaml
 ```
 
@@ -402,7 +404,7 @@ The task is, given two images of two handwritten characters, recognize if they a
 
 ```
 ludwig experiment \
---data_csv balinese_characters.csv \
+--dataset balinese_characters.csv \
   --model_definition_file model_definition.yaml
 ```
 
@@ -451,7 +453,7 @@ Visual Question Answering
 
 ```
 ludwig experiment \
---data_csv vqa.csv \
+--dataset vqa.csv \
   --model_definition_file model_definition.yaml
 ```
 
@@ -485,7 +487,7 @@ Spoken Digit Speech Recognition
 
 This is a complete example of training an spoken digit speech recognition model on the "MNIST dataset of speech recognition". 
 
-## Download the free spoken digit dataset.
+## Download the free spoken digit dataset
 
 ```
 git clone https://github.com/Jakobovski/free-spoken-digit-dataset.git
@@ -494,7 +496,7 @@ cp -r free-spoken-digit-dataset/recordings speech_recog_digit_data
 cd speech_recog_digit_data
 ```
 
-## Create an experiment CSV.
+## Create an CSV dataset
 
 ```
 echo "audio_path","label" >> "spoken_digit.csv"
@@ -518,13 +520,13 @@ Now you should have `spoken_digit.csv` containing 2000 examples having the follo
 | .../speech_recog_digit_data/recordings/1_jackson_0.wav  | 1                                         |
 
 
-## Train a model. 
+## Train a model
 
 From the directory where you have virtual environment with ludwig installed: 
 
 ```
 ludwig experiment \
-  --data_csv <PATH_TO_SPOKEN_DIGIT_CSV> \
+  --dataset <PATH_TO_SPOKEN_DIGIT_CSV> \
   --model_definition_file model_definition_file.yaml
 ```
 
@@ -591,7 +593,7 @@ The sample data looks as follows:
 
 ```
 ludwig experiment \
---data_csv speaker_verification.csv \
+--dataset speaker_verification.csv \
   --model_definition_file model_definition.yaml
 ```
 
@@ -636,7 +638,7 @@ The full data and the column descriptions can be found [here](https://www.kaggle
 After downloading the data, to train a model on this dataset using Ludwig,
 ```
 ludwig experiment \
-  --data_csv <PATH_TO_TITANIC_CSV> \
+  --dataset <PATH_TO_TITANIC_CSV> \
   --model_definition_file model_definition.yaml
 ```
 
@@ -692,7 +694,7 @@ While direct timeseries prediction is a work in progress Ludwig can ingest times
 
 ```
 ludwig experiment \
---data_csv timeseries_data.csv \
+--dataset timeseries_data.csv \
   --model_definition_file model_definition.yaml
 ```
 
@@ -772,7 +774,7 @@ df.to_csv('<PATH_TO_FILE>/temperature_la.csv')
 
 ```
 ludwig experiment \
---data_csv <PATH_TO_FILE>/temperature_la.csv \
+--dataset <PATH_TO_FILE>/temperature_la.csv \
   --model_definition_file model_definition.yaml
 ```
 
@@ -805,7 +807,7 @@ Movie rating prediction
 
 ```
 ludwig experiment \
---data_csv movie_ratings.csv \
+--dataset movie_ratings.csv \
   --model_definition_file model_definition.yaml
 ```
 
@@ -844,7 +846,7 @@ Multi-label classification
 
 ```
 ludwig experiment \
---data_csv image_data.csv \
+--dataset image_data.csv \
   --model_definition_file model_definition.yaml
 ```
 
@@ -877,7 +879,7 @@ This example is inspired by the classic paper [Natural Language Processing (Almo
 
 ```
 ludwig experiment \
---data_csv nl_data.csv \
+--dataset nl_data.csv \
   --model_definition_file model_definition.yaml
 ```
 
@@ -922,7 +924,7 @@ This example replicates the Keras example at https://www.tensorflow.org/tutorial
 
 ```
 ludwig experiment \
---data_csv auto_mpg.csv \
+--dataset auto_mpg.csv \
   --model_definition_file model_definition.yaml
 ```
 
@@ -980,7 +982,7 @@ Binary Classification: Fraud Transactions Identification
 
 ```
 ludwig experiment \
---data_csv transactions.csv \
+--dataset transactions.csv \
   --model_definition_file model_definition.yaml
 ```
 

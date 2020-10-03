@@ -144,6 +144,7 @@ This allows for a few possible input data scenarios:
 - one single UTF-8 encoded DATASET file is provided (`-dataset`). In this case if the DATASET contains a `split` column with values `0` for training, `1` for validation and `2` for test, this split will be used. If you want to ignore the split column and perform a random split, use a `force_split` argument in the model definition. In the case when there is no split column, a random `70-20-10` split will be performed. You can set the percentages and specify if you want stratified sampling in the model definition preprocessing section.
 - you can provide separate UTF-8 encoded training, validation and test sets  (`--training_set`, `--validation_set`, `--test_set`).
 - the HDF5 and JSON file indications specified in the case of a single DATASET file apply also in the multiple files case, with the only difference that you need to specify only one JSON file (`--train_set_metadata_json`).
+
 The validation set is optional, but if absent the training wil continue until the end of the training epochs, while when there's a validation set the default behavior is to perform early stopping after the validation measure does not improve for a certain amount of epochs. The test set is optional too.
 
 Other optional arguments are `--output_directory`, `--experiment_name` and `--model name`.
@@ -771,8 +772,7 @@ optional arguments:
 
 The three most important arguments are `--model_path` where you have to specify the path of the model to load, `--tensors` that lets you specify a list of tensor names in the TensorFlow graph that contain the weights you want to collect, and finally `--output_directory` that lets you specify where the NPY files (one for each tensor name specified) will be saved.
 
-In order to figure out the names of the tensors containing the weights you want 
-to collect, the best way is to inspect the graph of the model with TensorBoard.
+In order to figure out the names of the tensors containing the weights you want to collect, the best way is to inspect the graph of the model with TensorBoard.
 
 ```
 tensorboard --logdir /path/to/model/log
@@ -832,8 +832,7 @@ optional arguments:
                         the level of logging to use
 ```
 
-The data related and runtime related arguments (GPUs, batch size, etc.) are the 
-same used in [predict](#predict), you can refer to that section for an explanation.
+The data related and runtime related arguments (GPUs, batch size, etc.) are the same used in [predict](#predict), you can refer to that section for an explanation.
 The collect specific arguments `--model_path`, `--tensors` and `--output_directory` are the same used in [collect_weights](#collect_weights), you can refer to that section for an explanation.
 
 In order to figure out the names of the tensors containing the activations you want to collect, the best way is to inspect the graph of the model with TensorBoard.
@@ -998,7 +997,7 @@ Data Preprocessing
 ==================
 
 Ludwig is able to read UTF-8 encoded data from 14 file formats.
-Supportedformats are
+Supported formats are:
 
 * Comma Separated Values (`csv`)
 * Excel Workbooks (`excel`)
@@ -1133,8 +1132,8 @@ Model Definition
 ================
 
 The model definition is the core of Ludwig.
-It is a dictionary that contains all the information needed to build and train a Ludwig model.
-It mixes ease of use, by means of reasonable defaults, with flexibility, by means of detailed control over the parameters of your model.  It is provided to both `experiment` and `train` commands either as a string (`--model_definition`) or as a file (`--model_definition_file`).  The string or the content of the file will be parsed by PyYAML into a dictionary in memory, so any style of YAML accepted by the parser is considered to be valid, so both multiline and oneline formats are accepted.  For instance a list of dictionaries can be written both as:
+It is a dictionary that contains all the information needed to build and train a Ludwig model.  It mixes ease of use, by means of reasonable defaults, with flexibility, by means of detailed control over the parameters of your model.  It is provided to both `experiment` and `train` commands either as a string (`--model_definition`) or as a file (`--model_definition_file`).
+The string or the content of the file will be parsed by PyYAML into a dictionary in memory, so any style of YAML accepted by the parser is considered to be valid, so both multiline and oneline formats are accepted.  For instance a list of dictionaries can be written both as:
 
 ```yaml
 mylist: [{name: item1, score: 2}, {name: item2, score: 1}, {name: item3, score: 4}]
@@ -1290,11 +1289,11 @@ The `training` section of the model definition lets you specify some parameters 
 These are the available training parameters:
 
 - `batch_size` (default `128`): size of the batch used for training the model.
-- `eval_batch_size` (default `0`): size of the batch used for evaluating the model.
-If it is `0`, the same value of `batch_size` is used. This is usefult to speedup evaluation with a much bigger batch size than training, if enough memory is available, or to decrease the batch size when `sampled_softmax_cross_entropy` is used as loss for sequential and categorical features with big vocabulary sizes (evaluation needs to be performed on the full vocabulary, so a much smaller batch size may be needed to fit the activation tensors in memory).
+- `eval_batch_size` (default `0`): size of the batch used for evaluating the model. If it is `0`, the same value of `batch_size` is used. This is usefult to speedup evaluation with a much bigger batch size than training, if enough memory is available, or to decrease the batch size when `sampled_softmax_cross_entropy` is used as loss for sequential and categorical features with big vocabulary sizes (evaluation needs to be performed on the full vocabulary, so a much smaller batch size may be needed to fit the activation tensors in memory).
 - `epochs` (default `100`): number of epochs the training process will run for.
 - `early_stop` (default `5`): if there's a validation set, number of epochs of patience without an improvement on the validation measure before the training is stopped.
-- `optimizer` (default `{type: adam, beta1: 0.9, beta2: 0.999, epsilon: 1e-08}`): which optimizer to use with the relative parameters. The available optimizers are: `sgd` (or `stochastic_gradient_descent`, `gd`, `gradient_descent`, they are all the same), `adam`, `adadelta`, `adagrad`, `adamax`, `ftrl`, `nadam`, `rmsprop`. To know their parameters check [TensorFlow's optimizer documentation](https://www.tensorflow.org/api_docs/python/tf/train).
+- `optimizer` (default `{type: adam, beta1: 0.9, beta2: 0.999, epsilon: 1e-08}`): which optimizer to use with the relative parameters. The available optimizers are: `sgd` (or `stochastic_gradient_descent`, `gd`, `gradient_descent`, they are all the same), `adam`, `adadelta`, `adagrad`, `adamax`, `ftrl`, `nadam`,
+`rmsprop`. To know their parameters check [TensorFlow's optimizer documentation](https://www.tensorflow.org/api_docs/python/tf/train).
 - `learning_rate` (default `0.001`): the learning rate to use.
 - `decay` (default `false`): if to use exponential decay of the learning rate or not.
 - `decay_rate` (default `0.96`): the rate of the exponential learning rate decay.
@@ -1317,7 +1316,7 @@ If it is `0`, the same value of `batch_size` is used. This is usefult to speedup
 
 The `learning_rate` parameter the optimizer will use come from the `training` section.  Other optimizer specific parameters, shown with their Ludwig default settings, follow:
 
-* `sgd` (or `stochastic_gradient_descent`, `gd`, `gradient_descent`) 
+* `sgd` (or `stochastic_gradient_descent`, `gd`, `gradient_descent`)
 ```
 'momentum': 0.0,
 'nesterov': False
@@ -1437,16 +1436,39 @@ The parameters available for preprocessing are
 
 ### Binary Input Features and Encoders
 
-Binary features have no encoder, the raw binary values coming from the input placeholders are just returned as outputs.
-By consequence there are no encoding parameters.
-Inputs are of size `b` while outputs are of size `b x 1` where `b` is the batch size.
+Binary features have two encoders.  One encoder (`passthrough'`) takes the raw binary values coming from the input placeholders are just returned as outputs.  Inputs are of size `b` while outputs are of size `b x 1` where `b` is the batch size.  The other encoder (`'dense'`) passes the raw binary values through a fully connected layers.  In this case the inputs of size `b` are transformed to size `b x h`.  
 
-Example binary feature entry in the output features list:
+Example binary feature entry in the input features list:
 
 ```yaml
 name: binary_csv_column_name
 type: binary
+encoder: passthrough
 ```
+
+Binary input feature parameters are
+
+- `encoder` (default `'passthrough'`) encodes the binary feature.  Valid choices:  `'passthrough'`: binary feature is passed through as-is, `'dense'`: binary feature is fed through a fully connected layer.
+
+
+There are no additional parameters for the `passthrough` encoder.
+
+### Dense Encoder Parameters
+
+For the `dense` encoder these are the available parameters.
+
+- `num_layers` (default `1`): this is the number of stacked fully connected layers that the input to the feature passes through. Their output is projected in the feature's output space.
+- `fc_size` (default `256`): f a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
+- `use_bias` (default `True`): boolean, whether the layer uses a bias vector.
+- `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `weights_regularizer` (default `None`): regularizer function applied to the .weights matrix.  Valid values are `l1`, `l2` or `l1_l2`.
+- `bias_regularizer` (default `None`): regularizer function applied to the bias vector.  Valid values are `l1`, `l2` or `l1_l2`.
+- `activity_regularizer` (default `None`): regurlizer function applied to the output of the layer.  Valid values are `l1`, `l2` or `l1_l2`.
+- `norm` (default `None`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `None`, `batch` or `layer`.
+- `norm_params` (default `None`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
+- `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
+- `dropout` (default `0`): dropout rate
 
 ### Binary Output Features and Decoders
 
@@ -1466,10 +1488,15 @@ These are the available parameters of a binary output feature decoder
 - `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes through. Their output is projected in the feature's output space.
 - `fc_size` (default `256`): if a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
-- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
-- `dropout` (default `false`): determines if there should be a dropout layer after each layer.
-- `initializer` (default `null`): the initializer to use. If `null`, the default initialized of each variable is used (`glorot_uniform` in most cases). Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `regularize` (default `true`): if `true` the wights of the layers are added to the set of weights that get regularized by a regularization loss (if the `regularization_lambda` in `training` is greater than 0).
+- `norm` (default `None`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `None`, `batch` or `layer`.
+- `norm_params` (default `None`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
+- `dropout` (default `0`): dropout rate
+- `use_base` (default `True`): boolean, whether the layer uses a bias vector.
+- `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `bias_initializer` (default `'zeros'`): initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `weights_regularizer` (default `None`): regularizer function applied to the weights matrix. Valid values are `l1`, `l2` or `l1_l2`.
+- `bias_regularizer` (default `None`): regularizer function applied to the bias vector.  Valid values are `l1`, `l2` or `l1_l2`.
+- `activity_regularizer` (default `None`): regurlizer function applied to the output of the layer.  Valid values are `l1`, `l2` or `l1_l2`.
 - `threshold` (default `0.5`): The threshold above (greater or equal) which the predicted output of the sigmoid will be mapped to 1.
 
 Example binary feature entry (with default parameters) in the output features list:
@@ -1489,10 +1516,12 @@ fc_layers: null
 num_fc_layers: 0
 fc_size: 256
 activation: relu
-norm: null
-dropout: false
-initializer: null
-regularize: true
+norm: None
+dropout: 0.2
+weisghts_intializer: glorot_uniform
+bias_initializer: zeros
+weights_regularizer: l1
+bias_regularizer: l1
 threshold: 0.5
 ```
 
@@ -1506,7 +1535,7 @@ Numerical Features
 
 ### Numerical Features Preprocessing
 
-Numerical features are directly transformed into a float valued vector of length `n` (where `n` is the size of the dataset) and added to HDF5 with a key that reflects the name of column in the CSV.
+Numerical features are directly transformed into a float valued vector of length `n` (where `n` is the size of the dataset) and added to HDF5 with a key that reflects the name of column in the DATASET.
 No additional information about them is available in the JSON metadata file.
 
 Parameters available for preprocessing are
@@ -1517,21 +1546,50 @@ Parameters available for preprocessing are
 
 ### Numerical Input Features and Encoders
 
-Numerical features have one encoder, the raw float values coming from the input placeholders are passed through a single neuron for scaling purposes, (optionally) passed through a normalization layer (either `null`, `batch_norm`, or `layer_norm`) and returned as outputs.
-Inputs are of size `b` while outputs are of size `b x 1` where b is the batch size.
+Numerical features have two encoders.  One encoder (`passthrough'`) takes the raw binary values coming from the input placeholders are just returned as outputs.  Inputs are of size `b` while outputs are of size `b x 1` where `b` is the batch size.  The other encoder (`'dense'`) passes the raw binary values through fully connected layers.  In this case the inputs of size `b` are transformed to size `b x h`.  
 
 The available encoder parameters are:
 
-- `norm'` (default `null`): norm to apply after the single neuron. It can be `null`, `batch` or `layer`.
-- `tied_weights` (default `null`): name of the input feature to tie the weights the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
+- `norm'` (default `None`): norm to apply after the single neuron. It can be `None`, `batch` or `layer`.
+- `tied_weights` (default `None`): name of the input feature to tie the weights the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
 
-Example numerical feature entry in the output features list:
+There are no additional parameters for the `passthrough` encoder.
+
+### Dense Encoder Parameters
+
+For the `dense` encoder these are the available parameters.
+
+- `num_layers` (default `1`): this is the number of stacked fully connected layers that the input to the feature passes through. Their output is projected in the feature's output space.
+- `fc_size` (default `256`): f a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
+- `use_bias` (default `True`): boolean, whether the layer uses a bias vector.
+- `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `weights_regularizer` (default `None`): regularizer function applied to the .weights matrix.  Valid values are `l1`, `l2` or `l1_l2`.
+- `bias_regularizer` (default `None`): regularizer function applied to the bias vector.  Valid values are `l1`, `l2` or `l1_l2`.
+- `activity_regularizer` (default `None`): regurlizer function applied to the output of the layer.  Valid values are `l1`, `l2` or `l1_l2`.
+- `norm` (default `None`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `None`, `batch` or `layer`.
+- `norm_params` (default `None`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
+- `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
+- `dropout` (default `0`): dropout rate
+
+
+Example numerical feature entry in the input features list:
 
 ```yaml
 name: numerical_csv_column_name
 type: numerical
-norm: null
-tied_weights: null
+norm: None
+tied_weights: None
+encoder: dense
+num_layers: 1
+fc_size: 256
+use_bias: True
+weights_initializer: glorot_uniform
+bias_initializer: zeros
+weights_regularizer: None
+bias_regularizer: None
+activation: relu
+dropout: 0
 ```
 
 ### Numerical Output Features and Decoders
@@ -1548,15 +1606,20 @@ These are the available parameters of a numerical output feature
 
 These are the available parameters of a numerical output feature decoder
 
-- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`, `activation`, `dropout`, `initializer` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.
+- `fc_layers` (default `None`): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`, `activation`, `dropout`, `initializer` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.
 - `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes through. Their output is projected in the feature's output space.
 - `fc_size` (default `256`): if a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
-- `dropout` (default `false`): determines if there should be a dropout layer after each layer.
-- `initializer` (default `null`): the initializer to use. If `null`, the default initialized of each variable is used (`glorot_uniform` in most cases). Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `regularize` (default `true`): if `true` the weights of the layers are added to the set of weights that get regularized by a regularization loss (if the `regularization_lambda` in `training` is greater than 0).
-- `clip` (default `null`): If not `null` it specifies a minimum and maximum value the predictions will be clipped to. The value can be either a list or a tuple of length 2, with the first value representing the minimum and the second the maximum. For instance `(-5,5)` will make it so that all predictions will be clipped in the `[-5,5]` interval.
+- `norm_params` (default `None`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
+- `dropout` (default `0`): dropout rate
+- `use_bias` (default `True`): boolean, whether the layer uses a bias vector.
+- `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `weights_regularizer` (default `None`): regularizer function applied to the .weights matrix.  Valid values are `l1`, `l2` or `l1_l2`.
+- `bias_regularizer` (default `None`): regularizer function applied to the bias vector.  Valid values are `l1`, `l2` or `l1_l2`.
+- `activity_regularizer` (default `None`): regurlizer function applied to the output of the layer.  Valid values are `l1`, `l2` or `l1_l2`.
+- `clip` (default `None`): If not `None` it specifies a minimum and maximum value the predictions will be clipped to. The value can be either a list or a tuple of length 2, with the first value representing the minimum and the second the maximum. For instance `(-5,5)` will make it so that all predictions will be clipped in the `[-5,5]` interval.
 
 Example numerical feature entry (with default parameters) in the output features list:
 
@@ -1568,14 +1631,20 @@ dependencies: []
 reduce_dependencies: sum
 loss:
     type: mean_squared_error
-fc_layers: null
+fc_layers: None
 num_fc_layers: 0
 fc_size: 256
 activation: relu
-norm: null
-dropout: false
-initializer: null
-regularize: true
+norm: None
+norm_params: None
+dropout: 0
+use_bias: True
+weights_initializer: glorot_uniform
+bias_initializer: zeros
+weights_regularizer: None
+bias_regularizer: None
+activity_regularizer: None
+clip: None
 ```
 
 ### Numerical Features Measures
@@ -1588,14 +1657,15 @@ Category Features
 
 ### Category Features Preprocessing
 
-Category features are transformed into an integer valued vector of size `n` (where `n` is the size of the dataset) and added to HDF5 with a key that reflects the name of column in the CSV.
-The way categories are mapped into integers consists in first collecting a dictionary of all the different category strings present in the column of the CSV, then rank them by frequency and then assign them an increasing integer ID from the most frequent to the most rare (with 0 being assigned to a `<UNK>` token).
+Category features are transformed into an integer valued vector of size `n` (where `n` is the size of the dataset) and added to HDF5 with a key that reflects the name of column in the DATASET.
+The way categories are mapped into integers consists in first collecting a dictionary of all the different category strings present in the column of the DATASET, then rank them by frequency and then assign them an increasing integer ID from the most frequent to the most rare (with 0 being assigned to a `<UNK>` token).
 The column name is added to the JSON file, with an associated dictionary containing
+
 1. the mapping from integer to string (`idx2str`)
 2. the mapping from string to id (`str2idx`)
 3. the mapping from string to frequency (`str2freq`)
 4. the size of the set of all tokens (`vocab_size`)
-4. additional preprocessing information (by default how to fill missing values and what token to use to fill missing values)
+5. additional preprocessing information (by default how to fill missing values and what token to use to fill missing values)
 
 The parameters available for preprocessing are
 
@@ -1606,35 +1676,62 @@ The parameters available for preprocessing are
 
 ### Category Input Features and Encoders
 
-Category features have one encoder, the raw integer values coming from the input placeholders are mapped to either dense or sparse embeddings (one-hot encodings) and returned as outputs.
-Inputs are of size `b` while outputs are of size `b x h` where `b` is the batch size and `h` is the dimensionality of the embeddings.
+Category features have three encoders.
+The `passthrough` encoder passes the raw integer values coming from the input placeholders to outputs of size `b x 1`.
+The other two encoders map to either `dense` or `sparse` embeddings (one-hot encodings) and returned as outputs of size `b x h`, where `b` is the batch size and `h` is the dimenionsality of the embeddings.
 
-The available encoder parameters are
+Input feature parameters.
 
-- `representation'` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are initialized randomly, `sparse` means they are initialized to be one-hot encodings.
+- `encoder'` (default `dense`): the possible values are `passthrough`, `dense` and `sparse`. `passthrough` means passing the raw integer values unaltered.  `dense` means the embeddings are initialized randomly, `sparse` means they are initialized to be one-hot encodings.
+- `tied_weights` (default `None`): name of the input feature to tie the weights the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
+
+Example binary feature entry in the input features list:
+
+```yaml
+name: category_column_name
+type: category
+tied_weights: None
+encoder: dense
+```
+
+The available encoder parameters:
+
+#### Dense Encoder
+
 - `embedding_size` (default `256`): it is the maximum embedding size, the actual size will be `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse` encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the column the feature is named after (plus 1 for `<UNK>`).
-- `embeddings_on_cpu` (default `false`): by default embeddings matrices are stored on GPU memory if a GPU is used, as it allows for faster access, but in some cases the embedding matrix may be really big and this parameter forces the placement of the embedding matrix in regular memory and the CPU is used to resolve them, slightly slowing down the process as a result of data transfer between CPU and GPU memory.
-- `pretrained_embeddings` (default `null`): by default `dense` embeddings are initialized randomly, but this parameter allow to specify a path to a file containing embeddings in the [GloVe format](https://nlp.stanford.edu/projects/glove/). When the file containing the embeddings is loaded, only the embeddings with labels present in the vocabulary are kept, the others are discarded. If the vocabulary contains strings that have no match in the embeddings file, their embeddings are initialized with the average of all other embedding plus some random noise to make them different from each other. This parameter has effect only if `representation` is `dense`.
-- `embeddings_trainable` (default `true`): If `true` embeddings are trained during the training process, if `false` embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter has effect only for `representation` is `dense` as `sparse` one-hot encodings are not trainable.
-- `dropout` (default `false`): determines if there should be a dropout layer after embedding.
-- `initializer` (default `null`): the initializer to use. If `null`, the default initialized of each variable is used (`glorot_uniform` in most cases). Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `regularize` (default `true`): if `true` the embedding weights are added to the set of weights that get regularized by a regularization loss (if the `regularization_lambda` in `training` is greater than 0).
-- `tied_weights` (default `null`): name of the input feature to tie the weights the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
+- `embeddings_on_cpu` (default `False`): by default embeddings matrices are stored on GPU memory if a GPU is used, as it allows for faster access, but in some cases the embedding matrix may be really big and this parameter forces the placement of the embedding matrix in regular memory and the CPU is used to resolve them, slightly slowing down the process as a result of data transfer between CPU and GPU memory.
+- `pretrained_embeddings` (default `None`): by default `dense` embeddings are initialized randomly, but this parameter allow to specify a path to a file containing embeddings in the [GloVe format](https://nlp.stanford.edu/projects/glove/). When the file containing the embeddings is loaded, only the embeddings with labels present in the vocabulary are kept, the others are discarded. If the vocabulary contains strings that have no match in the embeddings file, their embeddings are initialized with the average of all other embedding plus some random noise to make them different from each other. This parameter has effect only if `representation` is `dense`.
+- `embeddings_trainable` (default `True`): If `true` embeddings are trained during the training process, if `false` embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter has effect only for `representation` is `dense` as `sparse` one-hot encodings are not trainable.
+- `dropout` (default `0`): dropout rate.
+- `embedding_initializer` (default `None`): the initializer to use. If `None`, the default initialized of each variable is used (`glorot_uniform` in most cases). Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `embedding_regularizer` (default `None`): specifies the type of regularizer to use `l1`, `l2` or `l1_l2`.
+
+
+#### Sparse Encoder
+
+- `embedding_size` (default `256`): it is the maximum embedding size, the actual size will be `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse` encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the column the feature is named after (plus 1 for `<UNK>`).
+- `embeddings_on_cpu` (default `False`): by default embeddings matrices are stored on GPU memory if a GPU is used, as it allows for faster access, but in some cases the embedding matrix may be really big and this parameter forces the placement of the embedding matrix in regular memory and the CPU is used to resolve them, slightly slowing down the process as a result of data transfer between CPU and GPU memory.
+- `pretrained_embeddings` (default `None`): by default `dense` embeddings are initialized randomly, but this parameter allow to specify a path to a file containing embeddings in the [GloVe format](https://nlp.stanford.edu/projects/glove/). When the file containing the embeddings is loaded, only the embeddings with labels present in the vocabulary are kept, the others are discarded. If the vocabulary contains strings that have no match in the embeddings file, their embeddings are initialized with the average of all other embedding plus some random noise to make them different from each other. This parameter has effect only if `representation` is `dense`.
+- `embeddings_trainable` (default `True`): If `true` embeddings are trained during the training process, if `false` embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter has effect only for `representation` is `dense` as `sparse` one-hot encodings are not trainable.
+- `dropout` (default `0`): dropout rate.
+- `initializer` (default `None`): the initializer to use. If `None`, the default initialized of each variable is used (`glorot_uniform` in most cases). Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `regularizer` (default `None`): specifies the type of regularizer to use `l1`, `l2` or `l1_l2`.
+
 
 Example category feature entry in the input features list:
 
 ```yaml
-name: category_csv_column_name
+name: category_column_name
 type: category
-representation: dense
+encoder: sparse
+tied_weights: None
 embedding_size: 256
-embeddings_on_cpu: false
-pretrained_embeddings: null
-embeddings_trainable: true
-dropout: false
-initializer: null
-regularize: true
-tied_weights: null
+embeddings_on_cpu: False
+pretrained_embeddings: None
+embeddings_trainable: True
+dropout: 0
+initializer: None
+regularizer: None
 ```
 
 ### Category Output Features and Decoders
@@ -1656,6 +1753,7 @@ These are the available parameters of a category output feature
 - `dependencies` (default `[]`): the output features this one is dependent on. For a detailed explanation refer to [Output Features Dependencies](#output-features-dependencies).
 - `reduce_dependencies` (default `sum`): defines how to reduce the output of a dependent feature that is not a vector, but a matrix or a higher order tensor, on the first dimension 9second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension).
 - `loss` (default `{type: softmax_cross_entropy, class_similarities_temperature: 0, class_weights: 1, confidence_penalty: 0, distortion: 1, labels_smoothing: 0, negative_samples: 0, robust_lambda: 0, sampler: null, unique: false}`): is a dictionary containing a loss `type`. The available losses `type` are `softmax_cross_entropy` and `sampled_softmax_cross_entropy`.
+- `top_k` (default `3`): determines the parameter `k`, the number of categories to consider when computing the `top_k` measure. It computes accuracy but considering as a match if the true category appears in the first `k` predicted categories ranked by decoder's confidence.
 
 These are the `loss` parameters
 
@@ -1672,20 +1770,24 @@ These are the `loss` parameters
 
 These are the available parameters of a category output feature decoder
 
-- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`, `activation`, `dropout`, `initializer` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.
+- `fc_layers` (default `None`): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`, `activation`, `dropout`, `initializer` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.
 - `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes through. Their output is projected in the feature's output space.
 - `fc_size` (default `256`): if a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
-- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
-- `dropout` (default `false`): determines if there should be a dropout layer after each layer.
-- `initializer` (default `null`): the initializer to use. If `null`, the default initialized of each variable is used (`glorot_uniform` in most cases). Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `regularize` (default `true`): if `true` the weights of the layers are added to the set of weights that get regularized by a regularization loss (if the `regularization_lambda` in `training` is greater than 0).
-- `top_k` (default `3`): determines the parameter `k`, the number of categories to consider when computing the `top_k` measure. It computes accuracy but considering as a match if the true category appears in the first `k` predicted categories ranked by decoder's confidence.
+- `norm` (default `None`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
+- `norm_params` (default `None`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
+- `dropout` (default `False`): determines if there should be a dropout layer after each layer.
+- `use_bias` (default `True`): boolean, whether the layer uses a bias vector.
+- `weights_initializer` (default `'glorot_uniform'`): initializer for the fully connected weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `weights_regularizer` (default `None`): regularizer function applied to the fully connected weights matrix.  Valid values are `l1`, `l2` or `l1_l2`.
+- `bias_regularizer` (default `None`): regularizer function applied to the bias vector.  Valid values are `l1`, `l2` or `l1_l2`.
+- `activity_regularizer` (default `None`): regurlizer function applied to the output of the layer.  Valid values are `l1`, `l2` or `l1_l2`.
 
 Example category feature entry (with default parameters) in the output features list:
 
 ```yaml
-name: category_csv_column_name
+name: category_column_name
 type: category
 reduce_input: sum
 dependencies: []
@@ -1702,14 +1804,18 @@ loss:
     sampler: null
     distortion: 1
     unique: false
-fc_layers: null
+fc_layers: None
 num_fc_layers: 0
 fc_size: 256
 activation: relu
-norm: null
-dropout: false
-initializer: null
-regularize: true
+norm: None
+norm_params: None
+dropout: 0
+use_biase: True
+weights_initializer: glorot_uniform
+bias_initializer: zeros
+weights_regularizer: None
+bias_regularizer: None
 top_k: 3
 ```
 

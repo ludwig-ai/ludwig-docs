@@ -2351,7 +2351,7 @@ These are the available parameters for the stack parallel cnn encoder:
 Example sequence feature entry in the input features list using a parallel cnn encoder:
 
 ```yaml
-name: sequence_csv_column_name
+name: sequence_column_name
 type: sequence
 encoder: stacked_parallel_cnn
 tied_weights: None
@@ -2669,7 +2669,7 @@ These are the parameters available for the Transformer encoder.
 Example sequence feature entry in the inputs features list using a Transformer encoder:
 
 ```yaml
-name: sequence_csv_column_name
+name: sequence_column_name
 type: sequence
 encoder: transformer
 tied_weights: None
@@ -2726,7 +2726,7 @@ These are the parameters available for the passthrough encoder
 Example sequence feature entry in the input features list using a passthrough encoder:
 
 ```yaml
-name: sequence_csv_column_name
+name: sequence_column_name
 type: sequence
 encoder: passthrough
 reduce_output: None
@@ -3426,7 +3426,7 @@ It takes the following optional parameters:
 Example date feature entry in the input features list using a wave encoder:
 
 ```yaml
-name: date_csv_column_name
+name: date_column_name
 type: date
 encoder: wave
 fc_layers: null

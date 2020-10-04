@@ -4471,8 +4471,8 @@ Example commands to generate the visualizations are based on running two experim
 The experiments themselves are run with the following:
 
 ```
-ludwig experiment --experiment_name titanic --model_name Model1 --data_csv train.csv -mdf titanic_model1.yaml
-ludwig experiment --experiment_name titanic --model_name Model2 --data_csv train.csv -mdf titanic_model2.yaml
+ludwig experiment --experiment_name titanic --model_name Model1 --dataset train.csv -mdf titanic_model1.yaml
+ludwig experiment --experiment_name titanic --model_name Model2 --dataset train.csv -mdf titanic_model2.yaml
 ```
 
 For this, you need to download the [Titanic Kaggle competition dataset](https://www.kaggle.com/c/titanic/) to get `train.csv`.

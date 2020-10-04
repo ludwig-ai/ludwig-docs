@@ -2517,7 +2517,7 @@ reduce_output: last
 
 #### CNN RNN Encoder
 
-The cnn rnn encoder works by first mapping the input integer sequence `b x s` (where `b` is the batch size and `s` is the length of the sequence) into a sequence of embeddings, then it passes the embedding through a stack of convolutional layers (by default 2), that is followed by a stack of recurrent layers (by default 1), followed by a reduce operation that by default only returns the last output, but can perform other reduce functions.
+The `cnnrnn` encoder works by first mapping the input integer sequence `b x s` (where `b` is the batch size and `s` is the length of the sequence) into a sequence of embeddings, then it passes the embedding through a stack of convolutional layers (by default 2), that is followed by a stack of recurrent layers (by default 1), followed by a reduce operation that by default only returns the last output, but can perform other reduce functions.
 If you want to output the full `b x s x h` where `h` is the size of the output of the last rnn layer, you can specify `reduce_output: None`.
 
 ```
@@ -2638,38 +2638,36 @@ reduce_output: last
 
 #### Transformer Encoder
 
-TODO Need overview of Transformer encoder
+The `transformer` encoder implements a stack of transformer blocks, replicating the architecture introduced the [Attention is all you need](https://arxiv.org/abs/1706.03762) paper, and adds am optional stack of fully connected layers at the end.
 
 ```
-       +------+                     +------+
-       |Emb 12|                     |Emb 12+-->
-       +------+                     +------+
-+--+   |Emb 7 |                     |Emb 7 |
-|12|   +------+                     +------+
-|7 |   |Emb 43|   +-------------+   |Emb 43|
-|43|   +------+   |             |   +------+
-|65+---+Emb 65+---> Transformer +--->Emb 65|
-|23|   +------+   | Layers      |   +------+
-|4 |   |Emb 23|   +-------------+   |Emb 23|
-|1 |   +------+                     +------+
-+--+   |Emb 4 |                     |Emb 4 |
-       +------+                     +------+
-       |Emb 1 |                     |Emb 1 |
-       +------+                     +------+
+       +------+                     
+       |Emb 12|                     
+       +------+                     
++--+   |Emb 7 |                     
+|12|   +------+                     
+|7 |   |Emb 43|   +-------------+   +---------+ 
+|43|   +------+   |             |   |Fully    |
+|65+---+Emb 65+---> Transformer +--->Connected+->
+|23|   +------+   | Blocks      |   |Layers   |
+|4 |   |Emb 23|   +-------------+   +---------+
+|1 |   +------+                     
++--+   |Emb 4 |                     
+       +------+                     
+       |Emb 1 |                     
+       +------+                     
 
 ```
-
-These are the parameters available for the Transformer encoder.
 
 - `representation'` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are initialized randomly, `sparse` means they are initialized to be one-hot encodings.
 - `embedding_size` (default `256`): it is the maximum embedding size, the actual size will be `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse` encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the column the feature is named after (plus 1 for `<UNK>`).
 - `embeddings_trainable` (default `True`): If `True` embeddings are trained during the training process, if `False` embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter has effect only for `representation` is `dense` as `sparse` one-hot encodings are not trainable.
 - `pretrained_embeddings` (default `None`): by default `dense` embeddings are initialized randomly, but this parameter allow to specify a path to a file containing embeddings in the [GloVe format](https://nlp.stanford.edu/projects/glove/). When the file containing the embeddings is loaded, only the embeddings with labels present in the vocabulary are kept, the others are discarded. If the vocabulary contains strings that have no match in the embeddings file, their embeddings are initialized with the average of all other embedding plus some random noise to make them different from each other. This parameter has effect only if `representation` is `dense`.
 - `embeddings_on_cpu` (default `False`): by default embeddings matrices are stored on GPU memory if a GPU is used, as it allows for faster access, but in some cases the embedding matrix may be really big and this parameter forces the placement of the embedding matrix in regular memory and the CPU is used to resolve them, slightly slowing down the process as a result of data transfer between CPU and GPU memory.
-- `num_layers` (default `1`): number of transformer blocks
-- `hidden_size` (default `256'): TODO need description
-- `num_heads` (default `8`):  TODO need description
-- `transformer_fc_size` (default `256'):  TODO Description
+- `num_layers` (default `1`): number of transformer blocks.
+- `hidden_size` (default `256`): the size of the hidden representation within the transformer block. It is usually the same of the `embedding_size`, but if the two values are different, a projection layer will be added before the first transformer block.
+- `num_heads` (default `8`): number of heads of the self attention in the transformer block.
+- `transformer_fc_size` (default `256`): Size of the fully connected layer after self attention in the transformer block. This is usually the same as `hidden_size` and `embedding_size`.
 - `dropout` (default `0.1`): dropout rate for the transformer block
 - `fc_layers` (default `None`): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`, `activation`,  `initializer` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both `fc_layers` and `num_fc_layers` are `None`, a default list will be assigned to `fc_layers` with the value `[{fc_size: 512}, {fc_size: 256}]`. (only applies if `reduce_output` is not `None`).
 - `num_fc_layers` (default `0`): This is the number of stacked fully connected layers (only applies if `reduce_output` is not `None`).

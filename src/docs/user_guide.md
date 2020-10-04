@@ -2966,21 +2966,12 @@ python -m spacy download <language_code>
 and provide `<language>_<function>` as `tokenizer` like: `english_tokenizer`, `italian_lemmatize_filter`, `multi_tokenize_filter` and so on.
 More details on the models can be found in the [spaCy documentation](https://spacy.io/models).
 
-### Text Input Features and Encoders
-
-Text input feature parameters are
-
-- `encoder` (default `parallel_cnn`): encoder to use for the input text feature. The available encoders come from [Sequence Features](#sequence-input-features-and-encoders) and these text specific encoders: `bert`, `gpt`, `gpt2`, `xlnet`, `xlm`, `roberta`, `distilbert`, `ctrl`, `camembert`, `albert`, `t5`, `xlmroberta`, `flaubert`, `electra`, `longformer` and `auto-transformer`.
-- `level` (default `word`): `word` specifies using text words, `char` use individual characters.
-- `tied_weights` (default `null`): name of the input feature to tie the weights the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
-
-Example text input feature using default values:
+Example of text preprocessing.
 
 ```yaml
 name: text_column_name
 type: text
 level: word
-tied_weights: null
 preprocessing:
     char_tokenizer: characters
     char_vocab_file: null
@@ -2997,6 +2988,147 @@ preprocessing:
     lowercase: false
     missing_value_strategy: fill_with_const
     fill_value: ""
+```
+
+
+### Text Input Features and Encoders
+
+Text input feature parameters are
+
+- `encoder` (default `parallel_cnn`): encoder to use for the input text feature. The available encoders come from [Sequence Features](#sequence-input-features-and-encoders) and these text specific encoders: `bert`, `gpt`, `gpt2`, `xlnet`, `xlm`, `roberta`, `distilbert`, `ctrl`, `camembert`, `albert`, `t5`, `xlmroberta`, `flaubert`, `electra`, `longformer` and `auto-transformer`.
+- `level` (default `word`): `word` specifies using text words, `char` use individual characters.
+- `tied_weights` (default `null`): name of the input feature to tie the weights the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
+
+#### BERT ENCODER
+
+- `pretrained_model_name_or_path` (default `bert-base-uncased`):
+- `reduced_output` (default `cls_pooled`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+#### GPT ENCODER
+
+- `pretrained_model_name_or_path` (default `openai-gpt`):
+- `reduce_output` (default `sum`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+#### GPT2 ENCODER 
+
+- `pretrained_model_name_or_path` (default `gpt2`):
+- `reduce_output` (default `sum`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+#### XLNET ENCODER 
+
+- `pretrained_model_name_or_path` (default `xlnet-base-cased`):
+- `reduce_output` (default `sum`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+
+#### XLM ENCODER 
+
+- `pretrained_model_name_or_path` (default `xlm-mlm-en-2048`):
+- `reduce_output` (default `sum`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+
+#### ROBERTA ENCODER 
+
+- `pretrained_model_name_or_path` (default `roberta-base`):
+- `reduce_output` (default `cls_pooled`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+#### DISTILBERT ENCODER 
+
+- `pretrained_model_name_or_path` (default `distilbert-base-uncased`):
+- `reduce_output` (default `sum`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+#### CTRL ENCODER 
+
+- `pretrained_model_name_or_path` (default `ctrl`):
+- `reduce_output` (default `sum`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+#### CAMEMBERT ENCODER 
+
+- `pretrained_model_name_or_path` (default `jplu/tf-camembert-base`):
+- `reduce_output` (default `cls_pooled`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+#### ALBERT ENCODER 
+
+- `pretrained_model_name_or_path` (default `albert-base-v2`):
+- `reduce_output` (default `cls_pooled`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+#### T5 ENCODER 
+
+- `pretrained_model_name_or_path` (default `t5-small`):
+- `reduce_output` (default `sum`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+
+#### XLMROBERTA ENCODER 
+
+- `pretrained_model_name_or_path` (default `jplu/tf-xlm-reoberta-base`):
+- `reduce_output` (default `cls_pooled`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+
+#### FLAUBERT ENCODER 
+
+- `pretrained_model_name_or_path` (default `jplu/tf-flaubert-base-uncased`):
+- `reduce_output` (default `sum`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+
+#### ELECTRA ENCODER 
+
+- `pretrained_model_name_or_path` (default `google/electra-small-discriminator`):
+- `reduce_output` (default `sum`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+
+#### LONGFORMER ENCODER 
+
+- `pretrained_model_name_or_path` (default `allenai/longformer-base-4096`):
+- `reduce_output` (default `cls_pooled`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+#### AUTO-TRANSFORMER ENCODER
+
+- `pretrained_model_name_or_path` (default ):
+- `reduce_output` (default `sum`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+Example text input feature encoder usage:
+
+```yaml
+name: text_column_name
+type: text
+level: word
+encoder: bert
+tied_weights: None
+pretrained_model_name_or_path: bert-base-uncased
+reduced_output: cls_pooled
+trainable: false
+num_tokens: null
 ```
 
 ### Text Output Features and Decoders

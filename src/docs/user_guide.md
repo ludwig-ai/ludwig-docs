@@ -2796,10 +2796,9 @@ These are the available parameters of a tagger decoder:
 - `norm_params` (default `None`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `dropout` (default `0`): dropout rate
-- `attention` (default `False`):   TODO need description
-- `attention_embedding_size` (default `256`):   TODO need description
-- `attention_num_heads` (default `8`):  TODO need description
-- `is_timeseries` (default `False`): flag indicating if the sequence is a time series
+- `attention` (default `False`): If `true`, applies a multi-head self attention layer befre prediction.
+- `attention_embedding_size` (default `256`): the embedding size of the multi-head self attention layer.
+- `attention_num_heads` (default `8`): number of attention heads in the multi-head self attention layer.
 
 Example sequence feature entry using a tagger decoder (with default parameters) in the output features list:
 
@@ -2838,7 +2837,6 @@ dropout: 0
 attention: False
 attention_embedding_size: 256
 attention_num_heads: 8
-is_timeseries: False
 ```
 
 #### Generator Decoder

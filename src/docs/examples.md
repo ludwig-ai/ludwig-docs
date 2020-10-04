@@ -340,11 +340,11 @@ input_features:
                 filter_size: 3
                 pool_size: 2
                 pool_stride: 2
-                dropout: true
+                dropout: 0.4
         fc_layers:
             -
                 fc_size: 128
-                dropout: true
+                dropout: 0.4
 
 output_features:
     -
@@ -352,7 +352,7 @@ output_features:
         type: category
 
 training:
-    dropout_rate: 0.4
+    early_stop: 5
 ```
 
 Image Captioning
@@ -553,17 +553,17 @@ input_features:
                 filter_size: 6
                 pool_size: 4
                 pool_stride: 4
-                dropout: true
+                dropout: 0.4
             -
                 num_filters: 32
                 filter_size: 3
                 pool_size: 2
                 pool_stride: 2
-                dropout: true
+                dropout: 0.4
         fc_layers:
             -
                 fc_size: 64
-                dropout: true
+                dropout: 0.4
 
 output_features:
     -
@@ -571,7 +571,6 @@ output_features:
         type: category
 
 training:
-    dropout_rate: 0.4
     early_stop: 10
 ```
 

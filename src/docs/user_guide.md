@@ -1320,7 +1320,7 @@ The `learning_rate` parameter the optimizer will use come from the `training` se
 - `sgd` (or `stochastic_gradient_descent`, `gd`, `gradient_descent`)
 ```
 'momentum': 0.0,
-'nesterov': False
+'nesterov': false
 ```
 
 - `adam`
@@ -1369,7 +1369,7 @@ The `learning_rate` parameter the optimizer will use come from the `training` se
 'decay': 0.9,
 'momentum': 0.0,
 'epsilon': 1e-10,
-'centered': False
+'centered': false
 ```
 
 
@@ -1387,9 +1387,9 @@ Example preprocessing dictionary (showing default values):
 
 ```yaml
 preprocessing:
-    force_split: False
+    force_split: false
     split_probabilities: [0.7, 0.1, 0.2]
-    stratify: None
+    stratify: null
     category: {...}
     sequence: {...}
     text: {...}
@@ -1553,7 +1553,7 @@ fc_layers: null
 num_fc_layers: 0
 fc_size: 256
 activation: relu
-norm: None
+norm: null
 dropout: 0.2
 weisghts_intializer: glorot_uniform
 bias_initializer: zeros
@@ -1615,16 +1615,16 @@ Example numerical feature entry in the input features list:
 ```yaml
 name: numerical_column_name
 type: numerical
-norm: None
-tied_weights: None
+norm: null
+tied_weights: null
 encoder: dense
 num_layers: 1
 fc_size: 256
-use_bias: True
+use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-weights_regularizer: None
-bias_regularizer: None
+weights_regularizer: null
+bias_regularizer: null
 activation: relu
 dropout: 0
 ```
@@ -1668,20 +1668,20 @@ dependencies: []
 reduce_dependencies: sum
 loss:
     type: mean_squared_error
-fc_layers: None
+fc_layers: null
 num_fc_layers: 0
 fc_size: 256
 activation: relu
-norm: None
-norm_params: None
+norm: null
+norm_params: null
 dropout: 0
-use_bias: True
+use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-weights_regularizer: None
-bias_regularizer: None
-activity_regularizer: None
-clip: None
+weights_regularizer: null
+bias_regularizer: null
+activity_regularizer: null
+clip: null
 ```
 
 ### Numerical Features Measures
@@ -1727,7 +1727,7 @@ Example binary feature entry in the input features list:
 ```yaml
 name: category_column_name
 type: category
-tied_weights: None
+tied_weights: null
 encoder: dense
 ```
 
@@ -1761,14 +1761,14 @@ Example category feature entry in the input features list:
 name: category_column_name
 type: category
 encoder: sparse
-tied_weights: None
+tied_weights: null
 embedding_size: 256
-embeddings_on_cpu: False
-pretrained_embeddings: None
-embeddings_trainable: True
+embeddings_on_cpu: false
+pretrained_embeddings: null
+embeddings_trainable: true
 dropout: 0
-initializer: None
-regularizer: None
+initializer: null
+regularizer: null
 ```
 
 ### Category Output Features and Decoders
@@ -1841,18 +1841,18 @@ loss:
     sampler: null
     distortion: 1
     unique: false
-fc_layers: None
+fc_layers: null
 num_fc_layers: 0
 fc_size: 256
 activation: relu
-norm: None
-norm_params: None
+norm: null
+norm_params: null
 dropout: 0
-use_biase: True
+use_biase: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-weights_regularizer: None
-bias_regularizer: None
+weights_regularizer: null
+bias_regularizer: null
 top_k: 3
 ```
 
@@ -1933,24 +1933,24 @@ name: set_column_name
 type: set
 representation: dense
 embedding_size: 50
-embeddings_trainable: True
-pretrained_embeddings: None
-embeddings_on_cpu: False
-fc_layers: None
+embeddings_trainable: true
+pretrained_embeddings: null
+embeddings_on_cpu: false
+fc_layers: null
 num_fc_layers: 0
 fc_size: 10
-use_bias: True
+use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-weights_regularizer: None
-bias_regularizer: None
-activity_regularizer: None
-norm: None
-norm_params: None
+weights_regularizer: null
+bias_regularizer: null
+activity_regularizer: null
+norm: null
+norm_params: null
 activation: relu
 dropout: 0.0
 reduce_output: sum
-tied_weights: None
+tied_weights: null
 ```
 
 ### Set Output Features and Decoders
@@ -2000,17 +2000,17 @@ dependencies: []
 reduce_dependencies: sum
 loss:
     type: sigmoid_cross_entropy
-fc_layers: None
+fc_layers: null
 num_fc_layers: 0
 fc_size: 256
-use_bias: True
+use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-weights_regularizer: None
-bias_regularizer: None
-activity_regularizer: None
-norm: None
-norm_params: None
+weights_regularizer: null
+bias_regularizer: null
+activity_regularizer: null
+norm: null
+norm_params: null
 activation: relu
 dropout: 0.0
 threshold: 0.5
@@ -2079,7 +2079,7 @@ Sequence features have several encoders and each of them has its own parameters.
 Inputs are of size `b` while outputs are of size `b x h` where `b` is the batch size and `h` is the dimensionally of the output of the encoder.
 In case a representation for each element of the sequence is needed (for example for tagging them, or for using an attention mechanism), one can specify the parameter `reduce_output` to be `null` or `null` and the output will be a `b x s x h` tensor where `s` is the length of the sequence.
 Some encoders, because of their inner workings, may require additional parameters to be specified in order to obtain one representation for each element of the sequence.
-For instance the `parallel_cnn` encoder, by default pools and flattens the sequence dimension and then passes the flattened vector through fully connected layers, so in order to obtain the full tesnor one has to specify `reduce_output: None`.
+For instance the `parallel_cnn` encoder, by default pools and flattens the sequence dimension and then passes the flattened vector through fully connected layers, so in order to obtain the full tesnor one has to specify `reduce_output: null`.
 
 Sequence input feature parameters are
 
@@ -2090,7 +2090,7 @@ Sequence input feature parameters are
 
 The embed encoder simply maps each integer in the sequence to an embedding, creating a `b x s x h` tensor where `b` is the batch size, `s` is the length of the sequence and `h` is the embedding size.
 The tensor is reduced along the `s` dimension to obtain a single vector of size `h` for each element of the batch.
-If you want to output the full `b x s x h` tensor, you can specify `reduce_output: None`.
+If you want to output the full `b x s x h` tensor, you can specify `reduce_output: null`.
 
 ```
        +------+
@@ -2128,15 +2128,15 @@ Example sequence feature entry in the input features list using an embed encoder
 name: sequence_column_name
 type: sequence
 encoder: embed
-tied_weights: None
+tied_weights: null
 representation: dense
 embedding_size: 256
-embeddings_trainable: True
-pretrained_embeddings: None
-embeddings_on_cpu: False
+embeddings_trainable: true
+pretrained_embeddings: null
+embeddings_on_cpu: false
 dropout: 0
-weights_initializer: None
-weights_regularizer: None
+weights_initializer: null
+weights_regularizer: null
 reduce_output: sum
 ```
 
@@ -2145,7 +2145,7 @@ reduce_output: sum
 The parallel cnn encoder is inspired by [Yoon Kim's Convolutional Neural Network for Sentence Classification](https://arxiv.org/abs/1408.5882).
 It works by first mapping the input integer sequence `b x s` (where `b` is the batch size and `s` is the length of the sequence) into a sequence of embeddings, then it passes the embedding through a number of parallel 1d convolutional layers with different filter size (by default 4 layers with filter size 2, 3, 4 and 5), followed by max pooling and concatenation.
 This single vector concatenating the outputs of the parallel convolutional layers is then passed through a stack of fully connected layers and returned as a `b x h` tensor where `h` is the output size of the last fully connected layer.
-If you want to output the full `b x s x h` tensor, you can specify `reduce_output: None`.
+If you want to output the full `b x s x h` tensor, you can specify `reduce_output: null`.
 
 ```
                    +-------+   +----+
@@ -2203,29 +2203,29 @@ Example sequence feature entry in the input features list using a parallel cnn e
 name: sequence_column_name
 type: sequence
 encoder: parallel_cnn
-tied_weights: None
+tied_weights: null
 representation: dense
 embedding_size: 256
-embeddings_on_cpu: False
-pretrained_embeddings: None
-embeddings_trainable: True
-conv_layers: None
-num_conv_layers: None
+embeddings_on_cpu: false
+pretrained_embeddings: null
+embeddings_trainable: true
+conv_layers: null
+num_conv_layers: null
 filter_size: 3
 num_filters: 256
 pool_function: max
-pool_size: None
-fc_layers: None
-num_fc_layers: None
+pool_size: null
+fc_layers: null
+num_fc_layers: null
 fc_size: 256
-use_bias: True
+use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-weights_regularizer: None
-bias_regularizer: None
-activity_regularizer: None
-norm: None
-norm_params: None
+weights_regularizer: null
+bias_regularizer: null
+activity_regularizer: null
+norm: null
+norm_params: null
 activation: relu
 dropout: 0.0
 reduce_output: sum
@@ -2236,7 +2236,7 @@ reduce_output: sum
 The stacked cnn encoder is inspired by [Xiang Zhang at all's Character-level Convolutional Networks for Text Classification](https://arxiv.org/abs/1509.01626).
 It works by first mapping the input integer sequence `b x s` (where `b` is the batch size and `s` is the length of the sequence) into a sequence of embeddings, then it passes the embedding through a stack of 1d convolutional layers with different filter size (by default 6 layers with filter size 7, 7, 3, 3, 3 and 3), followed by an optional final pool and by a flatten operation.
 This single flatten vector is then passed through a stack of fully connected layers and returned as a `b x h` tensor where `h` is the output size of the last fully connected layer.
-If you want to output the full `b x s x h` tensor, you can specify the `pool_size` of all your `conv_layers` to be `null`  and `reduce_output: None`, while if `pool_size` has a value different from `null` and `reduce_output: None` the returned tensor will be of shape `b x s' x h`, where `s'` is width of the output of the last convolutional layer.
+If you want to output the full `b x s x h` tensor, you can specify the `pool_size` of all your `conv_layers` to be `null`  and `reduce_output: null`, while if `pool_size` has a value different from `null` and `reduce_output: null` the returned tensor will be of shape `b x s' x h`, where `s'` is width of the output of the last convolutional layer.
 
 ```
        +------+
@@ -2263,7 +2263,7 @@ These are the parameters available for the stack cnn encoder:
 - `embeddings_trainable` (default `true`): If `true` embeddings are trained during the training process, if `false` embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter has effect only for `representation` is `dense` as `sparse` one-hot encodings are not trainable.
 - `pretrained_embeddings` (default `null`): by default `dense` embeddings are initialized randomly, but this parameter allow to specify a path to a file containing embeddings in the [GloVe format](https://nlp.stanford.edu/projects/glove/). When the file containing the embeddings is loaded, only the embeddings with labels present in the vocabulary are kept, the others are discarded. If the vocabulary contains strings that have no match in the embeddings file, their embeddings are initialized with the average of all other embedding plus some random noise to make them different from each other. This parameter has effect only if `representation` is `dense`.
 - `embeddings_on_cpu` (default `false`): by default embeddings matrices are stored on GPU memory if a GPU is used, as it allows for faster access, but in some cases the embedding matrix may be really big and this parameter forces the placement of the embedding matrix in regular memory and the CPU is used to resolve them, slightly slowing down the process as a result of data transfer between CPU and GPU memory.
-- `conv_layers` (default `null`): it is a list of dictionaries containing the parameters of all the convolutional layers. The length of the list determines the number of stacked convolutional layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `filter_size`, `num_filters`, `pool_size`, `norm`, `activation` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both `conv_layers` and `num_conv_layers` are `null`, a default list will be assigned to `conv_layers` with the value `[{filter_size: 7, pool_size: 3, regularize: False}, {filter_size: 7, pool_size: 3, regularize: False}, {filter_size: 3, pool_size: None, regularize: False}, {filter_size: 3, pool_size: None, regularize: False}, {filter_size: 3, pool_size: None, regularize: True}, {filter_size: 3, pool_size: 3, regularize: True}]`.
+- `conv_layers` (default `null`): it is a list of dictionaries containing the parameters of all the convolutional layers. The length of the list determines the number of stacked convolutional layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `filter_size`, `num_filters`, `pool_size`, `norm`, `activation` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both `conv_layers` and `num_conv_layers` are `null`, a default list will be assigned to `conv_layers` with the value `[{filter_size: 7, pool_size: 3, regularize: false}, {filter_size: 7, pool_size: 3, regularize: false}, {filter_size: 3, pool_size: null, regularize: false}, {filter_size: 3, pool_size: null, regularize: false}, {filter_size: 3, pool_size: null, regularize: true}, {filter_size: 3, pool_size: 3, regularize: true}]`.
 - `num_conv_layers` (default `null`): if `conv_layers` is `null`, this is the number of stacked convolutional layers.
 - `filter_size` (default `3`): if a `filter_size` is not already specified in `conv_layers` this is the default `filter_size` that will be used for each layer. It indicates how wide is the 1d convolutional filter.
 - `num_filters` (default `256`): if a `num_filters` is not already specified in `conv_layers` this is the default `num_filters` that will be used for each layer. It indicates the number of filters, and by consequence the output channels of the 1d convolution.
@@ -2295,34 +2295,34 @@ Example sequence feature entry in the input features list using a parallel cnn e
 name: sequence_column_name
 type: sequence
 encoder: stacked_cnn
-tied_weights: None
+tied_weights: null
 representation: dense
 embedding_size: 256
-embeddings_trainable: True
-pretrained_embeddings: None
-embeddings_on_cpu: False
-conv_layers: None
-num_conv_layers: None
+embeddings_trainable: true
+pretrained_embeddings: null
+embeddings_on_cpu: false
+conv_layers: null
+num_conv_layers: null
 filter_size: 3
 num_filters: 256
 strides: 1
 padding: same
 dilation_rate: 1
 pool_function: max
-pool_size: None
-pool_strides: None
+pool_size: null
+pool_strides: null
 pool_padding: same
-fc_layers: None
-num_fc_layers: None
+fc_layers: null
+num_fc_layers: null
 fc_size: 256
-use_bias: True
+use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-weights_regularizer: None
-bias_regularizer: None
-activity_regularizer: None
-norm: None
-norm_params: None
+weights_regularizer: null
+bias_regularizer: null
+activity_regularizer: null
+norm: null
+norm_params: null
 activation: relu
 dropout: 0
 reduce_output: max
@@ -2333,7 +2333,7 @@ reduce_output: max
 The stacked parallel cnn encoder is a combination of the Parallel CNN and the Stacked CNN encoders where each layer of the stack is a composed of parallel convolutional layers.
 It works by first mapping the input integer sequence `b x s` (where `b` is the batch size and `s` is the length of the sequence) into a sequence of embeddings, then it passes the embedding through a stack of several parallel 1d convolutional layers with different filter size, followed by an optional final pool and by a flatten operation.
 This single flatten vector is then passed through a stack of fully connected layers and returned as a `b x h` tensor where `h` is the output size of the last fully connected layer.
-If you want to output the full `b x s x h` tensor, you can specify `reduce_output: None`.
+If you want to output the full `b x s x h` tensor, you can specify `reduce_output: null`.
 
 ```
                    +-------+                      +-------+
@@ -2391,29 +2391,29 @@ Example sequence feature entry in the input features list using a parallel cnn e
 name: sequence_column_name
 type: sequence
 encoder: stacked_parallel_cnn
-tied_weights: None
+tied_weights: null
 representation: dense
 embedding_size: 256
-embeddings_trainable: True
-pretrained_embeddings: None
-embeddings_on_cpu: False
-stacked_layers: None
-num_stacked_layers: None
+embeddings_trainable: true
+pretrained_embeddings: null
+embeddings_on_cpu: false
+stacked_layers: null
+num_stacked_layers: null
 filter_size: 3
 num_filters: 256
 pool_function: max
-pool_size: None
-fc_layers: None
-num_fc_layers: None
+pool_size: null
+fc_layers: null
+num_fc_layers: null
 fc_size: 256
-use_bias: True
+use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-weights_regularizer: None
-bias_regularizer: None
-activity_regularizer: None
-norm: None
-norm_params: None
+weights_regularizer: null
+bias_regularizer: null
+activity_regularizer: null
+norm: null
+norm_params: null
 activation: relu
 dropout: 0
 reduce_output: max
@@ -2422,7 +2422,7 @@ reduce_output: max
 #### RNN Encoder
 
 The rnn encoder works by first mapping the input integer sequence `b x s` (where `b` is the batch size and `s` is the length of the sequence) into a sequence of embeddings, then it passes the embedding through a stack of recurrent layers (by default 1 layer), followed by a reduce operation that by default only returns the last output, but can perform other reduce functions.
-If you want to output the full `b x s x h` where `h` is the size of the output of the last rnn layer, you can specify `reduce_output: None`.
+If you want to output the full `b x s x h` where `h` is the size of the output of the last rnn layer, you can specify `reduce_output: null`.
 
 ```
        +------+
@@ -2483,34 +2483,34 @@ Example sequence feature entry in the input features list using a parallel cnn e
 name: sequence_column_name
 type: sequence
 encoder: rnn
-tied_weights: None
+tied_weights: null
 representation': dense
 embedding_size: 256
-embeddings_trainable: True
-pretrained_embeddings: None
-embeddings_on_cpu: False
+embeddings_trainable: true
+pretrained_embeddings: null
+embeddings_on_cpu: false
 num_layers: 1
 state_size: 256
 cell_type: rnn
-bidirectional: False
+bidirectional: false
 activation: tanh
 recurrent_activation: sigmoid
-unit_forget_bias: True
+unit_forget_bias: true
 recurrent_initializer: orthogonal
-recurrent_regularizer: None
+recurrent_regularizer: null
 dropout: 0.0
 recurrent_dropout: 0.0
-fc_layers: None
-num_fc_layers: None
+fc_layers: null
+num_fc_layers: null
 fc_size: 256
-use_bias: True
+use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-weights_regularizer: None
-bias_regularizer: None
-activity_regularizer: None
-norm: None
-norm_params: None
+weights_regularizer: null
+bias_regularizer: null
+activity_regularizer: null
+norm: null
+norm_params: null
 fc_activation: relu
 fc_dropout: 0
 reduce_output: last
@@ -2519,7 +2519,7 @@ reduce_output: last
 #### CNN RNN Encoder
 
 The `cnnrnn` encoder works by first mapping the input integer sequence `b x s` (where `b` is the batch size and `s` is the length of the sequence) into a sequence of embeddings, then it passes the embedding through a stack of convolutional layers (by default 2), that is followed by a stack of recurrent layers (by default 1), followed by a reduce operation that by default only returns the last output, but can perform other reduce functions.
-If you want to output the full `b x s x h` where `h` is the size of the output of the last rnn layer, you can specify `reduce_output: None`.
+If you want to output the full `b x s x h` where `h` is the size of the output of the last rnn layer, you can specify `reduce_output: null`.
 
 ```
        +------+
@@ -2546,7 +2546,7 @@ These are the available parameters of the cnn rnn encoder:
 - `embeddings_trainable` (default `true`): If `true` embeddings are trained during the training process, if `false` embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter has effect only for `representation` is `dense` as `sparse` one-hot encodings are not trainable.
 - `pretrained_embeddings` (default `null`): by default `dense` embeddings are initialized randomly, but this parameter allow to specify a path to a file containing embeddings in the [GloVe format](https://nlp.stanford.edu/projects/glove/). When the file containing the embeddings is loaded, only the embeddings with labels present in the vocabulary are kept, the others are discarded. If the vocabulary contains strings that have no match in the embeddings file, their embeddings are initialized with the average of all other embedding plus some random noise to make them different from each other. This parameter has effect only if `representation` is `dense`.
 - `embeddings_on_cpu` (default `false`): by default embeddings matrices are stored on GPU memory if a GPU is used, as it allows for faster access, but in some cases the embedding matrix may be really big and this parameter forces the placement of the embedding matrix in regular memory and the CPU is used to resolve them, slightly slowing down the process as a result of data transfer between CPU and GPU memory.
-- `conv_layers` (default `null`): it is a list of dictionaries containing the parameters of all the convolutional layers. The length of the list determines the number of stacked convolutional layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `filter_size`, `num_filters`, `pool_size`, `norm`, `activation` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both `conv_layers` and `num_conv_layers` are `null`, a default list will be assigned to `conv_layers` with the value `[{filter_size: 7, pool_size: 3, regularize: False}, {filter_size: 7, pool_size: 3, regularize: False}, {filter_size: 3, pool_size: None, regularize: False}, {filter_size: 3, pool_size: None, regularize: False}, {filter_size: 3, pool_size: None, regularize: True}, {filter_size: 3, pool_size: 3, regularize: True}]`.
+- `conv_layers` (default `null`): it is a list of dictionaries containing the parameters of all the convolutional layers. The length of the list determines the number of stacked convolutional layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `filter_size`, `num_filters`, `pool_size`, `norm`, `activation` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both `conv_layers` and `num_conv_layers` are `null`, a default list will be assigned to `conv_layers` with the value `[{filter_size: 7, pool_size: 3, regularize: false}, {filter_size: 7, pool_size: 3, regularize: false}, {filter_size: 3, pool_size: null, regularize: false}, {filter_size: 3, pool_size: null, regularize: false}, {filter_size: 3, pool_size: null, regularize: true}, {filter_size: 3, pool_size: 3, regularize: true}]`.
 - `num_conv_layers` (default `1`): the number of stacked convolutional layers.
 - `num_filters` (default `256`): if a `num_filters` is not already specified in `conv_layers` this is the default `num_filters` that will be used for each layer. It indicates the number of filters, and by consequence the output channels of the 1d convolution.
 - `filter_size` (default `5`): if a `filter_size` is not already specified in `conv_layers` this is the default `filter_size` that will be used for each layer. It indicates how wide is the 1d convolutional filter.
@@ -2591,13 +2591,13 @@ Example sequence feature entry in the inputs features list using a cnn rnn encod
 name: sequence_column_name
 type: sequence
 encoder: cnnrnn
-tied_weights: None
+tied_weights: null
 representation: dense
 embedding_size: 256
-embeddings_trainable: True
-pretrained_embeddings: None
-embeddings_on_cpu: False
-conv_layers: None
+embeddings_trainable: true
+pretrained_embeddings: null
+embeddings_on_cpu: false
+conv_layers: null
 num_conv_layers: 1
 num_filters: 256
 filter_size: 5
@@ -2608,30 +2608,30 @@ conv_activation: relu
 conv_dropout: 0.0
 pool_function: max
 pool_size: 2
-pool_strides: None
+pool_strides: null
 pool_padding: same
 num_rec_layers: 1
 state_size: 256
 cell_type: rnn
-bidirectional: False
+bidirectional: false
 activation: tanh
 recurrent_activation: sigmoid
-unit_forget_bias: True
+unit_forget_bias: true
 recurrent_initializer: orthogonal
-recurrent_regularizer: None
+recurrent_regularizer: null
 dropout: 0.0
 recurrent_dropout: 0.0
-fc_layers: None
-num_fc_layers: None
+fc_layers: null
+num_fc_layers: null
 fc_size: 256
-use_bias: True
+use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-weights_regularizer: None
-bias_regularizer: None
-activity_regularizer: None
-norm: None
-norm_params: None
+weights_regularizer: null
+bias_regularizer: null
+activity_regularizer: null
+norm: null
+norm_params: null
 fc_activation: relu
 fc_dropout: 0
 reduce_output: last
@@ -2691,28 +2691,28 @@ Example sequence feature entry in the inputs features list using a Transformer e
 name: sequence_column_name
 type: sequence
 encoder: transformer
-tied_weights: None
+tied_weights: null
 representation: dense
 embedding_size: 256
-embeddings_trainable: True
-pretrained_embeddings: None
-embeddings_on_cpu: False
+embeddings_trainable: true
+pretrained_embeddings: null
+embeddings_on_cpu: false
 num_layers: 1
 hidden_size: 256
 num_heads: 8
 transformer_fc_size: 256
 dropout: 0.1
-fc_layers: None
+fc_layers: null
 num_fc_layers: 0
 fc_size: 256
-use_bias: True
+use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-weights_regularizer: None
-bias_regularizer: None
-activity_regularizer: None
-norm: None
-norm_params: None
+weights_regularizer: null
+bias_regularizer: null
+activity_regularizer: null
+norm: null
+norm_params: null
 fc_activation: relu
 fc_dropout: 0
 reduce_output: last
@@ -2723,7 +2723,7 @@ reduce_output: last
 
 The passthrough decoder simply transforms each input value into a fleat value and adds a dimension to the input tensor, creating a `b x s x 1` tensor where `b` is the batch size and `s` is the length of the sequence.
 The tensor is reduced along the `s` dimension to obtain a single vector of size `h` for each element of the batch.
-If you want to output the full `b x s x h` tensor, you can specify `reduce_output: None`.
+If you want to output the full `b x s x h` tensor, you can specify `reduce_output: null`.
 This encoder is not really useful for `sequence` or `text` features, but may be useful for `timeseries` features, as it allows for using them without any processing in later stages of the model, like in a sequence combiner for instance.
 
 ```  
@@ -2748,7 +2748,7 @@ Example sequence feature entry in the input features list using a passthrough en
 name: sequence_column_name
 type: sequence
 encoder: passthrough
-reduce_output: None
+reduce_output: null
 ```
 
 ### Sequence Output Features and Decoders
@@ -2761,7 +2761,7 @@ These are the available parameters of a sequence output feature
 - `reduce_input` (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order tensor, on the first dimension 9second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension).
 - `dependencies` (default `[]`): the output features this one is dependent on. For a detailed explanation refer to [Output Features Dependencies](#output-features-dependencies).
 - `reduce_dependencies` (default `sum`): defines how to reduce the output of a dependent feature that is not a vector, but a matrix or a higher order tensor, on the first dimension 9second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension).
-- `loss` (default `{type: softmax_cross_entropy, class_similarities_temperature: 0, class_weights: 1, confidence_penalty: 0, distortion: 1, labels_smoothing: 0, negative_samples: 0, robust_lambda: 0, sampler: None, unique: False}`): is a dictionary containing a loss `type`. The available losses `type` are `softmax_cross_entropy` and `sampled_softmax_cross_entropy`. For details on both losses, please refer to the [category feature output feature section](#category-output-features-and-encoders).
+- `loss` (default `{type: softmax_cross_entropy, class_similarities_temperature: 0, class_weights: 1, confidence_penalty: 0, distortion: 1, labels_smoothing: 0, negative_samples: 0, robust_lambda: 0, sampler: null, unique: false}`): is a dictionary containing a loss `type`. The available losses `type` are `softmax_cross_entropy` and `sampled_softmax_cross_entropy`. For details on both losses, please refer to the [category feature output feature section](#category-output-features-and-encoders).
 
 #### Tagger Decoder
 
@@ -2807,7 +2807,7 @@ Example sequence feature entry using a tagger decoder (with default parameters) 
 name: sequence_column_name
 type: sequence
 decoder: tagger
-reduce_input: None
+reduce_input: null
 dependencies: []
 reduce_dependencies: sum
 loss:
@@ -2815,27 +2815,27 @@ loss:
     confidence_penalty: 0
     robust_lambda: 0
     class_weights: 1
-    class_similarities: None
+    class_similarities: null
     class_similarities_temperature: 0
     labels_smoothing: 0
     negative_samples: 0
-    sampler: None
+    sampler: null
     distortion: 1
-    unique: False
-fc_layers: None
+    unique: false
+fc_layers: null
 num_fc_layers: 0
 fc_size: 256
-use_bias: True
+use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-weights_regularizer: None
-bias_regularizer: None
-activity_regularizer: None
-norm: None
-norm_params: None
+weights_regularizer: null
+bias_regularizer: null
+activity_regularizer: null
+norm: null
+norm_params: null
 activation: relu
 dropout: 0
-attention: False
+attention: false
 attention_embedding_size: 256
 attention_num_heads: 8
 ```
@@ -2902,32 +2902,32 @@ loss:
     confidence_penalty: 0
     robust_lambda: 0
     class_weights: 1
-    class_similarities: None
+    class_similarities: null
     class_similarities_temperature: 0
     labels_smoothing: 0
     negative_samples: 0
-    sampler: None
+    sampler: null
     distortion: 1
-    unique: False
-fc_layers: None
+    unique: false
+fc_layers: null
 num_fc_layers: 0
 fc_size: 256
-use_bias: True
+use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-weights_regularizer: None
-bias_regularizer: None
-activity_regularizer: None
-norm: None
-norm_params: None
+weights_regularizer: null
+bias_regularizer: null
+activity_regularizer: null
+norm: null
+norm_params: null
 activation: relu
 dropout: 0
 cell_type: rnn
 state_size: 256
 embedding_size: 256
 beam_width: 1
-attention: None
-tied_embeddings: None
+attention: null
+tied_embeddings: null
 max_sequence_length: 0
 ```
 
@@ -3151,7 +3151,7 @@ name: text_column_name
 type: text
 level: word
 encoder: bert
-tied_weights: None
+tied_weights: null
 pretrained_model_name_or_path: bert-base-uncased
 reduced_output: cls_pooled
 trainable: false
@@ -3177,11 +3177,11 @@ loss:
     confidence_penalty: 0
     robust_lambda: 0
     class_weights: 1
-    class_similarities: None
+    class_similarities: null
     class_similarities_temperature: 0
     labels_smoothing: 0
     negative_samples: 0
-    sampler: None
+    sampler: null
     distortion: 1
     unique: false
 fc_layers: null

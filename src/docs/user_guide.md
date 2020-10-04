@@ -3095,6 +3095,20 @@ Ludwig supports reads in audio files using Python's library [SoundFile](https://
 	- `num_filter_bands`: defines the number of filters used in the filterbank (only needed if `type == fbank`).
 
 
+Example of a preprocessing specification (assuming the audio files have a sample rate of 16000):
+```yaml
+name: audio_path
+type: audio
+preprocessing:
+  audio_file_length_limit_in_s: 7.5
+  audio_feature:
+    type: stft
+    window_length_in_s: 0.04
+    window_shift_in_s: 0.02
+    num_fft_points: 800
+    window_type: boxcar
+```
+
 ### Audio Input Features and Encoders
 
 Audio files are transformed into one of the following types according to `type` in `audio_feature` in `preprocessing`.
@@ -3108,20 +3122,6 @@ Audio files are transformed into one of the following types according to `type` 
 The encoders are the same used for the [Sequence Features](#sequence-input-features-and-encoders).
 The only difference is that time series features don't have an embedding layer at the beginning, so the `b x s` placeholders (where `b` is the batch size and `s` is the sequence length) are directly mapped to a `b x s x w` (where `w` is `W` as described above) tensor and then passed to the different sequential encoders.
 
-Example of a preprocessing specification (assuming the audio files have a sample rate of 16000):
-```yaml
-name: audio_path
-type: audio
-encoder: parallel_cnn
-preprocessing:
-  audio_file_length_limit_in_s: 7.5
-  audio_feature:
-    type: stft
-    window_length_in_s: 0.04
-    window_shift_in_s: 0.02
-    num_fft_points: 800
-    window_type: boxcar
-```
 
 ### Audio Output Features and Decoders
 

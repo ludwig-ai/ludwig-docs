@@ -350,7 +350,7 @@ it means that the data does not contain the columns for each output feature to u
 
 Example:
 ```
-ludwig evaluate --data_csv reuters-allcats.csv --model_path results/experiment_run_0/model/
+ludwig evaluate --dataset reuters-allcats.csv --model_path results/experiment_run_0/model/
 ```
 
 experiment
@@ -506,7 +506,7 @@ These are the available arguments:
 ```
 usage: ludwig hyperopt [options]
 
-This script searches for optimal hyperparameters with a given sampler and parameters
+This script searches for optimal Hyperparameters
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -532,7 +532,7 @@ optional arguments:
                         file created the first time a file is used, in the
                         same directory with the same name and a .json
                         extension
-  --data_format {auto,csv,hdf5}
+  --data_format {auto,csv,excel,feather,fwf,hdf5,htmltables,json,jsonl,parquet,pickle,sas,spss,stata,tsv}
                         format of the input data
   -sspi, --skip_save_processed_input
                         skips saving intermediate HDF5 and JSON files
@@ -613,8 +613,6 @@ This script analyzes results and shows some nice plots.
 
 optional arguments:
   -h, --help            show this help message and exit
-  -d DATA_CSV, --data_csv DATA_CSV
-                        raw data file
   -g GROUND_TRUTH, --ground_truth GROUND_TRUTH
                         ground truth file
   -gm GROUND_TRUTH_METADATA, --ground_truth_metadata GROUND_TRUTH_METADATA
@@ -4368,7 +4366,7 @@ hyperopt:
 
 Running hyper-parameter optimization with Fiber is a little bit different from other executors because there are docker building and pushing involved, so here `fiber run` command, which takes care of those aspects, is used to run hyper-parameter optimization on a cluster:
 
-`fiber run ludwig hyperopt --data_csv train.csv -mdf hyperopt.yaml`
+`fiber run ludwig hyperopt --dataset train.csv -mdf hyperopt.yaml`
 
 Check out [Fiber's documentation](https://uber.github.io/fiber/getting-started/#running-on-a-computer-cluster) for more details on running on clusters.
 
@@ -4547,8 +4545,6 @@ This script analyzes results and shows some nice plots.
 
 optional arguments:
   -h, --help            show this help message and exit
-  -d DATA_CSV, --data_csv DATA_CSV
-                        raw data file
   -g GROUND_TRUTH, --ground_truth GROUND_TRUTH
                         ground truth file
   -gm GROUND_TRUTH_METADATA, --ground_truth_metadata GROUND_TRUTH_METADATA
@@ -4600,7 +4596,6 @@ optional arguments:
 Some additional information on the parameters:
 
 - The list parameters are considered to be aligned, meaning `predictions`, `probabilities`, `training_statistics`, `test_statistics` and `model_names` are indexed altogether, for instance the name of the model producing the second predictions in the list will be the second in the model names.
-- `data_csv` is intended to be the data the model(s) were trained on.
 - `ground_truth` and `ground_truth_metadata` are respectively the `HDF5` and `JSON` file obtained during training preprocessing. If you plan to use the visualizations then be sure not to use the `skip_save_preprocessing` when training. Those files are needed because they contain the split performed at preprocessing time, so it is easy to extract the test set from them.
 - `field` is the output feature to use for creating the visualization.
 

@@ -4349,9 +4349,9 @@ from ludwig.api import LudwigModel
 
 model_definition = {...}
 model = LudwigModel(model_definition)
-train_stats = model.train(data_csv=csv_file_path)
+train_stats = model.train(dataset=dataset_file_path)
 # or
-train_stats = model.train(data_df=dataframe)
+train_stats = model.train(dataset=dataframe)
 ```
 
 `model_definition` is a dictionary that has the same key-value structure of a model definition YAML file, as it's technically equivalent as parsing the YAML file into a Python dictionary.
@@ -4376,22 +4376,22 @@ Either a newly trained model or a pre-trained loaded model can be used for predi
 The CSV / dataframe has to contain columns with the same names of all the input features of the model.
 
 ```python
-predictions = model.predict(dataset_csv=csv_file_path)
+predictions, output_directory = model.predict(dataset=dataset_file_path)
 #or
-predictions = model.predict(dataset_df=dataframe)
+predictions, output_directory = model.predict(dataset=dataframe)
 ```
 
-`predictions` will be a dataframe containing the prediction and confidence score / probability of all output features.
+`predictions` will be a dataframe containing the prediction and confidence score / probability of all output features.  `output_directory` filepath to prediction interim files.
 
 If you want to compute also measures on the quality of the predictions you can run:
 
 ```python
-predictions, test_stats = model.test(dataset_csv=csv_file_path)
+evaluation_statistics, predictions, output_directory = model.evaluate(dataset=dataset_file_path)
 #or
-predictions, test_stats = model.test(dataset_df=dataframe)
+evaluation_statistics, predictions, output_directory = model.evaluate(dataset=dataframe)
 ```
 
-In this case the CSV / dataframe should also contain columns with the same names of all the output features, as their content is going to be used as ground truth to compare the predictions against and compute the measures and `test_statistics` will be a dictionary containing several measures of quality depending on the type of each output feature (e.g. `category` features will have an accuracy measure and a confusion matrix, among other measures, associated to them, while `numerical` features will have measures like mean squared loss and R2 among others).
+In this case the CSV / dataframe should also contain columns with the same names of all the output features, as their content is going to be used as ground truth to compare the predictions against and compute the measures and `evaluation_statistics` will be a dictionary containing several measures of quality depending on the type of each output feature (e.g. `category` features will have an accuracy measure and a confusion matrix, among other measures, associated to them, while `numerical` features will have measures like mean squared loss and R2 among others).
 
 
 Visualizations

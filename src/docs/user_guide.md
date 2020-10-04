@@ -2974,6 +2974,21 @@ Text input feature parameters are
 - `level` (default `word`): `word` specifies using text words, `char` use individual characters.
 - `tied_weights` (default `null`): name of the input feature to tie the weights the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
 
+#### BERT ENCODER
+
+- `pretrained_model_name_or_path` (default `bert-base-uncased`):
+- `reduced_output` (default `cls_pooled`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+#### GPT ENCODER
+
+- `pretrained_model_name_or_path` (default `bert-base-uncased`):
+- `reduce_output` (default `sum`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+
 Example text input feature using default values:
 
 ```yaml

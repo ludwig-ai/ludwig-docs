@@ -1314,41 +1314,44 @@ These are the available training parameters:
 
 ### Optimizers details
 
+The available optimizers wrap the ones available in TensorFlow.
+For details about the parameters pleease refer to the [TensorFlow documentation](https://www.tensorflow.org/api_docs/python/tf/keras/optimizers).
+
 The `learning_rate` parameter the optimizer will use come from the `training` section.  Other optimizer specific parameters, shown with their Ludwig default settings, follow:
 
-* `sgd` (or `stochastic_gradient_descent`, `gd`, `gradient_descent`)
+- `sgd` (or `stochastic_gradient_descent`, `gd`, `gradient_descent`)
 ```
 'momentum': 0.0,
 'nesterov': False
 ```
 
-* `adam`
+- `adam`
 ```
 'beta_1': 0.9,
 'beta_2': 0.999,
 'epsilon': 1e-08
 ```
 
-* `adadelta`
+- `adadelta`
 ```
 'rho': 0.95,
 'epsilon': 1e-08
 ```
 
-* `adagrad`
+- `adagrad`
 ```
 'initial_accumulator_value': 0.1,
 'epsilon': 1e-07
 ```
 
-* `adamax`
+- `adamax`
 ```
 'beta_1': 0.9, 
 'beta_2': 0.999, 
 'epsilon': 1e-07
 ```
 
-* `ftrl`
+- `ftrl`
 ``` 
 'learning_rate_power': -0.5, 
 'initial_accumulator_value': 0.1,
@@ -1356,14 +1359,14 @@ The `learning_rate` parameter the optimizer will use come from the `training` se
 'l2_regularization_strength': 0.0,
 ```
 
-* `nadam`,
+- `nadam`,
 ```
 'beta_1': 0.9, 
 'beta_2': 0.999, 
 'epsilon': 1e-07
 ```
 
-* `rmsprop`
+- `rmsprop`
 ``` 
 'decay': 0.9,
 'momentum': 0.0,

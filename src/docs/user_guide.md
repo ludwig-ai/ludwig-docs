@@ -2988,7 +2988,6 @@ preprocessing:
     fill_value: ""
 ```
 
-
 ### Text Input Features and Encoders
 
 Text input feature parameters are
@@ -2997,123 +2996,153 @@ Text input feature parameters are
 - `level` (default `word`): `word` specifies using text words, `char` use individual characters.
 - `tied_weights` (default `null`): name of the input feature to tie the weights the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
 
-#### BERT ENCODER
 
-- `pretrained_model_name_or_path` (default `bert-base-uncased`):
-- `reduced_output` (default `cls_pooled`):
-- `trainable` (default `false`):
-- `num_tokens` (default `null`):
+#### BERT Encoder
 
-#### GPT ENCODER
+The `bert` encoder loads a pretrained [BERT](https://arxiv.org/abs/1810.04805) model using the Hugging Face transformers package.
 
-- `pretrained_model_name_or_path` (default `openai-gpt`):
-- `reduce_output` (default `sum`):
-- `trainable` (default `false`):
-- `num_tokens` (default `null`):
-
-#### GPT2 ENCODER 
-
-- `pretrained_model_name_or_path` (default `gpt2`):
-- `reduce_output` (default `sum`):
-- `trainable` (default `false`):
-- `num_tokens` (default `null`):
-
-#### XLNET ENCODER 
-
-- `pretrained_model_name_or_path` (default `xlnet-base-cased`):
-- `reduce_output` (default `sum`):
-- `trainable` (default `false`):
-- `num_tokens` (default `null`):
+- `pretrained_model_name_or_path` (default `bert-base-uncased`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/bert.html).
+- `reduced_output` (default `cls_pooled`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `cls_pool`, `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and `null` or `null` (which does not reduce and returns the full tensor).
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
 
 
-#### XLM ENCODER 
+#### GPT Encoder
 
-- `pretrained_model_name_or_path` (default `xlm-mlm-en-2048`):
-- `reduce_output` (default `sum`):
-- `trainable` (default `false`):
-- `num_tokens` (default `null`):
+The `gpt` encoder loads a pretrained [GPT](https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf) model using the Hugging Face transformers package.
 
-
-#### ROBERTA ENCODER 
-
-- `pretrained_model_name_or_path` (default `roberta-base`):
-- `reduce_output` (default `cls_pooled`):
-- `trainable` (default `false`):
-- `num_tokens` (default `null`):
-
-#### DISTILBERT ENCODER 
-
-- `pretrained_model_name_or_path` (default `distilbert-base-uncased`):
-- `reduce_output` (default `sum`):
-- `trainable` (default `false`):
-- `num_tokens` (default `null`):
-
-#### CTRL ENCODER 
-
-- `pretrained_model_name_or_path` (default `ctrl`):
-- `reduce_output` (default `sum`):
-- `trainable` (default `false`):
-- `num_tokens` (default `null`):
-
-#### CAMEMBERT ENCODER 
-
-- `pretrained_model_name_or_path` (default `jplu/tf-camembert-base`):
-- `reduce_output` (default `cls_pooled`):
-- `trainable` (default `false`):
-- `num_tokens` (default `null`):
-
-#### ALBERT ENCODER 
-
-- `pretrained_model_name_or_path` (default `albert-base-v2`):
-- `reduce_output` (default `cls_pooled`):
-- `trainable` (default `false`):
-- `num_tokens` (default `null`):
-
-#### T5 ENCODER 
-
-- `pretrained_model_name_or_path` (default `t5-small`):
-- `reduce_output` (default `sum`):
-- `trainable` (default `false`):
-- `num_tokens` (default `null`):
+- `pretrained_model_name_or_path` (default `openai-gpt`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/gpt.html).
+- `reduced_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and `null` or `null` (which does not reduce and returns the full tensor).
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
 
 
-#### XLMROBERTA ENCODER 
+#### GPT-2 Encoder 
 
-- `pretrained_model_name_or_path` (default `jplu/tf-xlm-reoberta-base`):
-- `reduce_output` (default `cls_pooled`):
-- `trainable` (default `false`):
-- `num_tokens` (default `null`):
+The `gpt2` encoder loads a pretrained [GPT-2](https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf) model using the Hugging Face transformers package.
 
-
-#### FLAUBERT ENCODER 
-
-- `pretrained_model_name_or_path` (default `jplu/tf-flaubert-base-uncased`):
-- `reduce_output` (default `sum`):
-- `trainable` (default `false`):
-- `num_tokens` (default `null`):
+- `pretrained_model_name_or_path` (default `gpt2`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/gpt2.html).
+- `reduced_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and `null` or `null` (which does not reduce and returns the full tensor).
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
 
 
-#### ELECTRA ENCODER 
+#### XLNet Encoder 
 
-- `pretrained_model_name_or_path` (default `google/electra-small-discriminator`):
-- `reduce_output` (default `sum`):
-- `trainable` (default `false`):
-- `num_tokens` (default `null`):
+The `xlnet` encoder loads a pretrained [XLNet](https://arxiv.org/abs/1906.08237) model using the Hugging Face transformers package.
+
+- `pretrained_model_name_or_path` (default `xlnet-base-cased`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/xlnet.html).
+- `reduced_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and `null` or `null` (which does not reduce and returns the full tensor).
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
 
 
-#### LONGFORMER ENCODER 
+#### XLM Encoder 
 
-- `pretrained_model_name_or_path` (default `allenai/longformer-base-4096`):
-- `reduce_output` (default `cls_pooled`):
-- `trainable` (default `false`):
-- `num_tokens` (default `null`):
+The `xlm` encoder loads a pretrained [XLM](https://arxiv.org/abs/1901.07291) model using the Hugging Face transformers package.
 
-#### AUTO-TRANSFORMER ENCODER
+- `pretrained_model_name_or_path` (default `xlm-mlm-en-2048`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/xlm.html).
+- `reduced_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and `null` or `null` (which does not reduce and returns the full tensor).
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
 
-- `pretrained_model_name_or_path` (default ):
-- `reduce_output` (default `sum`):
-- `trainable` (default `false`):
-- `num_tokens` (default `null`):
+
+#### RoBERTa Encoder 
+
+The `roberta` encoder loads a pretrained [RoBERTa](https://arxiv.org/abs/1907.11692) model using the Hugging Face transformers package.
+
+- `pretrained_model_name_or_path` (default `roberta-base`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/roberta.html).
+- `reduced_output` (default `cls_pooled`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `cls_pool`, `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and `null` or `null` (which does not reduce and returns the full tensor).
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
+
+
+#### DistilBERT Encoder 
+
+The `distilbert` encoder loads a pretrained [DistilBERT](https://medium.com/huggingface/distilbert-8cf3380435b5) model using the Hugging Face transformers package.
+
+- `pretrained_model_name_or_path` (default `istilbert-base-uncased`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/distilbert.html).
+- `reduced_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and `null` or `null` (which does not reduce and returns the full tensor).
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
+
+
+#### CTRL Encoder 
+
+The `ctrl` encoder loads a pretrained [CTRL](https://arxiv.org/abs/1909.05858) model using the Hugging Face transformers package.
+
+- `pretrained_model_name_or_path` (default `ctrl`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/ctrl.html).
+- `reduced_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and `null` or `null` (which does not reduce and returns the full tensor).
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
+
+
+#### CamemBERT Encoder 
+
+The `camembert` encoder loads a pretrained [CamemBERT](https://arxiv.org/abs/1911.03894) model using the Hugging Face transformers package.
+
+- `pretrained_model_name_or_path` (default `jplu/tf-camembert-base`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/camembert.html).
+- `reduced_output` (default `cls_pooled`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `cls_pool`, `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and `null` or `null` (which does not reduce and returns the full tensor).
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
+
+
+#### ALBERT Encoder 
+
+The `albert` encoder loads a pretrained [ALBERT](https://arxiv.org/abs/1909.11942) model using the Hugging Face transformers package.
+
+- `pretrained_model_name_or_path` (default `albert-base-v2`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/albert.html).
+- `reduced_output` (default `cls_pooled`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `cls_pool`, `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and `null` or `null` (which does not reduce and returns the full tensor).
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
+
+
+#### T5 Encoder 
+
+The `t5` encoder loads a pretrained [T5](https://arxiv.org/pdf/1910.10683.pdf) model using the Hugging Face transformers package.
+
+- `pretrained_model_name_or_path` (default `t5-small`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/t5.html).
+- `reduced_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and `null` or `null` (which does not reduce and returns the full tensor).
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
+
+
+#### XLM-RoBERTa Encoder 
+
+The `xlmroberta` encoder loads a pretrained [XLM-RoBERTa](https://arxiv.org/abs/1911.02116) model using the Hugging Face transformers package.
+
+- `pretrained_model_name_or_path` (default `jplu/tf-xlm-reoberta-base`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/xlmroberta.html).
+- `reduced_output` (default `cls_pooled`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `cls_pool`, `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and `null` or `null` (which does not reduce and returns the full tensor).
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
+
+
+#### FlauBERT Encoder 
+
+The `flaubert` encoder loads a pretrained [FlauBERT](https://arxiv.org/abs/1912.05372) model using the Hugging Face transformers package.
+
+- `pretrained_model_name_or_path` (default `jplu/tf-flaubert-base-uncased`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/flaubert.html).
+- `reduced_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and `null` or `null` (which does not reduce and returns the full tensor).
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
+
+
+#### ELECTRA Encoder 
+
+The `electra` encoder loads a pretrained [ELECTRA](https://openreview.net/pdf?id=r1xMH1BtvB) model using the Hugging Face transformers package.
+
+- `pretrained_model_name_or_path` (default `google/electra-small-discriminator`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/electra.html).
+- `reduced_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and `null` or `null` (which does not reduce and returns the full tensor).
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
+
+
+#### Longformer Encoder 
+
+The `longformer` encoder loads a pretrained [Longformer](https://arxiv.org/pdf/2004.05150.pdf) model using the Hugging Face transformers package.
+
+- `pretrained_model_name_or_path` (default `allenai/longformer-base-4096`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/longformer.html).
+- `reduced_output` (default `cls_pooled`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `cls_pool`, `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and `null` or `null` (which does not reduce and returns the full tensor).
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
+
+
+#### Auto-Transformer Encoder
+
+The `auto_transformer` encoder loads a pretrained model using the Hugging Face transformers package.
+It's the best option for customly trained models that don't fit into the otehr pretrained transformers encoders.
+
+- `pretrained_model_name_or_path`: it can be either the name of a model or a path where it was downloaded. For details on the available models to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/auto.html#tfautomodel).
+- `reduced_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and `null` or `null` (which does not reduce and returns the full tensor).
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
+
+
+#### Example usage
 
 Example text input feature encoder usage:
 
@@ -3126,7 +3155,6 @@ tied_weights: None
 pretrained_model_name_or_path: bert-base-uncased
 reduced_output: cls_pooled
 trainable: false
-num_tokens: null
 ```
 
 ### Text Output Features and Decoders

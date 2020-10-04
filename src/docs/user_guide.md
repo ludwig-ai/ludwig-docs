@@ -2931,18 +2931,21 @@ In the model definition you are able to specify which level of representation to
 
 The parameters available for preprocessing are:
 
-- `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
-- `fill_value` (default `""`): the value to replace the missing values with in case the `missing_value_strategy` is `fill-value`.
-- `padding` (default `right`): the direction of the padding. `right` and `left` are available options.
+- `char_tokenizer` (default `characters`): defines how to map from the raw string content of the CSV column to a sequence of characters. The default value and only available option is `characters` and the behavior is to split the string at each character.
+- `char_vocab_file` (default `null`):
+- `char_sequence_length_limit` (default `1024`): the maximum length of the text in characters. Texts that are longer than this value will be truncated, while sequences that are shorter will be padded.
+- `char_most_common` (default `70`): the maximum number of most common characters to be considered. if the data contains more than this amount, the most infrequent characters will be treated as unknown.
+- `word_tokenizer` (default `space_punct`): defines how to map from the raw string content of the CSV column to a sequence of words. The default value `space_punct` splits the string using a regular expression that separates also punctuation. Other options are: `space` (splits on space), `underscore` (splits on underscore), `comma`(splits on comma), `json` (decodes the string into a set or a list through a JSON parser), and a set of format functions that rely on [spaCy](https://spacy.io).
+- `pretrained_model_name_or_path` (default `null`):
+- `word_vocab_file` (default `null`):
+- `word_sequence_length_limit` (default `256`): the maximum length of the text in words. Texts that are longer than this value will be truncated, while texts that are shorter will be padded.
+- `word_most_common` (default `20000`): the maximum number of most common words to be considered. If the data contains more than this amount, the most infrequent words will be treated as unknown.
 - `padding_symbol` (default `<PAD>`): the string used as a padding symbol. Is is mapped to the integer ID 0 in the vocabulary.
 - `unknown_symbol` (default `<UNK>`): the string used as a unknown symbol. Is is mapped to the integer ID 1 in the vocabulary.
+- `padding` (default `right`): the direction of the padding. `right` and `left` are available options.
 - `lowercase` (default `false`): if the string has to be lowercased before being handled by the formatter.
-- `word_sequence_length_limit` (default `256`): the maximum length of the text in words. Texts that are longer than this value will be truncated, while texts that are shorter will be padded.
-- `word_tokenizer` (default `space_punct`): defines how to map from the raw string content of the CSV column to a sequence of words. The default value `space_punct` splits the string using a regular expression that separates also punctuation. Other options are: `space` (splits on space), `underscore` (splits on underscore), `comma`(splits on comma), `json` (decodes the string into a set or a list through a JSON parser), and a set of format functions that rely on [spaCy](https://spacy.io).
-- `word_most_common` (default `20000`): the maximum number of most common words to be considered. If the data contains more than this amount, the most infrequent words will be treated as unknown.
-- `char_sequence_length_limit` (default `1024`): the maximum length of the text in characters. Texts that are longer than this value will be truncated, while sequences that are shorter will be padded.
-- `char_tokenizer` (default `characters`): defines how to map from the raw string content of the CSV column to a sequence of characters. The default value and only available option is `characters` and the behavior is to split the string at each character.
-- `char_most_common` (default `70`): the maximum number of most common characters to be considered. if the data contains more than this amount, the most infrequent characters will be treated as unknown.
+- `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
+- `fill_value` (default `""`): the value to replace the missing values with in case the `missing_value_strategy` is `fill-value`.
 
 #### spaCy based word format options
 
@@ -2965,13 +2968,85 @@ More details on the models can be found in the [spaCy documentation](https://spa
 
 ### Text Input Features and Encoders
 
-The encoders are the same used for the [Sequence Features](#sequence-input-features-and-encoders).
-The only difference is that you can specify an additional `level` parameter with possible values `word` or `char` to force to use the text words or characters as inputs (by default the encoder will use `word`).
+Text input feature parameters are
+
+- `encoder` (default `parallel_cnn`): encoder to use for the input text feature. The available encoders come from [Sequence Features](#sequence-input-features-and-encoders) and these text specific encoders: `bert`, `gpt`, `gpt2`, `xlnet`, `xlm`, `roberta`, `distilbert`, `ctrl`, `camembert`, `albert`, `t5`, `xlmroberta`, `flaubert`, `electra`, `longformer` and `auto-transformer`.
+- `level` (default `word`): `word` specifies using text words, `char` use individual characters.
+- `tied_weights` (default `null`): name of the input feature to tie the weights the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
+
+Example text input feature using default values:
+
+```yaml
+name: text_column_name
+type: text
+level: word
+tied_weights: null
+preprocessing:
+    char_tokenizer: characters
+    char_vocab_file: null
+    char_sequence_length_limit: 1024
+    char_most_common: 70
+    word_tokenizer: space_punct
+    pretrained_model_name_or_path: null
+    word_vocab_file: null
+    word_sequence_length_limit: 256
+    word_most_common: 20000
+    padding_symbol: <PAD>
+    unknown_symbol: <UNK>
+    padding: right
+    lowercase: false
+    missing_value_strategy: fill_with_const
+    fill_value: ""
+```
 
 ### Text Output Features and Decoders
 
 The decoders are the same used for the [Sequence Features](#sequence-output-features-and-decoders).
 The only difference is that you can specify an additional `level` parameter with possible values `word` or `char` to force to use the text words or characters as inputs (by default the encoder will use `word`).
+
+Example text input feature using default values:
+
+```yaml
+name: sequence_column_name
+type: text
+level: word
+decoder: generator
+reduce_input: sum
+dependencies: []
+reduce_dependencies: sum
+loss:
+    type: softmax_cross_entropy
+    confidence_penalty: 0
+    robust_lambda: 0
+    class_weights: 1
+    class_similarities: None
+    class_similarities_temperature: 0
+    labels_smoothing: 0
+    negative_samples: 0
+    sampler: None
+    distortion: 1
+    unique: false
+fc_layers: null
+num_fc_layers: 0
+fc_size: 256
+use_bias: true
+weights_initializer: glorot_uniform
+bias_initializer: zeros
+weights_regularizer: null
+bias_regularizer: null
+activity_regularizer: null
+norm: null
+norm_params: null
+activation: relu
+dropout: 0
+cell_type: rnn
+state_size: 256
+embedding_size: 256
+beam_width: 1
+attention: null
+tied_embeddings: null
+max_sequence_length: 0
+```
 
 ### Text Features Measures
 
@@ -3006,8 +3081,9 @@ Audio Features
 
 Ludwig supports reads in audio files using Python's library [SoundFile](https://pypi.org/project/SoundFile/) therefore supporting WAV, FLAC, OGG and MAT files.
 
+- `audio_file_length_limit_in_s`: (default `7.5`): float value that defines the maximum limit of the audio file in seconds. All files longer than this limit are cut off. All files shorter than this limit are padded with `padding_value`
+- `missing_value_strategy` (default: `backfill`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
 - `in_memory` (default `true`): defines whether image dataset will reside in memory during the training process or will be dynamically fetched from disk (useful for large datasets). In the latter case a training batch of input images will be fetched from disk each training iteration. At the moment only `in_memory` = true is supported.
-- `audio_file_length_limit_in_s`: (default 5.0) float value that defines the maximum limit of the audio file in seconds. All files longer than this limit are cut off. All files shorter than this limit are padded with `padding_value`
 - `padding_value`: (default 0): float value that is used for padding. 
 - `norm`: (default `null`) the normalization method that can be used for the input data. Supported methods: `null` (data is not normalized), `per_file` (z-norm is applied on a “per file” level)
 - `audio_feature`: (default `{ type: raw }`) dictionary that takes as input the audio feature `type` as well as additional parameters if `type != raw`. The following parameters can/should be defined in the dictionary:
@@ -3017,6 +3093,7 @@ Ludwig supports reads in audio files using Python's library [SoundFile](https://
 	- `num_fft_points`: (default `window_length_in_s * sample_rate` of audio file) defines the number of fft points used for the short time Fourier transformation. If `num_fft_points > window_length_in_s * sample_rate`, then the signal is zero-padded at the end. `num_fft_points` has to be `>= window_length_in_s * sample_rate` (only needed if `type != raw`).
 	- `window_type`: (default `hamming`): defines the type window the signal is weighted before the short time Fourier transformation. All windows provided by [scipy’s window function](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.get_window.html) can be used (only needed if `type != raw`).
 	- `num_filter_bands`: defines the number of filters used in the filterbank (only needed if `type == fbank`).
+
 
 Example of a preprocessing specification (assuming the audio files have a sample rate of 16000):
 ```yaml
@@ -3066,6 +3143,7 @@ During preprocessing, raw image files are transformed into numpy ndarrays and sa
 All images in the dataset should have the same size.
 If they have different sizes, a `resize_method`, together with a target `width` and `height`, must be specified in the feature preprocessing parameters.
 
+- `missing_value_strategy` (default: `backfill`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
 - `in_memory` (default `true`): defines whether image dataset will reside in memory during the training process or will be dynamically fetched from disk (useful for large datasets). In the latter case a training batch of input images will be fetched from disk each training iteration.
 - `num_processes` (default 1): specifies the number of processes to run for preprocessing images.
 - `resize_method` (default `crop_or_pad`): available options: `crop_or_pad` - crops images larger than the specified `width` and `height` to the desired size or pads smalled images using edge padding; `interpolate` - uses interpolation to resize images to the specified `width` and `height`.
@@ -3096,6 +3174,8 @@ The column name is added to the JSON file, with an associated dictionary contain
 
 Currently there are two encoders supported for images: Convolutional Stack Encoder and ResNet encoder which can be set by setting `encoder` parameter to `stacked_cnn` or `resnet` in the input feature dictionary in the model definition (`stacked_cnn` is the default one).
 
+
+
 #### Convolutional Stack Encoder
 
 Convolutional Stack Encoder takes the following optional parameters:
@@ -3104,20 +3184,40 @@ Convolutional Stack Encoder takes the following optional parameters:
 - `num_conv_layers` (default `null`): if `conv_layers` is `null`, this is the number of stacked convolutional layers.
 - `filter_size` (default `3`): if a `filter_size` is not already specified in `conv_layers` this is the default `filter_size` that will be used for each layer. It indicates how wide is the 1d convolutional filter.
 - `num_filters` (default `256`): if a `num_filters` is not already specified in `conv_layers` this is the default `num_filters` that will be used for each layer. It indicates the number of filters, and by consequence the output channels of the 2d convolution.
-- `pool_stride` (default `1`): if a `pool_stride` is not already specified in `conv_layers` this is the default `pool_stride` that will be used for each layer.
+- `strides` (default `(1, 1)`): specifying the strides of the convolution along the height and width
+- `padding` (default `valid`): one of `valid` or `same`.
+- `dilation_rate` (default `(1, 1)`): specifying the dilation rate to use for dilated convolution.
+- `conv_use_bias` (default `true`): boolean, whether the layer uses a bias vector.
+- `conv_weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `conv_bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `weights_regularizer` (default `null`): regularizer function applied to the .weights matrix.  Valid values are `l1`, `l2` or `l1_l2`.
+- `conv_bias_regularizer` (default `null`): regularizer function applied to the bias vector.  Valid values are `l1`, `l2` or `l1_l2`.
+- `conv_activity_regularizer` (default `null`): regurlizer function applied to the output of the layer.  Valid values are `l1`, `l2` or `l1_l2`.
+- `conv_norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
+- `conv_norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
+- `conv_activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
+- `conv_dropout` (default `0`): dropout rate
+- `pool_function` (default `max`):  pooling function: `max` will select the maximum value.  Any of these--`average`, `avg` or `mean`--will compute the mean value.
+- `pool_size` (default `(2, 2)`): if a `pool_size` is not already specified in `conv_layers` this is the default `pool_size` that will be used for each layer. It indicates the size of the max pooling that will be performed along the `s` sequence dimension after the convolution operation.
+- `pool_strides` (default `null`): factor to scale down
 - `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`, `activation` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both `fc_layers` and `num_fc_layers` are `null`, a default list will be assigned to `fc_layers` with the value `[{fc_size: 512}, {fc_size: 256}]`. (only applies if `reduce_output` is not `null`).
 - `num_fc_layers` (default `1`): This is the number of stacked fully connected layers.
 - `fc_size` (default `256`): if a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
-- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` or `conv_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
-- `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` or `conv_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
-- `dropout` (default `false`): determines if there should be a dropout layer after each layer.
-- `initializer` (default `null`): the initializer to use. If `null`, the default initialized of each variable is used (`glorot_uniform` in most cases). Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `regularize` (default `true`): if `true` the weights of the layers are added to the set of weights that get regularized by a regularization loss (if the `regularization_lambda` in `training` is greater than 0).
+- `fc_use_bias` (default `true`): boolean, whether the layer uses a bias vector.
+- `fc_weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `fc_bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `fc_weights_regularizer` (default `null`): regularizer function applied to the .weights matrix.  Valid values are `l1`, `l2` or `l1_l2`.
+- `fc_bias_regularizer` (default `null`): regularizer function applied to the bias vector.  Valid values are `l1`, `l2` or `l1_l2`.
+- `fc_activity_regularizer` (default `null`): regurlizer function applied to the output of the layer.  Valid values are `l1`, `l2` or `l1_l2`.
+- `fc_norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
+- `fc_norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
+- `fc_activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
+- `fc_dropout` (default `0`): dropout rate
 
 Example image feature entry using a convolutional stack encoder (with default parameters) in the input features list:
 
 ```yaml
-name: image_csv_column_name
+name: image_column_name
 type: image
 encoder: stacked_cnn
 tied_weights: null
@@ -3125,23 +3225,41 @@ conv_layers: null
 num_conv_layers: null
 filter_size: 3
 num_filters: 256
-pool_size: null
+strides: (1, 1)
+padding: valid
+dilation_rate: (1, 1)
+conv_use_bias: true
+conv_weights_initializer: glorot_uniform
+conv_bias_initializer: zeros
+weights_regularizer: null
+conv_bias_regularizer: null
+conv_activity_regularizer: null
+conv_norm: null
+conv_norm_params: null
+conv_activation: relu
+conv_dropout: 0
+pool_function: max
+pool_size: (2, 2)
+pool_strides: null
 fc_layers: null
 num_fc_layers: 1
 fc_size: 256
-activation: relu
-norm: null
-dropout: false
-initializer: null
-regularize: true
+fc_use_bias: true
+fc_weights_initializer: glorot_uniform
+fc_bias_initializer: zeros
+fc_weights_regularizer: null
+fc_bias_regularizer: null
+fc_activity_regularizer: null
+fc_norm: null
+fc_norm_params: null
+fc_activation: relu
+fc_dropout: 0
 preprocessing:  # example pre-processing
-  -
     height: 28
     width: 28
     num_channels: 1
 
 ```
-
 
 #### ResNet Encoder
 
@@ -3157,16 +3275,21 @@ preprocessing:  # example pre-processing
 - `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`, `activation` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both `fc_layers` and `num_fc_layers` are `null`, a default list will be assigned to `fc_layers` with the value `[{fc_size: 512}, {fc_size: 256}]`. (only applies if `reduce_output` is not `null`).
 - `num_fc_layers` (default `1`): This is the number of stacked fully connected layers.
 - `fc_size` (default `256`): if a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
-- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each fully connected layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
-- `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each fully connected layer. It indicates the activation function applied to the output.
-- `dropout` (default `false`): determines if there should be a dropout layer after each fully connected layer.
-- `initializer` (default `null`): the initializer to use in the fully connected layers. If `null`, the default initialized of each variable is used (`glorot_uniform` in most cases). Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `regularize` (default `true`): if `true` the weights of the layers are added to the set of weights that get regularized by a regularization loss (if the `regularization_lambda` in `training` is greater than 0).
+- `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
+- `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `weights_regularizer` (default `null`): regularizer function applied to the .weights matrix.  Valid values are `l1`, `l2` or `l1_l2`.
+- `bias_regularizer` (default `null`): regularizer function applied to the bias vector.  Valid values are `l1`, `l2` or `l1_l2`.
+- `activity_regularizer` (default `null`): regurlizer function applied to the output of the layer.  Valid values are `l1`, `l2` or `l1_l2`.
+- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
+- `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
+- `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
+- `dropout` (default `0`): dropout rate
 
 Example image feature entry using a ResNet encoder (with default parameters) in the input features list:
 
 ```yaml
-name: image_csv_column_name
+name: image_column_name
 type: image
 encoder: resnet
 tied_weights: null
@@ -3180,13 +3303,17 @@ batch_norm_epsilon: 0.001
 fc_layers: null
 num_fc_layers: 1
 fc_size: 256
-activation: relu
+use_bias: true
+weights_initializer: glorot_uniform
+bias_initializer: zeros
+weights_regularizer: null
+bias_regularizer: null
+activity_regularizer: null
 norm: null
-dropout: false
-initializer: null
-regularize: true
-preprocessing:  # example pre-processing
-  -
+norm_params: null
+activation: relu
+dropout: 0
+preprocessing:
     height: 224
     width: 224
     num_channels: 3

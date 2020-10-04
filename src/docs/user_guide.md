@@ -1397,7 +1397,7 @@ preprocessing:
 
 The details about the preprocessing parameters that each datatype accepts will be provided in the datatype-specific sections.
 
-It is important to point out that different features within the same datatype may require different preprocessing.  For instance a document classification model may have two text input features, one for the title of the document and one for the body.
+It is important to point out that different features with the same datatype may require different preprocessing.  For instance a document classification model may have two text input features, one for the title of the document and one for the body.
 
 As the length of the title is much shorter than the length of the body, the parameter `word_length_limit` should be set to 10 for the title and 2000 for the body, but both of them share the same parameter `most_common_words` with value 10000.
 
@@ -1421,6 +1421,42 @@ input_features:
 
 ```
 
+### Tokenizers
+
+Several different features perform raw data preprocessing by tokenizing strings (for instance sequence, text and set).
+Here are the tokenizers options you can specify for those features:
+
+- `characters`: splits every character of the input string in a separate token.
+- `space`: splits on space characters using the regex `\s+`.
+- `space_punct`: splits on space characters and punctuation using the regex `\w+|[^\w\s]`. 
+- `underscore`: splits on the underscore character `_`.
+- `comma`: splits on the underscore character `,`.
+- `untokenized`: treats the whole string as a single token.
+- `stripped`: treats the whole string as a single token after removing spaces at the beginnign and at the end of the string.
+- `hf_tokenizer`: uses the Hugging Face AutoTokenizer which uses a `pretrained_model_name_or_path` parameter to decide which tokenizer to load.
+- Language specific tokenizers: [spaCy](https://spacy.io) based language tokenizers.
+
+The [spaCy](https://spacy.io) based tokenizers are functions that use the powerful tokenization and NLP preprocessing models provided the library.
+Several languages are available: English (code `en`), Italian (code `it`), Spanish (code `es`), German (code `de`), French (code `fr`), Portuguese (code `pt`), Dutch (code `nl`), Greek (code `el`), Chinese (code `zh`), Danish (code `da`), Dutch (code `el`), Japanese (code `ja`), Lithuanian (code `lt`), Norwegian (code `nb`), Polish (code `pl`), Romanian (code `ro`) and Multi (code `xx`, useful in case you have a dataset containing different languages).
+For each language different functions are available:
+
+- `tokenize`: uses spaCy tokenizer,
+- `tokenize_filter`: uses spaCy tokenizer and filters out punctuation, numbers, stopwords and words shorter than 3 characters,
+- `tokenize_remove_stopwords`: uses spaCy tokenizer and filters out stopwords,
+- `lemmatize`: uses spaCy lemmatizer,
+- `lemmatize_filter`: uses spaCy lemmatizer and filters out punctuation, numbers, stopwords and words shorter than 3 characters,
+- `lemmatize_remove_stopwords`: uses spaCy lemmatize and filters out stopwords.
+
+In order to use these options, you have to download the the spaCy model:
+
+```
+python -m spacy download <language_code>
+```
+
+and provide `<language>_<function>` as `tokenizer` like: `english_tokenizer`, `italian_lemmatize_filter`, `multi_tokenize_filter` and so on.
+More details on the models can be found in the [spaCy documentation](https://spacy.io/models).
+
+ 
 Binary Features
 ---------------
 
@@ -2030,7 +2066,7 @@ The parameters available for preprocessing are
 - `padding_symbol` (default `<PAD>`): the string used as a padding symbol. Is is mapped to the integer ID 0 in the vocabulary.
 - `unknown_symbol` (default `<UNK>`): the string used as a unknown symbol. Is is mapped to the integer ID 1 in the vocabulary.
 - `padding` (default `right`): the direction of the padding. `right` and `left` are available options.
-- `tokenizer` (default `space`): defines how to map from the raw string content of the DATASET column to a sequence of elements.  Languages supported: Chinese, Danish, Dutch, English, German, Greek, Italian, Japanese, Lithuanian, Norwegian, Polish, Portuguese, Romanian and Spanish.
+- `tokenizer` (default `space`): defines how to map from the raw string content of the DATASET column to a sequence of elements. For the available options refer to the [Tokenizers](#tokenizers)section.
 - `lowercase` (default `False`): if the string has to be lowercase before being handled by the formatter.
 - `vocab_file` (default `None`)  filepath string to a UTF-8 encoded file containing the sequence's vocabulary.  On each line the first string until `\t` or `\n` is considered a word.
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
@@ -2604,22 +2640,6 @@ reduce_output: last
 
 TODO Need overview of Transformer encoder
 
-The [BERT](https://arxiv.org/abs/1810.04805) encoder allows for loading a pre-trained bert model.
-Models are available on [GitHub](https://github.com/google-research/bert) for download.
-The downloaded pretrained model directory contains:
-- `bert_config.json` which holds the hyper-parameters of the bert architecture,
-- `vocab.txt` which contains the vocabulary of BPE word pieces the model was trained on,
-- `bert_model.ckpt` files (`.meta`, `.index` and `.data-00000-of-00001`) which contain the names of the tensors and the weights.
-
-In order to use this encder, the BERT Tokenizer need to be used at the same time, as if the tokenization is performed differently, the integers associated with each word piece will be wrong.
-The BERT Tokenizer also adds `[CLS]` and `[SEP]` special tokens at the beginning and at the end of each tokenized sentence respectively.
-
-The bert encoder simply maps each integer in the sequence to an embedding (made of a token embedding, a positional embedding and a segment embedding), creating a `b x s x h` tensor where `b` is the batch size, `s` is the length of the sequence and `h` is the embedding size.
-Tose embeddings are passed through several [transformer](https://arxiv.org/abs/1706.03762) layers.
-The tensor is reduced by selecting the first output vector, the one in correspondence to the `[CLS]` token, to obtain a single vector of size `h` for each element of the batch.
-If you want to output the full `b x s x h` tensor, you can specify `reduce_output: None`.
-In this case the first and last element of the tesnor along the `s` dimension will be removed, as the correspond to the special tokens and not to the word pieces in the input.
-
 ```
        +------+                     +------+
        |Emb 12|                     |Emb 12+-->
@@ -2925,8 +2945,8 @@ Text Features
 ### Text Features Preprocessing
 
 Text features are treated in the same way of sequence features, with a couple differences.
-Two different formattings/splittings happen, one that splits at every character and one that uses a spaCy based tokenizer (and removes stopwords) are used, and two different key are added to the HDF5 file, one containing the matrix of characters and one containing the matrix of words.
-The same thing happens in the JSON file, where there are dictionaries for mapping characters to integers (and the inverse) and words to integers (and their inverse).
+Two different formattings/splittings happen, one that splits at every character and one that splits on whitespace and punctuation are used, and two different keys are added to the HDF5 file, one containing the matrix of characters and one containing the matrix of words.
+The same thing happens in the JSON file, which contains dictionaries for mapping characters to integers (and the inverse) and words to integers (and their inverse).
 In the model definition you are able to specify which level of representation to use, if the character level or the word level.
 
 The parameters available for preprocessing are:
@@ -2935,7 +2955,7 @@ The parameters available for preprocessing are:
 - `char_vocab_file` (default `null`):
 - `char_sequence_length_limit` (default `1024`): the maximum length of the text in characters. Texts that are longer than this value will be truncated, while sequences that are shorter will be padded.
 - `char_most_common` (default `70`): the maximum number of most common characters to be considered. if the data contains more than this amount, the most infrequent characters will be treated as unknown.
-- `word_tokenizer` (default `space_punct`): defines how to map from the raw string content of the CSV column to a sequence of words. The default value `space_punct` splits the string using a regular expression that separates also punctuation. Other options are: `space` (splits on space), `underscore` (splits on underscore), `comma`(splits on comma), `json` (decodes the string into a set or a list through a JSON parser), and a set of format functions that rely on [spaCy](https://spacy.io).
+- `word_tokenizer` (default `space_punct`): defines how to map from the raw string content of the DATASET column to a sequence of elements. For the available options refer to the [Tokenizers](#tokenizers)section.
 - `pretrained_model_name_or_path` (default `null`):
 - `word_vocab_file` (default `null`):
 - `word_sequence_length_limit` (default `256`): the maximum length of the text in words. Texts that are longer than this value will be truncated, while texts that are shorter will be padded.
@@ -2946,25 +2966,6 @@ The parameters available for preprocessing are:
 - `lowercase` (default `false`): if the string has to be lowercased before being handled by the formatter.
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
 - `fill_value` (default `""`): the value to replace the missing values with in case the `missing_value_strategy` is `fill-value`.
-
-#### spaCy based word format options
-
-The spaCy based `tokenizer` options are functions that use the powerful tokenization and NLP preprocessing models provided the library.
-Several languages are available: English (code `en`), Italian (code `it`), Spanish (code `es`), German (code `de`), French (code `fr`), Portuguese (code `pt`), Dutch (code `nl`), Greek (code `el`) and Multi (code `xx`, useful in case you have a dataset of different languages).
-For each language different functions are available:
-- `tokenize`: uses spaCy tokenizer,
-- `tokenize_filter`: uses spaCy tokenizer and filters out punctuation, numbers, stopwords and words shorter than 3 characters,
-- `tokenize_remove_stopwords`: uses spaCy tokenizer and filters out stopwords,
-- `lemmatize`: uses spaCy lemmatizer,
-- `lemmatize_filter`: uses spaCy lemmatizer and filters out punctuation, numbers, stopwords and words shorter than 3 characters,
-- `lemmatize_remove_stopwords`: uses spaCy lemmatize and filters out stopwords.
-
-In order to use these options, you have to download the the spaCy model:
-```
-python -m spacy download <language_code>
-```
-and provide `<language>_<function>` as `tokenizer` like: `english_tokenizer`, `italian_lemmatize_filter`, `multi_tokenize_filter` and so on.
-More details on the models can be found in the [spaCy documentation](https://spacy.io/models).
 
 Example of text preprocessing.
 

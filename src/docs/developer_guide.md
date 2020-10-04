@@ -8,7 +8,7 @@ Feature classes contain raw data preprocessing logic specific to each data type 
 Those classes contain data preprocessing functions to obtain feature metadata (`get_feature_meta`, one-time dataset-wide operation to collect things like min, max, average, vocabularies, etc.) and to transform raw data into tensors using the previously calculated metadata (`add_feature_data`, which usually work on a a dataset row basis).
 Output features also contain datatype-specific logic to compute data postprocessing, to transform model predictions back into data space, and output metrics such as loss, accuracy, etc..
 
-Encoders and decoders are modularized as well (they are under `ludwig/ecnoders` and `ludwig/decoders` respectively) so that they can be used by multiple features.
+Encoders and decoders are modularized as well (they are under `ludwig/encoders` and `ludwig/decoders` respectively) so that they can be used by multiple features.
 For example sequence encoders are shared among text, sequence, and timeseries features.
 
 Various model architecture components which can be reused are also split into dedicated modules, for example convolutional modules, fully connected modules, etc.. which are available in `ludwig/modules`.
@@ -18,13 +18,13 @@ The prediction logic resides in `ludwig/models/predictior.py` instead.
 
 The command line interface is managet by the `ludwig/cli.py` script, which imports the various scripts in `ludwig/` that perform the different command line commands.
 
-The programmatic interface 9which is also used by the CLI commands) is available in the `ludwig/api.py` script.
+The programmatic interface (which is also used by the CLI commands) is available in the `ludwig/api.py` script.
 
 Hyper-parameter optimization logic is implemented in the scripts in the `ludwig/hyperopt` package. 
 
 The `ludwig/utils` package contains various utilities used by all other packages.
 
-Finally the `ludwig/contrib` packages contains user contributed code that intergates with external libraries.
+Finally the `ludwig/contrib` packages contains user contributed code that integrates with external libraries.
 
 
 Adding an Encoder
@@ -33,7 +33,7 @@ Adding an Encoder
  1. Add a new encoder class
 ---------------------------
 
-Source code for encoders lives under `ludwig/ecnoders`.
+Source code for encoders lives under `ludwig/encoders`.
 New encoder objects should be defined in the corresponding files, for example all new sequence encoders should be added to `ludwig/encoders/sequence_encoders.py`.
 
 All the encoder parameters should be provided as arguments in the constructor with their default values set.
@@ -97,7 +97,7 @@ __Return__
 
 - __hidden__ (tf.Tensor): feature encodings.
 
-The shape of the input tesnor and the expected tape of the output tensor varies across feature types.
+The shape of the input tensor and the expected tape of the output tensor varies across feature types.
 
 Encoders are initialized as class member variables in input features object constructors and called inside their `call` methods.
 
@@ -126,7 +126,7 @@ Adding a Decoder
  1. Add a new decoder class
 ---------------------------
 
-Souce code for decoders lives under `ludwig/decoders/`.
+Source code for decoders lives under `ludwig/decoders/`.
 New decoder objects should be defined in the corresponding files, for example all new sequence decoders should be added to `ludwig/decoders/sequence_decoders.py`.
 
 All the decoder parameters should be provided as arguments in the constructor with their default values set.
@@ -287,7 +287,7 @@ Each sub-class of `HyperoptSampler` that implements its abstract methods samples
  
 `HyperoptExecutor` represents the method used to execute the hyper-parameter optimization, independently of how the values for the hyperparameters are sampled.
 Available implementations are a serial executor that executes the training with the different sampled hyper-parameters values one at a time (implemented in `SerialExecutor`), a parallel executor that runs the training using sampled hyper-parameters values in parallel on the same machine (implemented in the `ParallelExecutor`), and a [Fiber](https://uber.github.io/fiber/)-based executor that enables to run the training using sampled hyper-parameters values in parallel on multiple machines within a cluster. 
-A `HyperoptExecutor` uses a `HyperoptSampler` to sample hyper-parameters values, usually initializes an execution context, like a multithread pool fo instance, and executes the hyper-parameter optimization according to the sampler.
+A `HyperoptExecutor` uses a `HyperoptSampler` to sample hyper-parameters values, usually initializes an execution context, like a multithread pool for instance, and executes the hyper-parameter optimization according to the sampler.
 First, a new batch of parameters values is sampled from the `HyperoptSampler`.
 Then, sampled parameters values are merged with the basic model definition parameters specified, with the sampled parameters values overriding the ones in the basic model definition they refer to.
 Training is executed using the merged model definition and training and validation losses and metrics are collected.
@@ -386,7 +386,7 @@ sampled_parameters = {
 } 
 metric_score = 2.53463
 
-sampler.update(sampled_parameters, statistics)
+sampler.update(sampled_parameters, metric_score)
 ```
 
 #### `update_batch`

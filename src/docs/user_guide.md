@@ -2966,6 +2966,31 @@ python -m spacy download <language_code>
 and provide `<language>_<function>` as `tokenizer` like: `english_tokenizer`, `italian_lemmatize_filter`, `multi_tokenize_filter` and so on.
 More details on the models can be found in the [spaCy documentation](https://spacy.io/models).
 
+Example of text preprocessing.
+
+```yaml
+name: text_column_name
+type: text
+level: word
+preprocessing:
+    char_tokenizer: characters
+    char_vocab_file: null
+    char_sequence_length_limit: 1024
+    char_most_common: 70
+    word_tokenizer: space_punct
+    pretrained_model_name_or_path: null
+    word_vocab_file: null
+    word_sequence_length_limit: 256
+    word_most_common: 20000
+    padding_symbol: <PAD>
+    unknown_symbol: <UNK>
+    padding: right
+    lowercase: false
+    missing_value_strategy: fill_with_const
+    fill_value: ""
+```
+
+
 ### Text Input Features and Encoders
 
 Text input feature parameters are
@@ -2983,35 +3008,152 @@ Text input feature parameters are
 
 #### GPT ENCODER
 
-- `pretrained_model_name_or_path` (default `bert-base-uncased`):
+- `pretrained_model_name_or_path` (default `openai-gpt`):
+- `reduce_output` (default `sum`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+#### GPT2 ENCODER 
+
+- `pretrained_model_name_or_path` (default `gpt2`):
+- `reduce_output` (default `sum`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+#### XLNET ENCODER 
+
+- `pretrained_model_name_or_path` (default `xlnet-base-cased`):
 - `reduce_output` (default `sum`):
 - `trainable` (default `false`):
 - `num_tokens` (default `null`):
 
 
-Example text input feature using default values:
+#### XLM ENCODER 
+
+- `pretrained_model_name_or_path` (default `xlm-mlm-en-2048`):
+- `reduce_output` (default `sum`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+
+#### ROBERTA ENCODER 
+
+- `pretrained_model_name_or_path` (default `roberta-base`):
+- `reduce_output` (default `cls_pooled`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+#### DISTILBERT ENCODER 
+
+- `pretrained_model_name_or_path` (default `distilbert-base-uncased`):
+- `reduce_output` (default `sum`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+#### CTRL ENCODER 
+
+- `pretrained_model_name_or_path` (default `ctrl`):
+- `reduce_output` (default `sum`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+#### CAMEMBERT ENCODER 
+
+- `pretrained_model_name_or_path` (default `jplu/tf-camembert-base`):
+- `reduce_output` (default `cls_pooled`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+#### ALBERT ENCODER 
+
+- `pretrained_model_name_or_path` (default `albert-base-v2`):
+- `reduce_output` (default `cls_pooled`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+#### T5 ENCODER 
+
+- `pretrained_model_name_or_path` (default `t5-small`):
+- `reduce_output` (default `sum`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+
+#### XLMROBERTA ENCODER 
+
+- `pretrained_model_name_or_path` (default `jplu/tf-xlm-reoberta-base`):
+- `reduce_output` (default `cls_pooled`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+
+#### FLAUBERT ENCODER 
+
+- `pretrained_model_name_or_path` (default `jplu/tf-flaubert-base-uncased`):
+- `reduce_output` (default `sum`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+
+#### ELECTRA ENCODER 
+
+- `pretrained_model_name_or_path` (default `google/electra-small-discriminator`):
+- `reduce_output` (default `sum`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+
+#### LONGFORMER ENCODER 
+
+- `pretrained_model_name_or_path` (default `allenai/longformer-base-4096`):
+- `reduce_output` (default `cls_pooled`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+#### AUTO-TRANSFORMER ENCODER
+
+- `pretrained_model_name_or_path` (default ):
+- `reduce_output` (default `sum`):
+- `trainable` (default `false`):
+- `num_tokens` (default `null`):
+
+Example text input feature encoder usage:
 
 ```yaml
 name: text_column_name
 type: text
 level: word
-tied_weights: null
-preprocessing:
-    char_tokenizer: characters
-    char_vocab_file: null
-    char_sequence_length_limit: 1024
-    char_most_common: 70
-    word_tokenizer: space_punct
-    pretrained_model_name_or_path: null
-    word_vocab_file: null
-    word_sequence_length_limit: 256
-    word_most_common: 20000
-    padding_symbol: <PAD>
-    unknown_symbol: <UNK>
-    padding: right
-    lowercase: false
-    missing_value_strategy: fill_with_const
-    fill_value: ""
+encoder: parallel_cnn
+tied_weights: None
+representation: dense
+embedding_size: 256
+embeddings_on_cpu: False
+pretrained_embeddings: None
+embeddings_trainable: True
+conv_layers: None
+num_conv_layers: None
+filter_size: 3
+num_filters: 256
+pool_function: max
+pool_size: None
+fc_layers: None
+num_fc_layers: None
+fc_size: 256
+use_bias: True
+weights_initializer: glorot_uniform
+bias_initializer: zeros
+weights_regularizer: None
+bias_regularizer: None
+activity_regularizer: None
+norm: None
+norm_params: None
+activation: relu
+dropout: 0.0
+reduce_output: sum
+pretrained_model_name_or_path: bert-base-uncased
+reduced_output: cls_pooled
+trainable: false
+num_tokens: null
 ```
 
 ### Text Output Features and Decoders

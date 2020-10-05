@@ -291,19 +291,19 @@
 
                 <div class="bgrid step" data-item="2">
                     <h3>Train</h3>
-                    <p>Prepare your data in a CSV file, define input and output feature in a model definition YAML file
+                    <p>Provide a dataset file, define input and output feature in a model definition YAML file
                         and run:
                     <pre><code>ludwig train
---data_csv file.csv
---model_definition definition.yaml</code></pre>
+--dataset path_to_dataset
+--config definition.yaml</code></pre>
                     </p>
                 </div>
 
                 <div class="bgrid step" data-item="3">
                     <h3>Predict</h3>
-                    <p>Prepare your data in a CSV file and use a pre-trained model to predict the output targets:
+                    <p>Provide a dataset file and use a pre-trained model to predict the output targets:
                     <pre><code>ludwig predict
---data_csv data.csv
+--dataset path_to_dataset
 --model path_to_model</code></pre>
                     </p>
                 </div>
@@ -354,14 +354,14 @@
             <pre data-aos="fade-up"><code>from ludwig.api import LudwigModel
 
 # train a model
-model_definition = {...}
-model = LudwigModel(model_definition)
-train_stats = model.train(training_dataframe)
+config = {...}
+model = LudwigModel(config)
+train_stats = model.train(training_data)
 # or load a model
 model = LudwigModel.load(model_path)
 
 # obtain predictions
-predictions = model.predict(test_dataframe)</code></pre>
+predictions = model.predict(test_data)</code></pre>
             <!--
             <ul class="download-badges">
                 <li><a href="#" title="" class="badge-appstore"  data-aos="fade-up">App Store</a></li>
@@ -439,7 +439,7 @@ predictions = model.predict(test_dataframe)</code></pre>
                 <div class="footer-logo-smallpad"></div>
 
                 <div class="md-footer-copyright__highlight md-footer-copyright__highlight-wrapper">
-                    Copyright © 2018 - 2019 Uber Technologies Inc.
+                    Copyright © 2018 - 2020 Uber Technologies Inc.
                 </div>
 
                 Website by <a href="http://w4nderlu.st">w4nderlust</a> powered by

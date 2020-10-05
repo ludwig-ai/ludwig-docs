@@ -1,17 +1,22 @@
 Command Line Interface
 ======================
 
-Ludwig provides six command line interface entry points
+Ludwig provides several command line interface entry points
 
-- train
-- predict
-- test
-- experiment
-- hyperopt
-- visualize
-- collect_weights
-- collect_activations
-- serve
+- `train`: Trains a model
+- `predict`: Predicts using a pretrained model
+- `evaluate`: Evaluate a pretrained model's performance
+- `experiment`: Runs a full experiment training a model and evaluating it
+- `serve`: Serves a pretrained model
+- `visualize`: Visualizes experimental results
+- `hyperopt`: Perform hyperparameter optimization
+- `collect_summary`: Prints names of weights and layers activations to use with other collect commands
+- `collect_weights`: Collects tensors containing a pretrained model weights
+- `collect_activations`: Collects tensors for each datapoint using a pretrained model
+- `export_savedmodel`: Exports Ludwig models to SavedModel
+- `export_neuropod`: Exports Ludwig models to Neuropod
+- `preprocess`: Preprocess data and saves it into HDF5 and JSON format
+- `synthesize_dataset`: Creates synthetic data for tesing purposes
 
 They are described in detail below.
 
@@ -587,6 +592,72 @@ The parameters combine parameters from both [train](#train) and [test](#test) so
 
 In order to perform an hyper-parameter optimization, the `hyperopt` section needs to be provided within the model definition.  In the `hyperopt` section you will be able to define what metric to optimize, what aprameters, what sampler to use to optimize them and how to execute the optimization.  For details on the `hyperopt` section see the detailed description in the [Hyper-parameter Optimization](#hyper-parameter-optimization) section.
 
+serve
+-----
+
+This command lets you load a pre-trained model and serve it on an http server.
+
+You can call it with:
+
+```
+ludwig serve [options]
+```
+
+or with
+
+```
+python -m ludwig.serve [options]
+```
+
+from within Ludwig's main directory.
+
+These are the available arguments:
+```
+usage: ludwig serve [options]
+
+This script serves a pretrained model
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -m MODEL_PATH, --model_path MODEL_PATH
+                        model to load
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use
+  -p PORT, --port PORT  port for server (default: 8000)
+  -H HOST, --host HOST  host for server (default: 0.0.0.0)
+```
+
+The most important argument is `--model_path` where you have to specify the path of the model to load.
+
+Once running, you can make a POST request on the `/predict` endpoint to run inference on the form data submitted.
+
+#### Example curl
+
+##### File
+`curl http://0.0.0.0:8000/predict -X POST -F 'image_path=@path_to_image/example.png'`
+
+##### Text
+`curl http://0.0.0.0:8000/predict -X POST -F 'english_text=words to be translated'`
+
+##### Both Text and File
+`curl http://0.0.0.0:8000/predict -X POST -F 'text=mixed together with' -F 'image=@path_to_image/example.png'`
+
+#### Batch prediction
+
+You can also make a POST request on the `/batch_predict` endpoint to run inference on multiple samples at once.
+
+Requests must be submitted as form data, with one of fields being `dataset`: a JSON encoded string representation of the data to be predicted.
+
+The `dataset` JSON string is expected to be in the Pandas "split" format to reduce payload size. This format divides the dataset into three parts:
+
+1. columns: `List[str]`
+2. index (optional): `List[Union[str, int]]`
+3. data: `List[List[object]]`
+
+Additional form fields can be used to provide file resources like images that are referenced within the dataset.
+
+##### Example
+`curl http://0.0.0.0:8000/batch_predict -X POST -F 'dataset={"columns": ["a", "b"], "data": [[1, 2], [3, 4]]}'`
 
 visualize
 ---------
@@ -663,42 +734,6 @@ optional arguments:
 
 As the `--visualization` parameters suggests, there is a vast number of visualizations readily available.  Each of them requires a different subset of this command's arguments, so they will be described one by one in the [Visualizations](#visualizations) section.
 
-
-collect_summary
----------------
-
-This command loads a pretrained model and prints names of weights and layers
-activations to use with `collect_weights` or `collect_activations`.
-
-```
-ludwig collect_summary [options]
-```
-
-or with
-
-```
-python -m ludwig.collect names [options]
-```
-
-from within Ludwig's main directory.
-
-These are the available arguments:
-
-```
-usage: ludwig collect_summary [options]
-
-This script loads a pretrained model and print names of weights and layer activations.
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -m MODEL_PATH, --model_path MODEL_PATH
-                        model to load
-  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
-                        the level of logging to use
-```
-
-
-
 collect_summary
 ---------------
 
@@ -730,7 +765,6 @@ optional arguments:
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
 ```
-
 
 collect_weights
 ---------------
@@ -839,91 +873,8 @@ In order to figure out the names of the tensors containing the activations you w
 tensorboard --logdir /path/to/model/log
 ```
 
-serve
------
-
-This command lets you load a pre-trained model and serve it on an http server.
-
-You can call it with:
-
-```
-ludwig serve [options]
-```
-
-or with
-
-```
-python -m ludwig.serve [options]
-```
-
-from within Ludwig's main directory.
-
-These are the available arguments:
-```
-usage: ludwig serve [options]
-
-This script serves a pretrained model
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -m MODEL_PATH, --model_path MODEL_PATH
-                        model to load
-  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
-                        the level of logging to use
-  -p PORT, --port PORT  port for server (default: 8000)
-  -H HOST, --host HOST  host for server (default: 0.0.0.0)
-```
-
-The most important argument is `--model_path` where you have to specify the path of the model to load.
-
-Once running, you can make a POST request on the `/predict` endpoint to run inference on the form data submitted.
-
-#### Example curl
-
-##### File
-`curl http://0.0.0.0:8000/predict -X POST -F 'image_path=@path_to_image/example.png'`
-
-##### Text
-`curl http://0.0.0.0:8000/predict -X POST -F 'english_text=words to be translated'`
-
-##### Both Text and File
-`curl http://0.0.0.0:8000/predict -X POST -F 'text=mixed together with' -F 'image=@path_to_image/example.png'`
-
-#### Batch prediction
-
-You can also make a POST request on the `/batch_predict` endpoint to run inference on multiple samples at once.
-
-Requests must be submitted as form data, with one of fields being `dataset`: a JSON encoded string representation of the data to be predicted.
-
-The `dataset` JSON string is expected to be in the Pandas "split" format to reduce payload size. This format divides the dataset into three parts:
-
-1. columns: `List[str]`
-2. index (optional): `List[Union[str, int]]`
-3. data: `List[List[object]]`
-
-Additional form fields can be used to provide file resources like images that are referenced within the dataset.
-
-##### Example
-`curl http://0.0.0.0:8000/batch_predict -X POST -F 'dataset={"columns": ["a", "b"], "data": [[1, 2], [3, 4]]}'`
-
-Additional executables
-----------------------
-
-Ludwig provides a number of additional entry points for specific tasks.
-Those are more experimental functionalities, once solidified they will be added as additional commands in the Ludwig CLI.
-
-
-### Dataset Synthesis
-
-WIP
-
-
-### Preprocessing
-
-WIP
-
-
-### savedmodel export
+export_savedmodel
+-----------------
 
 Exports a pre-trained model to Tensorflow `SavedModel` format.
 
@@ -953,8 +904,8 @@ optional arguments:
                         the level of logging to use
 ```
 
-
-### Neuropod export
+export_neuropod
+---------------
 
 A Ludwig model can be exported as a [Neuropod](https://github.com/uber/neuropod), a mechanism that allows it to be executed in a framework agnostic way.
 
@@ -989,6 +940,186 @@ optional arguments:
 ```
 
 This functionality has been tested with `neuropod==0.2.0`.
+
+preprocess
+----------
+
+Preprocess data and saves it into HDF5 and JSON format.
+The preprocessed files can be then used for performing training, prediction and evaluation.
+The advantage is that, being the data already preprocessed, if multiple models have to be trained on the same data, the preprocessed files act as a cache to avoid performing preprocessing multiple times.
+
+```
+ludwig preprocess [options]
+```
+
+or with
+
+```
+python -m ludwig.preprocess [options]
+```
+
+These are the available arguments:
+```
+usage: ludwig preprocess [options]
+
+This script preprocess a dataset
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --dataset DATASET     input data file path. If it has a split column, it
+                        will be used for splitting (0: train, 1: validation,
+                        2: test), otherwise the dataset will be randomly split
+  --training_set TRAINING_SET
+                        input train data file path
+  --validation_set VALIDATION_SET
+                        input validation data file path
+  --test_set TEST_SET   input test data file path
+  --training_set_metadata TRAINING_SET_METADATA
+                        input metadata JSON file path. An intermediate
+                        preprocess file containing the mappings of the input
+                        file created the first time a file is used, in the
+                        same directory with the same name and a .json
+                        extension
+  --data_format {auto,csv,excel,feather,fwf,hdf5,htmltables,json,jsonl,parquet,pickle,sas,spss,stata,tsv}
+                        format of the input data
+  -pd PREPROCESSING_DEFINITION, --preprocessing_definition PREPROCESSING_DEFINITION
+                        preproceesing definition. Uses the same format of
+                        model_definition, but ignores encoder specific
+                        parameters, decoder specific paramters, combiner and
+                        training parameters
+  -mdf PREPROCESSING_DEFINITION_FILE, --preprocessing_definition_file PREPROCESSING_DEFINITION_FILE
+                        YAML file describing the preprocessing. Ignores
+                        --preprocessing_definition.Uses the same format of
+                        model_definition, but ignores encoder specific
+                        parameters, decoder specific paramters, combiner and
+                        training parameters
+  -rs RANDOM_SEED, --random_seed RANDOM_SEED
+                        a random seed that is going to be used anywhere there
+                        is a call to a random number generator: data
+                        splitting, parameter initialization and training set
+                        shuffling
+  -dbg, --debug         enables debugging mode
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use
+```
+
+synthesize_dataset
+------------------
+
+Creates synthetic data for tesing purposes depending on the feature list parameters provided in YAML format.
+
+```
+ludwig synthesize_dataset [options]
+```
+
+or with
+
+```
+python -m ludwig.data.dataset_synthesizer [options]
+```
+
+These are the available arguments:
+```
+usage: ludwig synthesize_dataset [options]
+
+This script generates a synthetic dataset.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -od OUTPUT_PATH, --output_path OUTPUT_PATH
+                        output CSV file path
+  -d DATASET_SIZE, --dataset_size DATASET_SIZE
+                        size of the dataset
+  -f FEATURES, --features FEATURES
+                        list of features to generate in YAML format. Provide a
+                        list containing one dictionary for each feature, each
+                        dictionary must include a name, a type and can include
+                        some generation parameters depending on the type
+
+Process finished with exit code 0
+
+```
+
+
+The feature list file should contain one entry dictionary per feature, with its name and type, plus optional hyperparameters.
+
+```yaml
+-
+  name: first_feature
+  type: first_feature_type
+-
+  name: second_feature
+  type: second_feature_type
+...
+```
+
+The available parameters depend on the feature type.
+
+__binary__
+
+- `prob` (float, default: `0.5`): probability of generating `true`.
+- `cycle` (boolean, default: `false`): cycle through values instead of sampling.
+
+__numerical__
+
+- `min` (float, default: `0`): minimum value of the range of values to generate.
+- `max` (float, default: `1`): maximum value of the range of values to generate.
+
+__category__
+
+- `vocab_size` (int, default: `10`): size of the vocabulary to sample from.
+- `cycle` (boolean, default: `false`): cycle through values instead of sampling.
+
+__sequence__
+
+- `vocab_size` (int, default: `10`): size of the vocabulary to sample from.
+- `max_len` (int, default: `10`): maximum length of the generated sequence.
+- `min_len` (int, default: `null`): if `null` all sequences will be of size `max_len`. If a value is provided, the length will be randomly determined between `min_len` and `max_len`.
+
+__set__
+
+- `vocab_size` (int, default: `10`): size of the vocabulary to sample from.
+- `max_len` (int, default: `10`): maximum length of the generated set.
+
+__bag__
+
+- `vocab_size` (int, default: `10`): size of the vocabulary to sample from.
+- `max_len` (int, default: `10`): maximum length of the generated set.
+
+__text__
+
+- `vocab_size` (int, default: `10`): size of the vocabulary to sample from.
+- `max_len` (int, default: `10`): maximum length of the generated sequence, lengths will be randomly sampled between `max_len - 20%` and `max_len`.
+
+__timeseries__
+
+- `max_len` (int, default: `10`): maximum length of the generated sequence.
+- `min` (float, default: `0`): minimum value of the range of values to generate.
+- `max` (float, default: `1`): maximum value of the range of values to generate.
+
+__audio__
+
+- `destination_folder` (str): folder where the generated audio files will be saved.
+- `preprocessing: {audio_file_length_limit_in_s}` (int, default: `1`): length of the generated audio in seconds.
+
+__image__
+
+- `destination_folder` (str): folder where the generated image files will be saved.
+- `preprocessing: {height}` (int, default: `28`): height of the generated image in pixels.
+- `preprocessing: {width}` (int, default: `28`): width of the generated image in pixels.
+- `preprocessing: {num_channels}` (int, default: `1`): number of channels of the generated images. Valid values are `1`, `3`, `4`.
+
+__date__
+
+No parameters.
+
+__h3__
+
+No parameters.
+
+__vector__
+
+- `vector_size` (int, default: `10`): size of the vectors to generate.
 
 
 Data Preprocessing

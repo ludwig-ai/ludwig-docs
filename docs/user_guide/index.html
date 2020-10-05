@@ -391,8 +391,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#csv-format" class="md-nav__link">
-    CSV Format
+  <a href="#dataset-format" class="md-nav__link">
+    Dataset Format
   </a>
   
 </li>
@@ -2119,8 +2119,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#csv-format" class="md-nav__link">
-    CSV Format
+  <a href="#dataset-format" class="md-nav__link">
+    Dataset Format
   </a>
   
 </li>
@@ -4708,9 +4708,9 @@ All sequences shorter than <code>l</code> are padded on the right (but this beha
 <p>The final result matrix is saved in the HDF5 with the name of the original column in the dataset as key, while the mapping from token to integer ID (and its inverse mapping) is saved in the JSON file.</p>
 <p>Each datatype is preprocessed in a different way, using different parameters and different tokenizers.
 Details on how to set those parameters for each feature type and for each specific feature will be described in the <a href="#preprocessing">Configuration - Preprocessing</a> section.</p>
-<p><code>Binary</code> features are directly transformed into a binary valued vector of length <code>n</code> (where <code>n</code> is the size of the dataset) and added to the HDF5 with a key that reflects the name of column in the CSV.
+<p><code>Binary</code> features are directly transformed into a binary valued vector of length <code>n</code> (where <code>n</code> is the size of the dataset) and added to the HDF5 with a key that reflects the name of column in the dataset.
 No additional information about them is available in the JSON metadata file.</p>
-<p><code>Numerical</code> features are directly transformed into a float valued vector of length <code>n</code> (where <code>n</code> is the size of the dataset) and added to the HDF5 with a key that reflects the name of column in the CSV.
+<p><code>Numerical</code> features are directly transformed into a float valued vector of length <code>n</code> (where <code>n</code> is the size of the dataset) and added to the HDF5 with a key that reflects the name of column in the dataset.
 No additional information about them is available in the JSON metadata file.</p>
 <p><code>Category</code> features are transformed into an integer valued vector of size <code>n</code> (where <code>n</code> is the size of the dataset) and added to the HDF5 with a key that reflects the name of column in the dataset.
 The way categories are mapped into integers consists in first collecting a dictionary of all the different category strings present in the column of the dataset, then rank them by frequency and then assign them an increasing integer ID from the most frequent to the most rare (with 0 being assigned to a <code>&lt;UNK&gt;</code> token).  The column name is added to the JSON file, with an associated dictionary containing:</p>
@@ -4753,9 +4753,10 @@ In the configuration you are able to specify which level of representation to us
 Moreover, there is no need for any mapping in the JSON file.</p>
 <p><code>Image</code> features are transformed into a int8 valued tensor of size <code>n x h x w x c</code> (where <code>n</code> is the size of the dataset and <code>h x w</code> is a specific resizing of the image that can be set, and <code>c</code> is the number of color channels) and added to HDF5 with a key that reflects the name of column in the dataset.
 The column name is added to the JSON file, with an associated dictionary containing preprocessing information about the sizes of the resizing.</p>
-<h3 id="csv-format">CSV Format<a class="headerlink" href="#csv-format" title="Permanent link">&para;</a></h3>
-<p>Ludwig uses Pandas under the hood to read the UTF-8 encoded CSV (comma seperated values) files.
-Pandas tries to automatically identify the separator (generally <code>,</code>) from the data.
+<h3 id="dataset-format">Dataset Format<a class="headerlink" href="#dataset-format" title="Permanent link">&para;</a></h3>
+<p>Ludwig uses Pandas under the hood to read the UTF-8 encoded dataset files, which allows support for CSV, Excel, Feather, fwf, HDF5, HTML (containing a <code>&lt;table&gt;</code>), JSON, JSONL, Parquet, pickle (pickled Pandas DataFrame), SAS, SPSS, Stata and TSV formats.
+Ludwig tries to automatically identify the format by the extension.</p>
+<p>In case a *SV file is provided, Ludwig tries to identify the separator (generally <code>,</code>) from the data.
 The default escape character is <code>\</code>.
 For example, if <code>,</code> is the column separator and one of your data columns has a <code>,</code> in it, Pandas would fail to load the data properly.
 To handle such cases, we expect the values in the columns to be escaped with backslashes (replace <code>,</code> in the data with <code>\\,</code>).</p>
@@ -5079,7 +5080,7 @@ For each language different functions are available:</p>
 More details on the models can be found in the <a href="https://spacy.io/models">spaCy documentation</a>.</p>
 <h3 id="binary-features">Binary Features<a class="headerlink" href="#binary-features" title="Permanent link">&para;</a></h3>
 <h4 id="binary-features-preprocessing">Binary Features Preprocessing<a class="headerlink" href="#binary-features-preprocessing" title="Permanent link">&para;</a></h4>
-<p>Binary features are directly transformed into a binary valued vector of length <code>n</code> (where <code>n</code> is the size of the dataset) and added to the HDF5 with a key that reflects the name of column in the CSV.
+<p>Binary features are directly transformed into a binary valued vector of length <code>n</code> (where <code>n</code> is the size of the dataset) and added to the HDF5 with a key that reflects the name of column in the dataset.
 No additional information about them is available in the JSON metadata file.</p>
 <p>The parameters available for preprocessing are</p>
 <ul>
@@ -5449,7 +5450,7 @@ You can set either of them as <code>validation_measure</code> in the <code>train
 <p>Set features are expected to be provided as a string of elements separated by whitespace, e.g. "elem5 elem9 elem6".
 The string values are transformed into a binary (int8 actually) valued matrix of size <code>n x l</code> (where <code>n</code> is the size of the dataset and <code>l</code> is the minimum of the size of the biggest set and a <code>max_size</code> parameter) and added to HDF5 with a key that reflects the name of column in the dataset.
 The way sets are mapped into integers consists in first using a tokenizer to map from strings to sequences of set items (by default this is done by splitting on spaces).
-Then a dictionary of all the different set item strings present in the column of the CSV is collected, then they are ranked by frequency and an increasing integer ID is assigned to them from the most frequent to the most rare (with 0 being assigned to <code>&lt;PAD&gt;</code> used for padding and 1 assigned to <code>&lt;UNK&gt;</code> item).
+Then a dictionary of all the different set item strings present in the column of the dataset is collected, then they are ranked by frequency and an increasing integer ID is assigned to them from the most frequent to the most rare (with 0 being assigned to <code>&lt;PAD&gt;</code> used for padding and 1 assigned to <code>&lt;UNK&gt;</code> item).
 The column name is added to the JSON file, with an associated dictionary containing</p>
 <ol>
 <li>the mapping from integer to string (<code>idx2str</code>)</li>
@@ -5462,7 +5463,7 @@ The column name is added to the JSON file, with an associated dictionary contain
 <ul>
 <li><code>missing_value_strategy</code> (default <code>fill_with_const</code>): what strategy to follow when there's a missing value in a binary column. The value should be one of <code>fill_with_const</code> (replaces the missing value with a specific value specified with the <code>fill_value</code> parameter), <code>fill_with_mode</code> (replaces the missing values with the most frequent value in the column), <code>fill_with_mean</code> (replaces the missing values with the mean of the values in the column), <code>backfill</code> (replaces the missing values with the next valid value).</li>
 <li><code>fill_value</code> (default <code>0</code>): the value to replace the missing values with in case the <code>missing_value_strategy</code> is <code>fill-value</code>.</li>
-<li><code>format</code> (default <code>space</code>): defines how to map from the raw string content of the CSV column to a set of elements. The default value <code>space</code> splits the string on spaces. Other options are: <code>underscore</code> (splits on underscore), <code>comma</code>(splits on comma), <code>json</code> (decodes the string into a set or a list through a JSON parser).</li>
+<li><code>format</code> (default <code>space</code>): defines how to map from the raw string content of the dataset column to a set of elements. The default value <code>space</code> splits the string on spaces. Other options are: <code>underscore</code> (splits on underscore), <code>comma</code>(splits on comma), <code>json</code> (decodes the string into a set or a list through a JSON parser).</li>
 <li><code>lowercase</code> (default <code>false</code>): if the string has to be lowercased before being handled by the tokenizer.</li>
 <li><code>most_common</code> (default <code>10000</code>): the maximum number of most common tokens to be considered. if the data contains more than this amount, the most infrequent tokens will be treated as unknown.</li>
 </ul>
@@ -5609,7 +5610,7 @@ Inputs are of size <code>b</code> while outputs are of size <code>b x h</code> w
 <h4 id="sequence-features-preprocessing">Sequence Features Preprocessing<a class="headerlink" href="#sequence-features-preprocessing" title="Permanent link">&para;</a></h4>
 <p>Sequence features are transformed into an integer valued matrix of size <code>n x l</code> (where <code>n</code> is the size of the dataset and <code>l</code> is the minimum of the length of the longest sequence and a <code>sequence_length_limit</code> parameter) and added to HDF5 with a key that reflects the name of column in the dataset.
 The way sequences are mapped into integers consists in first using a tokenizer to map from strings to sequences of tokens (by default this is done by splitting on spaces).
-Then a dictionary of all the different token strings present in the column of the CSV is collected, then they are ranked by frequency and an increasing integer ID is assigned to them from the most frequent to the most rare (with 0 being assigned to <code>&lt;PAD&gt;</code> used for padding and 1 assigned to <code>&lt;UNK&gt;</code> item).
+Then a dictionary of all the different token strings present in the column of the dataset is collected, then they are ranked by frequency and an increasing integer ID is assigned to them from the most frequent to the most rare (with 0 being assigned to <code>&lt;PAD&gt;</code> used for padding and 1 assigned to <code>&lt;UNK&gt;</code> item).
 The column name is added to the JSON file, with an associated dictionary containing</p>
 <ol>
 <li>the mapping from integer to string (<code>idx2str</code>)</li>
@@ -6462,7 +6463,7 @@ The same thing happens in the JSON file, which contains dictionaries for mapping
 In the configuration you are able to specify which level of representation to use, if the character level or the word level.</p>
 <p>The parameters available for preprocessing are:</p>
 <ul>
-<li><code>char_tokenizer</code> (default <code>characters</code>): defines how to map from the raw string content of the CSV column to a sequence of characters. The default value and only available option is <code>characters</code> and the behavior is to split the string at each character.</li>
+<li><code>char_tokenizer</code> (default <code>characters</code>): defines how to map from the raw string content of the dataset column to a sequence of characters. The default value and only available option is <code>characters</code> and the behavior is to split the string at each character.</li>
 <li><code>char_vocab_file</code> (default <code>null</code>):</li>
 <li><code>char_sequence_length_limit</code> (default <code>1024</code>): the maximum length of the text in characters. Texts that are longer than this value will be truncated, while sequences that are shorter will be padded.</li>
 <li><code>char_most_common</code> (default <code>70</code>): the maximum number of most common characters to be considered. if the data contains more than this amount, the most infrequent characters will be treated as unknown.</li>
@@ -6771,7 +6772,7 @@ If they have different sizes, a <code>resize_method</code>, together with a targ
 
 
 <h4 id="image-input-features-and-encoders">Image Input Features and Encoders<a class="headerlink" href="#image-input-features-and-encoders" title="Permanent link">&para;</a></h4>
-<p>Input image features are transformed into a float valued tensors of size <code>N x H x W x C</code> (where <code>N</code> is the size of the dataset and <code>H x W</code> is a specific resizing of the image that can be set, and <code>C</code> is the number of channels) and added to HDF5 with a key that reflects the name of column in the CSV.
+<p>Input image features are transformed into a float valued tensors of size <code>N x H x W x C</code> (where <code>N</code> is the size of the dataset and <code>H x W</code> is a specific resizing of the image that can be set, and <code>C</code> is the number of channels) and added to HDF5 with a key that reflects the name of column in the dataset.
 The column name is added to the JSON file, with an associated dictionary containing preprocessing information about the sizes of the resizing.</p>
 <p>Currently there are two encoders supported for images: Convolutional Stack Encoder and ResNet encoder which can be set by setting <code>encoder</code> parameter to <code>stacked_cnn</code> or <code>resnet</code> in the input feature dictionary in the configuration (<code>stacked_cnn</code> is the default one).</p>
 <h5 id="convolutional-stack-encoder">Convolutional Stack Encoder<a class="headerlink" href="#convolutional-stack-encoder" title="Permanent link">&para;</a></h5>
@@ -6936,7 +6937,7 @@ The format is the same one described in the <a href="https://docs.python.org/2/l
 
 
 <h4 id="date-input-features-and-encoders">Date Input Features and Encoders<a class="headerlink" href="#date-input-features-and-encoders" title="Permanent link">&para;</a></h4>
-<p>Input date features are transformed into a int valued tensors of size <code>N x 8</code> (where <code>N</code> is the size of the dataset and the 8 dimensions contain year, month, day, weekday, yearday, hour, minute and second) and added to HDF5 with a key that reflects the name of column in the CSV.</p>
+<p>Input date features are transformed into a int valued tensors of size <code>N x 8</code> (where <code>N</code> is the size of the dataset and the 8 dimensions contain year, month, day, weekday, yearday, hour, minute and second) and added to HDF5 with a key that reflects the name of column in the dataset.</p>
 <p>Currently there are two encoders supported for dates: Embed Encoder and Wave encoder which can be set by setting <code>encoder</code> parameter to <code>embed</code> or <code>wave</code> in the input feature dictionary in the configuration (<code>embed</code> is the default one).</p>
 <h5 id="embed-encoder_1">Embed Encoder<a class="headerlink" href="#embed-encoder_1" title="Permanent link">&para;</a></h5>
 <p>This encoder passes the year through a fully connected layer of one neuron and embeds all other elements for the date, concatenates them and passes the concatenated representation through fully connected layers.
@@ -7044,7 +7045,7 @@ The parameters for preprocessing are:</p>
 
 
 <h4 id="h3-input-features-and-encoders">H3 Input Features and Encoders<a class="headerlink" href="#h3-input-features-and-encoders" title="Permanent link">&para;</a></h4>
-<p>Input date features are transformed into a int valued tensors of size <code>N x 8</code> (where <code>N</code> is the size of the dataset and the 8 dimensions contain year, month, day, weekday, yearday, hour, minute and second) and added to HDF5 with a key that reflects the name of column in the CSV.</p>
+<p>Input date features are transformed into a int valued tensors of size <code>N x 8</code> (where <code>N</code> is the size of the dataset and the 8 dimensions contain year, month, day, weekday, yearday, hour, minute and second) and added to HDF5 with a key that reflects the name of column in the dataset.</p>
 <p>Currently there are two encoders supported for dates: Embed Encoder and Wave encoder which can be set by setting <code>encoder</code> parameter to <code>embed</code> or <code>wave</code> in the input feature dictionary in the configuration (<code>embed</code> is the default one).</p>
 <h5 id="embed-encoder_2">Embed Encoder<a class="headerlink" href="#embed-encoder_2" title="Permanent link">&para;</a></h5>
 <p>This encoder encodes each components of the H3 representation (mode, edge, resolution, base cell and childern cells) with embeddings.
@@ -7792,8 +7793,8 @@ and use.</p>
 <p>For more information about integration contributions, please see the <a href="../developer_guide/">Developer Guide</a>.</p>
 <h2 id="programmatic-api">Programmatic API<a class="headerlink" href="#programmatic-api" title="Permanent link">&para;</a></h2>
 <p>Ludwig functionalities can also be accessed through a programmatic API.
-The API consists of one <code>LudwigModel</code> class that can be initialized with a configuration dictionary and then can be trained with data coming in the form of a dataframe or a CSV file.
-Pretrained models can be loaded and can be used to obtain predictions on new data, again either in dataframe or CSV format.</p>
+The API consists of one <code>LudwigModel</code> class that can be initialized with a configuration dictionary and then can be trained with a dataset (either in memory or loaded from file).
+Pretrained models can be loaded and can be used to obtain predictions on s new dataset (either in memory or loaded from file).</p>
 <p>A detailed documentation of all the functions available in <code>LudwigModel</code> is provided in the <a href="../api/">API documentation</a>.</p>
 <h3 id="training-a-model">Training a Model<a class="headerlink" href="#training-a-model" title="Permanent link">&para;</a></h3>
 <p>To train a model one has first to initialize it using the initializer <code>LudwigModel()</code> and a configuration dictionary, and then calling the <code>train()</code> function using either a dataframe or a dataset file.</p>
@@ -7826,7 +7827,7 @@ The contents are exactly the same of the <code>training_statistics.json</code> f
 
 <h3 id="predicting">Predicting<a class="headerlink" href="#predicting" title="Permanent link">&para;</a></h3>
 <p>Either a newly trained model or a pre-trained loaded model can be used for predicting on new data using the <code>predict()</code> function of the model object.
-The CSV / dataframe has to contain columns with the same names of all the input features of the model.</p>
+The dataset has to contain columns with the same names of all the input features of the model.</p>
 <div class="codehilite"><pre><span></span><code><span class="n">predictions</span><span class="p">,</span> <span class="n">output_directory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">dataset_file_path</span><span class="p">)</span>
 <span class="c1">#or</span>
 <span class="n">predictions</span><span class="p">,</span> <span class="n">output_directory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">dataframe</span><span class="p">)</span>
@@ -7841,7 +7842,7 @@ The CSV / dataframe has to contain columns with the same names of all the input 
 </code></pre></div>
 
 
-<p>In this case the CSV / dataframe should also contain columns with the same names of all the output features, as their content is going to be used as ground truth to compare the predictions against and compute the measures and <code>evaluation_statistics</code> will be a dictionary containing several measures of quality depending on the type of each output feature (e.g. <code>category</code> features will have an accuracy measure and a confusion matrix, among other measures, associated to them, while <code>numerical</code> features will have measures like mean squared loss and R2 among others).</p>
+<p>In this case the dataset should also contain columns with the same names of all the output features, as their content is going to be used as ground truth to compare the predictions against and compute the measures and <code>evaluation_statistics</code> will be a dictionary containing several measures of quality depending on the type of each output feature (e.g. <code>category</code> features will have an accuracy measure and a confusion matrix, among other measures, associated to them, while <code>numerical</code> features will have measures like mean squared loss and R2 among others).</p>
 <h2 id="visualizations">Visualizations<a class="headerlink" href="#visualizations" title="Permanent link">&para;</a></h2>
 <p>Several visualization can be obtained from the result files from both <code>train</code>, <code>predict</code> and <code>experiment</code> by using the <code>visualize</code> command.
 The command has several parameters, but not all the visualizations use all of them.

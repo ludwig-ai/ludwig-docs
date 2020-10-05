@@ -73,9 +73,9 @@ optional arguments:
                         DATASET created the first time the DATASET file is 
                         used in the same directory with the same name 
                         and a json extension.
-  -md MODEL_DEFINITION, --model_definition MODEL_DEFINITION
+  -c CONFIG, --config CONFIG
                         model definition
-  -mdf MODEL_DEFINITION_FILE, --model_definition_file MODEL_DEFINITION_FILE
+  -cf CONFIG_FILE, --config_file CONFIG_FILE
                         YAML file describing the model. Ignores
                         --model_hyperparameters
   -mlp MODEL_LOAD_PATH, --model_load_path MODEL_LOAD_PATH
@@ -165,8 +165,8 @@ The directory will contain
 - `training_statistics.json` - a file containing records of all measures and losses for each epoch.
 - `model` - a directory containing model hyper-parameters, weights, checkpoints and logs (for TensorBoard).
 
-The model definition can be provided either as a string (`--model_definition`) 
-or as YAML file (`--model_definition_file`).
+The model definition can be provided either as a string (`--config`) 
+or as YAML file (`--config_file`).
 Details on how to write your model definition are provided in the [Model Definition](#model-definition) section.
 
 During training Ludwig saves two sets of weights for the model, one that is the 
@@ -193,7 +193,7 @@ Finally the `--logging_level` argument lets you set the amount of logging that y
 
 Example:
 ```
-ludwig train --dataset reuters-allcats.csv --model_definition "{input_features: [{name: text, type: text, encoder: parallel_cnn, level: word}], output_features: [{name: class, type: category}]}"
+ludwig train --dataset reuters-allcats.csv --config "{input_features: [{name: text, type: text, encoder: parallel_cnn, level: word}], output_features: [{name: class, type: category}]}"
 ```
 
 predict
@@ -422,9 +422,9 @@ optional arguments:
                         data set for the k-fold cross validation run, but if it
                         is not needed turning it off can slightly increase the
                         overall speed
-  -md MODEL_DEFINITION, --model_definition MODEL_DEFINITION
+  -c CONFIG, --config CONFIG
                         model definition
-  -mdf MODEL_DEFINITION_FILE, --model_definition_file MODEL_DEFINITION_FILE
+  -cf CONFIG_FILE, --config_file CONFIG_FILE
                         YAML file describing the model. Ignores
                         --model_hyperparameters
   -mlp MODEL_LOAD_PATH, --model_load_path MODEL_LOAD_PATH
@@ -485,7 +485,7 @@ The output directory will contain the outputs both commands produce.
 
 Example:
 ```
-ludwig experiment --dataset reuters-allcats.csv --model_definition "{input_features: [{name: text, type: text, encoder: parallel_cnn, level: word}], output_features: [{name: class, type: category}]}"
+ludwig experiment --dataset reuters-allcats.csv --config "{input_features: [{name: text, type: text, encoder: parallel_cnn, level: word}], output_features: [{name: class, type: category}]}"
 ```
 
 hyperopt
@@ -541,9 +541,9 @@ optional arguments:
                         format of the input data
   -sspi, --skip_save_processed_input
                         skips saving intermediate HDF5 and JSON files
-  -md MODEL_DEFINITION, --model_definition MODEL_DEFINITION
+  -c CONFIG, --config CONFIG
                         model definition
-  -mdf MODEL_DEFINITION_FILE, --model_definition_file MODEL_DEFINITION_FILE
+  -cf CONFIG_FILE, --config_file CONFIG_FILE
                         YAML file describing the model. Ignores
                         --model_hyperparameters
   -mlp MODEL_LOAD_PATH, --model_load_path MODEL_LOAD_PATH
@@ -984,13 +984,13 @@ optional arguments:
                         format of the input data
   -pd PREPROCESSING_DEFINITION, --preprocessing_definition PREPROCESSING_DEFINITION
                         preproceesing definition. Uses the same format of
-                        model_definition, but ignores encoder specific
+                        config, but ignores encoder specific
                         parameters, decoder specific paramters, combiner and
                         training parameters
-  -mdf PREPROCESSING_DEFINITION_FILE, --preprocessing_definition_file PREPROCESSING_DEFINITION_FILE
+  -cf PREPROCESSING_DEFINITION_FILE, --preprocessing_definition_file PREPROCESSING_DEFINITION_FILE
                         YAML file describing the preprocessing. Ignores
                         --preprocessing_definition.Uses the same format of
-                        model_definition, but ignores encoder specific
+                        config, but ignores encoder specific
                         parameters, decoder specific paramters, combiner and
                         training parameters
   -rs RANDOM_SEED, --random_seed RANDOM_SEED
@@ -1261,7 +1261,7 @@ Model Definition
 ================
 
 The model definition is the core of Ludwig.
-It is a dictionary that contains all the information needed to build and train a Ludwig model.  It mixes ease of use, by means of reasonable defaults, with flexibility, by means of detailed control over the parameters of your model.  It is provided to both `experiment` and `train` commands either as a string (`--model_definition`) or as a file (`--model_definition_file`).
+It is a dictionary that contains all the information needed to build and train a Ludwig model.  It mixes ease of use, by means of reasonable defaults, with flexibility, by means of detailed control over the parameters of your model.  It is provided to both `experiment` and `train` commands either as a string (`--config`) or as a file (`--config_file`).
 The string or the content of the file will be parsed by PyYAML into a dictionary in memory, so any style of YAML accepted by the parser is considered to be valid, so both multiline and oneline formats are accepted.  For instance a list of dictionaries can be written both as:
 
 ```yaml
@@ -4525,7 +4525,7 @@ hyperopt:
 
 Running hyper-parameter optimization with Fiber is a little bit different from other executors because there are docker building and pushing involved, so here `fiber run` command, which takes care of those aspects, is used to run hyper-parameter optimization on a cluster:
 
-`fiber run ludwig hyperopt --dataset train.csv -mdf hyperopt.yaml`
+`fiber run ludwig hyperopt --dataset train.csv -cf hyperopt.yaml`
 
 Check out [Fiber's documentation](https://uber.github.io/fiber/getting-started/#running-on-a-computer-cluster) for more details on running on clusters.
 
@@ -4599,7 +4599,7 @@ hyperopt:
 
 Example CLI command:
 ```
-ludwig hyperopt --dataset reuters-allcats.csv --model_definition "{input_features: [{name: utterance, type: text, encoder: rnn, cell_type: lstm, num_layers: 2}], output_features: [{name: class, type: category}], training: {learning_rate: 0.001}, hyperopt: {goal: maximize, output_feature: class, metric: accuracy, split: validation, parameters: {training.learning_rate: {type: float, low: 0.0001, high: 0.1, steps: 4, scale: log}, utterance.cell_type: {type: category, values: [rnn, gru, lstm]}}, sampler: {type: grid}, executor: {type: serial}}}"
+ludwig hyperopt --dataset reuters-allcats.csv --config "{input_features: [{name: utterance, type: text, encoder: rnn, cell_type: lstm, num_layers: 2}], output_features: [{name: class, type: category}], training: {learning_rate: 0.001}, hyperopt: {goal: maximize, output_feature: class, metric: accuracy, split: validation, parameters: {training.learning_rate: {type: float, low: 0.0001, high: 0.1, steps: 4, scale: log}, utterance.cell_type: {type: category, values: [rnn, gru, lstm]}}, sampler: {type: grid}, executor: {type: serial}}}"
 ```
 
 
@@ -4636,14 +4636,14 @@ To train a model one has first to initialize it using the initializer `LudwigMod
 ```python
 from ludwig.api import LudwigModel
 
-model_definition = {...}
-model = LudwigModel(model_definition)
+config = {...}
+model = LudwigModel(config)
 training_statistics, preprocessed_data, output_directory = model.train(dataset=dataset_file_path)
 # or
 training_statistics, preprocessed_data, output_directory = model.train(dataset=dataframe)
 ```
 
-`model_definition` is a dictionary that has the same key-value structure of a model definition YAML file, as it's technically equivalent as parsing the YAML file into a Python dictionary.
+`config` is a dictionary that has the same key-value structure of a model definition YAML file, as it's technically equivalent as parsing the YAML file into a Python dictionary.
 Note that all null values should be provided as Python `None` instead of the YAML `null`, and the same applies for `True/False` instead of `true/false`. 
 `train_statistics` is a dictionary of training statistics
 for each output feature containing loss and metrics values
@@ -4764,8 +4764,8 @@ Example commands to generate the visualizations are based on running two experim
 The experiments themselves are run with the following:
 
 ```
-ludwig experiment --experiment_name titanic --model_name Model1 --dataset train.csv -mdf titanic_model1.yaml
-ludwig experiment --experiment_name titanic --model_name Model2 --dataset train.csv -mdf titanic_model2.yaml
+ludwig experiment --experiment_name titanic --model_name Model1 --dataset train.csv -cf titanic_model1.yaml
+ludwig experiment --experiment_name titanic --model_name Model2 --dataset train.csv -cf titanic_model2.yaml
 ```
 
 For this, you need to download the [Titanic Kaggle competition dataset](https://www.kaggle.com/c/titanic/) to get `train.csv`.

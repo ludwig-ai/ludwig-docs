@@ -3,7 +3,7 @@
 
 ```python
 ludwig.api.LudwigModel(
-  model_definition,
+  config,
   logging_level=40,
   use_horovod=None,
   gpus=None,
@@ -17,7 +17,7 @@ Class that allows access to high level Ludwig functionalities.
 __Inputs__
 
 
-- __model_definition__ (Union[str, dict]): in-memory representation of
+- __config__ (Union[str, dict]): in-memory representation of
     model definition or string path to a YAML model definition file.
 - __logging_level__ (int): Log level that will be sent to stderr.
 - __use_horovod__ (bool): use Horovod for distributed training.
@@ -41,8 +41,8 @@ from ludwig.api import LudwigModel
 Train a model:
 
 ```python
-model_definition = {...}
-ludwig_model = LudwigModel(model_definition)
+config = {...}
+ludwig_model = LudwigModel(config)
 train_stats, _, _  = ludwig_model.train(dataset=file_path)
 ```
 
@@ -160,7 +160,7 @@ __Return__
 
 ```python
 create_model(
-  model_definition,
+  config,
   random_seed=42
 )
 ```
@@ -170,7 +170,7 @@ Instantiates Encoder-Combiner-Decoder (ECD) object
 
 __Inputs__
 
-- __model_definition__ (dict): Ludwig model definition
+- __config__ (dict): Ludwig model definition
 - __random_seed__ (int, default: ludwig default random seed): Random
 seed used for weights initialization,
 splits and any other random function.
@@ -587,11 +587,11 @@ ludwig_model.save(save_path)
 
 
 ---
-## save_model_definition
+## save_config
 
 
 ```python
-save_model_definition(
+save_config(
   save_path
 )
 ```
@@ -853,7 +853,7 @@ __Return__
 ```python
 ludwig.api.kfold_cross_validate(
   num_folds,
-  model_definition,
+  config,
   dataset=None,
   data_format=None,
   skip_save_training_description=False,
@@ -884,7 +884,7 @@ __Inputs__
 
 
 - __num_folds__ (int): number of folds to create for the cross-validation
-- __model_definition__ (Union[dict, str]): model specification
+- __config__ (Union[dict, str]): model specification
    required to build a model. Parameter may be a dictionary or string
    specifying the file path to a yaml configuration file.  Refer to the
    [User Guide](http://ludwig.ai/user_guide/#model-definition)
@@ -969,7 +969,7 @@ __Return__
 
 ```python
 ludwig.hyperopt.run.hyperopt(
-  model_definition,
+  config,
   dataset=None,
   training_set=None,
   validation_set=None,
@@ -1004,7 +1004,7 @@ This method performs an hyperparameter optimization.
 __Inputs__
 
 
-- __model_definition__ (Union[str, dict]): model definition which defines
+- __config__ (Union[str, dict]): model definition which defines
 the different parameters of the model, features, preprocessing and
 training.  If `str`, filepath to yaml configuration file.
 - __dataset__ (Union[str, dict, pandas.DataFrame], default: `None`):

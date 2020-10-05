@@ -19,10 +19,10 @@ Other datasets available on the same webpage, like [OHSUMED](http://boston.lti.c
 ```
 ludwig experiment \
   --dataset text_classification.csv \
-  --model_definition_file model_definition.yaml
+  --config_file config.yaml
 ```
 
-With `model_definition.yaml`:
+With `config.yaml`:
 
 ```yaml
 input_features:
@@ -50,10 +50,10 @@ Named Entity Recognition Tagging
 ```
 ludwig experiment \
   --dataset sequence_tags.csv \
-  --model_definition_file model_definition.yaml
+  --config_file config.yaml
 ```
 
-With `model_definition.yaml`:
+With `config.yaml`:
 
 ```yaml
 input_features:
@@ -87,10 +87,10 @@ Natural Language Understanding
 ```
 ludwig experiment \
   --dataset nlu.csv \
-  --model_definition_file model_definition.yaml
+  --config_file config.yaml
 ```
 
-With `model_definition.yaml`:
+With `config.yaml`:
 
 ```yaml
 input_features:
@@ -132,10 +132,10 @@ Machine Translation
 ```
 ludwig experiment \
   --dataset translation.csv \
-  --model_definition_file model_definition.yaml
+  --config_file config.yaml
 ```
 
-With `model_definition.yaml`:
+With `config.yaml`:
 
 ```yaml
 input_features:
@@ -179,10 +179,10 @@ Chit-Chat Dialogue Modeling through Sequence2Sequence
 ```
 ludwig experiment \
   --dataset chitchat.csv \
-  --model_definition_file model_definition.yaml
+  --config_file config.yaml
 ```
 
-With `model_definition.yaml`:
+With `config.yaml`:
 
 ```yaml
 input_features:
@@ -222,10 +222,10 @@ Sentiment Analysis
 ```
 ludwig experiment \
   --dataset sentiment.csv \
-  --model_definition_file model_definition.yaml
+  --config_file config.yaml
 ```
 
-With `model_definition.yaml`:
+With `config.yaml`:
 
 ```yaml
 input_features:
@@ -254,10 +254,10 @@ Image Classification
 ```
 ludwig experiment \
   --dataset image_classification.csv \
-  --model_definition_file model_definition.yaml
+  --config_file config.yaml
 ```
 
-With `model_definition.yaml`:
+With `config.yaml`:
 
 ```yaml
 input_features:
@@ -318,10 +318,10 @@ From the directory where you have virtual environment with ludwig installed:
 ludwig train \
   --training_set <PATH_TO_MNIST_DATASET_TRAINING_CSV> \
   --test_set <PATH_TO_MNIST_DATASET_TEST_CSV> \
-  --model_definition_file model_definition.yaml
+  --config_file config.yaml
 ```
 
-With `model_definition.yaml`:
+With `config.yaml`:
 
 ```yaml
 input_features:
@@ -367,10 +367,10 @@ Image Captioning
 ```
 ludwig experiment \
 --dataset image captioning.csv \
-  --model_definition_file model_definition.yaml
+  --config_file config.yaml
 ```
 
-With `model_definition.yaml`:
+With `config.yaml`:
 
 ```yaml
 input_features:
@@ -405,10 +405,10 @@ The task is, given two images of two handwritten characters, recognize if they a
 ```
 ludwig experiment \
 --dataset balinese_characters.csv \
-  --model_definition_file model_definition.yaml
+  --config_file config.yaml
 ```
 
-With `model_definition.yaml`:
+With `config.yaml`:
 
 ```yaml
 input_features:
@@ -454,10 +454,10 @@ Visual Question Answering
 ```
 ludwig experiment \
 --dataset vqa.csv \
-  --model_definition_file model_definition.yaml
+  --config_file config.yaml
 ```
 
-With `model_definition.yaml`:
+With `config.yaml`:
 
 ```yaml
 input_features:
@@ -527,10 +527,10 @@ From the directory where you have virtual environment with ludwig installed:
 ```
 ludwig experiment \
   --dataset <PATH_TO_SPOKEN_DIGIT_CSV> \
-  --model_definition_file model_definition_file.yaml
+  --config_file config_file.yaml
 ```
 
-With `model_definition.yaml`:
+With `config.yaml`:
 
 ```yaml
 input_features:
@@ -593,10 +593,10 @@ The sample data looks as follows:
 ```
 ludwig experiment \
 --dataset speaker_verification.csv \
-  --model_definition_file model_definition.yaml
+  --config_file config.yaml
 ```
 
-With `model_definition.yaml`:
+With `config.yaml`:
 
 ```yaml
 input_features:
@@ -638,10 +638,10 @@ After downloading the data, to train a model on this dataset using Ludwig,
 ```
 ludwig experiment \
   --dataset <PATH_TO_TITANIC_CSV> \
-  --model_definition_file model_definition.yaml
+  --config_file config.yaml
 ```
 
-With `model_definition.yaml`:
+With `config.yaml`:
 
 ```yaml
 input_features:
@@ -694,10 +694,10 @@ While direct timeseries prediction is a work in progress Ludwig can ingest times
 ```
 ludwig experiment \
 --dataset timeseries_data.csv \
-  --model_definition_file model_definition.yaml
+  --config_file config.yaml
 ```
 
-With `model_definition.yaml`:
+With `config.yaml`:
 
 ```yaml
 input_features:
@@ -774,10 +774,10 @@ df.to_csv('<PATH_TO_FILE>/temperature_la.csv')
 ```
 ludwig experiment \
 --dataset <PATH_TO_FILE>/temperature_la.csv \
-  --model_definition_file model_definition.yaml
+  --config_file config.yaml
 ```
 
-With `model_definition.yaml`:
+With `config.yaml`:
 
 ```yaml
 input_features:
@@ -807,10 +807,10 @@ Movie rating prediction
 ```
 ludwig experiment \
 --dataset movie_ratings.csv \
-  --model_definition_file model_definition.yaml
+  --config_file config.yaml
 ```
 
-With `model_definition.yaml`:
+With `config.yaml`:
 
 ```yaml
 input_features:
@@ -846,10 +846,10 @@ Multi-label classification
 ```
 ludwig experiment \
 --dataset image_data.csv \
-  --model_definition_file model_definition.yaml
+  --config_file config.yaml
 ```
 
-With `model_definition.yaml`:
+With `config.yaml`:
 
 ```yaml
 input_features:
@@ -879,10 +879,10 @@ This example is inspired by the classic paper [Natural Language Processing (Almo
 ```
 ludwig experiment \
 --dataset nl_data.csv \
-  --model_definition_file model_definition.yaml
+  --config_file config.yaml
 ```
 
-With `model_definition.yaml`:
+With `config.yaml`:
 
 ```yaml
 input_features:
@@ -924,10 +924,10 @@ This example replicates the Keras example at https://www.tensorflow.org/tutorial
 ```
 ludwig experiment \
 --dataset auto_mpg.csv \
-  --model_definition_file model_definition.yaml
+  --config_file config.yaml
 ```
 
-With `model_definition.yaml`:
+With `config.yaml`:
 
 ```yaml
 training:
@@ -982,10 +982,10 @@ Binary Classification: Fraud Transactions Identification
 ```
 ludwig experiment \
 --dataset transactions.csv \
-  --model_definition_file model_definition.yaml
+  --config_file config.yaml
 ```
 
-With `model_definition.yaml`:
+With `config.yaml`:
 
 ```yaml
 input_features:

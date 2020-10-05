@@ -498,7 +498,7 @@ executor = SerialExecutor(grid_sampler, output_feature, metric, split)
 ```python
 def execute(
     self,
-    model_definition,
+    config,
     dataset=None,
     training_set=None,
     validation_set=None,

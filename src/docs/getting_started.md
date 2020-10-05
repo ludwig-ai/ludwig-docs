@@ -148,7 +148,7 @@ You can use the following model definition:
 and start the training typing the following command in your console:
 
 ```
-ludwig train --dataset path/to/file.csv --model_definition "{input_features: [{name: doc_text, type: text}], output_features: [{name: class, type: category}]}"
+ludwig train --dataset path/to/file.csv --config "{input_features: [{name: doc_text, type: text}], output_features: [{name: class, type: category}]}"
 ```
 
 where `path/to/file.csv` is the path to a UTF-8 encoded CSV file containing the dataset in the previous table (many other data formats are supported).
@@ -229,8 +229,8 @@ Ludwig also provides a simple programmatic API that allows you to train or load 
 from ludwig.api import LudwigModel
 
 # train a model
-model_definition = {...}
-model = LudwigModel(model_definition)
+config = {...}
+model = LudwigModel(config)
 train_stats = model.train(training_data)
 
 # or load a model
@@ -240,7 +240,7 @@ model = LudwigModel.load(model_path)
 predictions = model.predict(test_data)
 ```
 
-`model_definition` containing the same information of the YAML file provided to the command line interface.
+`config` containing the same information of the YAML file provided to the command line interface.
 More details are provided in the [User Guide](user_guide.md) and in the [API documentation](api.md).
 
 

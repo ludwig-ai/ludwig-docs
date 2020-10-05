@@ -295,7 +295,7 @@
                         and run:
                     <pre><code>ludwig train
 --dataset path_to_dataset
---model_definition definition.yaml</code></pre>
+--config definition.yaml</code></pre>
                     </p>
                 </div>
 
@@ -354,8 +354,8 @@
             <pre data-aos="fade-up"><code>from ludwig.api import LudwigModel
 
 # train a model
-model_definition = {...}
-model = LudwigModel(model_definition)
+config = {...}
+model = LudwigModel(config)
 train_stats = model.train(training_data)
 # or load a model
 model = LudwigModel.load(model_path)

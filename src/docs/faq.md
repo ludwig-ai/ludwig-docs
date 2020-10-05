@@ -13,7 +13,8 @@ If you want to help us implementing your favourite feature or model please take 
 
 ## Do all datasets need to be loaded in memory?
 
-At the moment it depends on the type of feature: image features can be dynamically loaded from disk from an opened hdf5 file, while other types of features (that usually take need less memory than image ones) are loaded entirely in memory for speed. We plan to add an option to load also other features from disk in future releases and to also support more input file types and more scalable solutions like [Petastorm](https://github.com/uber/Petastorm).
+At the moment it depends on the type of feature: image features can be dynamically loaded from disk from an opened hdf5 file, while other types of features (that usually take need less memory than image ones) are loaded entirely in memory for speed.
+We plan to add an option to load also other features from disk in future releases and to also support more input file types and more scalable solutions like [Petastorm](https://github.com/uber/Petastorm).
 
 
 ## My data is on \[ GCS | S3 | Azure \], how can I load it?
@@ -53,31 +54,31 @@ Feel free to reach out to us and ask as there are tasks for all levels of experi
 
 ### Main architect and maintainer
 
-[Piero Molino](http://w4nderlu.st) (Stanford University, previously at Uber AI) is the creator, main architect and maintainer
+[Piero Molino](http://w4nderlu.st) (Stanford University, previously at Uber AI) is the creator, main architect and maintainer of Ludwig.
 
 ### Co-maintainers
 
-- Travis Addair (Uber), who helped with updating the Horovod integration
-- Jim Thompson (Freddie Mac) who contributed the K-Fold cross validation functionality and greatly helped with the TF2 porting
+- Travis Addair (Uber), who helped with updating the Horovod integration, improving testing and adding features.
+- Jim Thompson (Freddie Mac) who contributed the K-Fold cross validation functionality and greatly helped with the TF2 porting.
 
 ### Early key contributors
 
-- Yaroslav Dudin (Uber) is a key contributor who helped improving the architecture and developing the image feature (among many other contributions)
+- Yaroslav Dudin (Uber) is a key contributor who helped improving the architecture and developing the image feature (among many other contributions).
 - Sai Sumanth Miryala (Facebook AI, previously at Uber AI) contributed all the testing, logging and helped polishing.
 
 ### Other main contributors
 
-- Yi Shi (Uber) who implemented the time series encoding
-- Ankit Jain (Facebook AI, previously at Uber AI) who implemented the bag feature encoding
-- Pranav Subramani (Uber) who contributed documentation
-- Alex Sergeev (previously at Uber) and Felipe Petroski Such (Uber) who helped with distributed training
-- Doug Blank (Comet ML) who contributed the Comte ML integration
-- Patrick Von Platen (Hugging Face) who contributed the audio feature
-- John Wahba (Stripe), who contributed the serving functionality
-- Ivaylo Stefanov (Strypes), who contributed a substantial improvement to the visualization capabilities
-- Carlo Grisetti (DS Group), who contributed improvements on the tracking of metrics during training
-- Chris Van Pelt (Weights and Biases) and Boris Dayma (Weights and Biases) who contributed the Weights and Biases integration
-- Emidio Torre helped with the initial design of the landing page
+- Yi Shi (Uber) who implemented the time series encoding.
+- Ankit Jain (Facebook AI, previously at Uber AI) who implemented the bag feature encoding.
+- Pranav Subramani (Uber) who contributed documentation.
+- Alex Sergeev (previously at Uber) and Felipe Petroski Such (Uber) who helped with distributed training.
+- Doug Blank (Comet ML) who contributed the Comte ML integration.
+- Patrick Von Platen (Hugging Face) who contributed the audio feature.
+- John Wahba (Stripe), who contributed the serving functionality.
+- Ivaylo Stefanov (Strypes), who contributed a substantial improvement to the visualization capabilities.
+- Carlo Grisetti (DS Group), who contributed improvements on the tracking of metrics during training.
+- Chris Van Pelt (Weights and Biases) and Boris Dayma (Weights and Biases) who contributed the Weights and Biases integration.
+- Emidio Torre helped with the initial design of the landing page.
 
 ## How can I cite Ludwig?
 

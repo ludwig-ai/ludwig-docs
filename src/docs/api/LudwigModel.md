@@ -1,4 +1,4 @@
-<span style="float:right;">[[source]](https://github.com/uber/ludwig/blob/master/ludwig/api.py#L70)</span>
+<span style="float:right;">[[source]](https://github.com/uber/ludwig/blob/master/ludwig/api.py#L74)</span>
 # LudwigModel class
 
 ```python
@@ -18,7 +18,7 @@ __Inputs__
 
 
 - __config__ (Union[str, dict]): in-memory representation of
-    model definition or string path to a YAML model definition file.
+    config or string path to a YAML config file.
 - __logging_level__ (int): Log level that will be sent to stderr.
 - __use_horovod__ (bool): use Horovod for distributed training.
 Will be set automatically if `horovodrun` is used to launch
@@ -170,7 +170,7 @@ Instantiates Encoder-Combiner-Decoder (ECD) object
 
 __Inputs__
 
-- __config__ (dict): Ludwig model definition
+- __config__ (dict): Ludwig config
 - __random_seed__ (int, default: ludwig default random seed): Random
 seed used for weights initialization,
 splits and any other random function.
@@ -328,8 +328,8 @@ being used.
 loaded model will be used as initialization
 (useful for transfer learning).
 - __model_resume_path__ (str, default: `None`): resumes training of
-the model from the path specified. The model definition is restored.
-In addition to model definition, training statistics and loss for
+the model from the path specified. The config is restored.
+In addition to config, training statistics and loss for
 epoch and the state of the optimizer are restored such that
 training can be effectively continued from a previously interrupted
 training process.
@@ -553,6 +553,81 @@ __Return__
 
 
 ---
+## preprocess
+
+
+```python
+preprocess(
+  dataset=None,
+  training_set=None,
+  validation_set=None,
+  test_set=None,
+  training_set_metadata=None,
+  data_format=None,
+  skip_save_processed_input=True,
+  random_seed=42,
+  debug=False
+)
+```
+
+
+This function is used to preprocess data.
+
+__Inputs__
+
+
+- __dataset__ (Union[str, dict, pandas.DataFrame], default: `None`):
+source containing the entire dataset to be used in the experiment.
+If it has a split column, it will be used for splitting
+(0 for train, 1 for validation, 2 for test),
+otherwise the dataset will be randomly split.
+- __training_set__ (Union[str, dict, pandas.DataFrame], default: `None`):
+source containing training data.
+- __validation_set__ (Union[str, dict, pandas.DataFrame], default: `None`):
+source containing validation data.
+- __test_set__ (Union[str, dict, pandas.DataFrame], default: `None`):
+source containing test data.
+- __training_set_metadata__ (Union[str, dict], default: `None`):
+metadata JSON file or loaded metadata. Intermediate preprocess
+structure containing the mappings of the input
+dataset created the first time an input file is used in the same
+directory with the same name and a '.meta.json' extension.
+- __data_format__ (str, default: `None`): format to interpret data
+sources. Will be inferred automatically if not specified.  Valid
+formats are `'auto'`, `'csv'`, `'df'`, `'dict'`, `'excel'`,
+`'feather'`, `'fwf'`,
+`'hdf5'` (cache file produced during previous training),
+`'html'` (file containing a single HTML `<table>`),
+`'json'`, `'jsonl'`, `'parquet'`,
+`'pickle'` (pickled Pandas DataFrame),
+`'sas'`, `'spss'`, `'stata'`, `'tsv'`.
+- __skip_save_processed_input__ (bool, default: `False`): if input
+dataset is provided it is preprocessed and cached by saving an HDF5
+and JSON files to avoid running the preprocessing again. If this
+parameter is `False`, the HDF5 and JSON file are not saved.
+- __output_directory__ (str, default: `'results'`): the directory that
+will contain the training statistics, TensorBoard logs, the saved
+model and the training progress files.
+- __random_seed__ (int, default: `42`): a random seed that will be
+   used anywhere there is a call to a random number generator: data
+   splitting, parameter initialization and training set shuffling
+- __debug__ (bool, default: `False`):  if `True` turns on `tfdbg` with
+`inf_or_nan` checks.
+
+
+__Return__
+
+
+- __return__ (Tuple[dict, Union[dict, pd.DataFrame], str]): tuple containing
+`(training_statistics, preprocessed_data, output_directory)`.
+`training_statistics` is a dictionary of training statistics
+for each output feature containing loss and metrics values
+for each epoch.
+`preprocessed_data` is the tuple containing these three data sets
+`(training_set, validation_set, test_set)`.
+`output_directory` filepath to where training results are stored.
+ 
+---
 ## save
 
 
@@ -598,12 +673,12 @@ save_config(
 
 
 
-Save model definition to specoficed location.
+Save config to specoficed location.
 
 __Inputs__
 
 
-- __save_path__ (str): filepath string to save model definition as a
+- __save_path__ (str): filepath string to save config as a
 JSON file.
 
 __Return__
@@ -738,8 +813,8 @@ the experiment.
 - __model_name__ (str, default: `'run'`): name of the model that is
 being used.
 - __model_resume_path__ (str, default: `None`): resumes training of
-the model from the path specified. The model definition is restored.
-In addition to model definition, training statistics, loss for each
+the model from the path specified. The config is restored.
+In addition to config, training statistics, loss for each
 epoch and the state of the optimizer are restored such that
 training can be effectively continued from a previously interrupted
 training process.
@@ -887,7 +962,7 @@ __Inputs__
 - __config__ (Union[dict, str]): model specification
    required to build a model. Parameter may be a dictionary or string
    specifying the file path to a yaml configuration file.  Refer to the
-   [User Guide](http://ludwig.ai/user_guide/#model-definition)
+   [User Guide](http://ludwig.ai/user_guide/#model-config)
    for details.
 - __dataset__ (Union[str, dict, pandas.DataFrame], default: `None`):
 source containing the entire dataset to be used for k_fold processing.
@@ -1004,7 +1079,7 @@ This method performs an hyperparameter optimization.
 __Inputs__
 
 
-- __config__ (Union[str, dict]): model definition which defines
+- __config__ (Union[str, dict]): config which defines
 the different parameters of the model, features, preprocessing and
 training.  If `str`, filepath to yaml configuration file.
 - __dataset__ (Union[str, dict, pandas.DataFrame], default: `None`):

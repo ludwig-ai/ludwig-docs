@@ -1148,11 +1148,11 @@ The reason to save those files is both to provide a cache and avoid performing t
 
 The preprocessing process is personalizable to fit the specifics of your data format, but the basic assumption is always that your UTF-8 encoded DATASET contains one row for each datapoint and one column for each feature (either input or output), and that you are able to determine the type of that column among the ones supported by Ludwig.
 The reason for that is that each data type is mapped into tensors in a different way and expects the content to be formatted in a specific way.
-Different datatypes may have different formatters that format the values of a cell.
+Different datatypes may have different tokenizers that format the values of a cell.
 
-For instance the value of a cell of a sequence feature column by default is managed by a `space` formatter, that splits the content of the value into a list of strings using space.
+For instance, the value of a cell of a sequence feature column by default is managed by a `space` tokenizer, that splits the content of the value into a list of strings using space.
 
-| before formatter       | after formatter          |
+| before tokenizer       | after tokenizer          |
 |------------------------|--------------------------|
 | "token3 token4 token2" | [token3, token4, token2] |
 | "token3 token1"        | [token3, token1]         |
@@ -1190,24 +1190,25 @@ Then a list `idx2str` and two dictionaries `str2idx` and `str2freq` are created 
 }
 ```
 
-Finally a numpy matrix is created with sizes `n x l` where `n` is the number of rows in the column and `l` is the minimum of the longest tokenized list and a `max_length` parameter that can be set.  All sequences shorter than `l` are padded on the right (but this behavior may also be modified through a parameter).
+Finally, a numpy matrix is created with sizes `n x l` where `n` is the number of rows in the column and `l` is the minimum of the longest tokenized list and a `max_length` parameter that can be set.  All sequences shorter than `l` are padded on the right (but this behavior may also be modified through a parameter).
 
-| after formatter          | numpy matrix |
+| after tokenizer          | numpy matrix |
 |--------------------------|--------------|
 | [token3, token4, token2] | 2 4 3        |
 | [token3, token1]         | 2 5 0        |
 
-The final result matrix is saved in the HDF5 the name of the original column in the DATASET as key, while the mapping from token to integer ID (and its inverse mapping) is saved in the JSON file.
+The final result matrix is saved in the HDF5 with the name of the original column in the DATASET as key, while the mapping from token to integer ID (and its inverse mapping) is saved in the JSON file.
 
-Each datatype is preprocessed in a different way, using different parameters and different formatters.  Details on how to set those parameters for each feature type and for each specific feature will be described in the [Model Definition - Preprocessing](#preprocessing) section.
+Each datatype is preprocessed in a different way, using different parameters and different tokenizers.
+Details on how to set those parameters for each feature type and for each specific feature will be described in the [Configuration - Preprocessing](#preprocessing) section.
 
-`Binary` features are directly transformed into a binary valued vector of length `n` (where `n` is the size of the dataset) and added to HDF5 with a key that reflects the name of column in the CSV.
+`Binary` features are directly transformed into a binary valued vector of length `n` (where `n` is the size of the dataset) and added to the HDF5 with a key that reflects the name of column in the CSV.
 No additional information about them is available in the JSON metadata file.
 
-`Numerical` features are directly transformed into a float valued vector of length `n` (where `n` is the size of the dataset) and added to HDF5 with a key that reflects the name of column in the CSV.
+`Numerical` features are directly transformed into a float valued vector of length `n` (where `n` is the size of the dataset) and added to the HDF5 with a key that reflects the name of column in the CSV.
 No additional information about them is available in the JSON metadata file.
 
-`Category` features are transformed into an integer valued vector of size `n` (where `n` is the size of the dataset) and added to HDF5 with a key that reflects the name of column in the CSV.  The way categories are mapped into integers consists in first collecting a dictionary of all the different category strings present in the column of the DATASET, then rank them by frequency and then assign them an increasing integer ID from the most frequent to the most rare (with 0 being assigned to a `<UNK>` token).  The column name is added to the JSON file, with an associated dictionary containing:
+`Category` features are transformed into an integer valued vector of size `n` (where `n` is the size of the dataset) and added to the HDF5 with a key that reflects the name of column in the CSV.  The way categories are mapped into integers consists in first collecting a dictionary of all the different category strings present in the column of the DATASET, then rank them by frequency and then assign them an increasing integer ID from the most frequent to the most rare (with 0 being assigned to a `<UNK>` token).  The column name is added to the JSON file, with an associated dictionary containing:
 
 1. the mapping from integer to string (`idx2str`)
 2. the mapping from string to id (`str2idx`)
@@ -1216,7 +1217,7 @@ No additional information about them is available in the JSON metadata file.
 5. additional preprocessing information (by default how to fill missing values 
 and what token to use to fill missing values)
 
-`Set` features are transformed into a binary (int8 actually) valued matrix of size `n x l` (where `n` is the size of the dataset and `l` is the minimum of the size of the biggest set and a `max_size` parameter) and added to HDF5 with a key that reflects the name of column in the DATASET.  The way sets are mapped into integers consists in first using a formatter to map from strings to sequences of set items (by default this is done by splitting on spaces).  Then a dictionary of all the different set item strings present in the column of the DATASET is collected, then they are ranked by frequency and an increasing integer ID is assigned to them from the most frequent to the most rare (with 0 being assigned to `<PAD>` used for padding and 1 assigned to `<UNK>` item).  The column name is added to the JSON file, with an associated dictionary containing:
+`Set` features are transformed into a binary (int8 actually) valued matrix of size `n x l` (where `n` is the size of the dataset and `l` is the minimum of the size of the biggest set and a `max_size` parameter) and added to HDF5 with a key that reflects the name of column in the DATASET.  The way sets are mapped into integers consists in first using a tokenizer to map from strings to sequences of set items (by default this is done by splitting on spaces).  Then a dictionary of all the different set item strings present in the column of the DATASET is collected, then they are ranked by frequency and an increasing integer ID is assigned to them from the most frequent to the most rare (with 0 being assigned to `<PAD>` used for padding and 1 assigned to `<UNK>` item).  The column name is added to the JSON file, with an associated dictionary containing:
 
 1. the mapping from integer to string (`idx2str`)
 2. the mapping from string to id (`str2idx`)
@@ -1227,7 +1228,7 @@ and what token to use to fill missing values)
 
 `Bag` features are treated in the same way of set features, with the only difference being that the matrix had float values (frequencies).
 
-`Sequence` features are transformed into an integer valued matrix of size `n x l` (where `n` is the size of the dataset and `l` is the minimum of the length of the longest sequence and a `sequence_length_limit` parameter) and added to HDF5 with a key that reflects the name of column in the DATASET.  The way sets are mapped into integers consists in first using a formatter to map from strings to sequences of tokens (by default this is done by splitting on spaces).  Then a dictionary of all the different token strings present in the column of the DATASET is collected, then they are ranked by frequency and an increasing integer ID is assigned to them from the most frequent to the most rare (with 0 being assigned to `<PAD>` used for padding and 1 assigned to `<UNK>` item).  The column name is added to the JSON file, with an associated dictionary containing:
+`Sequence` features are transformed into an integer valued matrix of size `n x l` (where `n` is the size of the dataset and `l` is the minimum of the length of the longest sequence and a `sequence_length_limit` parameter) and added to HDF5 with a key that reflects the name of column in the DATASET.  The way sets are mapped into integers consists in first using a tokenizer to map from strings to sequences of tokens (by default this is done by splitting on spaces).  Then a dictionary of all the different token strings present in the column of the DATASET is collected, then they are ranked by frequency and an increasing integer ID is assigned to them from the most frequent to the most rare (with 0 being assigned to `<PAD>` used for padding and 1 assigned to `<UNK>` item).  The column name is added to the JSON file, with an associated dictionary containing:
 
 1. the mapping from integer to string (`idx2str`)
 2. the mapping from string to id (`str2idx`)
@@ -1236,7 +1237,10 @@ and what token to use to fill missing values)
 5. additional preprocessing information (by default how to fill missing values 
 and what token to use to fill missing values)
 
-`Text` features are treated in the same way of sequence features, with a couple differences.  Two different formatting/splitting happen, one that splits at every character and one that uses a spaCy based tokenizer (and removes stopwords) are used, and two different key are added to the HDF5 file, one containing the matrix of characters and one containing the matrix of words.  The same thing happens in the JSON file, where there are dictionaries for mapping characters to integers (and the inverse) and words to integers (and their inverse).  In the model definition you are able to specify which level of representation to use, if the character level or the word level.
+`Text` features are treated in the same way of sequence features, with a couple differences.
+Two different tokenizations happen, one that splits at every character and one that uses a spaCy based tokenizer (and removes stopwords), and two different keys are added to the HDF5 file, one for the matrix of characters and one for the matrix of words.
+The same thing happens in the JSON file, where there are dictionaries for mapping characters to integers (and the inverse) and words to integers (and their inverse).
+In the model definition you are able to specify which level of representation to use: the character level or the word level.
 
 `Timeseries` features are treated in the same way of sequence features, with the only difference being that the matrix in the HDF5 file does not have integer values, but float values.  Moreover, there is no need for any mapping in the JSON file.
 
@@ -1594,7 +1598,7 @@ Binary Features
 
 ### Binary Features Preprocessing
 
-Binary features are directly transformed into a binary valued vector of length `n` (where `n` is the size of the dataset) and added to HDF5 with a key that reflects the name of column in the CSV.
+Binary features are directly transformed into a binary valued vector of length `n` (where `n` is the size of the dataset) and added to the HDF5 with a key that reflects the name of column in the CSV.
 No additional information about them is available in the JSON metadata file.
 
 The parameters available for preprocessing are
@@ -1703,7 +1707,7 @@ Numerical Features
 
 ### Numerical Features Preprocessing
 
-Numerical features are directly transformed into a float valued vector of length `n` (where `n` is the size of the dataset) and added to HDF5 with a key that reflects the name of column in the DATASET.
+Numerical features are directly transformed into a float valued vector of length `n` (where `n` is the size of the dataset) and added to the HDF5 with a key that reflects the name of column in the DATASET.
 No additional information about them is available in the JSON metadata file.
 
 Parameters available for preprocessing are
@@ -1825,8 +1829,8 @@ Category Features
 
 ### Category Features Preprocessing
 
-Category features are transformed into an integer valued vector of size `n` (where `n` is the size of the dataset) and added to HDF5 with a key that reflects the name of column in the DATASET.
-The way categories are mapped into integers consists in first collecting a dictionary of all the different category strings present in the column of the DATASET, then rank them by frequency and then assign them an increasing integer ID from the most frequent to the most rare (with 0 being assigned to a `<UNK>` token).
+Category features are transformed into an integer valued vector of size `n` (where `n` is the size of the dataset) and added to the HDF5 with a key that reflects the name of column in the DATASET.
+The way categories are mapped into integers consists in first collecting a dictionary of all the different category strings present in the column of the DATASET, then ranking them by frequency and then assigning them an increasing integer ID from the most frequent to the most rare (with 0 being assigned to a `<UNK>` token).
 The column name is added to the JSON file, with an associated dictionary containing
 
 1. the mapping from integer to string (`idx2str`)
@@ -1839,7 +1843,7 @@ The parameters available for preprocessing are
 
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
 - `fill_value` (default `"<UNK>"`): the value to replace the missing values with in case the `missing_value_strategy` is `fill-value`.
-- `lowercase` (default `false`): if the string has to be lowercased before being handled by the formatter.
+- `lowercase` (default `false`): if the string has to be lowercased before being handled by the tokenizer.
 - `most_common` (default `10000`): the maximum number of most common tokens to be considered. if the data contains more than this amount, the most infrequent tokens will be treated as unknown.
 
 ### Category Input Features and Encoders
@@ -1998,8 +2002,8 @@ Set Features
 ### Set Features Preprocessing
 
 Set features are expected to be provided as a string of elements separated by whitespace, e.g. "elem5 elem9 elem6".
-The string values are transformed into a binary (int8 actually) valued matrix of size `n x l` (where `n` is the size of the dataset and `l` is the minimum of the size of the biggest set and a `max_size` parameter) and added to HDF5 with a key that reflects the name of column in the CSV.
-The way sets are mapped into integers consists in first using a formatter to map from strings to sequences of set items (by default this is done by splitting on spaces).
+The string values are transformed into a binary (int8 actually) valued matrix of size `n x l` (where `n` is the size of the dataset and `l` is the minimum of the size of the biggest set and a `max_size` parameter) and added to HDF5 with a key that reflects the name of column in the DATASET.
+The way sets are mapped into integers consists in first using a tokenizer to map from strings to sequences of set items (by default this is done by splitting on spaces).
 Then a dictionary of all the different set item strings present in the column of the CSV is collected, then they are ranked by frequency and an increasing integer ID is assigned to them from the most frequent to the most rare (with 0 being assigned to `<PAD>` used for padding and 1 assigned to `<UNK>` item).
 The column name is added to the JSON file, with an associated dictionary containing
 
@@ -2014,7 +2018,7 @@ The parameters available for preprocessing are
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
 - `fill_value` (default `0`): the value to replace the missing values with in case the `missing_value_strategy` is `fill-value`.
 - `format` (default `space`): defines how to map from the raw string content of the CSV column to a set of elements. The default value `space` splits the string on spaces. Other options are: `underscore` (splits on underscore), `comma`(splits on comma), `json` (decodes the string into a set or a list through a JSON parser).
-- `lowercase` (default `false`): if the string has to be lowercased before being handled by the formatter.
+- `lowercase` (default `false`): if the string has to be lowercased before being handled by the tokenizer.
 - `most_common` (default `10000`): the maximum number of most common tokens to be considered. if the data contains more than this amount, the most infrequent tokens will be treated as unknown.
 
 ### Set Input Features and Encoders
@@ -2180,8 +2184,8 @@ Sequence Features
 
 ### Sequence Features Preprocessing
 
-Sequence features are transformed into an integer valued matrix of size `n x l` (where `n` is the size of the dataset and `l` is the minimum of the length of the longest sequence and a `sequence_length_limit` parameter) and added to HDF5 with a key that reflects the name of column in the CSV.
-The way sequences are mapped into integers consists in first using a formatter to map from strings to sequences of tokens (by default this is done by splitting on spaces).
+Sequence features are transformed into an integer valued matrix of size `n x l` (where `n` is the size of the dataset and `l` is the minimum of the length of the longest sequence and a `sequence_length_limit` parameter) and added to HDF5 with a key that reflects the name of column in the DATASET.
+The way sequences are mapped into integers consists in first using a tokenizer to map from strings to sequences of tokens (by default this is done by splitting on spaces).
 Then a dictionary of all the different token strings present in the column of the CSV is collected, then they are ranked by frequency and an increasing integer ID is assigned to them from the most frequent to the most rare (with 0 being assigned to `<PAD>` used for padding and 1 assigned to `<UNK>` item).
 The column name is added to the JSON file, with an associated dictionary containing
 
@@ -2199,7 +2203,7 @@ The parameters available for preprocessing are
 - `unknown_symbol` (default `<UNK>`): the string used as a unknown symbol. Is is mapped to the integer ID 1 in the vocabulary.
 - `padding` (default `right`): the direction of the padding. `right` and `left` are available options.
 - `tokenizer` (default `space`): defines how to map from the raw string content of the DATASET column to a sequence of elements. For the available options refer to the [Tokenizers](#tokenizers)section.
-- `lowercase` (default `false`): if the string has to be lowercase before being handled by the formatter.
+- `lowercase` (default `false`): if the string has to be lowercase before being handled by the tokenizer.
 - `vocab_file` (default `null`)  filepath string to a UTF-8 encoded file containing the sequence's vocabulary.  On each line the first string until `\t` or `\n` is considered a word.
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
 - `fill_value` (default `""`): the value to replace the missing values with in case the `missing_value_strategy` is `fill_value`.
@@ -3073,7 +3077,7 @@ Text Features
 ### Text Features Preprocessing
 
 Text features are treated in the same way of sequence features, with a couple differences.
-Two different formattings/splittings happen, one that splits at every character and one that splits on whitespace and punctuation are used, and two different keys are added to the HDF5 file, one containing the matrix of characters and one containing the matrix of words.
+Two different tokenizations happen, one that splits at every character and one that splits on whitespace and punctuation are used, and two different keys are added to the HDF5 file, one containing the matrix of characters and one containing the matrix of words.
 The same thing happens in the JSON file, which contains dictionaries for mapping characters to integers (and the inverse) and words to integers (and their inverse).
 In the model definition you are able to specify which level of representation to use, if the character level or the word level.
 
@@ -3091,7 +3095,7 @@ The parameters available for preprocessing are:
 - `padding_symbol` (default `<PAD>`): the string used as a padding symbol. Is is mapped to the integer ID 0 in the vocabulary.
 - `unknown_symbol` (default `<UNK>`): the string used as a unknown symbol. Is is mapped to the integer ID 1 in the vocabulary.
 - `padding` (default `right`): the direction of the padding. `right` and `left` are available options.
-- `lowercase` (default `false`): if the string has to be lowercased before being handled by the formatter.
+- `lowercase` (default `false`): if the string has to be lowercased before being handled by the tokenizer.
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
 - `fill_value` (default `""`): the value to replace the missing values with in case the `missing_value_strategy` is `fill-value`.
 

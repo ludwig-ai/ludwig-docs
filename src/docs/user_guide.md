@@ -216,17 +216,13 @@ These are the available arguments:
 ```
 usage: ludwig predict [options]
 
-This script loads a pretrained model and uses it to predict.
+This script loads a pretrained model and uses it to predict
 
 optional arguments:
   -h, --help            show this help message and exit
-  --dataset  DATASET   input dataset used for training. If it has a split 
-                       column, it will be used for splitting (0: train, 
-                       1: validation, 2: test), otherwise the dataset 
-                       will be randomly split.
-  --data_format DATA_FORMAT  format of the dataset.  Valid values are auto,
-                       csv, excel, feature, fwf, hdf5, html, tables, json,
-                       json, jsonl, parquet, pickle, sas, spss, stata, tsv
+  --dataset DATASET     input data file path
+  --data_format {auto,csv,excel,feather,fwf,hdf5,htmltables,json,jsonl,parquet,pickle,sas,spss,stata,tsv}
+                        format of the input data
   -s {training,validation,test,full}, --split {training,validation,test,full}
                         the split to test the model on
   -m MODEL_PATH, --model_path MODEL_PATH
@@ -236,16 +232,15 @@ optional arguments:
   -ssuo, --skip_save_unprocessed_output
                         skips saving intermediate NPY output files
   -sstp, --skip_save_predictions
-                        skip saving predictions CSV files
+                        skips saving predictions CSV files
   -bs BATCH_SIZE, --batch_size BATCH_SIZE
                         size of batches
   -g GPUS, --gpus GPUS  list of gpu to use
-  -gml GPU_MEMORY, --gpu_memory_limit GPU_MEMORY
-                        maximum memory in MB of gpu memory to allocate per
-                        GPU device
+  -gml GPU_MEMORY_LIMIT, --gpu_memory_limit GPU_MEMORY_LIMIT
+                        maximum memory in MB to allocate per GPU device
   -dpt, --disable_parallel_threads
-                        disable Tensorflow from using multithreading 
-                        for reproducibility
+                        disable TensorFlow from using multithreading for
+                        reproducibility
   -uh, --use_horovod    uses horovod for distributed training
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
@@ -299,19 +294,16 @@ from within Ludwig's main directory.
 These are the available arguments:
 
 ```
-usage: ludwig predict [options]
+usage: ludwig evaluate [options]
 
-This script loads a pretrained model and uses it to predict.
+This script loads a pretrained model and evaluates its performance by
+comparingits predictions with ground truth.
 
 optional arguments:
   -h, --help            show this help message and exit
-  --dataset  DATASET   input dataset used for training. If it has a split 
-                        column, it will be used for splitting (0: train, 
-                        1: validation, 2: test), otherwise the dataset 
-                        will be randomly split
-  --data_format DATA_FORMAT  format of the dataset.  Valid values are auto,
-                        csv, excel, feature, fwf, hdf5, html, tables, json,
-                        json, jsonl, parquet, pickle, sas, spss, stata, tsv                              
+  --dataset DATASET     input data file path
+  --data_format {auto,csv,excel,feather,fwf,hdf5,htmltables,json,jsonl,parquet,pickle,sas,spss,stata,tsv}
+                        format of the input data
   -s {training,validation,test,full}, --split {training,validation,test,full}
                         the split to test the model on
   -m MODEL_PATH, --model_path MODEL_PATH
@@ -325,16 +317,15 @@ optional arguments:
   -scp, --skip_collect_predictions
                         skips collecting predictions
   -scos, --skip_collect_overall_stats
-                        skips collecting overall statistics
+                        skips collecting overall stats
   -bs BATCH_SIZE, --batch_size BATCH_SIZE
                         size of batches
   -g GPUS, --gpus GPUS  list of gpu to use
-  -gml GPU_MEMORY, --gpu_memory_limit GPU_MEMORY
-                        maximum memory in MB of gpu memory to allocate per
-                        GPU device
+  -gml GPU_MEMORY_LIMIT, --gpu_memory_limit GPU_MEMORY_LIMIT
+                        maximum memory in MB to allocate per GPU device
   -dpt, --disable_parallel_threads
-                        disable Tensorflow from using multithreading 
-                        for reproducibility
+                        disable TensorFlow from using multithreading for
+                        reproducibility
   -uh, --use_horovod    uses horovod for distributed training
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
@@ -380,7 +371,7 @@ These are the available arguments:
 ```
 usage: ludwig experiment [options]
 
-This script trains and evaluates a model.
+This script trains and evaluates a model
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -390,25 +381,24 @@ optional arguments:
                         experiment name
   --model_name MODEL_NAME
                         name for the model
-  --dataset  DATASET   input dataset used for training. If it has a split
-                        column, it will be used for splitting (0: train,
-                        1: validation, 2: test), otherwise the dataset
-                        will be randomly split
+  --dataset DATASET     input data file path. If it has a split column, it
+                        will be used for splitting (0: train, 1: validation,
+                        2: test), otherwise the dataset will be randomly split
   --training_set TRAINING_SET
-                        input training data
+                        input train data file path
   --validation_set VALIDATION_SET
-                        input validation data
-  --test_set TEST_SET
-                        input test data
-  --data_format DATA_FORMAT  format of the dataset.  Valid values are auto,
-                        csv, excel, feature, fwf, hdf5, html, tables, json,
-                        json, jsonl, parquet, pickle, sas, spss, stata, tsv
-  --train_set_metadata_json TRAIN_SET_METADATA_JSON
-                        input train set metadata JSON file. It is an intermediate
+                        input validation data file path
+  --test_set TEST_SET   input test data file path
+  --training_set_metadata TRAINING_SET_METADATA
+                        input metadata JSON file path. An intermediate
                         preprocess file containing the mappings of the input
-                        dataset created the first time the file is used in the
-                        same directory with the same name and a json extension
-  -es, --eval_split     the split to evaluate the model on
+                        file created the first time a file is used, in the
+                        same directory with the same name and a .json
+                        extension
+  --data_format {auto,csv,excel,feather,fwf,hdf5,htmltables,json,jsonl,parquet,pickle,sas,spss,stata,tsv}
+                        format of the input data
+  -es {training,validation,test,full}, --eval_split {training,validation,test,full}
+                        the split to evaluate the model on
   -sspi, --skip_save_processed_input
                         skips saving intermediate HDF5 and JSON files
   -ssuo, --skip_save_unprocessed_output
@@ -417,11 +407,11 @@ optional arguments:
                         number of folds for a k-fold cross validation run
   -skfsi, --skip_save_k_fold_split_indices
                         disables saving indices generated to split training
-                        data set for the k-fold cross validation run, but if it
-                        is not needed turning it off can slightly increase the
-                        overall speed
+                        data set for the k-fold cross validation run, but if
+                        it is not needed turning it off can slightly increase
+                        the overall speed
   -c CONFIG, --config CONFIG
-                        configuration
+                        config
   -cf CONFIG_FILE, --config_file CONFIG_FILE
                         YAML file describing the model. Ignores
                         --model_hyperparameters
@@ -430,47 +420,46 @@ optional arguments:
   -mrp MODEL_RESUME_PATH, --model_resume_path MODEL_RESUME_PATH
                         path of a the model directory to resume training of
   -sstd, --skip_save_training_description
-                        disables saving the description JSON file.
-  -ssts --skip_save_training_statistics
-                        disable saving training statistics JSON file.
-  -sstp --skip_save_predictions
-                        disable saving test predictions CSV file.
-  -sstes --skip_save_eval_stats
-                        disable saving evaluation statistics JSON file
-  -ssm --skip_save_model
-                        disables saving model weights and hyperparameters each time 
-                        the model improves. By default Ludwig saves model weights  
-                        after each epoch the validation metric imprvoes, but if 
-                        the model is really big  that can be time consuming if 
-                        you do not want to keep the weights and just find out 
-                        what performance can a model get with a set of hyperparameters, 
-                        use this parameter to skip it, but the model will not 
-                        be loadable later on
-  -ssp, --skip_save_progress SKIP_SAVE_PROGRESS
-                        disables saving weights after each epoch. By default
-                        Ludwig saves weights after each epoch for enabling
+                        disables saving the description JSON file
+  -ssts, --skip_save_training_statistics
+                        disables saving training statistics JSON file
+  -sstp, --skip_save_predictions
+                        skips saving test predictions CSV files
+  -sstes, --skip_save_eval_stats
+                        skips saving eval statistics JSON file
+  -ssm, --skip_save_model
+                        disables saving model weights and hyperparameters each
+                        time the model improves. By default Ludwig saves model
+                        weights after each epoch the validation metric
+                        imprvoes, but if the model is really big that can be
+                        time consuming if you do not want to keep the weights
+                        and just find out what performance can a model get
+                        with a set of hyperparameters, use this parameter to
+                        skip it,but the model will not be loadable later on
+  -ssp, --skip_save_progress
+                        disables saving progress each epoch. By default Ludwig
+                        saves weights and stats after each epoch for enabling
                         resuming of training, but if the model is really big
-                        that can be time consuming and will use twice as much
-                        storage space, use this parameter to skip it, but 
-                        training cannot be resumed later on.
+                        that can be time consuming and will uses twice as much
+                        space, use this parameter to skip it, but training
+                        cannot be resumed later on
   -ssl, --skip_save_log
-                        disable saving TensorBoard logs. By default Ludwig saves
-                        logs for TensorBoard, but if it is not needed turning it off
-                        can slightly increase the overall speed.
+                        disables saving TensorBoard logs. By default Ludwig
+                        saves logs for the TensorBoard, but if it is not
+                        needed turning it off can slightly increase the
+                        overall speed
   -rs RANDOM_SEED, --random_seed RANDOM_SEED
                         a random seed that is going to be used anywhere there
                         is a call to a random number generator: data
                         splitting, parameter initialization and training set
                         shuffling
   -g GPUS [GPUS ...], --gpus GPUS [GPUS ...]
-                        list of gpus to use
-  -gml GPU_MEMORY, --gpu_memory_limit GPU_MEMORY
-                        maximum memory in MB of gpu memory to allocate per
-                        GPU device
+                        list of GPUs to use
+  -gml GPU_MEMORY_LIMIT, --gpu_memory_limit GPU_MEMORY_LIMIT
+                        maximum memory in MB to allocate per GPU device
   -dpt, --disable_parallel_threads
-                        disable Tensorflow from using multithreading
-                        for reproducibility
-
+                        disable TensorFlow from using multithreading for
+                        reproducibility
   -uh, --use_horovod    uses horovod for distributed training
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
@@ -540,7 +529,7 @@ optional arguments:
   -sspi, --skip_save_processed_input
                         skips saving intermediate HDF5 and JSON files
   -c CONFIG, --config CONFIG
-                        configuration
+                        config
   -cf CONFIG_FILE, --config_file CONFIG_FILE
                         YAML file describing the model. Ignores
                         --model_hyperparameters
@@ -634,16 +623,19 @@ Once running, you can make a POST request on the `/predict` endpoint to run infe
 
 #### Example curl
 
-##### File
+__File__
+
 `curl http://0.0.0.0:8000/predict -X POST -F 'image_path=@path_to_image/example.png'`
 
-##### Text
+__Text__
+
 `curl http://0.0.0.0:8000/predict -X POST -F 'english_text=words to be translated'`
 
-##### Both Text and File
+__Both Text and File__
+
 `curl http://0.0.0.0:8000/predict -X POST -F 'text=mixed together with' -F 'image=@path_to_image/example.png'`
 
-#### Batch prediction
+__Batch prediction__
 
 You can also make a POST request on the `/batch_predict` endpoint to run inference on multiple samples at once.
 
@@ -657,8 +649,10 @@ The `dataset` JSON string is expected to be in the Pandas "split" format to redu
 
 Additional form fields can be used to provide file resources like images that are referenced within the dataset.
 
-##### Example
+Batch prediction example:
+
 `curl http://0.0.0.0:8000/batch_predict -X POST -F 'dataset={"columns": ["a", "b"], "data": [[1, 2], [3, 4]]}'`
+
 
 visualize
 ---------
@@ -737,6 +731,7 @@ optional arguments:
 As the `--visualization` parameters suggests, there is a vast number of visualizations readily available.
 Each of them requires a different subset of this command's arguments, so they will be described one by one in the [Visualizations](#visualizations) section.
 
+
 collect_summary
 ---------------
 
@@ -814,6 +809,9 @@ In order to figure out the names of the tensors containing the weights you want 
 ```
 tensorboard --logdir /path/to/model/log
 ```
+
+Or use the `collect_summary` command.
+
 
 collect_activations
 -------------------
@@ -947,6 +945,7 @@ optional arguments:
 ```
 
 This functionality has been tested with `neuropod==0.2.0`.
+
 
 preprocess
 ----------

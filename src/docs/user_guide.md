@@ -43,7 +43,7 @@ These are the available arguments:
 ```
 usage: ludwig train [options]
 
-This script trains a model.
+This script trains a model
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -53,60 +53,55 @@ optional arguments:
                         experiment name
   --model_name MODEL_NAME
                         name for the model
-  --dataset  DATASET   input dataset used for training. If it has a split 
-                        column, it will be used for splitting (0: train, 
-                        1: validation, 2: test), otherwise the dataset 
-                        will be randomly split
+  --dataset DATASET     input data file path. If it has a split column, it
+                        will be used for splitting (0: train, 1: validation,
+                        2: test), otherwise the dataset will be randomly split
   --training_set TRAINING_SET
-                        input training data
+                        input train data file path
   --validation_set VALIDATION_SET
-                        input validation data
-  --test_set TEST_SET
-                        input test data
-  --data_format DATA_FORMAT  format of the dataset.  Valid values are auto,
-                        csv, excel, feature, fwf, hdf5, html, tables, json,
-                        json, jsonl, parquet, pickle, sas, spss, stata, tsv
-
-  --train_set_metadata_json TRAIN_SET_METADATA_JSON
-                        input metadata JSON file. It is an intermediate
+                        input validation data file path
+  --test_set TEST_SET   input test data file path
+  --training_set_metadata TRAINING_SET_METADATA
+                        input metadata JSON file path. An intermediate
                         preprocess file containing the mappings of the input
-                        DATASET created the first time the DATASET file is 
-                        used in the same directory with the same name 
-                        and a json extension.
+                        file created the first time a file is used, in the
+                        same directory with the same name and a .json
+                        extension
+  --data_format {auto,csv,excel,feather,fwf,hdf5,htmltables,json,jsonl,parquet,pickle,sas,spss,stata,tsv}
+                        format of the input data
+  -sspi, --skip_save_processed_input
+                        skips saving intermediate HDF5 and JSON files
   -c CONFIG, --config CONFIG
-                        configuration
+                        config
   -cf CONFIG_FILE, --config_file CONFIG_FILE
-                        YAML file describing the model. Ignores
-                        --model_hyperparameters
+                        YAML file describing the model. Ignores --config
   -mlp MODEL_LOAD_PATH, --model_load_path MODEL_LOAD_PATH
                         path of a pretrained model to load as initialization
   -mrp MODEL_RESUME_PATH, --model_resume_path MODEL_RESUME_PATH
                         path of a the model directory to resume training of
   -sstd, --skip_save_training_description
-                        disables saving the description JSON file.
+                        disables saving the description JSON file
   -ssts, --skip_save_training_statistics
                         disables saving training statistics JSON file
   -ssm, --skip_save_model
-                        disables saving weights each time the model imrpoves. By
-                        default Ludwig saves weights after each epoch the
-                        validation measure improves, but if the model is
-                        really big that can be time consuming if you do not
-                        want to keep the weights and just find out what
-                        performance can a model get with a set of
-                        hyperparameters, use this parameter to skip it.
+                        disables saving weights each time the model imrpoves.
+                        By default Ludwig saves weights after each epoch the
+                        validation metric imrpvoes, but if the model is really
+                        big that can be time consuming if you do not want to
+                        keep the weights and just find out what performance
+                        can a model get with a set of hyperparameters, use
+                        this parameter to skip it
   -ssp, --skip_save_progress
                         disables saving weights after each epoch. By default
                         ludwig saves weights after each epoch for enabling
                         resuming of training, but if the model is really big
                         that can be time consuming and will save twice as much
-                        space, use this parameter to skip it.
+                        space, use this parameter to skip it
   -ssl, --skip_save_log
                         disables saving TensorBoard logs. By default Ludwig
                         saves logs for the TensorBoard, but if it is not
                         needed turning it off can slightly increase the
-                        overall speed.
-  -sspi, --skip_save_processed_input
-                        skips saving intermediate HDF5 and JSON files
+                        overall speed
   -rs RANDOM_SEED, --random_seed RANDOM_SEED
                         a random seed that is going to be used anywhere there
                         is a call to a random number generator: data
@@ -114,12 +109,11 @@ optional arguments:
                         shuffling
   -g GPUS [GPUS ...], --gpus GPUS [GPUS ...]
                         list of gpus to use
-  -gml GPU_MEMORY, --gpu_memory_limit GPU_MEMORY
-                        maximum memory in MB of gpu memory to allocate per
-                        GPU device
+  -gml GPU_MEMORY_LIMIT, --gpu_memory_limit GPU_MEMORY_LIMIT
+                        maximum memory in MB to allocate per GPU device
   -dpt, --disable_parallel_threads
-                        disable Tensorflow from using multithreading 
-                        for reproducibility
+                        disable TensorFlow from using multithreading for
+                        reproducibility
   -uh, --use_horovod    uses horovod for distributed training
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
@@ -138,7 +132,7 @@ JSON file will contain a `idx2str` list containing all tokens
 dictionary (`{"<UNK>": 0, "label_1": 93, "label_2": 55, "label_3": 24}`).
 
 The reason to have those  intermediate files is two-fold: on one hand, if you are going to train your model again Ludwig will try to load them instead of recomputing all tensors, which saves a considerable amount of time, and on the other hand when you want to use your model to predict, data has to be mapped to tensors in exactly the same way it was mapped during training, so you'll be required to load the JSON metadata file in the `predict` command.
-The way this works is: the first time you provide a UTF-8 encoded DATASET (`--dataset`), the HDF5 and JSON files are created, from the second time on Ludwig will load them instead of the DATASET even if you specify the DATASET (it looks in the same directory for files names in the same way but with a different extension), finally you can directly specify the HDF5 and JSON files.
+The way this works is: the first time you provide a UTF-8 encoded dataset (`--dataset`), the HDF5 and JSON files are created, from the second time on Ludwig will load them instead of the dataset even if you specify the dataset (it looks in the same directory for files names in the same way but with a different extension), finally you can directly specify the HDF5 and JSON files.
 
 As the mapping from raw data to tensors depends on the type of feature that you specify in your configuration, if you change type (for instance from `sequence` to `text`) you also have to redo the preprocessing, which is achieved by deleting the HDF5 and JSON files.
 Alternatively you can skip saving the HDF5 and JSON files specifying `--skip_save_processed_input`.
@@ -146,9 +140,9 @@ Alternatively you can skip saving the HDF5 and JSON files specifying `--skip_sav
 Splitting between train, validation and test set can be done in several ways.
 This allows for a few possible input data scenarios:
 
-- one single UTF-8 encoded DATASET file is provided (`-dataset`). In this case if the DATASET contains a `split` column with values `0` for training, `1` for validation and `2` for test, this split will be used. If you want to ignore the split column and perform a random split, use a `force_split` argument in the configuration. In the case when there is no split column, a random `70-20-10` split will be performed. You can set the percentages and specify if you want stratified sampling in the configuration preprocessing section.
+- one single UTF-8 encoded dataset file is provided (`-dataset`). In this case if the dataset contains a `split` column with values `0` for training, `1` for validation and `2` for test, this split will be used. If you want to ignore the split column and perform a random split, use a `force_split` argument in the configuration. In the case when there is no split column, a random `70-20-10` split will be performed. You can set the percentages and specify if you want stratified sampling in the configuration preprocessing section.
 - you can provide separate UTF-8 encoded training, validation and test sets  (`--training_set`, `--validation_set`, `--test_set`).
-- the HDF5 and JSON file indications specified in the case of a single DATASET file apply also in the multiple files case, with the only difference that you need to specify only one JSON file (`--train_set_metadata_json`).
+- the HDF5 and JSON file indications specified in the case of a single dataset file apply also in the multiple files case, with the only difference that you need to specify only one JSON file (`--train_set_metadata_json`).
 
 The validation set is optional, but if absent the training wil continue until the end of the training epochs, while when there's a validation set the default behavior is to perform early stopping after the validation measure does not improve for a certain amount of epochs. The test set is optional too.
 
@@ -258,7 +252,7 @@ optional arguments:
                         the level of logging to use
 ```
 
-The same distinction between UTF-8 encoded DATASET files and HDF5 / JSON files explained in the [train](#train) section also applies here.
+The same distinction between UTF-8 encoded dataset files and HDF5 / JSON files explained in the [train](#train) section also applies here.
 In either case, the JSON metadata file obtained during training is needed in order to map the new data into tensors.
 If the new data contains a split column, you can specify which split to use to calculate the predictions with the `--split` argument. By default it's `full` which means all the splits will be used.
 
@@ -1153,11 +1147,11 @@ Supported formats are:
 * Stata file (`stata`)
 * Tab Separated Values (`tsv`)
 
-Ludwig data preprocessing maps raw data in a supported DATASET into an HDF5 file containing tensors and a JSON file containing mappings from strings to tensors when needed.
+Ludwig data preprocessing maps raw data in a supported dataset into an HDF5 file containing tensors and a JSON file containing mappings from strings to tensors when needed.
 This mapping is performed when a UTF-8 encoded data is provided as input and both HDF5 and JSON files are saved in the same directory as the input dataset, unless the argument `--skip_save_processed_input` is used (both in `train` and `experiment` commands).
 The reason to save those files is both to provide a cache and avoid performing the preprocessing again (as, depending on the type of features involved, it could be time consuming) and to provide the needed mappings to be able to map unseen data into tensors.
 
-The preprocessing process is personalizable to fit the specifics of your data format, but the basic assumption is always that your UTF-8 encoded DATASET contains one row for each datapoint and one column for each feature (either input or output), and that you are able to determine the type of that column among the ones supported by Ludwig.
+The preprocessing process is personalizable to fit the specifics of your data format, but the basic assumption is always that your UTF-8 encoded dataset contains one row for each datapoint and one column for each feature (either input or output), and that you are able to determine the type of that column among the ones supported by Ludwig.
 The reason for that is that each data type is mapped into tensors in a different way and expects the content to be formatted in a specific way.
 Different datatypes may have different tokenizers that format the values of a cell.
 
@@ -1209,7 +1203,7 @@ All sequences shorter than `l` are padded on the right (but this behavior may al
 | [token3, token4, token2] | 2 4 3        |
 | [token3, token1]         | 2 5 0        |
 
-The final result matrix is saved in the HDF5 with the name of the original column in the DATASET as key, while the mapping from token to integer ID (and its inverse mapping) is saved in the JSON file.
+The final result matrix is saved in the HDF5 with the name of the original column in the dataset as key, while the mapping from token to integer ID (and its inverse mapping) is saved in the JSON file.
 
 Each datatype is preprocessed in a different way, using different parameters and different tokenizers.
 Details on how to set those parameters for each feature type and for each specific feature will be described in the [Configuration - Preprocessing](#preprocessing) section.
@@ -1220,8 +1214,8 @@ No additional information about them is available in the JSON metadata file.
 `Numerical` features are directly transformed into a float valued vector of length `n` (where `n` is the size of the dataset) and added to the HDF5 with a key that reflects the name of column in the CSV.
 No additional information about them is available in the JSON metadata file.
 
-`Category` features are transformed into an integer valued vector of size `n` (where `n` is the size of the dataset) and added to the HDF5 with a key that reflects the name of column in the DATASET.
-The way categories are mapped into integers consists in first collecting a dictionary of all the different category strings present in the column of the DATASET, then rank them by frequency and then assign them an increasing integer ID from the most frequent to the most rare (with 0 being assigned to a `<UNK>` token).  The column name is added to the JSON file, with an associated dictionary containing:
+`Category` features are transformed into an integer valued vector of size `n` (where `n` is the size of the dataset) and added to the HDF5 with a key that reflects the name of column in the dataset.
+The way categories are mapped into integers consists in first collecting a dictionary of all the different category strings present in the column of the dataset, then rank them by frequency and then assign them an increasing integer ID from the most frequent to the most rare (with 0 being assigned to a `<UNK>` token).  The column name is added to the JSON file, with an associated dictionary containing:
 
 1. the mapping from integer to string (`idx2str`)
 2. the mapping from string to id (`str2idx`)
@@ -1230,8 +1224,8 @@ The way categories are mapped into integers consists in first collecting a dicti
 5. additional preprocessing information (by default how to fill missing values 
 and what token to use to fill missing values)
 
-`Set` features are transformed into a binary (int8 actually) valued matrix of size `n x l` (where `n` is the size of the dataset and `l` is the minimum of the size of the biggest set and a `max_size` parameter) and added to HDF5 with a key that reflects the name of column in the DATASET.
-The way sets are mapped into integers consists in first using a tokenizer to map from strings to sequences of set items (by default this is done by splitting on spaces).  Then a dictionary of all the different set item strings present in the column of the DATASET is collected, then they are ranked by frequency and an increasing integer ID is assigned to them from the most frequent to the most rare (with 0 being assigned to `<PAD>` used for padding and 1 assigned to `<UNK>` item).  The column name is added to the JSON file, with an associated dictionary containing:
+`Set` features are transformed into a binary (int8 actually) valued matrix of size `n x l` (where `n` is the size of the dataset and `l` is the minimum of the size of the biggest set and a `max_size` parameter) and added to HDF5 with a key that reflects the name of column in the dataset.
+The way sets are mapped into integers consists in first using a tokenizer to map from strings to sequences of set items (by default this is done by splitting on spaces).  Then a dictionary of all the different set item strings present in the column of the dataset is collected, then they are ranked by frequency and an increasing integer ID is assigned to them from the most frequent to the most rare (with 0 being assigned to `<PAD>` used for padding and 1 assigned to `<UNK>` item).  The column name is added to the JSON file, with an associated dictionary containing:
 
 1. the mapping from integer to string (`idx2str`)
 2. the mapping from string to id (`str2idx`)
@@ -1242,9 +1236,9 @@ and what token to use to fill missing values)
 
 `Bag` features are treated in the same way of set features, with the only difference being that the matrix had float values (frequencies).
 
-`Sequence` features are transformed into an integer valued matrix of size `n x l` (where `n` is the size of the dataset and `l` is the minimum of the length of the longest sequence and a `sequence_length_limit` parameter) and added to HDF5 with a key that reflects the name of column in the DATASET.
+`Sequence` features are transformed into an integer valued matrix of size `n x l` (where `n` is the size of the dataset and `l` is the minimum of the length of the longest sequence and a `sequence_length_limit` parameter) and added to HDF5 with a key that reflects the name of column in the dataset.
 The way sets are mapped into integers consists in first using a tokenizer to map from strings to sequences of tokens (by default this is done by splitting on spaces).
-Then a dictionary of all the different token strings present in the column of the DATASET is collected, then they are ranked by frequency and an increasing integer ID is assigned to them from the most frequent to the most rare (with 0 being assigned to `<PAD>` used for padding and 1 assigned to `<UNK>` item).
+Then a dictionary of all the different token strings present in the column of the dataset is collected, then they are ranked by frequency and an increasing integer ID is assigned to them from the most frequent to the most rare (with 0 being assigned to `<PAD>` used for padding and 1 assigned to `<UNK>` item).
 The column name is added to the JSON file, with an associated dictionary containing:
 
 1. the mapping from integer to string (`idx2str`)
@@ -1262,7 +1256,7 @@ In the configuration you are able to specify which level of representation to us
 `Timeseries` features are treated in the same way of sequence features, with the only difference being that the matrix in the HDF5 file does not have integer values, but float values.
 Moreover, there is no need for any mapping in the JSON file.
 
-`Image` features are transformed into a int8 valued tensor of size `n x h x w x c` (where `n` is the size of the dataset and `h x w` is a specific resizing of the image that can be set, and `c` is the number of color channels) and added to HDF5 with a key that reflects the name of column in the DATASET.
+`Image` features are transformed into a int8 valued tensor of size `n x h x w x c` (where `n` is the size of the dataset and `h x w` is a specific resizing of the image that can be set, and `c` is the number of color channels) and added to HDF5 with a key that reflects the name of column in the dataset.
 The column name is added to the JSON file, with an associated dictionary containing preprocessing information about the sizes of the resizing.
 
 CSV Format
@@ -1329,7 +1323,7 @@ Input features
 --------------
 
 The `input_features` list contains a list of dictionaries, each of them containing two required fields `name` and `type`.
-`name` is the name of the feature and is the same name of the column of the DATASET input file, `type` is one of the supported datatypes.
+`name` is the name of the feature and is the same name of the column of the dataset input file, `type` is one of the supported datatypes.
 Input features may have different ways to be encoded and the parameter to decide it is `encoder`.
 
 All the other parameters you specify in an input feature will be passed as parameters to the function that build the encoder, and each encoder can have different parameters.
@@ -1552,8 +1546,8 @@ The `preprocessing` section of the configuration makes it possible to specify da
 The preprocessing dictionary contains one key of each datatype, but you have to specify only the ones that apply to your case, the other ones will be kept as defaults.
 Moreover, the preprocessing dictionary contains parameters related to how to split the data that are not feature specific.
 
-- `force_split` (default `false`): if `true` the `split` column in the DATASET file is ignored and the dataset is randomly split. If `false` the `split` column is used if available.
-- `split_probabilities` (default `[0.7, 0.1, 0.2]`): the proportion of the DATASET data to end up in training, validation and test, respectively. The three values have to sum up to one.
+- `force_split` (default `false`): if `true` the `split` column in the dataset file is ignored and the dataset is randomly split. If `false` the `split` column is used if available.
+- `split_probabilities` (default `[0.7, 0.1, 0.2]`): the proportion of the dataset data to end up in training, validation and test, respectively. The three values have to sum up to one.
 - `stratify` (default `null`): if `null` the split is random, otherwise you can specify the name of a `category` feature and the split will be stratified on that feature.
 
 Example preprocessing dictionary (showing default values):
@@ -1751,7 +1745,7 @@ Numerical Features
 
 ### Numerical Features Preprocessing
 
-Numerical features are directly transformed into a float valued vector of length `n` (where `n` is the size of the dataset) and added to the HDF5 with a key that reflects the name of column in the DATASET.
+Numerical features are directly transformed into a float valued vector of length `n` (where `n` is the size of the dataset) and added to the HDF5 with a key that reflects the name of column in the dataset.
 No additional information about them is available in the JSON metadata file.
 
 Parameters available for preprocessing are
@@ -1877,8 +1871,8 @@ Category Features
 
 ### Category Features Preprocessing
 
-Category features are transformed into an integer valued vector of size `n` (where `n` is the size of the dataset) and added to the HDF5 with a key that reflects the name of column in the DATASET.
-The way categories are mapped into integers consists in first collecting a dictionary of all the different category strings present in the column of the DATASET, then ranking them by frequency and then assigning them an increasing integer ID from the most frequent to the most rare (with 0 being assigned to a `<UNK>` token).
+Category features are transformed into an integer valued vector of size `n` (where `n` is the size of the dataset) and added to the HDF5 with a key that reflects the name of column in the dataset.
+The way categories are mapped into integers consists in first collecting a dictionary of all the different category strings present in the column of the dataset, then ranking them by frequency and then assigning them an increasing integer ID from the most frequent to the most rare (with 0 being assigned to a `<UNK>` token).
 The column name is added to the JSON file, with an associated dictionary containing
 
 1. the mapping from integer to string (`idx2str`)
@@ -2050,7 +2044,7 @@ Set Features
 ### Set Features Preprocessing
 
 Set features are expected to be provided as a string of elements separated by whitespace, e.g. "elem5 elem9 elem6".
-The string values are transformed into a binary (int8 actually) valued matrix of size `n x l` (where `n` is the size of the dataset and `l` is the minimum of the size of the biggest set and a `max_size` parameter) and added to HDF5 with a key that reflects the name of column in the DATASET.
+The string values are transformed into a binary (int8 actually) valued matrix of size `n x l` (where `n` is the size of the dataset and `l` is the minimum of the size of the biggest set and a `max_size` parameter) and added to HDF5 with a key that reflects the name of column in the dataset.
 The way sets are mapped into integers consists in first using a tokenizer to map from strings to sequences of set items (by default this is done by splitting on spaces).
 Then a dictionary of all the different set item strings present in the column of the CSV is collected, then they are ranked by frequency and an increasing integer ID is assigned to them from the most frequent to the most rare (with 0 being assigned to `<PAD>` used for padding and 1 assigned to `<UNK>` item).
 The column name is added to the JSON file, with an associated dictionary containing
@@ -2232,7 +2226,7 @@ Sequence Features
 
 ### Sequence Features Preprocessing
 
-Sequence features are transformed into an integer valued matrix of size `n x l` (where `n` is the size of the dataset and `l` is the minimum of the length of the longest sequence and a `sequence_length_limit` parameter) and added to HDF5 with a key that reflects the name of column in the DATASET.
+Sequence features are transformed into an integer valued matrix of size `n x l` (where `n` is the size of the dataset and `l` is the minimum of the length of the longest sequence and a `sequence_length_limit` parameter) and added to HDF5 with a key that reflects the name of column in the dataset.
 The way sequences are mapped into integers consists in first using a tokenizer to map from strings to sequences of tokens (by default this is done by splitting on spaces).
 Then a dictionary of all the different token strings present in the column of the CSV is collected, then they are ranked by frequency and an increasing integer ID is assigned to them from the most frequent to the most rare (with 0 being assigned to `<PAD>` used for padding and 1 assigned to `<UNK>` item).
 The column name is added to the JSON file, with an associated dictionary containing
@@ -2250,7 +2244,7 @@ The parameters available for preprocessing are
 - `padding_symbol` (default `<PAD>`): the string used as a padding symbol. Is is mapped to the integer ID 0 in the vocabulary.
 - `unknown_symbol` (default `<UNK>`): the string used as a unknown symbol. Is is mapped to the integer ID 1 in the vocabulary.
 - `padding` (default `right`): the direction of the padding. `right` and `left` are available options.
-- `tokenizer` (default `space`): defines how to map from the raw string content of the DATASET column to a sequence of elements. For the available options refer to the [Tokenizers](#tokenizers)section.
+- `tokenizer` (default `space`): defines how to map from the raw string content of the dataset column to a sequence of elements. For the available options refer to the [Tokenizers](#tokenizers)section.
 - `lowercase` (default `false`): if the string has to be lowercase before being handled by the tokenizer.
 - `vocab_file` (default `null`)  filepath string to a UTF-8 encoded file containing the sequence's vocabulary.  On each line the first string until `\t` or `\n` is considered a word.
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
@@ -3135,7 +3129,7 @@ The parameters available for preprocessing are:
 - `char_vocab_file` (default `null`):
 - `char_sequence_length_limit` (default `1024`): the maximum length of the text in characters. Texts that are longer than this value will be truncated, while sequences that are shorter will be padded.
 - `char_most_common` (default `70`): the maximum number of most common characters to be considered. if the data contains more than this amount, the most infrequent characters will be treated as unknown.
-- `word_tokenizer` (default `space_punct`): defines how to map from the raw string content of the DATASET column to a sequence of elements. For the available options refer to the [Tokenizers](#tokenizers)section.
+- `word_tokenizer` (default `space_punct`): defines how to map from the raw string content of the dataset column to a sequence of elements. For the available options refer to the [Tokenizers](#tokenizers)section.
 - `pretrained_model_name_or_path` (default `null`):
 - `word_vocab_file` (default `null`):
 - `word_sequence_length_limit` (default `256`): the maximum length of the text in words. Texts that are longer than this value will be truncated, while texts that are shorter will be padded.
@@ -4684,7 +4678,7 @@ A detailed documentation of all the functions available in `LudwigModel` is prov
 Training a Model
 ----------------
 
-To train a model one has first to initialize it using the initializer `LudwigModel()` and a configuration dictionary, and then calling the `train()` function using either a dataframe or a DATASET file.
+To train a model one has first to initialize it using the initializer `LudwigModel()` and a configuration dictionary, and then calling the `train()` function using either a dataframe or a dataset file.
 
 ```python
 from ludwig.api import LudwigModel

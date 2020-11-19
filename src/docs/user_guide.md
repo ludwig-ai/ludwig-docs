@@ -2058,7 +2058,7 @@ The column name is added to the JSON file, with an associated dictionary contain
 
 The parameters available for preprocessing are
 
-- `tokenizer` (default `space`): defines how to map from the raw string content of the dataset column to a set of elements. The default value `space` splits the string on spaces. Common options include: `underscore` (splits on underscore), `comma`(splits on comma), `json` (decodes the string into a set or a list through a JSON parser). For the available options refer to the [Tokenizers](#tokenizers)section.
+- `tokenizer` (default `space`): defines how to map from the raw string content of the dataset column to a set of elements. The default value `space` splits the string on spaces. Common options include: `underscore` (splits on underscore), `comma`(splits on comma), `json` (decodes the string into a set or a list through a JSON parser). For all the available options refer to the [Tokenizers](#tokenizers)section.
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
 - `fill_value` (default `0`): the value to replace the missing values with in case the `missing_value_strategy` is `fill-value`.
 - `lowercase` (default `false`): if the string has to be lowercased before being handled by the tokenizer.

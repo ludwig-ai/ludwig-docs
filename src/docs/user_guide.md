@@ -5042,7 +5042,7 @@ ludwig visualize --visualization compare_classifiers_predictions --model_names M
 
 ### compare_classifiers_predictions_distribution
 
-This visualization uses the `ground_truth`, `output_feature_name`, `predictions` and `model_names` parameters.
+This visualization uses the `ground_truth`, `split_file`, `ground_truth_split`, `ground_truth_metadata`, `output_feature_name`, `label_limits`, `predictions`, `model_names`, `output_directory` and `file_format` parameters.
 `output_feature_name` needs to be a category.
 This visualization produces a radar plot comparing the distributions of predictions of the models for the first 10 classes of the specified `output_feature_name`.
 
@@ -5054,7 +5054,7 @@ Confidence_Thresholding
 
 ### confidence_thresholding
 
-This visualization uses the `ground_truth`, `output_feature_name`, `probabilities` and `model_names` parameters.
+This visualization uses the `ground_truth`, `split_file`, `ground_truth_split`, `ground_truth_metadata`, `output_feature_name`, `labels_limit`, `probabilities`,  `model_names`, `output_directory` and `file_format` parameters.
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `probabilities` and `model_names`) it produces a pair of lines indicating the accuracy of the model and the data coverage while increasing a threshold (x axis) on the probabilities of predictions for the specified `output_feature_name`.
 
@@ -5063,7 +5063,7 @@ For each model (in the aligned lists of `probabilities` and `model_names`) it pr
 
 ### confidence_thresholding_data_vs_acc
 
-This visualization uses the `ground_truth`, `output_feature_name`, `probabilities` and `model_names` parameters.
+This visualization uses the `ground_truth`, `split_file`, `ground_truth_split`,  `ground_truth_metadata`, `output_feature_name`, `labels_limit`, `probabilities`,  `model_names`, `output_directory` and `file_format` parameters.
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line indicating the accuracy of the model and the data coverage while increasing a threshold on the probabilities of predictions for the specified `output_feature_name`.
 The difference with `confidence_thresholding` is that it uses two axes instead of three, not visualizing the threshold and having coverage as x axis instead of the threshold.
@@ -5073,7 +5073,7 @@ The difference with `confidence_thresholding` is that it uses two axes instead o
 
 ### confidence_thresholding_data_vs_acc_subset
 
-This visualization uses the `top_n_classes`, `subset`, `ground_truth`, `output_feature_name`, `probabilities` and `model_names` parameters.
+This visualization uses the `top_n_classes`, `subset`, `ground_truth`, `split_file`, `ground_truth_split`, `ground_truth_metadata`, `output_feature_name`, `labels_limit`,`probabilities`, `model_names`, `output_directory` and `file_format` parameters.
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line indicating the accuracy of the model and the data coverage while increasing a threshold on the probabilities of predictions for the specified `output_feature_name`, considering only a subset of the full training set.
 The way the subset is obtained is using the `top_n_classes` and `subset` parameters..
@@ -5087,7 +5087,7 @@ If the values of `subset` is `predictions`, then only datapoints where the the m
 
 ### confidence_thresholding_data_vs_acc_subset_per_class
 
-This visualization uses the `top_n_classes`, `subset`, `ground_truth`, `ground_truth_metadata`, `output_feature_name`, `probabilities` and `model_names` parameters.
+This visualization uses the `top_n_classes`, `subset`, `ground_truth`, `split_file`, `ground_truth_split`, `ground_truth_metadata`, `output_feature_name`, `labels_limit`,`probabilities`, `model_names`, `output_directory` and `file_format` parameters.
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line indicating the accuracy of the model and the data coverage while increasing a threshold on the probabilities of predictions for the specified `output_feature_name`, considering only a subset of the full training set.
 The way the subset is obtained is using the `top_n_classes` and `subset` parameters..

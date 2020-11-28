@@ -4954,7 +4954,7 @@ ludwig visualize --visualization compare_classifiers_performance_from_prob --mod
 
 ### compare_classifiers_performance_from_pred
 
-This visualization uses the `ground_truth`, `ground_truth_metadata`, `output_feature_name`, `predictions` and `model_names` parameters.
+This visualization uses the `ground_truth`, `split_file`, `ground_truth_split`, `ground_truth_metadata`, `output_feature_name`, `labels_limit`, `predictions`, `model_names`, `output_directory` and `file_format` parameters.
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `predictions` and `model_names`) it produces bars in a bar plot, one for each overall metric computed on the fly from the predictions for the specified `output_feature_name`.
 
@@ -4968,7 +4968,7 @@ ludwig visualize --visualization compare_classifiers_performance_from_pred --mod
 
 ### compare_classifiers_performance_subset
 
-This visualization uses the `top_n_classes`, `subset`, `ground_truth`, `ground_truth_metadata`, `output_feature_name`, `probabilities` and `model_names` parameters.
+This visualization uses the `top_n_classes`, `subset`, `ground_truth`, `split_file`, `ground_truth_split` ,`ground_truth_metadata`, `output_feature_name`, `top_n_classes`, `labels_limit`, `subset`, `probabilities`, `model_names`, `output_directory` and `file_format` parameters.
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `predictions` and `model_names`) it produces bars in a bar plot, one for each overall metric computed on the fly from the probabilities predictions for the specified `output_feature_name`, considering only a subset of the full training set.
 The way the subset is obtained is using the `top_n_classes` and `subset` parameters.
@@ -4989,7 +4989,7 @@ If the values of `subset` is `predictions`, then only datapoints where the the m
 
 ### compare_classifiers_performance_changing_k
 
-This visualization uses the `top_k`, `ground_truth`, `output_feature_name`, `probabilities` and `model_names` parameters.
+This visualization uses the `top_k`, `ground_truth`, `split_file`, `ground_truth_split`, `ground_truth_metadata`, `output_feature_name`, `top_k`, `labels_limit`, `probabilities`, `model_names`, `output_directory` and `file_format` parameters.
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line plot that shows the Hits@K measure (that counts a prediction as correct if the model produces it among the first `k`) while changing `k` from 1 to `top_k` for the specified `output_feature_name`.
 
@@ -5003,7 +5003,7 @@ ludwig visualize --visualization compare_classifiers_performance_changing_k --mo
 
 ### compare_classifiers_multiclass_multimetric
 
-This visualization uses the `top_n_classes`, `ground_truth_metadata`, `output_feature_name`, `test_statistics` and `model_names` parameters.
+This visualization uses the `top_n_classes`, `ground_truth_metadata`, `output_feature_name`, `test_statistics`, `model_names`, `output_directory` and `file_format` parameters.
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `test_statistics` and `model_names`) it produces four plots that show the precision, recall and F1 of the model on several classes for the specified `output_feature_name`.
 
@@ -5029,7 +5029,7 @@ Compare Classifier Predictions
 
 ### compare_classifiers_predictions
 
-This visualization uses the `ground_truth`, `output_feature_name`, `predictions` and `model_names` parameters.
+This visualization uses the `ground_truth`, `split_file`, `ground_truth_split`, `ground_truth_metadata`, `output_feature_name`, `labels_limit`, `predictions`, `model_names`, `output_directory` and `file_format` parameters.
 `output_feature_name` needs to be a category and there must be two and only two models (in the aligned lists of `predictions` and `model_names`).
 This visualization produces a pie chart comparing the predictions of the two models for the specified `output_feature_name`.
 

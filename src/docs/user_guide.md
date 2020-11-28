@@ -4754,6 +4754,8 @@ optional arguments:
   -h, --help            show this help message and exit
   -g GROUND_TRUTH, --ground_truth GROUND_TRUTH
                         ground truth file
+  -sf SPLIT_FILE, --split_file SPLIT_FILE
+                        file containing split values used in conjunction with ground truth file
   -gm GROUND_TRUTH_METADATA, --ground_truth_metadata GROUND_TRUTH_METADATA
                         input metadata JSON file
   -od OUTPUT_DIRECTORY, --output_directory OUTPUT_DIRECTORY
@@ -4938,7 +4940,7 @@ ludwig visualize --visualization compare_performance --model_names Model1 Model2
 
 ### compare_classifiers_performance_from_prob
 
-This visualization uses the `ground_truth`, `output_feature_name`, `probabilities` and `model_names` parameters.
+This visualization uses the `ground_truth`, `ground_truth_metadata`, `output_feature_name`, `probabilities` and `model_names` parameters.
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `probabilities` and `model_names`) it produces bars in a bar plot, one for each overall metric computed on the fly from the probabilities of predictions for the specified `output_feature_name`.
 

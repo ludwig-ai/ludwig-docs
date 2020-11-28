@@ -4940,7 +4940,7 @@ ludwig visualize --visualization compare_performance --model_names Model1 Model2
 
 ### compare_classifiers_performance_from_prob
 
-This visualization uses the `ground_truth`, `ground_truth_metadata`, `output_feature_name`, `probabilities` and `model_names` parameters.
+This visualization uses the `ground_truth`, `split_file`, `ground_truth_split`, `ground_truth_metadata`, `output_feature_name`, `probabilities` and `model_names` parameters.
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `probabilities` and `model_names`) it produces bars in a bar plot, one for each overall metric computed on the fly from the probabilities of predictions for the specified `output_feature_name`.
 

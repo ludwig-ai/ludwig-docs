@@ -4887,7 +4887,7 @@ Learning Curves
 
 ### learning_curves
 
-This visualization uses the `output_feature_name`, `training_statistics` and `model_names` parameters.
+This visualization uses the `output_feature_name`, `training_statistics`, `model_names`, `output_directory` and `file_format` parameters.
 For each model (in the aligned lists of `training_statistics` and `model_names`) and for each output feature and measure of the model, it produces a line plot showing how that measure changed over the course of the epochs of training on the training and validation sets.  If `output_feature_name` is not specified, then all output features are plotted.
 
 Example command:
@@ -4906,7 +4906,7 @@ Confusion Matrix
 
 ### confusion_matrix
 
-This visualization uses the `top_n_classes`, `normalize`, `ground_truth_metadata`, `test_statistics` and `model_names` parameters.
+This visualization uses the `top_n_classes`, `normalize`, `ground_truth_metadata`, `output_feature_name`,`test_statistics`, `model_names`, `output_directory` and `file_format` parameters.
 For each model (in the aligned lists of `test_statistics` and `model_names`) it produces a heatmap of the confusion matrix in the predictions for each field that has a confusion matrix in `test_statistics`.
 The value of `top_n_classes` limits the heatmap to the `n` most frequent classes.
 
@@ -4927,7 +4927,7 @@ Compare Performance
 
 ### compare_performance
 
-This visualization uses the `output_feature_name`, `test_statistics` and `model_names` parameters.
+This visualization uses the `output_feature_name`, `test_statistics`, `model_names`, `output_directory` and `file_format`  parameters.
 For each model (in the aligned lists of `test_statistics` and `model_names`) it produces bars in a bar plot, one for each overall metric available in the `test_statistics` file for the specified `output_feature_name`.
 
 Example command:
@@ -4940,7 +4940,7 @@ ludwig visualize --visualization compare_performance --model_names Model1 Model2
 
 ### compare_classifiers_performance_from_prob
 
-This visualization uses the `ground_truth`, `split_file`, `ground_truth_split`, `ground_truth_metadata`, `output_feature_name`, `probabilities` and `model_names` parameters.
+This visualization uses the `ground_truth`, `split_file`, `ground_truth_split`, `ground_truth_metadata`, `output_feature_name`, `labels_limit`, `top_n_classes`,`probabilities`, `model_names`, `output_directory` and `file_format` parameters.
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `probabilities` and `model_names`) it produces bars in a bar plot, one for each overall metric computed on the fly from the probabilities of predictions for the specified `output_feature_name`.
 

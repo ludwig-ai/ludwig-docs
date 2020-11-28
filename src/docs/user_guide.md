@@ -4763,7 +4763,7 @@ optional arguments:
                         file format of output plots
   -v {binary_threshold_vs_metric,calibration_1_vs_all,calibration_multiclass,compare_classifiers_multiclass_multimetric,compare_classifiers_performance_changing_k,compare_classifiers_performance_from_pred,compare_classifiers_performance_from_prob,compare_classifiers_performance_subset,compare_classifiers_predictions,compare_classifiers_predictions_distribution,compare_performance,confidence_thresholding,confidence_thresholding_2thresholds_2d,confidence_thresholding_2thresholds_3d,confidence_thresholding_data_vs_acc,confidence_thresholding_data_vs_acc_subset,confidence_thresholding_data_vs_acc_subset_per_class,confusion_matrix,frequency_vs_f1,hyperopt_hiplot,hyperopt_report,learning_curves,roc_curves,roc_curves_from_test_statistics}, --visualization {binary_threshold_vs_metric,calibration_1_vs_all,calibration_multiclass,compare_classifiers_multiclass_multimetric,compare_classifiers_performance_changing_k,compare_classifiers_performance_from_pred,compare_classifiers_performance_from_prob,compare_classifiers_performance_subset,compare_classifiers_predictions,compare_classifiers_predictions_distribution,compare_performance,confidence_thresholding,confidence_thresholding_2thresholds_2d,confidence_thresholding_2thresholds_3d,confidence_thresholding_data_vs_acc,confidence_thresholding_data_vs_acc_subset,confidence_thresholding_data_vs_acc_subset_per_class,confusion_matrix,frequency_vs_f1,hyperopt_hiplot,hyperopt_report,learning_curves,roc_curves,roc_curves_from_test_statistics}
                         type of visualization
-  -f OUTPUT_FEATURE_NAME, --output_feature_name OUTPUT_FEATURE_NAME
+  -ofn OUTPUT_FEATURE_NAME, --output_feature_name OUTPUT_FEATURE_NAME
                         name of the output feature to visualize
   -gts GROUND_TRUTH_SPLIT, --ground_truth_split GROUND_TRUTH_SPLIT
                         ground truth split - 0:train, 1:validation, 2:test
@@ -4804,7 +4804,7 @@ Some additional information on the parameters:
 
 - The list parameters are considered to be aligned, meaning `predictions`, `probabilities`, `training_statistics`, `test_statistics` and `model_names` are indexed altogether, for instance the name of the model producing the second predictions in the list will be the second in the model names.
 - `ground_truth` and `ground_truth_metadata` are respectively the `HDF5` and `JSON` file obtained during training preprocessing. If you plan to use the visualizations then be sure not to use the `skip_save_preprocessing` when training. Those files are needed because they contain the split performed at preprocessing time, so it is easy to extract the test set from them.
-- `field` is the output feature to use for creating the visualization.
+- `output_feature_name` is the output feature to use for creating the visualization.
 
 Other parameters will be detailed for each visualization as different ones use them differently.
 
@@ -4925,12 +4925,12 @@ Compare Performance
 
 ### compare_performance
 
-This visualization uses the `field`, `test_statistics` and `model_names` parameters.
-For each model (in the aligned lists of `test_statistics` and `model_names`) it produces bars in a bar plot, one for each overall metric available in the `test_statistics` file for the specified `field`.
+This visualization uses the `output_feature_name`, `test_statistics` and `model_names` parameters.
+For each model (in the aligned lists of `test_statistics` and `model_names`) it produces bars in a bar plot, one for each overall metric available in the `test_statistics` file for the specified `output_feature_name`.
 
 Example command:
 ```
-ludwig visualize --visualization compare_performance --model_names Model1 Model2 --test_statistics results/titanic_Model1_0/test_statistics.json results/titanic_Model2_0/test_statistics.json --field Survived
+ludwig visualize --visualization compare_performance --model_names Model1 Model2 --test_statistics results/titanic_Model1_0/test_statistics.json results/titanic_Model2_0/test_statistics.json --output_feature_name Survived
 ```
 
 ![Compare Classifiers Performance](images/compare_performance.png "Compare Classifiers Performance")
@@ -4938,13 +4938,13 @@ ludwig visualize --visualization compare_performance --model_names Model1 Model2
 
 ### compare_classifiers_performance_from_prob
 
-This visualization uses the `ground_truth`, `field`, `probabilities` and `model_names` parameters.
-`field` needs to be a category.
-For each model (in the aligned lists of `probabilities` and `model_names`) it produces bars in a bar plot, one for each overall metric computed on the fly from the probabilities of predictions for the specified `field`.
+This visualization uses the `ground_truth`, `output_feature_name`, `probabilities` and `model_names` parameters.
+`output_feature_name` needs to be a category.
+For each model (in the aligned lists of `probabilities` and `model_names`) it produces bars in a bar plot, one for each overall metric computed on the fly from the probabilities of predictions for the specified `output_feature_name`.
 
 Example command:
 ```
-ludwig visualize --visualization compare_classifiers_performance_from_prob --model_names Model1 Model2 --ground_truth train.hdf5 --field Survived --probabilities results/titanic_Model1_0/Survived_probabilities.csv results/titanic_Model2_0/Survived_probabilities.csv
+ludwig visualize --visualization compare_classifiers_performance_from_prob --model_names Model1 Model2 --ground_truth train.hdf5 --output_feature_name Survived --probabilities results/titanic_Model1_0/Survived_probabilities.csv results/titanic_Model2_0/Survived_probabilities.csv
 ```
 
 ![Compare Classifiers Performance from Probabilities](images/compare_classifiers_performance_from_prob.png "Compare Classifiers Performance from probabilities")
@@ -4952,13 +4952,13 @@ ludwig visualize --visualization compare_classifiers_performance_from_prob --mod
 
 ### compare_classifiers_performance_from_pred
 
-This visualization uses the `ground_truth`, `ground_truth_metadata`, `field`, `predictions` and `model_names` parameters.
-`field` needs to be a category.
-For each model (in the aligned lists of `predictions` and `model_names`) it produces bars in a bar plot, one for each overall metric computed on the fly from the predictions for the specified `field`.
+This visualization uses the `ground_truth`, `ground_truth_metadata`, `output_feature_name`, `predictions` and `model_names` parameters.
+`output_feature_name` needs to be a category.
+For each model (in the aligned lists of `predictions` and `model_names`) it produces bars in a bar plot, one for each overall metric computed on the fly from the predictions for the specified `output_feature_name`.
 
 Example command:
 ```
-ludwig visualize --visualization compare_classifiers_performance_from_pred --model_names Model1 Model2 --ground_truth train.hdf5 --field Survived --ground_truth_metadata train.json --predictions results/titanic_Model1_0/Survived_predictions.csv results/titanic_Model2_0/Survived_predictions.csv
+ludwig visualize --visualization compare_classifiers_performance_from_pred --model_names Model1 Model2 --ground_truth train.hdf5 --output_feature_name Survived --ground_truth_metadata train.json --predictions results/titanic_Model1_0/Survived_predictions.csv results/titanic_Model2_0/Survived_predictions.csv
 ```
 
 ![Compare Classifiers Performance from Predictions](images/compare_classifiers_performance_from_pred.png "Compare Classifiers Performance from Predictions")
@@ -4966,16 +4966,16 @@ ludwig visualize --visualization compare_classifiers_performance_from_pred --mod
 
 ### compare_classifiers_performance_subset
 
-This visualization uses the `top_n_classes`, `subset`, `ground_truth`, `ground_truth_metadata`, `field`, `probabilities` and `model_names` parameters.
-`field` needs to be a category.
-For each model (in the aligned lists of `predictions` and `model_names`) it produces bars in a bar plot, one for each overall metric computed on the fly from the probabilities predictions for the specified `field`, considering only a subset of the full training set.
+This visualization uses the `top_n_classes`, `subset`, `ground_truth`, `ground_truth_metadata`, `output_feature_name`, `probabilities` and `model_names` parameters.
+`output_feature_name` needs to be a category.
+For each model (in the aligned lists of `predictions` and `model_names`) it produces bars in a bar plot, one for each overall metric computed on the fly from the probabilities predictions for the specified `output_feature_name`, considering only a subset of the full training set.
 The way the subset is obtained is using the `top_n_classes` and `subset` parameters.
 
 If the values of `subset` is `ground_truth`, then only datapoints where the ground truth class is within the top `n` most frequent ones will be considered as test set, and the percentage of datapoints that have been kept from the original set will be displayed.
 
 Example command:
 ```
-ludwig visualize --visualization compare_classifiers_performance_subset --model_names Model1 Model2 --top_n_classes 2 --subset ground_truth --ground_truth train.hdf5 --field Survived --ground_truth_metadata train.json --probabilities results/titanic_Model1_0/Survived_probabilities.csv results/titanic_Model2_0/Survived_probabilities.csv
+ludwig visualize --visualization compare_classifiers_performance_subset --model_names Model1 Model2 --top_n_classes 2 --subset ground_truth --ground_truth train.hdf5 --output_feature_name Survived --ground_truth_metadata train.json --probabilities results/titanic_Model1_0/Survived_probabilities.csv results/titanic_Model2_0/Survived_probabilities.csv
 ```
 
 ![Compare Classifiers Performance Subset Ground Truth](images/compare_classifiers_performance_subset_gt.png "Compare Classifiers Performance Subset Ground Truth")
@@ -4987,13 +4987,13 @@ If the values of `subset` is `predictions`, then only datapoints where the the m
 
 ### compare_classifiers_performance_changing_k
 
-This visualization uses the `top_k`, `ground_truth`, `field`, `probabilities` and `model_names` parameters.
-`field` needs to be a category.
-For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line plot that shows the Hits@K measure (that counts a prediction as correct if the model produces it among the first `k`) while changing `k` from 1 to `top_k` for the specified `field`.
+This visualization uses the `top_k`, `ground_truth`, `output_feature_name`, `probabilities` and `model_names` parameters.
+`output_feature_name` needs to be a category.
+For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line plot that shows the Hits@K measure (that counts a prediction as correct if the model produces it among the first `k`) while changing `k` from 1 to `top_k` for the specified `output_feature_name`.
 
 Example command:
 ```
-ludwig visualize --visualization compare_classifiers_performance_changing_k --model_names Model1 Model2 --top_k 5 --ground_truth train.hdf5 --field Survived --probabilities results/titanic_Model1_0/Survived_probabilities.csv results/titanic_Model2_0/Survived_probabilities.csv
+ludwig visualize --visualization compare_classifiers_performance_changing_k --model_names Model1 Model2 --top_k 5 --ground_truth train.hdf5 --output_feature_name Survived --probabilities results/titanic_Model1_0/Survived_probabilities.csv results/titanic_Model2_0/Survived_probabilities.csv
 ```
 
 ![Compare Classifiers Performance Changing K](images/compare_classifiers_performance_changing_k.png "Compare Classifiers Performance Changing K")
@@ -5001,9 +5001,9 @@ ludwig visualize --visualization compare_classifiers_performance_changing_k --mo
 
 ### compare_classifiers_multiclass_multimetric
 
-This visualization uses the `top_n_classes`, `ground_truth_metadata`, `field`, `test_statistics` and `model_names` parameters.
-`field` needs to be a category.
-For each model (in the aligned lists of `test_statistics` and `model_names`) it produces four plots that show the precision, recall and F1 of the model on several classes for the specified `field`.
+This visualization uses the `top_n_classes`, `ground_truth_metadata`, `output_feature_name`, `test_statistics` and `model_names` parameters.
+`output_feature_name` needs to be a category.
+For each model (in the aligned lists of `test_statistics` and `model_names`) it produces four plots that show the precision, recall and F1 of the model on several classes for the specified `output_feature_name`.
 
 The first one show the measures on the `n` most frequent classes.
 
@@ -5027,22 +5027,22 @@ Compare Classifier Predictions
 
 ### compare_classifiers_predictions
 
-This visualization uses the `ground_truth`, `field`, `predictions` and `model_names` parameters.
-`field` needs to be a category and there must be two and only two models (in the aligned lists of `predictions` and `model_names`).
-This visualization produces a pie chart comparing the predictions of the two models for the specified `field`.
+This visualization uses the `ground_truth`, `output_feature_name`, `predictions` and `model_names` parameters.
+`output_feature_name` needs to be a category and there must be two and only two models (in the aligned lists of `predictions` and `model_names`).
+This visualization produces a pie chart comparing the predictions of the two models for the specified `output_feature_name`.
 
 Example command:
 ```
-ludwig visualize --visualization compare_classifiers_predictions --model_names Model1 Model2 --ground_truth train.hdf5 --field Survived --predictions results/titanic_Model1_0/Survived_predictions.csv results/titanic_Model2_0/Survived_predictions.csv
+ludwig visualize --visualization compare_classifiers_predictions --model_names Model1 Model2 --ground_truth train.hdf5 --output_feature_name Survived --predictions results/titanic_Model1_0/Survived_predictions.csv results/titanic_Model2_0/Survived_predictions.csv
 ```
 ![Compare Classifiers Predictions](images/compare_classifiers_predictions.png "Compare Classifiers Predictions")
 
 
 ### compare_classifiers_predictions_distribution
 
-This visualization uses the `ground_truth`, `field`, `predictions` and `model_names` parameters.
-`field` needs to be a category.
-This visualization produces a radar plot comparing the distributions of predictions of the models for the first 10 classes of the specified `field`.
+This visualization uses the `ground_truth`, `output_feature_name`, `predictions` and `model_names` parameters.
+`output_feature_name` needs to be a category.
+This visualization produces a radar plot comparing the distributions of predictions of the models for the first 10 classes of the specified `output_feature_name`.
 
 ![Compare Classifiers Predictions Distribution](images/compare_classifiers_predictions_distribution.png "Compare Classifiers Predictions Distribution")
 
@@ -5052,18 +5052,18 @@ Confidence_Thresholding
 
 ### confidence_thresholding
 
-This visualization uses the `ground_truth`, `field`, `probabilities` and `model_names` parameters.
-`field` needs to be a category.
-For each model (in the aligned lists of `probabilities` and `model_names`) it produces a pair of lines indicating the accuracy of the model and the data coverage while increasing a threshold (x axis) on the probabilities of predictions for the specified `field`.
+This visualization uses the `ground_truth`, `output_feature_name`, `probabilities` and `model_names` parameters.
+`output_feature_name` needs to be a category.
+For each model (in the aligned lists of `probabilities` and `model_names`) it produces a pair of lines indicating the accuracy of the model and the data coverage while increasing a threshold (x axis) on the probabilities of predictions for the specified `output_feature_name`.
 
 ![Confidence_Thresholding](images/confidence_thresholding.png "Confidence_Thresholding")
 
 
 ### confidence_thresholding_data_vs_acc
 
-This visualization uses the `ground_truth`, `field`, `probabilities` and `model_names` parameters.
-`field` needs to be a category.
-For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line indicating the accuracy of the model and the data coverage while increasing a threshold on the probabilities of predictions for the specified `field`.
+This visualization uses the `ground_truth`, `output_feature_name`, `probabilities` and `model_names` parameters.
+`output_feature_name` needs to be a category.
+For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line indicating the accuracy of the model and the data coverage while increasing a threshold on the probabilities of predictions for the specified `output_feature_name`.
 The difference with `confidence_thresholding` is that it uses two axes instead of three, not visualizing the threshold and having coverage as x axis instead of the threshold.
 
 ![Confidence_Thresholding Data vs Accuracy](images/confidence_thresholding_data_vs_acc.png "Confidence_Thresholding Data vs Accuracy")
@@ -5071,9 +5071,9 @@ The difference with `confidence_thresholding` is that it uses two axes instead o
 
 ### confidence_thresholding_data_vs_acc_subset
 
-This visualization uses the `top_n_classes`, `subset`, `ground_truth`, `field`, `probabilities` and `model_names` parameters.
-`field` needs to be a category.
-For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line indicating the accuracy of the model and the data coverage while increasing a threshold on the probabilities of predictions for the specified `field`, considering only a subset of the full training set.
+This visualization uses the `top_n_classes`, `subset`, `ground_truth`, `output_feature_name`, `probabilities` and `model_names` parameters.
+`output_feature_name` needs to be a category.
+For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line indicating the accuracy of the model and the data coverage while increasing a threshold on the probabilities of predictions for the specified `output_feature_name`, considering only a subset of the full training set.
 The way the subset is obtained is using the `top_n_classes` and `subset` parameters..
 The difference with `confidence_thresholding` is that it uses two axes instead of three, not visualizing the threshold and having coverage as x axis instead of the threshold.
 
@@ -5085,9 +5085,9 @@ If the values of `subset` is `predictions`, then only datapoints where the the m
 
 ### confidence_thresholding_data_vs_acc_subset_per_class
 
-This visualization uses the `top_n_classes`, `subset`, `ground_truth`, `ground_truth_metadata`, `field`, `probabilities` and `model_names` parameters.
-`field` needs to be a category.
-For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line indicating the accuracy of the model and the data coverage while increasing a threshold on the probabilities of predictions for the specified `field`, considering only a subset of the full training set.
+This visualization uses the `top_n_classes`, `subset`, `ground_truth`, `ground_truth_metadata`, `output_feature_name`, `probabilities` and `model_names` parameters.
+`output_feature_name` needs to be a category.
+For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line indicating the accuracy of the model and the data coverage while increasing a threshold on the probabilities of predictions for the specified `output_feature_name`, considering only a subset of the full training set.
 The way the subset is obtained is using the `top_n_classes` and `subset` parameters..
 The difference with `confidence_thresholding` is that it uses two axes instead of three, not visualizing the threshold and having coverage as x axis instead of the threshold.
 
@@ -5139,10 +5139,10 @@ Binary Threshold vs. Metric
 
 ### binary_threshold_vs_metric
 
-This visualization uses the `positive_label`, `metrics`, `ground_truth`, `field`, `probabilities` and `model_names` parameters.
-`field` can be a category or binary feature.
-For each metric specified in `metrics` (options are `f1`, `precision`, `recall`, `accuracy`), this visualization produces a line chart plotting a threshold on the confidence of the model against the metric for the specified `field`.
-If `field` is a category feature, `positive_label` indicates which is the class to be considered positive class and all the others will be considered negative.
+This visualization uses the `positive_label`, `metrics`, `ground_truth`, `output_feature_name`, `probabilities` and `model_names` parameters.
+`output_feature_name` can be a category or binary feature.
+For each metric specified in `metrics` (options are `f1`, `precision`, `recall`, `accuracy`), this visualization produces a line chart plotting a threshold on the confidence of the model against the metric for the specified `output_feature_name`.
+If `output_feature_name` is a category feature, `positive_label` indicates which is the class to be considered positive class and all the others will be considered negative.
 It needs to be an integer, to figure out the association between classes and integers check the `ground_truth_metadata` JSON file.
 
 ![Binary_Threshold_vs_Metric](images/binary_threshold_vs_metric.png "Binary_Threshold_vs_Metric")
@@ -5153,10 +5153,10 @@ ROC Curves
 
 ### roc_curves
 
-This visualization uses the `positive_label`, `ground_truth`, `field`, `probabilities` and `model_names` parameters.
-`field` can be a category or binary feature.
-This visualization produces a line chart plotting the roc curves for the specified `field`.
-If `field` is a category feature, `positive_label` indicates which is the class to be considered positive class and all the others will be considered negative.
+This visualization uses the `positive_label`, `ground_truth`, `output_feature_name`, `probabilities` and `model_names` parameters.
+`output_feature_name` can be a category or binary feature.
+This visualization produces a line chart plotting the roc curves for the specified `output_feature_name`.
+If `output_feature_name` is a category feature, `positive_label` indicates which is the class to be considered positive class and all the others will be considered negative.
 It needs to be an integer, to figure out the association between classes and integers check the `ground_truth_metadata` JSON file.
 
 ![ROC Curves](images/roc_curves.png "ROC Curves")
@@ -5176,9 +5176,9 @@ Calibration Plot
 
 ### calibration_1_vs_all
 
-This visualization uses the `top_k`, `ground_truth`, `field`, `probabilities` and `model_names` parameters.
-`field` needs to be a category or binary.
-For each class or each of the `k` most frequent classes if `top_k` is specified, it produces two plots computed on the fly from the probabilities of predictions for the specified `field`.
+This visualization uses the `top_k`, `ground_truth`, `output_feature_name`, `probabilities` and `model_names` parameters.
+`output_feature_name` needs to be a category or binary.
+For each class or each of the `k` most frequent classes if `top_k` is specified, it produces two plots computed on the fly from the probabilities of predictions for the specified `output_feature_name`.
 
 The first plot is a calibration curve that shows the calibration of the predictions considering the current class to be the true one and all others to be a false one, drawing one line for each model (in the aligned lists of `probabilities` and `model_names`).
 
@@ -5191,9 +5191,9 @@ The second plot shows the distributions of the predictions considering the curre
 
 ### calibration_multiclass
 
-This visualization uses the `ground_truth`, `field`, `probabilities` and `model_names` parameters.
-`field` needs to be a category.
-For each class, produces two plots computed on the fly from the probabilities of predictions for the specified `field`.
+This visualization uses the `ground_truth`, `output_feature_name`, `probabilities` and `model_names` parameters.
+`output_feature_name` needs to be a category.
+For each class, produces two plots computed on the fly from the probabilities of predictions for the specified `output_feature_name`.
 
 The first plot is a calibration curve that shows the calibration of the predictions considering al classes, drawing one line for each model (in the aligned lists of `probabilities` and `model_names`).
 
@@ -5209,9 +5209,9 @@ Class Frequency vs. F1 score
 
 ### frequency_vs_f1
 
-This visualization uses the `ground_truth_metadata`, `field`, `test_statistics` and `model_names` parameters.
-`field` needs to be a category.
-For each model (in the aligned lists of `test_statistics` and `model_names`), produces two plots statistics of predictions for the specified `field`.
+This visualization uses the `ground_truth_metadata`, `output_feature_name`, `test_statistics` and `model_names` parameters.
+`output_feature_name` needs to be a category.
+For each model (in the aligned lists of `test_statistics` and `model_names`), produces two plots statistics of predictions for the specified `output_feature_name`.
 
 The first plot is a line plot with one x axis representing the different classes and two vertical axes colored in orange and blue respectively.
 The orange one is the frequency of the class and an orange line is plotted to show the trend.

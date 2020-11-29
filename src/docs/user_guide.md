@@ -4887,13 +4887,24 @@ Learning Curves
 
 ### learning_curves
 
-This visualization uses the `output_feature_name`, `training_statistics`, `model_names`, `output_directory` and `file_format` parameters.
+Parameters for this visualization: 
+
+* `output_directory`
+* `file_format`
+* `output_feature_name` 
+* `training_statistics`
+* `model_names`
+
 For each model (in the aligned lists of `training_statistics` and `model_names`) and for each output feature and measure of the model, it produces a line plot showing how that measure changed over the course of the epochs of training on the training and validation sets.  If `output_feature_name` is not specified, then all output features are plotted.
 
 Example command:
 
 ```
-ludwig visualize --visualization learning_curves --model_names Model1 Model2 --training_statistics results/titanic_Model1_0/training_statistics.json results/titanic_Model2_0/training_statistics.json
+ludwig visualize --visualization learning_curves \
+  --output_feature_name Survived \
+  --training_statistics results/titanic_Model1_0/training_statistics.json \
+       results/titanic_Model2_0/training_statistics.json \
+  --model_names Model1 Model2
 ```
 
 ![Learning Curves Loss](images/learning_curves_loss.png "Learning Curves Loss")
@@ -4906,13 +4917,26 @@ Confusion Matrix
 
 ### confusion_matrix
 
-This visualization uses the `top_n_classes`, `normalize`, `ground_truth_metadata`, `output_feature_name`,`test_statistics`, `model_names`, `output_directory` and `file_format` parameters.
+Parameters for this visualization: 
+
+* `ground_truth_metadata`
+* `output_directory`
+* `file_format`
+* `output_feature_name`
+* `test_statistics`
+* `model_names`
+* `top_n_classes`
+* `normalize`
+
 For each model (in the aligned lists of `test_statistics` and `model_names`) it produces a heatmap of the confusion matrix in the predictions for each field that has a confusion matrix in `test_statistics`.
 The value of `top_n_classes` limits the heatmap to the `n` most frequent classes.
 
 Example command:
 ```
-ludwig visualize --visualization confusion_matrix --top_n_classes 2 --test_statistics results/titanic_Model1_0/test_statistics.json --ground_truth_metadata results/titanic_Model1_0/model/train_set_metadata.json
+ludwig visualize --visualization confusion_matrix \
+  --ground_truth_metadata results/titanic_Model1_0/model/train_set_metadata.json \
+  --test_statistics results/titanic_Model1_0/test_statistics.json \
+  --top_n_classes 2 
 ```
 
 ![Confusion Matrix](images/confusion_matrix.png "Confusion Matrix")
@@ -4927,12 +4951,23 @@ Compare Performance
 
 ### compare_performance
 
-This visualization uses the `output_feature_name`, `test_statistics`, `model_names`, `output_directory` and `file_format`  parameters.
+Parameters for this visualization: 
+
+* `output_directory`
+* `file_format`
+* `output_feature_name`
+* `test_statistics`
+* `model_names`
+
 For each model (in the aligned lists of `test_statistics` and `model_names`) it produces bars in a bar plot, one for each overall metric available in the `test_statistics` file for the specified `output_feature_name`.
 
 Example command:
 ```
-ludwig visualize --visualization compare_performance --model_names Model1 Model2 --test_statistics results/titanic_Model1_0/test_statistics.json results/titanic_Model2_0/test_statistics.json --output_feature_name Survived
+ludwig visualize --visualization compare_performance \
+  --output_feature_name Survived \
+  --test_statistics results/titanic_Model1_0/test_statistics.json \
+       results/titanic_Model2_0/test_statistics.json \
+  --model_names Model1 Model2 
 ```
 
 ![Compare Classifiers Performance](images/compare_performance.png "Compare Classifiers Performance")
@@ -4940,13 +4975,31 @@ ludwig visualize --visualization compare_performance --model_names Model1 Model2
 
 ### compare_classifiers_performance_from_prob
 
-This visualization uses the `ground_truth`, `split_file`, `ground_truth_split`, `ground_truth_metadata`, `output_feature_name`, `labels_limit`, `top_n_classes`,`probabilities`, `model_names`, `output_directory` and `file_format` parameters.
+Parameters for this visualization: 
+ 
+* `ground_truth` 
+* `split_file` 
+* `ground_truth_metadata` 
+* `output_directory` 
+* `file_format`
+* `output_feature_name` 
+* `ground_truth_split` 
+* `probabilities` 
+* `model_names` 
+* `top_n_classes` 
+* `labels_limit` 
+
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `probabilities` and `model_names`) it produces bars in a bar plot, one for each overall metric computed on the fly from the probabilities of predictions for the specified `output_feature_name`.
 
 Example command:
 ```
-ludwig visualize --visualization compare_classifiers_performance_from_prob --model_names Model1 Model2 --ground_truth train.hdf5 --output_feature_name Survived --probabilities results/titanic_Model1_0/Survived_probabilities.csv results/titanic_Model2_0/Survived_probabilities.csv
+ludwig visualize --visualization compare_classifiers_performance_from_prob \
+  --ground_truth train.hdf5 \
+  --output_feature_name Survived \
+  --probabilities results/titanic_Model1_0/Survived_probabilities.csv \
+        results/titanic_Model2_0/Survived_probabilities.csv \
+  --model_names Model1 Model2 
 ```
 
 ![Compare Classifiers Performance from Probabilities](images/compare_classifiers_performance_from_prob.png "Compare Classifiers Performance from probabilities")
@@ -4954,13 +5007,31 @@ ludwig visualize --visualization compare_classifiers_performance_from_prob --mod
 
 ### compare_classifiers_performance_from_pred
 
-This visualization uses the `ground_truth`, `split_file`, `ground_truth_split`, `ground_truth_metadata`, `output_feature_name`, `labels_limit`, `predictions`, `model_names`, `output_directory` and `file_format` parameters.
+Parameters for this visualization: 
+
+* `ground_truth`
+* `split_file`
+* `ground_truth_metadata`
+* `output_directory`
+* `file_format`
+* `output_feature_name`
+* `ground_truth_split`
+* `predictions`
+* `model_names`
+* `labels_limit`
+
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `predictions` and `model_names`) it produces bars in a bar plot, one for each overall metric computed on the fly from the predictions for the specified `output_feature_name`.
 
 Example command:
 ```
-ludwig visualize --visualization compare_classifiers_performance_from_pred --model_names Model1 Model2 --ground_truth train.hdf5 --output_feature_name Survived --ground_truth_metadata train.json --predictions results/titanic_Model1_0/Survived_predictions.csv results/titanic_Model2_0/Survived_predictions.csv
+ludwig visualize --visualization compare_classifiers_performance_from_pred \
+  --ground_truth train.hdf5 \
+  --ground_truth_metadata train.json \
+  --output_feature_name Survived \
+  --predictions results/titanic_Model1_0/Survived_predictions.csv \
+        results/titanic_Model2_0/Survived_predictions.csv \
+  --model_names Model1 Model2 
 ```
 
 ![Compare Classifiers Performance from Predictions](images/compare_classifiers_performance_from_pred.png "Compare Classifiers Performance from Predictions")
@@ -4968,7 +5039,21 @@ ludwig visualize --visualization compare_classifiers_performance_from_pred --mod
 
 ### compare_classifiers_performance_subset
 
-This visualization uses the `top_n_classes`, `subset`, `ground_truth`, `split_file`, `ground_truth_split` ,`ground_truth_metadata`, `output_feature_name`, `top_n_classes`, `labels_limit`, `subset`, `probabilities`, `model_names`, `output_directory` and `file_format` parameters.
+Parameters for this visualization: 
+
+* `ground_truth`
+* `split_file`
+* `ground_truth_metadata`
+* `output_directory`
+* `file_format`
+* `output_feature_name`
+* `ground_truth_split` 
+* `probabilities`
+* `model_names`
+* `top_n_classes`
+* `labels_limit`
+* `subset`
+
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `predictions` and `model_names`) it produces bars in a bar plot, one for each overall metric computed on the fly from the probabilities predictions for the specified `output_feature_name`, considering only a subset of the full training set.
 The way the subset is obtained is using the `top_n_classes` and `subset` parameters.
@@ -4977,7 +5062,15 @@ If the values of `subset` is `ground_truth`, then only datapoints where the grou
 
 Example command:
 ```
-ludwig visualize --visualization compare_classifiers_performance_subset --model_names Model1 Model2 --top_n_classes 2 --subset ground_truth --ground_truth train.hdf5 --output_feature_name Survived --ground_truth_metadata train.json --probabilities results/titanic_Model1_0/Survived_probabilities.csv results/titanic_Model2_0/Survived_probabilities.csv
+ludwig visualize --visualization compare_classifiers_performance_subset \
+  --ground_truth train.hdf5 \
+  --ground_truth_metadata train.json \
+  --output_feature_name Survived \
+  --probabilities results/titanic_Model1_0/Survived_probabilities.csv \
+           results/titanic_Model2_0/Survived_probabilities.csv \
+  --model_names Model1 Model2 \
+  --top_n_classes 2 \
+  --subset ground_truth 
 ```
 
 ![Compare Classifiers Performance Subset Ground Truth](images/compare_classifiers_performance_subset_gt.png "Compare Classifiers Performance Subset Ground Truth")
@@ -4989,13 +5082,32 @@ If the values of `subset` is `predictions`, then only datapoints where the the m
 
 ### compare_classifiers_performance_changing_k
 
-This visualization uses the `top_k`, `ground_truth`, `split_file`, `ground_truth_split`, `ground_truth_metadata`, `output_feature_name`, `top_k`, `labels_limit`, `probabilities`, `model_names`, `output_directory` and `file_format` parameters.
+Parameters for this visualization: 
+
+* `ground_truth`
+* `split_file`
+* `ground_truth_metadata`
+* `output_directory` 
+* `file_format`
+* `output_feature_name`
+* `ground_truth_split`
+* `probabilities`
+* `model_names`
+* `top_k`
+* `labels_limit`
+
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line plot that shows the Hits@K measure (that counts a prediction as correct if the model produces it among the first `k`) while changing `k` from 1 to `top_k` for the specified `output_feature_name`.
 
 Example command:
 ```
-ludwig visualize --visualization compare_classifiers_performance_changing_k --model_names Model1 Model2 --top_k 5 --ground_truth train.hdf5 --output_feature_name Survived --probabilities results/titanic_Model1_0/Survived_probabilities.csv results/titanic_Model2_0/Survived_probabilities.csv
+ludwig visualize --visualization compare_classifiers_performance_changing_k \
+  --ground_truth train.hdf5 \
+  --output_feature_name Survived \
+  --probabilities results/titanic_Model1_0/Survived_probabilities.csv \
+         results/titanic_Model2_0/Survived_probabilities.csv \
+  --model_names Model1 Model2 \
+  --top_k 5 
 ```
 
 ![Compare Classifiers Performance Changing K](images/compare_classifiers_performance_changing_k.png "Compare Classifiers Performance Changing K")
@@ -5003,7 +5115,16 @@ ludwig visualize --visualization compare_classifiers_performance_changing_k --mo
 
 ### compare_classifiers_multiclass_multimetric
 
-This visualization uses the `top_n_classes`, `ground_truth_metadata`, `output_feature_name`, `test_statistics`, `model_names`, `output_directory` and `file_format` parameters.
+Parameters for this visualization: 
+
+* `ground_truth_metadata`
+* `output_directory`
+* `file_format`
+* `output_feature_name`
+* `test_statistics`
+* `model_names`
+* `top_n_classes`
+
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `test_statistics` and `model_names`) it produces four plots that show the precision, recall and F1 of the model on several classes for the specified `output_feature_name`.
 
@@ -5029,20 +5150,49 @@ Compare Classifier Predictions
 
 ### compare_classifiers_predictions
 
-This visualization uses the `ground_truth`, `split_file`, `ground_truth_split`, `ground_truth_metadata`, `output_feature_name`, `labels_limit`, `predictions`, `model_names`, `output_directory` and `file_format` parameters.
+Parameters for this visualization: 
+
+* `ground_truth`
+* `split_file`
+* `ground_truth_metadata`
+* `output_directory` 
+* `file_format`
+* `output_feature_name`
+* `ground_truth_split`
+* `predictions`
+* `model_names`
+* `labels_limit`
+
 `output_feature_name` needs to be a category and there must be two and only two models (in the aligned lists of `predictions` and `model_names`).
 This visualization produces a pie chart comparing the predictions of the two models for the specified `output_feature_name`.
 
 Example command:
 ```
-ludwig visualize --visualization compare_classifiers_predictions --model_names Model1 Model2 --ground_truth train.hdf5 --output_feature_name Survived --predictions results/titanic_Model1_0/Survived_predictions.csv results/titanic_Model2_0/Survived_predictions.csv
+ludwig visualize --visualization compare_classifiers_predictions \
+  --ground_truth train.hdf5 \
+  --output_feature_name Survived \
+  --predictions results/titanic_Model1_0/Survived_predictions.csv \
+          results/titanic_Model2_0/Survived_predictions.csv \
+  --model_names Model1 Model2 
 ```
 ![Compare Classifiers Predictions](images/compare_classifiers_predictions.png "Compare Classifiers Predictions")
 
 
 ### compare_classifiers_predictions_distribution
 
-This visualization uses the `ground_truth`, `split_file`, `ground_truth_split`, `ground_truth_metadata`, `output_feature_name`, `label_limits`, `predictions`, `model_names`, `output_directory` and `file_format` parameters.
+Parameters for this visualization: 
+
+* `ground_truth`
+* `split_file`
+* `ground_truth_metadata`
+* `output_directory`
+* `file_format`
+* `output_feature_name`
+* `ground_truth_split`
+* `predictions`
+* `model_names`
+* `label_limits`
+
 `output_feature_name` needs to be a category.
 This visualization produces a radar plot comparing the distributions of predictions of the models for the first 10 classes of the specified `output_feature_name`.
 
@@ -5054,7 +5204,19 @@ Confidence_Thresholding
 
 ### confidence_thresholding
 
-This visualization uses the `ground_truth`, `split_file`, `ground_truth_split`, `ground_truth_metadata`, `output_feature_name`, `labels_limit`, `probabilities`,  `model_names`, `output_directory` and `file_format` parameters.
+Parameters for this visualization: 
+
+* `ground_truth`
+* `split_file`
+* `ground_truth_metadata`
+* `output_directory`
+* `file_format`
+* `output_feature_name`
+* `ground_truth_split`
+* `probabilities`
+* `model_names`
+* `labels_limit`
+
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `probabilities` and `model_names`) it produces a pair of lines indicating the accuracy of the model and the data coverage while increasing a threshold (x axis) on the probabilities of predictions for the specified `output_feature_name`.
 
@@ -5063,7 +5225,19 @@ For each model (in the aligned lists of `probabilities` and `model_names`) it pr
 
 ### confidence_thresholding_data_vs_acc
 
-This visualization uses the `ground_truth`, `split_file`, `ground_truth_split`,  `ground_truth_metadata`, `output_feature_name`, `labels_limit`, `probabilities`,  `model_names`, `output_directory` and `file_format` parameters.
+Parameters for this visualization: 
+
+* `ground_truth`
+* `split_file`
+* `ground_truth_metadata`
+* `output_directory`
+* `file_format`
+* `output_feature_name`
+* `ground_truth_split`
+* `probabilities`
+* `model_names`
+* `labels_limit`
+
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line indicating the accuracy of the model and the data coverage while increasing a threshold on the probabilities of predictions for the specified `output_feature_name`.
 The difference with `confidence_thresholding` is that it uses two axes instead of three, not visualizing the threshold and having coverage as x axis instead of the threshold.
@@ -5073,7 +5247,21 @@ The difference with `confidence_thresholding` is that it uses two axes instead o
 
 ### confidence_thresholding_data_vs_acc_subset
 
-This visualization uses the `top_n_classes`, `subset`, `ground_truth`, `split_file`, `ground_truth_split`, `ground_truth_metadata`, `output_feature_name`, `labels_limit`,`probabilities`, `model_names`, `output_directory` and `file_format` parameters.
+Parameters for this visualization: 
+
+* `ground_truth`
+* `split_file`
+* `ground_truth_metadata`
+* `output_directory`
+* `file_format`
+* `output_feature_name`
+* `ground_truth_split`
+* `probabilities`
+* `model_names`
+* `top_n_classes`
+* `labels_limit`
+* `subset`
+
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line indicating the accuracy of the model and the data coverage while increasing a threshold on the probabilities of predictions for the specified `output_feature_name`, considering only a subset of the full training set.
 The way the subset is obtained is using the `top_n_classes` and `subset` parameters..

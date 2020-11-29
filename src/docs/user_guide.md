@@ -5275,7 +5275,21 @@ If the values of `subset` is `predictions`, then only datapoints where the the m
 
 ### confidence_thresholding_data_vs_acc_subset_per_class
 
-This visualization uses the `top_n_classes`, `subset`, `ground_truth`, `split_file`, `ground_truth_split`, `ground_truth_metadata`, `output_feature_name`, `labels_limit`,`probabilities`, `model_names`, `output_directory` and `file_format` parameters.
+Parameters for this visualization: 
+
+* `ground_truth`
+* `split_file`
+* `ground_truth_metadata`
+* `output_directory`
+* `file_format`
+* `output_feature_name`
+* `ground_truth_split`
+* `probabilities`
+* `model_names`
+* `top_n_classes`
+* `labels_limit`
+* `subset`
+
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line indicating the accuracy of the model and the data coverage while increasing a threshold on the probabilities of predictions for the specified `output_feature_name`, considering only a subset of the full training set.
 The way the subset is obtained is using the `top_n_classes` and `subset` parameters..
@@ -5293,7 +5307,19 @@ The difference with `confidence_thresholding_data_vs_acc_subset` is that it prod
 
 ### confidence_thresholding_2thresholds_2d
 
-This visualization uses the `ground_truth`, `split_file`, `ground_truth_split`, `ground_truth_metadata`, `threshold_output_feature_names`, `labels_limit`,`probabilities`, `model_names`, `output_directory` and `file_format` parameters.
+Parameters for this visualization: 
+
+* `ground_truth`
+* `split_file`
+* `ground_truth_metadata`
+* `output_directory`
+* `file_format`
+* `ground_truth_split`
+* `threshold_output_feature_names`
+* `probabilities`
+* `model_names`
+* `labels_limit`
+
 `threshold_output_feature_names` need to be exactly two, either category or binary.
 `probabilities` need to be exactly two, aligned with `threshold_output_feature_names`.
 `model_names` has to be exactly one.
@@ -5316,7 +5342,18 @@ The third plot shows the max line and the values of the thresholds that obtained
 
 ### confidence_thresholding_2thresholds_3d
 
-This visualization uses the `ground_truth`, `split_file`, `ground_truth_split`, `ground_truth_metadata`, `threshold_output_feature_names`, `labels_limit`, `probabilities`, `output_directory` and `file_format` parameters.
+Parameters for this visualization: 
+
+* `ground_truth`
+* `split_file`
+* `ground_truth_metadata`
+* `output_directory`
+* `file_format`
+* `ground_truth_split`
+* `threshold_output_feature_names`
+* `probabilities`
+* `labels_limit`
+
 `threshold_output_feature_names` need to be exactly two, either category or binary.
 `probabilities` need to be exactly two, aligned with `threshold_output_feature_names`.
 The plot shows the 3d surfaces displayed by `confidence_thresholding_2thresholds_3d` that have thresholds on the confidence of the predictions of the two `threshold_output_feature_names` as x and y axes and either the data coverage percentage or the accuracy as z axis.
@@ -5329,7 +5366,20 @@ Binary Threshold vs. Metric
 
 ### binary_threshold_vs_metric
 
-This visualization uses the `positive_label`, `metrics`, `ground_truth`, `split_file`, `ground_truth_split`, `ground_truth_metadata`, `output_feature_name`, `probabilities`, `model_names`, `output_directory` and `file_format` parameters.
+Parameters for this visualization: 
+
+* `ground_truth`
+* `split_file`
+* `ground_truth_metadata`
+* `output_directory`
+* `file_format`
+* `output_feature_name`
+* `ground_truth_split`
+* `probabilities`
+* `model_names`
+* `metrics`
+* `positive_label`
+
 `output_feature_name` can be a category or binary feature.
 For each metric specified in `metrics` (options are `f1`, `precision`, `recall`, `accuracy`), this visualization produces a line chart plotting a threshold on the confidence of the model against the metric for the specified `output_feature_name`.
 If `output_feature_name` is a category feature, `positive_label` indicates which is the class to be considered positive class and all the others will be considered negative.
@@ -5343,7 +5393,19 @@ ROC Curves
 
 ### roc_curves
 
-This visualization uses the `positive_label`, `ground_truth`, `split_file`, `ground_truth_split`, `ground_truth_metadata`, `output_feature_name`, `probabilities`, `model_names`, `output_directory` and `file_format` parameters.
+Parameters for this visualization: 
+
+* `ground_truth`
+* `split_file`
+* `ground_truth_metadata`
+* `output_directory`
+* `file_format`
+* `output_feature_name`
+* `ground_truth_split`
+* `probabilities`
+* `model_names`
+* `positive_label`
+
 `output_feature_name` can be a category or binary feature.
 This visualization produces a line chart plotting the roc curves for the specified `output_feature_name`.
 If `output_feature_name` is a category feature, `positive_label` indicates which is the class to be considered positive class and all the others will be considered negative.
@@ -5354,7 +5416,14 @@ It needs to be an integer, to figure out the association between classes and int
 
 ### roc_curves_from_test_statistics
 
-This visualization uses the `output_feature_name`, `test_statistics`, `model_names`, `output_directory` and `file_format` parameters.
+Parameters for this visualization: 
+
+* `output_directory`
+* `file_format`
+* `output_feature_name`
+* `test_statistics`
+* `model_names`
+
 `output_feature_name` needs to be binary feature.
 This visualization produces a line chart plotting the roc curves for the specified `output_feature_name`.
 
@@ -5366,7 +5435,20 @@ Calibration Plot
 
 ### calibration_1_vs_all
 
-This visualization uses the `top_n_classes`, `ground_truth`, `split_file`, `ground_truth_split`, `ground_truth_metadata`, `output_feature_name`, `labels_limit`,`probabilities`, `model_names`, `output_directory` and `file_format` parameters.
+Parameters for this visualization: 
+
+* `ground_truth`
+* `split_file`
+* `ground_truth_metadata`
+* `output_directory`
+* `file_format`
+* `output_feature_name`
+* `ground_truth_split`
+* `probabilities`
+* `model_names`
+* `top_n_classes`
+* `labels_limit`
+
 `output_feature_name` needs to be a category or binary.
 For each class or each of the `n` most frequent classes if `top_n_classes` is specified, it produces two plots computed on the fly from the probabilities of predictions for the specified `output_feature_name`.
 
@@ -5381,7 +5463,19 @@ The second plot shows the distributions of the predictions considering the curre
 
 ### calibration_multiclass
 
-This visualization uses the `ground_truth`, `split_file`, `ground_truth_split`, `ground_truth_metadata`, `output_feature_name`, `labels_limit`, `probabilities`, `model_names`, `split_file`, `ground_truth_split`, `ground_truth_metadata` parameters.
+Parameters for this visualization: 
+
+* `ground_truth`
+* `split_file`
+* `ground_truth_metadata`
+* `output_directory`
+* `file_format`
+* `output_feature_name`
+* `ground_truth_split`
+* `probabilities`
+* `model_names`
+* `labels_limit`
+
 `output_feature_name` needs to be a category.
 For each class, produces two plots computed on the fly from the probabilities of predictions for the specified `output_feature_name`.
 
@@ -5399,7 +5493,16 @@ Class Frequency vs. F1 score
 
 ### frequency_vs_f1
 
-This visualization uses the `top_n_classes`,`ground_truth_metadata`, `output_feature_name`, `test_statistics`, `model_names`, `output_directory` and `file_format` parameters.
+Parameters for this visualization: 
+
+* `ground_truth_metadata`
+* `output_directory`
+* `file_format`
+* `output_feature_name`
+* `test_statistics`
+* `model_names`
+* `top_n_classes`
+
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `test_statistics` and `model_names`), produces two plots statistics of predictions for the specified `output_feature_name`.
 
@@ -5422,7 +5525,11 @@ The examples of the hyper-parameter visualizations shown here are obtained by ru
  
 ### hyperopt_report
 
-This visualization uses the `hyperopt_stats_path`, `output_directory` and `file_format` parameters.
+Parameters for this visualization: 
+
+* `output_directory`
+* `file_format`
+* `hyperopt_stats_path`
 
 The visualization creates one plot for each hyper-parameter in the file at `hyperopt_stats_path`, plus an additional one containing a pair plot of hyper-parameters interactions.
 
@@ -5441,7 +5548,11 @@ The pair plot shows a heatmap of how the values of pairs of hyper-parameters cor
 
 ### hyperopt_hiplot
 
-This visualization uses the `hyperopt_stats_path`, `output_directory` and `file_format` parameters.
+Parameters for this visualization: 
+
+* `output_directory`
+* `file_format`
+* `hyperopt_stats_path`
 
 The visualization creates an interactive HTML page visualizing all the results from the hyper-parameter optimization at once, using a parallel coordinate plot.
 

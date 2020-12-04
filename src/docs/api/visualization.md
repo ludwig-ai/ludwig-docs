@@ -90,8 +90,10 @@ __Return__
 ludwig.visualize.compare_classifiers_performance_from_prob(
   probabilities_per_model,
   ground_truth,
-  top_n_classes,
-  labels_limit,
+  metadata,
+  output_feature_name,
+  labels_limit=0,
+  top_n_classes=3,
   model_names=None,
   output_directory=None,
   file_format='pdf'
@@ -108,10 +110,11 @@ computed on the fly from the probabilities of predictions for the specified
 __Inputs__
 
 
-- __probabilities_per_model__ (List[numpy.array]): list of model
-probabilities.
-- __ground_truth__ (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.
+- __probabilities_per_model__ (List[np.ndarray]): path to experiment
+probabilities file
+- __ground_truth__ (pd.Series): ground truth values
+- __metadata__ (dict): feature metadata dictionary
+- __output_feature_name__ (str): output feature name
 - __top_n_classes__ (List[int]): list containing the number of classes
 to plot.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
@@ -157,14 +160,10 @@ computed on the fly from the predictions for the specified
 __Inputs__
 
 
-- __predictions_per_model__ (List[list]): list containing the model
-predictions for the specified output_feature_name.
-- __ground_truth__ (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.
-- __metadata__ (dict): intermediate preprocess structure created during
-training containing the mappings of the input dataset.
-- __output_feature_name__ (str): name of the output feature to use
-for the visualization.
+- __predictions_per_model__ (List[str]): path to experiment predictions file.
+- __ground_truth__ (pd.Series): ground truth values
+- __metadata__ (dict): feature metadata dictionary.
+- __output_feature_name__ (str): name of the output feature to visualize.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
 `label_limit` are considered to be "rare" labels.
@@ -189,6 +188,8 @@ __Return__
 ludwig.visualize.compare_classifiers_performance_subset(
   probabilities_per_model,
   ground_truth,
+  metadata,
+  output_feature_name,
   top_n_classes,
   labels_limit,
   subset,
@@ -212,8 +213,9 @@ __Inputs__
 
 - __probabilities_per_model__ (List[numpy.array]): list of model
    probabilities.
-- __ground_truth__ (numpy.array): numpy.array containing ground truth data,
-   which are the numeric encoded values the category.
+- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
+- __metadata__ (dict): feature metadata dictionary
+- __output_feature_name__ (str): output feature name
 - __top_n_classes__ (List[int]): list containing the number of classes
    to plot.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
@@ -242,6 +244,8 @@ __Return__
 ludwig.visualize.compare_classifiers_performance_changing_k(
   probabilities_per_model,
   ground_truth,
+  metadata,
+  output_feature_name,
   top_k,
   labels_limit,
   model_names=None,
@@ -263,8 +267,9 @@ __Inputs__
 
 - __probabilities_per_model__ (List[numpy.array]): list of model
 probabilities.
-- __ground_truth__ (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.
+- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
+- __metadata__ (dict): feature metadata dictionary
+- __output_feature_name__ (str): output feature name
 - __top_k__ (int): number of elements in the ranklist to consider.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
@@ -335,6 +340,8 @@ __Return__
 ludwig.visualize.compare_classifiers_predictions(
   predictions_per_model,
   ground_truth,
+  metadata,
+  output_feature_name,
   labels_limit,
   model_names=None,
   output_directory=None,
@@ -350,8 +357,9 @@ __Inputs__
 
 - __predictions_per_model__ (List[list]): list containing the model
 predictions for the specified output_feature_name.
-- __ground_truth__ (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.
+- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
+- __metadata__ (dict): feature metadata dictionary
+- __output_feature_name__ (str): output feature name
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
 `label_limit` are considered to be "rare" labels.
@@ -376,6 +384,7 @@ __Return__
 ludwig.visualize.confidence_thresholding_2thresholds_2d(
   probabilities_per_model,
   ground_truths,
+  metadata,
   threshold_output_feature_names,
   labels_limit,
   model_names=None,
@@ -400,8 +409,9 @@ __Inputs__
 
 - __probabilities_per_model__ (List[numpy.array]): list of model
 probabilities.
-- __ground_truth__ (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.
+- __ground_truth__ (Union[List[np.array], List[pd.Series]]): containing
+ground truth data
+- __metadata__ (dict): feature metadata dictionary
 - __threshold_output_feature_names__ (List[str]): List containing two output
 feature names for visualization.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
@@ -428,6 +438,7 @@ __Return__
 ludwig.visualize.confidence_thresholding_2thresholds_3d(
   probabilities_per_model,
   ground_truths,
+  metadata,
   threshold_output_feature_names,
   labels_limit,
   output_directory=None,
@@ -449,8 +460,9 @@ __Inputs__
 
 - __probabilities_per_model__ (List[numpy.array]): list of model
 probabilities.
-- __ground_truth__ (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.
+- __ground_truth__ (Union[List[np.array], List[pd.Series]]): containing
+ground truth data
+- __metadata__ (dict): feature metadata dictionary
 - __threshold_output_feature_names__ (List[str]): List containing two output
 feature names for visualization.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
@@ -475,6 +487,8 @@ __Return__
 ludwig.visualize.confidence_thresholding(
   probabilities_per_model,
   ground_truth,
+  metadata,
+  output_feature_name,
   labels_limit,
   model_names=None,
   output_directory=None,
@@ -494,8 +508,9 @@ __Inputs__
 
 - __probabilities_per_model__ (List[numpy.array]): list of model
 probabilities.
-- __ground_truth__ (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.
+- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
+- __metadata__ (dict): feature metadata dictionary
+- __output_feature_name__ (str): output feature name
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
 `label_limit` are considered to be "rare" labels.
@@ -520,6 +535,8 @@ __Return__
 ludwig.visualize.confidence_thresholding_data_vs_acc(
   probabilities_per_model,
   ground_truth,
+  metadata,
+  output_feature_name,
   labels_limit,
   model_names=None,
   output_directory=None,
@@ -542,8 +559,9 @@ __Inputs__
 
 - __probabilities_per_model__ (List[numpy.array]): list of model
 probabilities.
-- __ground_truth__ (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.
+- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
+- __metadata__ (dict): feature metadata dictionary
+- __output_feature_name__ (str): output feature name
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
 `label_limit` are considered to be "rare" labels.
@@ -567,6 +585,8 @@ __Return__
 ludwig.visualize.confidence_thresholding_data_vs_acc_subset(
   probabilities_per_model,
   ground_truth,
+  metadata,
+  output_feature_name,
   top_n_classes,
   labels_limit,
   subset,
@@ -603,8 +623,9 @@ __Inputs__
 
 - __probabilities_per_model__ (List[numpy.array]): list of model
 probabilities.
-- __ground_truth__ (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.
+- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
+- __metadata__ (dict): feature metadata dictionary
+- __output_feature_name__ (str): output feature name
 - __top_n_classes__ (List[int]): list containing the number of classes
 to plot.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
@@ -633,6 +654,8 @@ __Return__
 ludwig.visualize.binary_threshold_vs_metric(
   probabilities_per_model,
   ground_truth,
+  metadata,
+  output_feature_name,
   metrics,
   positive_label=1,
   model_names=None,
@@ -659,8 +682,9 @@ __Inputs__
 
 - __probabilities_per_model__ (List[numpy.array]): list of model
 probabilities.
-- __ground_truth__ (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.
+- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
+- __metadata__ (dict): feature metadata dictionary
+- __output_feature_name__ (str): output feature name
 - __metrics__ (List[str]): metrics to display (`'f1'`, `'precision'`,
 `'recall'`, `'accuracy'`).
 - __positive_label__ (int, default: `1`): numeric encoded value for the
@@ -686,6 +710,8 @@ __Return__
 ludwig.visualize.roc_curves(
   probabilities_per_model,
   ground_truth,
+  metadata,
+  output_feature_name,
   positive_label=1,
   model_names=None,
   output_directory=None,
@@ -709,8 +735,9 @@ __Inputs__
 
 - __probabilities_per_model__ (List[numpy.array]): list of model
 probabilities.
-- __ground_truth__ (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.
+- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
+- __metadata__ (dict): feature metadata dictionary
+- __output_feature_name__ (str): output feature name
 - __positive_label__ (int, default: `1`): numeric encoded value for the
 positive class.
 - __model_names__ (Union[str, List[str]], default: `None`): model name or
@@ -777,6 +804,8 @@ __Return__
 ludwig.visualize.calibration_1_vs_all(
   probabilities_per_model,
   ground_truth,
+  metadata,
+  output_feature_name,
   top_n_classes,
   labels_limit,
   model_names=None,
@@ -807,8 +836,9 @@ __Inputs__
 
 - __probabilities_per_model__ (List[numpy.array]): list of model
 probabilities.
-- __ground_truth__ (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.
+- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
+- __metadata__ (dict): feature metadata dictionary
+- __output_feature_name__ (str): output feature name
 - __top_n_classes__ (list): List containing the number of classes to plot.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
@@ -834,6 +864,8 @@ __String__
 ludwig.visualize.calibration_multiclass(
   probabilities_per_model,
   ground_truth,
+  metadata,
+  output_feature_name,
   labels_limit,
   model_names=None,
   output_directory=None,
@@ -850,8 +882,9 @@ __Inputs__
 
 - __probabilities_per_model__ (List[numpy.array]): list of model
 probabilities.
-- __ground_truth__ (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.
+- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
+- __metadata__ (dict): feature metadata dictionary
+- __output_feature_name__ (str): output feature name
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
 `label_limit` are considered to be "rare" labels.

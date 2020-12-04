@@ -309,7 +309,7 @@ source containing validation data.
 - __test_set__ (Union[str, dict, pandas.DataFrame], default: `None`):
 source containing test data.
 - __training_set_metadata__ (Union[str, dict], default: `None`):
-metadata JSON file or loaded metadata.  Intermediate preprocess
+metadata JSON file or loaded metadata.  Intermediate preprocessed
 structure containing the mappings of the input
 dataset created the first time an input file is used in the same
 directory with the same name and a '.meta.json' extension.
@@ -344,7 +344,7 @@ saving training statistics JSON file.
 saving model weights and hyperparameters each time the model
 improves. By default Ludwig saves model weights after each epoch
 the validation metric improves, but if the model is really big
-that can be time consuming if you do not want to keep
+that can be time consuming. If you do not want to keep
 the weights and just find out what performance a model can get
 with a set of hyperparameters, use this parameter to skip it,
 but the model will not be loadable later on and the returned model
@@ -588,7 +588,7 @@ source containing validation data.
 - __test_set__ (Union[str, dict, pandas.DataFrame], default: `None`):
 source containing test data.
 - __training_set_metadata__ (Union[str, dict], default: `None`):
-metadata JSON file or loaded metadata. Intermediate preprocess
+metadata JSON file or loaded metadata. Intermediate preprocessed
 structure containing the mappings of the input
 dataset created the first time an input file is used in the same
 directory with the same name and a '.meta.json' extension.
@@ -795,7 +795,7 @@ source containing validation data.
 - __test_set__ (Union[str, dict, pandas.DataFrame], default: `None`):
 source containing test data.
 - __training_set_metadata__ (Union[str, dict], default: `None`):
-metadata JSON file or loaded metadata. Intermediate preprocess
+metadata JSON file or loaded metadata. Intermediate preprocessed
 structure containing the mappings of the input
 dataset created the first time an input file is used in the same
 directory with the same name and a '.meta.json' extension.
@@ -826,7 +826,7 @@ disables saving training statistics JSON file.
 saving model weights and hyperparameters each time the model
 improves. By default Ludwig saves model weights after each epoch
 the validation metric improves, but if the model is really big
-that can be time consuming if you do not want to keep
+that can be time consuming. If you do not want to keep
 the weights and just find out what performance a model can get
 with a set of hyperparameters, use this parameter to skip it,
 but the model will not be loadable later on and the returned model
@@ -894,7 +894,7 @@ If it has a split column, it will be used for splitting (0 for train,
 1 for validation, 2 for test), otherwise the dataset will be
 randomly split.
 - __training_set_metadata__ (Union[str, dict], default: `None`):
-metadata JSON file or loaded metadata.  Intermediate preprocess
+metadata JSON file or loaded metadata.  Intermediate preprocessed
 structure containing the mappings of the input
 dataset created the first time an input file is used in the same
 directory with the same name and a '.meta.json' extension.
@@ -982,7 +982,7 @@ source containing the entire dataset to be used for k_fold processing.
 saving model weights and hyperparameters each time the model
 improves. By default Ludwig saves model weights after each epoch
 the validation metric improves, but if the model is really big
-that can be time consuming if you do not want to keep
+that can be time consuming. If you do not want to keep
 the weights and just find out what performance a model can get
 with a set of hyperparameters, use this parameter to skip it,
 but the model will not be loadable later on and the returned model
@@ -1094,7 +1094,7 @@ source containing validation data.
 - __test_set__ (Union[str, dict, pandas.DataFrame], default: `None`):
 source containing test data.
 - __training_set_metadata__ (Union[str, dict], default: `None`):
-metadata JSON file or loaded metadata.  Intermediate preprocess
+metadata JSON file or loaded metadata.  Intermediate preprocessed
 structure containing the mappings of the input
 dataset created the first time an input file is used in the same
 directory with the same name and a '.meta.json' extension.
@@ -1117,7 +1117,7 @@ saving training statistics JSON file.
 saving model weights and hyperparameters each time the model
 improves. By default Ludwig saves model weights after each epoch
 the validation metric improves, but if the model is really big
-that can be time consuming if you do not want to keep
+that can be time consuming. If you do not want to keep
 the weights and just find out what performance a model can get
 with a set of hyperparameters, use this parameter to skip it,
 but the model will not be loadable later on and the returned model

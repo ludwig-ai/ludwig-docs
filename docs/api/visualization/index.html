@@ -9,14 +9,13 @@
         <meta name="description" content="Deep learning toolbox">
       
       
-      
         <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/api/visualization/">
       
       
         <meta name="author" content="Piero Molino">
       
       <link rel="shortcut icon" href="../../favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.0.2">
     
     
       
@@ -24,10 +23,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.19753c6b.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.38780c08.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.196e0c26.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f72e892.min.css">
         
           
           
@@ -80,9 +79,7 @@
       
     </div>
     
-      
-
-<header class="md-header" data-md-component="header">
+      <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
     <a href="https://ludwig-ai.github.io/ludwig-docs/" title="Ludwig" class="md-header-nav__button md-logo" aria-label="Ludwig">
       
@@ -116,7 +113,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
@@ -262,7 +259,8 @@
 
   <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
+    
     <label class="md-nav__link" for="nav-6">
       API
       <span class="md-nav__icon md-icon"></span>
@@ -741,7 +739,6 @@
 <span class="p">)</span>
 </code></pre></div>
 
-
 <p>Show how model metrics change over training and validation data epochs.</p>
 <p>For each model and for each output feature and metric of the model,
 it produces a line plot showing how that metric changed over the course
@@ -773,7 +770,6 @@ plots. If not specified, plots will be displayed in a window</li>
   <span class="n">file_format</span><span class="o">=</span><span class="s1">&#39;pdf&#39;</span>
 <span class="p">)</span>
 </code></pre></div>
-
 
 <p>Produces model comparison barplot visualization for each overall metric</p>
 <p>For each model (in the aligned lists of test_statistics and model_names)
@@ -810,7 +806,6 @@ plots. If not specified, plots will be displayed in a window</li>
   <span class="n">file_format</span><span class="o">=</span><span class="s1">&#39;pdf&#39;</span>
 <span class="p">)</span>
 </code></pre></div>
-
 
 <p>Produces model comparison barplot visualization from probabilities.</p>
 <p>For each model it produces bars in a bar plot, one for each overall metric
@@ -853,7 +848,6 @@ plots. If not specified, plots will be displayed in a window</li>
 <span class="p">)</span>
 </code></pre></div>
 
-
 <p>Produces model comparison barplot visualization from predictions.</p>
 <p>For each model it produces bars in a bar plot, one for each overall metric
 computed on the fly from the predictions for the specified
@@ -893,7 +887,6 @@ plots. If not specified, plots will be displayed in a window</li>
   <span class="n">file_format</span><span class="o">=</span><span class="s1">&#39;pdf&#39;</span>
 <span class="p">)</span>
 </code></pre></div>
-
 
 <p>Produces model comparison barplot visualization from train subset.</p>
 <p>For each model  it produces bars in a bar plot, one for each overall metric
@@ -941,7 +934,6 @@ The way the subset is obtained is using the <code>top_n_classes</code> and
 <span class="p">)</span>
 </code></pre></div>
 
-
 <p>Produce lineplot that show Hits@K metric while k goes from 1 to <code>top_k</code>.</p>
 <p>For each model it produces a line plot that shows the Hits@K metric
 (that counts a prediction as correct if the model produces it among the
@@ -982,7 +974,6 @@ plots. If not specified, plots will be displayed in a window</li>
 <span class="p">)</span>
 </code></pre></div>
 
-
 <p>Show the precision, recall and F1 of the model for the specified output_feature_name.</p>
 <p>For each model it produces four plots that show the precision,
 recall and F1 of the model on several classes for the specified output_feature_name.</p>
@@ -1021,7 +1012,6 @@ plots. If not specified, plots will be displayed in a window</li>
 <span class="p">)</span>
 </code></pre></div>
 
-
 <p>Show two models comparison of their output_feature_name predictions.</p>
 <p><strong>Inputs</strong></p>
 <ul>
@@ -1057,7 +1047,6 @@ plots. If not specified, plots will be displayed in a window</li>
   <span class="n">file_format</span><span class="o">=</span><span class="s1">&#39;pdf&#39;</span>
 <span class="p">)</span>
 </code></pre></div>
-
 
 <p>Show confidence threshold data vs accuracy for two output feature names.</p>
 <p>The first plot shows several semi transparent lines. They summarize the
@@ -1103,7 +1092,6 @@ plots. If not specified, plots will be displayed in a window</li>
 <span class="p">)</span>
 </code></pre></div>
 
-
 <p>Show 3d confidence threshold data vs accuracy for two output feature names.</p>
 <p>The plot shows the 3d surfaces displayed by
 confidence_thresholding_2thresholds_3d that have thresholds on the
@@ -1145,7 +1133,6 @@ plots. If not specified, plots will be displayed in a window</li>
 <span class="p">)</span>
 </code></pre></div>
 
-
 <p>Show models accuracy and data coverage while increasing treshold</p>
 <p>For each model it produces a pair of lines indicating the accuracy of
 the model and the data coverage while increasing a threshold (x axis) on
@@ -1184,7 +1171,6 @@ plots. If not specified, plots will be displayed in a window</li>
   <span class="n">file_format</span><span class="o">=</span><span class="s1">&#39;pdf&#39;</span>
 <span class="p">)</span>
 </code></pre></div>
-
 
 <p>Show models comparison of confidence threshold data vs accuracy.</p>
 <p>For each model it produces a line indicating the accuracy of the model
@@ -1229,7 +1215,6 @@ plots. If not specified, plots will be displayed in a window</li>
   <span class="n">file_format</span><span class="o">=</span><span class="s1">&#39;pdf&#39;</span>
 <span class="p">)</span>
 </code></pre></div>
-
 
 <p>Show models comparison of confidence threshold data vs accuracy on a
 subset of data.</p>
@@ -1289,7 +1274,6 @@ plots. If not specified, plots will be displayed in a window</li>
 <span class="p">)</span>
 </code></pre></div>
 
-
 <p>Show confidence of the model against metric for the specified output_feature_name.</p>
 <p>For each metric specified in metrics (options are <code>f1</code>, <code>precision</code>, <code>recall</code>,
 <code>accuracy</code>), this visualization produces a line chart plotting a threshold
@@ -1336,7 +1320,6 @@ plots. If not specified, plots will be displayed in a window</li>
 <span class="p">)</span>
 </code></pre></div>
 
-
 <p>Show the roc curves for output features in the specified models.</p>
 <p>This visualization produces a line chart plotting the roc curves for the
 specified output feature name. If output feature name is a category feature,
@@ -1376,7 +1359,6 @@ plots. If not specified, plots will be displayed in a window</li>
 <span class="p">)</span>
 </code></pre></div>
 
-
 <p>Show the roc curves for the specified models output binary
 <code>output_feature_name</code>.</p>
 <p>This visualization uses <code>output_feature_name</code>, <code>test_stats_per_model</code> and
@@ -1414,7 +1396,6 @@ plots. If not specified, plots will be displayed in a window</li>
   <span class="n">file_format</span><span class="o">=</span><span class="s1">&#39;pdf&#39;</span>
 <span class="p">)</span>
 </code></pre></div>
-
 
 <p>Show models probability of predictions for the specified output_feature_name.</p>
 <p>For each class or each of the k most frequent classes if top_k is
@@ -1464,7 +1445,6 @@ plots. If not specified, plots will be displayed in a window</li>
 <span class="p">)</span>
 </code></pre></div>
 
-
 <p>Show models probability of predictions for each class of the
 specified output_feature_name.</p>
 <p><strong>Inputs</strong></p>
@@ -1501,7 +1481,6 @@ plots. If not specified, plots will be displayed in a window</li>
   <span class="n">file_format</span><span class="o">=</span><span class="s1">&#39;pdf&#39;</span>
 <span class="p">)</span>
 </code></pre></div>
-
 
 <p>Show confision matrix in the models predictions for each
 <code>output_feature_name</code>.</p>
@@ -1544,7 +1523,6 @@ plots. If not specified, plots will be displayed in a window</li>
   <span class="n">file_format</span><span class="o">=</span><span class="s1">&#39;pdf&#39;</span>
 <span class="p">)</span>
 </code></pre></div>
-
 
 <p>Show prediction statistics for the specified <code>output_feature_name</code> for
 each model.</p>
@@ -1590,7 +1568,6 @@ plots. If not specified, plots will be displayed in a window</li>
 <span class="p">)</span>
 </code></pre></div>
 
-
 <p>Produces a report about hyperparameter optimization
 creating one graph per hyperparameter to show the distribution of results
 and one additional graph of pairwise hyperparameters interactions.</p>
@@ -1613,7 +1590,6 @@ plots. If not specified, plots will be displayed in a window.</li>
   <span class="n">output_directory</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">)</span>
 </code></pre></div>
-
 
 <p>Produces a parallel coordinate plot about hyperparameter optimization
 creating one HTML file and optionally a CSV file to be read by hiplot</p>
@@ -1716,8 +1692,8 @@ plots. If not specified, plots will be displayed in a window.</li>
       
     </div>
     
-      <script src="../../assets/javascripts/vendor.0ac82a11.min.js"></script>
-      <script src="../../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../../assets/javascripts/vendor.77e55a48.min.js"></script>
+      <script src="../../assets/javascripts/bundle.9554a270.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

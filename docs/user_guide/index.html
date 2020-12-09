@@ -9,14 +9,13 @@
         <meta name="description" content="Deep learning toolbox">
       
       
-      
         <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/user_guide/">
       
       
         <meta name="author" content="Piero Molino">
       
       <link rel="shortcut icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.0.2">
     
     
       
@@ -24,10 +23,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.19753c6b.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.38780c08.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.196e0c26.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f72e892.min.css">
         
           
           
@@ -80,9 +79,7 @@
       
     </div>
     
-      
-
-<header class="md-header" data-md-component="header">
+      <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
     <a href="https://ludwig-ai.github.io/ludwig-docs/" title="Ludwig" class="md-header-nav__button md-logo" aria-label="Ludwig">
       
@@ -116,7 +113,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
@@ -1901,7 +1898,8 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
     <label class="md-nav__link" for="nav-6">
       API
       <span class="md-nav__icon md-icon"></span>
@@ -3646,11 +3644,9 @@ You can call it with:</p>
 <div class="codehilite"><pre><span></span><code>ludwig train [options]
 </code></pre></div>
 
-
 <p>or with:</p>
 <div class="codehilite"><pre><span></span><code>python -m ludwig.train [options]
 </code></pre></div>
-
 
 <p>from within Ludwig's main directory.</p>
 <p>These are the available arguments:</p>
@@ -3733,7 +3729,6 @@ optional arguments:
                         the level of logging to use
 </code></pre></div>
 
-
 <p>When Ludwig trains a model it creates two intermediate files, one HDF5 and one JSON.
 The HDF5 file contains the data mapped to numpy ndarrays, while the JSON file 
 contains the mappings from the values in the tensors to their original labels.</p>
@@ -3794,18 +3789,15 @@ If less than all of memory is allcoated, TensorFlow will need more GPU memory it
 <div class="codehilite"><pre><span></span><code>ludwig train --dataset reuters-allcats.csv --config &quot;{input_features: [{name: text, type: text, encoder: parallel_cnn, level: word}], output_features: [{name: class, type: category}]}&quot;
 </code></pre></div>
 
-
 <h3 id="predict">predict<a class="headerlink" href="#predict" title="Permanent link">&para;</a></h3>
 <p>This command lets you use a previously trained model to predict on new data.
 You can call it with:</p>
 <div class="codehilite"><pre><span></span><code>ludwig predict [options]
 </code></pre></div>
 
-
 <p>or with:</p>
 <div class="codehilite"><pre><span></span><code>python -m ludwig.predict [options]
 </code></pre></div>
-
 
 <p>from within Ludwig's main directory.</p>
 <p>These are the available arguments:</p>
@@ -3842,7 +3834,6 @@ optional arguments:
                         the level of logging to use
 </code></pre></div>
 
-
 <p>The same distinction between UTF-8 encoded dataset files and HDF5 / JSON files explained in the <a href="#train">train</a> section also applies here.
 In either case, the JSON metadata file obtained during training is needed in order to map the new data into tensors.
 If the new data contains a split column, you can specify which split to use to calculate the predictions with the <code>--split</code> argument. By default it's <code>full</code> which means all the splits will be used.</p>
@@ -3861,7 +3852,6 @@ You can specify not to save the raw NPY output files with the argument <code>ski
 <div class="codehilite"><pre><span></span><code>ludwig predict --dataset reuters-allcats.csv --model_path results/experiment_run_0/model/
 </code></pre></div>
 
-
 <h3 id="evaluate">evaluate<a class="headerlink" href="#evaluate" title="Permanent link">&para;</a></h3>
 <p>This command lets you use a previously trained model to predict on new data and 
 evaluate the performance of the prediction compared to ground truth.
@@ -3869,11 +3859,9 @@ You can call it with:</p>
 <div class="codehilite"><pre><span></span><code>ludwig evaluate [options]
 </code></pre></div>
 
-
 <p>or with:</p>
 <div class="codehilite"><pre><span></span><code>python -m ludwig.evaluate [options]
 </code></pre></div>
-
 
 <p>from within Ludwig's main directory.</p>
 <p>These are the available arguments:</p>
@@ -3915,7 +3903,6 @@ optional arguments:
                         the level of logging to use
 </code></pre></div>
 
-
 <p>All parameters are the same of <a href="#predict">predict</a> and the behavior is the same.
 The only difference isthat <code>evaluate</code> requires the dataset to contain also columns with the same name of output features.
 This is needed because <code>evaluate</code> compares the predictions produced by the model with the ground truth and will save all those statistics in a <code>test_statistics.json</code> file in the result directory.</p>
@@ -3927,7 +3914,6 @@ it means that the data does not contain the columns for each output feature to u
 <div class="codehilite"><pre><span></span><code>ludwig evaluate --dataset reuters-allcats.csv --model_path results/experiment_run_0/model/
 </code></pre></div>
 
-
 <h3 id="experiment">experiment<a class="headerlink" href="#experiment" title="Permanent link">&para;</a></h3>
 <p>This command combines training and evaluation into a single handy command.<br />
 You can request a k-fold cross validation run by specifing the <code>--k_fold</code>
@@ -3936,11 +3922,9 @@ You can call it with:</p>
 <div class="codehilite"><pre><span></span><code>ludwig experiment [options]
 </code></pre></div>
 
-
 <p>or with:</p>
 <div class="codehilite"><pre><span></span><code>python -m ludwig.experiment [options]
 </code></pre></div>
-
 
 <p>from within Ludwig's main directory.</p>
 <p>These are the available arguments:</p>
@@ -4041,7 +4025,6 @@ optional arguments:
                         the level of logging to use
 </code></pre></div>
 
-
 <p>The parameters combine parameters from both <a href="#train">train</a> and <a href="#test">test</a> so 
 refer to those sections for an in depth explanation.
 The output directory will contain the outputs both commands produce.</p>
@@ -4049,18 +4032,15 @@ The output directory will contain the outputs both commands produce.</p>
 <div class="codehilite"><pre><span></span><code>ludwig experiment --dataset reuters-allcats.csv --config &quot;{input_features: [{name: text, type: text, encoder: parallel_cnn, level: word}], output_features: [{name: class, type: category}]}&quot;
 </code></pre></div>
 
-
 <h3 id="hyperopt">hyperopt<a class="headerlink" href="#hyperopt" title="Permanent link">&para;</a></h3>
 <p>This command lets you perform an hyper-parameter search with a given sampler and parameters.
 You can call it with:</p>
 <div class="codehilite"><pre><span></span><code>ludwig hyperopt [options]
 </code></pre></div>
 
-
 <p>or with:</p>
 <div class="codehilite"><pre><span></span><code>python -m ludwig.hyperopt [options]
 </code></pre></div>
-
 
 <p>from within Ludwig's main directory.</p>
 <p>These are the available arguments:</p>
@@ -4143,7 +4123,6 @@ optional arguments:
                         the level of logging to use
 </code></pre></div>
 
-
 <p>The parameters combine parameters from both <a href="#train">train</a> and <a href="#test">test</a> so refer to those sections for an in depth explanation. The output directory will contain a <code>hyperopt_statistics.json</code> file that summarizes the results obtained.</p>
 <p>In order to perform an hyper-parameter optimization, the <code>hyperopt</code> section needs to be provided within the configuration.
 In the <code>hyperopt</code> section you will be able to define what metric to optimize, what parameters, what sampler to use to optimize them and how to execute the optimization.
@@ -4154,11 +4133,9 @@ For details on the <code>hyperopt</code> section see the detailed description in
 <div class="codehilite"><pre><span></span><code>ludwig serve [options]
 </code></pre></div>
 
-
 <p>or with</p>
 <div class="codehilite"><pre><span></span><code>python -m ludwig.serve [options]
 </code></pre></div>
-
 
 <p>from within Ludwig's main directory.</p>
 <p>These are the available arguments:</p>
@@ -4175,7 +4152,6 @@ optional arguments:
   -p PORT, --port PORT  port for server (default: 8000)
   -H HOST, --host HOST  host for server (default: 0.0.0.0)
 </code></pre></div>
-
 
 <p>The most important argument is <code>--model_path</code> where you have to specify the path of the model to load.</p>
 <p>Once running, you can make a POST request on the <code>/predict</code> endpoint to run inference on the form data submitted.</p>
@@ -4204,11 +4180,9 @@ You can call it with:</p>
 <div class="codehilite"><pre><span></span><code>ludwig visualize [options]
 </code></pre></div>
 
-
 <p>or with:</p>
 <div class="codehilite"><pre><span></span><code>python -m ludwig.visualize [options]
 </code></pre></div>
-
 
 <p>from within Ludwig's main directory.</p>
 <p>These are the available arguments:</p>
@@ -4266,7 +4240,6 @@ optional arguments:
                         the level of logging to use
 </code></pre></div>
 
-
 <p>As the <code>--visualization</code> parameters suggests, there is a vast number of visualizations readily available.
 Each of them requires a different subset of this command's arguments, so they will be described one by one in the <a href="#visualizations">Visualizations</a> section.</p>
 <h3 id="collect_summary">collect_summary<a class="headerlink" href="#collect_summary" title="Permanent link">&para;</a></h3>
@@ -4274,11 +4247,9 @@ Each of them requires a different subset of this command's arguments, so they wi
 <div class="codehilite"><pre><span></span><code>ludwig collect_summary [options]
 </code></pre></div>
 
-
 <p>or with:</p>
 <div class="codehilite"><pre><span></span><code>python -m ludwig.collect names [options]
 </code></pre></div>
-
 
 <p>from within Ludwig's main directory.</p>
 <p>These are the available arguments:</p>
@@ -4294,7 +4265,6 @@ optional arguments:
                         the level of logging to use
 </code></pre></div>
 
-
 <h3 id="collect_weights">collect_weights<a class="headerlink" href="#collect_weights" title="Permanent link">&para;</a></h3>
 <p>This command lets you load a pre-trained model and collect the tensors with a specific name in order to save them in a NPY format.
 This may be useful in order to visualize the learned weights (for instance collecting embedding matrices) and for some post-hoc analyses.
@@ -4302,11 +4272,9 @@ You can call it with:</p>
 <div class="codehilite"><pre><span></span><code>ludwig collect_weights [options]
 </code></pre></div>
 
-
 <p>or with:</p>
 <div class="codehilite"><pre><span></span><code>python -m ludwig.collect weights [options]
 </code></pre></div>
-
 
 <p>from within Ludwig's main directory.</p>
 <p>These are the available arguments:</p>
@@ -4327,12 +4295,10 @@ optional arguments:
                         the level of logging to use
 </code></pre></div>
 
-
 <p>The three most important arguments are <code>--model_path</code> where you have to specify the path of the model to load, <code>--tensors</code> that lets you specify a list of tensor names in the TensorFlow graph that contain the weights you want to collect, and finally <code>--output_directory</code> that lets you specify where the NPY files (one for each tensor name specified) will be saved.</p>
 <p>In order to figure out the names of the tensors containing the weights you want to collect, the best way is to inspect the graph of the model with TensorBoard.</p>
 <div class="codehilite"><pre><span></span><code>tensorboard --logdir /path/to/model/log
 </code></pre></div>
-
 
 <p>Or use the <code>collect_summary</code> command.</p>
 <h3 id="collect_activations">collect_activations<a class="headerlink" href="#collect_activations" title="Permanent link">&para;</a></h3>
@@ -4342,11 +4308,9 @@ You can call it with:</p>
 <div class="codehilite"><pre><span></span><code>ludwig collect_activations [options]
 </code></pre></div>
 
-
 <p>or with:</p>
 <div class="codehilite"><pre><span></span><code>python -m ludwig.collect activations [options]
 </code></pre></div>
-
 
 <p>from within Ludwig's main directory.</p>
 <p>These are the available arguments:</p>
@@ -4384,24 +4348,20 @@ optional arguments:
                         the level of logging to use
 </code></pre></div>
 
-
 <p>The data related and runtime related arguments (GPUs, batch size, etc.) are the same used in <a href="#predict">predict</a>, you can refer to that section for an explanation.
 The collect specific arguments <code>--model_path</code>, <code>--tensors</code> and <code>--output_directory</code> are the same used in <a href="#collect_weights">collect_weights</a>, you can refer to that section for an explanation.</p>
 <p>In order to figure out the names of the tensors containing the activations you want to collect, the best way is to inspect the graph of the model with TensorBoard.</p>
 <div class="codehilite"><pre><span></span><code>tensorboard --logdir /path/to/model/log
 </code></pre></div>
 
-
 <h3 id="export_savedmodel">export_savedmodel<a class="headerlink" href="#export_savedmodel" title="Permanent link">&para;</a></h3>
 <p>Exports a pre-trained model to Tensorflow <code>SavedModel</code> format.</p>
 <div class="codehilite"><pre><span></span><code>ludwig export_savedmodel [options]
 </code></pre></div>
 
-
 <p>or with:</p>
 <div class="codehilite"><pre><span></span><code>python -m ludwig.export savedmodel [options]
 </code></pre></div>
-
 
 <p>These are the available arguments:</p>
 <div class="codehilite"><pre><span></span><code>usage: ludwig export_savedmodel [options]
@@ -4418,18 +4378,15 @@ optional arguments:
                         the level of logging to use
 </code></pre></div>
 
-
 <h3 id="export_neuropod">export_neuropod<a class="headerlink" href="#export_neuropod" title="Permanent link">&para;</a></h3>
 <p>A Ludwig model can be exported as a <a href="https://github.com/uber/neuropod">Neuropod</a>, a mechanism that allows it to be executed in a framework agnostic way.</p>
 <p>In order to export a Ludwig model as a Neuropod, first make sure the <code>neuropod</code> package is installed in your environment together with the approrpiate backend (only use Python 3.7+), then run the following command:</p>
 <div class="codehilite"><pre><span></span><code>ludwig export_neuropod [options]
 </code></pre></div>
 
-
 <p>or with:</p>
 <div class="codehilite"><pre><span></span><code>python -m ludwig.export neuropod [options]
 </code></pre></div>
-
 
 <p>These are the available arguments:</p>
 <div class="codehilite"><pre><span></span><code>usage: ludwig export_neuropod [options]
@@ -4448,7 +4405,6 @@ optional arguments:
                         the level of logging to use
 </code></pre></div>
 
-
 <p>This functionality has been tested with <code>neuropod==0.2.0</code>.</p>
 <h3 id="preprocess">preprocess<a class="headerlink" href="#preprocess" title="Permanent link">&para;</a></h3>
 <p>Preprocess data and saves it into HDF5 and JSON format.
@@ -4457,11 +4413,9 @@ The advantage is that, being the data already preprocessed, if multiple models h
 <div class="codehilite"><pre><span></span><code>ludwig preprocess [options]
 </code></pre></div>
 
-
 <p>or with:</p>
 <div class="codehilite"><pre><span></span><code>python -m ludwig.preprocess [options]
 </code></pre></div>
-
 
 <p>These are the available arguments:</p>
 <div class="codehilite"><pre><span></span><code>usage: ludwig preprocess [options]
@@ -4505,17 +4459,14 @@ optional arguments:
                         the level of logging to use
 </code></pre></div>
 
-
 <h3 id="synthesize_dataset">synthesize_dataset<a class="headerlink" href="#synthesize_dataset" title="Permanent link">&para;</a></h3>
 <p>Creates synthetic data for tesing purposes depending on the feature list parameters provided in YAML format.</p>
 <div class="codehilite"><pre><span></span><code>ludwig synthesize_dataset [options]
 </code></pre></div>
 
-
 <p>or with:</p>
 <div class="codehilite"><pre><span></span><code>python -m ludwig.data.dataset_synthesizer [options]
 </code></pre></div>
-
 
 <p>These are the available arguments:</p>
 <div class="codehilite"><pre><span></span><code>usage: ludwig synthesize_dataset [options]
@@ -4537,7 +4488,6 @@ optional arguments:
 Process finished with exit code 0
 </code></pre></div>
 
-
 <p>The feature list file should contain one entry dictionary per feature, with its name and type, plus optional hyperparameters.</p>
 <div class="codehilite"><pre><span></span><code><span class="p p-Indicator">-</span>
   <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">first_feature</span>
@@ -4547,7 +4497,6 @@ Process finished with exit code 0
   <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">second_feature_type</span>
 <span class="nn">...</span>
 </code></pre></div>
-
 
 <p>The available parameters depend on the feature type.</p>
 <p><strong>binary</strong></p>
@@ -4686,7 +4635,6 @@ Different datatypes may have different tokenizers that format the values of a ce
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>Finally, a numpy matrix is created with sizes <code>n x l</code> where <code>n</code> is the number of rows in the column and <code>l</code> is the minimum of the longest tokenized list and a <code>max_length</code> parameter that can be set.
 All sequences shorter than <code>l</code> are padded on the right (but this behavior may also be modified through a parameter).</p>
 <table>
@@ -4777,7 +4725,6 @@ For instance a list of dictionaries can be written both as:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">mylist</span><span class="p">:</span> <span class="p p-Indicator">[{</span><span class="nt">name</span><span class="p">:</span> <span class="nv">item1</span><span class="p p-Indicator">,</span><span class="nt"> score</span><span class="p">:</span> <span class="nv">2</span><span class="p p-Indicator">},</span> <span class="p p-Indicator">{</span><span class="nt">name</span><span class="p">:</span> <span class="nv">item2</span><span class="p p-Indicator">,</span><span class="nt"> score</span><span class="p">:</span> <span class="nv">1</span><span class="p p-Indicator">},</span> <span class="p p-Indicator">{</span><span class="nt">name</span><span class="p">:</span> <span class="nv">item3</span><span class="p p-Indicator">,</span><span class="nt"> score</span><span class="p">:</span> <span class="nv">4</span><span class="p p-Indicator">}]</span>
 </code></pre></div>
 
-
 <p>or as:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">mylist</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
@@ -4791,7 +4738,6 @@ For instance a list of dictionaries can be written both as:</p>
         <span class="nt">score</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">4</span>
 </code></pre></div>
 
-
 <p>The structure of the configuration file is a dictionary with five keys:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
 <span class="nt">combiner</span><span class="p">:</span> <span class="p p-Indicator">{}</span>
@@ -4799,7 +4745,6 @@ For instance a list of dictionaries can be written both as:</p>
 <span class="nt">training</span><span class="p">:</span> <span class="p p-Indicator">{}</span>
 <span class="nt">preprocessing</span><span class="p">:</span> <span class="p p-Indicator">{}</span>
 </code></pre></div>
-
 
 <p>Only <code>input_features</code> and <code>output_features</code> are required, the other three fields 
 have default values, but you are free to modify them.</p>
@@ -4826,7 +4771,6 @@ The way to do it is by specifying the <code>tied-weights</code> parameter of the
         <span class="nt">tied_weights</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sentence1</span>
 </code></pre></div>
 
-
 <p>If you specify a name of an input feature that has not been defined yet, it will result in an error.
 Also, in order to be able to have tied weights, all encoder parameters have to be identical between the two input features.</p>
 <h3 id="combiner">Combiner<a class="headerlink" href="#combiner" title="Permanent link">&para;</a></h3>
@@ -4845,7 +4789,6 @@ Different combiners implement different combination logic, but the default one <
 |Feature N  |
 +-----------+
 </code></pre></div>
-
 
 <p>For the sake of simplicity you can imagine the both inputs and outputs are vectors in most of the cases, but there are <code>reduce_input</code> and <code>reduce_output</code> parameters to specify to change the default behavior.</p>
 <h3 id="output-features">Output Features<a class="headerlink" href="#output-features" title="Permanent link">&para;</a></h3>
@@ -4875,7 +4818,6 @@ By default each loss weight is <code>1</code>, but it can be changed by specifyi
           <span class="nt">weight</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.8</span>
 </code></pre></div>
 
-
 <h4 id="output-features-dependencies">Output Features Dependencies<a class="headerlink" href="#output-features-dependencies" title="Permanent link">&para;</a></h4>
 <p>An additional feature that Ludwig provides is the concept of dependency between <code>output_features</code>.  You can specify a list of output features as dependencies when you write the dictionary of a specific feature.
 At model building time Ludwig checks that no cyclic dependency exists.
@@ -4897,7 +4839,6 @@ In this case the following configuration structure can be used:</p>
         <span class="nt">num_fc_layers</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
         <span class="nt">fc_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">64</span>
 </code></pre></div>
-
 
 <p>Assuming the input coming from the combiner has hidden dimension <code>h</code> 128, there are two fully connected layers that return a vector with hidden size 64 at the end of the <code>coarse_class</code> decoder (that vector will be used for the final layer before projecting in the output <code>coarse_class</code> space).  In the decoder of <code>fine_class</code>, the 64 dimensional vector of <code>coarse_class</code> will be concatenated to the combiner output vector, making a vector of hidden size 192 that will be passed through a fully connected layer and the 64 dimensional output will be used for the final layer before projecting in the output class space of the <code>fine_class</code>.</p>
 <h3 id="training">Training<a class="headerlink" href="#training" title="Permanent link">&para;</a></h3>
@@ -4940,7 +4881,6 @@ Other optimizer specific parameters, shown with their Ludwig default settings, f
 &#39;nesterov&#39;: false
 </code></pre></div>
 
-
 <ul>
 <li><code>adam</code></li>
 </ul>
@@ -4949,14 +4889,12 @@ Other optimizer specific parameters, shown with their Ludwig default settings, f
 &#39;epsilon&#39;: 1e-08
 </code></pre></div>
 
-
 <ul>
 <li><code>adadelta</code></li>
 </ul>
 <div class="codehilite"><pre><span></span><code>&#39;rho&#39;: 0.95,
 &#39;epsilon&#39;: 1e-08
 </code></pre></div>
-
 
 <ul>
 <li><code>adagrad</code></li>
@@ -4965,7 +4903,6 @@ Other optimizer specific parameters, shown with their Ludwig default settings, f
 &#39;epsilon&#39;: 1e-07
 </code></pre></div>
 
-
 <ul>
 <li><code>adamax</code></li>
 </ul>
@@ -4973,7 +4910,6 @@ Other optimizer specific parameters, shown with their Ludwig default settings, f
 &#39;beta_2&#39;: 0.999, 
 &#39;epsilon&#39;: 1e-07
 </code></pre></div>
-
 
 <ul>
 <li><code>ftrl</code></li>
@@ -4984,7 +4920,6 @@ Other optimizer specific parameters, shown with their Ludwig default settings, f
 &#39;l2_regularization_strength&#39;: 0.0,
 </code></pre></div>
 
-
 <ul>
 <li><code>nadam</code>,</li>
 </ul>
@@ -4992,7 +4927,6 @@ Other optimizer specific parameters, shown with their Ludwig default settings, f
 &#39;beta_2&#39;: 0.999, 
 &#39;epsilon&#39;: 1e-07
 </code></pre></div>
-
 
 <ul>
 <li><code>rmsprop</code></li>
@@ -5002,7 +4936,6 @@ Other optimizer specific parameters, shown with their Ludwig default settings, f
 &#39;epsilon&#39;: 1e-10,
 &#39;centered&#39;: false
 </code></pre></div>
-
 
 <h3 id="preprocessing">Preprocessing<a class="headerlink" href="#preprocessing" title="Permanent link">&para;</a></h3>
 <p>The <code>preprocessing</code> section of the configuration makes it possible to specify datatype specific parameters to perform data preprocessing.
@@ -5023,7 +4956,6 @@ Moreover, the preprocessing dictionary contains parameters related to how to spl
     <span class="nt">text</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nv">...</span><span class="p p-Indicator">}</span>
     <span class="l l-Scalar l-Scalar-Plain">...</span>
 </code></pre></div>
-
 
 <p>The details about the preprocessing parameters that each datatype accepts will be provided in the datatype-specific sections.</p>
 <p>It is important to point out that different features with the same datatype may require different preprocessing.
@@ -5046,7 +4978,6 @@ The configuration will look like:</p>
         <span class="nt">preprocessing</span><span class="p">:</span>
             <span class="nt">word_length_limit</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2000</span>
 </code></pre></div>
-
 
 <h4 id="tokenizers">Tokenizers<a class="headerlink" href="#tokenizers" title="Permanent link">&para;</a></h4>
 <p>Several different features perform raw data preprocessing by tokenizing strings (for instance sequence, text and set).
@@ -5077,7 +5008,6 @@ For each language different functions are available:</p>
 <div class="codehilite"><pre><span></span><code>python -m spacy download &lt;language_code&gt;
 </code></pre></div>
 
-
 <p>and provide <code>&lt;language&gt;_&lt;function&gt;</code> as <code>tokenizer</code> like: <code>english_tokenizer</code>, <code>italian_lemmatize_filter</code>, <code>multi_tokenize_filter</code> and so on.
 More details on the models can be found in the <a href="https://spacy.io/models">spaCy documentation</a>.</p>
 <h3 id="binary-features">Binary Features<a class="headerlink" href="#binary-features" title="Permanent link">&para;</a></h3>
@@ -5100,7 +5030,6 @@ In this case the inputs of size <code>b</code> are transformed to size <code>b x
 <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">binary</span>
 <span class="nt">encoder</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">passthrough</span>
 </code></pre></div>
-
 
 <p>Binary input feature parameters are</p>
 <ul>
@@ -5174,7 +5103,6 @@ There is only one decoder available for binary features and it is a (potentially
 <span class="nt">threshold</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.5</span>
 </code></pre></div>
 
-
 <h4 id="binary-features-measures">Binary Features Measures<a class="headerlink" href="#binary-features-measures" title="Permanent link">&para;</a></h4>
 <p>The only measures that are calculated every epoch and are available for binary features are the <code>accuracy</code> and the <code>loss</code> itself.
 You can set either of them as <code>validation_measure</code> in the <code>training</code> section of the configuration if you set the <code>validation_field</code> to be the name of a binary feature.</p>
@@ -5233,7 +5161,6 @@ In this case the inputs of size <code>b</code> are transformed to size <code>b x
 <span class="nt">dropout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 </code></pre></div>
 
-
 <h4 id="numerical-output-features-and-decoders">Numerical Output Features and Decoders<a class="headerlink" href="#numerical-output-features-and-decoders" title="Permanent link">&para;</a></h4>
 <p>Numerical features can be used when a regression needs to be performed.
 There is only one decoder available for numerical features and it is a (potentially empty) stack of fully connected layers, followed by a projection into a single number.</p>
@@ -5285,7 +5212,6 @@ There is only one decoder available for numerical features and it is a (potentia
 <span class="nt">clip</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
 </code></pre></div>
 
-
 <h4 id="numerical-features-measures">Numerical Features Measures<a class="headerlink" href="#numerical-features-measures" title="Permanent link">&para;</a></h4>
 <p>The measures that are calculated every epoch and are available for numerical features are <code>mean_squared_error</code>, <code>mean_absolute_error</code>, <code>r2</code> and the <code>loss</code> itself.
 You can set either of them as <code>validation_measure</code> in the <code>training</code> section of the configuration if you set the <code>validation_field</code> to be the name of a numerical feature.</p>
@@ -5324,7 +5250,6 @@ The other two encoders map to either <code>dense</code> or <code>sparse</code> e
 <span class="nt">encoder</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">dense</span>
 </code></pre></div>
 
-
 <p>The available encoder parameters:</p>
 <h5 id="dense-encoder">Dense Encoder<a class="headerlink" href="#dense-encoder" title="Permanent link">&para;</a></h5>
 <ul>
@@ -5361,7 +5286,6 @@ The other two encoders map to either <code>dense</code> or <code>sparse</code> e
 <span class="nt">regularizer</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
 </code></pre></div>
 
-
 <h4 id="category-output-features-and-decoders">Category Output Features and Decoders<a class="headerlink" href="#category-output-features-and-decoders" title="Permanent link">&para;</a></h4>
 <p>Category features can be used when a multi-class classification needs to be performed.
 There is only one decoder available for category features and it is a (potentially empty) stack of fully connected layers, followed by a projection into a vector of size of the number of available classes, followed by a softmax.</p>
@@ -5371,7 +5295,6 @@ There is only one decoder available for category features and it is a (potential
 |Representation|   |Layers   |   |Space      |   +-------+
 +--------------+   +---------+   +-----------+
 </code></pre></div>
-
 
 <p>These are the available parameters of a category output feature</p>
 <ul>
@@ -5443,7 +5366,6 @@ There is only one decoder available for category features and it is a (potential
 <span class="nt">top_k</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
 </code></pre></div>
 
-
 <h4 id="category-features-measures">Category Features Measures<a class="headerlink" href="#category-features-measures" title="Permanent link">&para;</a></h4>
 <p>The measures that are calculated every epoch and are available for category features are <code>accuracy</code>, <code>top_k</code> (computes accuracy considering as a match if the true category appears in the first <code>k</code> predicted categories ranked by decoder's confidence) and the <code>loss</code> itself.
 You can set either of them as <code>validation_measure</code> in the <code>training</code> section of the configuration if you set the <code>validation_field</code> to be the name of a category feature.</p>
@@ -5482,7 +5404,6 @@ Inputs are of size <code>b</code> while outputs are of size <code>b x h</code> w
 |0|          +-----+
 +-+
 </code></pre></div>
-
 
 <p>The available encoder parameters are</p>
 <ul>
@@ -5532,7 +5453,6 @@ Inputs are of size <code>b</code> while outputs are of size <code>b x h</code> w
 <span class="nt">tied_weights</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
 </code></pre></div>
 
-
 <h4 id="set-output-features-and-decoders">Set Output Features and Decoders<a class="headerlink" href="#set-output-features-and-decoders" title="Permanent link">&para;</a></h4>
 <p>Set features can be used when multi-label classification needs to be performed.
 There is only one decoder available for set features and it is a (potentially empty) stack of fully connected layers, followed by a projection into a vector of size of the number of available classes, followed by a sigmoid.</p>
@@ -5542,7 +5462,6 @@ There is only one decoder available for set features and it is a (potentially em
 |Representation|   |Layers   |   |Space      |   +-------+
 +--------------+   +---------+   +-----------+
 </code></pre></div>
-
 
 <p>These are the available parameters of the set output feature</p>
 <ul>
@@ -5591,7 +5510,6 @@ There is only one decoder available for set features and it is a (potentially em
 <span class="nt">dropout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.0</span>
 <span class="nt">threshold</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.5</span>
 </code></pre></div>
-
 
 <h4 id="set-features-measures">Set Features Measures<a class="headerlink" href="#set-features-measures" title="Permanent link">&para;</a></h4>
 <p>The measures that are calculated every epoch and are available for category features are <code>jaccard_index</code> and the <code>loss</code> itself.
@@ -5666,7 +5584,6 @@ If you want to output the full <code>b x s x h</code> tensor, you can specify <c
        +------+
 </code></pre></div>
 
-
 <p>These are the parameters available for the embed encoder</p>
 <ul>
 <li><code>representation'</code> (default <code>dense</code>): the possible values are <code>dense</code> and <code>sparse</code>. <code>dense</code> means the embeddings are initialized randomly, <code>sparse</code> means they are initialized to be one-hot encodings.</li>
@@ -5695,7 +5612,6 @@ If you want to output the full <code>b x s x h</code> tensor, you can specify <c
 <span class="nt">reduce_output</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sum</span>
 </code></pre></div>
 
-
 <h5 id="parallel-cnn-encoder">Parallel CNN Encoder<a class="headerlink" href="#parallel-cnn-encoder" title="Permanent link">&para;</a></h5>
 <p>The parallel cnn encoder is inspired by <a href="https://arxiv.org/abs/1408.5882">Yoon Kim's Convolutional Neural Network for Sentence Classification</a>.
 It works by first mapping the input integer sequence <code>b x s</code> (where <code>b</code> is the batch size and <code>s</code> is the length of the sequence) into a sequence of embeddings, then it passes the embedding through a number of parallel 1d convolutional layers with different filter size (by default 4 layers with filter size 2, 3, 4 and 5), followed by max pooling and concatenation.
@@ -5721,7 +5637,6 @@ If you want to output the full <code>b x s x h</code> tensor, you can specify <c
                    |Width 5|   +----+
                    +-------+
 </code></pre></div>
-
 
 <p>These are the available for an parallel cnn encoder:</p>
 <ul>
@@ -5783,7 +5698,6 @@ If you want to output the full <code>b x s x h</code> tensor, you can specify <c
 <span class="nt">reduce_output</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sum</span>
 </code></pre></div>
 
-
 <h5 id="stacked-cnn-encoder">Stacked CNN Encoder<a class="headerlink" href="#stacked-cnn-encoder" title="Permanent link">&para;</a></h5>
 <p>The stacked cnn encoder is inspired by <a href="https://arxiv.org/abs/1509.01626">Xiang Zhang at all's Character-level Convolutional Networks for Text Classification</a>.
 It works by first mapping the input integer sequence <code>b x s</code> (where <code>b</code> is the batch size and <code>s</code> is the length of the sequence) into a sequence of embeddings, then it passes the embedding through a stack of 1d convolutional layers with different filter size (by default 6 layers with filter size 7, 7, 3, 3, 3 and 3), followed by an optional final pool and by a flatten operation.
@@ -5805,7 +5719,6 @@ If you want to output the full <code>b x s x h</code> tensor, you can specify th
        |Emb 1 |
        +------+
 </code></pre></div>
-
 
 <p>These are the parameters available for the stack cnn encoder:</p>
 <ul>
@@ -5877,7 +5790,6 @@ If you want to output the full <code>b x s x h</code> tensor, you can specify th
 <span class="nt">reduce_output</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">max</span>
 </code></pre></div>
 
-
 <h5 id="stacked-parallel-cnn-encoder">Stacked Parallel CNN Encoder<a class="headerlink" href="#stacked-parallel-cnn-encoder" title="Permanent link">&para;</a></h5>
 <p>The stacked parallel cnn encoder is a combination of the Parallel CNN and the Stacked CNN encoders where each layer of the stack is a composed of parallel convolutional layers.
 It works by first mapping the input integer sequence <code>b x s</code> (where <code>b</code> is the batch size and <code>s</code> is the length of the sequence) into a sequence of embeddings, then it passes the embedding through a stack of several parallel 1d convolutional layers with different filter size, followed by an optional final pool and by a flatten operation.
@@ -5903,7 +5815,6 @@ If you want to output the full <code>b x s x h</code> tensor, you can specify <c
                    |Width 5|                      |Width 5|
                    +-------+                      +-------+
 </code></pre></div>
-
 
 <p>These are the available parameters for the stack parallel cnn encoder:</p>
 <ul>
@@ -5965,7 +5876,6 @@ If you want to output the full <code>b x s x h</code> tensor, you can specify <c
 <span class="nt">reduce_output</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">max</span>
 </code></pre></div>
 
-
 <h5 id="rnn-encoder">RNN Encoder<a class="headerlink" href="#rnn-encoder" title="Permanent link">&para;</a></h5>
 <p>The rnn encoder works by first mapping the input integer sequence <code>b x s</code> (where <code>b</code> is the batch size and <code>s</code> is the length of the sequence) into a sequence of embeddings, then it passes the embedding through a stack of recurrent layers (by default 1 layer), followed by a reduce operation that by default only returns the last output, but can perform other reduce functions.
 If you want to output the full <code>b x s x h</code> where <code>h</code> is the size of the output of the last rnn layer, you can specify <code>reduce_output: null</code>.</p>
@@ -5985,7 +5895,6 @@ If you want to output the full <code>b x s x h</code> where <code>h</code> is th
        |Emb 1 |
        +------+
 </code></pre></div>
-
 
 <p>These are the available parameters for the rnn encoder:</p>
 <ul>
@@ -6057,7 +5966,6 @@ If you want to output the full <code>b x s x h</code> where <code>h</code> is th
 <span class="nt">reduce_output</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">last</span>
 </code></pre></div>
 
-
 <h5 id="cnn-rnn-encoder">CNN RNN Encoder<a class="headerlink" href="#cnn-rnn-encoder" title="Permanent link">&para;</a></h5>
 <p>The <code>cnnrnn</code> encoder works by first mapping the input integer sequence <code>b x s</code> (where <code>b</code> is the batch size and <code>s</code> is the length of the sequence) into a sequence of embeddings, then it passes the embedding through a stack of convolutional layers (by default 2), that is followed by a stack of recurrent layers (by default 1), followed by a reduce operation that by default only returns the last output, but can perform other reduce functions.
 If you want to output the full <code>b x s x h</code> where <code>h</code> is the size of the output of the last rnn layer, you can specify <code>reduce_output: null</code>.</p>
@@ -6077,7 +5985,6 @@ If you want to output the full <code>b x s x h</code> where <code>h</code> is th
        |Emb 1 |
        +------+
 </code></pre></div>
-
 
 <p>These are the available parameters of the cnn rnn encoder:</p>
 <ul>
@@ -6175,7 +6082,6 @@ If you want to output the full <code>b x s x h</code> where <code>h</code> is th
 <span class="nt">reduce_output</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">last</span>
 </code></pre></div>
 
-
 <h5 id="transformer-encoder">Transformer Encoder<a class="headerlink" href="#transformer-encoder" title="Permanent link">&para;</a></h5>
 <p>The <code>transformer</code> encoder implements a stack of transformer blocks, replicating the architecture introduced in the <a href="https://arxiv.org/abs/1706.03762">Attention is all you need</a> paper, and adds am optional stack of fully connected layers at the end.</p>
 <div class="codehilite"><pre><span></span><code>       +------+                     
@@ -6194,7 +6100,6 @@ If you want to output the full <code>b x s x h</code> where <code>h</code> is th
        |Emb 1 |                     
        +------+                     
 </code></pre></div>
-
 
 <ul>
 <li><code>representation'</code> (default <code>dense</code>): the possible values are <code>dense</code> and <code>sparse</code>. <code>dense</code> means the embeddings are initialized randomly, <code>sparse</code> means they are initialized to be one-hot encodings.</li>
@@ -6253,7 +6158,6 @@ If you want to output the full <code>b x s x h</code> where <code>h</code> is th
 <span class="nt">reduce_output</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">last</span>
 </code></pre></div>
 
-
 <h5 id="passthrough-encoder">Passthrough Encoder<a class="headerlink" href="#passthrough-encoder" title="Permanent link">&para;</a></h5>
 <p>The passthrough decoder simply transforms each input value into a float value and adds a dimension to the input tensor, creating a <code>b x s x 1</code> tensor where <code>b</code> is the batch size and <code>s</code> is the length of the sequence.
 The tensor is reduced along the <code>s</code> dimension to obtain a single vector of size <code>h</code> for each element of the batch.
@@ -6270,7 +6174,6 @@ This encoder is not really useful for <code>sequence</code> or <code>text</code>
 +--+   
 </code></pre></div>
 
-
 <p>These are the parameters available for the passthrough encoder</p>
 <ul>
 <li><code>reduce_output</code> (default <code>null</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
@@ -6281,7 +6184,6 @@ This encoder is not really useful for <code>sequence</code> or <code>text</code>
 <span class="nt">encoder</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">passthrough</span>
 <span class="nt">reduce_output</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
 </code></pre></div>
-
 
 <h4 id="sequence-output-features-and-decoders">Sequence Output Features and Decoders<a class="headerlink" href="#sequence-output-features-and-decoders" title="Permanent link">&para;</a></h4>
 <p>Sequential features can be used when sequence tagging (classifying each element of an input sequence) or sequence generation needs to be performed.
@@ -6308,7 +6210,6 @@ Output
 |emb|   +---------+   |Projection|   |Softmax|
 +---+                 +----------+   +-------+
 </code></pre></div>
-
 
 <p>These are the available parameters of a tagger decoder:</p>
 <ul>
@@ -6366,7 +6267,6 @@ Output
 <span class="nt">attention_num_heads</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">8</span>
 </code></pre></div>
 
-
 <h5 id="generator-decoder">Generator Decoder<a class="headerlink" href="#generator-decoder" title="Permanent link">&para;</a></h5>
 <p>In the case of <code>generator</code> the decoder is a (potentially empty) stack of fully connected layers, followed by an rnn that generates outputs feeding on its own previous predictions and generates a tensor of size <code>b x s' x c</code>, where <code>b</code> is the batch size, <code>s'</code> is the length of the generated sequence and <code>c</code> is the number of classes, followed by a softmax_cross_entropy.
 During training teacher forcing is adopted, meaning the list of targets is provided as both inputs and outputs (shifted by 1), while at evaluation time greedy decoding (generating one token at a time and feeding it as input for the next step) is performed by beam search, using a beam of 1 by default.
@@ -6384,7 +6284,6 @@ If a <code>b x h</code> input is provided to a generator decoder using an rnn wi
 +--------+   +---------+       |    |     |     |     |
                               GO    +-----+     +-----+
 </code></pre></div>
-
 
 <ul>
 <li><code>reduce_input</code> (default <code>sum</code>): defines how to reduce an input that is not a vector, but a matrix or a higher order tensor, on the first dimension 9second if you count the batch dimension). Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension).</li>
@@ -6453,7 +6352,6 @@ If a <code>b x h</code> input is provided to a generator decoder using an rnn wi
 <span class="nt">max_sequence_length</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 </code></pre></div>
 
-
 <h4 id="sequence-features-measures">Sequence Features Measures<a class="headerlink" href="#sequence-features-measures" title="Permanent link">&para;</a></h4>
 <p>The measures that are calculated every epoch and are available for category features are <code>accuracy</code> (counts the number of datapoints where all the elements of the predicted sequence are correct over the number of all datapoints), <code>token_accuracy</code> (computes the number of elements in all the sequences that are correctly predicted over the number of all the elements in all the sequences), <code>last_accuracy</code> (accuracy considering only the last element of the sequence, it is useful for being sure special end-of-sequence tokens are generated or tagged), <code>edit_distance</code> (the levenshtein distance between the predicted and ground truth sequence), <code>perplexity</code> (the perplexity of the ground truth sequence according to the model) and the <code>loss</code> itself.
 You can set either of them as <code>validation_measure</code> in the <code>training</code> section of the configuration if you set the <code>validation_field</code> to be the name of a sequence feature.</p>
@@ -6502,7 +6400,6 @@ In the configuration you are able to specify which level of representation to us
     <span class="nt">missing_value_strategy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">fill_with_const</span>
     <span class="nt">fill_value</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
 </code></pre></div>
-
 
 <h4 id="text-input-features-and-encoders">Text Input Features and Encoders<a class="headerlink" href="#text-input-features-and-encoders" title="Permanent link">&para;</a></h4>
 <p>Text input feature parameters are</p>
@@ -6636,7 +6533,6 @@ It's the best option for customly trained models that don't fit into the other p
 <span class="nt">trainable</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
 </code></pre></div>
 
-
 <h4 id="text-output-features-and-decoders">Text Output Features and Decoders<a class="headerlink" href="#text-output-features-and-decoders" title="Permanent link">&para;</a></h4>
 <p>The decoders are the same used for the <a href="#sequence-output-features-and-decoders">Sequence Features</a>.
 The only difference is that you can specify an additional <code>level</code> parameter with possible values <code>word</code> or <code>char</code> to force to use the text words or characters as inputs (by default the encoder will use <code>word</code>).</p>
@@ -6681,7 +6577,6 @@ The only difference is that you can specify an additional <code>level</code> par
 <span class="nt">tied_embeddings</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
 <span class="nt">max_sequence_length</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 </code></pre></div>
-
 
 <h4 id="text-features-measures">Text Features Measures<a class="headerlink" href="#text-features-measures" title="Permanent link">&para;</a></h4>
 <p>The measures are the same used for the <a href="#sequence-features-measures">Sequence Features</a>.</p>
@@ -6728,7 +6623,6 @@ The only difference is that time series features don't have an embedding layer a
     <span class="nt">window_type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boxcar</span>
 </code></pre></div>
 
-
 <h4 id="audio-input-features-and-encoders">Audio Input Features and Encoders<a class="headerlink" href="#audio-input-features-and-encoders" title="Permanent link">&para;</a></h4>
 <p>Audio files are transformed into one of the following types according to <code>type</code> in <code>audio_feature</code> in <code>preprocessing</code>.</p>
 <ul>
@@ -6771,7 +6665,6 @@ If they have different sizes, a <code>resize_method</code>, together with a targ
   <span class="nt">resize_method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">interpolate</span>
   <span class="nt">scaling</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pixel_normalization</span>
 </code></pre></div>
-
 
 <h4 id="image-input-features-and-encoders">Image Input Features and Encoders<a class="headerlink" href="#image-input-features-and-encoders" title="Permanent link">&para;</a></h4>
 <p>Input image features are transformed into a float valued tensors of size <code>N x H x W x C</code> (where <code>N</code> is the size of the dataset and <code>H x W</code> is a specific resizing of the image that can be set, and <code>C</code> is the number of channels) and added to HDF5 with a key that reflects the name of column in the dataset.
@@ -6858,7 +6751,6 @@ The column name is added to the JSON file, with an associated dictionary contain
     <span class="nt">num_channels</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
 </code></pre></div>
 
-
 <h5 id="resnet-encoder">ResNet Encoder<a class="headerlink" href="#resnet-encoder" title="Permanent link">&para;</a></h5>
 <p><a href="https://arxiv.org/abs/1603.05027">ResNet</a> Encoder takes the following optional parameters:</p>
 <ul>
@@ -6914,7 +6806,6 @@ The column name is added to the JSON file, with an associated dictionary contain
     <span class="nt">num_channels</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
 </code></pre></div>
 
-
 <h4 id="image-output-features-and-decoders">Image Output Features and Decoders<a class="headerlink" href="#image-output-features-and-decoders" title="Permanent link">&para;</a></h4>
 <p>There are no image decoders at the moment (WIP), so image cannot be used as output features.</p>
 <h4 id="image-features-measures">Image Features Measures<a class="headerlink" href="#image-features-measures" title="Permanent link">&para;</a></h4>
@@ -6936,7 +6827,6 @@ The format is the same one described in the <a href="https://docs.python.org/2/l
   <span class="nt">fill_value</span><span class="p">:</span> <span class="s">&#39;&#39;</span>
   <span class="nt">datetime_format</span><span class="p">:</span> <span class="s">&quot;%d</span><span class="nv"> </span><span class="s">%b</span><span class="nv"> </span><span class="s">%Y&quot;</span>
 </code></pre></div>
-
 
 <h4 id="date-input-features-and-encoders">Date Input Features and Encoders<a class="headerlink" href="#date-input-features-and-encoders" title="Permanent link">&para;</a></h4>
 <p>Input date features are transformed into a int valued tensors of size <code>N x 8</code> (where <code>N</code> is the size of the dataset and the 8 dimensions contain year, month, day, weekday, yearday, hour, minute and second) and added to HDF5 with a key that reflects the name of column in the dataset.</p>
@@ -6984,7 +6874,6 @@ It takes the following optional parameters:</p>
 <span class="nt">dropout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 </code></pre></div>
 
-
 <h5 id="wave-encoder">Wave Encoder<a class="headerlink" href="#wave-encoder" title="Permanent link">&para;</a></h5>
 <p>This encoder passes the year through a fully connected layer of one neuron and represents all other elements for the date by taking the sine of their value with a different period (12 for months, 31 for days, etc.), concatenates them and passes the concatenated representation through fully connected layers.
 It takes the following optional parameters:</p>
@@ -7022,7 +6911,6 @@ It takes the following optional parameters:</p>
 <span class="nt">dropout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 </code></pre></div>
 
-
 <h4 id="date-output-features-and-decoders">Date Output Features and Decoders<a class="headerlink" href="#date-output-features-and-decoders" title="Permanent link">&para;</a></h4>
 <p>There are no date decoders at the moment (WIP), so date cannot be used as output features.</p>
 <h4 id="date-features-measures">Date Features Measures<a class="headerlink" href="#date-features-measures" title="Permanent link">&para;</a></h4>
@@ -7044,7 +6932,6 @@ The parameters for preprocessing are:</p>
   <span class="nt">missing_value_strategy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">fill_with_const</span>
   <span class="nt">fill_value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">576495936675512319</span>
 </code></pre></div>
-
 
 <h4 id="h3-input-features-and-encoders">H3 Input Features and Encoders<a class="headerlink" href="#h3-input-features-and-encoders" title="Permanent link">&para;</a></h4>
 <p>Input date features are transformed into a int valued tensors of size <code>N x 8</code> (where <code>N</code> is the size of the dataset and the 8 dimensions contain year, month, day, weekday, yearday, hour, minute and second) and added to HDF5 with a key that reflects the name of column in the dataset.</p>
@@ -7092,7 +6979,6 @@ It takes the following optional parameters:</p>
 <span class="nt">dropout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 </code></pre></div>
 
-
 <h5 id="weighted-sum-embed-encoder">Weighted Sum Embed Encoder<a class="headerlink" href="#weighted-sum-embed-encoder" title="Permanent link">&para;</a></h5>
 <p>This encoder encodes each components of the H3 representation (mode, edge, resolution, base cell and childern cells) with embeddings.
 Chidren cells with value <code>0</code> will be masked out.
@@ -7139,7 +7025,6 @@ It takes the following optional parameters:</p>
 <span class="nt">dropout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 <span class="nt">reduce_output</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sum</span>
 </code></pre></div>
-
 
 <h5 id="rnn-encoder_1">RNN Encoder<a class="headerlink" href="#rnn-encoder_1" title="Permanent link">&para;</a></h5>
 <p>This encoder encodes each components of the H3 representation (mode, edge, resolution, base cell and childern cells) with embeddings.
@@ -7199,7 +7084,6 @@ It takes the following optional parameters:</p>
 <span class="nt">reduce_output</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">last</span>
 </code></pre></div>
 
-
 <h4 id="h3-output-features-and-decoders">H3 Output Features and Decoders<a class="headerlink" href="#h3-output-features-and-decoders" title="Permanent link">&para;</a></h4>
 <p>There are no date decoders at the moment (WIP), so H3 cannot be used as output features.</p>
 <h4 id="h3-features-measures">H3 Features Measures<a class="headerlink" href="#h3-features-measures" title="Permanent link">&para;</a></h4>
@@ -7256,7 +7140,6 @@ It takes the following parameters:</p>
 <span class="nt">dropout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 </code></pre></div>
 
-
 <h4 id="vector-feature-decoders">Vector Feature Decoders<a class="headerlink" href="#vector-feature-decoders" title="Permanent link">&para;</a></h4>
 <p>Vector features can be used when multi-class classification needs to be performed with a noise-aware loss or when the task is multivariate regression.
 There is only one decoder available for set features and it is a (potentially empty) stack of fully connected layers, followed by a projection into a vector of size (optionally followed by a softmax in the case of multi-class classification).</p>
@@ -7266,7 +7149,6 @@ There is only one decoder available for set features and it is a (potentially em
 |Representation|   |Layers   |   |Space      |   +------------------+
 +--------------+   +---------+   +-----------+
 </code></pre></div>
-
 
 <p>These are the available parameters of the set output feature</p>
 <ul>
@@ -7311,7 +7193,6 @@ There is only one decoder available for set features and it is a (potentially em
 <span class="nt">clip</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
 </code></pre></div>
 
-
 <h4 id="vector-features-measures">Vector Features Measures<a class="headerlink" href="#vector-features-measures" title="Permanent link">&para;</a></h4>
 <p>The measures that are calculated every epoch and are available for numerical features are <code>mean_squared_error</code>, <code>mean_absolute_error</code>, <code>r2</code> and the <code>loss</code> itself.
 You can set either of them as <code>validation_measure</code> in the <code>training</code> section of the configuration if you set the <code>validation_field</code> to be the name of a numerical feature.</p>
@@ -7335,7 +7216,6 @@ If there's only one input feature and no fully connected layers are specified, t
 |Feature N  |
 +-----------+
 </code></pre></div>
-
 
 <p>These are the available parameters of a concat combiner</p>
 <ul>
@@ -7370,7 +7250,6 @@ If there's only one input feature and no fully connected layers are specified, t
 <span class="nt">dropout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 </code></pre></div>
 
-
 <h4 id="sequence-concat-combiner">Sequence Concat Combiner<a class="headerlink" href="#sequence-concat-combiner" title="Permanent link">&para;</a></h4>
 <p>The sequence concat combiner assumes at least one output from encoders is a tensors of size <code>b x s x h</code> where <code>b</code> is the batch size, <code>s</code> is the length of the sequence and <code>h</code> is the hidden dimension.
 The sequence / text / sequential input can be specified with the <code>main_sequence_feature</code> parameter that should have the name of the sequential feature as value.
@@ -7401,7 +7280,6 @@ Output       |  +-----------------+
 +-------+
 </code></pre></div>
 
-
 <p>These are the available parameters of a sequence concat combiner</p>
 <ul>
 <li><code>main_sequence_feature</code> (default <code>null</code>): name of the sequence / text/ time series feature to concatenate the outputs of the other features to. If no <code>main_sequence_feature</code> is specified, the combiner will look through all the features in the order they are defined in the configuration and will look for a feature with a rank 3 tensor output (sequence, text or time series). If it cannot find one it will raise an exception, otherwise the output of that feature will be used for concatenating the other features along the sequence <code>s</code> dimension. If there are other input features with a rank 3 output tensor, the combiner will concatenate them alongside the <code>s</code> dimension, which means that all of them must have identical <code>s</code> dimension, otherwise an error will be thrown.</li>
@@ -7412,7 +7290,6 @@ Output       |  +-----------------+
 <span class="nt">main_sequence_feature</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
 <span class="nt">reduce_output</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
 </code></pre></div>
-
 
 <h4 id="sequence-combiner">Sequence Combiner<a class="headerlink" href="#sequence-combiner" title="Permanent link">&para;</a></h4>
 <p>The sequence combiner stacks a sequence concat combiner with a sequence encoder one on top of each other.
@@ -7440,7 +7317,6 @@ Output       |  +-----------------+
 +-------+
 </code></pre></div>
 
-
 <p>Example sequence combiner in the configuration:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sequence</span>
 <span class="nt">main_sequence_feature</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
@@ -7448,13 +7324,11 @@ Output       |  +-----------------+
 <span class="nn">...</span> <span class="l l-Scalar l-Scalar-Plain">encoder parameters ...</span>
 </code></pre></div>
 
-
 <h2 id="distributed-training">Distributed Training<a class="headerlink" href="#distributed-training" title="Permanent link">&para;</a></h2>
 <p>You can distribute the training and prediction of your models using <a href="https://github.com/uber/horovod">Horovod</a>, which allows to train on a single machine with multiple GPUs as well as on multiple machines with multiple GPUs.</p>
 <p>In order to use distributed training you have to install Horovod as detailed in <a href="https://github.com/uber/horovod#install">Horovod's installation instructions</a> (which include installing <a href="https://www.open-mpi.org">OpenMPI</a> or other <a href="https://en.wikipedia.org/wiki/Message_Passing_Interface">MPI</a> implementations or <a href="https://github.com/facebookincubator/gloo">Gloo</a>) and then install the two packages:</p>
 <div class="codehilite"><pre><span></span><code>pip install horovod mpi4py
 </code></pre></div>
-
 
 <p>Horovod works by, in practice, increasing the batch size and distributing a part of each batch to a different node and collecting the gradients from all the nodes in a smart and scalable way.
 It also adjusts the learning rate to counter balance the increase in the batch size.
@@ -7466,13 +7340,11 @@ For instance, in order to train a Ludwig model on a local machine with four GPUs
     ludwig train --use_horovod ...other Ludwig parameters...
 </code></pre></div>
 
-
 <p>While for training on four remote machines with four GPUs each you can run:</p>
 <div class="codehilite"><pre><span></span><code>horovodrun -np 16 \
     -H server1:4,server2:4,server3:4,server4:4 \
     ludwig train --use_horovod ...other Ludwig parameters...
 </code></pre></div>
-
 
 <p>The same applies to <code>experiment</code>, <code>predict</code> and <code>test</code>.</p>
 <p>More details on Horovod installation and run parameters can be found in <a href="https://github.com/uber/horovod">Horovod's documentation</a>.</p>
@@ -7510,7 +7382,6 @@ Its configuration contains what metric to optimize, which parameters to optimize
     <span class="c1"># executor parameters...</span>
 </code></pre></div>
 
-
 <p>In the <code>parameters</code> section, <code>.</code> is used to reference an parameter nested inside a section of the configuration.
 For instance, to reference the <code>learning_rate</code>, one would have to use the name <code>training.learning_rate</code>.
 If the parameter to reference is inside an input or output feature, the name of that feature will be be used as starting point.
@@ -7534,7 +7405,6 @@ For instance, for referencing the <code>cell_type</code> of the <code>utterance<
   <span class="nt">scale</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">linear</span>
 </code></pre></div>
 
-
 <h4 id="int-parameters">Int parameters<a class="headerlink" href="#int-parameters" title="Permanent link">&para;</a></h4>
 <p>For an <code>int</code> value, the parameters to specify are:</p>
 <ul>
@@ -7550,7 +7420,6 @@ For instance, for referencing the <code>cell_type</code> of the <code>utterance<
   <span class="nt">high</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">4</span>
 </code></pre></div>
 
-
 <h4 id="category-parameters">Category parameters<a class="headerlink" href="#category-parameters" title="Permanent link">&para;</a></h4>
 <p>For a <code>category</code> value, the parameters to specify are:
 - <code>values</code>: a list of possible values. The type of each value of the list is not important (they could be strings, integers, floats and anything else, even entire dictionaries).</p>
@@ -7559,7 +7428,6 @@ For instance, for referencing the <code>cell_type</code> of the <code>utterance<
   <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">category</span>
   <span class="nt">values</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">rnn</span><span class="p p-Indicator">,</span> <span class="nv">gru</span><span class="p p-Indicator">,</span> <span class="nv">lstm</span><span class="p p-Indicator">]</span>
 </code></pre></div>
-
 
 <h3 id="sampler">Sampler<a class="headerlink" href="#sampler" title="Permanent link">&para;</a></h3>
 <h4 id="grid-sampler">Grid sampler<a class="headerlink" href="#grid-sampler" title="Permanent link">&para;</a></h4>
@@ -7570,7 +7438,6 @@ For <code>float</code> parameters, it is required to specify the number of <code
   <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">grid</span>
 </code></pre></div>
 
-
 <h4 id="random-sampler">Random sampler<a class="headerlink" href="#random-sampler" title="Permanent link">&para;</a></h4>
 <p>The <code>random</code> sampler samples hyper-parameter values randomly from the parameters search space.
 <code>num_samples</code> (default: <code>10</code>) can be specified in the <code>sampler</code> section.</p>
@@ -7579,7 +7446,6 @@ For <code>float</code> parameters, it is required to specify the number of <code
   <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">random</span>
   <span class="nt">num_samples</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
 </code></pre></div>
-
 
 <h4 id="pysot-sampler">PySOT sampler<a class="headerlink" href="#pysot-sampler" title="Permanent link">&para;</a></h4>
 <p>The <code>pysot</code> sampler uses the <a href="https://arxiv.org/pdf/1908.00420.pdf">pySOT</a> package for asynchronous surrogate optimization.
@@ -7595,7 +7461,6 @@ We recommend using at least <code>10 * d</code> total samples to allow the algor
   <span class="nt">num_samples</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
 </code></pre></div>
 
-
 <h3 id="executor">Executor<a class="headerlink" href="#executor" title="Permanent link">&para;</a></h3>
 <h4 id="serial-executor">Serial Executor<a class="headerlink" href="#serial-executor" title="Permanent link">&para;</a></h4>
 <p>The <code>serial</code>executor performs hyper-parameter optimization locally in a serial manner, executing the elements in the set of sampled parameters obtained by the selected sampler one at a time.</p>
@@ -7603,7 +7468,6 @@ We recommend using at least <code>10 * d</code> total samples to allow the algor
 <div class="codehilite"><pre><span></span><code><span class="nt">executor</span><span class="p">:</span>
   <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">serial</span>
 </code></pre></div>
-
 
 <h4 id="parallel-executor">Parallel Executor<a class="headerlink" href="#parallel-executor" title="Permanent link">&para;</a></h4>
 <p>The <code>parallel</code> executor performs hyper-parameter optimization in parallel, executing the elements in the set of sampled parameters obtained by the selected sampler at the same time.
@@ -7619,7 +7483,6 @@ An <code>epsilon</code> (default: <code>0.01</code>) parameter is also provided 
   <span class="nt">epsilon</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.01</span>
 </code></pre></div>
 
-
 <h4 id="fiber-executor">Fiber Executor<a class="headerlink" href="#fiber-executor" title="Permanent link">&para;</a></h4>
 <p><a href="https://github.com/uber/fiber">Fiber</a> is a Python distributed computing library for modern computer clusters.
 The <code>fiber</code> executor performs hyper-parameter optimization in parallel on a computer cluster so that massive parallelism can be achieved.
@@ -7627,7 +7490,6 @@ Check <a href="https://uber.github.io/fiber/platforms/">this</a> for supported c
 <p>Fiber Executor requires <code>fiber</code> to be installed:</p>
 <div class="codehilite"><pre><span></span><code>pip install fiber
 </code></pre></div>
-
 
 <p><strong>Parameters:</strong></p>
 <ul>
@@ -7644,7 +7506,6 @@ Check <a href="https://uber.github.io/fiber/platforms/">this</a> for supported c
   <span class="nt">num_cpus_per_worker</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
   <span class="nt">num_gpus_per_worker</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
 </code></pre></div>
-
 
 <p><strong>Running Fiber Executor:</strong></p>
 <p>Fiber runs on a computer cluster and uses Docker to encapsulate all the code and dependencies.
@@ -7669,7 +7530,6 @@ To run a hyper-parameter search powered by Fiber, you have to create a Docker fi
 
 <span class="k">WORKDIR</span><span class="s"> /data</span>
 </code></pre></div>
-
 
 <p>In this Dockerfile, the data <code>data.csv</code> is embedded in the docker together with <code>hyperopt.yaml</code> that specifies the model and hyper-parameter optimization parameters.
 If your data is too big to be added directly in the docker image, refer to the <a href="https://uber.github.io/fiber/advanced/#working-with-persistent-storage">Fiber's documentation</a> for instructions on how to work with shared persistent storage for Fiber workers.
@@ -7704,7 +7564,6 @@ An example <code>hyperopt.yaml</code> looks like:</p>
       <span class="nt">low</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
       <span class="nt">high</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
 </code></pre></div>
-
 
 <p>Running hyper-parameter optimization with Fiber is a little bit different from other executors because there is docker building and pushing involved, so the <code>fiber run</code> command, which takes care of those aspects, is used to run hyper-parameter optimization on a cluster:</p>
 <p><code>fiber run ludwig hyperopt --dataset train.csv -cf hyperopt.yaml</code></p>
@@ -7772,11 +7631,9 @@ An example <code>hyperopt.yaml</code> looks like:</p>
     <span class="nt">num_workers</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">4</span>
 </code></pre></div>
 
-
 <p>Example CLI command:</p>
 <div class="codehilite"><pre><span></span><code>ludwig hyperopt --dataset reuters-allcats.csv --config &quot;{input_features: [{name: utterance, type: text, encoder: rnn, cell_type: lstm, num_layers: 2}], output_features: [{name: class, type: category}], training: {learning_rate: 0.001}, hyperopt: {goal: maximize, output_feature: class, metric: accuracy, split: validation, parameters: {training.learning_rate: {type: float, low: 0.0001, high: 0.1, steps: 4, scale: log}, utterance.cell_type: {type: category, values: [rnn, gru, lstm]}}, sampler: {type: grid}, executor: {type: serial}}}&quot;
 </code></pre></div>
-
 
 <h2 id="integrations">Integrations<a class="headerlink" href="#integrations" title="Permanent link">&para;</a></h2>
 <p>Ludwig provides an extendable interface to integrate with third-party
@@ -7809,7 +7666,6 @@ Pretrained models can be loaded and can be used to obtain predictions on s new d
 <span class="n">training_statistics</span><span class="p">,</span> <span class="n">preprocessed_data</span><span class="p">,</span> <span class="n">output_directory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">dataframe</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p><code>config</code> is a dictionary that has the same key-value structure of a configuration YAML file, as it's technically equivalent as parsing the YAML file into a Python dictionary.
 Note that all null values should be provided as Python <code>None</code> instead of the YAML <code>null</code>, and the same applies for <code>True/False</code> instead of <code>true/false</code>. 
 <code>train_statistics</code> is a dictionary of training statistics
@@ -7826,7 +7682,6 @@ The contents are exactly the same of the <code>training_statistics.json</code> f
 <span class="n">model</span> <span class="o">=</span> <span class="n">LudwigModel</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_path</span><span class="p">)</span>
 </code></pre></div>
 
-
 <h3 id="predicting">Predicting<a class="headerlink" href="#predicting" title="Permanent link">&para;</a></h3>
 <p>Either a newly trained model or a pre-trained loaded model can be used for predicting on new data using the <code>predict()</code> function of the model object.
 The dataset has to contain columns with the same names of all the input features of the model.</p>
@@ -7835,14 +7690,12 @@ The dataset has to contain columns with the same names of all the input features
 <span class="n">predictions</span><span class="p">,</span> <span class="n">output_directory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">dataframe</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p><code>predictions</code> will be a dataframe containing the prediction and confidence score / probability of all output features.  <code>output_directory</code> filepath to prediction interim files.</p>
 <p>If you want to compute also measures on the quality of the predictions you can run:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">evaluation_statistics</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">output_directory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">dataset_file_path</span><span class="p">)</span>
 <span class="c1">#or</span>
 <span class="n">evaluation_statistics</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">output_directory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">dataframe</span><span class="p">)</span>
 </code></pre></div>
-
 
 <p>In this case the dataset should also contain columns with the same names of all the output features, as their content is going to be used as ground truth to compare the predictions against and compute the measures and <code>evaluation_statistics</code> will be a dictionary containing several measures of quality depending on the type of each output feature (e.g. <code>category</code> features will have an accuracy measure and a confusion matrix, among other measures, associated to them, while <code>numerical</code> features will have measures like mean squared loss and R2 among others).</p>
 <h2 id="visualizations">Visualizations<a class="headerlink" href="#visualizations" title="Permanent link">&para;</a></h2>
@@ -7905,7 +7758,6 @@ optional arguments:
                         the level of logging to use
 </code></pre></div>
 
-
 <p>Some additional information on the parameters:</p>
 <ul>
 <li>The list parameters are considered to be aligned, meaning <code>predictions</code>, <code>probabilities</code>, <code>training_statistics</code>, <code>test_statistics</code> and <code>model_names</code> are indexed altogether, for instance the name of the model producing the second predictions in the list will be the second in the model names.</li>
@@ -7918,7 +7770,6 @@ The experiments themselves are run with the following:</p>
 <div class="codehilite"><pre><span></span><code>ludwig experiment --experiment_name titanic --model_name Model1 --dataset train.csv -cf titanic_model1.yaml
 ludwig experiment --experiment_name titanic --model_name Model2 --dataset train.csv -cf titanic_model2.yaml
 </code></pre></div>
-
 
 <p>For this, you need to download the <a href="https://www.kaggle.com/c/titanic/">Titanic Kaggle competition dataset</a> to get <code>train.csv</code>.
 Note that the images associated with each visualization below are not from the Titanic dataset.
@@ -7956,7 +7807,6 @@ The two models are defined with <code>titanic_model1.yaml</code></p>
         <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">binary</span>
 </code></pre></div>
 
-
 <p>and with <code>titanic_model2.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
@@ -7981,7 +7831,6 @@ The two models are defined with <code>titanic_model1.yaml</code></p>
         <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">binary</span>
 </code></pre></div>
 
-
 <h3 id="learning-curves">Learning Curves<a class="headerlink" href="#learning-curves" title="Permanent link">&para;</a></h3>
 <h4 id="learning_curves">learning_curves<a class="headerlink" href="#learning_curves" title="Permanent link">&para;</a></h4>
 <p>Parameters for this visualization: </p>
@@ -8000,7 +7849,6 @@ The two models are defined with <code>titanic_model1.yaml</code></p>
        results/titanic_Model2_0/training_statistics.json \
   --model_names Model1 Model2
 </code></pre></div>
-
 
 <p><img alt="Learning Curves Loss" src="../images/learning_curves_loss.png" title="Learning Curves Loss" /></p>
 <p><img alt="Learning Curves Accuracy" src="../images/learning_curves_accuracy.png" title="Learning Curves Accuracy" /></p>
@@ -8026,7 +7874,6 @@ The value of <code>top_n_classes</code> limits the heatmap to the <code>n</code>
   --top_n_classes 2 
 </code></pre></div>
 
-
 <p><img alt="Confusion Matrix" src="../images/confusion_matrix.png" title="Confusion Matrix" /></p>
 <p>The second plot produced, is a barplot showing the entropy of each class, ranked from most entropic to least entropic.</p>
 <p><img alt="Confusion Matrix Entropy" src="../images/confusion_matrix_entropy.png" title="Confusion Matrix Entropy" /></p>
@@ -8048,7 +7895,6 @@ The value of <code>top_n_classes</code> limits the heatmap to the <code>n</code>
        results/titanic_Model2_0/test_statistics.json \
   --model_names Model1 Model2 
 </code></pre></div>
-
 
 <p><img alt="Compare Classifiers Performance" src="../images/compare_performance.png" title="Compare Classifiers Performance" /></p>
 <h4 id="compare_classifiers_performance_from_prob">compare_classifiers_performance_from_prob<a class="headerlink" href="#compare_classifiers_performance_from_prob" title="Permanent link">&para;</a></h4>
@@ -8077,7 +7923,6 @@ For each model (in the aligned lists of <code>probabilities</code> and <code>mod
   --model_names Model1 Model2 
 </code></pre></div>
 
-
 <p><img alt="Compare Classifiers Performance from Probabilities" src="../images/compare_classifiers_performance_from_prob.png" title="Compare Classifiers Performance from probabilities" /></p>
 <h4 id="compare_classifiers_performance_from_pred">compare_classifiers_performance_from_pred<a class="headerlink" href="#compare_classifiers_performance_from_pred" title="Permanent link">&para;</a></h4>
 <p>Parameters for this visualization: </p>
@@ -8104,7 +7949,6 @@ For each model (in the aligned lists of <code>predictions</code> and <code>model
         results/titanic_Model2_0/Survived_predictions.csv \
   --model_names Model1 Model2 
 </code></pre></div>
-
 
 <p><img alt="Compare Classifiers Performance from Predictions" src="../images/compare_classifiers_performance_from_pred.png" title="Compare Classifiers Performance from Predictions" /></p>
 <h4 id="compare_classifiers_performance_subset">compare_classifiers_performance_subset<a class="headerlink" href="#compare_classifiers_performance_subset" title="Permanent link">&para;</a></h4>
@@ -8139,7 +7983,6 @@ The way the subset is obtained is using the <code>top_n_classes</code> and <code
   --subset ground_truth 
 </code></pre></div>
 
-
 <p><img alt="Compare Classifiers Performance Subset Ground Truth" src="../images/compare_classifiers_performance_subset_gt.png" title="Compare Classifiers Performance Subset Ground Truth" /></p>
 <p>If the values of <code>subset</code> is <code>predictions</code>, then only datapoints where the the model predicts a class that is within the top <code>n</code> most frequent ones will be considered as test set, and the percentage of datapoints that have been kept from the original set will be displayed for each model.</p>
 <p><img alt="Compare Classifiers Performance Subset Ground Predictions" src="../images/compare_classifiers_performance_subset_pred.png" title="Compare Classifiers Performance Subset Ground Predictions" /></p>
@@ -8169,7 +8012,6 @@ For each model (in the aligned lists of <code>probabilities</code> and <code>mod
   --model_names Model1 Model2 \
   --top_k 5 
 </code></pre></div>
-
 
 <p><img alt="Compare Classifiers Performance Changing K" src="../images/compare_classifiers_performance_changing_k.png" title="Compare Classifiers Performance Changing K" /></p>
 <h4 id="compare_classifiers_multiclass_multimetric">compare_classifiers_multiclass_multimetric<a class="headerlink" href="#compare_classifiers_multiclass_multimetric" title="Permanent link">&para;</a></h4>
@@ -8218,7 +8060,6 @@ This visualization produces a pie chart comparing the predictions of the two mod
           results/titanic_Model2_0/Survived_predictions.csv \
   --model_names Model1 Model2 
 </code></pre></div>
-
 
 <p><img alt="Compare Classifiers Predictions" src="../images/compare_classifiers_predictions.png" title="Compare Classifiers Predictions" /></p>
 <h4 id="compare_classifiers_predictions_distribution">compare_classifiers_predictions_distribution<a class="headerlink" href="#compare_classifiers_predictions_distribution" title="Permanent link">&para;</a></h4>
@@ -8596,8 +8437,8 @@ For <code>float</code> and <code>int</code> parameters, a scatter plot is used, 
       
     </div>
     
-      <script src="../assets/javascripts/vendor.0ac82a11.min.js"></script>
-      <script src="../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../assets/javascripts/vendor.77e55a48.min.js"></script>
+      <script src="../assets/javascripts/bundle.9554a270.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

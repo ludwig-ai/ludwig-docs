@@ -9,14 +9,13 @@
         <meta name="description" content="Deep learning toolbox">
       
       
-      
         <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/developer_guide/">
       
       
         <meta name="author" content="Piero Molino">
       
       <link rel="shortcut icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.0.2">
     
     
       
@@ -24,10 +23,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.19753c6b.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.38780c08.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.196e0c26.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f72e892.min.css">
         
           
           
@@ -80,9 +79,7 @@
       
     </div>
     
-      
-
-<header class="md-header" data-md-component="header">
+      <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
     <a href="https://ludwig-ai.github.io/ludwig-docs/" title="Ludwig" class="md-header-nav__button md-logo" aria-label="Ludwig">
       
@@ -116,7 +113,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
@@ -625,7 +622,8 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
     <label class="md-nav__link" for="nav-6">
       API
       <span class="md-nav__icon md-icon"></span>
@@ -1129,13 +1127,11 @@ For example the <code>StackedRNN</code> encoder takes the following list of argu
 <span class="p">):</span>
 </code></pre></div>
 
-
 <p>Typically all the modules the encoder relies upon are initialized in the encoder's constructor (in the case of the <code>StackedRNN</code> encoder these are <code>EmbedSequence</code> and <code>RecurrentStack</code> modules) so that at the end of the constructor call all the layers are fully described.</p>
 <p>Actual computation of activations takes place inside the <code>call</code> method of the encoder.
 All encoders should have the following signature:</p>
 <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 </code></pre></div>
-
 
 <p><strong>Inputs</strong></p>
 <ul>
@@ -1159,7 +1155,6 @@ All encoders should have the following signature:</p>
     <span class="o">...</span>
 <span class="p">}</span>
 </code></pre></div>
-
 
 <p>All you have to do to make you new encoder available as an option in the model definition is to add it to the appropriate registry.</p>
 <h2 id="adding-a-decoder">Adding a Decoder<a class="headerlink" href="#adding-a-decoder" title="Permanent link">&para;</a></h2>
@@ -1191,7 +1186,6 @@ For example the <code>SequenceGeneratorDecoder</code> decoder takes the followin
 <span class="p">):</span>
 </code></pre></div>
 
-
 <p>Decoders are initialized as class member variables in output feature object constructors and called inside <code>call</code> methods.</p>
 <h3 id="2-add-the-new-decoder-class-to-the-corresponding-decoder-registry">2. Add the new decoder class to the corresponding decoder registry<a class="headerlink" href="#2-add-the-new-decoder-class-to-the-corresponding-decoder-registry" title="Permanent link">&para;</a></h3>
 <p>Mapping between decoder names in the model definition and decoder classes in the codebase is done by encoder registries: for example sequence encoder registry is defined in <code>ludwig/features/sequence_feature.py</code> inside the <code>SequenceOutputFeature</code> as:</p>
@@ -1200,7 +1194,6 @@ For example the <code>SequenceGeneratorDecoder</code> decoder takes the followin
     <span class="s1">&#39;tagger&#39;</span><span class="p">:</span> <span class="n">Tagger</span>
 <span class="p">}</span>
 </code></pre></div>
-
 
 <p>All you have to do to make you new decoder available as an option in the model definition is to add it to the appropriate registry.</p>
 <h2 id="adding-a-new-feature-type">Adding a new Feature Type<a class="headerlink" href="#adding-a-new-feature-type" title="Permanent link">&para;</a></h2>
@@ -1216,7 +1209,6 @@ Input and output feature classes are defined in the same file, for example <code
 <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="n">encoder_obj</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 </code></pre></div>
 
-
 <p><strong>Inputs</strong></p>
 <ul>
 <li><strong>feature</strong>: (dict) contains all feature parameters.</li>
@@ -1225,7 +1217,6 @@ Input and output feature classes are defined in the same file, for example <code
 <h5 id="call"><code>call</code><a class="headerlink" href="#call" title="Permanent link">&para;</a></h5>
 <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 </code></pre></div>
-
 
 <p><strong>Inputs</strong></p>
 <ul>
@@ -1243,7 +1234,6 @@ Input and output feature classes are defined in the same file, for example <code
 <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="n">encoder_obj</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 </code></pre></div>
 
-
 <p><strong>Inputs</strong></p>
 <ul>
 <li><strong>feature</strong> (dict): contains all feature parameters.</li>
@@ -1252,7 +1242,6 @@ Input and output feature classes are defined in the same file, for example <code
 <h5 id="logits"><code>logits</code><a class="headerlink" href="#logits" title="Permanent link">&para;</a></h5>
 <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 </code></pre></div>
-
 
 <p><strong>Inputs</strong></p>
 <ul>
@@ -1265,7 +1254,6 @@ Input and output feature classes are defined in the same file, for example <code
 <h5 id="predictions"><code>predictions</code><a class="headerlink" href="#predictions" title="Permanent link">&para;</a></h5>
 <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 </code></pre></div>
-
 
 <p><strong>Inputs</strong></p>
 <ul>
@@ -1300,7 +1288,6 @@ Classes extending the base class should be defined in the same module.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">goal</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]):</span>
 </code></pre></div>
 
-
 <p>The parameters of the base <code>HyperoptStrategy</code> class constructor are:
 - <code>goal</code> which indicates if to minimize or maximize a metric or a loss of any of the output features on any of the splits which is defined in the <code>hyperopt</code> section
 - <code>parameters</code> which contains all hyper-parameters to optimize with their types and ranges / values.</p>
@@ -1325,11 +1312,9 @@ Classes extending the base class should be defined in the same module.</p>
 <span class="n">sampler</span> <span class="o">=</span> <span class="n">GridSampler</span><span class="p">(</span><span class="n">goal</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
 </code></pre></div>
 
-
 <h5 id="sample"><code>sample</code><a class="headerlink" href="#sample" title="Permanent link">&para;</a></h5>
 <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">sample</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 </code></pre></div>
-
 
 <p><code>sample</code> is a method that yields a new sample according to the sampler.
 It returns a set of parameters names and their values.
@@ -1338,18 +1323,15 @@ If <code>finished()</code> returns <code>True</code>, calling <code>sample</code
 <div class="codehilite"><pre><span></span><code>{&#39;training.learning_rate&#39;: 0.005, &#39;combiner.num_fc_layers&#39;: 2, &#39;utterance.cell_type&#39;: &#39;gru&#39;}
 </code></pre></div>
 
-
 <h5 id="sample_batch"><code>sample_batch</code><a class="headerlink" href="#sample_batch" title="Permanent link">&para;</a></h5>
 <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">sample_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
 </code></pre></div>
-
 
 <p><code>sample_batch</code> method returns a list of sampled parameters of length equal to or less than <code>batch_size</code>.
 If <code>finished()</code> returns <code>True</code>, calling <code>sample_batch</code> would return a <code>IndexError</code>. </p>
 <p>Example returned value:</p>
 <div class="codehilite"><pre><span></span><code>[{&#39;training.learning_rate&#39;: 0.005, &#39;combiner.num_fc_layers&#39;: 2, &#39;utterance.cell_type&#39;: &#39;gru&#39;}, {&#39;training.learning_rate&#39;: 0.015, &#39;combiner.num_fc_layers&#39;: 3, &#39;utterance.cell_type&#39;: &#39;lstm&#39;}]
 </code></pre></div>
-
 
 <h5 id="update"><code>update</code><a class="headerlink" href="#update" title="Permanent link">&para;</a></h5>
 <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">update</span><span class="p">(</span>
@@ -1358,7 +1340,6 @@ If <code>finished()</code> returns <code>True</code>, calling <code>sample_batch
     <span class="n">metric_score</span><span class="p">:</span> <span class="nb">float</span>
 <span class="p">):</span>
 </code></pre></div>
-
 
 <p><code>update</code> updates the sampler with the results of previous computation.
 - <code>sampled_parameters</code> is a dictionary of sampled parameters.
@@ -1375,14 +1356,12 @@ If <code>finished()</code> returns <code>True</code>, calling <code>sample_batch
 <span class="n">sampler</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">sampled_parameters</span><span class="p">,</span> <span class="n">metric_score</span><span class="p">)</span>
 </code></pre></div>
 
-
 <h5 id="update_batch"><code>update_batch</code><a class="headerlink" href="#update_batch" title="Permanent link">&para;</a></h5>
 <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">update_batch</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">parameters_metric_tuples</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="nb">float</span><span class="p">]]</span>
 <span class="p">):</span>
 </code></pre></div>
-
 
 <p><code>update_batch</code> updates the sampler with the results of previous computation in batch.
 - <code>parameters_metric_tuples</code> a list of pairs of sampled parameters and their respective metric value.</p>
@@ -1405,11 +1384,9 @@ If <code>finished()</code> returns <code>True</code>, calling <code>sample_batch
 <span class="n">sampler</span><span class="o">.</span><span class="n">update_batch</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">sampled_parameters</span><span class="p">,</span> <span class="n">metric_scores</span><span class="p">))</span>
 </code></pre></div>
 
-
 <h5 id="finished"><code>finished</code><a class="headerlink" href="#finished" title="Permanent link">&para;</a></h5>
 <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">finished</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 </code></pre></div>
-
 
 <p>The <code>finished</code> method return <code>True</code> when all samples have been sampled, return <code>False</code> otherwise.</p>
 <h4 id="2-add-the-new-sampler-class-to-the-corresponding-sampler-registry">2. Add the new sampler class to the corresponding sampler registry<a class="headerlink" href="#2-add-the-new-sampler-class-to-the-corresponding-sampler-registry" title="Permanent link">&para;</a></h4>
@@ -1422,7 +1399,6 @@ To make a new sampler available, add it to the registry:</p>
     &quot;new_sampler_name&quot;: NewSamplerClass
 }
 </code></pre></div>
-
 
 <h3 id="adding-a-hyperoptexecutor">Adding a HyperoptExecutor<a class="headerlink" href="#adding-a-hyperoptexecutor" title="Permanent link">&para;</a></h3>
 <h4 id="1-add-a-new-executor-class">1. Add a new executor class<a class="headerlink" href="#1-add-a-new-executor-class" title="Permanent link">&para;</a></h4>
@@ -1437,7 +1413,6 @@ Classes extending the base class should be defined in the module.</p>
     <span class="n">split</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span>
 </code></pre></div>
-
 
 <p>The parameters of the base <code>HyperoptExecutor</code> class constructor are
 - <code>hyperopt_sampler</code> is a <code>HyperoptSampler</code> object that will be used to sample hyper-parameters values
@@ -1468,7 +1443,6 @@ Classes extending the base class should be defined in the module.</p>
 <span class="n">grid_sampler</span> <span class="o">=</span> <span class="n">GridSampler</span><span class="p">(</span><span class="n">goal</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
 <span class="n">executor</span> <span class="o">=</span> <span class="n">SerialExecutor</span><span class="p">(</span><span class="n">grid_sampler</span><span class="p">,</span> <span class="n">output_feature</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">split</span><span class="p">)</span>
 </code></pre></div>
-
 
 <h5 id="execute"><code>execute</code><a class="headerlink" href="#execute" title="Permanent link">&para;</a></h5>
 <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">execute</span><span class="p">(</span>
@@ -1504,7 +1478,6 @@ Classes extending the base class should be defined in the module.</p>
 <span class="p">):</span>
 </code></pre></div>
 
-
 <p>The <code>execute</code> method executes the hyper-parameter optimization.
 It can leverage the <code>run_experiment</code> function to obtain training and eval statistics and the <code>self.get_metric_score</code> function to extract the metric score from the eval results according to <code>self.output_feature</code>, <code>self.metric</code> and <code>self.split</code>.</p>
 <h4 id="2-add-the-new-executor-class-to-the-corresponding-executor-registry">2. Add the new executor class to the corresponding executor registry<a class="headerlink" href="#2-add-the-new-executor-class-to-the-corresponding-executor-registry" title="Permanent link">&para;</a></h4>
@@ -1517,7 +1490,6 @@ To make a new executor available, add it to the registry:</p>
     &quot;new_executor_name&quot;: NewExecutorClass
 }
 </code></pre></div>
-
 
 <h2 id="adding-a-new-integration">Adding a new Integration<a class="headerlink" href="#adding-a-new-integration" title="Permanent link">&para;</a></h2>
 <p>Ludwig provides an open-ended method of third-party system
@@ -1581,7 +1553,6 @@ to the command line interface.</p>
         <span class="c1"># See ludwig/collect.py and ludwig/cli.py</span>
 </code></pre></div>
 
-
 <p>If your integration does not handle a particular action, you can simply remove the method, or do nothing (e.g., <code>pass</code>).</p>
 <p>If you would like to add additional actions not already handled by the
 above, add them to the appropriate calling location, add the
@@ -1592,7 +1563,6 @@ documentation. See existing calls as a pattern to follow.</p>
 </ol>
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">.mycontrib</span> <span class="kn">import</span> <span class="n">MyContribution</span>
 </code></pre></div>
-
 
 <ol>
 <li>In the file <code>ludwig/contribs/__init__.py</code> in the <code>contrib_registry["classes"]</code> dictionary, add a key/value pair where the key is your flag, and the value is your class name, like:</li>
@@ -1605,7 +1575,6 @@ documentation. See existing calls as a pattern to follow.</p>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 
 <ol>
 <li>Submit your contribution as a pull request to the Ludwig github repository.</li>
@@ -1628,7 +1597,6 @@ code change will take effect immediately.</p>
 <p>To run a single test, run</p>
 <div class="codehilite"><pre><span></span><code>python -m pytest path_to_filename -k &quot;test_method_name&quot;
 </code></pre></div>
-
 
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code>python -m pytest tests/integration_tests/test_experiment.py -k &quot;test_visual_question_answering&quot;
@@ -1722,8 +1690,8 @@ code change will take effect immediately.</p>
       
     </div>
     
-      <script src="../assets/javascripts/vendor.0ac82a11.min.js"></script>
-      <script src="../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../assets/javascripts/vendor.77e55a48.min.js"></script>
+      <script src="../assets/javascripts/bundle.9554a270.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

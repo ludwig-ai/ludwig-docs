@@ -9,14 +9,13 @@
         <meta name="description" content="Deep learning toolbox">
       
       
-      
         <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/examples/">
       
       
         <meta name="author" content="Piero Molino">
       
       <link rel="shortcut icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.0.2">
     
     
       
@@ -24,10 +23,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.19753c6b.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.38780c08.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.196e0c26.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f72e892.min.css">
         
           
           
@@ -80,9 +79,7 @@
       
     </div>
     
-      
-
-<header class="md-header" data-md-component="header">
+      <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
     <a href="https://ludwig-ai.github.io/ludwig-docs/" title="Ludwig" class="md-header-nav__button md-logo" aria-label="Ludwig">
       
@@ -116,7 +113,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
@@ -488,7 +485,8 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
     <label class="md-nav__link" for="nav-6">
       API
       <span class="md-nav__icon md-icon"></span>
@@ -828,7 +826,6 @@ Other datasets available on the same webpage, like <a href="http://boston.lti.cs
   --config_file config.yaml
 </code></pre></div>
 
-
 <p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
@@ -842,7 +839,6 @@ Other datasets available on the same webpage, like <a href="http://boston.lti.cs
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">class</span>
         <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">category</span>
 </code></pre></div>
-
 
 <h2 id="named-entity-recognition-tagging">Named Entity Recognition Tagging<a class="headerlink" href="#named-entity-recognition-tagging" title="Permanent link">&para;</a></h2>
 <table>
@@ -872,7 +868,6 @@ Other datasets available on the same webpage, like <a href="http://boston.lti.cs
   --config_file config.yaml
 </code></pre></div>
 
-
 <p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
@@ -891,7 +886,6 @@ Other datasets available on the same webpage, like <a href="http://boston.lti.cs
         <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sequence</span>
         <span class="nt">decoder</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tagger</span>
 </code></pre></div>
-
 
 <h2 id="natural-language-understanding">Natural Language Understanding<a class="headerlink" href="#natural-language-understanding" title="Permanent link">&para;</a></h2>
 <table>
@@ -925,7 +919,6 @@ Other datasets available on the same webpage, like <a href="http://boston.lti.cs
   --config_file config.yaml
 </code></pre></div>
 
-
 <p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
@@ -952,7 +945,6 @@ Other datasets available on the same webpage, like <a href="http://boston.lti.cs
         <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sequence</span>
         <span class="nt">decoder</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tagger</span>
 </code></pre></div>
-
 
 <h2 id="machine-translation">Machine Translation<a class="headerlink" href="#machine-translation" title="Permanent link">&para;</a></h2>
 <table>
@@ -981,7 +973,6 @@ Other datasets available on the same webpage, like <a href="http://boston.lti.cs
   --dataset translation.csv \
   --config_file config.yaml
 </code></pre></div>
-
 
 <p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
@@ -1012,7 +1003,6 @@ Other datasets available on the same webpage, like <a href="http://boston.lti.cs
     <span class="nt">batch_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">96</span>
 </code></pre></div>
 
-
 <h2 id="chit-chat-dialogue-modeling-through-sequence2sequence">Chit-Chat Dialogue Modeling through Sequence2Sequence<a class="headerlink" href="#chit-chat-dialogue-modeling-through-sequence2sequence" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -1041,7 +1031,6 @@ Other datasets available on the same webpage, like <a href="http://boston.lti.cs
   --config_file config.yaml
 </code></pre></div>
 
-
 <p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
@@ -1066,7 +1055,6 @@ Other datasets available on the same webpage, like <a href="http://boston.lti.cs
 <span class="nt">training</span><span class="p">:</span>
     <span class="nt">batch_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">96</span>
 </code></pre></div>
-
 
 <h2 id="sentiment-analysis">Sentiment Analysis<a class="headerlink" href="#sentiment-analysis" title="Permanent link">&para;</a></h2>
 <table>
@@ -1096,7 +1084,6 @@ Other datasets available on the same webpage, like <a href="http://boston.lti.cs
   --config_file config.yaml
 </code></pre></div>
 
-
 <p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
@@ -1110,7 +1097,6 @@ Other datasets available on the same webpage, like <a href="http://boston.lti.cs
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sentiment</span>
         <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">category</span>
 </code></pre></div>
-
 
 <h2 id="image-classification">Image Classification<a class="headerlink" href="#image-classification" title="Permanent link">&para;</a></h2>
 <table>
@@ -1140,7 +1126,6 @@ Other datasets available on the same webpage, like <a href="http://boston.lti.cs
   --config_file config.yaml
 </code></pre></div>
 
-
 <p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
@@ -1154,7 +1139,6 @@ Other datasets available on the same webpage, like <a href="http://boston.lti.cs
         <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">category</span>
 </code></pre></div>
 
-
 <h2 id="image-classification-mnist">Image Classification (MNIST)<a class="headerlink" href="#image-classification-mnist" title="Permanent link">&para;</a></h2>
 <p>This is a complete example of training an image classification model on the MNIST
 dataset.</p>
@@ -1164,7 +1148,6 @@ cd mnist_png/
 tar -xf mnist_png.tar.gz
 cd mnist_png/
 </code></pre></div>
-
 
 <h3 id="create-train-and-test-csvs">Create train and test CSVs<a class="headerlink" href="#create-train-and-test-csvs" title="Permanent link">&para;</a></h3>
 <p>Open python shell in the same directory and run this:</p>
@@ -1179,7 +1162,6 @@ for name in [&#39;training&#39;, &#39;testing&#39;]:
                 if file.endswith(&quot;.png&quot;):
                     output_file.write(&#39;{},{}\n&#39;.format(os.path.join(path, file), str(i)))
 </code></pre></div>
-
 
 <p>Now you should have <code>mnist_dataset_training.csv</code> and <code>mnist_dataset_testing.csv</code>
 containing 60000 and 10000 examples correspondingly and having the following format</p>
@@ -1213,7 +1195,6 @@ containing 60000 and 10000 examples correspondingly and having the following for
   --config_file config.yaml
 </code></pre></div>
 
-
 <p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
@@ -1246,7 +1227,6 @@ containing 60000 and 10000 examples correspondingly and having the following for
     <span class="nt">early_stop</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5</span>
 </code></pre></div>
 
-
 <h2 id="image-captioning">Image Captioning<a class="headerlink" href="#image-captioning" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -1275,7 +1255,6 @@ containing 60000 and 10000 examples correspondingly and having the following for
   --config_file config.yaml
 </code></pre></div>
 
-
 <p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
@@ -1291,7 +1270,6 @@ containing 60000 and 10000 examples correspondingly and having the following for
         <span class="nt">decoder</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">generator</span>
         <span class="nt">cell_type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lstm</span>
 </code></pre></div>
-
 
 <h2 id="one-shot-learning-with-siamese-networks">One-shot Learning with Siamese Networks<a class="headerlink" href="#one-shot-learning-with-siamese-networks" title="Permanent link">&para;</a></h2>
 <p>This example can be considered a simple baseline for one-shot learning on the <a href="https://github.com/brendenlake/omniglot">Omniglot</a> dataset.
@@ -1332,7 +1310,6 @@ The task is, given two images of two handwritten characters, recognize if they a
   --config_file config.yaml
 </code></pre></div>
 
-
 <p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
@@ -1363,7 +1340,6 @@ The task is, given two images of two handwritten characters, recognize if they a
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">similarity</span>
         <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">binary</span>
 </code></pre></div>
-
 
 <h2 id="visual-question-answering">Visual Question Answering<a class="headerlink" href="#visual-question-answering" title="Permanent link">&para;</a></h2>
 <table>
@@ -1397,7 +1373,6 @@ The task is, given two images of two handwritten characters, recognize if they a
   --config_file config.yaml
 </code></pre></div>
 
-
 <p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
@@ -1421,7 +1396,6 @@ The task is, given two images of two handwritten characters, recognize if they a
             <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sampled_softmax_cross_entropy</span>
 </code></pre></div>
 
-
 <h2 id="spoken-digit-speech-recognition">Spoken Digit Speech Recognition<a class="headerlink" href="#spoken-digit-speech-recognition" title="Permanent link">&para;</a></h2>
 <p>This is a complete example of training an spoken digit speech recognition model on the "MNIST dataset of speech recognition". </p>
 <h3 id="download-the-free-spoken-digit-dataset">Download the free spoken digit dataset<a class="headerlink" href="#download-the-free-spoken-digit-dataset" title="Permanent link">&para;</a></h3>
@@ -1430,7 +1404,6 @@ mkdir speech_recog_digit_data
 cp -r free-spoken-digit-dataset/recordings speech_recog_digit_data
 cd speech_recog_digit_data
 </code></pre></div>
-
 
 <h3 id="create-an-csv-dataset">Create an CSV dataset<a class="headerlink" href="#create-an-csv-dataset" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code>echo &quot;audio_path&quot;,&quot;label&quot; &gt;&gt; &quot;spoken_digit.csv&quot;
@@ -1442,7 +1415,6 @@ ls | while read -r file_name; do
 done
 cd &quot;../&quot;
 </code></pre></div>
-
 
 <p>Now you should have <code>spoken_digit.csv</code> containing 2000 examples having the following format</p>
 <table>
@@ -1481,7 +1453,6 @@ cd &quot;../&quot;
   --dataset &lt;PATH_TO_SPOKEN_DIGIT_CSV&gt; \
   --config_file config_file.yaml
 </code></pre></div>
-
 
 <p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
@@ -1525,7 +1496,6 @@ cd &quot;../&quot;
     <span class="nt">early_stop</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
 </code></pre></div>
 
-
 <h2 id="speaker-verification">Speaker Verification<a class="headerlink" href="#speaker-verification" title="Permanent link">&para;</a></h2>
 <p>This example describes how to use Ludwig for a simple speaker verification task.
 We assume to have the following data with label 0 corresponding to an audio file of an unauthorized voice and
@@ -1562,7 +1532,6 @@ The sample data looks as follows:</p>
   --config_file config.yaml
 </code></pre></div>
 
-
 <p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
@@ -1581,7 +1550,6 @@ The sample data looks as follows:</p>
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">label</span>
         <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">binary</span>
 </code></pre></div>
-
 
 <h2 id="kaggles-titanic-predicting-survivors">Kaggle's Titanic: Predicting survivors<a class="headerlink" href="#kaggles-titanic-predicting-survivors" title="Permanent link">&para;</a></h2>
 <p>This example describes how to use Ludwig to train a model for the
@@ -1650,7 +1618,6 @@ Here's a sample of the data:</p>
   --config_file config.yaml
 </code></pre></div>
 
-
 <p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
@@ -1684,7 +1651,6 @@ Here's a sample of the data:</p>
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Survived</span>
         <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">binary</span>
 </code></pre></div>
-
 
 <p>Better results can be obtained with morerefined feature transformations and preprocessing, but this example has the only aim to show how this type do tasks and data can be used in Ludwig.</p>
 <h2 id="time-series-forecasting">Time series forecasting<a class="headerlink" href="#time-series-forecasting" title="Permanent link">&para;</a></h2>
@@ -1732,7 +1698,6 @@ Here's a sample of the data:</p>
   --config_file config.yaml
 </code></pre></div>
 
-
 <p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
@@ -1756,7 +1721,6 @@ Here's a sample of the data:</p>
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">y5</span>
         <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">numerical</span>
 </code></pre></div>
-
 
 <h2 id="time-series-forecasting-weather-data-example">Time series forecasting (weather data example)<a class="headerlink" href="#time-series-forecasting-weather-data-example" title="Permanent link">&para;</a></h2>
 <p>This example illustrates univariate timeseries forecasting using historical temperature data for Los Angeles.</p>
@@ -1800,12 +1764,10 @@ add_sequence_feature_column(df, &#39;temperature&#39;, 20)
 df.to_csv(&#39;&lt;PATH_TO_FILE&gt;/temperature_la.csv&#39;)
 </code></pre></div>
 
-
 <div class="codehilite"><pre><span></span><code>ludwig experiment \
 --dataset &lt;PATH_TO_FILE&gt;/temperature_la.csv \
   --config_file config.yaml
 </code></pre></div>
-
 
 <p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
@@ -1821,7 +1783,6 @@ df.to_csv(&#39;&lt;PATH_TO_FILE&gt;/temperature_la.csv&#39;)
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">temperature</span>
         <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">numerical</span>
 </code></pre></div>
-
 
 <h2 id="movie-rating-prediction">Movie rating prediction<a class="headerlink" href="#movie-rating-prediction" title="Permanent link">&para;</a></h2>
 <table>
@@ -1863,7 +1824,6 @@ df.to_csv(&#39;&lt;PATH_TO_FILE&gt;/temperature_la.csv&#39;)
   --config_file config.yaml
 </code></pre></div>
 
-
 <p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
@@ -1884,7 +1844,6 @@ df.to_csv(&#39;&lt;PATH_TO_FILE&gt;/temperature_la.csv&#39;)
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rating</span>
         <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">numerical</span>
 </code></pre></div>
-
 
 <h2 id="multi-label-classification">Multi-label classification<a class="headerlink" href="#multi-label-classification" title="Permanent link">&para;</a></h2>
 <table>
@@ -1914,7 +1873,6 @@ df.to_csv(&#39;&lt;PATH_TO_FILE&gt;/temperature_la.csv&#39;)
   --config_file config.yaml
 </code></pre></div>
 
-
 <p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
@@ -1927,7 +1885,6 @@ df.to_csv(&#39;&lt;PATH_TO_FILE&gt;/temperature_la.csv&#39;)
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tags</span>
         <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">set</span>
 </code></pre></div>
-
 
 <h2 id="multi-task-learning">Multi-Task Learning<a class="headerlink" href="#multi-task-learning" title="Permanent link">&para;</a></h2>
 <p>This example is inspired by the classic paper <a href="https://arxiv.org/abs/1103.0398">Natural Language Processing (Almost) from Scratch</a> by Collobert et al..</p>
@@ -1966,7 +1923,6 @@ df.to_csv(&#39;&lt;PATH_TO_FILE&gt;/temperature_la.csv&#39;)
   --config_file config.yaml
 </code></pre></div>
 
-
 <p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
@@ -1991,7 +1947,6 @@ df.to_csv(&#39;&lt;PATH_TO_FILE&gt;/temperature_la.csv&#39;)
         <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sequence</span>
         <span class="nt">decoder</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tagger</span>
 </code></pre></div>
-
 
 <h2 id="simple-regression-fuel-efficiency-prediction">Simple Regression: Fuel Efficiency Prediction<a class="headerlink" href="#simple-regression-fuel-efficiency-prediction" title="Permanent link">&para;</a></h2>
 <p>This example replicates the Keras example at https://www.tensorflow.org/tutorials/keras/basic_regression to predict the miles per gallon of a car given its characteristics in the <a href="https://archive.ics.uci.edu/ml/datasets/auto+mpg">Auto MPG</a> dataset.</p>
@@ -2056,7 +2011,6 @@ df.to_csv(&#39;&lt;PATH_TO_FILE&gt;/temperature_la.csv&#39;)
   --config_file config.yaml
 </code></pre></div>
 
-
 <p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">training</span><span class="p">:</span>
     <span class="nt">batch_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">32</span>
@@ -2096,7 +2050,6 @@ df.to_csv(&#39;&lt;PATH_TO_FILE&gt;/temperature_la.csv&#39;)
         <span class="nt">num_fc_layers</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
         <span class="nt">fc_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">64</span>
 </code></pre></div>
-
 
 <h2 id="binary-classification-fraud-transactions-identification">Binary Classification: Fraud Transactions Identification<a class="headerlink" href="#binary-classification-fraud-transactions-identification" title="Permanent link">&para;</a></h2>
 <table>
@@ -2173,7 +2126,6 @@ df.to_csv(&#39;&lt;PATH_TO_FILE&gt;/temperature_la.csv&#39;)
 --dataset transactions.csv \
   --config_file config.yaml
 </code></pre></div>
-
 
 <p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
@@ -2304,8 +2256,8 @@ df.to_csv(&#39;&lt;PATH_TO_FILE&gt;/temperature_la.csv&#39;)
       
     </div>
     
-      <script src="../assets/javascripts/vendor.0ac82a11.min.js"></script>
-      <script src="../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../assets/javascripts/vendor.77e55a48.min.js"></script>
+      <script src="../assets/javascripts/bundle.9554a270.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

@@ -9,14 +9,13 @@
         <meta name="description" content="Deep learning toolbox">
       
       
-      
         <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/getting_started/">
       
       
         <meta name="author" content="Piero Molino">
       
       <link rel="shortcut icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.0.2">
     
     
       
@@ -24,10 +23,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.19753c6b.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.38780c08.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.196e0c26.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f72e892.min.css">
         
           
           
@@ -80,9 +79,7 @@
       
     </div>
     
-      
-
-<header class="md-header" data-md-component="header">
+      <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
     <a href="https://ludwig-ai.github.io/ludwig-docs/" title="Ludwig" class="md-header-nav__button md-logo" aria-label="Ludwig">
       
@@ -116,7 +113,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
@@ -349,7 +346,8 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
     <label class="md-nav__link" for="nav-6">
       API
       <span class="md-nav__icon md-icon"></span>
@@ -542,16 +540,13 @@ If you don’t have Python 3 installed, install it by running:</p>
 brew install python3      # on mac
 </code></pre></div>
 
-
 <p>You may want to use a virtual environment to maintain an isolated <a href="https://docs.python-guide.org/dev/virtualenvs/">Python environment</a>.</p>
 <div class="codehilite"><pre><span></span><code>virtualenv -p python3 venv
 </code></pre></div>
 
-
 <p>In order to install Ludwig just run:</p>
 <div class="codehilite"><pre><span></span><code>pip install ludwig
 </code></pre></div>
-
 
 <p>This will install only Ludwig's basic requirements, different feature types require different dependencies.
 We divided them as different extras so that users could install only the ones they actually need:
@@ -574,7 +569,6 @@ virtualenv -p python3 venv
 source venv/bin/activate
 pip install -e &#39;.[test]&#39;
 </code></pre></div>
-
 
 <p><strong>Note:</strong> that if you are running without GPUs, you may wish to use the CPU-only version of TensorFlow, 
 which takes up much less space on disk.
@@ -649,11 +643,9 @@ You can use the following model definition:</p>
 <div class="codehilite"><pre><span></span><code><span class="p p-Indicator">{</span><span class="nt">input_features</span><span class="p">:</span> <span class="p p-Indicator">[{</span><span class="nt">name</span><span class="p">:</span> <span class="nv">doc_text</span><span class="p p-Indicator">,</span><span class="nt"> type</span><span class="p">:</span> <span class="nv">text</span><span class="p p-Indicator">}],</span><span class="nt"> output_features</span><span class="p">:</span> <span class="p p-Indicator">[{</span><span class="nt">name</span><span class="p">:</span> <span class="nv">class</span><span class="p p-Indicator">,</span><span class="nt"> type</span><span class="p">:</span> <span class="nv">category</span><span class="p p-Indicator">}]}</span>
 </code></pre></div>
 
-
 <p>and start the training typing the following command in your console:</p>
 <div class="codehilite"><pre><span></span><code>ludwig train --dataset path/to/file.csv --config &quot;{input_features: [{name: doc_text, type: text}], output_features: [{name: class, type: category}]}&quot;
 </code></pre></div>
-
 
 <p>where <code>path/to/file.csv</code> is the path to a UTF-8 encoded CSV file containing the dataset in the previous table (many other data formats are supported).
 Ludwig will:</p>
@@ -668,13 +660,11 @@ Ludwig will:</p>
 <div class="codehilite"><pre><span></span><code><span class="p p-Indicator">{</span><span class="nt">input_features</span><span class="p">:</span> <span class="p p-Indicator">[{</span><span class="nt">name</span><span class="p">:</span> <span class="nv">doc_text</span><span class="p p-Indicator">,</span><span class="nt"> type</span><span class="p">:</span> <span class="nv">text</span><span class="p p-Indicator">,</span><span class="nt"> encoder</span><span class="p">:</span> <span class="nv">rnn</span><span class="p p-Indicator">}],</span><span class="nt"> output_features</span><span class="p">:</span> <span class="p p-Indicator">[{</span><span class="nt">name</span><span class="p">:</span> <span class="nv">class</span><span class="p p-Indicator">,</span><span class="nt"> type</span><span class="p">:</span> <span class="nv">category</span><span class="p p-Indicator">}],</span><span class="nt"> training</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt">epochs</span><span class="p">:</span> <span class="nv">50</span><span class="p p-Indicator">}}</span>
 </code></pre></div>
 
-
 <p>Refer to the <a href="../user_guide/">User Guide</a> to find out all the options available to you in the model definition and take a look at the <a href="../examples/">Examples</a> to see how you can use Ludwig for several different tasks.</p>
 <p>After training, Ludwig will create a <code>results</code> directory containing the trained model with its hyperparameters and summary statistics of the training process.
 You can visualize them using one of the several visualization options available in the <code>visualize</code> tool, for instance:</p>
 <div class="codehilite"><pre><span></span><code>ludwig visualize --visualization learning_curves --training_statistics path/to/training_statistics.json
 </code></pre></div>
-
 
 <p>This command will display a graph like the following, where you can see loss and accuracy during the training process:</p>
 <p><img alt="Learning Curves" src="../images/getting_started_learning_curves.png" title="Learning Curves" /></p>
@@ -687,17 +677,14 @@ Refer to the <a href="../user_guide/#distributed-training">User Guide</a> for fu
 <div class="codehilite"><pre><span></span><code>ludwig predict --dataset path/to/data.csv --model_path /path/to/model
 </code></pre></div>
 
-
 <p>Running this command will return model predictions.</p>
 <p>If your dataset also contains ground truth values of the target outputs, you can compare them to the predictions obtained from the model to evaluate the model performance.</p>
 <div class="codehilite"><pre><span></span><code>ludwig evaluate --dataset path/to/data.csv --model_path /path/to/model
 </code></pre></div>
 
-
 <p>This will produce evaluation performance statistics that can be visualized by the <code>visualize</code> tool, which can also be used to compare performances and predictions of different models, for instance:</p>
 <div class="codehilite"><pre><span></span><code>ludwig visualize --visualization compare_performance --test_statistics path/to/test_statistics_model_1.json path/to/test_statistics_model_2.json
 </code></pre></div>
-
 
 <p>will return a bar plot comparing the models on different metrics:</p>
 <p><img alt="Performance Comparison" src="../images/compare_performance.png" title="Performance Comparison" /></p>
@@ -717,7 +704,6 @@ Refer to the <a href="../user_guide/#distributed-training">User Guide</a> for fu
 <span class="c1"># obtain predictions</span>
 <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
 </code></pre></div>
-
 
 <p><code>config</code> containing the same information of the YAML file provided to the command line interface.
 More details are provided in the <a href="../user_guide/">User Guide</a> and in the <a href="../api/">API documentation</a>.</p>
@@ -816,8 +802,8 @@ Refer to the <a href="../developer_guide/">Developer Guide</a> for further detai
       
     </div>
     
-      <script src="../assets/javascripts/vendor.0ac82a11.min.js"></script>
-      <script src="../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../assets/javascripts/vendor.77e55a48.min.js"></script>
+      <script src="../assets/javascripts/bundle.9554a270.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

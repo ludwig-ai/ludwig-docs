@@ -9,13 +9,14 @@
         <meta name="description" content="Deep learning toolbox">
       
       
+      
         <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/api/visualization/">
       
       
         <meta name="author" content="Piero Molino">
       
       <link rel="shortcut icon" href="../../favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.0.2">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
     
     
       
@@ -23,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.38780c08.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.19753c6b.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f72e892.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.196e0c26.min.css">
         
           
           
@@ -79,7 +80,9 @@
       
     </div>
     
-      <header class="md-header" data-md-component="header">
+      
+
+<header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
     <a href="https://ludwig-ai.github.io/ludwig-docs/" title="Ludwig" class="md-header-nav__button md-logo" aria-label="Ludwig">
       
@@ -113,7 +116,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
@@ -259,8 +262,7 @@
 
   <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
-    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
     <label class="md-nav__link" for="nav-6">
       API
       <span class="md-nav__icon md-icon"></span>
@@ -799,8 +801,10 @@ plots. If not specified, plots will be displayed in a window</li>
 <div class="codehilite"><pre><span></span><code><span class="n">ludwig</span><span class="o">.</span><span class="n">visualize</span><span class="o">.</span><span class="n">compare_classifiers_performance_from_prob</span><span class="p">(</span>
   <span class="n">probabilities_per_model</span><span class="p">,</span>
   <span class="n">ground_truth</span><span class="p">,</span>
-  <span class="n">top_n_classes</span><span class="p">,</span>
-  <span class="n">labels_limit</span><span class="p">,</span>
+  <span class="n">metadata</span><span class="p">,</span>
+  <span class="n">output_feature_name</span><span class="p">,</span>
+  <span class="n">labels_limit</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+  <span class="n">top_n_classes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
   <span class="n">model_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
   <span class="n">output_directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
   <span class="n">file_format</span><span class="o">=</span><span class="s1">&#39;pdf&#39;</span>
@@ -814,10 +818,11 @@ computed on the fly from the probabilities of predictions for the specified
 <code>model_names</code>.</p>
 <p><strong>Inputs</strong></p>
 <ul>
-<li><strong>probabilities_per_model</strong> (List[numpy.array]): list of model
-probabilities.</li>
-<li><strong>ground_truth</strong> (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.</li>
+<li><strong>probabilities_per_model</strong> (List[np.ndarray]): path to experiment
+probabilities file</li>
+<li><strong>ground_truth</strong> (pd.Series): ground truth values</li>
+<li><strong>metadata</strong> (dict): feature metadata dictionary</li>
+<li><strong>output_feature_name</strong> (str): output feature name</li>
 <li><strong>top_n_classes</strong> (List[int]): list containing the number of classes
 to plot.</li>
 <li><strong>labels_limit</strong> (int): upper limit on the numeric encoded label value.
@@ -855,14 +860,10 @@ computed on the fly from the predictions for the specified
 <code>model_names</code>.</p>
 <p><strong>Inputs</strong></p>
 <ul>
-<li><strong>predictions_per_model</strong> (List[list]): list containing the model
-predictions for the specified output_feature_name.</li>
-<li><strong>ground_truth</strong> (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.</li>
-<li><strong>metadata</strong> (dict): intermediate preprocess structure created during
-training containing the mappings of the input dataset.</li>
-<li><strong>output_feature_name</strong> (str): name of the output feature to use
-for the visualization.</li>
+<li><strong>predictions_per_model</strong> (List[str]): path to experiment predictions file.</li>
+<li><strong>ground_truth</strong> (pd.Series): ground truth values</li>
+<li><strong>metadata</strong> (dict): feature metadata dictionary.</li>
+<li><strong>output_feature_name</strong> (str): name of the output feature to visualize.</li>
 <li><strong>labels_limit</strong> (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
 <code>label_limit</code> are considered to be "rare" labels.</li>
@@ -882,6 +883,8 @@ plots. If not specified, plots will be displayed in a window</li>
 <div class="codehilite"><pre><span></span><code><span class="n">ludwig</span><span class="o">.</span><span class="n">visualize</span><span class="o">.</span><span class="n">compare_classifiers_performance_subset</span><span class="p">(</span>
   <span class="n">probabilities_per_model</span><span class="p">,</span>
   <span class="n">ground_truth</span><span class="p">,</span>
+  <span class="n">metadata</span><span class="p">,</span>
+  <span class="n">output_feature_name</span><span class="p">,</span>
   <span class="n">top_n_classes</span><span class="p">,</span>
   <span class="n">labels_limit</span><span class="p">,</span>
   <span class="n">subset</span><span class="p">,</span>
@@ -902,8 +905,9 @@ The way the subset is obtained is using the <code>top_n_classes</code> and
 <ul>
 <li><strong>probabilities_per_model</strong> (List[numpy.array]): list of model
    probabilities.</li>
-<li><strong>ground_truth</strong> (numpy.array): numpy.array containing ground truth data,
-   which are the numeric encoded values the category.</li>
+<li><strong>ground_truth</strong> (Union[pd.Series, np.ndarray]): ground truth values</li>
+<li><strong>metadata</strong> (dict): feature metadata dictionary</li>
+<li><strong>output_feature_name</strong> (str): output feature name</li>
 <li><strong>top_n_classes</strong> (List[int]): list containing the number of classes
    to plot.</li>
 <li><strong>labels_limit</strong> (int): upper limit on the numeric encoded label value.
@@ -927,6 +931,8 @@ The way the subset is obtained is using the <code>top_n_classes</code> and
 <div class="codehilite"><pre><span></span><code><span class="n">ludwig</span><span class="o">.</span><span class="n">visualize</span><span class="o">.</span><span class="n">compare_classifiers_performance_changing_k</span><span class="p">(</span>
   <span class="n">probabilities_per_model</span><span class="p">,</span>
   <span class="n">ground_truth</span><span class="p">,</span>
+  <span class="n">metadata</span><span class="p">,</span>
+  <span class="n">output_feature_name</span><span class="p">,</span>
   <span class="n">top_k</span><span class="p">,</span>
   <span class="n">labels_limit</span><span class="p">,</span>
   <span class="n">model_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -945,8 +951,9 @@ first k) while changing k from 1 to top_k for the specified
 <ul>
 <li><strong>probabilities_per_model</strong> (List[numpy.array]): list of model
 probabilities.</li>
-<li><strong>ground_truth</strong> (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.</li>
+<li><strong>ground_truth</strong> (Union[pd.Series, np.ndarray]): ground truth values</li>
+<li><strong>metadata</strong> (dict): feature metadata dictionary</li>
+<li><strong>output_feature_name</strong> (str): output feature name</li>
 <li><strong>top_k</strong> (int): number of elements in the ranklist to consider.</li>
 <li><strong>labels_limit</strong> (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
@@ -1005,6 +1012,8 @@ plots. If not specified, plots will be displayed in a window</li>
 <div class="codehilite"><pre><span></span><code><span class="n">ludwig</span><span class="o">.</span><span class="n">visualize</span><span class="o">.</span><span class="n">compare_classifiers_predictions</span><span class="p">(</span>
   <span class="n">predictions_per_model</span><span class="p">,</span>
   <span class="n">ground_truth</span><span class="p">,</span>
+  <span class="n">metadata</span><span class="p">,</span>
+  <span class="n">output_feature_name</span><span class="p">,</span>
   <span class="n">labels_limit</span><span class="p">,</span>
   <span class="n">model_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
   <span class="n">output_directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1018,8 +1027,9 @@ plots. If not specified, plots will be displayed in a window</li>
 <ul>
 <li><strong>predictions_per_model</strong> (List[list]): list containing the model
 predictions for the specified output_feature_name.</li>
-<li><strong>ground_truth</strong> (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.</li>
+<li><strong>ground_truth</strong> (Union[pd.Series, np.ndarray]): ground truth values</li>
+<li><strong>metadata</strong> (dict): feature metadata dictionary</li>
+<li><strong>output_feature_name</strong> (str): output feature name</li>
 <li><strong>labels_limit</strong> (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
 <code>label_limit</code> are considered to be "rare" labels.</li>
@@ -1039,6 +1049,7 @@ plots. If not specified, plots will be displayed in a window</li>
 <div class="codehilite"><pre><span></span><code><span class="n">ludwig</span><span class="o">.</span><span class="n">visualize</span><span class="o">.</span><span class="n">confidence_thresholding_2thresholds_2d</span><span class="p">(</span>
   <span class="n">probabilities_per_model</span><span class="p">,</span>
   <span class="n">ground_truths</span><span class="p">,</span>
+  <span class="n">metadata</span><span class="p">,</span>
   <span class="n">threshold_output_feature_names</span><span class="p">,</span>
   <span class="n">labels_limit</span><span class="p">,</span>
   <span class="n">model_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1060,8 +1071,9 @@ coverage  surface projected onto the accuracy surface.</p>
 <ul>
 <li><strong>probabilities_per_model</strong> (List[numpy.array]): list of model
 probabilities.</li>
-<li><strong>ground_truth</strong> (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.</li>
+<li><strong>ground_truth</strong> (Union[List[np.array], List[pd.Series]]): containing
+ground truth data</li>
+<li><strong>metadata</strong> (dict): feature metadata dictionary</li>
 <li><strong>threshold_output_feature_names</strong> (List[str]): List containing two output
 feature names for visualization.</li>
 <li><strong>labels_limit</strong> (int): upper limit on the numeric encoded label value.
@@ -1083,6 +1095,7 @@ plots. If not specified, plots will be displayed in a window</li>
 <div class="codehilite"><pre><span></span><code><span class="n">ludwig</span><span class="o">.</span><span class="n">visualize</span><span class="o">.</span><span class="n">confidence_thresholding_2thresholds_3d</span><span class="p">(</span>
   <span class="n">probabilities_per_model</span><span class="p">,</span>
   <span class="n">ground_truths</span><span class="p">,</span>
+  <span class="n">metadata</span><span class="p">,</span>
   <span class="n">threshold_output_feature_names</span><span class="p">,</span>
   <span class="n">labels_limit</span><span class="p">,</span>
   <span class="n">output_directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1101,8 +1114,9 @@ as z axis.</p>
 <ul>
 <li><strong>probabilities_per_model</strong> (List[numpy.array]): list of model
 probabilities.</li>
-<li><strong>ground_truth</strong> (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.</li>
+<li><strong>ground_truth</strong> (Union[List[np.array], List[pd.Series]]): containing
+ground truth data</li>
+<li><strong>metadata</strong> (dict): feature metadata dictionary</li>
 <li><strong>threshold_output_feature_names</strong> (List[str]): List containing two output
 feature names for visualization.</li>
 <li><strong>labels_limit</strong> (int): upper limit on the numeric encoded label value.
@@ -1122,6 +1136,8 @@ plots. If not specified, plots will be displayed in a window</li>
 <div class="codehilite"><pre><span></span><code><span class="n">ludwig</span><span class="o">.</span><span class="n">visualize</span><span class="o">.</span><span class="n">confidence_thresholding</span><span class="p">(</span>
   <span class="n">probabilities_per_model</span><span class="p">,</span>
   <span class="n">ground_truth</span><span class="p">,</span>
+  <span class="n">metadata</span><span class="p">,</span>
+  <span class="n">output_feature_name</span><span class="p">,</span>
   <span class="n">labels_limit</span><span class="p">,</span>
   <span class="n">model_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
   <span class="n">output_directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1138,8 +1154,9 @@ the probabilities of predictions for the specified output_feature_name.</p>
 <ul>
 <li><strong>probabilities_per_model</strong> (List[numpy.array]): list of model
 probabilities.</li>
-<li><strong>ground_truth</strong> (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.</li>
+<li><strong>ground_truth</strong> (Union[pd.Series, np.ndarray]): ground truth values</li>
+<li><strong>metadata</strong> (dict): feature metadata dictionary</li>
+<li><strong>output_feature_name</strong> (str): output feature name</li>
 <li><strong>labels_limit</strong> (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
 <code>label_limit</code> are considered to be "rare" labels.</li>
@@ -1159,6 +1176,8 @@ plots. If not specified, plots will be displayed in a window</li>
 <div class="codehilite"><pre><span></span><code><span class="n">ludwig</span><span class="o">.</span><span class="n">visualize</span><span class="o">.</span><span class="n">confidence_thresholding_data_vs_acc</span><span class="p">(</span>
   <span class="n">probabilities_per_model</span><span class="p">,</span>
   <span class="n">ground_truth</span><span class="p">,</span>
+  <span class="n">metadata</span><span class="p">,</span>
+  <span class="n">output_feature_name</span><span class="p">,</span>
   <span class="n">labels_limit</span><span class="p">,</span>
   <span class="n">model_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
   <span class="n">output_directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1178,8 +1197,9 @@ the threshold.</p>
 <ul>
 <li><strong>probabilities_per_model</strong> (List[numpy.array]): list of model
 probabilities.</li>
-<li><strong>ground_truth</strong> (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.</li>
+<li><strong>ground_truth</strong> (Union[pd.Series, np.ndarray]): ground truth values</li>
+<li><strong>metadata</strong> (dict): feature metadata dictionary</li>
+<li><strong>output_feature_name</strong> (str): output feature name</li>
 <li><strong>labels_limit</strong> (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
 <code>label_limit</code> are considered to be "rare" labels.</li>
@@ -1199,6 +1219,8 @@ plots. If not specified, plots will be displayed in a window</li>
 <div class="codehilite"><pre><span></span><code><span class="n">ludwig</span><span class="o">.</span><span class="n">visualize</span><span class="o">.</span><span class="n">confidence_thresholding_data_vs_acc_subset</span><span class="p">(</span>
   <span class="n">probabilities_per_model</span><span class="p">,</span>
   <span class="n">ground_truth</span><span class="p">,</span>
+  <span class="n">metadata</span><span class="p">,</span>
+  <span class="n">output_feature_name</span><span class="p">,</span>
   <span class="n">top_n_classes</span><span class="p">,</span>
   <span class="n">labels_limit</span><span class="p">,</span>
   <span class="n">subset</span><span class="p">,</span>
@@ -1231,8 +1253,9 @@ will be displayed for each model.</p>
 <ul>
 <li><strong>probabilities_per_model</strong> (List[numpy.array]): list of model
 probabilities.</li>
-<li><strong>ground_truth</strong> (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.</li>
+<li><strong>ground_truth</strong> (Union[pd.Series, np.ndarray]): ground truth values</li>
+<li><strong>metadata</strong> (dict): feature metadata dictionary</li>
+<li><strong>output_feature_name</strong> (str): output feature name</li>
 <li><strong>top_n_classes</strong> (List[int]): list containing the number of classes
 to plot.</li>
 <li><strong>labels_limit</strong> (int): upper limit on the numeric encoded label value.
@@ -1256,6 +1279,8 @@ plots. If not specified, plots will be displayed in a window</li>
 <div class="codehilite"><pre><span></span><code><span class="n">ludwig</span><span class="o">.</span><span class="n">visualize</span><span class="o">.</span><span class="n">binary_threshold_vs_metric</span><span class="p">(</span>
   <span class="n">probabilities_per_model</span><span class="p">,</span>
   <span class="n">ground_truth</span><span class="p">,</span>
+  <span class="n">metadata</span><span class="p">,</span>
+  <span class="n">output_feature_name</span><span class="p">,</span>
   <span class="n">metrics</span><span class="p">,</span>
   <span class="n">positive_label</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
   <span class="n">model_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1279,8 +1304,9 @@ ground_truth_metadata JSON file.</p>
 <ul>
 <li><strong>probabilities_per_model</strong> (List[numpy.array]): list of model
 probabilities.</li>
-<li><strong>ground_truth</strong> (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.</li>
+<li><strong>ground_truth</strong> (Union[pd.Series, np.ndarray]): ground truth values</li>
+<li><strong>metadata</strong> (dict): feature metadata dictionary</li>
+<li><strong>output_feature_name</strong> (str): output feature name</li>
 <li><strong>metrics</strong> (List[str]): metrics to display (<code>'f1'</code>, <code>'precision'</code>,
 <code>'recall'</code>, <code>'accuracy'</code>).</li>
 <li><strong>positive_label</strong> (int, default: <code>1</code>): numeric encoded value for the
@@ -1301,6 +1327,8 @@ plots. If not specified, plots will be displayed in a window</li>
 <div class="codehilite"><pre><span></span><code><span class="n">ludwig</span><span class="o">.</span><span class="n">visualize</span><span class="o">.</span><span class="n">roc_curves</span><span class="p">(</span>
   <span class="n">probabilities_per_model</span><span class="p">,</span>
   <span class="n">ground_truth</span><span class="p">,</span>
+  <span class="n">metadata</span><span class="p">,</span>
+  <span class="n">output_feature_name</span><span class="p">,</span>
   <span class="n">positive_label</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
   <span class="n">model_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
   <span class="n">output_directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1321,8 +1349,9 @@ training metadata JSON file.</p>
 <ul>
 <li><strong>probabilities_per_model</strong> (List[numpy.array]): list of model
 probabilities.</li>
-<li><strong>ground_truth</strong> (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.</li>
+<li><strong>ground_truth</strong> (Union[pd.Series, np.ndarray]): ground truth values</li>
+<li><strong>metadata</strong> (dict): feature metadata dictionary</li>
+<li><strong>output_feature_name</strong> (str): output feature name</li>
 <li><strong>positive_label</strong> (int, default: <code>1</code>): numeric encoded value for the
 positive class.</li>
 <li><strong>model_names</strong> (Union[str, List[str]], default: <code>None</code>): model name or
@@ -1376,6 +1405,8 @@ plots. If not specified, plots will be displayed in a window</li>
 <div class="codehilite"><pre><span></span><code><span class="n">ludwig</span><span class="o">.</span><span class="n">visualize</span><span class="o">.</span><span class="n">calibration_1_vs_all</span><span class="p">(</span>
   <span class="n">probabilities_per_model</span><span class="p">,</span>
   <span class="n">ground_truth</span><span class="p">,</span>
+  <span class="n">metadata</span><span class="p">,</span>
+  <span class="n">output_feature_name</span><span class="p">,</span>
   <span class="n">top_n_classes</span><span class="p">,</span>
   <span class="n">labels_limit</span><span class="p">,</span>
   <span class="n">model_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1401,8 +1432,9 @@ probabilities and model_names).</p>
 <ul>
 <li><strong>probabilities_per_model</strong> (List[numpy.array]): list of model
 probabilities.</li>
-<li><strong>ground_truth</strong> (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.</li>
+<li><strong>ground_truth</strong> (Union[pd.Series, np.ndarray]): ground truth values</li>
+<li><strong>metadata</strong> (dict): feature metadata dictionary</li>
+<li><strong>output_feature_name</strong> (str): output feature name</li>
 <li><strong>top_n_classes</strong> (list): List containing the number of classes to plot.</li>
 <li><strong>labels_limit</strong> (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
@@ -1423,6 +1455,8 @@ plots. If not specified, plots will be displayed in a window</li>
 <div class="codehilite"><pre><span></span><code><span class="n">ludwig</span><span class="o">.</span><span class="n">visualize</span><span class="o">.</span><span class="n">calibration_multiclass</span><span class="p">(</span>
   <span class="n">probabilities_per_model</span><span class="p">,</span>
   <span class="n">ground_truth</span><span class="p">,</span>
+  <span class="n">metadata</span><span class="p">,</span>
+  <span class="n">output_feature_name</span><span class="p">,</span>
   <span class="n">labels_limit</span><span class="p">,</span>
   <span class="n">model_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
   <span class="n">output_directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1437,8 +1471,9 @@ specified output_feature_name.</p>
 <ul>
 <li><strong>probabilities_per_model</strong> (List[numpy.array]): list of model
 probabilities.</li>
-<li><strong>ground_truth</strong> (numpy.array): numpy.array containing ground truth data,
-which are the numeric encoded values the category.</li>
+<li><strong>ground_truth</strong> (Union[pd.Series, np.ndarray]): ground truth values</li>
+<li><strong>metadata</strong> (dict): feature metadata dictionary</li>
+<li><strong>output_feature_name</strong> (str): output feature name</li>
 <li><strong>labels_limit</strong> (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
 <code>label_limit</code> are considered to be "rare" labels.</li>
@@ -1681,8 +1716,8 @@ plots. If not specified, plots will be displayed in a window.</li>
       
     </div>
     
-      <script src="../../assets/javascripts/vendor.77e55a48.min.js"></script>
-      <script src="../../assets/javascripts/bundle.9554a270.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../../assets/javascripts/vendor.0ac82a11.min.js"></script>
+      <script src="../../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

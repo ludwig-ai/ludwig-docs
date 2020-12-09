@@ -1,6 +1,4 @@
 
-
-
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
@@ -11,13 +9,13 @@
         <meta name="description" content="Deep learning toolbox">
       
       
-        <link rel="canonical" href="https://uber.github.io/ludwig/examples/">
+        <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/examples/">
       
       
         <meta name="author" content="Piero Molino">
       
       <link rel="shortcut icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.3.0">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.0.2">
     
     
       
@@ -25,19 +23,21 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.6e35a1a6.min.css">
-      
-        <link rel="stylesheet" href="../assets/stylesheets/palette.a46bcfb3.min.css">
-      
+      <link rel="stylesheet" href="../assets/stylesheets/main.38780c08.min.css">
       
         
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f72e892.min.css">
         
-        <meta name="theme-color" content="#757575">
+          
+          
+          <meta name="theme-color" content="#757575">
+        
       
     
     
     
       
+        
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
@@ -59,9 +59,11 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="grey">
-  
     
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="grey">
+      
+  
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
@@ -79,7 +81,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://uber.github.io/ludwig/" title="Ludwig" class="md-header-nav__button md-logo" aria-label="Ludwig">
+    <a href="https://ludwig-ai.github.io/ludwig-docs/" title="Ludwig" class="md-header-nav__button md-logo" aria-label="Ludwig">
       
 <img alt="logo" src="../images/ludwig_logo.svg"
      style="height:1rem;width:4rem;">
@@ -152,8 +154,6 @@
     
     <div class="md-container" data-md-component="container">
       
-        
-      
       
         
       
@@ -168,7 +168,7 @@
      data-md-level="0">
     <label class="md-nav__title" for="__drawer">
         <a aria-label="Ludwig" class="md-nav__button md-logo"
-           href="https://uber.github.io/ludwig/"
+           href="https://ludwig-ai.github.io/ludwig-docs/"
            title="Ludwig">
             <img alt="logo" src="../images/ludwig_logo.svg"
                  style="width:10rem;height:auto;">
@@ -196,7 +196,7 @@
 
 
   <li class="md-nav__item">
-    <a href=".." title="About" class="md-nav__link">
+    <a href=".." class="md-nav__link">
       About
     </a>
   </li>
@@ -208,7 +208,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../getting_started/" title="Getting Started" class="md-nav__link">
+    <a href="../getting_started/" class="md-nav__link">
       Getting Started
     </a>
   </li>
@@ -228,12 +228,10 @@
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
         Examples
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
-        </span>
+        <span class="md-nav__icon md-icon"></span>
       </label>
     
-    <a href="./" title="Examples" class="md-nav__link md-nav__link--active">
+    <a href="./" class="md-nav__link md-nav__link--active">
       Examples
     </a>
     
@@ -243,9 +241,7 @@
   
   
     <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-scrollfix>
@@ -309,21 +305,21 @@
         
           <li class="md-nav__item">
   <a href="#download-the-mnist-dataset" class="md-nav__link">
-    Download the MNIST dataset.
+    Download the MNIST dataset
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#create-train-and-test-csvs" class="md-nav__link">
-    Create train and test CSVs.
+    Create train and test CSVs
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#train-a-model" class="md-nav__link">
-    Train a model.
+    Train a model
   </a>
   
 </li>
@@ -364,21 +360,21 @@
         
           <li class="md-nav__item">
   <a href="#download-the-free-spoken-digit-dataset" class="md-nav__link">
-    Download the free spoken digit dataset.
+    Download the free spoken digit dataset
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#create-an-experiment-csv" class="md-nav__link">
-    Create an experiment CSV.
+  <a href="#create-an-csv-dataset" class="md-nav__link">
+    Create an CSV dataset
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#train-a-model_1" class="md-nav__link">
-    Train a model.
+    Train a model
   </a>
   
 </li>
@@ -464,7 +460,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../user_guide/" title="User Guide" class="md-nav__link">
+    <a href="../user_guide/" class="md-nav__link">
       User Guide
     </a>
   </li>
@@ -476,7 +472,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../developer_guide/" title="Developer Guide" class="md-nav__link">
+    <a href="../developer_guide/" class="md-nav__link">
       Developer Guide
     </a>
   </li>
@@ -493,15 +489,11 @@
     
     <label class="md-nav__link" for="nav-6">
       API
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
     </label>
     <nav class="md-nav" aria-label="API" data-md-level="1">
       <label class="md-nav__title" for="nav-6">
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-        </span>
+        <span class="md-nav__icon md-icon"></span>
         API
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -513,7 +505,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../api/LudwigModel/" title="LudwigModel" class="md-nav__link">
+    <a href="../api/LudwigModel/" class="md-nav__link">
       LudwigModel
     </a>
   </li>
@@ -525,7 +517,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../api/visualization/" title="Visualization" class="md-nav__link">
+    <a href="../api/visualization/" class="md-nav__link">
       Visualization
     </a>
   </li>
@@ -542,7 +534,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../community/" title="Community" class="md-nav__link">
+    <a href="../community/" class="md-nav__link">
       Community
     </a>
   </li>
@@ -554,7 +546,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../faq/" title="FAQ" class="md-nav__link">
+    <a href="../faq/" class="md-nav__link">
       FAQ
     </a>
   </li>
@@ -576,9 +568,7 @@
   
   
     <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-scrollfix>
@@ -642,21 +632,21 @@
         
           <li class="md-nav__item">
   <a href="#download-the-mnist-dataset" class="md-nav__link">
-    Download the MNIST dataset.
+    Download the MNIST dataset
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#create-train-and-test-csvs" class="md-nav__link">
-    Create train and test CSVs.
+    Create train and test CSVs
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#train-a-model" class="md-nav__link">
-    Train a model.
+    Train a model
   </a>
   
 </li>
@@ -697,21 +687,21 @@
         
           <li class="md-nav__item">
   <a href="#download-the-free-spoken-digit-dataset" class="md-nav__link">
-    Download the free spoken digit dataset.
+    Download the free spoken digit dataset
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#create-an-experiment-csv" class="md-nav__link">
-    Create an experiment CSV.
+  <a href="#create-an-csv-dataset" class="md-nav__link">
+    Create an CSV dataset
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#train-a-model_1" class="md-nav__link">
-    Train a model.
+    Train a model
   </a>
   
 </li>
@@ -801,9 +791,6 @@
                   </a>
                 
                 
-                  
-                
-                
                   <h1>Examples</h1>
                 
                 <p>This section contains several examples of how to build models with Ludwig for a variety of tasks.
@@ -835,12 +822,12 @@ Other datasets available on the same webpage, like <a href="http://boston.lti.cs
 </tbody>
 </table>
 <div class="codehilite"><pre><span></span><code>ludwig experiment \
-  --data_csv text_classification.csv \
-  --model_definition_file model_definition.yaml
+  --dataset text_classification.csv \
+  --config_file config.yaml
 </code></pre></div>
 
 
-<p>With <code>model_definition.yaml</code>:</p>
+<p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
@@ -879,12 +866,12 @@ Other datasets available on the same webpage, like <a href="http://boston.lti.cs
 </tbody>
 </table>
 <div class="codehilite"><pre><span></span><code>ludwig experiment \
-  --data_csv sequence_tags.csv \
-  --model_definition_file model_definition.yaml
+  --dataset sequence_tags.csv \
+  --config_file config.yaml
 </code></pre></div>
 
 
-<p>With <code>model_definition.yaml</code>:</p>
+<p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">utterance</span>
@@ -932,12 +919,12 @@ Other datasets available on the same webpage, like <a href="http://boston.lti.cs
 </tbody>
 </table>
 <div class="codehilite"><pre><span></span><code>ludwig experiment \
-  --data_csv nlu.csv \
-  --model_definition_file model_definition.yaml
+  --dataset nlu.csv \
+  --config_file config.yaml
 </code></pre></div>
 
 
-<p>With <code>model_definition.yaml</code>:</p>
+<p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">utterance</span>
@@ -989,12 +976,12 @@ Other datasets available on the same webpage, like <a href="http://boston.lti.cs
 </tbody>
 </table>
 <div class="codehilite"><pre><span></span><code>ludwig experiment \
-  --data_csv translation.csv \
-  --model_definition_file model_definition.yaml
+  --dataset translation.csv \
+  --config_file config.yaml
 </code></pre></div>
 
 
-<p>With <code>model_definition.yaml</code>:</p>
+<p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">english</span>
@@ -1048,12 +1035,12 @@ Other datasets available on the same webpage, like <a href="http://boston.lti.cs
 </tbody>
 </table>
 <div class="codehilite"><pre><span></span><code>ludwig experiment \
-  --data_csv chitchat.csv \
-  --model_definition_file model_definition.yaml
+  --dataset chitchat.csv \
+  --config_file config.yaml
 </code></pre></div>
 
 
-<p>With <code>model_definition.yaml</code>:</p>
+<p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">user1</span>
@@ -1103,12 +1090,12 @@ Other datasets available on the same webpage, like <a href="http://boston.lti.cs
 </tbody>
 </table>
 <div class="codehilite"><pre><span></span><code>ludwig experiment \
-  --data_csv sentiment.csv \
-  --model_definition_file model_definition.yaml
+  --dataset sentiment.csv \
+  --config_file config.yaml
 </code></pre></div>
 
 
-<p>With <code>model_definition.yaml</code>:</p>
+<p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">review</span>
@@ -1147,12 +1134,12 @@ Other datasets available on the same webpage, like <a href="http://boston.lti.cs
 </tbody>
 </table>
 <div class="codehilite"><pre><span></span><code>ludwig experiment \
-  --data_csv image_classification.csv \
-  --model_definition_file model_definition.yaml
+  --dataset image_classification.csv \
+  --config_file config.yaml
 </code></pre></div>
 
 
-<p>With <code>model_definition.yaml</code>:</p>
+<p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">image_path</span>
@@ -1169,7 +1156,7 @@ Other datasets available on the same webpage, like <a href="http://boston.lti.cs
 <h2 id="image-classification-mnist">Image Classification (MNIST)<a class="headerlink" href="#image-classification-mnist" title="Permanent link">&para;</a></h2>
 <p>This is a complete example of training an image classification model on the MNIST
 dataset.</p>
-<h3 id="download-the-mnist-dataset">Download the MNIST dataset.<a class="headerlink" href="#download-the-mnist-dataset" title="Permanent link">&para;</a></h3>
+<h3 id="download-the-mnist-dataset">Download the MNIST dataset<a class="headerlink" href="#download-the-mnist-dataset" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code>git clone https://github.com/myleott/mnist_png.git
 cd mnist_png/
 tar -xf mnist_png.tar.gz
@@ -1177,7 +1164,7 @@ cd mnist_png/
 </code></pre></div>
 
 
-<h3 id="create-train-and-test-csvs">Create train and test CSVs.<a class="headerlink" href="#create-train-and-test-csvs" title="Permanent link">&para;</a></h3>
+<h3 id="create-train-and-test-csvs">Create train and test CSVs<a class="headerlink" href="#create-train-and-test-csvs" title="Permanent link">&para;</a></h3>
 <p>Open python shell in the same directory and run this:</p>
 <div class="codehilite"><pre><span></span><code>import os
 for name in [&#39;training&#39;, &#39;testing&#39;]:
@@ -1216,16 +1203,16 @@ containing 60000 and 10000 examples correspondingly and having the following for
 </tr>
 </tbody>
 </table>
-<h3 id="train-a-model">Train a model.<a class="headerlink" href="#train-a-model" title="Permanent link">&para;</a></h3>
+<h3 id="train-a-model">Train a model<a class="headerlink" href="#train-a-model" title="Permanent link">&para;</a></h3>
 <p>From the directory where you have virtual environment with ludwig installed:</p>
 <div class="codehilite"><pre><span></span><code>ludwig train \
-  --data_train_csv &lt;PATH_TO_MNIST_DATASET_TRAINING_CSV&gt; \
-  --data_test_csv &lt;PATH_TO_MNIST_DATASET_TEST_CSV&gt; \
-  --model_definition_file model_definition.yaml
+  --training_set &lt;PATH_TO_MNIST_DATASET_TRAINING_CSV&gt; \
+  --test_set &lt;PATH_TO_MNIST_DATASET_TEST_CSV&gt; \
+  --config_file config.yaml
 </code></pre></div>
 
 
-<p>With <code>model_definition.yaml</code>:</p>
+<p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">image_path</span>
@@ -1242,11 +1229,11 @@ containing 60000 and 10000 examples correspondingly and having the following for
                 <span class="nt">filter_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
                 <span class="nt">pool_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
                 <span class="nt">pool_stride</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
-                <span class="nt">dropout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+                <span class="nt">dropout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.4</span>
         <span class="nt">fc_layers</span><span class="p">:</span>
             <span class="p p-Indicator">-</span>
                 <span class="nt">fc_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">128</span>
-                <span class="nt">dropout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+                <span class="nt">dropout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.4</span>
 
 <span class="nt">output_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
@@ -1254,7 +1241,7 @@ containing 60000 and 10000 examples correspondingly and having the following for
         <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">category</span>
 
 <span class="nt">training</span><span class="p">:</span>
-    <span class="nt">dropout_rate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.4</span>
+    <span class="nt">early_stop</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5</span>
 </code></pre></div>
 
 
@@ -1282,12 +1269,12 @@ containing 60000 and 10000 examples correspondingly and having the following for
 </tbody>
 </table>
 <div class="codehilite"><pre><span></span><code>ludwig experiment \
---data_csv image captioning.csv \
-  --model_definition_file model_definition.yaml
+--dataset image captioning.csv \
+  --config_file config.yaml
 </code></pre></div>
 
 
-<p>With <code>model_definition.yaml</code>:</p>
+<p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">image_path</span>
@@ -1339,12 +1326,12 @@ The task is, given two images of two handwritten characters, recognize if they a
 </tbody>
 </table>
 <div class="codehilite"><pre><span></span><code>ludwig experiment \
---data_csv balinese_characters.csv \
-  --model_definition_file model_definition.yaml
+--dataset balinese_characters.csv \
+  --config_file config.yaml
 </code></pre></div>
 
 
-<p>With <code>model_definition.yaml</code>:</p>
+<p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">image_path_1</span>
@@ -1404,12 +1391,12 @@ The task is, given two images of two handwritten characters, recognize if they a
 </tbody>
 </table>
 <div class="codehilite"><pre><span></span><code>ludwig experiment \
---data_csv vqa.csv \
-  --model_definition_file model_definition.yaml
+--dataset vqa.csv \
+  --config_file config.yaml
 </code></pre></div>
 
 
-<p>With <code>model_definition.yaml</code>:</p>
+<p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">image_path</span>
@@ -1435,7 +1422,7 @@ The task is, given two images of two handwritten characters, recognize if they a
 
 <h2 id="spoken-digit-speech-recognition">Spoken Digit Speech Recognition<a class="headerlink" href="#spoken-digit-speech-recognition" title="Permanent link">&para;</a></h2>
 <p>This is a complete example of training an spoken digit speech recognition model on the "MNIST dataset of speech recognition". </p>
-<h3 id="download-the-free-spoken-digit-dataset">Download the free spoken digit dataset.<a class="headerlink" href="#download-the-free-spoken-digit-dataset" title="Permanent link">&para;</a></h3>
+<h3 id="download-the-free-spoken-digit-dataset">Download the free spoken digit dataset<a class="headerlink" href="#download-the-free-spoken-digit-dataset" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code>git clone https://github.com/Jakobovski/free-spoken-digit-dataset.git
 mkdir speech_recog_digit_data
 cp -r free-spoken-digit-dataset/recordings speech_recog_digit_data
@@ -1443,7 +1430,7 @@ cd speech_recog_digit_data
 </code></pre></div>
 
 
-<h3 id="create-an-experiment-csv">Create an experiment CSV.<a class="headerlink" href="#create-an-experiment-csv" title="Permanent link">&para;</a></h3>
+<h3 id="create-an-csv-dataset">Create an CSV dataset<a class="headerlink" href="#create-an-csv-dataset" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code>echo &quot;audio_path&quot;,&quot;label&quot; &gt;&gt; &quot;spoken_digit.csv&quot;
 cd &quot;recordings&quot;
 ls | while read -r file_name; do
@@ -1486,15 +1473,15 @@ cd &quot;../&quot;
 </tr>
 </tbody>
 </table>
-<h3 id="train-a-model_1">Train a model.<a class="headerlink" href="#train-a-model_1" title="Permanent link">&para;</a></h3>
+<h3 id="train-a-model_1">Train a model<a class="headerlink" href="#train-a-model_1" title="Permanent link">&para;</a></h3>
 <p>From the directory where you have virtual environment with ludwig installed: </p>
 <div class="codehilite"><pre><span></span><code>ludwig experiment \
-  --data_csv &lt;PATH_TO_SPOKEN_DIGIT_CSV&gt; \
-  --model_definition_file model_definition_file.yaml
+  --dataset &lt;PATH_TO_SPOKEN_DIGIT_CSV&gt; \
+  --config_file config_file.yaml
 </code></pre></div>
 
 
-<p>With <code>model_definition.yaml</code>:</p>
+<p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">audio_path</span>
@@ -1515,17 +1502,17 @@ cd &quot;../&quot;
                 <span class="nt">filter_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">6</span>
                 <span class="nt">pool_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">4</span>
                 <span class="nt">pool_stride</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">4</span>
-                <span class="nt">dropout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+                <span class="nt">dropout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.4</span>
             <span class="p p-Indicator">-</span>
                 <span class="nt">num_filters</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">32</span>
                 <span class="nt">filter_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
                 <span class="nt">pool_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
                 <span class="nt">pool_stride</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
-                <span class="nt">dropout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+                <span class="nt">dropout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.4</span>
         <span class="nt">fc_layers</span><span class="p">:</span>
             <span class="p p-Indicator">-</span>
                 <span class="nt">fc_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">64</span>
-                <span class="nt">dropout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+                <span class="nt">dropout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.4</span>
 
 <span class="nt">output_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
@@ -1533,7 +1520,6 @@ cd &quot;../&quot;
         <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">category</span>
 
 <span class="nt">training</span><span class="p">:</span>
-    <span class="nt">dropout_rate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.4</span>
     <span class="nt">early_stop</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
 </code></pre></div>
 
@@ -1570,12 +1556,12 @@ The sample data looks as follows:</p>
 </tbody>
 </table>
 <div class="codehilite"><pre><span></span><code>ludwig experiment \
---data_csv speaker_verification.csv \
-  --model_definition_file model_definition.yaml
+--dataset speaker_verification.csv \
+  --config_file config.yaml
 </code></pre></div>
 
 
-<p>With <code>model_definition.yaml</code>:</p>
+<p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">audio_path</span>
@@ -1597,8 +1583,8 @@ The sample data looks as follows:</p>
 
 <h2 id="kaggles-titanic-predicting-survivors">Kaggle's Titanic: Predicting survivors<a class="headerlink" href="#kaggles-titanic-predicting-survivors" title="Permanent link">&para;</a></h2>
 <p>This example describes how to use Ludwig to train a model for the
-<a href="https://www.kaggle.com/c/titanic/">kaggle competition</a>, on predicting a passenger's probability of surviving the Titanic
-disaster. Here's a sample of the data:</p>
+<a href="https://www.kaggle.com/c/titanic/">kaggle competition</a>, on predicting a passenger's probability of surviving the Titanic disaster.
+Here's a sample of the data:</p>
 <table>
 <thead>
 <tr>
@@ -1658,12 +1644,12 @@ disaster. Here's a sample of the data:</p>
 <p>The full data and the column descriptions can be found <a href="https://www.kaggle.com/c/titanic/data">here</a>.</p>
 <p>After downloading the data, to train a model on this dataset using Ludwig,</p>
 <div class="codehilite"><pre><span></span><code>ludwig experiment \
-  --data_csv &lt;PATH_TO_TITANIC_CSV&gt; \
-  --model_definition_file model_definition.yaml
+  --dataset &lt;PATH_TO_TITANIC_CSV&gt; \
+  --config_file config.yaml
 </code></pre></div>
 
 
-<p>With <code>model_definition.yaml</code>:</p>
+<p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Pclass</span>
@@ -1740,12 +1726,12 @@ disaster. Here's a sample of the data:</p>
 </tbody>
 </table>
 <div class="codehilite"><pre><span></span><code>ludwig experiment \
---data_csv timeseries_data.csv \
-  --model_definition_file model_definition.yaml
+--dataset timeseries_data.csv \
+  --config_file config.yaml
 </code></pre></div>
 
 
-<p>With <code>model_definition.yaml</code>:</p>
+<p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">timeseries_data</span>
@@ -1814,12 +1800,12 @@ df.to_csv(&#39;&lt;PATH_TO_FILE&gt;/temperature_la.csv&#39;)
 
 
 <div class="codehilite"><pre><span></span><code>ludwig experiment \
---data_csv &lt;PATH_TO_FILE&gt;/temperature_la.csv \
-  --model_definition_file model_definition.yaml
+--dataset &lt;PATH_TO_FILE&gt;/temperature_la.csv \
+  --config_file config.yaml
 </code></pre></div>
 
 
-<p>With <code>model_definition.yaml</code>:</p>
+<p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">temperature_feature</span>
@@ -1871,12 +1857,12 @@ df.to_csv(&#39;&lt;PATH_TO_FILE&gt;/temperature_la.csv&#39;)
 </tbody>
 </table>
 <div class="codehilite"><pre><span></span><code>ludwig experiment \
---data_csv movie_ratings.csv \
-  --model_definition_file model_definition.yaml
+--dataset movie_ratings.csv \
+  --config_file config.yaml
 </code></pre></div>
 
 
-<p>With <code>model_definition.yaml</code>:</p>
+<p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">year</span>
@@ -1922,12 +1908,12 @@ df.to_csv(&#39;&lt;PATH_TO_FILE&gt;/temperature_la.csv&#39;)
 </tbody>
 </table>
 <div class="codehilite"><pre><span></span><code>ludwig experiment \
---data_csv image_data.csv \
-  --model_definition_file model_definition.yaml
+--dataset image_data.csv \
+  --config_file config.yaml
 </code></pre></div>
 
 
-<p>With <code>model_definition.yaml</code>:</p>
+<p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">image_path</span>
@@ -1974,12 +1960,12 @@ df.to_csv(&#39;&lt;PATH_TO_FILE&gt;/temperature_la.csv&#39;)
 </tbody>
 </table>
 <div class="codehilite"><pre><span></span><code>ludwig experiment \
---data_csv nl_data.csv \
-  --model_definition_file model_definition.yaml
+--dataset nl_data.csv \
+  --config_file config.yaml
 </code></pre></div>
 
 
-<p>With <code>model_definition.yaml</code>:</p>
+<p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
     <span class="p p-Indicator">-</span>
         <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sentence</span>
@@ -2064,12 +2050,12 @@ df.to_csv(&#39;&lt;PATH_TO_FILE&gt;/temperature_la.csv&#39;)
 </tbody>
 </table>
 <div class="codehilite"><pre><span></span><code>ludwig experiment \
---data_csv auto_mpg.csv \
-  --model_definition_file model_definition.yaml
+--dataset auto_mpg.csv \
+  --config_file config.yaml
 </code></pre></div>
 
 
-<p>With <code>model_definition.yaml</code>:</p>
+<p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">training</span><span class="p">:</span>
     <span class="nt">batch_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">32</span>
     <span class="nt">epochs</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
@@ -2182,12 +2168,12 @@ df.to_csv(&#39;&lt;PATH_TO_FILE&gt;/temperature_la.csv&#39;)
 </tbody>
 </table>
 <div class="codehilite"><pre><span></span><code>ludwig experiment \
---data_csv transactions.csv \
-  --model_definition_file model_definition.yaml
+--dataset transactions.csv \
+  --config_file config.yaml
 </code></pre></div>
 
 
-<p>With <code>model_definition.yaml</code>:</p>
+<p>With <code>config.yaml</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
   <span class="p p-Indicator">-</span>
     <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">customer_id</span>
@@ -2296,7 +2282,7 @@ df.to_csv(&#39;&lt;PATH_TO_FILE&gt;/temperature_la.csv&#39;)
                 <div class="footer-logo-smallpad"></div>
                 
                 <div class="md-footer-copyright__highlight">
-                    Copyright &copy; 2018 - 2019 Uber Technologies Inc.
+                    Copyright &copy; 2018 - 2020 Uber Technologies Inc.
                 </div>
                 
                 Website by <a href="http://w4nderlu.st">w4nderlust</a> powered by
@@ -2316,15 +2302,15 @@ df.to_csv(&#39;&lt;PATH_TO_FILE&gt;/temperature_la.csv&#39;)
       
     </div>
     
-      <script src="../assets/javascripts/vendor.d710d30a.min.js"></script>
-      <script src="../assets/javascripts/bundle.a14cc5fd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../assets/javascripts/vendor.77e55a48.min.js"></script>
+      <script src="../assets/javascripts/bundle.9554a270.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({
           base: "..",
           features: [],
           search: Object.assign({
-            worker: "../assets/javascripts/worker/search.7a2ea5ba.min.js"
+            worker: "../assets/javascripts/worker/search.4ac00218.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

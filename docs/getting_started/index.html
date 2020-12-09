@@ -1,6 +1,4 @@
 
-
-
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
@@ -11,13 +9,13 @@
         <meta name="description" content="Deep learning toolbox">
       
       
-        <link rel="canonical" href="https://uber.github.io/ludwig/getting_started/">
+        <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/getting_started/">
       
       
         <meta name="author" content="Piero Molino">
       
       <link rel="shortcut icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.3.0">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.0.2">
     
     
       
@@ -25,19 +23,21 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.6e35a1a6.min.css">
-      
-        <link rel="stylesheet" href="../assets/stylesheets/palette.a46bcfb3.min.css">
-      
+      <link rel="stylesheet" href="../assets/stylesheets/main.38780c08.min.css">
       
         
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f72e892.min.css">
         
-        <meta name="theme-color" content="#757575">
+          
+          
+          <meta name="theme-color" content="#757575">
+        
       
     
     
     
       
+        
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
@@ -59,9 +59,11 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="grey">
-  
     
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="grey">
+      
+  
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
@@ -79,7 +81,7 @@
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://uber.github.io/ludwig/" title="Ludwig" class="md-header-nav__button md-logo" aria-label="Ludwig">
+    <a href="https://ludwig-ai.github.io/ludwig-docs/" title="Ludwig" class="md-header-nav__button md-logo" aria-label="Ludwig">
       
 <img alt="logo" src="../images/ludwig_logo.svg"
      style="height:1rem;width:4rem;">
@@ -152,8 +154,6 @@
     
     <div class="md-container" data-md-component="container">
       
-        
-      
       
         
       
@@ -168,7 +168,7 @@
      data-md-level="0">
     <label class="md-nav__title" for="__drawer">
         <a aria-label="Ludwig" class="md-nav__button md-logo"
-           href="https://uber.github.io/ludwig/"
+           href="https://ludwig-ai.github.io/ludwig-docs/"
            title="Ludwig">
             <img alt="logo" src="../images/ludwig_logo.svg"
                  style="width:10rem;height:auto;">
@@ -196,7 +196,7 @@
 
 
   <li class="md-nav__item">
-    <a href=".." title="About" class="md-nav__link">
+    <a href=".." class="md-nav__link">
       About
     </a>
   </li>
@@ -216,12 +216,10 @@
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
         Getting Started
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
-        </span>
+        <span class="md-nav__icon md-icon"></span>
       </label>
     
-    <a href="./" title="Getting Started" class="md-nav__link md-nav__link--active">
+    <a href="./" class="md-nav__link md-nav__link--active">
       Getting Started
     </a>
     
@@ -231,9 +229,7 @@
   
   
     <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-scrollfix>
@@ -275,8 +271,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#predict" class="md-nav__link">
-    Predict
+  <a href="#prediction-and-evaluation" class="md-nav__link">
+    Prediction and Evaluation
   </a>
   
 </li>
@@ -313,7 +309,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../examples/" title="Examples" class="md-nav__link">
+    <a href="../examples/" class="md-nav__link">
       Examples
     </a>
   </li>
@@ -325,7 +321,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../user_guide/" title="User Guide" class="md-nav__link">
+    <a href="../user_guide/" class="md-nav__link">
       User Guide
     </a>
   </li>
@@ -337,7 +333,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../developer_guide/" title="Developer Guide" class="md-nav__link">
+    <a href="../developer_guide/" class="md-nav__link">
       Developer Guide
     </a>
   </li>
@@ -354,15 +350,11 @@
     
     <label class="md-nav__link" for="nav-6">
       API
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
     </label>
     <nav class="md-nav" aria-label="API" data-md-level="1">
       <label class="md-nav__title" for="nav-6">
-        <span class="md-nav__icon md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-        </span>
+        <span class="md-nav__icon md-icon"></span>
         API
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -374,7 +366,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../api/LudwigModel/" title="LudwigModel" class="md-nav__link">
+    <a href="../api/LudwigModel/" class="md-nav__link">
       LudwigModel
     </a>
   </li>
@@ -386,7 +378,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../api/visualization/" title="Visualization" class="md-nav__link">
+    <a href="../api/visualization/" class="md-nav__link">
       Visualization
     </a>
   </li>
@@ -403,7 +395,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../community/" title="Community" class="md-nav__link">
+    <a href="../community/" class="md-nav__link">
       Community
     </a>
   </li>
@@ -415,7 +407,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../faq/" title="FAQ" class="md-nav__link">
+    <a href="../faq/" class="md-nav__link">
       FAQ
     </a>
   </li>
@@ -437,9 +429,7 @@
   
   
     <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-      </span>
+      <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-scrollfix>
@@ -481,8 +471,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#predict" class="md-nav__link">
-    Predict
+  <a href="#prediction-and-evaluation" class="md-nav__link">
+    Prediction and Evaluation
   </a>
   
 </li>
@@ -523,43 +513,28 @@
                   </a>
                 
                 
-                  
-                
-                
                   <h1>Getting Started</h1>
                 
                 <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
-<p>Ludwig is a toolbox built on top of TensorFlow that allows to train and test deep learning models without the need to write code.</p>
-<p>All you need to provide is a CSV file containing your data, a list of columns to use as inputs, and a list of columns to use as outputs, Ludwig will do the rest.
-Simple commands can be used to train models both locally and in a distributed way, and to use them to predict on new data.</p>
-<p>A programmatic API is also available in order to use Ludwig from your python code.
+<p>Ludwig is a toolbox that allows users to train and test deep learning models without the need to write code.
+It is built on top of TensorFlow.</p>
+<p>To train a model you need to provide is a file containing your data, a list of columns to use as inputs, and a list of columns to use as outputs, Ludwig will do the rest.
+Simple commands can be used to train models both locally and in a distributed way, and to use them to predict new data.</p>
+<p>A programmatic API is also available to use Ludwig from Python.
 A suite of visualization tools allows you to analyze models' training and test performance and to compare them.</p>
-<p>Ludwig is built with extensibility principles in mind and is based on data type abstractions, making it easy to add support for new data types as well as new model architectures.</p>
-<p>It can be used by practitioners to quickly train and test deep learning models as well as by researchers to obtain strong baselines to compare against and have an experimentation setting that ensures comparability by performing standard data preprocessing and visualization.</p>
-<p>Ludwig provides a set of model architectures that can be combined together to create an end-to-end model for a given use case. As an analogy, if deep learning libraries provide the building blocks to make your building, Ludwig provides the buildings to make your city, and you can chose among the available buildings or add your own building to the set of available ones.</p>
-<p>The core design principles we baked into the toolbox are:
+<p>Ludwig is built with extensibility principles in mind and is based on datatype abstractions, making it easy to add support for new datatypes as well as new model architectures.</p>
+<p>It can be used by practitioners to quickly train and test deep learning models as well as by researchers to obtain strong baselines to compare against and have an experimentation setting that ensures comparability by performing the same data processing and evaluation.</p>
+<p>Ludwig provides a set of model architectures that can be combined together to create an end-to-end model for a given use case.
+As an analogy, if deep learning libraries provide the building blocks to make your building, Ludwig provides the buildings to make your city, and you can choose among the available buildings or add your own building to the set of available ones.</p>
+<p>The core design principles baked into the toolbox are:
 - No coding required: no coding skills are required to train a model and use it for obtaining predictions.
-- Generality: a new data type-based approach to deep learning model design that makes the tool usable across many different use cases.
+- Generality: a new datatype-based approach to deep learning model design makes the tool usable across many different use cases.
 - Flexibility: experienced users have extensive control over model building and training, while newcomers will find it easy to use.
-- Extensibility: easy to add new model architecture and new feature data types.
-- Understandability: deep learning model internals are often considered black boxes, but we provide standard visualizations to understand their performance and compare their predictions.
+- Extensibility: easy to add new model architecture and new feature datatypes.
+- Understandability: deep learning model internals are often considered black boxes, but udwig provides standard visualizations to understand their performance and compare their predictions.
 - Open Source: Apache License 2.0</p>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
-<p>Ludwig's basic requirements are the following:</p>
-<ul>
-<li>tensorflow</li>
-<li>numpy</li>
-<li>pandas</li>
-<li>scipy</li>
-<li>scikit-learn</li>
-<li>Cython</li>
-<li>h5py</li>
-<li>tabulate</li>
-<li>tqdm</li>
-<li>PyYAML</li>
-<li>absl-py</li>
-</ul>
-<p>Ludwig has been developed and tested with Python 3 in mind.
+<p>Ludwig requires you to use Python 3.6+.
 If you don’t have Python 3 installed, install it by running:</p>
 <div class="codehilite"><pre><span></span><code>sudo apt install python3  # on ubuntu
 brew install python3      # on mac
@@ -576,61 +551,40 @@ brew install python3      # on mac
 </code></pre></div>
 
 
-<p>or install it by building the source code from the repository:</p>
+<p>This will install only Ludwig's basic requirements, different feature types require different dependencies.
+We divided them as different extras so that users could install only the ones they actually need:
+ - <code>ludwig[text]</code> for text dependencies.
+ - <code>ludwig[audio]</code> for audio and speech dependencies.
+ - <code>ludwig[image]</code> for image dependencies.
+ - <code>ludwig[hyperopt]</code> for hyperparameter optimization dependencies.
+ - <code>ludwig[horovod]</code> for distributed training dependencies.
+ - <code>ludwig[serve]</code> for serving dependencies.
+ - <code>ludwig[viz]</code> for visualization dependencies.
+ - <code>ludwig[test]</code> for dependencies needed for testing.</p>
+<p>Distributed training is supported with <a href="https://github.com/horovod/horovod">Horovod</a>, which can be installed with <code>pip install ludwig[horovod]</code> or <code>HOROVOD_GPU_OPERATIONS=NCCL pip install ludwig[horovod]</code> for GPU support.
+See Horovod's <a href="https://horovod.readthedocs.io/en/stable/install_include.html">installation guide</a>  for full details on available installation options.</p>
+<p>Any combination of extra packages can be installed at the same time with <code>pip install ludwig[extra1,extra2,...]</code> like for instance <code>pip install ludwig[text,viz]</code>.
+The full set of dependencies can be installed with <code>pip install ludwig[full]</code>.</p>
+<p>For developers who wish to build the source code from the repository:</p>
 <div class="codehilite"><pre><span></span><code>git clone git@github.com:uber/ludwig.git
 cd ludwig
 virtualenv -p python3 venv
 source venv/bin/activate
-pip install -r requirements.txt
-python setup.py install
+pip install -e &#39;.[test]&#39;
 </code></pre></div>
 
 
-<p>This will install only Ludwig-s basic requirements, different feature types require different dependencies.
-We divided them as different extras so that users could install only the ones they actually need.</p>
-<p>Text features extra packages can be installed with <code>pip install ludwig[text]</code> and include:</p>
-<ul>
-<li>spacy</li>
-<li>bert-tensorflow</li>
-</ul>
-<p>If you intend to use text features and want to use <a href="http://spacy.io">spaCy</a> based language tokenizers, install language specific models with:</p>
-<div class="codehilite"><pre><span></span><code>python -m spacy download &lt;language_code&gt;
-</code></pre></div>
-
-
-<p>More details in the <a href="../user_guide/#spacy-based-word-format-options">User Guide</a>.</p>
-<p>Image features extra packages can be installed with <code>pip install ludwig[image]</code> and include:</p>
-<ul>
-<li>scikit-image</li>
-</ul>
-<p>Audio features extra packages can be installed with <code>pip install ludwig[audio]</code> and include:</p>
-<ul>
-<li>soundfile</li>
-</ul>
-<p>Visualization extra packages can be installed with <code>pip install ludwig[viz]</code> and include:</p>
-<ul>
-<li>matplotlib</li>
-<li>seaborn</li>
-</ul>
-<p>Model serving extra packages can be installed with <code>pip install ludwig[serve]</code> and include:</p>
-<ul>
-<li>fastapi</li>
-<li>uvicorn</li>
-<li>pydantic</li>
-<li>python-multipart</li>
-</ul>
-<p>Any combination of extra packages can be installed at the same time with <code>pip install ludwig[extra1,extra2,...]</code> like for instance <code>pip install ludwig[text,viz]</code>.
-The full set of dependencies can be installed with <code>pip install ludwig[full]</code>.</p>
-<p>Beware that the <code>tensorflow</code> package contained in the <code>requirements.txt</code> file is the CPU version. If you prefer to install the GPU version, uninstall <code>tensorflow</code> and replace it with <code>tensorflow=gpu</code> after having installed <code>ludwig</code>, being careful at matching the version ludwig requires, as shown in <code>requirements.txt</code>.</p>
-<p>If you want to train Ludwig models in a distributed way, you need to also install the <code>horovod</code> and the <code>mpi4py</code> packages.
-Please follow the instructions on <a href="https://github.com/uber/horovod">Horovod's repository</a> to install it.</p>
+<p><strong>Note:</strong> that if you are running without GPUs, you may wish to use the CPU-only version of TensorFlow, 
+which takes up much less space on disk.
+To use a CPU-only TensorFlow version, uninstall <code>tensorflow</code> and  replace it with <code>tensorflow-cpu</code> after having installed <code>ludwig</code>.
+Be sure to install a version within the compatible range as shown in <code>requirements.txt</code>.</p>
 <h2 id="basic-principles">Basic Principles<a class="headerlink" href="#basic-principles" title="Permanent link">&para;</a></h2>
-<p>Ludwig provides two main functionalities: training models and using them to predict.
-It is based on datatype abstraction, so that the same data preprocessing and postprocessing will be performed on different datasets that share data types and the same encoding and decoding models developed for one task can be reused for different tasks.</p>
-<p>Training a model in Ludwig is pretty straightforward: you provide a CSV dataset and a model definition YAML file.</p>
-<p>The model definition contains a list of input features and output features, all you have to do is specify names of the columns in the CSV that are inputs to your model alongside with their datatypes, and names of columns in the CSV that will be outputs, the target variables which the model will learn to predict.
+<p>Ludwig provides three main functionalities: training models and using them to predict and evaluate them.
+It is based on datatype abstraction, so that the same data preprocessing and postprocessing will be performed on different datasets that share datatypes and the same encoding and decoding models developed can be re-used across several tasks.</p>
+<p>Training a model in Ludwig is pretty straightforward: you provide a dataset file and a model definition YAML file.</p>
+<p>The model definition contains a list of input features and output features, all you have to do is specify names of the columns in the dataset that are inputs to your model alongside with their datatypes, and names of columns in the dataset that will be outputs, the target variables which the model will learn to predict.
 Ludwig will compose a deep learning model accordingly and train it for you.</p>
-<p>Currently the available datatypes in Ludwig are:</p>
+<p>Currently, the available datatypes in Ludwig are:</p>
 <ul>
 <li>binary</li>
 <li>numerical</li>
@@ -646,7 +600,19 @@ Ludwig will compose a deep learning model accordingly and train it for you.</p>
 <li>h3</li>
 <li>vector</li>
 </ul>
-<p>The model definition can contain additional information, in particular how to preprocess each column in the CSV, which encoder and decoder to use for each one, feature hyperparameters and training parameters.
+<p>By choosing different datatype for inputs and outputs, users can solve many different tasks, for instance:</p>
+<ul>
+<li>text input + category output = text classifier</li>
+<li>image input + category output = image classifier</li>
+<li>image input + text output = image captioning</li>
+<li>audio input + binary output = speaker verification</li>
+<li>text input + sequence output = named entity recognition / summarization</li>
+<li>category, numerical and binary inputs + numerical output = regression</li>
+<li>timeseries input + numerical output = forecasting model</li>
+<li>category, numerical and binary inputs + binary output = fraud detection</li>
+</ul>
+<p>take a look at the <a href="../examples/">Examples</a> to see how you can use Ludwig for several more tasks.</p>
+<p>The model definition can contain additional information, in particular how to preprocess each column in the data, which encoder and decoder to use for each one, architectural  and training parameters, hyperparameters to optimize.
 This allows ease of use for novices and flexibility for experts.</p>
 <h3 id="training">Training<a class="headerlink" href="#training" title="Permanent link">&para;</a></h3>
 <p>For example, given a text classification dataset like the following:</p>
@@ -683,44 +649,55 @@ You can use the following model definition:</p>
 
 
 <p>and start the training typing the following command in your console:</p>
-<div class="codehilite"><pre><span></span><code>ludwig train --data_csv path/to/file.csv --model_definition &quot;{input_features: [{name: doc_text, type: text}], output_features: [{name: class, type: category}]}&quot;
+<div class="codehilite"><pre><span></span><code>ludwig train --dataset path/to/file.csv --config &quot;{input_features: [{name: doc_text, type: text}], output_features: [{name: class, type: category}]}&quot;
 </code></pre></div>
 
 
-<p>where <code>path/to/file.csv</code> is the path to a UTF-8 encoded CSV file contaning the dataset in the previous table.
-Ludwig will perform a random split of the data, preprocess it, build a WordCNN model (the default for text features) that decodes output classes through a softmax classifier, train the model on the training set until the accuracy on the validation set stops improving.
-Training progress will be displayed in the console, but TensorBoard can also be used.</p>
-<p>If you prefer to use an RNN encoder and increase the number of epochs you want the model to train for, all you have to do is to change the model definition to:</p>
+<p>where <code>path/to/file.csv</code> is the path to a UTF-8 encoded CSV file containing the dataset in the previous table (many other data formats are supported).
+Ludwig will:</p>
+<ol>
+<li>Perform a random split of the data.</li>
+<li>Preprocess the dataset.</li>
+<li>Build a ParallelCNN model (the default for text features) that decodes output classes through a softmax classifier.</li>
+<li>Train the model on the training set until the performance on the validation set stops improving.</li>
+</ol>
+<p>Training progress will be displayed in the console, but the TensorBoard can also be used.</p>
+<p>If you prefer to use an RNN encoder and increase the number of epochs to train for, all you have to do is to change the model definition to:</p>
 <div class="codehilite"><pre><span></span><code><span class="p p-Indicator">{</span><span class="nt">input_features</span><span class="p">:</span> <span class="p p-Indicator">[{</span><span class="nt">name</span><span class="p">:</span> <span class="nv">doc_text</span><span class="p p-Indicator">,</span><span class="nt"> type</span><span class="p">:</span> <span class="nv">text</span><span class="p p-Indicator">,</span><span class="nt"> encoder</span><span class="p">:</span> <span class="nv">rnn</span><span class="p p-Indicator">}],</span><span class="nt"> output_features</span><span class="p">:</span> <span class="p p-Indicator">[{</span><span class="nt">name</span><span class="p">:</span> <span class="nv">class</span><span class="p p-Indicator">,</span><span class="nt"> type</span><span class="p">:</span> <span class="nv">category</span><span class="p p-Indicator">}],</span><span class="nt"> training</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt">epochs</span><span class="p">:</span> <span class="nv">50</span><span class="p p-Indicator">}}</span>
 </code></pre></div>
 
 
 <p>Refer to the <a href="../user_guide/">User Guide</a> to find out all the options available to you in the model definition and take a look at the <a href="../examples/">Examples</a> to see how you can use Ludwig for several different tasks.</p>
-<p>After training, Ludwig will create a directory under <code>results</code> containing the trained model with its hyperparameters and summary statistics of the training process.
+<p>After training, Ludwig will create a <code>results</code> directory containing the trained model with its hyperparameters and summary statistics of the training process.
 You can visualize them using one of the several visualization options available in the <code>visualize</code> tool, for instance:</p>
 <div class="codehilite"><pre><span></span><code>ludwig visualize --visualization learning_curves --training_statistics path/to/training_statistics.json
 </code></pre></div>
 
 
-<p>The commands will display a graph that looks like the following, where you can see loss and accuracy as functions of train iteration number:</p>
+<p>This command will display a graph like the following, where you can see loss and accuracy during the training process:</p>
 <p><img alt="Learning Curves" src="../images/getting_started_learning_curves.png" title="Learning Curves" /></p>
-<p>Several visualizations are available, please refer to <a href="../user_guide/#visualizations">Visualizations</a> for more details.</p>
+<p>Several more visualizations are available, please refer to <a href="../user_guide/#visualizations">Visualizations</a> for more details.</p>
 <h3 id="distributed-training">Distributed Training<a class="headerlink" href="#distributed-training" title="Permanent link">&para;</a></h3>
-<p>You can distribute the training of your models using <a href="https://github.com/uber/horovod">Horovod</a>, which allows to train on a single machine with multiple GPUs as well as on multiple machines with multiple GPUs.
-Refer to the <a href="../user_guide/#distributed-training">User Guide</a> for more details.</p>
-<h3 id="predict">Predict<a class="headerlink" href="#predict" title="Permanent link">&para;</a></h3>
-<p>If you have new data and you want your previously trained model to predict target output values, you can type the following command in your console:</p>
-<div class="codehilite"><pre><span></span><code>ludwig predict --data_csv path/to/data.csv --model_path /path/to/model
+<p>You can distribute the training of your models using <a href="https://github.com/horovod/horovod">Horovod</a>, which allows training on a single machine with multiple GPUs as well as on multiple machines with multiple GPUs.
+Refer to the <a href="../user_guide/#distributed-training">User Guide</a> for full details.</p>
+<h3 id="prediction-and-evaluation">Prediction and Evaluation<a class="headerlink" href="#prediction-and-evaluation" title="Permanent link">&para;</a></h3>
+<p>If you want your previously trained model to predict target output values on new data, you can type the following command in your console:</p>
+<div class="codehilite"><pre><span></span><code>ludwig predict --dataset path/to/data.csv --model_path /path/to/model
 </code></pre></div>
 
 
-<p>Running this command will return model predictions and some test performance statistics if the dataset contains ground truth information to compare to.
-Those can be visualized by the <code>visualize</code> tool, which can also be used to compare performances and predictions of different models, for instance:</p>
+<p>Running this command will return model predictions.</p>
+<p>If your dataset also contains ground truth values of the target outputs, you can compare them to the predictions obtained from the model to evaluate the model performance.</p>
+<div class="codehilite"><pre><span></span><code>ludwig evaluate --dataset path/to/data.csv --model_path /path/to/model
+</code></pre></div>
+
+
+<p>This will produce evaluation performance statistics that can be visualized by the <code>visualize</code> tool, which can also be used to compare performances and predictions of different models, for instance:</p>
 <div class="codehilite"><pre><span></span><code>ludwig visualize --visualization compare_performance --test_statistics path/to/test_statistics_model_1.json path/to/test_statistics_model_2.json
 </code></pre></div>
 
 
-<p>will return a bar plot comparing the models on different measures:</p>
+<p>will return a bar plot comparing the models on different metrics:</p>
 <p><img alt="Performance Comparison" src="../images/compare_performance.png" title="Performance Comparison" /></p>
 <p>A handy <code>ludwig experiment</code> command that performs training and prediction one after the other is also available.</p>
 <h3 id="programmatic-api">Programmatic API<a class="headerlink" href="#programmatic-api" title="Permanent link">&para;</a></h3>
@@ -728,26 +705,24 @@ Those can be visualized by the <code>visualize</code> tool, which can also be us
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">ludwig.api</span> <span class="kn">import</span> <span class="n">LudwigModel</span>
 
 <span class="c1"># train a model</span>
-<span class="n">model_definition</span> <span class="o">=</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">LudwigModel</span><span class="p">(</span><span class="n">model_definition</span><span class="p">)</span>
-<span class="n">train_stats</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">training_dataframe</span><span class="p">)</span>
+<span class="n">config</span> <span class="o">=</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LudwigModel</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<span class="n">train_stats</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">training_data</span><span class="p">)</span>
 
 <span class="c1"># or load a model</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">LudwigModel</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_path</span><span class="p">)</span>
 
 <span class="c1"># obtain predictions</span>
-<span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_dataframe</span><span class="p">)</span>
-
-<span class="n">model</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
 </code></pre></div>
 
 
-<p><code>model_definition</code> is a dictionary contaning the same information of the YAML file.
+<p><code>config</code> containing the same information of the YAML file provided to the command line interface.
 More details are provided in the <a href="../user_guide/">User Guide</a> and in the <a href="../api/">API documentation</a>.</p>
 <h2 id="extensibility">Extensibility<a class="headerlink" href="#extensibility" title="Permanent link">&para;</a></h2>
 <p>Ludwig is built from the ground up with extensibility in mind.
-It is easy to add an additional datatype that is not currently supported by adding a datatype-specific implementation of abstract classes which contain functions to preprocess the data, encode it, and decode it.</p>
-<p>Furthermore, new models, with their own specific hyperparameters, can be easily added by implementing a class that accepts tensors (of a specific rank, depending of the datatype) as inputs and provides tensors as output.
+It is easy to add an additional datatype that is not currently supported by adding a datatype-specific implementation of abstract classes that contain functions to preprocess the data, encode it, and decode it.</p>
+<p>Furthermore, new models, with their own specific hyperparameters, can be easily added by implementing a class that accepts tensors (of a specific rank, depending on the datatype) as inputs and provides tensors as output.
 This encourages reuse and sharing new models with the community.
 Refer to the <a href="../developer_guide/">Developer Guide</a> for further details.</p>
                 
@@ -819,7 +794,7 @@ Refer to the <a href="../developer_guide/">Developer Guide</a> for further detai
                 <div class="footer-logo-smallpad"></div>
                 
                 <div class="md-footer-copyright__highlight">
-                    Copyright &copy; 2018 - 2019 Uber Technologies Inc.
+                    Copyright &copy; 2018 - 2020 Uber Technologies Inc.
                 </div>
                 
                 Website by <a href="http://w4nderlu.st">w4nderlust</a> powered by
@@ -839,15 +814,15 @@ Refer to the <a href="../developer_guide/">Developer Guide</a> for further detai
       
     </div>
     
-      <script src="../assets/javascripts/vendor.d710d30a.min.js"></script>
-      <script src="../assets/javascripts/bundle.a14cc5fd.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../assets/javascripts/vendor.77e55a48.min.js"></script>
+      <script src="../assets/javascripts/bundle.9554a270.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({
           base: "..",
           features: [],
           search: Object.assign({
-            worker: "../assets/javascripts/worker/search.7a2ea5ba.min.js"
+            worker: "../assets/javascripts/worker/search.4ac00218.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

@@ -766,7 +766,7 @@ df.loc[
 ] = 2
 
 # prepare timeseries input feature colum
-# (here we are using 20 preceeding values to predict the target)
+# (here we are using 20 preceding values to predict the target)
 add_sequence_feature_column(df, 'temperature', 20)
 df.to_csv('<PATH_TO_FILE>/temperature_la.csv')
 ```

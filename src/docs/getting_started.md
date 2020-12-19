@@ -69,7 +69,7 @@ The full set of dependencies can be installed with `pip install ludwig[full]`.
 For developers who wish to build the source code from the repository:
 
 ```
-git clone git@github.com:uber/ludwig.git
+git clone git@github.com:ludwig-ai/ludwig.git
 cd ludwig
 virtualenv -p python3 venv
 source venv/bin/activate

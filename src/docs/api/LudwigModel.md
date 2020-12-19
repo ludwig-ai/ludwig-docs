@@ -1,4 +1,4 @@
-<span style="float:right;">[[source]](https://github.com/uber/ludwig/blob/master/ludwig/api.py#L74)</span>
+<span style="float:right;">[[source]](https://github.com/ludwig-ai/ludwig/blob/master/ludwig/api.py#L74)</span>
 # LudwigModel class
 
 ```python

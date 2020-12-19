@@ -7,13 +7,13 @@ We strive to create an inclusive community where everyone is welcome as long as 
 
 # Issues
 
-If you encounter an issue when using Ludwig, please add it to our [GitHub Issues tracker](https://github.com/uber/ludwig/issues).
+If you encounter an issue when using Ludwig, please add it to our [GitHub Issues tracker](https://github.com/ludwig-ai/ludwig/issues).
 Please make sure we are able to replicate the issue by providing wither model definition + command + data or code + data.
 If your data cannot be shared, please use the `dataset_synthesizer` script available in `ludwig/data/dataset_synthesizer` to create a synthetic data with the same feature types.
 
 # Forum
 
-We use [Gitq](https://gitq.com/uber/ludwig) to provide a forum for the community to discuss.
+We use [Gitq](https://gitq.com/ludwig-ai/ludwig) to provide a forum for the community to discuss.
 Everything that is not an issue and relates Ludwig can be discussed here: use-cases, requests for help and suggestions, discussions on the future of the project, and other similar topics.
 The forum is ideal for asynchronous communication.
 

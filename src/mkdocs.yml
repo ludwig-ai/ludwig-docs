@@ -5,8 +5,8 @@ site_author: 'Piero Molino'
 site_url: 'https://ludwig-ai.github.io/ludwig-docs/'
 
 # Repository
-repo_name: 'uber/ludwig'
-repo_url: 'https://github.com/uber/ludwig'
+repo_name: 'ludwig-ai/ludwig'
+repo_url: 'https://github.com/ludwig-ai/ludwig'
 edit_uri: edit/master/mkdocs/docs/
 
 # Copyright

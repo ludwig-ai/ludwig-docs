@@ -4519,7 +4519,7 @@ FROM tensorflow/tensorflow:1.15.2-gpu-py3
 
 RUN apt-get -y update && apt-get -y install git libsndfile1
 
-RUN git clone --depth=1 https://github.com/uber/ludwig.git
+RUN git clone --depth=1 https://github.com/ludwig-ai/ludwig.git
 RUN cd ludwig/ \
     && pip install -r requirements.txt -r requirements_text.txt \
           -r requirements_image.txt -r requirements_audio.txt \

@@ -8,7 +8,8 @@ In order to create Ludwig's documentation you have to install them:
 pip install mkdocs mkdocs-material
 ```
 
-Be sure that you installe version of `Markdown>=3.0.1`. Then generate `api.md` from source (from the `src` directory):
+Be sure that your installed version of `Markdown>=3.0.1`.
+Then generate `api.md` from source (from the `src` directory):
 
 ```
 python code_doc_autogen.py

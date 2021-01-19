@@ -1260,26 +1260,40 @@ The column name is added to the JSON file, with an associated dictionary contain
 
 Datasets API
 --------------
-We now have a working implementation of the DataSet API, this API is heavily driven by configuration and the ability to quickly generate datasets on the fly.  As examples we have implemented the OHSUMed and Reuters datasets.  Each DataSet contains one or more mixins, these mixins typically revolve around three pieces of functionality, being able to download either zipped up datasets or csv implementations of datasets, doing some pre-processing for those datasets and finally converting the datasets to Pandas DataFrames.  The goal of the DataSet API is to provide training datasets that can directly be plugged into Ludwig Machine Learning Models.
+The Datasets API provides training datasets that can be plugged directly into a ludwig model. All datasets can be imported from ludwig.datasets.Calling load() on the dataset module will handle downloading, preprocessing, and loading the dataset into a Pandas DataFrame that Ludwig can use for training.
 
 #### Example Datasets Currently Available
-* OHSUMed
-* Kaggle
-* Reuters
-* MNist
+* OHSUMed, [Link](https://www.mat.unical.it/OlexSuite/Datasets/SampleDataSets-about.htm) 
+* Kaggle,[Link](https://www.kaggle.com/c/titanic/data) 
+* Reuters, [Link](https://www.mat.unical.it/OlexSuite/Datasets/SampleDataSets-about.htm)
+* MNist, [Link](http://yann.lecun.com/exdb/mnist/) 
 
-Please refer to [Python Kaggle Client](https://technowhisp.com/kaggle-api-python-documentation/) to see how you can setup your own Kaggle credentials.
+For datasets hosted by Kaggle, refer to  [Python Kaggle Client](https://technowhisp.com/kaggle-api-python-documentation/) to see how you can configure your Kaggle credentials locally to download datasets.
 Also see the internals of the [Kaggle Client](https://github.com/ludwig-ai/ludwig/blob/master/ludwig/datasets/titanic/__init__.py) here: 
 
-#### Unit Tests Around the DataSets API
-* The easiest use of the Datasets API would be the unit tests, to see this, look at this [titanic unit test](https://github.com/ludwig-ai/ludwig/tree/master/tests/ludwig/datasets/titanic/test_titanic_workflow.py)
-* Here's another example of a unit test for [mnist](https://github.com/ludwig-ai/ludwig/blob/master/tests/ludwig/datasets/mnist/test_mnist_workflow.py)
 
-#### How to use the DataSet API to create a new DataSet
-* Override the base_dataset class and the set of mixins you need , here's an example:  class MyCoolDataSet(ZipDownloadMixin, IdentityProcessMixin, CSVLoadMixin, BaseDataset)
+#### Adding a new DataSet
+* Override ludwig.datasets.base_dataset.BaseDataset and implement the following methods:
+  @abc.abstractmethod
+    def download_raw_dataset(self):
+        raise NotImplementedError()
+
+    @abc.abstractmethod
+    def process_downloaded_dataset(self):
+        raise NotImplementedError()
+
+    @abc.abstractmethod
+    def load_processed_dataset(self, split):
+        raise NotImplementedError()
+* All commom functionality is established by a set of mixins available to your subclass
+* When adding a new mixin, add its configurable properties within a config.yaml file in the new dataset package.  
 * Look at the code that already establishes the download, process and load functionality and figure out if you can reuse whats already there for your dataset, if not then you will need to add code to the functionality already existing in the mixins directory
 * Please try to mimic the existing unit tests to add new ones for your dataset
 * Test the functionality locally by adding a directory under examples, you can mimic the already existing examples, essentially you want to be able to load your dataset and split it by train and test flags and call the Ludwig training API to ensure everything works
+
+##### Unit Tests Around the DataSets API
+* The easiest use of the Datasets API would be the unit tests, to see this, look at this [titanic unit test](https://github.com/ludwig-ai/ludwig/tree/master/tests/ludwig/datasets/titanic/test_titanic_workflow.py)
+* Here's another example of a unit test for [mnist](https://github.com/ludwig-ai/ludwig/blob/master/tests/ludwig/datasets/mnist/test_mnist_workflow.py)
 
 
 

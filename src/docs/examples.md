@@ -157,6 +157,7 @@ output_features:
         decoder: generator
         cell_type: lstm
         attention: bahdanau
+        reduce_input: null
         loss:
             type: sampled_softmax_cross_entropy
         preprocessing:

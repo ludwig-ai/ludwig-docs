@@ -13,7 +13,7 @@ If your data cannot be shared, please use the `dataset_synthesizer` script avail
 
 # Forum
 
-We use [Gitq](https://gitq.com/ludwig-ai/ludwig) to provide a forum for the community to discuss.
+We use [GitHub Discussions](https://github.com/ludwig-ai/ludwig/discussions) to provide a forum for the community to discuss.
 Everything that is not an issue and relates Ludwig can be discussed here: use-cases, requests for help and suggestions, discussions on the future of the project, and other similar topics.
 The forum is ideal for asynchronous communication.
 

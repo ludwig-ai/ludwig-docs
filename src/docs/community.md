@@ -13,12 +13,11 @@ If your data cannot be shared, please use the `dataset_synthesizer` script avail
 
 # Forum
 
-We use [Gitq](https://gitq.com/ludwig-ai/ludwig) to provide a forum for the community to discuss.
+We use [GitHub Discussions](https://github.com/ludwig-ai/ludwig/discussions) to provide a forum for the community to discuss.
 Everything that is not an issue and relates Ludwig can be discussed here: use-cases, requests for help and suggestions, discussions on the future of the project, and other similar topics.
 The forum is ideal for asynchronous communication.
 
 # Chat
 
-We are currently testing a chat solution for allowing both Ludwig users and developers to interact in a timely, more synchronous way.
-We have not settled on a solution yet, but will add it here as soon as the choice is made.
-If you have opinion on this topic (which tools to use, comparison among available options) feel free to discuss about it on the Forum.
+We use Slack as a chat solution for allowing both Ludwig users and developers to interact in a timely, more synchronous way.
+[Click here](https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ) to receive an invitation.

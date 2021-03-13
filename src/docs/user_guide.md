@@ -1260,7 +1260,13 @@ The column name is added to the JSON file, with an associated dictionary contain
 
 Datasets API
 --------------
-The Datasets API provides training datasets that can be plugged directly into a ludwig model. All datasets can be imported from ludwig.datasets.Calling load() on the dataset module will handle downloading, preprocessing, and loading the dataset into a Pandas DataFrame that Ludwig can use for training.
+The Datasets API provides training datasets that can be directly plugged into a Ludwig model. Datasets can be imported from ludwig.datasets. Calling load() on the dataset module will handle downloading, preprocessing, and loading the dataset into a Pandas DataFrame that Ludwig can use for training.
+
+For example:
+
+from ludwig.datasets import reuters
+dataset = reuters.load()
+
 
 #### Example Datasets Currently Available
 * OHSUMed, [Link](https://www.mat.unical.it/OlexSuite/Datasets/SampleDataSets-about.htm) 
@@ -1268,13 +1274,40 @@ The Datasets API provides training datasets that can be plugged directly into a 
 * Reuters, [Link](https://www.mat.unical.it/OlexSuite/Datasets/SampleDataSets-about.htm)
 * MNist, [Link](http://yann.lecun.com/exdb/mnist/) 
 
+We also have the ability to split datasets into training and test datasets, listed below is some code to do this:
+# Define Ludwig model object that drive model training
+model = LudwigModel(config,
+                    logging_level=logging.INFO)
+
+# load and split MNIST dataset
+training_set, test_set, _ = mnist.load(split=True)
+
+# initiate model training
+(
+    train_stats,  # training statistics
+    _,
+    output_directory  # location for training results saved to disk
+) = model.train(
+    training_set=training_set,
+    test_set=test_set,
+    experiment_name='simple_image_experiment',
+    model_name='single_model',
+    skip_save_processed_input=True
+)
+
 For datasets hosted by Kaggle, refer to  [Python Kaggle Client](https://technowhisp.com/kaggle-api-python-documentation/) to see how you can configure your Kaggle credentials locally to download datasets.
 Also see the internals of the [Kaggle Client](https://github.com/ludwig-ai/ludwig/blob/master/ludwig/datasets/titanic/__init__.py) here: 
 
 
 #### Adding a new DataSet
-* Override ludwig.datasets.base_dataset.BaseDataset and implement the following methods:
-  @abc.abstractmethod
+* The easiest use of the Datasets API would be the unit tests, to see this, look at this [titanic unit test](https://github.com/ludwig-ai/ludwig/tree/master/tests/ludwig/datasets/titanic/test_titanic_workflow.py)
+* Here's another example of a unit test for [mnist](https://github.com/ludwig-ai/ludwig/blob/master/tests/ludwig/datasets/mnist/test_mnist_workflow.py)
+
+* Some sample code is shown below
+
+Override ludwig.datasets.base_dataset.BaseDataset and implement the following methods:
+
+    @abc.abstractmethod
     def download_raw_dataset(self):
         raise NotImplementedError()
 
@@ -1285,7 +1318,8 @@ Also see the internals of the [Kaggle Client](https://github.com/ludwig-ai/ludwi
     @abc.abstractmethod
     def load_processed_dataset(self, split):
         raise NotImplementedError()
-* All commom functionality is now established by a set of mixins available to your subclass
+For common steps (e.g., extracting zip files, downloading from Kaggle, etc.) a set of mixins are available for your subclass. When adding a new mixin, add its configurable properties within a config.yaml file in the new dataset package.
+* All common functionality is now established by a set of mixins available to your subclass
 * When adding a new mixin, add its configurable properties within a config.yaml file in the new dataset package.  
 * Look at the code that already establishes the download, process and load functionality and figure out if you can reuse whats already there for your dataset, if not then you will need to add code to the functionality already existing in the mixins directory
 * Please try to mimic the existing unit tests to add new ones for your dataset

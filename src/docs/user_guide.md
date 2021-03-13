@@ -1285,7 +1285,7 @@ Also see the internals of the [Kaggle Client](https://github.com/ludwig-ai/ludwi
     @abc.abstractmethod
     def load_processed_dataset(self, split):
         raise NotImplementedError()
-* All commom functionality is established by a set of mixins available to your subclass
+* All commom functionality is now established by a set of mixins available to your subclass
 * When adding a new mixin, add its configurable properties within a config.yaml file in the new dataset package.  
 * Look at the code that already establishes the download, process and load functionality and figure out if you can reuse whats already there for your dataset, if not then you will need to add code to the functionality already existing in the mixins directory
 * Please try to mimic the existing unit tests to add new ones for your dataset

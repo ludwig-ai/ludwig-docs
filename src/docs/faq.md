@@ -8,7 +8,7 @@ We keep an updatet set of tasks ordered by priority in the [GitHub Projects page
 The list of encoders for each feature type is specified in the [User Guide](user_guide.md).
 We plan to add additional feature types and additional encoders and decoders for all feature types.
 Refer to [this question](#what-additional-features-are-you-working-on) for more details.
-If you want to help us implementing your favourite feature or model please take a look at the [Developer Guide](developer_guide.md) to see how to contribute.
+If you want to help us implementing your favourite feature or model please take a look at the [Developer Guide](developerguide/CodebaseStructure.md) to see how to contribute.
 
 
 ## Do all datasets need to be loaded in memory?

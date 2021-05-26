@@ -4665,7 +4665,7 @@ Ludwig supports the following integrations:
 
 - `--wandb` - logs training metrics, configuration parameters, environment details, and trained model to [Weights & Biases](https://www.wandb.com/). For more details, refer to [W&B Quickstart](https://docs.wandb.com/quickstart).
 
-For more information about integration contributions, please see the [Developer Guide](developerguide/CodebaseStructure.md) .
+For more information about integration contributions, please see the [Developer Guide](developer_guide/developer_guide_intro.md) .
 
 Programmatic API
 ================

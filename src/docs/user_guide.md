@@ -115,7 +115,9 @@ optional arguments:
   -dpt, --disable_parallel_threads
                         disable TensorFlow from using multithreading for
                         reproducibility
-  -uh, --use_horovod    uses horovod for distributed training
+  -b BACKEND, --backend BACKEND 
+                        specifies backend to use for parallel / distributed execution, 
+                        defaults to local execution or Horovod if called using horovodrun
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
@@ -185,7 +187,7 @@ You can also specify the amount of GPU memory that will be initially assigned to
 By default all of memory is allocated.
 If less than all of memory is allcoated, TensorFlow will need more GPU memory it will try to increase this amount.
 
-If parameter `--use_horovod` is set `true`, will use Horovod for distributed processing.
+If parameter `--backend` is set, will use the given backend for distributed processing (Horovod or Ray).
 
 Finally the `--logging_level` argument lets you set the amount of logging that you want to see during training and the `--debug` argument turns on TensorFlow's `tfdbg`. Be careful when doing so, as it will help in catching errors, in particular `infs` and `NaNs` but it will consume much more memory.
 
@@ -242,7 +244,9 @@ optional arguments:
   -dpt, --disable_parallel_threads
                         disable TensorFlow from using multithreading for
                         reproducibility
-  -uh, --use_horovod    uses horovod for distributed training
+  -b BACKEND, --backend BACKEND 
+                        specifies backend to use for parallel / distributed execution, 
+                        defaults to local execution or Horovod if called using horovodrun
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
@@ -327,7 +331,9 @@ optional arguments:
   -dpt, --disable_parallel_threads
                         disable TensorFlow from using multithreading for
                         reproducibility
-  -uh, --use_horovod    uses horovod for distributed training
+  -b BACKEND, --backend BACKEND 
+                        specifies backend to use for parallel / distributed execution, 
+                        defaults to local execution or Horovod if called using horovodrun
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
@@ -461,7 +467,9 @@ optional arguments:
   -dpt, --disable_parallel_threads
                         disable TensorFlow from using multithreading for
                         reproducibility
-  -uh, --use_horovod    uses horovod for distributed training
+  -b BACKEND, --backend BACKEND 
+                        specifies backend to use for parallel / distributed execution, 
+                        defaults to local execution or Horovod if called using horovodrun
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
@@ -570,7 +578,9 @@ optional arguments:
                         list of gpus to use
   -gml GPU_MEMORY_LIMIT, --gpu_memory_limit GPU_MEMORY_LIMIT
                         maximum memory in MB to allocate per GPU device
-  -uh, --use_horovod    uses horovod for distributed training
+  -b BACKEND, --backend BACKEND 
+                        specifies backend to use for parallel / distributed execution, 
+                        defaults to local execution or Horovod if called using horovodrun
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
@@ -864,7 +874,9 @@ optional arguments:
   -dpt, --disable_parallel_threads
                         disable Tensorflow from using multithreading
                         for reproducibility
-  -uh, --use_horovod    uses horovod for distributed training
+  -b BACKEND, --backend BACKEND 
+                        specifies backend to use for parallel / distributed execution, 
+                        defaults to local execution or Horovod if called using horovodrun
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
@@ -4325,7 +4337,7 @@ For instance, in order to train a Ludwig model on a local machine with four GPUs
 
 ```
 horovodrun -np 4 \
-    ludwig train --use_horovod ...other Ludwig parameters...
+    ludwig train ...other Ludwig parameters...
 ```
 
 While for training on four remote machines with four GPUs each you can run:
@@ -4333,7 +4345,7 @@ While for training on four remote machines with four GPUs each you can run:
 ```
 horovodrun -np 16 \
     -H server1:4,server2:4,server3:4,server4:4 \
-    ludwig train --use_horovod ...other Ludwig parameters...
+    ludwig train ...other Ludwig parameters...
 ```
 
 The same applies to `experiment`, `predict` and `test`.

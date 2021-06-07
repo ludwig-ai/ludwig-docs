@@ -4367,7 +4367,7 @@ Running with Ray has several advantages over local execution:
 - Ray Tune allows you to easily run distributed hyperparameter search across many machines in parallel.
 - Ray provides easy access to high performance instances like high memory or GPU machines in the cloud.
 
-All of this comes for free without changing a single line of code in Ludwig. When Ludwig detects that you're running within a Ray cluster, the Ray backend will b enabled automatically. You can also enable the Ray backend explicitly either through the command line:
+All of this comes for free without changing a single line of code in Ludwig. When Ludwig detects that you're running within a Ray cluster, the Ray backend will be enabled automatically. You can also enable the Ray backend explicitly either through the command line:
 
 ```bash
 ludwig train ... --backend ray

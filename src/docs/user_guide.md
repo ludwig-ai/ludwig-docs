@@ -4306,14 +4306,14 @@ In most cases, Ludwig will be able to automatically detect if you're running in 
 ```yaml
 backend:
   type: local
-  data_format: parquet
+  cache_format: parquet
   cache_dir: s3://my_bucket/cache
 ```
 
 Parameters:
 
 - `type`: How the job will be distributed, one of `local`, `ray`, `horovod`.
-- `data_format`: Representation of the preprocessed data on disk, one of `hdf5`, `parquet`, `tfrecord`.
+- `cache_format`: Representation of the preprocessed data in the cache, one of `hdf5`, `parquet`, `tfrecord`.
 - `cache_dir`: Where the preprocessed data will be written on disk, defaults to the location of the input dataset.
 
 Horovod

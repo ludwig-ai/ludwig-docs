@@ -979,7 +979,7 @@ ludwig export_mlflow --model_path /saved/ludwig/model --output_path /exported/ml
 For the second, you will need to provide a registered model name used by the model registry:
 
 ```bash
-ludwig export_mlflow --model_path /saved/ludwig/model --output_path relative/moel/path --registered_model_name my_ludwig_model
+ludwig export_mlflow --model_path /saved/ludwig/model --output_path relative/model/path --registered_model_name my_ludwig_model
 ```
 
 

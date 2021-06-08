@@ -252,4 +252,4 @@ It is easy to add an additional datatype that is not currently supported by addi
 
 Furthermore, new models, with their own specific hyperparameters, can be easily added by implementing a class that accepts tensors (of a specific rank, depending on the datatype) as inputs and provides tensors as output.
 This encourages reuse and sharing new models with the community.
-Refer to the [Developer Guide](developer_guide.md) for further details.
+Refer to the [Developer Guide](developer_guide/developer_guide_intro.md) for further details.

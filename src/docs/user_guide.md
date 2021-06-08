@@ -4875,7 +4875,7 @@ Ludwig supports the following integrations:
 
 - `--mlflow` - logs training metrics, hyperopt parameters, output artifacts, and train models to [MLflow](https://mlflow.org/). Set the environment variable `MLFLOW_TRACKING_URI` to log results to a remote tracking server.
 
-For more information about integration contributions, please see the [Developer Guide](developer_guide.md).
+For more information about integration contributions, please see the [Developer Guide](developer_guide/developer_guide_intro.md) .
 
 Programmatic API
 ================

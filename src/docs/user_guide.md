@@ -15,6 +15,7 @@ Ludwig provides several command line interface entry points
 - `collect_activations`: Collects tensors for each datapoint using a pretrained model
 - `export_savedmodel`: Exports Ludwig models to SavedModel
 - `export_neuropod`: Exports Ludwig models to Neuropod
+- `export_mlflow`: Exports Ludwig models to MLflow
 - `preprocess`: Preprocess data and saves it into HDF5 and JSON format
 - `synthesize_dataset`: Creates synthetic data for tesing purposes
 
@@ -114,7 +115,9 @@ optional arguments:
   -dpt, --disable_parallel_threads
                         disable TensorFlow from using multithreading for
                         reproducibility
-  -uh, --use_horovod    uses horovod for distributed training
+  -b BACKEND, --backend BACKEND 
+                        specifies backend to use for parallel / distributed execution, 
+                        defaults to local execution or Horovod if called using horovodrun
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
@@ -184,7 +187,7 @@ You can also specify the amount of GPU memory that will be initially assigned to
 By default all of memory is allocated.
 If less than all of memory is allcoated, TensorFlow will need more GPU memory it will try to increase this amount.
 
-If parameter `--use_horovod` is set `true`, will use Horovod for distributed processing.
+If parameter `--backend` is set, will use the given backend for distributed processing (Horovod or Ray).
 
 Finally the `--logging_level` argument lets you set the amount of logging that you want to see during training and the `--debug` argument turns on TensorFlow's `tfdbg`. Be careful when doing so, as it will help in catching errors, in particular `infs` and `NaNs` but it will consume much more memory.
 
@@ -241,7 +244,9 @@ optional arguments:
   -dpt, --disable_parallel_threads
                         disable TensorFlow from using multithreading for
                         reproducibility
-  -uh, --use_horovod    uses horovod for distributed training
+  -b BACKEND, --backend BACKEND 
+                        specifies backend to use for parallel / distributed execution, 
+                        defaults to local execution or Horovod if called using horovodrun
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
@@ -326,7 +331,9 @@ optional arguments:
   -dpt, --disable_parallel_threads
                         disable TensorFlow from using multithreading for
                         reproducibility
-  -uh, --use_horovod    uses horovod for distributed training
+  -b BACKEND, --backend BACKEND 
+                        specifies backend to use for parallel / distributed execution, 
+                        defaults to local execution or Horovod if called using horovodrun
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
@@ -460,7 +467,9 @@ optional arguments:
   -dpt, --disable_parallel_threads
                         disable TensorFlow from using multithreading for
                         reproducibility
-  -uh, --use_horovod    uses horovod for distributed training
+  -b BACKEND, --backend BACKEND 
+                        specifies backend to use for parallel / distributed execution, 
+                        defaults to local execution or Horovod if called using horovodrun
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
@@ -569,7 +578,9 @@ optional arguments:
                         list of gpus to use
   -gml GPU_MEMORY_LIMIT, --gpu_memory_limit GPU_MEMORY_LIMIT
                         maximum memory in MB to allocate per GPU device
-  -uh, --use_horovod    uses horovod for distributed training
+  -b BACKEND, --backend BACKEND 
+                        specifies backend to use for parallel / distributed execution, 
+                        defaults to local execution or Horovod if called using horovodrun
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
@@ -863,7 +874,9 @@ optional arguments:
   -dpt, --disable_parallel_threads
                         disable Tensorflow from using multithreading
                         for reproducibility
-  -uh, --use_horovod    uses horovod for distributed training
+  -b BACKEND, --backend BACKEND 
+                        specifies backend to use for parallel / distributed execution, 
+                        defaults to local execution or Horovod if called using horovodrun
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
@@ -945,6 +958,29 @@ optional arguments:
 ```
 
 This functionality has been tested with `neuropod==0.2.0`.
+
+
+export_mlflow
+-------------
+
+A Ludwig model can be exported as an [mlflow.pyfunc](https://www.mlflow.org/docs/latest/python_api/mlflow.pyfunc.html) model, which allows it to be executed in a framework agnostic way.
+
+There are two ways to export a Ludwig model to MLflow:
+
+1. Convert a saved model directory on disk to the MLflow format on disk.
+2. Register a saved model directory on disk or in an existing MLflow experiment to an MLflow model registry.
+
+For the first approach, you only need to provide the location of the saved Ludwig model locally and the location where the model should be written to on local disk:
+
+```bash
+ludwig export_mlflow --model_path /saved/ludwig/model --output_path /exported/mlflow/model
+```
+
+For the second, you will need to provide a registered model name used by the model registry:
+
+```bash
+ludwig export_mlflow --model_path /saved/ludwig/model --output_path relative/model/path --registered_model_name my_ludwig_model
+```
 
 
 preprocess
@@ -4260,8 +4296,28 @@ encoder: parallel_cnn
 ... encoder parameters ...
 ```
 
-Distributed Training
-====================
+Distributed Execution Backends
+==============================
+
+The same Ludwig config / Python code that runs on your local machine can be executed remotely in a distributed manner with zero code changes. This distributed execution include preprocessing, training, and batch prediction. 
+
+In most cases, Ludwig will be able to automatically detect if you're running in an environment that supports distributed execution, but you can also make this explicit on the command line with the `--backend` arg or by providing a `backend` section to the Ludwig config YAML:
+
+```yaml
+backend:
+  type: local
+  cache_format: parquet
+  cache_dir: s3://my_bucket/cache
+```
+
+Parameters:
+
+- `type`: How the job will be distributed, one of `local`, `ray`, `horovod`.
+- `cache_format`: Representation of the preprocessed data in the cache, one of `hdf5`, `parquet`, `tfrecord`.
+- `cache_dir`: Where the preprocessed data will be written on disk, defaults to the location of the input dataset.
+
+Horovod
+-------
 
 You can distribute the training and prediction of your models using [Horovod](https://github.com/uber/horovod), which allows to train on a single machine with multiple GPUs as well as on multiple machines with multiple GPUs.
 
@@ -4275,13 +4331,13 @@ Horovod works by, in practice, increasing the batch size and distributing a part
 It also adjusts the learning rate to counter balance the increase in the batch size.
 The advantage is that training speed scales almost linearly with the number of nodes.
 
-`experiment`, `train` and `predict` commands accept a `--use_horovod` argument that instructs the model building, training and prediction phases to be conducted using Horovod in a distributed way.
+`experiment`, `train` and `predict` commands accept a `--backend=horovod` argument that instructs the model building, training and prediction phases to be conducted using Horovod in a distributed way.
 A `horovodrun` command specifying which machines and / or GPUs to use, together with a few more parameters, must be provided before the call to Ludwig's command.
 For instance, in order to train a Ludwig model on a local machine with four GPUs one you can run:
 
 ```
 horovodrun -np 4 \
-    ludwig train --use_horovod ...other Ludwig parameters...
+    ludwig train ...other Ludwig parameters...
 ```
 
 While for training on four remote machines with four GPUs each you can run:
@@ -4289,12 +4345,83 @@ While for training on four remote machines with four GPUs each you can run:
 ```
 horovodrun -np 16 \
     -H server1:4,server2:4,server3:4,server4:4 \
-    ludwig train --use_horovod ...other Ludwig parameters...
+    ludwig train ...other Ludwig parameters...
 ```
 
 The same applies to `experiment`, `predict` and `test`.
 
 More details on Horovod installation and run parameters can be found in [Horovod's documentation](https://github.com/uber/horovod).
+
+Ray
+---
+
+[Ray](https://ray.io/) is a framework for distributed computing that makes it easy to scale up code that runs on your local machine to execute in parallel across a cluster.
+
+Ludwig has native integration with Ray for both hyperparameter search and distributed training.
+
+Running with Ray has several advantages over local execution:
+
+- Ray enables you to provision a cluster of machines in a single command through its [cluster launcher](https://docs.ray.io/en/latest/cluster/launcher.html).
+- Horovod on Ray allows you to do distributed training without needing to configure MPI in your environment.
+- Dask on Ray allows you to process large datasets that don't fit in memory on a single machine.
+- Ray Tune allows you to easily run distributed hyperparameter search across many machines in parallel.
+- Ray provides easy access to high performance instances like high memory or GPU machines in the cloud.
+
+All of this comes for free without changing a single line of code in Ludwig. When Ludwig detects that you're running within a Ray cluster, the Ray backend will be enabled automatically. You can also enable the Ray backend explicitly either through the command line:
+
+```bash
+ludwig train ... --backend ray
+```
+
+Or in the Ludwig config:
+
+```yaml
+backend:
+  type: ray
+  data_format: parquet
+  engine:
+    type: dask
+```
+
+### Running Ludwig with Ray
+
+To use the Ray with Ludwig, you will need to have a running Ray cluster. The simplest way to start a Ray cluster is to use the Ray [cluster launcher](https://docs.ray.io/en/latest/cluster/launcher.html), which can be installed locally with `pip`:
+
+```bash
+pip install ray
+```
+
+Starting a Ray cluster requires that you have access to a node provider like AWS EC2 or Kubernetes.
+
+Here's an example of a partial Ray cluster configuration YAML file you can use to create your Ludwig Ray cluster:
+
+```yaml
+cluster_name: ludwig-ray-gpu-nightly
+
+min_workers: 4
+max_workers: 4
+
+docker:
+    image: "ludwigai/ludwig-ray-gpu:nightly"
+    container_name: "ray_container"
+
+head_node:
+    InstanceType: c5.2xlarge
+    ImageId: latest_dlami
+
+worker_nodes:
+    InstanceType: g4dn.xlarge
+    ImageId: latest_dlami
+```
+
+This configuration runs on AWS EC2 instances, with a CPU head node and 4 GPU (Nvidia T4) worker nodes. Every worker runs within a Docker image that provides Ludwig and its dependencies, including Ray, Dask, Horovod, etc. You can use one of these pre-built Docker images as the parent image for your cluster. Ludwig provides both [CPU](https://hub.docker.com/r/ludwigai/ludwig-ray) and [GPU](https://hub.docker.com/r/ludwigai/ludwig-ray-gpu) images ready for use with Ray.
+
+Once your Ray cluster is configured, you can start the cluster and submit your existing `ludwig` commands or Python files to Ray for distributed execution:
+
+```bash
+ray up cluster.yaml
+ray submit cluster.yaml ludwig train --config config.yaml --dataset s3://mybucket/dataset.parquet
+```
 
 
 Hyper-parameter optimization
@@ -4445,6 +4572,63 @@ sampler:
   num_samples: 10
 ```
 
+### Ray Tune sampler
+
+The `ray` sampler is used in conjunction with the `ray` executor to enable [Ray Tune](https://docs.ray.io/en/master/tune/index.html) for distributed hyperopt across a cluster of machines. 
+
+Ray Tune supports its own collection of [search algorithms](https://docs.ray.io/en/master/tune/api_docs/suggestion.html), specified by the `search_alg` section of the sampler config:
+
+```yaml
+sampler:
+  type: ray
+  search_alg:
+    type: ax
+```
+
+You can find the full list of supported search algorithm names in Ray Tune's [create_searcher](https://github.com/ray-project/ray/blob/master/python/ray/tune/suggest/__init__.py) function.
+
+Ray Tune also allows you to specify a [scheduler](https://docs.ray.io/en/master/tune/api_docs/schedulers.html) to support features like early stopping and other population-based strategies that may pause and resume trials during training. Ludwig exposes the complete scheduler API in the `scheduler` section of the config:
+
+```yaml
+sampler:
+  type: ray
+  search_alg:
+    type: bohb
+  scheduler:
+    type: hb_bohb
+    time_attr: training_iteration
+    reduction_factor: 4
+```
+
+You can find the full list of supported schedulers in Ray Tune's [create_scheduler](https://github.com/ray-project/ray/blob/master/python/ray/tune/schedulers/__init__.py) function.
+
+Other config options, including `parameters`, `num_samples`, and `goal` work the same for Ray Tune as they do for other sampling strategies in Ludwig. The `parameters` will be converted from the Ludwig format into a Ray Tune [search space](https://docs.ray.io/en/master/tune/api_docs/search_space.html). However, note that the `space` field of the Ludwig config should conform to the Ray Tune [distribution names](https://docs.ray.io/en/master/tune/api_docs/search_space.html#random-distributions-api). For example:
+
+```yaml
+hyperopt:
+  parameters:
+    training.learning_rate:
+      space: loguniform
+      lower: 0.001
+      upper: 0.1
+    combiner.num_fc_layers:
+      space: randint
+      lower: 2
+      upper: 6
+    utterance.cell_type:
+      space: grid_search
+      values: ["rnn", "gru"]
+    utterance.bidirectional:
+      space: choice
+      categories: [True, False]
+    utterance.fc_layers:
+      space: choice
+      categories:
+        - [{"fc_size": 512}, {"fc_size": 256}]
+        - [{"fc_size": 512}]
+        - [{"fc_size": 256}]
+  goal: minimize
+```
 
 Executor
 --------
@@ -4476,6 +4660,30 @@ executor:
   num_workers: 2
   epsilon: 0.01
 ```
+
+### Ray Tune Executor
+
+The `ray` executor is used in conjunction with the `ray` sampler to enable [Ray Tune](https://docs.ray.io/en/master/tune/index.html) for distributed hyperopt across a cluster of machines.
+
+**Parameters:**
+
+- `cpu_resources_per_trial`: The number of CPU cores allocated to each trial (default: 1).
+- `gpu_resources_per_trial`: The number of GPU devices allocated to each trial (default: 0).
+- `kubernetes_namespace`: When running on Kubernetes, provide the namespace of the Ray cluster to sync results between pods. See the [Ray docs](https://docs.ray.io/en/master/_modules/ray/tune/integration/kubernetes.html) for more info.
+
+Example:
+
+```yaml
+executor:
+  type: ray
+  cpu_resources_per_trial: 2
+  gpu_resources_per_trial: 1
+  kubernetes_namespace: ray
+```
+
+**Running Ray Executor:**
+
+See the section on [Running Ludwig with Ray](https://ludwig-ai.github.io/ludwig-docs/user_guide/#running-ludwig-with-ray) for guidance on setting up your Ray cluster.
 
 ### Fiber Executor
 
@@ -4664,6 +4872,8 @@ Ludwig supports the following integrations:
 - `--comet` - logs training metrics, environment details, test results, visualizations, and more to [Comet.ML](https://comet.ml). Requires a freely available account. For more details, see Comet's [Running Ludwig with Comet](https://www.comet.ml/docs/python-sdk/ludwig/#running-ludwig-with-comet).
 
 - `--wandb` - logs training metrics, configuration parameters, environment details, and trained model to [Weights & Biases](https://www.wandb.com/). For more details, refer to [W&B Quickstart](https://docs.wandb.com/quickstart).
+
+- `--mlflow` - logs training metrics, hyperopt parameters, output artifacts, and train models to [MLflow](https://mlflow.org/). Set the environment variable `MLFLOW_TRACKING_URI` to log results to a remote tracking server.
 
 For more information about integration contributions, please see the [Developer Guide](developer_guide/developer_guide_intro.md) .
 

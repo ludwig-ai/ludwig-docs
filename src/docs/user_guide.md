@@ -17,7 +17,7 @@ Ludwig provides several command line interface entry points
 - `export_neuropod`: Exports Ludwig models to Neuropod
 - `export_mlflow`: Exports Ludwig models to MLflow
 - `preprocess`: Preprocess data and saves it into HDF5 and JSON format
-- `synthesize_dataset`: Creates synthetic data for tesing purposes
+- `synthesize_dataset`: Creates synthetic data for testing purposes
 
 They are described in detail below.
 
@@ -87,7 +87,7 @@ optional arguments:
   -ssm, --skip_save_model
                         disables saving weights each time the model improves.
                         By default Ludwig saves weights after each epoch the
-                        validation metric imrpvoes, but if the model is really
+                        validation metric improves, but if the model is really
                         big that can be time consuming. If you do not want to
                         keep the weights and just find out what performance
                         can a model get with a set of hyperparameters, use
@@ -147,14 +147,14 @@ This allows for a few possible input data scenarios:
 - you can provide separate UTF-8 encoded training, validation and test sets  (`--training_set`, `--validation_set`, `--test_set`).
 - the HDF5 and JSON file indications specified in the case of a single dataset file apply also in the multiple files case, with the only difference that you need to specify only one JSON file (`--train_set_metadata_json`).
 
-The validation set is optional, but if absent the training wil continue until the end of the training epochs, while when there's a validation set the default behavior is to perform early stopping after the validation measure does not improve for a certain amount of epochs. The test set is optional too.
+The validation set is optional, but if absent the training will continue until the end of the training epochs, while when there's a validation set the default behavior is to perform early stopping after the validation measure does not improve for a certain amount of epochs. The test set is optional too.
 
 Other optional arguments are `--output_directory`, `--experiment_name` and `--model name`.
 By default the output directory is `./results`.
 That directory will contain a directory named `[experiment_name]_[model_name]_0` 
 if model name and experiment name are specified.
 If the same combination of experiment and model name is used again, the integer 
-at the end of the name wil be increased.
+at the end of the name will be increased.
 If neither of them is specified the directory will be named `run_0`.
 The directory will contain
 
@@ -302,7 +302,7 @@ These are the available arguments:
 usage: ludwig evaluate [options]
 
 This script loads a pretrained model and evaluates its performance by
-comparingits predictions with ground truth.
+comparing its predictions with ground truth.
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -553,7 +553,7 @@ optional arguments:
   -ssm, --skip_save_model
                         disables saving weights each time the model improves.
                         By default Ludwig saves weights after each epoch the
-                        validation metric imrpvoes, but if the model is really
+                        validation metric improves, but if the model is really
                         big that can be time consuming. If you do not want to
                         keep the weights and just find out what performance
                         can a model get with a set of hyperparameters, use
@@ -1046,7 +1046,7 @@ optional arguments:
 synthesize_dataset
 ------------------
 
-Creates synthetic data for tesing purposes depending on the feature list parameters provided in YAML format.
+Creates synthetic data for testing purposes depending on the feature list parameters provided in YAML format.
 
 ```
 ludwig synthesize_dataset [options]

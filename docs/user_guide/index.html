@@ -3635,7 +3635,7 @@
 <li><code>export_savedmodel</code>: Exports Ludwig models to SavedModel</li>
 <li><code>export_neuropod</code>: Exports Ludwig models to Neuropod</li>
 <li><code>preprocess</code>: Preprocess data and saves it into HDF5 and JSON format</li>
-<li><code>synthesize_dataset</code>: Creates synthetic data for tesing purposes</li>
+<li><code>synthesize_dataset</code>: Creates synthetic data for testing purposes</li>
 </ul>
 <p>They are described in detail below.</p>
 <h3 id="train">train<a class="headerlink" href="#train" title="Permanent link">&para;</a></h3>
@@ -3695,7 +3695,7 @@ optional arguments:
   -ssm, --skip_save_model
                         disables saving weights each time the model improves.
                         By default Ludwig saves weights after each epoch the
-                        validation metric imrpvoes, but if the model is really
+                        validation metric improves, but if the model is really
                         big that can be time consuming. If you do not want to
                         keep the weights and just find out what performance
                         can a model get with a set of hyperparameters, use
@@ -3749,13 +3749,13 @@ This allows for a few possible input data scenarios:</p>
 <li>you can provide separate UTF-8 encoded training, validation and test sets  (<code>--training_set</code>, <code>--validation_set</code>, <code>--test_set</code>).</li>
 <li>the HDF5 and JSON file indications specified in the case of a single dataset file apply also in the multiple files case, with the only difference that you need to specify only one JSON file (<code>--train_set_metadata_json</code>).</li>
 </ul>
-<p>The validation set is optional, but if absent the training wil continue until the end of the training epochs, while when there's a validation set the default behavior is to perform early stopping after the validation measure does not improve for a certain amount of epochs. The test set is optional too.</p>
+<p>The validation set is optional, but if absent the training will continue until the end of the training epochs, while when there's a validation set the default behavior is to perform early stopping after the validation measure does not improve for a certain amount of epochs. The test set is optional too.</p>
 <p>Other optional arguments are <code>--output_directory</code>, <code>--experiment_name</code> and <code>--model name</code>.
 By default the output directory is <code>./results</code>.
 That directory will contain a directory named <code>[experiment_name]_[model_name]_0</code> 
 if model name and experiment name are specified.
 If the same combination of experiment and model name is used again, the integer 
-at the end of the name wil be increased.
+at the end of the name will be increased.
 If neither of them is specified the directory will be named <code>run_0</code>.
 The directory will contain</p>
 <ul>
@@ -3868,7 +3868,7 @@ You can call it with:</p>
 <div class="codehilite"><pre><span></span><code>usage: ludwig evaluate [options]
 
 This script loads a pretrained model and evaluates its performance by
-comparingits predictions with ground truth.
+comparing its predictions with ground truth.
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -4092,7 +4092,7 @@ optional arguments:
   -ssm, --skip_save_model
                         disables saving weights each time the model improves.
                         By default Ludwig saves weights after each epoch the
-                        validation metric imrpvoes, but if the model is really
+                        validation metric improves, but if the model is really
                         big that can be time consuming. If you do not want to
                         keep the weights and just find out what performance
                         can a model get with a set of hyperparameters, use

@@ -18,16 +18,15 @@ nav:
   - Getting Started: 'getting_started.md'
   - Examples: 'examples.md'
   - User Guide: 'user_guide.md'
-  - DpGuide:
+  - Developer Guide:
       - 'Developer Guide Intro': 'developer_guide/developer_guide_intro.md'
       - 'Codebase Structure': 'developer_guide/codebase_structure.md'
-      - 'Adding an Encoder': 'developer_guide/adding_an_encoder.md'
-      - 'Add A New Decoder Class': 'developer_guide/add_a_new_decoder_class.md'
-      - 'Add A New Feature Class': 'developer_guide/add_a_new_feature_class.md'
+      - 'Add an Encoder': 'developer_guide/add_an_encoder.md'
+      - 'Add a Decoder': 'developer_guide/add_a_decoder.md'
+      - 'Add a Feature Type': 'developer_guide/add_a_feature_type.md'
       - 'Hyper-parameter Optimization': 'developer_guide/hyper_parameter_optimization.md'
-      - 'Adding a new Integration': 'developer_guide/adding_a_new_integration.md'
-      - 'Style Guidelines and Tests': 'developer_guide/style_guidelines_and_tests'
-  - Developer Guide: 'developer_guide.md'
+      - 'Add an Integration': 'developer_guide/add_an_integration.md'
+      - 'Style Guidelines and Tests': 'developer_guide/style_guidelines_and_tests.md'
   - API:
       - 'LudwigModel': 'api/LudwigModel.md'
       - 'Visualization': 'api/visualization.md'

@@ -32,6 +32,9 @@ If not, please consider adding a new mixin if the functionality you need is comm
 Please try to mimic the existing unit tests to add new ones for your dataset.
 Before submitting a new dataset, please test the functionality locally mimicing the already existing examples to be able to load your dataset, split it and call the Ludwig training API to ensure everything runs fine.
 
+For datasets hosted on Kaggle, refer to  [Python Kaggle Client](https://technowhisp.com/kaggle-api-python-documentation/) to see how you can configure your Kaggle credentials locally to download datasets.
+Also see the internals of the [Kaggle DownloadMixin](https://github.com/ludwig-ai/ludwig/blob/master/ludwig/datasets/mixins/kaggle.py) here.
+
 
 Unit Tests for the Datasets API
 ===============================

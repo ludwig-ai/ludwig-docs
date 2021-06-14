@@ -4156,7 +4156,7 @@ If you don't specify a combiner, the `concat` combiner will be used.
 
 ### Concat Combiner
 
-The concat combiner assumes all outputs from encoders are tensors of size `b x h` where `b` is the batch size and `h` is the hidden dimension, which can be different for each input.
+The `concat` combiner assumes all outputs from encoders are tensors of size `b x h` where `b` is the batch size and `h` is the hidden dimension, which can be different for each input.
 If inputs are tensors with different shapes, set the `flatten_inputs` parameter to `true`.
 It concatenates along the `h` dimension, and then (optionally) passes the concatenated tensor through a stack of fully connected layers.
 It returns the final `b x h'` tensor where `h'` is the size of the last fully connected layer or the sum of the sizes of the `h` of all inputs in the case there are no fully connected layers.
@@ -4176,7 +4176,7 @@ If there's only one input feature and no fully connected layers are specified, t
 +-----------+
 ```
 
-These are the available parameters of a concat combiner
+These are the available parameters of a `concat` combiner:
 
 - `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`, `activation`, `dropout`, `initializer` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.
 - `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes through. Their output is projected in the feature's output space.
@@ -4194,7 +4194,7 @@ These are the available parameters of a concat combiner
 - `flatten_inputs` (default `false`): if `true` flatten the tensors from all the input features into a vector.
 - `residual` (default `false`): if `true` adds a residual connection to each fully connected layer block. It is required that all fully connected layers have the same size for this parameter to work correctly.
 
-Example concat combiner in the configuration:
+Example configuration of a `concat` combiner:
 
 ```yaml
 type: concat
@@ -4217,7 +4217,7 @@ residual: false
 
 ### Sequence Concat Combiner
 
-The sequence concat combiner assumes at least one output from encoders is a tensors of size `b x s x h` where `b` is the batch size, `s` is the length of the sequence and `h` is the hidden dimension.
+The `sequence?concat` combiner assumes at least one output from encoders is a tensors of size `b x s x h` where `b` is the batch size, `s` is the length of the sequence and `h` is the hidden dimension.
 The sequence / text / sequential input can be specified with the `main_sequence_feature` parameter that should have the name of the sequential feature as value.
 If no `main_sequence_feature` is specified, the combiner will look through all the features in the order they are defined in the configuration and will look for a feature with a rank 3 tensor output (sequence, text or time series).
 If it cannot find one it will raise an exception, otherwise the output of that feature will be used for concatenating the other features along the sequence `s` dimension.
@@ -4250,12 +4250,12 @@ Output       |  +-----------------+
 +-------+
 ```
 
-These are the available parameters of a sequence concat combiner
+These are the available parameters of a `sequence_concat` combiner:
 
 - `main_sequence_feature` (default `null`): name of the sequence / text/ time series feature to concatenate the outputs of the other features to. If no `main_sequence_feature` is specified, the combiner will look through all the features in the order they are defined in the configuration and will look for a feature with a rank 3 tensor output (sequence, text or time series). If it cannot find one it will raise an exception, otherwise the output of that feature will be used for concatenating the other features along the sequence `s` dimension. If there are other input features with a rank 3 output tensor, the combiner will concatenate them alongside the `s` dimension, which means that all of them must have identical `s` dimension, otherwise an error will be thrown.
 - `reduce_output` (default `null`): describes the strategy to use to aggregate the embeddings of the items of the set. Possible values are `null`, `sum`, `mean` and `sqrt` (the weighted sum divided by the square root of the sum of the squares of the weights).
 
-Example sequence concat combiner in the configuration:
+Example configuration of a `sequence_concat` combiner:
 
 ```yaml
 type: sequence_concat
@@ -4265,7 +4265,7 @@ reduce_output: null
 
 ### Sequence Combiner
 
-The sequence combiner stacks a sequence concat combiner with a sequence encoder one on top of each other.
+The `sequence` combiner stacks a sequence concat combiner with a sequence encoder one on top of each other.
 All the considerations about inputs tensor ranks describer for the [sequence concat combiner](#sequence-concat-combiner) apply also in this case, but the main difference is that this combiner uses the `b x s x h'` output of the sequence concat combiner, where `b` is the batch size, `s` is the sequence length and `h'` is the sum of the hidden dimensions of all input features, as input for any of the sequence encoders described in the [sequence features encoders section](#sequence-inpit-features-and-encoders).
 Refer to that section for more detailed information about the sequence encoders and their parameters.
 Also all the considerations on the shape of the outputs done for the sequence encoders apply in this case too.
@@ -4292,13 +4292,79 @@ Output       |  +-----------------+
 +-------+
 ```
 
-Example sequence combiner in the configuration:
+Example configuration of a `sequence` combiner:
 
 ```yaml
 type: sequence
 main_sequence_feature: null
 encoder: parallel_cnn
 ... encoder parameters ...
+```
+
+### TabNet Combiner
+
+The `tabnet` combiner implements the [TabNet](https://arxiv.org/abs/1908.07442) model, which uses attention and sparsity to achieve high performnce on tabular data.
+It assumes all outputs from encoders are tensors of size `b x h` where `b` is the batch size and `h` is the hidden dimension, which can be different for each input.
+If the input tensors have a different shape, it automatically flattens them.
+It returns the final `b x h'` tensor where `h'` is the user-specified output size.
+
+```
++-----------+
+|Input      |
+|Feature 1  +-+
++-----------+ |            
++-----------+ | +------+   
+|...        +--->TabNet+-->
++-----------+ | +------+   
++-----------+ |            
+|Input      +-+
+|Feature N  |
++-----------+
+```
+
+These are the available parameters of a `tabnet` combiner:
+
+- `size`: the size of the hidden layers. `N_a` in the paper.
+- `output_size`: the size of the output of each step and of the final aggregated representation. `N_d` in the paper.
+- `num_steps` (default `1`): number of steps / repetitions of the the attentive transformer and feature transformer computations. `N_steps` in the paper.
+- `num_total_blocks` (default `4`): total number of feature transformer block at each step.
+- `num_shared_blocks` (default `2`): number of shared feature transformer blocks across the steps.
+- `relaxation_factor` (default `1.5`): Factor that influences how many times a feature should be used across the steps of computation. a value of `1` implies it each feature should be use once, a higher value allows for multiple usages. `gamma` in the paper.
+- `bn_epsilon` (default `0.001`): epsilon to be added to the batch norm denominator.
+- `bn_momentum` (default `0.7`): momentum of the batch norm. `m_B` in the paper.
+- `bn_virtual_bs` (default `null`): size of the virtual batch size used by ghost batch norm. If `null`, regular batch norm is used instead. `B_v` from the paper.
+- `sparsity` (default `0.00001`): multiplier of the sparsity inducing loss. `lambda_sparse` in the paper.
+            dropout=0,
+
+- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`, `activation`, `dropout`, `initializer` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.
+- `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes through. Their output is projected in the feature's output space.
+- `fc_size` (default `256`): if a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
+- `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
+- `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `weights_regularizer` (default `null`): regularizer function applied to the weights matrix.  Valid values are `l1`, `l2` or `l1_l2`.
+- `bias_regularizer` (default `null`): regularizer function applied to the bias vector.  Valid values are `l1`, `l2` or `l1_l2`.
+- `activity_regularizer` (default `null`): regurlizer function applied to the output of the layer.  Valid values are `l1`, `l2` or `l1_l2`.
+- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
+- `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
+- `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
+- `dropout` (default `0`): dropout rate.
+
+Example configuration of a `tabnet` combiner:
+
+```yaml
+type: tabnet
+size: 32
+ooutput_size: 32
+num_steps: 5
+num_total_blocks: 4
+num_shared_blocks: 2
+relaxation_factor: 1.5
+bn_epsilon: 0.001
+bn_momentum: 0.7
+bn_virtual_bs: 128
+sparsity: 0.00001
+dropout: 0
 ```
 
 Distributed Execution Backends

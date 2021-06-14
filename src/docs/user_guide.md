@@ -4157,6 +4157,7 @@ If you don't specify a combiner, the `concat` combiner will be used.
 ### Concat Combiner
 
 The concat combiner assumes all outputs from encoders are tensors of size `b x h` where `b` is the batch size and `h` is the hidden dimension, which can be different for each input.
+If inputs are tensors with different shapes, set the `flatten_inputs` parameter to `true`.
 It concatenates along the `h` dimension, and then (optionally) passes the concatenated tensor through a stack of fully connected layers.
 It returns the final `b x h'` tensor where `h'` is the size of the last fully connected layer or the sum of the sizes of the `h` of all inputs in the case there are no fully connected layers.
 If there's only one input feature and no fully connected layers are specified, the output of the input feature is just passed through as output.
@@ -4189,7 +4190,9 @@ These are the available parameters of a concat combiner
 - `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
 - `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
-- `dropout` (default `0`): dropout rate
+- `dropout` (default `0`): dropout rate.
+- `flatten_inputs` (default `false`): if `true` flatten the tensors from all the input features into a vector.
+- `residual` (default `false`): if `true` adds a residual connection to each fully connected layer block. It is required that all fully connected layers have the same size for this parameter to work correctly.
 
 Example concat combiner in the configuration:
 
@@ -4208,6 +4211,8 @@ norm: null
 norm_params: null
 activation: relu
 dropout: 0
+flatten_inputs: false
+residual: false
 ```
 
 ### Sequence Concat Combiner

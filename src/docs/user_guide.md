@@ -4353,12 +4353,12 @@ sparsity: 0.00001
 dropout: 0
 ```
 
-### Transofrmer Combiner
+### Transformer Combiner
 
 The `transformer` combiner combines imput features using a stack of Transformer blocks (from [Attention Is All You Need](https://arxiv.org/abs/1706.03762)).
 It assumes all outputs from encoders are tensors of size `b x h` where `b` is the batch size and `h` is the hidden dimension, which can be different for each input.
 If the input tensors have a different shape, it automatically flattens them.
-I then projects each input tensor to the same hidden / embedding size and encodes them wit ha stack of Tranformer layers.
+It then projects each input tensor to the same hidden / embedding size and encodes them wit ha stack of Tranformer layers.
 Finally it applies an reduction to the outputs of the Transformer stack and applies optional fully connected layers. 
 It returns the final `b x h'` tensor where `h'` is the size of the last fully connected layer or the hidden / embedding size , or it returns `b x n x h'` where `n` is the number of input features and `h'` is the hidden / embedding size if there's no reduction applied.
 
@@ -4425,6 +4425,85 @@ fc_activation: relu
 fc_dropout: 0
 fc_residual: null
 reduce_output: mean
+```
+
+### Comparator Combiner
+
+The `comparator` combiner compares the hidden representation of two entities definef by lists of features.
+It assumes all outputs from encoders are tensors of size `b x h` where `b` is the batch size and `h` is the hidden dimension, which can be different for each input.
+If the input tensors have a different shape, it automatically flattens them.
+It then concatenates the representations of each entity end projects them into the same size.
+Finally it compares the two entity representations by dot product, element-wise multiplication, absolute difference and bilinear product. 
+It returns the final `b x h'` tensor where `h'` is the size of the concatenation of the four comparisons.
+
+```
++-----------+
+|Entity 1   |
+|Input      |
+|Feature 1  +-+
++-----------+ |            
++-----------+ |  +-------+   +----------+
+|...        +--->|Concat +-->|FC Layers +--+
+|           | |  +-------+   +----------+  |
++-----------+ |                            |
++-----------+ |                            |     
+|Entity 1   +-+                            |
+|Input      |                              |
+|Feature N  |                              |
++-----------+                              |   +---------+
+                                           +-->| Compare +->
++-----------+                              |   +---------+
+|Entity 2   |                              |
+|Input      |                              |
+|Feature 1  +-+                            |
++-----------+ |                            |
++-----------+ |  +-------+   +----------+  |
+|...        +--->|Concat +-->|FC Layers +--+
+|           | |  +-------+   +----------+
++-----------+ |             
++-----------+ |                                   
+|Entity 2   +-+
+|Input      |
+|Feature N  |
++-----------+
+```
+
+These are the available parameters of a `comparator` combiner:
+
+- `entity_1`: list of input features that compose the first entity to compare.
+- `entity_2`: list of input features that compose the second entity to compare.
+- `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes through. Their output is projected in the feature's output space.
+- `fc_size` (default `256`): if a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
+- `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
+- `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `weights_regularizer` (default `null`): regularizer function applied to the weights matrix.  Valid values are `l1`, `l2` or `l1_l2`.
+- `bias_regularizer` (default `null`): regularizer function applied to the bias vector.  Valid values are `l1`, `l2` or `l1_l2`.
+- `activity_regularizer` (default `null`): regurlizer function applied to the output of the layer.  Valid values are `l1`, `l2` or `l1_l2`.
+- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
+- `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
+- `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
+- `dropout` (default `0`): dropout rate for the fully connected layers.
+
+Example configuration of a `transformer` combiner:
+
+```yaml
+type: comparator
+entity_1: [feature_1, feature_2]
+entity_3: [feature_3, feature_4]
+fc_layers: null
+num_fc_layers: 0
+fc_size: 256
+use_bias: true
+weights_initializer: 'glorot_uniform'
+bias_initializer: 'zeros'
+weights_regularizer: null
+bias_regularizer: null
+activity_regularizer: null
+norm: null
+norm_params: null
+activation: relu
+dropout: 0
 ```
 
 

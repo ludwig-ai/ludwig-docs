@@ -4353,6 +4353,81 @@ sparsity: 0.00001
 dropout: 0
 ```
 
+### Transofrmer Combiner
+
+The `transformer` combiner combines imput features using a stack of Transformer blocks (from [Attention Is All You Need](https://arxiv.org/abs/1706.03762)).
+It assumes all outputs from encoders are tensors of size `b x h` where `b` is the batch size and `h` is the hidden dimension, which can be different for each input.
+If the input tensors have a different shape, it automatically flattens them.
+I then projects each input tensor to the same hidden / embedding size and encodes them wit ha stack of Tranformer layers.
+Finally it applies an reduction to the outputs of the Transformer stack and applies optional fully connected layers. 
+It returns the final `b x h'` tensor where `h'` is the size of the last fully connected layer or the hidden / embedding size , or it returns `b x n x h'` where `n` is the number of input features and `h'` is the hidden / embedding size if there's no reduction applied.
+
+```
++-----------+
+|Input      |
+|Feature 1  +-+
++-----------+ |            
++-----------+ |  +------------+   +------+   +----------+
+|...        +--->|Transformer +-->|Reduce+-->|Fully     +->
+|           | |  |Stack       |   +------+   |Connected |
++-----------+ |  +------------+              |Layers    |
++-----------+ |                              +----------+            
+|Input      +-+
+|Feature N  |
++-----------+
+```
+
+These are the available parameters of a `transformer` combiner:
+
+- `num_layers` (default `1`): number of layers in the stack of transformer bloks.
+- `hidden_size` (default `256`): hidden / embedding size of each transformer block.
+- `num_heads` (default `8`): number of heads of each transformer block.
+- `transformer_fc_size` (default `256`): size of the fully connected layers inside each transformer block.
+- `dropout` (default `0`): dropout rate after the transformer.
+- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`, `activation`, `dropout`, `initializer` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.
+- `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes through. Their output is projected in the feature's output space.
+- `fc_size` (default `256`): if a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
+- `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
+- `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `weights_regularizer` (default `null`): regularizer function applied to the weights matrix.  Valid values are `l1`, `l2` or `l1_l2`.
+- `bias_regularizer` (default `null`): regularizer function applied to the bias vector.  Valid values are `l1`, `l2` or `l1_l2`.
+- `activity_regularizer` (default `null`): regurlizer function applied to the output of the layer.  Valid values are `l1`, `l2` or `l1_l2`.
+- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
+- `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
+- `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
+- `fc_dropout` (default `0`): dropout rate for the fully connected layers.
+- `fc_residual` (default `false`): if `true` adds a residual connection to each fully connected layer block. It is required that all fully connected layers have the same size for this parameter to work correctly.
+- `reduce_output` (default `mean`): describes the strategy to use to aggregate the embeddings of the items of the set. Possible values are `sum`, `mean` and `sqrt` (the weighted sum divided by the square root of the sum of the squares of the weights).
+
+
+Example configuration of a `transformer` combiner:
+
+```yaml
+type: transformer
+num_layers: 1
+hidden_size: 256
+num_heads: 8
+transformer_fc_size: 256
+dropout: 0.1
+fc_layers: null
+num_fc_layers: 0
+fc_size: 256
+use_bias: True
+weights_initializer: glorot_uniform
+bias_initializer: zeros
+weights_regularizer: null
+bias_regularizer: null
+activity_regularizer: null
+norm: null
+norm_params: null
+fc_activation: relu
+fc_dropout: 0
+fc_residual: null
+reduce_output: mean
+```
+
+
 Distributed Execution Backends
 ==============================
 

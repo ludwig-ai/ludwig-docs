@@ -2,7 +2,7 @@ Developer Guide
 ===============
 
 This is the Ludwig Developer Guide.
-It helps you to understand the structure of the ludwig codebase and learn how to add modules and contribute to it.
+It helps you understanding the structure of the Ludwig codebase and learn how to add modules and contribute to it.
 Below are links to each section of the guide.
 
 ##[Codebase Structure](codebase_structure.md)

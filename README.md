@@ -5,7 +5,7 @@ Ludwig's documentation is build using [MkDocs](https://www.mkdocs.org/) and the 
 In order to create Ludwig's documentation you have to install them:
 
 ```
-pip install mkdocs mkdocs-material
+pip install mkdocs<=1.2 mkdocs-material
 ```
 
 Be sure that your installed version of `Markdown>=3.0.1`.

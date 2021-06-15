@@ -72,6 +72,10 @@ a footnote-ref::before {
     color: #666;
 }
 
+.md-footer-nav {
+    background: #2b2c2f;
+}
+
 .md-footer-nav__link:hover {
     color: white;
 }
@@ -166,10 +170,6 @@ button[data-md-color-primary="grey"] {
 
 [data-md-color-primary="grey"] .md-nav__item--nested > .md-nav__link {
     color: inherit;
-}
-
-.md-search-result__title {
-    color: #2b2c2f;
 }
 
 .codehilite code, .codehilite pre {

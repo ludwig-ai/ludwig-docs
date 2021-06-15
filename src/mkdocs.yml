@@ -7,7 +7,7 @@ site_url: 'https://ludwig-ai.github.io/ludwig-docs/'
 # Repository
 repo_name: 'ludwig-ai/ludwig'
 repo_url: 'https://github.com/ludwig-ai/ludwig'
-edit_uri: edit/master/mkdocs/docs/
+edit_uri: 'https://github.com/ludwig-ai/ludwig-docs/edit/master/src/docs/'
 
 # Copyright
 copyright: 'Copyright &copy; 2018 - 2020 Uber Technologies Inc.'

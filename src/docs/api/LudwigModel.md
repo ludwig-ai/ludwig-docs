@@ -1,14 +1,15 @@
-<span style="float:right;">[[source]](https://github.com/ludwig-ai/ludwig/blob/master/ludwig/api.py#L74)</span>
+<span style="float:right;">[[source]](https://github.com/ludwig-ai/ludwig/blob/master/ludwig/api.py#L72)</span>
 # LudwigModel class
 
 ```python
 ludwig.api.LudwigModel(
   config,
   logging_level=40,
-  use_horovod=None,
+  backend=None,
   gpus=None,
   gpu_memory_limit=None,
-  allow_parallel_threads=True
+  allow_parallel_threads=True,
+  callbacks=None
 )
 ```
 
@@ -20,9 +21,8 @@ __Inputs__
 - __config__ (Union[str, dict]): in-memory representation of
     config or string path to a YAML config file.
 - __logging_level__ (int): Log level that will be sent to stderr.
-- __use_horovod__ (bool): use Horovod for distributed training.
-Will be set automatically if `horovodrun` is used to launch
-the training script.
+- __backend__ (Union[Backend, str]): `Backend` or string name
+of backend to use to execute preprocessing / training steps.
 - __gpus__ (Union[str, int, List[int]], default: `None`): GPUs
 to use (it uses the same syntax of CUDA_VISIBLE_DEVICES)
 - __gpu_memory_limit__ (int: default: `None`): maximum memory in MB to
@@ -380,14 +380,6 @@ collecting overall stats during eval.
 - __output_directory__ (str, default: `'results'`): the directory that
 will contain the training statistics, TensorBoard logs, the saved
 model and the training progress files.
-- __gpus__ (list, default: `None`): list of GPUs that are available
-for training.
-- __gpu_memory_limit__ (int, default: `None`): maximum memory in MB to
-allocate per GPU device.
-- __allow_parallel_threads__ (bool, default: `True`): allow TensorFlow
-to use multithreading parallelism to improve performance at
-the cost of determinism.
-- __use_horovod__ (bool, default: `None`): flag for using horovod.
 - __random_seed__ (int: default: 42): random seed used for weights
 initialization, splits and any other random function.
 - __debug__ (bool, default: `False): if `True` turns on `tfdbg` with
@@ -414,10 +406,11 @@ filepath string to where results are stored.
 load(
   model_dir,
   logging_level=40,
-  use_horovod=None,
+  backend=None,
   gpus=None,
   gpu_memory_limit=None,
-  allow_parallel_threads=True
+  allow_parallel_threads=True,
+  callbacks=None
 )
 ```
 
@@ -432,9 +425,8 @@ __Inputs__
    the model is in `results_dir/experiment_dir/model`.
 - __logging_level__ (int, default: 40): log level that will be sent to
 stderr.
-- __use_horovod__ (bool, default: `None`): use Horovod for distributed
-training. Will be set
-automatically if `horovodrun` is used to launch the training script.
+- __backend__ (Union[Backend, str]): `Backend` or string name
+of backend to use to execute preprocessing / training steps.
 - __gpus__ (Union[str, int, List[int]], default: `None`): GPUs
 to use (it uses the same syntax of CUDA_VISIBLE_DEVICES)
 - __gpu_memory_limit__ (int: default: `None`): maximum memory in MB to
@@ -443,6 +435,9 @@ allocate per GPU device.
 to use
 multithreading parallelism to improve performance at the cost of
 determinism.
+- __callbacks__ (list, default: `None`): a list of
+`ludwig.callbacks.Callback` objects that provide hooks into the
+Ludwig pipeline.
 
 __Return__
 
@@ -946,7 +941,7 @@ ludwig.api.kfold_cross_validate(
   gpus=None,
   gpu_memory_limit=None,
   allow_parallel_threads=True,
-  use_horovod=None,
+  backend=None,
   logging_level=20,
   debug=False
 )
@@ -1023,7 +1018,8 @@ model and the training progress files.
 - __allow_parallel_threads__ (bool, default: `True`): allow TensorFlow to
     use multithreading parallelism
    to improve performance at the cost of determinism.
-- __use_horovod__ (bool, default: `None`): flag for using horovod
+- __backend__ (Union[Backend, str]): `Backend` or string name
+    of backend to use to execute preprocessing / training steps.
 - __debug__ (bool, default: `False`): If `True` turns on tfdbg
     with `inf_or_nan` checks.
 - __logging_level__ (int, default: INFO): log level to send to stderr.
@@ -1058,7 +1054,7 @@ ludwig.hyperopt.run.hyperopt(
   skip_save_model=False,
   skip_save_progress=False,
   skip_save_log=False,
-  skip_save_processed_input=False,
+  skip_save_processed_input=True,
   skip_save_unprocessed_output=False,
   skip_save_predictions=False,
   skip_save_eval_stats=False,
@@ -1067,7 +1063,8 @@ ludwig.hyperopt.run.hyperopt(
   gpus=None,
   gpu_memory_limit=None,
   allow_parallel_threads=True,
-  use_horovod=None,
+  callbacks=None,
+  backend=None,
   random_seed=42,
   debug=False
 )
@@ -1158,7 +1155,11 @@ allocate per GPU device.
 - __allow_parallel_threads__ (bool, default: `True`): allow TensorFlow
 to use multithreading parallelism to improve performance at
 the cost of determinism.
-- __use_horovod__ (bool, default: `None`): flag for using horovod.
+- __callbacks__ (list, default: `None`): a list of
+`ludwig.callbacks.Callback` objects that provide hooks into the
+Ludwig pipeline.
+- __backend__ (Union[Backend, str]): `Backend` or string name
+of backend to use to execute preprocessing / training steps.
 - __random_seed__ (int: default: 42): random seed used for weights
 initialization, splits and any other random function.
 - __debug__ (bool, default: `False): if `True` turns on `tfdbg` with
@@ -1167,5 +1168,6 @@ initialization, splits and any other random function.
 __Return__
 
 
-- __return__ (List[dict]): The results for the hyperparameter optimization
+- __return__ (List[dict]): List of results for each trial, ordered by
+descending performance on the target metric.
  

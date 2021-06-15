@@ -8,10 +8,11 @@
 ```python
 ludwig.visualize.learning_curves(
   train_stats_per_model,
-  output_feature_name,
+  output_feature_name=None,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  callbacks=None
 )
 ```
 
@@ -27,7 +28,7 @@ __Inputs__
 
 - __train_stats_per_model__ (List[dict]): list containing dictionary of
 training statistics per model.
-- __output_feature_name__ (Union[str, `None`]): name of the output feature
+- __output_feature_name__ (Union[str, `None`], default: `None`): name of the output feature
 to use for the visualization.  If `None`, use all output features.
 - __model_names__ (Union[str, List[str]], default: `None`): model name or
 list of the model names to use as labels.
@@ -35,6 +36,9 @@ list of the model names to use as labels.
 plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
 `'pdf'` or `'png'`.
+- __callbacks__ (list, default: `None`): a list of
+`ludwig.callbacks.Callback` objects that provide hooks into the
+Ludwig pipeline.
 
 __Return__
 
@@ -48,7 +52,7 @@ __Return__
 ```python
 ludwig.visualize.compare_performance(
   test_stats_per_model,
-  output_feature_name,
+  output_feature_name=None,
   model_names=None,
   output_directory=None,
   file_format='pdf'
@@ -67,7 +71,7 @@ __Inputs__
 
 - __test_stats_per_model__ (List[dict]): dictionary containing evaluation
 performance statistics.
-- __output_feature_name__ (Union[str, `None`]): name of the output feature
+- __output_feature_name__ (Union[str, `None`], default: `None`): name of the output feature
 to use for the visualization.  If `None`, use all output features.
 - __model_names__ (Union[str, List[str]], default: `None`): model name or
 list of the model names to use as labels.
@@ -79,7 +83,19 @@ plots. If not specified, plots will be displayed in a window
 __Return__
 
 
-- __return__ (None):
+:return: (None)
+
+__Example usage:__
+
+
+```python
+model_a = LudwigModel(config)
+model_a.train(dataset)
+a_evaluation_stats, _, _ = model_a.evaluate(eval_set)
+model_b = LudwigModel.load('path/to/model/')
+b_evaluation_stats, _, _ = model_b.evaluate(eval_set)
+compare_performance([a_evaluation_stats, b_evaluation_stats], model_names=['A', 'B'])
+```
  
 ----
 

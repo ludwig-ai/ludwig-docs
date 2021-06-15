@@ -9,24 +9,24 @@
         <meta name="description" content="Deep learning toolbox">
       
       
-        <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/faq/">
+        <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/user_guide/distributed_execution_backends/">
       
       
         <meta name="author" content="Piero Molino">
       
-      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="shortcut icon" href="../../favicon.ico">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.0.2">
     
     
       
-        <title>FAQ - Ludwig</title>
+        <title>Distributed Execution Backends - Ludwig</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.38780c08.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.38780c08.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.3f72e892.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f72e892.min.css">
         
           
           
@@ -45,9 +45,9 @@
     
     
     
-      <link rel="stylesheet" href="../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-      <link rel="stylesheet" href="../stylesheets/monokai.css">
+      <link rel="stylesheet" href="../../stylesheets/monokai.css">
     
     
       
@@ -70,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#what-is-the-roadmap-for-the-develpment-of-ludwig" class="md-skip">
+        <a href="#backend-config" class="md-skip">
           Skip to content
         </a>
       
@@ -83,7 +83,7 @@
   <nav class="md-header-nav md-grid" aria-label="Header">
     <a href="https://ludwig-ai.github.io/ludwig-docs/" title="Ludwig" class="md-header-nav__button md-logo" aria-label="Ludwig">
       
-<img alt="logo" src="../images/ludwig_logo.svg"
+<img alt="logo" src="../../images/ludwig_logo.svg"
      style="height:1rem;width:4rem;">
 
     </a>
@@ -98,7 +98,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              FAQ
+              Distributed Execution Backends
             
           </span>
         </div>
@@ -170,7 +170,7 @@
         <a aria-label="Ludwig" class="md-nav__button md-logo"
            href="https://ludwig-ai.github.io/ludwig-docs/"
            title="Ludwig">
-            <img alt="logo" src="../images/ludwig_logo.svg"
+            <img alt="logo" src="../../images/ludwig_logo.svg"
                  style="width:10rem;height:auto;">
         </a>
     </label>
@@ -196,7 +196,7 @@
 
 
   <li class="md-nav__item">
-    <a href=".." class="md-nav__link">
+    <a href="../.." class="md-nav__link">
       About
     </a>
   </li>
@@ -208,7 +208,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../getting_started/" class="md-nav__link">
+    <a href="../../getting_started/" class="md-nav__link">
       Getting Started
     </a>
   </li>
@@ -220,7 +220,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../examples/" class="md-nav__link">
+    <a href="../../examples/" class="md-nav__link">
       Examples
     </a>
   </li>
@@ -230,10 +230,12 @@
         
         
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
     
     <label class="md-nav__link" for="nav-4">
       User Guide
@@ -253,7 +255,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../user_guide/user_guide_intro/" class="md-nav__link">
+    <a href="../user_guide_intro/" class="md-nav__link">
       User Guide Intro
     </a>
   </li>
@@ -265,7 +267,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../user_guide/command_line_interface/" class="md-nav__link">
+    <a href="../command_line_interface/" class="md-nav__link">
       Command Line Interface
     </a>
   </li>
@@ -277,7 +279,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../user_guide/data_preprocessing/" class="md-nav__link">
+    <a href="../data_preprocessing/" class="md-nav__link">
       Data Preprocessing
     </a>
   </li>
@@ -289,7 +291,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../user_guide/data_postprocessing/" class="md-nav__link">
+    <a href="../data_postprocessing/" class="md-nav__link">
       Data Postprocessing
     </a>
   </li>
@@ -301,7 +303,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../user_guide/configuration/" class="md-nav__link">
+    <a href="../configuration/" class="md-nav__link">
       Configuration
     </a>
   </li>
@@ -311,11 +313,72 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../user_guide/distributed_execution_backends/" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Distributed Execution Backends
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
       Distributed Execution Backends
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#backend-config" class="md-nav__link">
+    Backend config
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#horovod" class="md-nav__link">
+    Horovod
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ray" class="md-nav__link">
+    Ray
+  </a>
+  
+    <nav class="md-nav" aria-label="Ray">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-ludwig-with-ray" class="md-nav__link">
+    Running Ludwig with Ray
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -325,7 +388,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../user_guide/hyperparameter_optimization/" class="md-nav__link">
+    <a href="../hyperparameter_optimization/" class="md-nav__link">
       Hyper-parameter optimization
     </a>
   </li>
@@ -337,7 +400,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../user_guide/programmatic_api/" class="md-nav__link">
+    <a href="../programmatic_api/" class="md-nav__link">
       Programmatic API
     </a>
   </li>
@@ -349,7 +412,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../user_guide/visualizations/" class="md-nav__link">
+    <a href="../visualizations/" class="md-nav__link">
       Visualizations
     </a>
   </li>
@@ -361,7 +424,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../user_guide/serving/" class="md-nav__link">
+    <a href="../serving/" class="md-nav__link">
       Serving
     </a>
   </li>
@@ -373,7 +436,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../user_guide/datasets/" class="md-nav__link">
+    <a href="../datasets/" class="md-nav__link">
       Datasets
     </a>
   </li>
@@ -385,7 +448,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../user_guide/integrations/" class="md-nav__link">
+    <a href="../integrations/" class="md-nav__link">
       Integrations
     </a>
   </li>
@@ -423,7 +486,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../developer_guide/developer_guide_intro/" class="md-nav__link">
+    <a href="../../developer_guide/developer_guide_intro/" class="md-nav__link">
       Developer Guide Intro
     </a>
   </li>
@@ -435,7 +498,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../developer_guide/codebase_structure/" class="md-nav__link">
+    <a href="../../developer_guide/codebase_structure/" class="md-nav__link">
       Codebase Structure
     </a>
   </li>
@@ -447,7 +510,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../developer_guide/add_an_encoder/" class="md-nav__link">
+    <a href="../../developer_guide/add_an_encoder/" class="md-nav__link">
       Add an Encoder
     </a>
   </li>
@@ -459,7 +522,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../developer_guide/add_a_decoder/" class="md-nav__link">
+    <a href="../../developer_guide/add_a_decoder/" class="md-nav__link">
       Add a Decoder
     </a>
   </li>
@@ -471,7 +534,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../developer_guide/add_a_feature_type/" class="md-nav__link">
+    <a href="../../developer_guide/add_a_feature_type/" class="md-nav__link">
       Add a Feature Type
     </a>
   </li>
@@ -483,7 +546,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../developer_guide/hyper_parameter_optimization/" class="md-nav__link">
+    <a href="../../developer_guide/hyper_parameter_optimization/" class="md-nav__link">
       Hyper-parameter Optimization
     </a>
   </li>
@@ -495,7 +558,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../developer_guide/add_an_integration/" class="md-nav__link">
+    <a href="../../developer_guide/add_an_integration/" class="md-nav__link">
       Add an Integration
     </a>
   </li>
@@ -507,7 +570,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../developer_guide/add_a_dataset/" class="md-nav__link">
+    <a href="../../developer_guide/add_a_dataset/" class="md-nav__link">
       Add an Dataset
     </a>
   </li>
@@ -519,7 +582,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../developer_guide/style_guidelines_and_tests/" class="md-nav__link">
+    <a href="../../developer_guide/style_guidelines_and_tests/" class="md-nav__link">
       Style Guidelines and Tests
     </a>
   </li>
@@ -557,7 +620,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../api/LudwigModel/" class="md-nav__link">
+    <a href="../../api/LudwigModel/" class="md-nav__link">
       LudwigModel
     </a>
   </li>
@@ -569,7 +632,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../api/visualization/" class="md-nav__link">
+    <a href="../../api/visualization/" class="md-nav__link">
       Visualization
     </a>
   </li>
@@ -586,7 +649,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../community/" class="md-nav__link">
+    <a href="../../community/" class="md-nav__link">
       Community
     </a>
   </li>
@@ -596,121 +659,11 @@
         
         
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        FAQ
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-    
-    <a href="./" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../../faq/" class="md-nav__link">
       FAQ
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#what-is-the-roadmap-for-the-develpment-of-ludwig" class="md-nav__link">
-    What is the Roadmap for the develpment of Ludwig?
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#do-you-support-feature-encoder-decoder-in-ludwig" class="md-nav__link">
-    Do you support [feature | encoder | decoder] in Ludwig?
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#do-all-datasets-need-to-be-loaded-in-memory" class="md-nav__link">
-    Do all datasets need to be loaded in memory?
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#my-data-is-on-gcs-s3-azure-how-can-i-load-it" class="md-nav__link">
-    My data is on [ GCS | S3 | Azure ], how can I load it?
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-additional-features-are-you-working-on" class="md-nav__link">
-    What additional features are you working on?
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#who-develops-ludwig" class="md-nav__link">
-    Who develops Ludwig?
-  </a>
-  
-    <nav class="md-nav" aria-label="Who develops Ludwig?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#main-architect-and-maintainer" class="md-nav__link">
-    Main architect and maintainer
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#co-maintainers" class="md-nav__link">
-    Co-maintainers
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#early-key-contributors" class="md-nav__link">
-    Early key contributors
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#other-main-contributors" class="md-nav__link">
-    Other main contributors
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-can-i-cite-ludwig" class="md-nav__link">
-    How can I cite Ludwig?
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -736,85 +689,36 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-is-the-roadmap-for-the-develpment-of-ludwig" class="md-nav__link">
-    What is the Roadmap for the develpment of Ludwig?
+  <a href="#backend-config" class="md-nav__link">
+    Backend config
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#do-you-support-feature-encoder-decoder-in-ludwig" class="md-nav__link">
-    Do you support [feature | encoder | decoder] in Ludwig?
+  <a href="#horovod" class="md-nav__link">
+    Horovod
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#do-all-datasets-need-to-be-loaded-in-memory" class="md-nav__link">
-    Do all datasets need to be loaded in memory?
+  <a href="#ray" class="md-nav__link">
+    Ray
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#my-data-is-on-gcs-s3-azure-how-can-i-load-it" class="md-nav__link">
-    My data is on [ GCS | S3 | Azure ], how can I load it?
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-additional-features-are-you-working-on" class="md-nav__link">
-    What additional features are you working on?
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#who-develops-ludwig" class="md-nav__link">
-    Who develops Ludwig?
-  </a>
-  
-    <nav class="md-nav" aria-label="Who develops Ludwig?">
+    <nav class="md-nav" aria-label="Ray">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#main-architect-and-maintainer" class="md-nav__link">
-    Main architect and maintainer
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#co-maintainers" class="md-nav__link">
-    Co-maintainers
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#early-key-contributors" class="md-nav__link">
-    Early key contributors
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#other-main-contributors" class="md-nav__link">
-    Other main contributors
+  <a href="#running-ludwig-with-ray" class="md-nav__link">
+    Running Ludwig with Ray
   </a>
   
 </li>
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-can-i-cite-ludwig" class="md-nav__link">
-    How can I cite Ludwig?
-  </a>
   
 </li>
       
@@ -830,85 +734,104 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/ludwig-ai/ludwig-docs/edit/master/src/docs/faq.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/ludwig-ai/ludwig-docs/edit/master/src/docs/user_guide/distributed_execution_backends.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                  <h1>FAQ</h1>
+                  <h1>Distributed Execution Backends</h1>
                 
-                <h3 id="what-is-the-roadmap-for-the-develpment-of-ludwig">What is the Roadmap for the develpment of Ludwig?<a class="headerlink" href="#what-is-the-roadmap-for-the-develpment-of-ludwig" title="Permanent link">&para;</a></h3>
-<p>We keep an updatet set of tasks ordered by priority in the <a href="https://github.com/ludwig-ai/ludwig/projects">GitHub Projects page</a>.</p>
-<h3 id="do-you-support-feature-encoder-decoder-in-ludwig">Do you support [feature | encoder | decoder] in Ludwig?<a class="headerlink" href="#do-you-support-feature-encoder-decoder-in-ludwig" title="Permanent link">&para;</a></h3>
-<p>The list of encoders for each feature type is specified in the <a href="../user_guide/user_guide_intro/">User Guide</a>.
-We plan to add additional feature types and additional encoders and decoders for all feature types.
-Refer to <a href="#what-additional-features-are-you-working-on">this question</a> for more details.
-If you want to help us implementing your favourite feature or model please take a look at the <a href="../developer_guide/developer_guide_intro/">Developer Guide</a> to see how to contribute.</p>
-<h3 id="do-all-datasets-need-to-be-loaded-in-memory">Do all datasets need to be loaded in memory?<a class="headerlink" href="#do-all-datasets-need-to-be-loaded-in-memory" title="Permanent link">&para;</a></h3>
-<p>At the moment it depends on the type of feature: image features can be dynamically loaded from disk from an opened hdf5 file, while other types of features (that usually take need less memory than image ones) are loaded entirely in memory for speed.
-We plan to add an option to load also other features from disk in future releases and to also support more input file types and more scalable solutions like <a href="https://github.com/uber/Petastorm">Petastorm</a>.</p>
-<h3 id="my-data-is-on-gcs-s3-azure-how-can-i-load-it">My data is on [ GCS | S3 | Azure ], how can I load it?<a class="headerlink" href="#my-data-is-on-gcs-s3-azure-how-can-i-load-it" title="Permanent link">&para;</a></h3>
-<p>Ludwig uses Pandas for loading data at the moment (this may change when we move to Petastorm).
-This means that if your service provides a mechanism for loading data with a name handler, you can load it.</p>
-<p>These name handlers already work:</p>
+                <h2 id="backend-config">Backend config<a class="headerlink" href="#backend-config" title="Permanent link">&para;</a></h2>
+<p>The same Ludwig config / Python code that runs on your local machine can be executed remotely in a distributed manner with zero code changes. This distributed execution include preprocessing, training, and batch prediction. </p>
+<p>In most cases, Ludwig will be able to automatically detect if you're running in an environment that supports distributed execution, but you can also make this explicit on the command line with the <code>--backend</code> arg or by providing a <code>backend</code> section to the Ludwig config YAML:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">local</span>
+  <span class="nt">cache_format</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">parquet</span>
+  <span class="nt">cache_dir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">s3://my_bucket/cache</span>
+</code></pre></div>
+
+<p>Parameters:</p>
 <ul>
-<li><a href="https://cloud.google.com/storage/">Google Cloud Storage</a>: <code>gs://</code>. You just have to install <code>gcsfs</code> with <code>pip install gcsfs&gt;=0.2.1</code> and you will be able to prive paths to Ludwig with the <code>gs://</code> name handler.</li>
-<li><a href="https://aws.amazon.com/s3/">Amazon S3</a>: <code>s3://</code>. You just have to install <code>boto</code> with <code>pip install boto</code> and you will be able to prive paths to Ludwig with the <code>s3://</code> name handler.</li>
+<li><code>type</code>: How the job will be distributed, one of <code>local</code>, <code>ray</code>, <code>horovod</code>.</li>
+<li><code>cache_format</code>: Representation of the preprocessed data in the cache, one of <code>hdf5</code>, <code>parquet</code>, <code>tfrecord</code>.</li>
+<li><code>cache_dir</code>: Where the preprocessed data will be written on disk, defaults to the location of the input dataset.</li>
 </ul>
-<h3 id="what-additional-features-are-you-working-on">What additional features are you working on?<a class="headerlink" href="#what-additional-features-are-you-working-on" title="Permanent link">&para;</a></h3>
-<p>We will prioritize new features depending on the feedback of the community, but we are already planning to add:</p>
+<h2 id="horovod">Horovod<a class="headerlink" href="#horovod" title="Permanent link">&para;</a></h2>
+<p>You can distribute the training and prediction of your models using <a href="https://github.com/uber/horovod">Horovod</a>, which allows to train on a single machine with multiple GPUs as well as on multiple machines with multiple GPUs.</p>
+<p>In order to use distributed training you have to install Horovod as detailed in <a href="https://github.com/uber/horovod#install">Horovod's installation instructions</a> (which include installing <a href="https://www.open-mpi.org">OpenMPI</a> or other <a href="https://en.wikipedia.org/wiki/Message_Passing_Interface">MPI</a> implementations or <a href="https://github.com/facebookincubator/gloo">Gloo</a>) and then install the two packages:</p>
+<div class="codehilite"><pre><span></span><code>pip install horovod mpi4py
+</code></pre></div>
+
+<p>Horovod works by, in practice, increasing the batch size and distributing a part of each batch to a different node and collecting the gradients from all the nodes in a smart and scalable way.
+It also adjusts the learning rate to counter balance the increase in the batch size.
+The advantage is that training speed scales almost linearly with the number of nodes.</p>
+<p><code>experiment</code>, <code>train</code> and <code>predict</code> commands accept a <code>--backend=horovod</code> argument that instructs the model building, training and prediction phases to be conducted using Horovod in a distributed way.
+A <code>horovodrun</code> command specifying which machines and / or GPUs to use, together with a few more parameters, must be provided before the call to Ludwig's command.
+For instance, in order to train a Ludwig model on a local machine with four GPUs one you can run:</p>
+<div class="codehilite"><pre><span></span><code>horovodrun -np 4 \
+    ludwig train ...other Ludwig parameters...
+</code></pre></div>
+
+<p>While for training on four remote machines with four GPUs each you can run:</p>
+<div class="codehilite"><pre><span></span><code>horovodrun -np 16 \
+    -H server1:4,server2:4,server3:4,server4:4 \
+    ludwig train ...other Ludwig parameters...
+</code></pre></div>
+
+<p>The same applies to <code>experiment</code>, <code>predict</code> and <code>test</code>.</p>
+<p>More details on Horovod installation and run parameters can be found in <a href="https://github.com/uber/horovod">Horovod's documentation</a>.</p>
+<h2 id="ray">Ray<a class="headerlink" href="#ray" title="Permanent link">&para;</a></h2>
+<p><a href="https://ray.io/">Ray</a> is a framework for distributed computing that makes it easy to scale up code that runs on your local machine to execute in parallel across a cluster.</p>
+<p>Ludwig has native integration with Ray for both hyperparameter search and distributed training.</p>
+<p>Running with Ray has several advantages over local execution:</p>
 <ul>
-<li>additional image encoders (<a href="https://arxiv.org/abs/1608.06993">DenseNet</a> and <a href="https://arxiv.org/abs/1605.07648">FractalNet</a>, ResNext and MobileNet).</li>
-<li>image decoding (both image generation by deconvolution and pixel-wise classification for image segmentation).</li>
-<li>time series decoding.</li>
-<li>additional features types (point clouds, nested lists, multi-sentence documents, graphs, videos).</li>
-<li>additional metrics and losses.</li>
-<li>additional data formatters / tokenizers and dataset-specific preprocessing scripts.</li>
+<li>Ray enables you to provision a cluster of machines in a single command through its <a href="https://docs.ray.io/en/latest/cluster/launcher.html">cluster launcher</a>.</li>
+<li>Horovod on Ray allows you to do distributed training without needing to configure MPI in your environment.</li>
+<li>Dask on Ray allows you to process large datasets that don't fit in memory on a single machine.</li>
+<li>Ray Tune allows you to easily run distributed hyperparameter search across many machines in parallel.</li>
+<li>Ray provides easy access to high performance instances like high memory or GPU machines in the cloud.</li>
 </ul>
-<p>We also want to address some of the current limitations:</p>
-<ul>
-<li>currently the full dataset needs to be loaded in memory in order to train a model. Image features already have a way to dynamically read batches of datapoints from disk, and we want to extend this capability to other datatypes.</li>
-<li>a simple user interface in order to provide a live demo capability.</li>
-<li>document lower level functions.</li>
-<li>optimize the data I/O to TensorFlow.</li>
-</ul>
-<p>All these are opportunities to get involved in the community and contribute.
-Feel free to reach out to us and ask as there are tasks for all levels of experience.</p>
-<h3 id="who-develops-ludwig">Who develops Ludwig?<a class="headerlink" href="#who-develops-ludwig" title="Permanent link">&para;</a></h3>
-<h4 id="main-architect-and-maintainer">Main architect and maintainer<a class="headerlink" href="#main-architect-and-maintainer" title="Permanent link">&para;</a></h4>
-<p><a href="http://w4nderlu.st">Piero Molino</a> (Stanford University, previously at Uber AI) is the creator, main architect and maintainer of Ludwig.</p>
-<h4 id="co-maintainers">Co-maintainers<a class="headerlink" href="#co-maintainers" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Travis Addair (Uber), who helped with updating the Horovod integration, improving testing and adding features.</li>
-<li>Jim Thompson (Freddie Mac) who contributed the K-Fold cross validation functionality and greatly helped with the TF2 porting.</li>
-</ul>
-<h4 id="early-key-contributors">Early key contributors<a class="headerlink" href="#early-key-contributors" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Yaroslav Dudin (Uber) is a key contributor who helped improving the architecture and developing the image feature (among many other contributions).</li>
-<li>Sai Sumanth Miryala (Facebook AI, previously at Uber AI) contributed all the testing, logging and helped polishing.</li>
-</ul>
-<h4 id="other-main-contributors">Other main contributors<a class="headerlink" href="#other-main-contributors" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Yi Shi (Uber) who implemented the time series encoding.</li>
-<li>Ankit Jain (Facebook AI, previously at Uber AI) who implemented the bag feature encoding.</li>
-<li>Pranav Subramani (Uber) who contributed documentation.</li>
-<li>Alex Sergeev (previously at Uber) and Felipe Petroski Such (Uber) who helped with distributed training.</li>
-<li>Doug Blank (Comet ML) who contributed the Comte ML integration.</li>
-<li>Patrick Von Platen (Hugging Face) who contributed the audio feature.</li>
-<li>John Wahba (Stripe), who contributed the serving functionality.</li>
-<li>Ivaylo Stefanov (Strypes), who contributed a substantial improvement to the visualization capabilities.</li>
-<li>Carlo Grisetti (DS Group), who contributed improvements on the tracking of metrics during training.</li>
-<li>Chris Van Pelt (Weights and Biases) and Boris Dayma (Weights and Biases) who contributed the Weights and Biases integration.</li>
-<li>Emidio Torre helped with the initial design of the landing page.</li>
-</ul>
-<h3 id="how-can-i-cite-ludwig">How can I cite Ludwig?<a class="headerlink" href="#how-can-i-cite-ludwig" title="Permanent link">&para;</a></h3>
-<p>Please use this Bibtex:</p>
-<div class="codehilite"><pre><span></span><code>@misc{Molino2019,
-  author = {Piero Molino and Yaroslav Dudin and Sai Sumanth Miryala},
-  title = {Ludwig: a type-based declarative deep learning toolbox},
-  year = {2019},
-  eprint = {arXiv:1909.07930},
-}
+<p>All of this comes for free without changing a single line of code in Ludwig. When Ludwig detects that you're running within a Ray cluster, the Ray backend will be enabled automatically. You can also enable the Ray backend explicitly either through the command line:</p>
+<div class="codehilite"><pre><span></span><code>ludwig train ... --backend ray
+</code></pre></div>
+
+<p>Or in the Ludwig config:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ray</span>
+  <span class="nt">data_format</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">parquet</span>
+  <span class="nt">engine</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">dask</span>
+</code></pre></div>
+
+<h3 id="running-ludwig-with-ray">Running Ludwig with Ray<a class="headerlink" href="#running-ludwig-with-ray" title="Permanent link">&para;</a></h3>
+<p>To use the Ray with Ludwig, you will need to have a running Ray cluster. The simplest way to start a Ray cluster is to use the Ray <a href="https://docs.ray.io/en/latest/cluster/launcher.html">cluster launcher</a>, which can be installed locally with <code>pip</code>:</p>
+<div class="codehilite"><pre><span></span><code>pip install ray
+</code></pre></div>
+
+<p>Starting a Ray cluster requires that you have access to a node provider like AWS EC2 or Kubernetes.</p>
+<p>Here's an example of a partial Ray cluster configuration YAML file you can use to create your Ludwig Ray cluster:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">cluster_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ludwig-ray-gpu-nightly</span>
+
+<span class="nt">min_workers</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="nt">max_workers</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">4</span>
+
+<span class="nt">docker</span><span class="p">:</span>
+    <span class="nt">image</span><span class="p">:</span> <span class="s">&quot;ludwigai/ludwig-ray-gpu:nightly&quot;</span>
+    <span class="nt">container_name</span><span class="p">:</span> <span class="s">&quot;ray_container&quot;</span>
+
+<span class="nt">head_node</span><span class="p">:</span>
+    <span class="nt">InstanceType</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">c5.2xlarge</span>
+    <span class="nt">ImageId</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">latest_dlami</span>
+
+<span class="nt">worker_nodes</span><span class="p">:</span>
+    <span class="nt">InstanceType</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">g4dn.xlarge</span>
+    <span class="nt">ImageId</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">latest_dlami</span>
+</code></pre></div>
+
+<p>This configuration runs on AWS EC2 instances, with a CPU head node and 4 GPU (Nvidia T4) worker nodes. Every worker runs within a Docker image that provides Ludwig and its dependencies, including Ray, Dask, Horovod, etc. You can use one of these pre-built Docker images as the parent image for your cluster. Ludwig provides both <a href="https://hub.docker.com/r/ludwigai/ludwig-ray">CPU</a> and <a href="https://hub.docker.com/r/ludwigai/ludwig-ray-gpu">GPU</a> images ready for use with Ray.</p>
+<p>Once your Ray cluster is configured, you can start the cluster and submit your existing <code>ludwig</code> commands or Python files to Ray for distributed execution:</p>
+<div class="codehilite"><pre><span></span><code>ray up cluster.yaml
+ray submit cluster.yaml ludwig train --config config.yaml --dataset s3://mybucket/dataset.parquet
 </code></pre></div>
                 
               
@@ -934,8 +857,8 @@ Feel free to reach out to us and ask as there are tasks for all levels of experi
              class="md-footer-nav__inner md-grid">
             
             <a class="md-footer-nav__link md-footer-nav__link--prev"
-               href="../community/" rel="prev"
-               title="Community">
+               href="../configuration/" rel="prev"
+               title="Configuration">
                 <div class="md-footer-nav__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
                 </div>
@@ -944,11 +867,27 @@ Feel free to reach out to us and ask as there are tasks for all levels of experi
                  <span class="md-footer-nav__direction">
                    Previous
                  </span>
-                        Community
+                        Configuration
                     </div>
                 </div>
             </a>
             
+            
+            <a class="md-footer-nav__link md-footer-nav__link--next"
+               href="../hyperparameter_optimization/" rel="next"
+               title="Hyper-parameter optimization">
+                <div class="md-footer-nav__title">
+                    <div class="md-ellipsis">
+                 <span class="md-footer-nav__direction">
+                   Next
+                 </span>
+                        Hyper-parameter optimization
+                    </div>
+                </div>
+                <div class="md-footer-nav__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+                </div>
+            </a>
             
         </nav>
     </div>
@@ -983,15 +922,15 @@ Feel free to reach out to us and ask as there are tasks for all levels of experi
       
     </div>
     
-      <script src="../assets/javascripts/vendor.77e55a48.min.js"></script>
-      <script src="../assets/javascripts/bundle.9554a270.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../../assets/javascripts/vendor.77e55a48.min.js"></script>
+      <script src="../../assets/javascripts/bundle.9554a270.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({
-          base: "..",
+          base: "../..",
           features: [],
           search: Object.assign({
-            worker: "../assets/javascripts/worker/search.4ac00218.min.js"
+            worker: "../../assets/javascripts/worker/search.4ac00218.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

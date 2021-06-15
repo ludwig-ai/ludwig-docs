@@ -1,0 +1,2028 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Deep learning toolbox">
+      
+      
+        <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/user_guide/visualizations/">
+      
+      
+        <meta name="author" content="Piero Molino">
+      
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.0.2">
+    
+    
+      
+        <title>Visualizations - Ludwig</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.38780c08.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f72e892.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#757575">
+        
+      
+    
+    
+    
+      
+        
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/monokai.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="grey">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#visualize-command" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://ludwig-ai.github.io/ludwig-docs/" title="Ludwig" class="md-header-nav__button md-logo" aria-label="Ludwig">
+      
+<img alt="logo" src="../../images/ludwig_logo.svg"
+     style="height:1rem;width:4rem;">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Ludwig
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Visualizations
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/ludwig-ai/ludwig/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ludwig-ai/ludwig
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav aria-label="Navigation" class="md-nav md-nav--primary"
+     data-md-level="0">
+    <label class="md-nav__title" for="__drawer">
+        <a aria-label="Ludwig" class="md-nav__button md-logo"
+           href="https://ludwig-ai.github.io/ludwig-docs/"
+           title="Ludwig">
+            <img alt="logo" src="../../images/ludwig_logo.svg"
+                 style="width:10rem;height:auto;">
+        </a>
+    </label>
+    
+    <div class="md-nav__source">
+        
+<a href="https://github.com/ludwig-ai/ludwig/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ludwig-ai/ludwig
+  </div>
+</a>
+    </div>
+    
+    <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        
+        
+
+
+  <li class="md-nav__item">
+    <a href="../.." class="md-nav__link">
+      About
+    </a>
+  </li>
+
+        
+        
+        
+        
+
+
+  <li class="md-nav__item">
+    <a href="../../getting_started/" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+        
+        
+        
+        
+
+
+  <li class="md-nav__item">
+    <a href="../../examples/" class="md-nav__link">
+      Examples
+    </a>
+  </li>
+
+        
+        
+        
+        
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      User Guide
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="User Guide" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        User Guide
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../user_guide_intro/" class="md-nav__link">
+      User Guide Intro
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../command_line_interface/" class="md-nav__link">
+      Command Line Interface
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../data_preprocessing/" class="md-nav__link">
+      Data Preprocessing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../data_postprocessing/" class="md-nav__link">
+      Data Postprocessing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../distributed_execution_backends/" class="md-nav__link">
+      Distributed Execution Backends
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../hyperparameter_optimization/" class="md-nav__link">
+      Hyper-parameter optimization
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../programmatic_api/" class="md-nav__link">
+      Programmatic API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Visualizations
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      Visualizations
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#visualize-command" class="md-nav__link">
+    Visualize Command
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-curves" class="md-nav__link">
+    Learning Curves
+  </a>
+  
+    <nav class="md-nav" aria-label="Learning Curves">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#learning_curves" class="md-nav__link">
+    learning_curves
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#confusion-matrix" class="md-nav__link">
+    Confusion Matrix
+  </a>
+  
+    <nav class="md-nav" aria-label="Confusion Matrix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#confusion_matrix" class="md-nav__link">
+    confusion_matrix
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compare-performance" class="md-nav__link">
+    Compare Performance
+  </a>
+  
+    <nav class="md-nav" aria-label="Compare Performance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compare_performance" class="md-nav__link">
+    compare_performance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare_classifiers_performance_from_prob" class="md-nav__link">
+    compare_classifiers_performance_from_prob
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare_classifiers_performance_from_pred" class="md-nav__link">
+    compare_classifiers_performance_from_pred
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare_classifiers_performance_subset" class="md-nav__link">
+    compare_classifiers_performance_subset
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare_classifiers_performance_changing_k" class="md-nav__link">
+    compare_classifiers_performance_changing_k
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare_classifiers_multiclass_multimetric" class="md-nav__link">
+    compare_classifiers_multiclass_multimetric
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compare-classifier-predictions" class="md-nav__link">
+    Compare Classifier Predictions
+  </a>
+  
+    <nav class="md-nav" aria-label="Compare Classifier Predictions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compare_classifiers_predictions" class="md-nav__link">
+    compare_classifiers_predictions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare_classifiers_predictions_distribution" class="md-nav__link">
+    compare_classifiers_predictions_distribution
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#confidence-thresholding" class="md-nav__link">
+    Confidence Thresholding
+  </a>
+  
+    <nav class="md-nav" aria-label="Confidence Thresholding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#confidence_thresholding" class="md-nav__link">
+    confidence_thresholding
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confidence_thresholding_data_vs_acc" class="md-nav__link">
+    confidence_thresholding_data_vs_acc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confidence_thresholding_data_vs_acc_subset" class="md-nav__link">
+    confidence_thresholding_data_vs_acc_subset
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confidence_thresholding_data_vs_acc_subset_per_class" class="md-nav__link">
+    confidence_thresholding_data_vs_acc_subset_per_class
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confidence_thresholding_2thresholds_2d" class="md-nav__link">
+    confidence_thresholding_2thresholds_2d
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confidence_thresholding_2thresholds_3d" class="md-nav__link">
+    confidence_thresholding_2thresholds_3d
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binary-threshold-vs-metric" class="md-nav__link">
+    Binary Threshold vs. Metric
+  </a>
+  
+    <nav class="md-nav" aria-label="Binary Threshold vs. Metric">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#binary_threshold_vs_metric" class="md-nav__link">
+    binary_threshold_vs_metric
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roc-curves" class="md-nav__link">
+    ROC Curves
+  </a>
+  
+    <nav class="md-nav" aria-label="ROC Curves">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#roc_curves" class="md-nav__link">
+    roc_curves
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roc_curves_from_test_statistics" class="md-nav__link">
+    roc_curves_from_test_statistics
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calibration-plot" class="md-nav__link">
+    Calibration Plot
+  </a>
+  
+    <nav class="md-nav" aria-label="Calibration Plot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#calibration_1_vs_all" class="md-nav__link">
+    calibration_1_vs_all
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calibration_multiclass" class="md-nav__link">
+    calibration_multiclass
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-frequency-vs-f1-score" class="md-nav__link">
+    Class Frequency vs. F1 score
+  </a>
+  
+    <nav class="md-nav" aria-label="Class Frequency vs. F1 score">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#frequency_vs_f1" class="md-nav__link">
+    frequency_vs_f1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hyper-parameter-optimization-visualization" class="md-nav__link">
+    Hyper-parameter optimization visualization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hyperopt_report" class="md-nav__link">
+    hyperopt_report
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hyperopt_hiplot" class="md-nav__link">
+    hyperopt_hiplot
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../serving/" class="md-nav__link">
+      Serving
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../datasets/" class="md-nav__link">
+      Datasets
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../integrations/" class="md-nav__link">
+      Integrations
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+        
+        
+        
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Developer Guide
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Developer Guide" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        Developer Guide
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../developer_guide/developer_guide_intro/" class="md-nav__link">
+      Developer Guide Intro
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../developer_guide/codebase_structure/" class="md-nav__link">
+      Codebase Structure
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../developer_guide/add_an_encoder/" class="md-nav__link">
+      Add an Encoder
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../developer_guide/add_a_decoder/" class="md-nav__link">
+      Add a Decoder
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../developer_guide/add_a_feature_type/" class="md-nav__link">
+      Add a Feature Type
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../developer_guide/hyper_parameter_optimization/" class="md-nav__link">
+      Hyper-parameter Optimization
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../developer_guide/add_an_integration/" class="md-nav__link">
+      Add an Integration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../developer_guide/add_a_dataset/" class="md-nav__link">
+      Add an Dataset
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../developer_guide/style_guidelines_and_tests/" class="md-nav__link">
+      Style Guidelines and Tests
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+        
+        
+        
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      API
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="API" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon"></span>
+        API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/LudwigModel/" class="md-nav__link">
+      LudwigModel
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/visualization/" class="md-nav__link">
+      Visualization
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+        
+        
+        
+
+
+  <li class="md-nav__item">
+    <a href="../../community/" class="md-nav__link">
+      Community
+    </a>
+  </li>
+
+        
+        
+        
+        
+
+
+  <li class="md-nav__item">
+    <a href="../../faq/" class="md-nav__link">
+      FAQ
+    </a>
+  </li>
+
+        
+    </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#visualize-command" class="md-nav__link">
+    Visualize Command
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-curves" class="md-nav__link">
+    Learning Curves
+  </a>
+  
+    <nav class="md-nav" aria-label="Learning Curves">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#learning_curves" class="md-nav__link">
+    learning_curves
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#confusion-matrix" class="md-nav__link">
+    Confusion Matrix
+  </a>
+  
+    <nav class="md-nav" aria-label="Confusion Matrix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#confusion_matrix" class="md-nav__link">
+    confusion_matrix
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compare-performance" class="md-nav__link">
+    Compare Performance
+  </a>
+  
+    <nav class="md-nav" aria-label="Compare Performance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compare_performance" class="md-nav__link">
+    compare_performance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare_classifiers_performance_from_prob" class="md-nav__link">
+    compare_classifiers_performance_from_prob
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare_classifiers_performance_from_pred" class="md-nav__link">
+    compare_classifiers_performance_from_pred
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare_classifiers_performance_subset" class="md-nav__link">
+    compare_classifiers_performance_subset
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare_classifiers_performance_changing_k" class="md-nav__link">
+    compare_classifiers_performance_changing_k
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare_classifiers_multiclass_multimetric" class="md-nav__link">
+    compare_classifiers_multiclass_multimetric
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compare-classifier-predictions" class="md-nav__link">
+    Compare Classifier Predictions
+  </a>
+  
+    <nav class="md-nav" aria-label="Compare Classifier Predictions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compare_classifiers_predictions" class="md-nav__link">
+    compare_classifiers_predictions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare_classifiers_predictions_distribution" class="md-nav__link">
+    compare_classifiers_predictions_distribution
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#confidence-thresholding" class="md-nav__link">
+    Confidence Thresholding
+  </a>
+  
+    <nav class="md-nav" aria-label="Confidence Thresholding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#confidence_thresholding" class="md-nav__link">
+    confidence_thresholding
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confidence_thresholding_data_vs_acc" class="md-nav__link">
+    confidence_thresholding_data_vs_acc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confidence_thresholding_data_vs_acc_subset" class="md-nav__link">
+    confidence_thresholding_data_vs_acc_subset
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confidence_thresholding_data_vs_acc_subset_per_class" class="md-nav__link">
+    confidence_thresholding_data_vs_acc_subset_per_class
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confidence_thresholding_2thresholds_2d" class="md-nav__link">
+    confidence_thresholding_2thresholds_2d
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confidence_thresholding_2thresholds_3d" class="md-nav__link">
+    confidence_thresholding_2thresholds_3d
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binary-threshold-vs-metric" class="md-nav__link">
+    Binary Threshold vs. Metric
+  </a>
+  
+    <nav class="md-nav" aria-label="Binary Threshold vs. Metric">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#binary_threshold_vs_metric" class="md-nav__link">
+    binary_threshold_vs_metric
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roc-curves" class="md-nav__link">
+    ROC Curves
+  </a>
+  
+    <nav class="md-nav" aria-label="ROC Curves">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#roc_curves" class="md-nav__link">
+    roc_curves
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roc_curves_from_test_statistics" class="md-nav__link">
+    roc_curves_from_test_statistics
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calibration-plot" class="md-nav__link">
+    Calibration Plot
+  </a>
+  
+    <nav class="md-nav" aria-label="Calibration Plot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#calibration_1_vs_all" class="md-nav__link">
+    calibration_1_vs_all
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calibration_multiclass" class="md-nav__link">
+    calibration_multiclass
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-frequency-vs-f1-score" class="md-nav__link">
+    Class Frequency vs. F1 score
+  </a>
+  
+    <nav class="md-nav" aria-label="Class Frequency vs. F1 score">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#frequency_vs_f1" class="md-nav__link">
+    frequency_vs_f1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hyper-parameter-optimization-visualization" class="md-nav__link">
+    Hyper-parameter optimization visualization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hyperopt_report" class="md-nav__link">
+    hyperopt_report
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hyperopt_hiplot" class="md-nav__link">
+    hyperopt_hiplot
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/ludwig-ai/ludwig-docs/edit/master/src/docs/user_guide/visualizations.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  <h1>Visualizations</h1>
+                
+                <h2 id="visualize-command">Visualize Command<a class="headerlink" href="#visualize-command" title="Permanent link">&para;</a></h2>
+<p>Several visualization can be obtained from the result files from both <code>train</code>, <code>predict</code> and <code>experiment</code> by using the <code>visualize</code> command.
+The command has several parameters, but not all the visualizations use all of them.
+Let's first present the parameters of the general script, and then, for each available visualization, we will discuss about the specific parameters needed and what visualization they produce.</p>
+<div class="codehilite"><pre><span></span><code>usage: ludwig visualize [options]
+
+This script analyzes results and shows some nice plots.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -g GROUND_TRUTH, --ground_truth GROUND_TRUTH
+                        ground truth file
+  -sf SPLIT_FILE, --split_file SPLIT_FILE
+                        file containing split values used in conjunction with ground truth file
+  -gm GROUND_TRUTH_METADATA, --ground_truth_metadata GROUND_TRUTH_METADATA
+                        input metadata JSON file
+  -od OUTPUT_DIRECTORY, --output_directory OUTPUT_DIRECTORY
+                        directory where to save plots.If not specified, plots
+                        will be displayed in a window
+  -ff {pdf,png}, --file_format {pdf,png}
+                        file format of output plots
+  -v {binary_threshold_vs_metric,calibration_1_vs_all,calibration_multiclass,compare_classifiers_multiclass_multimetric,compare_classifiers_performance_changing_k,compare_classifiers_performance_from_pred,compare_classifiers_performance_from_prob,compare_classifiers_performance_subset,compare_classifiers_predictions,compare_classifiers_predictions_distribution,compare_performance,confidence_thresholding,confidence_thresholding_2thresholds_2d,confidence_thresholding_2thresholds_3d,confidence_thresholding_data_vs_acc,confidence_thresholding_data_vs_acc_subset,confidence_thresholding_data_vs_acc_subset_per_class,confusion_matrix,frequency_vs_f1,hyperopt_hiplot,hyperopt_report,learning_curves,roc_curves,roc_curves_from_test_statistics}, --visualization {binary_threshold_vs_metric,calibration_1_vs_all,calibration_multiclass,compare_classifiers_multiclass_multimetric,compare_classifiers_performance_changing_k,compare_classifiers_performance_from_pred,compare_classifiers_performance_from_prob,compare_classifiers_performance_subset,compare_classifiers_predictions,compare_classifiers_predictions_distribution,compare_performance,confidence_thresholding,confidence_thresholding_2thresholds_2d,confidence_thresholding_2thresholds_3d,confidence_thresholding_data_vs_acc,confidence_thresholding_data_vs_acc_subset,confidence_thresholding_data_vs_acc_subset_per_class,confusion_matrix,frequency_vs_f1,hyperopt_hiplot,hyperopt_report,learning_curves,roc_curves,roc_curves_from_test_statistics}
+                        type of visualization
+  -ofn OUTPUT_FEATURE_NAME, --output_feature_name OUTPUT_FEATURE_NAME
+                        name of the output feature to visualize
+  -gts GROUND_TRUTH_SPLIT, --ground_truth_split GROUND_TRUTH_SPLIT
+                        ground truth split - 0:train, 1:validation, 2:test
+                        split
+  -tf THRESHOLD_OUTPUT_FEATURE_NAMES [THRESHOLD_OUTPUT_FEATURE_NAMES ...], --threshold_output_feature_names THRESHOLD_OUTPUT_FEATURE_NAMES [THRESHOLD_OUTPUT_FEATURE_NAMES ...]
+                        names of output features for 2d threshold
+  -pred PREDICTIONS [PREDICTIONS ...], --predictions PREDICTIONS [PREDICTIONS ...]
+                        predictions files
+  -prob PROBABILITIES [PROBABILITIES ...], --probabilities PROBABILITIES [PROBABILITIES ...]
+                        probabilities files
+  -trs TRAINING_STATISTICS [TRAINING_STATISTICS ...], --training_statistics TRAINING_STATISTICS [TRAINING_STATISTICS ...]
+                        training stats files
+  -tes TEST_STATISTICS [TEST_STATISTICS ...], --test_statistics TEST_STATISTICS [TEST_STATISTICS ...]
+                        test stats files
+  -hs HYPEROPT_STATS_PATH, --hyperopt_stats_path HYPEROPT_STATS_PATH
+                        hyperopt stats file
+  -mn MODEL_NAMES [MODEL_NAMES ...], --model_names MODEL_NAMES [MODEL_NAMES ...]
+                        names of the models to use as labels
+  -tn TOP_N_CLASSES [TOP_N_CLASSES ...], --top_n_classes TOP_N_CLASSES [TOP_N_CLASSES ...]
+                        number of classes to plot
+  -k TOP_K, --top_k TOP_K
+                        number of elements in the ranklist to consider
+  -ll LABELS_LIMIT, --labels_limit LABELS_LIMIT
+                        maximum numbers of labels. If labels in dataset are
+                        higher than this number, &quot;rare&quot; label
+  -ss {ground_truth,predictions}, --subset {ground_truth,predictions}
+                        type of subset filtering
+  -n, --normalize       normalize rows in confusion matrix
+  -m METRICS [METRICS ...], --metrics METRICS [METRICS ...]
+                        metrics to dispay in threshold_vs_metric
+  -pl POSITIVE_LABEL, --positive_label POSITIVE_LABEL
+                        label of the positive class for the roc curve
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use
+</code></pre></div>
+
+<p>Some additional information on the parameters:</p>
+<ul>
+<li>The list parameters are considered to be aligned, meaning <code>predictions</code>, <code>probabilities</code>, <code>training_statistics</code>, <code>test_statistics</code> and <code>model_names</code> are indexed altogether, for instance the name of the model producing the second predictions in the list will be the second in the model names.</li>
+<li><code>ground_truth</code> and <code>ground_truth_metadata</code> are respectively the <code>HDF5</code> and <code>JSON</code> file obtained during training preprocessing. If you plan to use the visualizations then be sure not to use the <code>skip_save_preprocessing</code> when training. Those files are needed because they contain the split performed at preprocessing time, so it is easy to extract the test set from them.</li>
+<li><code>output_feature_name</code> is the output feature to use for creating the visualization.</li>
+</ul>
+<p>Other parameters will be detailed for each visualization as different ones use them differently.</p>
+<p>Example commands to generate the visualizations are based on running two experiments and comparing them.
+The experiments themselves are run with the following:</p>
+<div class="codehilite"><pre><span></span><code>ludwig experiment --experiment_name titanic --model_name Model1 --dataset train.csv -cf titanic_model1.yaml
+ludwig experiment --experiment_name titanic --model_name Model2 --dataset train.csv -cf titanic_model2.yaml
+</code></pre></div>
+
+<p>For this, you need to download the <a href="https://www.kaggle.com/c/titanic/">Titanic Kaggle competition dataset</a> to get <code>train.csv</code>.
+Note that the images associated with each visualization below are not from the Titanic dataset.
+The two models are defined with <code>titanic_model1.yaml</code></p>
+<div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Pclass</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">category</span>
+    <span class="p p-Indicator">-</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Sex</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">category</span>
+    <span class="p p-Indicator">-</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Age</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">numerical</span>
+        <span class="nt">preprocessing</span><span class="p">:</span>
+          <span class="nt">missing_value_strategy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">fill_with_mean</span>
+    <span class="p p-Indicator">-</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">SibSp</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">numerical</span>
+    <span class="p p-Indicator">-</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Parch</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">numerical</span>
+    <span class="p p-Indicator">-</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Fare</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">numerical</span>
+        <span class="nt">preprocessing</span><span class="p">:</span>
+          <span class="nt">missing_value_strategy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">fill_with_mean</span>
+    <span class="p p-Indicator">-</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Embarked</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">category</span>
+
+<span class="nt">output_features</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Survived</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">binary</span>
+</code></pre></div>
+
+<p>and with <code>titanic_model2.yaml</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Pclass</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">category</span>
+    <span class="p p-Indicator">-</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Sex</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">category</span>
+    <span class="p p-Indicator">-</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">SibSp</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">numerical</span>
+    <span class="p p-Indicator">-</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Parch</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">numerical</span>
+    <span class="p p-Indicator">-</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Embarked</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">category</span>
+
+<span class="nt">output_features</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Survived</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">binary</span>
+</code></pre></div>
+
+<h2 id="learning-curves">Learning Curves<a class="headerlink" href="#learning-curves" title="Permanent link">&para;</a></h2>
+<h3 id="learning_curves">learning_curves<a class="headerlink" href="#learning_curves" title="Permanent link">&para;</a></h3>
+<p>Parameters for this visualization: </p>
+<ul>
+<li><code>output_directory</code></li>
+<li><code>file_format</code></li>
+<li><code>output_feature_name</code> </li>
+<li><code>training_statistics</code></li>
+<li><code>model_names</code></li>
+</ul>
+<p>For each model (in the aligned lists of <code>training_statistics</code> and <code>model_names</code>) and for each output feature and measure of the model, it produces a line plot showing how that measure changed over the course of the epochs of training on the training and validation sets.  If <code>output_feature_name</code> is not specified, then all output features are plotted.</p>
+<p>Example command:</p>
+<div class="codehilite"><pre><span></span><code>ludwig visualize --visualization learning_curves \
+  --output_feature_name Survived \
+  --training_statistics results/titanic_Model1_0/training_statistics.json \
+       results/titanic_Model2_0/training_statistics.json \
+  --model_names Model1 Model2
+</code></pre></div>
+
+<p><img alt="Learning Curves Loss" src="../../images/learning_curves_loss.png" title="Learning Curves Loss" /></p>
+<p><img alt="Learning Curves Accuracy" src="../../images/learning_curves_accuracy.png" title="Learning Curves Accuracy" /></p>
+<h2 id="confusion-matrix">Confusion Matrix<a class="headerlink" href="#confusion-matrix" title="Permanent link">&para;</a></h2>
+<h3 id="confusion_matrix">confusion_matrix<a class="headerlink" href="#confusion_matrix" title="Permanent link">&para;</a></h3>
+<p>Parameters for this visualization: </p>
+<ul>
+<li><code>ground_truth_metadata</code></li>
+<li><code>output_directory</code></li>
+<li><code>file_format</code></li>
+<li><code>output_feature_name</code></li>
+<li><code>test_statistics</code></li>
+<li><code>model_names</code></li>
+<li><code>top_n_classes</code></li>
+<li><code>normalize</code></li>
+</ul>
+<p>For each model (in the aligned lists of <code>test_statistics</code> and <code>model_names</code>) it produces a heatmap of the confusion matrix in the predictions for each field that has a confusion matrix in <code>test_statistics</code>.
+The value of <code>top_n_classes</code> limits the heatmap to the <code>n</code> most frequent classes.</p>
+<p>Example command:</p>
+<div class="codehilite"><pre><span></span><code>ludwig visualize --visualization confusion_matrix \
+  --ground_truth_metadata results/titanic_Model1_0/model/train_set_metadata.json \
+  --test_statistics results/titanic_Model1_0/test_statistics.json \
+  --top_n_classes 2 
+</code></pre></div>
+
+<p><img alt="Confusion Matrix" src="../../images/confusion_matrix.png" title="Confusion Matrix" /></p>
+<p>The second plot produced, is a barplot showing the entropy of each class, ranked from most entropic to least entropic.</p>
+<p><img alt="Confusion Matrix Entropy" src="../../images/confusion_matrix_entropy.png" title="Confusion Matrix Entropy" /></p>
+<h2 id="compare-performance">Compare Performance<a class="headerlink" href="#compare-performance" title="Permanent link">&para;</a></h2>
+<h3 id="compare_performance">compare_performance<a class="headerlink" href="#compare_performance" title="Permanent link">&para;</a></h3>
+<p>Parameters for this visualization: </p>
+<ul>
+<li><code>output_directory</code></li>
+<li><code>file_format</code></li>
+<li><code>output_feature_name</code></li>
+<li><code>test_statistics</code></li>
+<li><code>model_names</code></li>
+</ul>
+<p>For each model (in the aligned lists of <code>test_statistics</code> and <code>model_names</code>) it produces bars in a bar plot, one for each overall metric available in the <code>test_statistics</code> file for the specified <code>output_feature_name</code>.</p>
+<p>Example command:</p>
+<div class="codehilite"><pre><span></span><code>ludwig visualize --visualization compare_performance \
+  --output_feature_name Survived \
+  --test_statistics results/titanic_Model1_0/test_statistics.json \
+       results/titanic_Model2_0/test_statistics.json \
+  --model_names Model1 Model2 
+</code></pre></div>
+
+<p><img alt="Compare Classifiers Performance" src="../../images/compare_performance.png" title="Compare Classifiers Performance" /></p>
+<h3 id="compare_classifiers_performance_from_prob">compare_classifiers_performance_from_prob<a class="headerlink" href="#compare_classifiers_performance_from_prob" title="Permanent link">&para;</a></h3>
+<p>Parameters for this visualization: </p>
+<ul>
+<li><code>ground_truth</code> </li>
+<li><code>split_file</code> </li>
+<li><code>ground_truth_metadata</code> </li>
+<li><code>output_directory</code> </li>
+<li><code>file_format</code></li>
+<li><code>output_feature_name</code> </li>
+<li><code>ground_truth_split</code> </li>
+<li><code>probabilities</code> </li>
+<li><code>model_names</code> </li>
+<li><code>top_n_classes</code> </li>
+<li><code>labels_limit</code> </li>
+</ul>
+<p><code>output_feature_name</code> needs to be a category.
+For each model (in the aligned lists of <code>probabilities</code> and <code>model_names</code>) it produces bars in a bar plot, one for each overall metric computed on the fly from the probabilities of predictions for the specified <code>output_feature_name</code>.</p>
+<p>Example command:</p>
+<div class="codehilite"><pre><span></span><code>ludwig visualize --visualization compare_classifiers_performance_from_prob \
+  --ground_truth train.hdf5 \
+  --output_feature_name Survived \
+  --probabilities results/titanic_Model1_0/Survived_probabilities.csv \
+        results/titanic_Model2_0/Survived_probabilities.csv \
+  --model_names Model1 Model2 
+</code></pre></div>
+
+<p><img alt="Compare Classifiers Performance from Probabilities" src="../../images/compare_classifiers_performance_from_prob.png" title="Compare Classifiers Performance from probabilities" /></p>
+<h3 id="compare_classifiers_performance_from_pred">compare_classifiers_performance_from_pred<a class="headerlink" href="#compare_classifiers_performance_from_pred" title="Permanent link">&para;</a></h3>
+<p>Parameters for this visualization: </p>
+<ul>
+<li><code>ground_truth</code></li>
+<li><code>split_file</code></li>
+<li><code>ground_truth_metadata</code></li>
+<li><code>output_directory</code></li>
+<li><code>file_format</code></li>
+<li><code>output_feature_name</code></li>
+<li><code>ground_truth_split</code></li>
+<li><code>predictions</code></li>
+<li><code>model_names</code></li>
+<li><code>labels_limit</code></li>
+</ul>
+<p><code>output_feature_name</code> needs to be a category.
+For each model (in the aligned lists of <code>predictions</code> and <code>model_names</code>) it produces bars in a bar plot, one for each overall metric computed on the fly from the predictions for the specified <code>output_feature_name</code>.</p>
+<p>Example command:</p>
+<div class="codehilite"><pre><span></span><code>ludwig visualize --visualization compare_classifiers_performance_from_pred \
+  --ground_truth train.hdf5 \
+  --ground_truth_metadata train.json \
+  --output_feature_name Survived \
+  --predictions results/titanic_Model1_0/Survived_predictions.csv \
+        results/titanic_Model2_0/Survived_predictions.csv \
+  --model_names Model1 Model2 
+</code></pre></div>
+
+<p><img alt="Compare Classifiers Performance from Predictions" src="../../images/compare_classifiers_performance_from_pred.png" title="Compare Classifiers Performance from Predictions" /></p>
+<h3 id="compare_classifiers_performance_subset">compare_classifiers_performance_subset<a class="headerlink" href="#compare_classifiers_performance_subset" title="Permanent link">&para;</a></h3>
+<p>Parameters for this visualization: </p>
+<ul>
+<li><code>ground_truth</code></li>
+<li><code>split_file</code></li>
+<li><code>ground_truth_metadata</code></li>
+<li><code>output_directory</code></li>
+<li><code>file_format</code></li>
+<li><code>output_feature_name</code></li>
+<li><code>ground_truth_split</code> </li>
+<li><code>probabilities</code></li>
+<li><code>model_names</code></li>
+<li><code>top_n_classes</code></li>
+<li><code>labels_limit</code></li>
+<li><code>subset</code></li>
+</ul>
+<p><code>output_feature_name</code> needs to be a category.
+For each model (in the aligned lists of <code>predictions</code> and <code>model_names</code>) it produces bars in a bar plot, one for each overall metric computed on the fly from the probabilities predictions for the specified <code>output_feature_name</code>, considering only a subset of the full training set.
+The way the subset is obtained is using the <code>top_n_classes</code> and <code>subset</code> parameters.</p>
+<p>If the values of <code>subset</code> is <code>ground_truth</code>, then only datapoints where the ground truth class is within the top <code>n</code> most frequent ones will be considered as test set, and the percentage of datapoints that have been kept from the original set will be displayed.</p>
+<p>Example command:</p>
+<div class="codehilite"><pre><span></span><code>ludwig visualize --visualization compare_classifiers_performance_subset \
+  --ground_truth train.hdf5 \
+  --ground_truth_metadata train.json \
+  --output_feature_name Survived \
+  --probabilities results/titanic_Model1_0/Survived_probabilities.csv \
+           results/titanic_Model2_0/Survived_probabilities.csv \
+  --model_names Model1 Model2 \
+  --top_n_classes 2 \
+  --subset ground_truth 
+</code></pre></div>
+
+<p><img alt="Compare Classifiers Performance Subset Ground Truth" src="../../images/compare_classifiers_performance_subset_gt.png" title="Compare Classifiers Performance Subset Ground Truth" /></p>
+<p>If the values of <code>subset</code> is <code>predictions</code>, then only datapoints where the the model predicts a class that is within the top <code>n</code> most frequent ones will be considered as test set, and the percentage of datapoints that have been kept from the original set will be displayed for each model.</p>
+<p><img alt="Compare Classifiers Performance Subset Ground Predictions" src="../../images/compare_classifiers_performance_subset_pred.png" title="Compare Classifiers Performance Subset Ground Predictions" /></p>
+<h3 id="compare_classifiers_performance_changing_k">compare_classifiers_performance_changing_k<a class="headerlink" href="#compare_classifiers_performance_changing_k" title="Permanent link">&para;</a></h3>
+<p>Parameters for this visualization: </p>
+<ul>
+<li><code>ground_truth</code></li>
+<li><code>split_file</code></li>
+<li><code>ground_truth_metadata</code></li>
+<li><code>output_directory</code> </li>
+<li><code>file_format</code></li>
+<li><code>output_feature_name</code></li>
+<li><code>ground_truth_split</code></li>
+<li><code>probabilities</code></li>
+<li><code>model_names</code></li>
+<li><code>top_k</code></li>
+<li><code>labels_limit</code></li>
+</ul>
+<p><code>output_feature_name</code> needs to be a category.
+For each model (in the aligned lists of <code>probabilities</code> and <code>model_names</code>) it produces a line plot that shows the Hits@K measure (that counts a prediction as correct if the model produces it among the first <code>k</code>) while changing <code>k</code> from 1 to <code>top_k</code> for the specified <code>output_feature_name</code>.</p>
+<p>Example command:</p>
+<div class="codehilite"><pre><span></span><code>ludwig visualize --visualization compare_classifiers_performance_changing_k \
+  --ground_truth train.hdf5 \
+  --output_feature_name Survived \
+  --probabilities results/titanic_Model1_0/Survived_probabilities.csv \
+         results/titanic_Model2_0/Survived_probabilities.csv \
+  --model_names Model1 Model2 \
+  --top_k 5 
+</code></pre></div>
+
+<p><img alt="Compare Classifiers Performance Changing K" src="../../images/compare_classifiers_performance_changing_k.png" title="Compare Classifiers Performance Changing K" /></p>
+<h3 id="compare_classifiers_multiclass_multimetric">compare_classifiers_multiclass_multimetric<a class="headerlink" href="#compare_classifiers_multiclass_multimetric" title="Permanent link">&para;</a></h3>
+<p>Parameters for this visualization: </p>
+<ul>
+<li><code>ground_truth_metadata</code></li>
+<li><code>output_directory</code></li>
+<li><code>file_format</code></li>
+<li><code>output_feature_name</code></li>
+<li><code>test_statistics</code></li>
+<li><code>model_names</code></li>
+<li><code>top_n_classes</code></li>
+</ul>
+<p><code>output_feature_name</code> needs to be a category.
+For each model (in the aligned lists of <code>test_statistics</code> and <code>model_names</code>) it produces four plots that show the precision, recall and F1 of the model on several classes for the specified <code>output_feature_name</code>.</p>
+<p>The first one show the measures on the <code>n</code> most frequent classes.</p>
+<p><img alt="Multiclass Multimetric top k" src="../../images/compare_classifiers_multiclass_multimetric_topk.png" title="Multiclass Multimetric most frequent classes" /></p>
+<p>The second one shows the measures on the <code>n</code> classes where the model performs the best.</p>
+<p><img alt="Multiclass Multimetric best k" src="../../images/compare_classifiers_multiclass_multimetric_bestk.png" title="Multiclass Multimetric best classes" /></p>
+<p>The third one shows the measures on the <code>n</code> classes where the model performs the worst.</p>
+<p><img alt="Multiclass Multimetric worst k" src="../../images/compare_classifiers_multiclass_multimetric_worstk.png" title="Multiclass Multimetric worst classes" /></p>
+<p>The fourth one shows the measures on all the classes, sorted by their frequency. This could become unreadable in case the number of classes is really high.</p>
+<p><img alt="Multiclass Multimetric sorted" src="../../images/compare_classifiers_multiclass_multimetric_sorted.png" title="Multiclass Multimetric sorted classes" /></p>
+<h2 id="compare-classifier-predictions">Compare Classifier Predictions<a class="headerlink" href="#compare-classifier-predictions" title="Permanent link">&para;</a></h2>
+<h3 id="compare_classifiers_predictions">compare_classifiers_predictions<a class="headerlink" href="#compare_classifiers_predictions" title="Permanent link">&para;</a></h3>
+<p>Parameters for this visualization: </p>
+<ul>
+<li><code>ground_truth</code></li>
+<li><code>split_file</code></li>
+<li><code>ground_truth_metadata</code></li>
+<li><code>output_directory</code> </li>
+<li><code>file_format</code></li>
+<li><code>output_feature_name</code></li>
+<li><code>ground_truth_split</code></li>
+<li><code>predictions</code></li>
+<li><code>model_names</code></li>
+<li><code>labels_limit</code></li>
+</ul>
+<p><code>output_feature_name</code> needs to be a category and there must be two and only two models (in the aligned lists of <code>predictions</code> and <code>model_names</code>).
+This visualization produces a pie chart comparing the predictions of the two models for the specified <code>output_feature_name</code>.</p>
+<p>Example command:</p>
+<div class="codehilite"><pre><span></span><code>ludwig visualize --visualization compare_classifiers_predictions \
+  --ground_truth train.hdf5 \
+  --output_feature_name Survived \
+  --predictions results/titanic_Model1_0/Survived_predictions.csv \
+          results/titanic_Model2_0/Survived_predictions.csv \
+  --model_names Model1 Model2 
+</code></pre></div>
+
+<p><img alt="Compare Classifiers Predictions" src="../../images/compare_classifiers_predictions.png" title="Compare Classifiers Predictions" /></p>
+<h3 id="compare_classifiers_predictions_distribution">compare_classifiers_predictions_distribution<a class="headerlink" href="#compare_classifiers_predictions_distribution" title="Permanent link">&para;</a></h3>
+<p>Parameters for this visualization: </p>
+<ul>
+<li><code>ground_truth</code></li>
+<li><code>split_file</code></li>
+<li><code>ground_truth_metadata</code></li>
+<li><code>output_directory</code></li>
+<li><code>file_format</code></li>
+<li><code>output_feature_name</code></li>
+<li><code>ground_truth_split</code></li>
+<li><code>predictions</code></li>
+<li><code>model_names</code></li>
+<li><code>label_limits</code></li>
+</ul>
+<p><code>output_feature_name</code> needs to be a category.
+This visualization produces a radar plot comparing the distributions of predictions of the models for the first 10 classes of the specified <code>output_feature_name</code>.</p>
+<p><img alt="Compare Classifiers Predictions Distribution" src="../../images/compare_classifiers_predictions_distribution.png" title="Compare Classifiers Predictions Distribution" /></p>
+<h2 id="confidence-thresholding">Confidence Thresholding<a class="headerlink" href="#confidence-thresholding" title="Permanent link">&para;</a></h2>
+<h3 id="confidence_thresholding">confidence_thresholding<a class="headerlink" href="#confidence_thresholding" title="Permanent link">&para;</a></h3>
+<p>Parameters for this visualization: </p>
+<ul>
+<li><code>ground_truth</code></li>
+<li><code>split_file</code></li>
+<li><code>ground_truth_metadata</code></li>
+<li><code>output_directory</code></li>
+<li><code>file_format</code></li>
+<li><code>output_feature_name</code></li>
+<li><code>ground_truth_split</code></li>
+<li><code>probabilities</code></li>
+<li><code>model_names</code></li>
+<li><code>labels_limit</code></li>
+</ul>
+<p><code>output_feature_name</code> needs to be a category.
+For each model (in the aligned lists of <code>probabilities</code> and <code>model_names</code>) it produces a pair of lines indicating the accuracy of the model and the data coverage while increasing a threshold (x axis) on the probabilities of predictions for the specified <code>output_feature_name</code>.</p>
+<p><img alt="Confidence_Thresholding" src="../../images/confidence_thresholding.png" title="Confidence_Thresholding" /></p>
+<h3 id="confidence_thresholding_data_vs_acc">confidence_thresholding_data_vs_acc<a class="headerlink" href="#confidence_thresholding_data_vs_acc" title="Permanent link">&para;</a></h3>
+<p>Parameters for this visualization: </p>
+<ul>
+<li><code>ground_truth</code></li>
+<li><code>split_file</code></li>
+<li><code>ground_truth_metadata</code></li>
+<li><code>output_directory</code></li>
+<li><code>file_format</code></li>
+<li><code>output_feature_name</code></li>
+<li><code>ground_truth_split</code></li>
+<li><code>probabilities</code></li>
+<li><code>model_names</code></li>
+<li><code>labels_limit</code></li>
+</ul>
+<p><code>output_feature_name</code> needs to be a category.
+For each model (in the aligned lists of <code>probabilities</code> and <code>model_names</code>) it produces a line indicating the accuracy of the model and the data coverage while increasing a threshold on the probabilities of predictions for the specified <code>output_feature_name</code>.
+The difference with <code>confidence_thresholding</code> is that it uses two axes instead of three, not visualizing the threshold and having coverage as x axis instead of the threshold.</p>
+<p><img alt="Confidence_Thresholding Data vs Accuracy" src="../../images/confidence_thresholding_data_vs_acc.png" title="Confidence_Thresholding Data vs Accuracy" /></p>
+<h3 id="confidence_thresholding_data_vs_acc_subset">confidence_thresholding_data_vs_acc_subset<a class="headerlink" href="#confidence_thresholding_data_vs_acc_subset" title="Permanent link">&para;</a></h3>
+<p>Parameters for this visualization: </p>
+<ul>
+<li><code>ground_truth</code></li>
+<li><code>split_file</code></li>
+<li><code>ground_truth_metadata</code></li>
+<li><code>output_directory</code></li>
+<li><code>file_format</code></li>
+<li><code>output_feature_name</code></li>
+<li><code>ground_truth_split</code></li>
+<li><code>probabilities</code></li>
+<li><code>model_names</code></li>
+<li><code>top_n_classes</code></li>
+<li><code>labels_limit</code></li>
+<li><code>subset</code></li>
+</ul>
+<p><code>output_feature_name</code> needs to be a category.
+For each model (in the aligned lists of <code>probabilities</code> and <code>model_names</code>) it produces a line indicating the accuracy of the model and the data coverage while increasing a threshold on the probabilities of predictions for the specified <code>output_feature_name</code>, considering only a subset of the full training set.
+The way the subset is obtained is using the <code>top_n_classes</code> and <code>subset</code> parameters..
+The difference with <code>confidence_thresholding</code> is that it uses two axes instead of three, not visualizing the threshold and having coverage as x axis instead of the threshold.</p>
+<p>If the values of <code>subset</code> is <code>ground_truth</code>, then only datapoints where the ground truth class is within the top <code>n</code> most frequent ones will be considered as test set, and the percentage of datapoints that have been kept from the original set will be displayed.
+If the values of <code>subset</code> is <code>predictions</code>, then only datapoints where the the model predicts a class that is within the top <code>n</code> most frequent ones will be considered as test set, and the percentage of datapoints that have been kept from the original set will be displayed for each model.</p>
+<p><img alt="Confidence_Thresholding Data vs Accuracy Subset" src="../../images/confidence_thresholding_data_vs_acc_subset.png" title="Confidence_Thresholding Data vs Accuracy Subset" /></p>
+<h3 id="confidence_thresholding_data_vs_acc_subset_per_class">confidence_thresholding_data_vs_acc_subset_per_class<a class="headerlink" href="#confidence_thresholding_data_vs_acc_subset_per_class" title="Permanent link">&para;</a></h3>
+<p>Parameters for this visualization: </p>
+<ul>
+<li><code>ground_truth</code></li>
+<li><code>split_file</code></li>
+<li><code>ground_truth_metadata</code></li>
+<li><code>output_directory</code></li>
+<li><code>file_format</code></li>
+<li><code>output_feature_name</code></li>
+<li><code>ground_truth_split</code></li>
+<li><code>probabilities</code></li>
+<li><code>model_names</code></li>
+<li><code>top_n_classes</code></li>
+<li><code>labels_limit</code></li>
+<li><code>subset</code></li>
+</ul>
+<p><code>output_feature_name</code> needs to be a category.
+For each model (in the aligned lists of <code>probabilities</code> and <code>model_names</code>) it produces a line indicating the accuracy of the model and the data coverage while increasing a threshold on the probabilities of predictions for the specified <code>output_feature_name</code>, considering only a subset of the full training set.
+The way the subset is obtained is using the <code>top_n_classes</code> and <code>subset</code> parameters..
+The difference with <code>confidence_thresholding</code> is that it uses two axes instead of three, not visualizing the threshold and having coverage as x axis instead of the threshold.</p>
+<p>If the values of <code>subset</code> is <code>ground_truth</code>, then only datapoints where the ground truth class is within the top <code>n</code> most frequent ones will be considered as test set, and the percentage of datapoints that have been kept from the original set will be displayed.
+If the values of <code>subset</code> is <code>predictions</code>, then only datapoints where the the model predicts a class that is within the top <code>n</code> most frequent ones will be considered as test set, and the percentage of datapoints that have been kept from the original set will be displayed for each model.</p>
+<p>The difference with <code>confidence_thresholding_data_vs_acc_subset</code> is that it produces one plot per class within the <code>top_n_classes</code>.</p>
+<p><img alt="Confidence_Thresholding Data vs Accuracy Subset per class 1" src="../../images/confidence_thresholding_data_vs_acc_subset_per_class_1.png" title="Confidence_Thresholding Data vs Accuracy Subset per class 1" /></p>
+<p><img alt="Confidence_Thresholding Data vs Accuracy Subset per class 4" src="../../images/confidence_thresholding_data_vs_acc_subset_per_class_4.png" title="Confidence_Thresholding Data vs Accuracy Subset per class 4" /></p>
+<h3 id="confidence_thresholding_2thresholds_2d">confidence_thresholding_2thresholds_2d<a class="headerlink" href="#confidence_thresholding_2thresholds_2d" title="Permanent link">&para;</a></h3>
+<p>Parameters for this visualization: </p>
+<ul>
+<li><code>ground_truth</code></li>
+<li><code>split_file</code></li>
+<li><code>ground_truth_metadata</code></li>
+<li><code>output_directory</code></li>
+<li><code>file_format</code></li>
+<li><code>ground_truth_split</code></li>
+<li><code>threshold_output_feature_names</code></li>
+<li><code>probabilities</code></li>
+<li><code>model_names</code></li>
+<li><code>labels_limit</code></li>
+</ul>
+<p><code>threshold_output_feature_names</code> need to be exactly two, either category or binary.
+<code>probabilities</code> need to be exactly two, aligned with <code>threshold_output_feature_names</code>.
+<code>model_names</code> has to be exactly one.
+Three plots are produced.</p>
+<p>The first plot shows several semi transparent lines.
+They summarize the 3d surfaces displayed by <code>confidence_thresholding_2thresholds_3d</code> that have thresholds on the confidence of the predictions of the two <code>threshold_output_feature_names</code> as x and y axes and either the data coverage percentage or the accuracy as z axis.
+Each line represents a slice of the data coverage surface projected onto the accuracy surface.</p>
+<p><img alt="Confidence_Thresholding two thresholds 2D Multiline" src="../../images/confidence_thresholding_2thresholds_2d_multiline.png" title="Confidence_Thresholding two thresholds 2D Multiline" /></p>
+<p>The second plot shows the max of all the lines displayed in the first plot.</p>
+<p><img alt="Confidence_Thresholding two thresholds 2D Maxline" src="../../images/confidence_thresholding_2thresholds_2d_maxline.png" title="Confidence_Thresholding two thresholds 2D Maxline" /></p>
+<p>The third plot shows the max line and the values of the thresholds that obtained a specific data coverage vs accuracy pair of values.</p>
+<p><img alt="Confidence_Thresholding two thresholds 2D Accuracy and Thresholds" src="../../images/confidence_thresholding_2thresholds_2d_accthr.png" title="Confidence_Thresholding two thresholds 2D Accuracy and Thresholds" /></p>
+<h3 id="confidence_thresholding_2thresholds_3d">confidence_thresholding_2thresholds_3d<a class="headerlink" href="#confidence_thresholding_2thresholds_3d" title="Permanent link">&para;</a></h3>
+<p>Parameters for this visualization: </p>
+<ul>
+<li><code>ground_truth</code></li>
+<li><code>split_file</code></li>
+<li><code>ground_truth_metadata</code></li>
+<li><code>output_directory</code></li>
+<li><code>file_format</code></li>
+<li><code>ground_truth_split</code></li>
+<li><code>threshold_output_feature_names</code></li>
+<li><code>probabilities</code></li>
+<li><code>labels_limit</code></li>
+</ul>
+<p><code>threshold_output_feature_names</code> need to be exactly two, either category or binary.
+<code>probabilities</code> need to be exactly two, aligned with <code>threshold_output_feature_names</code>.
+The plot shows the 3d surfaces displayed by <code>confidence_thresholding_2thresholds_3d</code> that have thresholds on the confidence of the predictions of the two <code>threshold_output_feature_names</code> as x and y axes and either the data coverage percentage or the accuracy as z axis.</p>
+<p><img alt="Confidence_Thresholding two thresholds 3D" src="../../images/confidence_thresholding_2thresholds_3d.png" title="Confidence_Thresholding two thresholds 3D" /></p>
+<h2 id="binary-threshold-vs-metric">Binary Threshold vs. Metric<a class="headerlink" href="#binary-threshold-vs-metric" title="Permanent link">&para;</a></h2>
+<h3 id="binary_threshold_vs_metric">binary_threshold_vs_metric<a class="headerlink" href="#binary_threshold_vs_metric" title="Permanent link">&para;</a></h3>
+<p>Parameters for this visualization: </p>
+<ul>
+<li><code>ground_truth</code></li>
+<li><code>split_file</code></li>
+<li><code>ground_truth_metadata</code></li>
+<li><code>output_directory</code></li>
+<li><code>file_format</code></li>
+<li><code>output_feature_name</code></li>
+<li><code>ground_truth_split</code></li>
+<li><code>probabilities</code></li>
+<li><code>model_names</code></li>
+<li><code>metrics</code></li>
+<li><code>positive_label</code></li>
+</ul>
+<p><code>output_feature_name</code> can be a category or binary feature.
+For each metric specified in <code>metrics</code> (options are <code>f1</code>, <code>precision</code>, <code>recall</code>, <code>accuracy</code>), this visualization produces a line chart plotting a threshold on the confidence of the model against the metric for the specified <code>output_feature_name</code>.
+If <code>output_feature_name</code> is a category feature, <code>positive_label</code> indicates which is the class to be considered positive class and all the others will be considered negative.
+It needs to be an integer, to figure out the association between classes and integers check the <code>ground_truth_metadata</code> JSON file.</p>
+<p><img alt="Binary_Threshold_vs_Metric" src="../../images/binary_threshold_vs_metric.png" title="Binary_Threshold_vs_Metric" /></p>
+<h2 id="roc-curves">ROC Curves<a class="headerlink" href="#roc-curves" title="Permanent link">&para;</a></h2>
+<h3 id="roc_curves">roc_curves<a class="headerlink" href="#roc_curves" title="Permanent link">&para;</a></h3>
+<p>Parameters for this visualization: </p>
+<ul>
+<li><code>ground_truth</code></li>
+<li><code>split_file</code></li>
+<li><code>ground_truth_metadata</code></li>
+<li><code>output_directory</code></li>
+<li><code>file_format</code></li>
+<li><code>output_feature_name</code></li>
+<li><code>ground_truth_split</code></li>
+<li><code>probabilities</code></li>
+<li><code>model_names</code></li>
+<li><code>positive_label</code></li>
+</ul>
+<p><code>output_feature_name</code> can be a category or binary feature.
+This visualization produces a line chart plotting the roc curves for the specified <code>output_feature_name</code>.
+If <code>output_feature_name</code> is a category feature, <code>positive_label</code> indicates which is the class to be considered positive class and all the others will be considered negative.
+It needs to be an integer, to figure out the association between classes and integers check the <code>ground_truth_metadata</code> JSON file.</p>
+<p><img alt="ROC Curves" src="../../images/roc_curves.png" title="ROC Curves" /></p>
+<h3 id="roc_curves_from_test_statistics">roc_curves_from_test_statistics<a class="headerlink" href="#roc_curves_from_test_statistics" title="Permanent link">&para;</a></h3>
+<p>Parameters for this visualization: </p>
+<ul>
+<li><code>output_directory</code></li>
+<li><code>file_format</code></li>
+<li><code>output_feature_name</code></li>
+<li><code>test_statistics</code></li>
+<li><code>model_names</code></li>
+</ul>
+<p><code>output_feature_name</code> needs to be binary feature.
+This visualization produces a line chart plotting the roc curves for the specified <code>output_feature_name</code>.</p>
+<p><img alt="ROC Curves from Prediction Statistics" src="../../images/roc_curves_from_test_statistics.png" title="ROC Curves from Prediction Statistics" /></p>
+<h2 id="calibration-plot">Calibration Plot<a class="headerlink" href="#calibration-plot" title="Permanent link">&para;</a></h2>
+<h3 id="calibration_1_vs_all">calibration_1_vs_all<a class="headerlink" href="#calibration_1_vs_all" title="Permanent link">&para;</a></h3>
+<p>Parameters for this visualization: </p>
+<ul>
+<li><code>ground_truth</code></li>
+<li><code>split_file</code></li>
+<li><code>ground_truth_metadata</code></li>
+<li><code>output_directory</code></li>
+<li><code>file_format</code></li>
+<li><code>output_feature_name</code></li>
+<li><code>ground_truth_split</code></li>
+<li><code>probabilities</code></li>
+<li><code>model_names</code></li>
+<li><code>top_n_classes</code></li>
+<li><code>labels_limit</code></li>
+</ul>
+<p><code>output_feature_name</code> needs to be a category or binary.
+For each class or each of the <code>n</code> most frequent classes if <code>top_n_classes</code> is specified, it produces two plots computed on the fly from the probabilities of predictions for the specified <code>output_feature_name</code>.</p>
+<p>The first plot is a calibration curve that shows the calibration of the predictions considering the current class to be the true one and all others to be a false one, drawing one line for each model (in the aligned lists of <code>probabilities</code> and <code>model_names</code>).</p>
+<p><img alt="Calibration 1 vs All Curve" src="../../images/calibration_1_vs_all_curve.png" title="Calibration 1 vs All Curve" /></p>
+<p>The second plot shows the distributions of the predictions considering the current class to be the true one and all others to be a false one, drawing the distribution for each model (in the aligned lists of <code>probabilities</code> and <code>model_names</code>).</p>
+<p><img alt="Calibration 1 vs All Counts" src="../../images/calibration_1_vs_all_counts.png" title="Calibration 1 vs All Counts" /></p>
+<h3 id="calibration_multiclass">calibration_multiclass<a class="headerlink" href="#calibration_multiclass" title="Permanent link">&para;</a></h3>
+<p>Parameters for this visualization: </p>
+<ul>
+<li><code>ground_truth</code></li>
+<li><code>split_file</code></li>
+<li><code>ground_truth_metadata</code></li>
+<li><code>output_directory</code></li>
+<li><code>file_format</code></li>
+<li><code>output_feature_name</code></li>
+<li><code>ground_truth_split</code></li>
+<li><code>probabilities</code></li>
+<li><code>model_names</code></li>
+<li><code>labels_limit</code></li>
+</ul>
+<p><code>output_feature_name</code> needs to be a category.
+For each class, produces two plots computed on the fly from the probabilities of predictions for the specified <code>output_feature_name</code>.</p>
+<p>The first plot is a calibration curve that shows the calibration of the predictions considering al classes, drawing one line for each model (in the aligned lists of <code>probabilities</code> and <code>model_names</code>).</p>
+<p><img alt="Calibration Multiclass Curve" src="../../images/calibration_multiclass_curve.png" title="Calibration Multiclass Curve" /></p>
+<p>The second plot shows a bar plot of the brier score (that calculates how calibrated are the probabilities of the predictions of a model), drawing one bar for each model (in the aligned lists of <code>probabilities</code> and <code>model_names</code>).</p>
+<p><img alt="Calibration Multiclass Brier" src="../../images/calibration_multiclass_brier.png" title="Calibration Multiclass Brier" /></p>
+<h2 id="class-frequency-vs-f1-score">Class Frequency vs. F1 score<a class="headerlink" href="#class-frequency-vs-f1-score" title="Permanent link">&para;</a></h2>
+<h3 id="frequency_vs_f1">frequency_vs_f1<a class="headerlink" href="#frequency_vs_f1" title="Permanent link">&para;</a></h3>
+<p>Parameters for this visualization: </p>
+<ul>
+<li><code>ground_truth_metadata</code></li>
+<li><code>output_directory</code></li>
+<li><code>file_format</code></li>
+<li><code>output_feature_name</code></li>
+<li><code>test_statistics</code></li>
+<li><code>model_names</code></li>
+<li><code>top_n_classes</code></li>
+</ul>
+<p><code>output_feature_name</code> needs to be a category.
+For each model (in the aligned lists of <code>test_statistics</code> and <code>model_names</code>), produces two plots statistics of predictions for the specified <code>output_feature_name</code>.</p>
+<p>Generates plots for <code>top_n_classes</code>.  The first plot is a line plot with one x axis representing the different classes and two vertical axes colored in orange and blue respectively.
+The orange one is the frequency of the class and an orange line is plotted to show the trend.
+The blue one is the F1 score for that class and a blue line is plotted to show the trend. 
+The classes on the x axis are sorted by f1 score.</p>
+<p><img alt="Frequency vs F1 sorted by F1" src="../../images/freq_vs_f1_sorted_f1.png" title="Frequency vs F1 sorted by F1" /></p>
+<p>The second plot has the same structure of the first one, but the axes are flipped and the classes on the x axis are sorted by frequency.</p>
+<p><img alt="Frequency vs F1 sorted by Frequency" src="../../images/freq_vs_f1_sorted_freq.png" title="Frequency vs F1 sorted by Frequency" /></p>
+<h3 id="hyper-parameter-optimization-visualization">Hyper-parameter optimization visualization<a class="headerlink" href="#hyper-parameter-optimization-visualization" title="Permanent link">&para;</a></h3>
+<p>The examples of the hyper-parameter visualizations shown here are obtained by running a random search with 100 samples on the <a href="https://www.kaggle.com/siddhadev/ms-cntk-atis">ATIS dataset</a> used for classifying intents given user utterances.</p>
+<h3 id="hyperopt_report">hyperopt_report<a class="headerlink" href="#hyperopt_report" title="Permanent link">&para;</a></h3>
+<p>Parameters for this visualization: </p>
+<ul>
+<li><code>output_directory</code></li>
+<li><code>file_format</code></li>
+<li><code>hyperopt_stats_path</code></li>
+</ul>
+<p>The visualization creates one plot for each hyper-parameter in the file at <code>hyperopt_stats_path</code>, plus an additional one containing a pair plot of hyper-parameters interactions.</p>
+<p>Each plot will show the distribution of the parameters with respect to the metric to optimize.
+For <code>float</code> and <code>int</code> parameters, a scatter plot is used, while for <code>category</code> parameters, a violin plot is used instead. </p>
+<p><img alt="Float hyperopt plot" src="../../images/hyperopt_float.png" title="Float hyperopt plot" /></p>
+<p><img alt="Int hyperopt plot" src="../../images/hyperopt_int.png" title="Int hyperopt plot" /></p>
+<p><img alt="Category hyperopt plot" src="../../images/hyperopt_category.png" title="Category hyperopt plot" /></p>
+<p>The pair plot shows a heatmap of how the values of pairs of hyper-parameters correlate with the metric to optimize.</p>
+<p><img alt="Pait hyperopt plot" src="../../images/hyperopt_pair.png" title="Pait hyperopt plot" /></p>
+<h3 id="hyperopt_hiplot">hyperopt_hiplot<a class="headerlink" href="#hyperopt_hiplot" title="Permanent link">&para;</a></h3>
+<p>Parameters for this visualization: </p>
+<ul>
+<li><code>output_directory</code></li>
+<li><code>file_format</code></li>
+<li><code>hyperopt_stats_path</code></li>
+</ul>
+<p>The visualization creates an interactive HTML page visualizing all the results from the hyper-parameter optimization at once, using a parallel coordinate plot.</p>
+<p><img alt="Hiplot hyperopt plot" src="../../images/hyperopt_hiplot.jpeg" title="Hiplot hyperopt plot" /></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+    <!-- Link to previous and/or next page -->
+    
+    <div class="md-footer-nav">
+        <nav aria-label="Footer"
+             class="md-footer-nav__inner md-grid">
+            
+            <a class="md-footer-nav__link md-footer-nav__link--prev"
+               href="../programmatic_api/" rel="prev"
+               title="Programmatic API">
+                <div class="md-footer-nav__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+                </div>
+                <div class="md-footer-nav__title">
+                    <div class="md-ellipsis">
+                 <span class="md-footer-nav__direction">
+                   Previous
+                 </span>
+                        Programmatic API
+                    </div>
+                </div>
+            </a>
+            
+            
+            <a class="md-footer-nav__link md-footer-nav__link--next"
+               href="../serving/" rel="next"
+               title="Serving">
+                <div class="md-footer-nav__title">
+                    <div class="md-ellipsis">
+                 <span class="md-footer-nav__direction">
+                   Next
+                 </span>
+                        Serving
+                    </div>
+                </div>
+                <div class="md-footer-nav__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+                </div>
+            </a>
+            
+        </nav>
+    </div>
+    
+
+    <!-- Further information -->
+    <div class="md-footer-meta md-typeset">
+        <div class="md-footer-meta__inner md-grid">
+
+            <!-- Copyright and theme information -->
+            <div class="md-footer-copyright">
+                <div class="footer-logo-smallpad"></div>
+                
+                <div class="md-footer-copyright__highlight">
+                    Copyright &copy; 2018 - 2020 Uber Technologies Inc., 2021 Linux Foundation Data & AI
+                </div>
+                
+                Website by <a href="http://w4nderlu.st">w4nderlust</a> powered by
+                <a href="https://www.mkdocs.org">MkDocs</a>,
+                <a href="https://squidfunk.github.io/mkdocs-material/">Material for MkDocs</a>,
+                <a href="http://www.styleshout.com/">styleshout</a> and
+                <a href="http://cables.gl/">cables</a>.
+            </div>
+
+            <!-- Social links -->
+            
+            
+            
+        </div>
+    </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.77e55a48.min.js"></script>
+      <script src="../../assets/javascripts/bundle.9554a270.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

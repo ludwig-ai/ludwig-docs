@@ -9,24 +9,24 @@
         <meta name="description" content="Deep learning toolbox">
       
       
-        <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/community/">
+        <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/user_guide/data_postprocessing/">
       
       
         <meta name="author" content="Piero Molino">
       
-      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="shortcut icon" href="../../favicon.ico">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.0.2">
     
     
       
-        <title>Community - Ludwig</title>
+        <title>Data Postprocessing - Ludwig</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.38780c08.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.38780c08.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.3f72e892.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f72e892.min.css">
         
           
           
@@ -45,9 +45,9 @@
     
     
     
-      <link rel="stylesheet" href="../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-      <link rel="stylesheet" href="../stylesheets/monokai.css">
+      <link rel="stylesheet" href="../../stylesheets/monokai.css">
     
     
       
@@ -70,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#community-policy" class="md-skip">
+        <a href="#postprocessing-outputs" class="md-skip">
           Skip to content
         </a>
       
@@ -83,7 +83,7 @@
   <nav class="md-header-nav md-grid" aria-label="Header">
     <a href="https://ludwig-ai.github.io/ludwig-docs/" title="Ludwig" class="md-header-nav__button md-logo" aria-label="Ludwig">
       
-<img alt="logo" src="../images/ludwig_logo.svg"
+<img alt="logo" src="../../images/ludwig_logo.svg"
      style="height:1rem;width:4rem;">
 
     </a>
@@ -98,7 +98,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Community
+              Data Postprocessing
             
           </span>
         </div>
@@ -170,7 +170,7 @@
         <a aria-label="Ludwig" class="md-nav__button md-logo"
            href="https://ludwig-ai.github.io/ludwig-docs/"
            title="Ludwig">
-            <img alt="logo" src="../images/ludwig_logo.svg"
+            <img alt="logo" src="../../images/ludwig_logo.svg"
                  style="width:10rem;height:auto;">
         </a>
     </label>
@@ -196,7 +196,7 @@
 
 
   <li class="md-nav__item">
-    <a href=".." class="md-nav__link">
+    <a href="../.." class="md-nav__link">
       About
     </a>
   </li>
@@ -208,7 +208,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../getting_started/" class="md-nav__link">
+    <a href="../../getting_started/" class="md-nav__link">
       Getting Started
     </a>
   </li>
@@ -220,7 +220,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../examples/" class="md-nav__link">
+    <a href="../../examples/" class="md-nav__link">
       Examples
     </a>
   </li>
@@ -230,10 +230,12 @@
         
         
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
     
     <label class="md-nav__link" for="nav-4">
       User Guide
@@ -253,7 +255,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../user_guide/user_guide_intro/" class="md-nav__link">
+    <a href="../user_guide_intro/" class="md-nav__link">
       User Guide Intro
     </a>
   </li>
@@ -265,7 +267,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../user_guide/command_line_interface/" class="md-nav__link">
+    <a href="../command_line_interface/" class="md-nav__link">
       Command Line Interface
     </a>
   </li>
@@ -277,7 +279,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../user_guide/data_preprocessing/" class="md-nav__link">
+    <a href="../data_preprocessing/" class="md-nav__link">
       Data Preprocessing
     </a>
   </li>
@@ -287,11 +289,45 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../user_guide/data_postprocessing/" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Data Postprocessing
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
       Data Postprocessing
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#postprocessing-outputs" class="md-nav__link">
+    Postprocessing Outputs
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -301,7 +337,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../user_guide/configuration/" class="md-nav__link">
+    <a href="../configuration/" class="md-nav__link">
       Configuration
     </a>
   </li>
@@ -313,7 +349,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../user_guide/distributed_execution_backends/" class="md-nav__link">
+    <a href="../distributed_execution_backends/" class="md-nav__link">
       Distributed Execution Backends
     </a>
   </li>
@@ -325,7 +361,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../user_guide/hyperparameter_optimization/" class="md-nav__link">
+    <a href="../hyperparameter_optimization/" class="md-nav__link">
       Hyper-parameter optimization
     </a>
   </li>
@@ -337,7 +373,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../user_guide/programmatic_api/" class="md-nav__link">
+    <a href="../programmatic_api/" class="md-nav__link">
       Programmatic API
     </a>
   </li>
@@ -349,7 +385,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../user_guide/visualizations/" class="md-nav__link">
+    <a href="../visualizations/" class="md-nav__link">
       Visualizations
     </a>
   </li>
@@ -361,7 +397,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../user_guide/serving/" class="md-nav__link">
+    <a href="../serving/" class="md-nav__link">
       Serving
     </a>
   </li>
@@ -373,7 +409,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../user_guide/datasets/" class="md-nav__link">
+    <a href="../datasets/" class="md-nav__link">
       Datasets
     </a>
   </li>
@@ -385,7 +421,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../user_guide/integrations/" class="md-nav__link">
+    <a href="../integrations/" class="md-nav__link">
       Integrations
     </a>
   </li>
@@ -423,7 +459,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../developer_guide/developer_guide_intro/" class="md-nav__link">
+    <a href="../../developer_guide/developer_guide_intro/" class="md-nav__link">
       Developer Guide Intro
     </a>
   </li>
@@ -435,7 +471,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../developer_guide/codebase_structure/" class="md-nav__link">
+    <a href="../../developer_guide/codebase_structure/" class="md-nav__link">
       Codebase Structure
     </a>
   </li>
@@ -447,7 +483,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../developer_guide/add_an_encoder/" class="md-nav__link">
+    <a href="../../developer_guide/add_an_encoder/" class="md-nav__link">
       Add an Encoder
     </a>
   </li>
@@ -459,7 +495,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../developer_guide/add_a_decoder/" class="md-nav__link">
+    <a href="../../developer_guide/add_a_decoder/" class="md-nav__link">
       Add a Decoder
     </a>
   </li>
@@ -471,7 +507,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../developer_guide/add_a_feature_type/" class="md-nav__link">
+    <a href="../../developer_guide/add_a_feature_type/" class="md-nav__link">
       Add a Feature Type
     </a>
   </li>
@@ -483,7 +519,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../developer_guide/hyper_parameter_optimization/" class="md-nav__link">
+    <a href="../../developer_guide/hyper_parameter_optimization/" class="md-nav__link">
       Hyper-parameter Optimization
     </a>
   </li>
@@ -495,7 +531,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../developer_guide/add_an_integration/" class="md-nav__link">
+    <a href="../../developer_guide/add_an_integration/" class="md-nav__link">
       Add an Integration
     </a>
   </li>
@@ -507,7 +543,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../developer_guide/add_a_dataset/" class="md-nav__link">
+    <a href="../../developer_guide/add_a_dataset/" class="md-nav__link">
       Add an Dataset
     </a>
   </li>
@@ -519,7 +555,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../developer_guide/style_guidelines_and_tests/" class="md-nav__link">
+    <a href="../../developer_guide/style_guidelines_and_tests/" class="md-nav__link">
       Style Guidelines and Tests
     </a>
   </li>
@@ -557,7 +593,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../api/LudwigModel/" class="md-nav__link">
+    <a href="../../api/LudwigModel/" class="md-nav__link">
       LudwigModel
     </a>
   </li>
@@ -569,7 +605,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../api/visualization/" class="md-nav__link">
+    <a href="../../api/visualization/" class="md-nav__link">
       Visualization
     </a>
   </li>
@@ -584,66 +620,11 @@
         
         
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Community
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-    
-    <a href="./" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../../community/" class="md-nav__link">
       Community
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#community-policy" class="md-nav__link">
-    Community Policy
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#issues" class="md-nav__link">
-    Issues
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#forum" class="md-nav__link">
-    Forum
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#chat" class="md-nav__link">
-    Chat
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -653,7 +634,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../faq/" class="md-nav__link">
+    <a href="../../faq/" class="md-nav__link">
       FAQ
     </a>
   </li>
@@ -681,29 +662,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#community-policy" class="md-nav__link">
-    Community Policy
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#issues" class="md-nav__link">
-    Issues
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#forum" class="md-nav__link">
-    Forum
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#chat" class="md-nav__link">
-    Chat
+  <a href="#postprocessing-outputs" class="md-nav__link">
+    Postprocessing Outputs
   </a>
   
 </li>
@@ -720,29 +680,18 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/ludwig-ai/ludwig-docs/edit/master/src/docs/community.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/ludwig-ai/ludwig-docs/edit/master/src/docs/user_guide/data_postprocessing.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                  <h1>Community</h1>
+                  <h1>Data Postprocessing</h1>
                 
-                <h2 id="community-policy">Community Policy<a class="headerlink" href="#community-policy" title="Permanent link">&para;</a></h2>
-<p>We craft Ludwig with love and care, at the best of our skills and knowledge, but this project would not be possible without the contribution of an incredible community.
-With the support of the community we were able to improve the quality of Ludwig dramatically, as members provided both fixes, new features and helped directing the developments.
-We are really grateful for that and in exchange we strive to make the development process as open as possible and communication with the development team easy and direct.
-We strive to create an inclusive community where everyone is welcome as long as they respect everyone else, so harassment and any other form of non inclusive behaviour will not be allowed.</p>
-<h2 id="issues">Issues<a class="headerlink" href="#issues" title="Permanent link">&para;</a></h2>
-<p>If you encounter an issue when using Ludwig, please add it to our <a href="https://github.com/ludwig-ai/ludwig/issues">GitHub Issues tracker</a>.
-Please make sure we are able to replicate the issue by providing wither model definition + command + data or code + data.
-If your data cannot be shared, please use the <code>dataset_synthesizer</code> script available in <code>ludwig/data/dataset_synthesizer</code> to create a synthetic data with the same feature types.</p>
-<h2 id="forum">Forum<a class="headerlink" href="#forum" title="Permanent link">&para;</a></h2>
-<p>We use <a href="https://github.com/ludwig-ai/ludwig/discussions">GitHub Discussions</a> to provide a forum for the community to discuss.
-Everything that is not an issue and relates Ludwig can be discussed here: use-cases, requests for help and suggestions, discussions on the future of the project, and other similar topics.
-The forum is ideal for asynchronous communication.</p>
-<h2 id="chat">Chat<a class="headerlink" href="#chat" title="Permanent link">&para;</a></h2>
-<p>We use Slack as a chat solution for allowing both Ludwig users and developers to interact in a timely, more synchronous way.
-<a href="https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ">Click here</a> to receive an invitation.</p>
+                <h2 id="postprocessing-outputs">Postprocessing Outputs<a class="headerlink" href="#postprocessing-outputs" title="Permanent link">&para;</a></h2>
+<p>The JSON file obtained from preprocessing is used also for postprocessing: Ludwig models return output predictions and, depending on their datatype they are mapped back into the original space.
+Numerical and timeseries are returned as they are, while category, set, sequence, and text features output integers, those integers are mapped back into the original tokens / names using the <code>idx2str</code> in the JSON file.
+When you run <code>experiment</code> or <code>predict</code> you will find both a CSV file for each output containing the mapped predictions, a probability CSV file containing the probability of that prediction, a probabilities CSV file containing the probabilities for all alternatives (for instance, the probabilities of all the categories in case of a categorical feature).  You will also find the unmapped NPY files.
+If you don't need them you can use the <code>--skip_save_unprocessed_output</code> argument.</p>
                 
               
               
@@ -767,8 +716,8 @@ The forum is ideal for asynchronous communication.</p>
              class="md-footer-nav__inner md-grid">
             
             <a class="md-footer-nav__link md-footer-nav__link--prev"
-               href="../api/visualization/" rel="prev"
-               title="Visualization">
+               href="../data_preprocessing/" rel="prev"
+               title="Data Preprocessing">
                 <div class="md-footer-nav__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
                 </div>
@@ -777,21 +726,21 @@ The forum is ideal for asynchronous communication.</p>
                  <span class="md-footer-nav__direction">
                    Previous
                  </span>
-                        Visualization
+                        Data Preprocessing
                     </div>
                 </div>
             </a>
             
             
             <a class="md-footer-nav__link md-footer-nav__link--next"
-               href="../faq/" rel="next"
-               title="FAQ">
+               href="../configuration/" rel="next"
+               title="Configuration">
                 <div class="md-footer-nav__title">
                     <div class="md-ellipsis">
                  <span class="md-footer-nav__direction">
                    Next
                  </span>
-                        FAQ
+                        Configuration
                     </div>
                 </div>
                 <div class="md-footer-nav__button md-icon">
@@ -832,15 +781,15 @@ The forum is ideal for asynchronous communication.</p>
       
     </div>
     
-      <script src="../assets/javascripts/vendor.77e55a48.min.js"></script>
-      <script src="../assets/javascripts/bundle.9554a270.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../../assets/javascripts/vendor.77e55a48.min.js"></script>
+      <script src="../../assets/javascripts/bundle.9554a270.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({
-          base: "..",
+          base: "../..",
           features: [],
           search: Object.assign({
-            worker: "../assets/javascripts/worker/search.4ac00218.min.js"
+            worker: "../../assets/javascripts/worker/search.4ac00218.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

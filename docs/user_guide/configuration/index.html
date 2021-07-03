@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/user_guide/configuration/">
       
       <link rel="icon" href="../../favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.8">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.0.6">
     
     
       
@@ -24,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ca7ac06f.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2c0c5eaf.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.f1a3b89f.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.7fa14f5b.min.css">
         
           
           
@@ -52,8 +52,6 @@
     
     
       
-
-
     
     
   </head>
@@ -65,9 +63,8 @@
     
     
     <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="grey">
+      
   
-    
-    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -111,8 +108,9 @@
         </div>
       </div>
     </div>
-    
-    
+    <div class="md-header__options">
+      
+    </div>
     
       <label class="md-header__button md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
@@ -128,7 +126,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
       <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
       </button>
     </form>
     <div class="md-search__output">
@@ -150,7 +148,7 @@
 <a href="https://github.com/ludwig-ai/ludwig/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     ludwig-ai/ludwig
@@ -190,7 +188,7 @@
 <a href="https://github.com/ludwig-ai/ludwig/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     ludwig-ai/ludwig
@@ -251,14 +249,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
       
       <label class="md-nav__link" for="nav-4">
         User Guide
@@ -322,1030 +318,266 @@
             
   
   
+  
     
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4_5" type="checkbox" id="nav-4_5" >
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Configuration
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+      <label class="md-nav__link" for="nav-4_5">
         Configuration
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Configuration" data-md-level="2">
+        <label class="md-nav__title" for="nav-4_5">
+          <span class="md-nav__icon md-icon"></span>
+          Configuration
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/configuration_intro/" class="md-nav__link">
+        Configuration Intro
       </a>
-      
-        
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#input-features" class="md-nav__link">
-    Input features
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#combiner" class="md-nav__link">
-    Combiner
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#output-features" class="md-nav__link">
-    Output Features
-  </a>
-  
-    <nav class="md-nav" aria-label="Output Features">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#multi-task-learning" class="md-nav__link">
-    Multi-task Learning
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#output-features-dependencies" class="md-nav__link">
-    Output Features Dependencies
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#training" class="md-nav__link">
-    Training
-  </a>
-  
-    <nav class="md-nav" aria-label="Training">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#optimizers-details" class="md-nav__link">
-    Optimizers details
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#preprocessing" class="md-nav__link">
-    Preprocessing
-  </a>
-  
-    <nav class="md-nav" aria-label="Preprocessing">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#tokenizers" class="md-nav__link">
-    Tokenizers
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#binary-features" class="md-nav__link">
-    Binary Features
-  </a>
-  
-    <nav class="md-nav" aria-label="Binary Features">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#binary-features-preprocessing" class="md-nav__link">
-    Binary Features Preprocessing
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#binary-input-features-and-encoders" class="md-nav__link">
-    Binary Input Features and Encoders
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dense-encoder-parameters" class="md-nav__link">
-    Dense Encoder Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#binary-output-features-and-decoders" class="md-nav__link">
-    Binary Output Features and Decoders
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#binary-features-measures" class="md-nav__link">
-    Binary Features Measures
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#numerical-features" class="md-nav__link">
-    Numerical Features
-  </a>
-  
-    <nav class="md-nav" aria-label="Numerical Features">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#numerical-features-preprocessing" class="md-nav__link">
-    Numerical Features Preprocessing
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#numerical-input-features-and-encoders" class="md-nav__link">
-    Numerical Input Features and Encoders
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dense-encoder-parameters_1" class="md-nav__link">
-    Dense Encoder Parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#numerical-output-features-and-decoders" class="md-nav__link">
-    Numerical Output Features and Decoders
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#numerical-features-measures" class="md-nav__link">
-    Numerical Features Measures
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#category-features" class="md-nav__link">
-    Category Features
-  </a>
-  
-    <nav class="md-nav" aria-label="Category Features">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#category-features-preprocessing" class="md-nav__link">
-    Category Features Preprocessing
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#category-input-features-and-encoders" class="md-nav__link">
-    Category Input Features and Encoders
-  </a>
-  
-    <nav class="md-nav" aria-label="Category Input Features and Encoders">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#dense-encoder" class="md-nav__link">
-    Dense Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sparse-encoder" class="md-nav__link">
-    Sparse Encoder
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#category-output-features-and-decoders" class="md-nav__link">
-    Category Output Features and Decoders
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#category-features-measures" class="md-nav__link">
-    Category Features Measures
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#set-features" class="md-nav__link">
-    Set Features
-  </a>
-  
-    <nav class="md-nav" aria-label="Set Features">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#set-features-preprocessing" class="md-nav__link">
-    Set Features Preprocessing
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#set-input-features-and-encoders" class="md-nav__link">
-    Set Input Features and Encoders
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#set-output-features-and-decoders" class="md-nav__link">
-    Set Output Features and Decoders
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#set-features-measures" class="md-nav__link">
-    Set Features Measures
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bag-features" class="md-nav__link">
-    Bag Features
-  </a>
-  
-    <nav class="md-nav" aria-label="Bag Features">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bag-features-preprocessing" class="md-nav__link">
-    Bag Features Preprocessing
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#bag-input-features-and-encoders" class="md-nav__link">
-    Bag Input Features and Encoders
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#bag-output-features-and-decoders" class="md-nav__link">
-    Bag Output Features and Decoders
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#bag-features-measures" class="md-nav__link">
-    Bag Features Measures
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sequence-features" class="md-nav__link">
-    Sequence Features
-  </a>
-  
-    <nav class="md-nav" aria-label="Sequence Features">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#sequence-features-preprocessing" class="md-nav__link">
-    Sequence Features Preprocessing
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sequence-input-features-and-encoders" class="md-nav__link">
-    Sequence Input Features and Encoders
-  </a>
-  
-    <nav class="md-nav" aria-label="Sequence Input Features and Encoders">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#embed-encoder" class="md-nav__link">
-    Embed Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#parallel-cnn-encoder" class="md-nav__link">
-    Parallel CNN Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#stacked-cnn-encoder" class="md-nav__link">
-    Stacked CNN Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#stacked-parallel-cnn-encoder" class="md-nav__link">
-    Stacked Parallel CNN Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rnn-encoder" class="md-nav__link">
-    RNN Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cnn-rnn-encoder" class="md-nav__link">
-    CNN RNN Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#transformer-encoder" class="md-nav__link">
-    Transformer Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#passthrough-encoder" class="md-nav__link">
-    Passthrough Encoder
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sequence-output-features-and-decoders" class="md-nav__link">
-    Sequence Output Features and Decoders
-  </a>
-  
-    <nav class="md-nav" aria-label="Sequence Output Features and Decoders">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#tagger-decoder" class="md-nav__link">
-    Tagger Decoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#generator-decoder" class="md-nav__link">
-    Generator Decoder
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sequence-features-measures" class="md-nav__link">
-    Sequence Features Measures
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#text-features" class="md-nav__link">
-    Text Features
-  </a>
-  
-    <nav class="md-nav" aria-label="Text Features">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#text-features-preprocessing" class="md-nav__link">
-    Text Features Preprocessing
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#text-input-features-and-encoders" class="md-nav__link">
-    Text Input Features and Encoders
-  </a>
-  
-    <nav class="md-nav" aria-label="Text Input Features and Encoders">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bert-encoder" class="md-nav__link">
-    BERT Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gpt-encoder" class="md-nav__link">
-    GPT Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gpt-2-encoder" class="md-nav__link">
-    GPT-2 Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#xlnet-encoder" class="md-nav__link">
-    XLNet Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#xlm-encoder" class="md-nav__link">
-    XLM Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#roberta-encoder" class="md-nav__link">
-    RoBERTa Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#distilbert-encoder" class="md-nav__link">
-    DistilBERT Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ctrl-encoder" class="md-nav__link">
-    CTRL Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#camembert-encoder" class="md-nav__link">
-    CamemBERT Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#albert-encoder" class="md-nav__link">
-    ALBERT Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#t5-encoder" class="md-nav__link">
-    T5 Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#xlm-roberta-encoder" class="md-nav__link">
-    XLM-RoBERTa Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#flaubert-encoder" class="md-nav__link">
-    FlauBERT Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#electra-encoder" class="md-nav__link">
-    ELECTRA Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#longformer-encoder" class="md-nav__link">
-    Longformer Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#auto-transformer-encoder" class="md-nav__link">
-    Auto-Transformer Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example-usage" class="md-nav__link">
-    Example usage
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#text-output-features-and-decoders" class="md-nav__link">
-    Text Output Features and Decoders
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#text-features-measures" class="md-nav__link">
-    Text Features Measures
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#time-series-features" class="md-nav__link">
-    Time Series Features
-  </a>
-  
-    <nav class="md-nav" aria-label="Time Series Features">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#time-series-features-preprocessing" class="md-nav__link">
-    Time Series Features Preprocessing
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#time-series-input-features-and-encoders" class="md-nav__link">
-    Time Series Input Features and Encoders
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#time-series-output-features-and-decoders" class="md-nav__link">
-    Time Series Output Features and Decoders
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#time-series-features-measures" class="md-nav__link">
-    Time Series Features Measures
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#audio-features" class="md-nav__link">
-    Audio Features
-  </a>
-  
-    <nav class="md-nav" aria-label="Audio Features">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#audio-features-preprocessing" class="md-nav__link">
-    Audio Features Preprocessing
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#audio-input-features-and-encoders" class="md-nav__link">
-    Audio Input Features and Encoders
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#audio-output-features-and-decoders" class="md-nav__link">
-    Audio Output Features and Decoders
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#audio-features-measures" class="md-nav__link">
-    Audio Features Measures
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#image-features" class="md-nav__link">
-    Image Features
-  </a>
-  
-    <nav class="md-nav" aria-label="Image Features">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#image-features-preprocessing" class="md-nav__link">
-    Image Features Preprocessing
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#image-input-features-and-encoders" class="md-nav__link">
-    Image Input Features and Encoders
-  </a>
-  
-    <nav class="md-nav" aria-label="Image Input Features and Encoders">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#convolutional-stack-encoder" class="md-nav__link">
-    Convolutional Stack Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#resnet-encoder" class="md-nav__link">
-    ResNet Encoder
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#image-output-features-and-decoders" class="md-nav__link">
-    Image Output Features and Decoders
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#image-features-measures" class="md-nav__link">
-    Image Features Measures
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#date-features" class="md-nav__link">
-    Date Features
-  </a>
-  
-    <nav class="md-nav" aria-label="Date Features">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#date-features-preprocessing" class="md-nav__link">
-    Date Features Preprocessing
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#date-input-features-and-encoders" class="md-nav__link">
-    Date Input Features and Encoders
-  </a>
-  
-    <nav class="md-nav" aria-label="Date Input Features and Encoders">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#embed-encoder_1" class="md-nav__link">
-    Embed Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#wave-encoder" class="md-nav__link">
-    Wave Encoder
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#date-output-features-and-decoders" class="md-nav__link">
-    Date Output Features and Decoders
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#date-features-measures" class="md-nav__link">
-    Date Features Measures
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#h3-features" class="md-nav__link">
-    H3 Features
-  </a>
-  
-    <nav class="md-nav" aria-label="H3 Features">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#h3-features-preprocessing" class="md-nav__link">
-    H3 Features Preprocessing
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#h3-input-features-and-encoders" class="md-nav__link">
-    H3 Input Features and Encoders
-  </a>
-  
-    <nav class="md-nav" aria-label="H3 Input Features and Encoders">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#embed-encoder_2" class="md-nav__link">
-    Embed Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#weighted-sum-embed-encoder" class="md-nav__link">
-    Weighted Sum Embed Encoder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rnn-encoder_1" class="md-nav__link">
-    RNN Encoder
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#h3-output-features-and-decoders" class="md-nav__link">
-    H3 Output Features and Decoders
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#h3-features-measures" class="md-nav__link">
-    H3 Features Measures
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#vector-features" class="md-nav__link">
-    Vector Features
-  </a>
-  
-    <nav class="md-nav" aria-label="Vector Features">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#vector-feature-preprocessing" class="md-nav__link">
-    Vector Feature Preprocessing
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vector-feature-encoders" class="md-nav__link">
-    Vector Feature Encoders
-  </a>
-  
-    <nav class="md-nav" aria-label="Vector Feature Encoders">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#dense-encoder_1" class="md-nav__link">
-    Dense Encoder
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vector-feature-decoders" class="md-nav__link">
-    Vector Feature Decoders
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vector-features-measures" class="md-nav__link">
-    Vector Features Measures
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#combiners" class="md-nav__link">
-    Combiners
-  </a>
-  
-    <nav class="md-nav" aria-label="Combiners">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#concat-combiner" class="md-nav__link">
-    Concat Combiner
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sequence-concat-combiner" class="md-nav__link">
-    Sequence Concat Combiner
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sequence-combiner" class="md-nav__link">
-    Sequence Combiner
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tabnet-combiner" class="md-nav__link">
-    TabNet Combiner
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#transformer-combiner" class="md-nav__link">
-    Transformer Combiner
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#comparator-combiner" class="md-nav__link">
-    Comparator Combiner
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/input_features/" class="md-nav__link">
+        Input Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/combiner/" class="md-nav__link">
+        Combiner
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/output_features/" class="md-nav__link">
+        Output Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/training/" class="md-nav__link">
+        Training
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/preprocessing/" class="md-nav__link">
+        Preprocessing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/binary_features/" class="md-nav__link">
+        Binary Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/numerical_features/" class="md-nav__link">
+        Numerical Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/category_features/" class="md-nav__link">
+        Category Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/set_features/" class="md-nav__link">
+        Set Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/bag_features/" class="md-nav__link">
+        Bag Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/sequence_features/" class="md-nav__link">
+        Sequence Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/text_features/" class="md-nav__link">
+        Text Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/time_series_features/" class="md-nav__link">
+        Time Series Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/audio_features/" class="md-nav__link">
+        Audio Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/image_features/" class="md-nav__link">
+        Image Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/date_features/" class="md-nav__link">
+        Date Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/h3_features/" class="md-nav__link">
+        H3 Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/vector_features/" class="md-nav__link">
+        Vector Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/combiners/" class="md-nav__link">
+        Combiners
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -1675,7 +907,6 @@
                   <div class="md-sidebar__inner">
                     
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
   
   
   
@@ -2694,7 +1925,7 @@
                 
                   <h1>Configuration</h1>
                 
-                <p>The configuration is the core of Ludwig.
+                <p>The configuration is the core of Ludwig. 
 It is a dictionary that contains all the information needed to build and train a Ludwig model.
 It mixes ease of use, by means of reasonable defaults, with flexibility, by means of detailed control over the parameters of your model.
 It is provided to both <code>experiment</code> and <code>train</code> commands either as a string (<code>--config</code>) or as a file (<code>--config_file</code>).
@@ -5505,7 +4736,6 @@ It returns the final <code>b x h'</code> tensor where <code>h'</code> is the siz
             </article>
           </div>
         </div>
-        
       </main>
       
         
@@ -5514,46 +4744,6 @@ It returns the final <code>b x h'</code> tensor where <code>h'</code> is the siz
 <footer class="md-footer">
 
     <!-- Link to previous and/or next page -->
-    
-    <div class="md-footer-nav">
-        <nav aria-label="Footer"
-             class="md-footer-nav__inner md-grid">
-            
-            <a class="md-footer-nav__link md-footer-nav__link--prev"
-               href="../data_postprocessing/" rel="prev"
-               title="Data Postprocessing">
-                <div class="md-footer-nav__button md-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-                </div>
-                <div class="md-footer-nav__title">
-                    <div class="md-ellipsis">
-                 <span class="md-footer-nav__direction">
-                   Previous
-                 </span>
-                        Data Postprocessing
-                    </div>
-                </div>
-            </a>
-            
-            
-            <a class="md-footer-nav__link md-footer-nav__link--next"
-               href="../distributed_execution_backends/" rel="next"
-               title="Distributed Execution Backends">
-                <div class="md-footer-nav__title">
-                    <div class="md-ellipsis">
-                 <span class="md-footer-nav__direction">
-                   Next
-                 </span>
-                        Distributed Execution Backends
-                    </div>
-                </div>
-                <div class="md-footer-nav__button md-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-                </div>
-            </a>
-            
-        </nav>
-    </div>
     
 
     <!-- Further information -->
@@ -5587,10 +4777,10 @@ It returns the final <code>b x h'</code> tensor where <code>h'</code> is the siz
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.b0710199.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../assets/javascripts/workers/search.fb4a9340.min.js", "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.76f349be.min.js"></script>
+      <script src="../../assets/javascripts/bundle.a1c7c35e.min.js"></script>
       
     
   </body>

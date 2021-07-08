@@ -1,0 +1,1597 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Deep learning toolbox">
+      
+      
+      
+        <meta name="author" content="Piero Molino">
+      
+      
+        <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/user_guide/configuration/text_features/">
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.0.6">
+    
+    
+      
+        <title>Text Features - Ludwig</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.2c0c5eaf.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.7fa14f5b.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#757575">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/monokai.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="grey">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#text-features-preprocessing" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Ludwig" class="md-header__button md-logo" aria-label="Ludwig" data-md-component="logo">
+      
+<img alt="logo" src="../../../images/ludwig_logo.svg"
+     style="height:1rem;width:4rem;">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Ludwig
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Text Features
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="md-header__options">
+      
+    </div>
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/ludwig-ai/ludwig/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ludwig-ai/ludwig
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav aria-label="Navigation" class="md-nav md-nav--primary"
+     data-md-level="0">
+    <label class="md-nav__title" for="__drawer">
+        <a aria-label="Ludwig" class="md-nav__button md-logo"
+           href="https://ludwig-ai.github.io/ludwig-docs/"
+           title="Ludwig">
+            <img alt="logo" src="../../../images/ludwig_logo.svg"
+                 style="width:10rem;height:auto;">
+        </a>
+    </label>
+    
+    <div class="md-nav__source">
+        
+<a href="https://github.com/ludwig-ai/ludwig/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ludwig-ai/ludwig
+  </div>
+</a>
+    </div>
+    
+    <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        
+        
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        About
+      </a>
+    </li>
+  
+
+        
+        
+        
+        
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+        
+        
+        
+        
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/" class="md-nav__link">
+        Examples
+      </a>
+    </li>
+  
+
+        
+        
+        
+        
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+      
+      <label class="md-nav__link" for="nav-4">
+        User Guide
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="User Guide" data-md-level="1">
+        <label class="md-nav__title" for="nav-4">
+          <span class="md-nav__icon md-icon"></span>
+          User Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user_guide_intro/" class="md-nav__link">
+        User Guide Intro
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../command_line_interface/" class="md-nav__link">
+        Command Line Interface
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_preprocessing/" class="md-nav__link">
+        Data Preprocessing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_postprocessing/" class="md-nav__link">
+        Data Postprocessing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4_5" type="checkbox" id="nav-4_5" checked>
+      
+      <label class="md-nav__link" for="nav-4_5">
+        Configuration
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Configuration" data-md-level="2">
+        <label class="md-nav__title" for="nav-4_5">
+          <span class="md-nav__icon md-icon"></span>
+          Configuration
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration_intro/" class="md-nav__link">
+        Configuration Intro
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../input_features/" class="md-nav__link">
+        Input Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../combiner/" class="md-nav__link">
+        Combiner
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../output_features/" class="md-nav__link">
+        Output Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../training/" class="md-nav__link">
+        Training
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preprocessing/" class="md-nav__link">
+        Preprocessing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../binary_features/" class="md-nav__link">
+        Binary Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../numerical_features/" class="md-nav__link">
+        Numerical Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../category_features/" class="md-nav__link">
+        Category Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../set_features/" class="md-nav__link">
+        Set Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bag_features/" class="md-nav__link">
+        Bag Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sequence_features/" class="md-nav__link">
+        Sequence Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Text Features
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Text Features
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#text-features-preprocessing" class="md-nav__link">
+    Text Features Preprocessing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#text-input-features-and-encoders" class="md-nav__link">
+    Text Input Features and Encoders
+  </a>
+  
+    <nav class="md-nav" aria-label="Text Input Features and Encoders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bert-encoder" class="md-nav__link">
+    BERT Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpt-encoder" class="md-nav__link">
+    GPT Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpt-2-encoder" class="md-nav__link">
+    GPT-2 Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xlnet-encoder" class="md-nav__link">
+    XLNet Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xlm-encoder" class="md-nav__link">
+    XLM Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roberta-encoder" class="md-nav__link">
+    RoBERTa Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distilbert-encoder" class="md-nav__link">
+    DistilBERT Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ctrl-encoder" class="md-nav__link">
+    CTRL Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#camembert-encoder" class="md-nav__link">
+    CamemBERT Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#albert-encoder" class="md-nav__link">
+    ALBERT Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#t5-encoder" class="md-nav__link">
+    T5 Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xlm-roberta-encoder" class="md-nav__link">
+    XLM-RoBERTa Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flaubert-encoder" class="md-nav__link">
+    FlauBERT Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#electra-encoder" class="md-nav__link">
+    ELECTRA Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#longformer-encoder" class="md-nav__link">
+    Longformer Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-transformer-encoder" class="md-nav__link">
+    Auto-Transformer Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-usage" class="md-nav__link">
+    Example usage
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#text-output-features-and-decoders" class="md-nav__link">
+    Text Output Features and Decoders
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#text-features-measures" class="md-nav__link">
+    Text Features Measures
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../time_series_features/" class="md-nav__link">
+        Time Series Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../audio_features/" class="md-nav__link">
+        Audio Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../image_features/" class="md-nav__link">
+        Image Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../date_features/" class="md-nav__link">
+        Date Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../h3_features/" class="md-nav__link">
+        H3 Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vector_features/" class="md-nav__link">
+        Vector Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../combiners/" class="md-nav__link">
+        Combiners
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_execution_backends/" class="md-nav__link">
+        Distributed Execution Backends
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hyperparameter_optimization/" class="md-nav__link">
+        Hyper-parameter optimization
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programmatic_api/" class="md-nav__link">
+        Programmatic API
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../visualizations/" class="md-nav__link">
+        Visualizations
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../serving/" class="md-nav__link">
+        Serving
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../datasets/" class="md-nav__link">
+        Datasets
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../integrations/" class="md-nav__link">
+        Integrations
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+        
+        
+        
+        
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+      
+      <label class="md-nav__link" for="nav-5">
+        Developer Guide
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Developer Guide" data-md-level="1">
+        <label class="md-nav__title" for="nav-5">
+          <span class="md-nav__icon md-icon"></span>
+          Developer Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/developer_guide_intro/" class="md-nav__link">
+        Developer Guide Intro
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/codebase_structure/" class="md-nav__link">
+        Codebase Structure
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_an_encoder/" class="md-nav__link">
+        Add an Encoder
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_decoder/" class="md-nav__link">
+        Add a Decoder
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_feature_type/" class="md-nav__link">
+        Add a Feature Type
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/hyper_parameter_optimization/" class="md-nav__link">
+        Hyper-parameter Optimization
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_an_integration/" class="md-nav__link">
+        Add an Integration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_dataset/" class="md-nav__link">
+        Add an Dataset
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/style_guidelines_and_tests/" class="md-nav__link">
+        Style Guidelines and Tests
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+        
+        
+        
+        
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
+      
+      <label class="md-nav__link" for="nav-6">
+        API
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="API" data-md-level="1">
+        <label class="md-nav__title" for="nav-6">
+          <span class="md-nav__icon md-icon"></span>
+          API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/LudwigModel/" class="md-nav__link">
+        LudwigModel
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/visualization/" class="md-nav__link">
+        Visualization
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+        
+        
+        
+        
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../community/" class="md-nav__link">
+        Community
+      </a>
+    </li>
+  
+
+        
+        
+        
+        
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../faq/" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+        
+    </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#text-features-preprocessing" class="md-nav__link">
+    Text Features Preprocessing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#text-input-features-and-encoders" class="md-nav__link">
+    Text Input Features and Encoders
+  </a>
+  
+    <nav class="md-nav" aria-label="Text Input Features and Encoders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bert-encoder" class="md-nav__link">
+    BERT Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpt-encoder" class="md-nav__link">
+    GPT Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpt-2-encoder" class="md-nav__link">
+    GPT-2 Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xlnet-encoder" class="md-nav__link">
+    XLNet Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xlm-encoder" class="md-nav__link">
+    XLM Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roberta-encoder" class="md-nav__link">
+    RoBERTa Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distilbert-encoder" class="md-nav__link">
+    DistilBERT Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ctrl-encoder" class="md-nav__link">
+    CTRL Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#camembert-encoder" class="md-nav__link">
+    CamemBERT Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#albert-encoder" class="md-nav__link">
+    ALBERT Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#t5-encoder" class="md-nav__link">
+    T5 Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xlm-roberta-encoder" class="md-nav__link">
+    XLM-RoBERTa Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flaubert-encoder" class="md-nav__link">
+    FlauBERT Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#electra-encoder" class="md-nav__link">
+    ELECTRA Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#longformer-encoder" class="md-nav__link">
+    Longformer Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-transformer-encoder" class="md-nav__link">
+    Auto-Transformer Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-usage" class="md-nav__link">
+    Example usage
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#text-output-features-and-decoders" class="md-nav__link">
+    Text Output Features and Decoders
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#text-features-measures" class="md-nav__link">
+    Text Features Measures
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/ludwig-ai/ludwig-docs/edit/master/src/docs/user_guide/configuration/text_features.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  <h1>Text Features</h1>
+                
+                <h3 id="text-features-preprocessing">Text Features Preprocessing<a class="headerlink" href="#text-features-preprocessing" title="Permanent link">&para;</a></h3>
+<p>Text features are treated in the same way of sequence features, with a couple differences.
+Two different tokenizations happen, one that splits at every character and one that splits on whitespace and punctuation are used, and two different keys are added to the HDF5 file, one containing the matrix of characters and one containing the matrix of words.
+The same thing happens in the JSON file, which contains dictionaries for mapping characters to integers (and the inverse) and words to integers (and their inverse).
+In the configuration you are able to specify which level of representation to use, if the character level or the word level.</p>
+<p>The parameters available for preprocessing are:</p>
+<ul>
+<li><code>char_tokenizer</code> (default <code>characters</code>): defines how to map from the raw string content of the dataset column to a sequence of characters. The default value and only available option is <code>characters</code> and the behavior is to split the string at each character.</li>
+<li><code>char_vocab_file</code> (default <code>null</code>):</li>
+<li><code>char_sequence_length_limit</code> (default <code>1024</code>): the maximum length of the text in characters. Texts that are longer than this value will be truncated, while sequences that are shorter will be padded.</li>
+<li><code>char_most_common</code> (default <code>70</code>): the maximum number of most common characters to be considered. if the data contains more than this amount, the most infrequent characters will be treated as unknown.</li>
+<li><code>word_tokenizer</code> (default <code>space_punct</code>): defines how to map from the raw string content of the dataset column to a sequence of elements. For the available options refer to the <a href="#tokenizers">Tokenizers</a>section.</li>
+<li><code>pretrained_model_name_or_path</code> (default <code>null</code>):</li>
+<li><code>word_vocab_file</code> (default <code>null</code>):</li>
+<li><code>word_sequence_length_limit</code> (default <code>256</code>): the maximum length of the text in words. Texts that are longer than this value will be truncated, while texts that are shorter will be padded.</li>
+<li><code>word_most_common</code> (default <code>20000</code>): the maximum number of most common words to be considered. If the data contains more than this amount, the most infrequent words will be treated as unknown.</li>
+<li><code>padding_symbol</code> (default <code>&lt;PAD&gt;</code>): the string used as a padding symbol. Is is mapped to the integer ID 0 in the vocabulary.</li>
+<li><code>unknown_symbol</code> (default <code>&lt;UNK&gt;</code>): the string used as a unknown symbol. Is is mapped to the integer ID 1 in the vocabulary.</li>
+<li><code>padding</code> (default <code>right</code>): the direction of the padding. <code>right</code> and <code>left</code> are available options.</li>
+<li><code>lowercase</code> (default <code>false</code>): if the string has to be lowercased before being handled by the tokenizer.</li>
+<li><code>missing_value_strategy</code> (default <code>fill_with_const</code>): what strategy to follow when there's a missing value in a binary column. The value should be one of <code>fill_with_const</code> (replaces the missing value with a specific value specified with the <code>fill_value</code> parameter), <code>fill_with_mode</code> (replaces the missing values with the most frequent value in the column), <code>fill_with_mean</code> (replaces the missing values with the mean of the values in the column), <code>backfill</code> (replaces the missing values with the next valid value).</li>
+<li><code>fill_value</code> (default <code>""</code>): the value to replace the missing values with in case the <code>missing_value_strategy</code> is <code>fill-value</code>.</li>
+</ul>
+<p>Example of text preprocessing.</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">text_column_name</span>
+<span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="nt">level</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">word</span>
+<span class="nt">preprocessing</span><span class="p">:</span>
+    <span class="nt">char_tokenizer</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">characters</span>
+    <span class="nt">char_vocab_file</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
+    <span class="nt">char_sequence_length_limit</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1024</span>
+    <span class="nt">char_most_common</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">70</span>
+    <span class="nt">word_tokenizer</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">space_punct</span>
+    <span class="nt">pretrained_model_name_or_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
+    <span class="nt">word_vocab_file</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
+    <span class="nt">word_sequence_length_limit</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">256</span>
+    <span class="nt">word_most_common</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">20000</span>
+    <span class="nt">padding_symbol</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;PAD&gt;</span>
+    <span class="nt">unknown_symbol</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;UNK&gt;</span>
+    <span class="nt">padding</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">right</span>
+    <span class="nt">lowercase</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+    <span class="nt">missing_value_strategy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">fill_with_const</span>
+    <span class="nt">fill_value</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+</code></pre></div>
+
+<h3 id="text-input-features-and-encoders">Text Input Features and Encoders<a class="headerlink" href="#text-input-features-and-encoders" title="Permanent link">&para;</a></h3>
+<p>Text input feature parameters are</p>
+<ul>
+<li><code>encoder</code> (default <code>parallel_cnn</code>): encoder to use for the input text feature. The available encoders come from <a href="#sequence-input-features-and-encoders">Sequence Features</a> and these text specific encoders: <code>bert</code>, <code>gpt</code>, <code>gpt2</code>, <code>xlnet</code>, <code>xlm</code>, <code>roberta</code>, <code>distilbert</code>, <code>ctrl</code>, <code>camembert</code>, <code>albert</code>, <code>t5</code>, <code>xlmroberta</code>, <code>flaubert</code>, <code>electra</code>, <code>longformer</code> and <code>auto-transformer</code>.</li>
+<li><code>level</code> (default <code>word</code>): <code>word</code> specifies using text words, <code>char</code> use individual characters.</li>
+<li><code>tied_weights</code> (default <code>null</code>): name of the input feature to tie the weights of the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.</li>
+</ul>
+<h4 id="bert-encoder">BERT Encoder<a class="headerlink" href="#bert-encoder" title="Permanent link">&para;</a></h4>
+<p>The <code>bert</code> encoder loads a pretrained <a href="https://arxiv.org/abs/1810.04805">BERT</a> model using the Hugging Face transformers package.</p>
+<ul>
+<li><code>pretrained_model_name_or_path</code> (default <code>bert-base-uncased</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/bert.html">Hugging Face documentation</a>.</li>
+<li><code>reduced_output</code> (default <code>cls_pooled</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>cls_pool</code>, <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+</ul>
+<h4 id="gpt-encoder">GPT Encoder<a class="headerlink" href="#gpt-encoder" title="Permanent link">&para;</a></h4>
+<p>The <code>gpt</code> encoder loads a pretrained <a href="https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf">GPT</a> model using the Hugging Face transformers package.</p>
+<ul>
+<li><code>pretrained_model_name_or_path</code> (default <code>openai-gpt</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/gpt.html">Hugging Face documentation</a>.</li>
+<li><code>reduced_output</code> (default <code>sum</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+</ul>
+<h4 id="gpt-2-encoder">GPT-2 Encoder<a class="headerlink" href="#gpt-2-encoder" title="Permanent link">&para;</a></h4>
+<p>The <code>gpt2</code> encoder loads a pretrained <a href="https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf">GPT-2</a> model using the Hugging Face transformers package.</p>
+<ul>
+<li><code>pretrained_model_name_or_path</code> (default <code>gpt2</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/gpt2.html">Hugging Face documentation</a>.</li>
+<li><code>reduced_output</code> (default <code>sum</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+</ul>
+<h4 id="xlnet-encoder">XLNet Encoder<a class="headerlink" href="#xlnet-encoder" title="Permanent link">&para;</a></h4>
+<p>The <code>xlnet</code> encoder loads a pretrained <a href="https://arxiv.org/abs/1906.08237">XLNet</a> model using the Hugging Face transformers package.</p>
+<ul>
+<li><code>pretrained_model_name_or_path</code> (default <code>xlnet-base-cased</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/xlnet.html">Hugging Face documentation</a>.</li>
+<li><code>reduced_output</code> (default <code>sum</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+</ul>
+<h4 id="xlm-encoder">XLM Encoder<a class="headerlink" href="#xlm-encoder" title="Permanent link">&para;</a></h4>
+<p>The <code>xlm</code> encoder loads a pretrained <a href="https://arxiv.org/abs/1901.07291">XLM</a> model using the Hugging Face transformers package.</p>
+<ul>
+<li><code>pretrained_model_name_or_path</code> (default <code>xlm-mlm-en-2048</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/xlm.html">Hugging Face documentation</a>.</li>
+<li><code>reduced_output</code> (default <code>sum</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+</ul>
+<h4 id="roberta-encoder">RoBERTa Encoder<a class="headerlink" href="#roberta-encoder" title="Permanent link">&para;</a></h4>
+<p>The <code>roberta</code> encoder loads a pretrained <a href="https://arxiv.org/abs/1907.11692">RoBERTa</a> model using the Hugging Face transformers package.</p>
+<ul>
+<li><code>pretrained_model_name_or_path</code> (default <code>roberta-base</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/roberta.html">Hugging Face documentation</a>.</li>
+<li><code>reduced_output</code> (default <code>cls_pooled</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>cls_pool</code>, <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+</ul>
+<h4 id="distilbert-encoder">DistilBERT Encoder<a class="headerlink" href="#distilbert-encoder" title="Permanent link">&para;</a></h4>
+<p>The <code>distilbert</code> encoder loads a pretrained <a href="https://medium.com/huggingface/distilbert-8cf3380435b5">DistilBERT</a> model using the Hugging Face transformers package.</p>
+<ul>
+<li><code>pretrained_model_name_or_path</code> (default <code>istilbert-base-uncased</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/distilbert.html">Hugging Face documentation</a>.</li>
+<li><code>reduced_output</code> (default <code>sum</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+</ul>
+<h4 id="ctrl-encoder">CTRL Encoder<a class="headerlink" href="#ctrl-encoder" title="Permanent link">&para;</a></h4>
+<p>The <code>ctrl</code> encoder loads a pretrained <a href="https://arxiv.org/abs/1909.05858">CTRL</a> model using the Hugging Face transformers package.</p>
+<ul>
+<li><code>pretrained_model_name_or_path</code> (default <code>ctrl</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/ctrl.html">Hugging Face documentation</a>.</li>
+<li><code>reduced_output</code> (default <code>sum</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+</ul>
+<h4 id="camembert-encoder">CamemBERT Encoder<a class="headerlink" href="#camembert-encoder" title="Permanent link">&para;</a></h4>
+<p>The <code>camembert</code> encoder loads a pretrained <a href="https://arxiv.org/abs/1911.03894">CamemBERT</a> model using the Hugging Face transformers package.</p>
+<ul>
+<li><code>pretrained_model_name_or_path</code> (default <code>jplu/tf-camembert-base</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/camembert.html">Hugging Face documentation</a>.</li>
+<li><code>reduced_output</code> (default <code>cls_pooled</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>cls_pool</code>, <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+</ul>
+<h4 id="albert-encoder">ALBERT Encoder<a class="headerlink" href="#albert-encoder" title="Permanent link">&para;</a></h4>
+<p>The <code>albert</code> encoder loads a pretrained <a href="https://arxiv.org/abs/1909.11942">ALBERT</a> model using the Hugging Face transformers package.</p>
+<ul>
+<li><code>pretrained_model_name_or_path</code> (default <code>albert-base-v2</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/albert.html">Hugging Face documentation</a>.</li>
+<li><code>reduced_output</code> (default <code>cls_pooled</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>cls_pool</code>, <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+</ul>
+<h4 id="t5-encoder">T5 Encoder<a class="headerlink" href="#t5-encoder" title="Permanent link">&para;</a></h4>
+<p>The <code>t5</code> encoder loads a pretrained <a href="https://arxiv.org/pdf/1910.10683.pdf">T5</a> model using the Hugging Face transformers package.</p>
+<ul>
+<li><code>pretrained_model_name_or_path</code> (default <code>t5-small</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/t5.html">Hugging Face documentation</a>.</li>
+<li><code>reduced_output</code> (default <code>sum</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+</ul>
+<h4 id="xlm-roberta-encoder">XLM-RoBERTa Encoder<a class="headerlink" href="#xlm-roberta-encoder" title="Permanent link">&para;</a></h4>
+<p>The <code>xlmroberta</code> encoder loads a pretrained <a href="https://arxiv.org/abs/1911.02116">XLM-RoBERTa</a> model using the Hugging Face transformers package.</p>
+<ul>
+<li><code>pretrained_model_name_or_path</code> (default <code>jplu/tf-xlm-reoberta-base</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/xlmroberta.html">Hugging Face documentation</a>.</li>
+<li><code>reduced_output</code> (default <code>cls_pooled</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>cls_pool</code>, <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+</ul>
+<h4 id="flaubert-encoder">FlauBERT Encoder<a class="headerlink" href="#flaubert-encoder" title="Permanent link">&para;</a></h4>
+<p>The <code>flaubert</code> encoder loads a pretrained <a href="https://arxiv.org/abs/1912.05372">FlauBERT</a> model using the Hugging Face transformers package.</p>
+<ul>
+<li><code>pretrained_model_name_or_path</code> (default <code>jplu/tf-flaubert-base-uncased</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/flaubert.html">Hugging Face documentation</a>.</li>
+<li><code>reduced_output</code> (default <code>sum</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+</ul>
+<h4 id="electra-encoder">ELECTRA Encoder<a class="headerlink" href="#electra-encoder" title="Permanent link">&para;</a></h4>
+<p>The <code>electra</code> encoder loads a pretrained <a href="https://openreview.net/pdf?id=r1xMH1BtvB">ELECTRA</a> model using the Hugging Face transformers package.</p>
+<ul>
+<li><code>pretrained_model_name_or_path</code> (default <code>google/electra-small-discriminator</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/electra.html">Hugging Face documentation</a>.</li>
+<li><code>reduced_output</code> (default <code>sum</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+</ul>
+<h4 id="longformer-encoder">Longformer Encoder<a class="headerlink" href="#longformer-encoder" title="Permanent link">&para;</a></h4>
+<p>The <code>longformer</code> encoder loads a pretrained <a href="https://arxiv.org/pdf/2004.05150.pdf">Longformer</a> model using the Hugging Face transformers package.</p>
+<ul>
+<li><code>pretrained_model_name_or_path</code> (default <code>allenai/longformer-base-4096</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/longformer.html">Hugging Face documentation</a>.</li>
+<li><code>reduced_output</code> (default <code>cls_pooled</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>cls_pool</code>, <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+</ul>
+<h4 id="auto-transformer-encoder">Auto-Transformer Encoder<a class="headerlink" href="#auto-transformer-encoder" title="Permanent link">&para;</a></h4>
+<p>The <code>auto_transformer</code> encoder loads a pretrained model using the Hugging Face transformers package.
+It's the best option for customly trained models that don't fit into the other pretrained transformers encoders.</p>
+<ul>
+<li><code>pretrained_model_name_or_path</code>: it can be either the name of a model or a path where it was downloaded. For details on the available models to the <a href="https://huggingface.co/transformers/model_doc/auto.html#tfautomodel">Hugging Face documentation</a>.</li>
+<li><code>reduced_output</code> (default <code>sum</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+</ul>
+<h4 id="example-usage">Example usage<a class="headerlink" href="#example-usage" title="Permanent link">&para;</a></h4>
+<p>Example text input feature encoder usage:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">text_column_name</span>
+<span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="nt">level</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">word</span>
+<span class="nt">encoder</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">bert</span>
+<span class="nt">tied_weights</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="nt">pretrained_model_name_or_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">bert-base-uncased</span>
+<span class="nt">reduced_output</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cls_pooled</span>
+<span class="nt">trainable</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+
+<h3 id="text-output-features-and-decoders">Text Output Features and Decoders<a class="headerlink" href="#text-output-features-and-decoders" title="Permanent link">&para;</a></h3>
+<p>The decoders are the same used for the <a href="#sequence-output-features-and-decoders">Sequence Features</a>.
+The only difference is that you can specify an additional <code>level</code> parameter with possible values <code>word</code> or <code>char</code> to force to use the text words or characters as inputs (by default the encoder will use <code>word</code>).</p>
+<p>Example text input feature using default values:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sequence_column_name</span>
+<span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="nt">level</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">word</span>
+<span class="nt">decoder</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">generator</span>
+<span class="nt">reduce_input</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sum</span>
+<span class="nt">dependencies</span><span class="p">:</span> <span class="p p-Indicator">[]</span>
+<span class="nt">reduce_dependencies</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sum</span>
+<span class="nt">loss</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">softmax_cross_entropy</span>
+    <span class="nt">confidence_penalty</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+    <span class="nt">robust_lambda</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+    <span class="nt">class_weights</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+    <span class="nt">class_similarities</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
+    <span class="nt">class_similarities_temperature</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+    <span class="nt">labels_smoothing</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+    <span class="nt">negative_samples</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+    <span class="nt">sampler</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
+    <span class="nt">distortion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+    <span class="nt">unique</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="nt">fc_layers</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="nt">num_fc_layers</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="nt">fc_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">256</span>
+<span class="nt">use_bias</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">weights_initializer</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">glorot_uniform</span>
+<span class="nt">bias_initializer</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">zeros</span>
+<span class="nt">weights_regularizer</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="nt">bias_regularizer</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="nt">activity_regularizer</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="nt">norm</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="nt">norm_params</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="nt">activation</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">relu</span>
+<span class="nt">dropout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="nt">cell_type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rnn</span>
+<span class="nt">state_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">256</span>
+<span class="nt">embedding_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">256</span>
+<span class="nt">beam_width</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="nt">attention</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="nt">tied_embeddings</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="nt">max_sequence_length</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+</code></pre></div>
+
+<h3 id="text-features-measures">Text Features Measures<a class="headerlink" href="#text-features-measures" title="Permanent link">&para;</a></h3>
+<p>The measures are the same used for the <a href="#sequence-features-measures">Sequence Features</a>.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+    <!-- Link to previous and/or next page -->
+    
+    <div class="md-footer-nav">
+        <nav aria-label="Footer"
+             class="md-footer-nav__inner md-grid">
+            
+            <a class="md-footer-nav__link md-footer-nav__link--prev"
+               href="../sequence_features/" rel="prev"
+               title="Sequence Features">
+                <div class="md-footer-nav__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+                </div>
+                <div class="md-footer-nav__title">
+                    <div class="md-ellipsis">
+                 <span class="md-footer-nav__direction">
+                   Previous
+                 </span>
+                        Sequence Features
+                    </div>
+                </div>
+            </a>
+            
+            
+            <a class="md-footer-nav__link md-footer-nav__link--next"
+               href="../time_series_features/" rel="next"
+               title="Time Series Features">
+                <div class="md-footer-nav__title">
+                    <div class="md-ellipsis">
+                 <span class="md-footer-nav__direction">
+                   Next
+                 </span>
+                        Time Series Features
+                    </div>
+                </div>
+                <div class="md-footer-nav__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+                </div>
+            </a>
+            
+        </nav>
+    </div>
+    
+
+    <!-- Further information -->
+    <div class="md-footer-meta md-typeset">
+        <div class="md-footer-meta__inner md-grid">
+
+            <!-- Copyright and theme information -->
+            <div class="md-footer-copyright">
+                <div class="footer-logo-smallpad"></div>
+                
+                <div class="md-footer-copyright__highlight">
+                    Copyright &copy; 2018 - 2020 Uber Technologies Inc., 2021 Linux Foundation Data & AI
+                </div>
+                
+                Website by <a href="http://w4nderlu.st">w4nderlust</a> powered by
+                <a href="https://www.mkdocs.org">MkDocs</a>,
+                <a href="https://squidfunk.github.io/mkdocs-material/">Material for MkDocs</a>,
+                <a href="http://www.styleshout.com/">styleshout</a> and
+                <a href="http://cables.gl/">cables</a>.
+            </div>
+
+            <!-- Social links -->
+            
+            
+            
+        </div>
+    </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../assets/javascripts/workers/search.fb4a9340.min.js", "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a1c7c35e.min.js"></script>
+      
+    
+  </body>
+</html>

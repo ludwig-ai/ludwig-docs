@@ -1,183 +1,191 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/getting_started/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/examples/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/user_guide_intro/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/command_line_interface/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/data_preprocessing/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/data_postprocessing/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://ludwig-ai.github.io/ludwig-docs/configuration/configuration_intro/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/configuration/configuration_intro/</loc>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://ludwig-ai.github.io/ludwig-docs/configuration/combiner/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/configuration/input_features/</loc>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://ludwig-ai.github.io/ludwig-docs/configuration/output_features/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/configuration/combiner/</loc>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://ludwig-ai.github.io/ludwig-docs/configuration/training/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/configuration/output_features/</loc>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://ludwig-ai.github.io/ludwig-docs/configuration/preprocessing/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/configuration/training/</loc>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://ludwig-ai.github.io/ludwig-docs/configuration/binary_features/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/configuration/preprocessing/</loc>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://ludwig-ai.github.io/ludwig-docs/configuration/numerical_features/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/configuration/binary_features/</loc>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://ludwig-ai.github.io/ludwig-docs/configuration/category_features/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/configuration/numerical_features/</loc>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://ludwig-ai.github.io/ludwig-docs/configuration/set_features/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/configuration/category_features/</loc>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://ludwig-ai.github.io/ludwig-docs/configuration/bag_features/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/configuration/set_features/</loc>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://ludwig-ai.github.io/ludwig-docs/configuration/text_features/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/configuration/bag_features/</loc>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://ludwig-ai.github.io/ludwig-docs/configuration/time_series_features/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/configuration/sequence_features/</loc>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://ludwig-ai.github.io/ludwig-docs/configuration/audio_features/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/configuration/text_features/</loc>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://ludwig-ai.github.io/ludwig-docs/configuration/image_features/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/configuration/time_series_features/</loc>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://ludwig-ai.github.io/ludwig-docs/configuration/date_features/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/configuration/audio_features/</loc>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://ludwig-ai.github.io/ludwig-docs/configuration/h3_features/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/configuration/image_features/</loc>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://ludwig-ai.github.io/ludwig-docs/configuration/vector_features/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/configuration/date_features/</loc>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://ludwig-ai.github.io/ludwig-docs/configuration/combiners/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/configuration/h3_features/</loc>
+     <lastmod>2021-07-08</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/configuration/vector_features/</loc>
+     <lastmod>2021-07-08</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/configuration/combiners/</loc>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/distributed_execution_backends/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/hyperparameter_optimization/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/programmatic_api/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/visualizations/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/serving/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/datasets/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/user_guide/integrations/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/developer_guide/developer_guide_intro/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/developer_guide/codebase_structure/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/developer_guide/add_an_encoder/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/developer_guide/add_a_decoder/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/developer_guide/add_a_feature_type/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/developer_guide/hyper_parameter_optimization/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/developer_guide/add_an_integration/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/developer_guide/add_a_dataset/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/developer_guide/style_guidelines_and_tests/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/api/LudwigModel/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/api/visualization/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/community/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ludwig-ai.github.io/ludwig-docs/faq/</loc>
-     <lastmod>2021-07-07</lastmod>
+     <lastmod>2021-07-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>

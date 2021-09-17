@@ -1,4 +1,4 @@
-The configuration is the core of Ludwig.
+The configuration is the core of Ludwig. 
 It is a dictionary that contains all the information needed to build and train a Ludwig model.
 It mixes ease of use, by means of reasonable defaults, with flexibility, by means of detailed control over the parameters of your model.
 It is provided to both `experiment` and `train` commands either as a string (`--config`) or as a file (`--config_file`).

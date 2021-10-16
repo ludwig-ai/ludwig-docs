@@ -60,6 +60,7 @@ nav:
       - 'Add an Integration': 'developer_guide/add_an_integration.md'
       - 'Add an Dataset': 'developer_guide/add_a_dataset.md'
       - 'Style Guidelines and Tests': 'developer_guide/style_guidelines_and_tests.md'
+      - 'Unit Test Design Guidelines': 'developer_guide/unit_test_design_guidelines.md'
   - API:
       - 'LudwigModel': 'api/LudwigModel.md'
       - 'Visualization': 'api/visualization.md'

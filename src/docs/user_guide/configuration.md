@@ -1613,6 +1613,11 @@ fc_dropout: 0
 reduce_output: last
 ```
 
+| No. | Resources to learn more: |
+| ------------- |:-------------:|
+| 1.     | [CS480/680 Lecture 19: Attention and Transformer Networks](https://www.youtube.com/watch?v=OyFJWRnt_AY&list=PLk4mwFjvagV3vp1JZ3lNohb1LalMp-VOY&index=1) (VIDEO)     |
+| 2.     | [Attention is all you need - Attentional Neural Network Models Masterclass](https://www.youtube.com/watch?v=rBCqOTEfxvg&list=PLk4mwFjvagV3vp1JZ3lNohb1LalMp-VOY&index=2) (VIDEO)    |
+| 3.      |  [Illustrated: Self-Attention](https://colab.research.google.com/drive/1rPk3ohrmVclqhH7uQ7qys4oznDdAhpzF) (Colab notebook)     |
 
 #### Passthrough Encoder
 

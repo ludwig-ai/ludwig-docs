@@ -60,7 +60,7 @@ ludwig.visualize.compare_performance(
 ```
 
 
-Produces model comparison barplot visualization for each overall metric
+Produces model comparison barplot visualization for each overall metric.
 
 For each model (in the aligned lists of test_statistics and model_names)
 it produces bars in a bar plot, one for each overall metric available
@@ -83,7 +83,7 @@ plots. If not specified, plots will be displayed in a window
 __Return__
 
 
-:return: (None)
+- __return__ (Non): (None)
 
 __Example usage:__
 
@@ -92,9 +92,9 @@ __Example usage:__
 model_a = LudwigModel(config)
 model_a.train(dataset)
 a_evaluation_stats, _, _ = model_a.evaluate(eval_set)
-model_b = LudwigModel.load('path/to/model/')
+model_b = LudwigModel.load("path/to/model/")
 b_evaluation_stats, _, _ = model_b.evaluate(eval_set)
-compare_performance([a_evaluation_stats, b_evaluation_stats], model_names=['A', 'B'])
+compare_performance([a_evaluation_stats, b_evaluation_stats], model_names=["A", "B"])
 ```
  
 ----
@@ -112,7 +112,8 @@ ludwig.visualize.compare_classifiers_performance_from_prob(
   top_n_classes=3,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  ground_truth_apply_idx=True
 )
 ```
 
@@ -142,6 +143,8 @@ list of the model names to use as labels.
 plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
 `'pdf'` or `'png'`.
+- __ground_truth_apply_idx__ (bool, default: `True`): whether to use
+metadata['str2idx'] in np.vectorize
 
 __Return__
 
@@ -162,7 +165,8 @@ ludwig.visualize.compare_classifiers_performance_from_pred(
   labels_limit,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  ground_truth_apply_idx=True
 )
 ```
 
@@ -189,6 +193,8 @@ list of the model names to use as labels.
 plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
 `'pdf'` or `'png'`.
+- __ground_truth_apply_idx__ (bool, default: `True`): whether to use
+metadata['str2idx'] in np.vectorize
 
 __Return__
 
@@ -211,7 +217,8 @@ ludwig.visualize.compare_classifiers_performance_subset(
   subset,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  ground_truth_apply_idx=True
 )
 ```
 
@@ -245,6 +252,8 @@ __Inputs__
    plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
    `'pdf'` or `'png'`.
+- __ground_truth_apply_idx__ (bool, default: `True`): whether to use
+   metadata['str2idx'] in np.vectorize
 
 __Return__
 
@@ -266,7 +275,8 @@ ludwig.visualize.compare_classifiers_performance_changing_k(
   labels_limit,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  ground_truth_apply_idx=True
 )
 ```
 
@@ -296,6 +306,8 @@ list of the model names to use as labels.
 plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
 `'pdf'` or `'png'`.
+- __ground_truth_apply_idx__ (bool, default: `True`): whether to use
+metadata['str2idx'] in np.vectorize
 
 __Return__
 
@@ -361,7 +373,8 @@ ludwig.visualize.compare_classifiers_predictions(
   labels_limit,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  ground_truth_apply_idx=True
 )
 ```
 
@@ -385,6 +398,8 @@ list of the model names to use as labels.
 plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
 `'pdf'` or `'png'`.
+- __ground_truth_apply_idx__ (bool, default: `True`): whether to use
+metadata['str2idx'] in np.vectorize
 
 __Return__
 
@@ -508,12 +523,13 @@ ludwig.visualize.confidence_thresholding(
   labels_limit,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  ground_truth_apply_idx=True
 )
 ```
 
 
-Show models accuracy and data coverage while increasing treshold
+Show models accuracy and data coverage while increasing treshold.
 
 For each model it produces a pair of lines indicating the accuracy of
 the model and the data coverage while increasing a threshold (x axis) on
@@ -536,6 +552,8 @@ list of the model names to use as labels.
 plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
 `'pdf'` or `'png'`.
+- __ground_truth_apply_idx__ (bool, default: `True`): whether to use
+metadata['str2idx'] in np.vectorize
 
 __Return__
 
@@ -556,7 +574,8 @@ ludwig.visualize.confidence_thresholding_data_vs_acc(
   labels_limit,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  ground_truth_apply_idx=True
 )
 ```
 
@@ -587,6 +606,8 @@ list of the model names to use as labels.
 plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
 `'pdf'` or `'png'`.
+- __ground_truth_apply_idx__ (bool, default: `True`): whether to use
+metadata['str2idx'] in np.vectorize
 
 __Return__
 
@@ -608,13 +629,13 @@ ludwig.visualize.confidence_thresholding_data_vs_acc_subset(
   subset,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  ground_truth_apply_idx=True
 )
 ```
 
 
-Show models comparison of confidence threshold data vs accuracy on a
-subset of data.
+Show models comparison of confidence threshold data vs accuracy on a subset of data.
 
 For each model it produces a line indicating the accuracy of the model
 and the data coverage while increasing a threshold on the probabilities
@@ -655,6 +676,8 @@ list of the model names to use as labels.
 plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
 `'pdf'` or `'png'`.
+- __ground_truth_apply_idx__ (bool, default: `True`): whether to use
+metadata['str2idx'] in np.vectorize
 
 __Return__
 
@@ -676,7 +699,8 @@ ludwig.visualize.binary_threshold_vs_metric(
   positive_label=1,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  ground_truth_apply_idx=True
 )
 ```
 
@@ -711,6 +735,8 @@ models to use as labels.
 plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
 `'pdf'` or `'png'`.
+- __ground_truth_apply_idx__ (bool, default: `True`): whether to use
+metadata['str2idx'] in np.vectorize
 
 __Return__
 
@@ -731,7 +757,8 @@ ludwig.visualize.roc_curves(
   positive_label=1,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  ground_truth_apply_idx=True
 )
 ```
 
@@ -762,6 +789,8 @@ list of the model names to use as labels.
 plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
 `'pdf'` or `'png'`.
+- __ground_truth_apply_idx__ (bool, default: `True`): whether to use
+metadata['str2idx'] in np.vectorize
 
 __Return__
 
@@ -784,8 +813,7 @@ ludwig.visualize.roc_curves_from_test_statistics(
 ```
 
 
-Show the roc curves for the specified models output binary
-`output_feature_name`.
+Show the roc curves for the specified models output binary `output_feature_name`.
 
 This visualization uses `output_feature_name`, `test_stats_per_model` and
 `model_names` parameters. `output_feature_name` needs to be binary feature.
@@ -826,7 +854,8 @@ ludwig.visualize.calibration_1_vs_all(
   labels_limit,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  ground_truth_apply_idx=True
 )
 ```
 
@@ -865,6 +894,8 @@ models to use as labels.
 plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
 `'pdf'` or `'png'`.
+- __ground_truth_apply_idx__ (bool, default: `True`): whether to use
+metadata['str2idx'] in np.vectorize
 
 __String__
 
@@ -885,13 +916,13 @@ ludwig.visualize.calibration_multiclass(
   labels_limit,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  ground_truth_apply_idx=True
 )
 ```
 
 
-Show models probability of predictions for each class of the
-specified output_feature_name.
+Show models probability of predictions for each class of the specified output_feature_name.
 
 __Inputs__
 
@@ -910,6 +941,8 @@ models to use as labels.
 plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
 `'pdf'` or `'png'`.
+- __ground_truth_apply_idx__ (bool, default: `True`): whether to use
+metadata['str2idx'] in np.vectorize
 
 __Return__
 
@@ -935,8 +968,7 @@ ludwig.visualize.confusion_matrix(
 ```
 
 
-Show confision matrix in the models predictions for each
-`output_feature_name`.
+Show confusion matrix in the models predictions for each `output_feature_name`.
 
 For each model (in the aligned lists of test_statistics and model_names)
 it  produces a heatmap of the confusion matrix in the predictions for
@@ -986,8 +1018,7 @@ ludwig.visualize.frequency_vs_f1(
 ```
 
 
-Show prediction statistics for the specified `output_feature_name` for
-each model.
+Show prediction statistics for the specified `output_feature_name` for each model.
 
 For each model (in the aligned lists of `test_stats_per_model` and
 `model_names`), produces two plots statistics of predictions for the
@@ -1041,10 +1072,8 @@ ludwig.visualize.hyperopt_report(
 ```
 
 
-
-Produces a report about hyperparameter optimization
-creating one graph per hyperparameter to show the distribution of results
-and one additional graph of pairwise hyperparameters interactions.
+Produces a report about hyperparameter optimization creating one graph per hyperparameter to show the
+distribution of results and one additional graph of pairwise hyperparameters interactions.
 
 __Inputs__
 
@@ -1073,9 +1102,8 @@ ludwig.visualize.hyperopt_hiplot(
 ```
 
 
-
-Produces a parallel coordinate plot about hyperparameter optimization
-creating one HTML file and optionally a CSV file to be read by hiplot
+Produces a parallel coordinate plot about hyperparameter optimization creating one HTML file and optionally
+a CSV file to be read by hiplot.
 
 __Inputs__
 

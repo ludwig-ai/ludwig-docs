@@ -13,10 +13,10 @@
         <meta name="author" content="Piero Molino">
       
       
-        <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/api/LudwigModel/">
+        <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/0.5/api/LudwigModel/">
       
       <link rel="icon" href="../../favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.0.6">
+      <meta name="generator" content="mkdocs-1.2, mkdocs-material-7.2.3">
     
     
       
@@ -24,14 +24,14 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.2c0c5eaf.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f7f47774.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.7fa14f5b.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
         
           
           
-          <meta name="theme-color" content="#757575">
+          <meta name="theme-color" content="#000000">
         
       
     
@@ -52,6 +52,8 @@
     
     
       
+
+
     
     
   </head>
@@ -62,9 +64,10 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="grey">
-      
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="grey">
   
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -108,39 +111,8 @@
         </div>
       </div>
     </div>
-    <div class="md-header__options">
-      
-    </div>
     
-      <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-      </label>
-      
-<div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
-      <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-      </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-      </button>
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    
     
     
       <div class="md-header__source">
@@ -148,7 +120,7 @@
 <a href="https://github.com/ludwig-ai/ludwig/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     ludwig-ai/ludwig
@@ -163,6 +135,125 @@
       
       
         
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      About
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../getting_started/" class="md-tabs__link">
+      Getting Started
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../examples/" class="md-tabs__link">
+      Examples
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../user_guide/user_guide_intro/" class="md-tabs__link">
+        User Guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../developer_guide/developer_guide_intro/" class="md-tabs__link">
+        Developer Guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
+        API
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../community/" class="md-tabs__link">
+      Community
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../faq/" class="md-tabs__link">
+      FAQ
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+        
       
       <main class="md-main" data-md-component="main">
         <div class="md-main__inner md-grid">
@@ -172,35 +263,40 @@
               <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
-                    <nav aria-label="Navigation" class="md-nav md-nav--primary"
-     data-md-level="0">
-    <label class="md-nav__title" for="__drawer">
-        <a aria-label="Ludwig" class="md-nav__button md-logo"
-           href="https://ludwig-ai.github.io/ludwig-docs/"
-           title="Ludwig">
-            <img alt="logo" src="../../images/ludwig_logo.svg"
-                 style="width:10rem;height:auto;">
-        </a>
-    </label>
-    
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Ludwig" class="md-nav__button md-logo" aria-label="Ludwig" data-md-component="logo">
+      
+<img alt="logo" src="../../images/ludwig_logo.svg"
+     style="height:1rem;width:4rem;">
+
+    </a>
+    Ludwig
+  </label>
+  
     <div class="md-nav__source">
-        
+      
 <a href="https://github.com/ludwig-ai/ludwig/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     ludwig-ai/ludwig
   </div>
 </a>
     </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
     
-    <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-        
-        
+      
+      
+      
 
   
   
@@ -212,10 +308,10 @@
     </li>
   
 
-        
-        
-        
-        
+    
+      
+      
+      
 
   
   
@@ -227,10 +323,10 @@
     </li>
   
 
-        
-        
-        
-        
+    
+      
+      
+      
 
   
   
@@ -242,10 +338,10 @@
     </li>
   
 
-        
-        
-        
-        
+    
+      
+      
+      
 
   
   
@@ -254,14 +350,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
-      <label class="md-nav__link" for="nav-4">
+      <label class="md-nav__link" for="__nav_4">
         User Guide
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="User Guide" data-md-level="1">
-        <label class="md-nav__title" for="nav-4">
+        <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           User Guide
         </label>
@@ -323,14 +419,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4_5" type="checkbox" id="nav-4_5" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_5" type="checkbox" id="__nav_4_5" >
       
-      <label class="md-nav__link" for="nav-4_5">
+      <label class="md-nav__link" for="__nav_4_5">
         Configuration
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Configuration" data-md-level="2">
-        <label class="md-nav__title" for="nav-4_5">
+        <label class="md-nav__title" for="__nav_4_5">
           <span class="md-nav__icon md-icon"></span>
           Configuration
         </label>
@@ -671,10 +767,10 @@
     </li>
   
 
-        
-        
-        
-        
+    
+      
+      
+      
 
   
   
@@ -683,14 +779,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
       
-      <label class="md-nav__link" for="nav-5">
+      <label class="md-nav__link" for="__nav_5">
         Developer Guide
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Developer Guide" data-md-level="1">
-        <label class="md-nav__title" for="nav-5">
+        <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           Developer Guide
         </label>
@@ -804,15 +900,27 @@
   
 
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/unit_test_design_guidelines/" class="md-nav__link">
+        Unit Test Design Guidelines
+      </a>
+    </li>
+  
+
+          
         </ul>
       </nav>
     </li>
   
 
-        
-        
-        
-        
+    
+      
+      
+      
 
   
   
@@ -823,14 +931,14 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
       
-      <label class="md-nav__link" for="nav-6">
+      <label class="md-nav__link" for="__nav_6">
         API
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="API" data-md-level="1">
-        <label class="md-nav__title" for="nav-6">
+        <label class="md-nav__title" for="__nav_6">
           <span class="md-nav__icon md-icon"></span>
           API
         </label>
@@ -847,6 +955,7 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+      
         <label class="md-nav__link md-nav__link--active" for="__toc">
           LudwigModel
           <span class="md-nav__icon md-icon"></span>
@@ -858,6 +967,7 @@
       
         
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
   
   
   
@@ -960,15 +1070,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#save_savedmodel" class="md-nav__link">
-    save_savedmodel
+  <a href="#set_logging_level" class="md-nav__link">
+    set_logging_level
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#set_logging_level" class="md-nav__link">
-    set_logging_level
+  <a href="#to_torchscript" class="md-nav__link">
+    to_torchscript
   </a>
   
 </li>
@@ -1044,10 +1154,10 @@
     </li>
   
 
-        
-        
-        
-        
+    
+      
+      
+      
 
   
   
@@ -1059,10 +1169,10 @@
     </li>
   
 
-        
-        
-        
-        
+    
+      
+      
+      
 
   
   
@@ -1074,8 +1184,8 @@
     </li>
   
 
-        
-    </ul>
+    
+  </ul>
 </nav>
                   </div>
                 </div>
@@ -1088,6 +1198,7 @@
                   <div class="md-sidebar__inner">
                     
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
   
   
   
@@ -1190,15 +1301,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#save_savedmodel" class="md-nav__link">
-    save_savedmodel
+  <a href="#set_logging_level" class="md-nav__link">
+    set_logging_level
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#set_logging_level" class="md-nav__link">
-    set_logging_level
+  <a href="#to_torchscript" class="md-nav__link">
+    to_torchscript
   </a>
   
 </li>
@@ -1268,7 +1379,7 @@
                 
                   <h1>LudwigModel</h1>
                 
-                <p><span style="float:right;"><a href="https://github.com/ludwig-ai/ludwig/blob/master/ludwig/api.py#L72">[source]</a></span></p>
+                <p><span style="float:right;"><a href="https://github.com/ludwig-ai/ludwig/blob/master/ludwig/api.py#L89">[source]</a></span></p>
 <h2 id="ludwigmodel-class">LudwigModel class<a class="headerlink" href="#ludwigmodel-class" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><code><span class="n">ludwig</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">LudwigModel</span><span class="p">(</span>
   <span class="n">config</span><span class="p">,</span>
@@ -1304,7 +1415,7 @@ cost of determinism.</li>
 <p>Train a model:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">config</span> <span class="o">=</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
 <span class="n">ludwig_model</span> <span class="o">=</span> <span class="n">LudwigModel</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
-<span class="n">train_stats</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span>  <span class="o">=</span> <span class="n">ludwig_model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">file_path</span><span class="p">)</span>
+<span class="n">train_stats</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ludwig_model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">file_path</span><span class="p">)</span>
 </code></pre></div>
 
 <p>or</p>
@@ -1344,8 +1455,8 @@ cost of determinism.</li>
 <span class="p">)</span>
 </code></pre></div>
 
-<p>Loads a pre-trained model model and input data to collect the values
-of the activations contained in the tensors.</p>
+<p>Loads a pre-trained model model and input data to collect the values of the activations contained in the
+tensors.</p>
 <p><strong>Inputs</strong></p>
 <ul>
 <li><strong>layer_names</strong> (list): list of strings for layer names in the model
@@ -1378,7 +1489,7 @@ with <code>inf_or_nan</code> checks.</li>
 <span class="p">)</span>
 </code></pre></div>
 
-<p>Load a pre-trained model and collect the tensors with a specific name</p>
+<p>Load a pre-trained model and collect the tensors with a specific name.</p>
 <p><strong>Inputs</strong></p>
 <ul>
 <li><strong>tensor_names</strong> (list, default: <code>None</code>): List of tensor names to collect
@@ -1396,7 +1507,7 @@ weights</li>
 <span class="p">)</span>
 </code></pre></div>
 
-<p>Instantiates Encoder-Combiner-Decoder (ECD) object</p>
+<p>Instantiates Encoder-Combiner-Decoder (ECD) object.</p>
 <p><strong>Inputs</strong></p>
 <ul>
 <li><strong>config</strong> (dict): Ludwig config</li>
@@ -1426,9 +1537,8 @@ splits and any other random function.</li>
 <span class="p">)</span>
 </code></pre></div>
 
-<p>This function is used to predict the output variables given the
-input variables using the trained model and compute test statistics
-like performance measures, confusion matrices and the like.</p>
+<p>This function is used to predict the output variables given the input variables using the trained model
+and compute test statistics like performance measures, confusion matrices and the like.</p>
 <p><strong>Inputs</strong></p>
 <ul>
 <li><strong>dataset</strong> (Union[str, dict, pandas.DataFrame]): source containing
@@ -1462,7 +1572,7 @@ collects overall stats during eval.</li>
 <li><strong>output_directory</strong> (str, default: <code>'results'</code>): the directory that
 will contain the training statistics, TensorBoard logs, the saved
 model and the training progress files.</li>
-<li><strong>return_type</strong> (Union[str, dict, pandas.DataFrame], default: pandas.DataFrame): indicates
+<li><strong>return_type</strong> (Union[str, dict, pd.DataFrame], default: pandas.DataFrame): indicates
 the format to of the returned predictions.</li>
 <li><strong>debug</strong> (bool, default: <code>False</code>): If <code>True</code> turns on <code>tfdbg</code>
     with <code>inf_or_nan</code> checks.</li>
@@ -1506,8 +1616,7 @@ the format to of the returned predictions.</li>
 <span class="p">)</span>
 </code></pre></div>
 
-<p>Trains a model on a dataset's training and validation splits and
-uses it to predict on the test split.
+<p>Trains a model on a dataset's training and validation splits and uses it to predict on the test split.
 It saves the trained model and the statistics of training and testing.</p>
 <p><strong>Inputs</strong></p>
 <ul>
@@ -1600,7 +1709,8 @@ initialization, splits and any other random function.</li>
 </ul>
 <p><strong>Return</strong></p>
 <ul>
-<li><strong>return</strong> (Tuple[dict, dict, tuple, str)) <code>(evaluation_statistics, training_statistics, preprocessed_data, output_directory):</code>
+<li><strong>return</strong> (Tuple[dict, dict, tuple, str)):
+<code>(evaluation_statistics, training_statistics, preprocessed_data, output_directory)</code>
 <code>evaluation_statistics</code> dictionary with evaluation performance
     statistics on the test_set,
 <code>training_statistics</code> is a dictionary of training statistics for
@@ -1623,7 +1733,7 @@ filepath string to where results are stored.</li>
 <span class="p">)</span>
 </code></pre></div>
 
-<p>This function allows for loading pretrained models</p>
+<p>This function allows for loading pretrained models.</p>
 <p><strong>Inputs</strong></p>
 <ul>
 <li><strong>model_dir</strong> (str): path to the directory containing the model.
@@ -1660,7 +1770,7 @@ Ludwig pipeline.</li>
 <span class="p">)</span>
 </code></pre></div>
 
-<p>Loads weights from a pre-trained model</p>
+<p>Loads weights from a pre-trained model.</p>
 <p><strong>Inputs</strong></p>
 <ul>
 <li><strong>model_dir</strong> (str): filepath string to location of a pre-trained
@@ -1802,7 +1912,7 @@ for each epoch.
 <span class="p">)</span>
 </code></pre></div>
 
-<p>This function allows to save models on disk</p>
+<p>This function allows to save models on disk.</p>
 <p><strong>Inputs</strong></p>
 <ul>
 <li><strong> save_path</strong> (str): path to the directory where the model is
@@ -1833,29 +1943,8 @@ JSON file.</li>
 </ul>
 <p><strong>Return</strong></p>
 <ul>
-<li><strong>return</strong> ( <code>Non):</code>None`</li>
+<li><strong>return</strong> ( <code>None):</code>None`</li>
 </ul>
-<hr />
-<h3 id="save_savedmodel">save_savedmodel<a class="headerlink" href="#save_savedmodel" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">save_savedmodel</span><span class="p">(</span>
-  <span class="n">save_path</span>
-<span class="p">)</span>
-</code></pre></div>
-
-<p>This function allows to save models on disk</p>
-<p><strong>Inputs</strong></p>
-<ul>
-<li><strong> save_path</strong> (str): path to the directory where the SavedModel
-    is going to be saved.</li>
-</ul>
-<p><strong>Return</strong></p>
-<ul>
-<li><strong>return</strong> ( <code>Non):</code>None`</li>
-</ul>
-<p><strong>Example usage</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">ludwig_model</span><span class="o">.</span><span class="n">save_for_serving</span><span class="p">(</span><span class="n">save_path</span><span class="p">)</span>
-</code></pre></div>
-
 <hr />
 <h3 id="set_logging_level">set_logging_level<a class="headerlink" href="#set_logging_level" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="n">set_logging_level</span><span class="p">(</span>
@@ -1873,6 +1962,20 @@ constants like <code>logging.DEBUG</code> , <code>logging.INFO</code> and <code>
 <ul>
 <li><strong>return</strong> ( <code>None):</code>None`</li>
 </ul>
+<hr />
+<h3 id="to_torchscript">to_torchscript<a class="headerlink" href="#to_torchscript" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">to_torchscript</span><span class="p">(</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>Converts the trained LudwigModule, including preprocessing and postprocessing, to Torchscript.</p>
+<p>The scripted module takes in a <code>Dict[str, Union[List[str], Tensor]]</code> as input.</p>
+<p>More specifically, for every input feature, we provide either a Tensor of batch_size inputs or a list of
+strings batch_size in length.</p>
+<p>Note that the dimensions of all Tensors and lengths of all lists must match.</p>
+<p>Similarly, the output will be a dictionary of dictionaries, where each feature has its own dictionary of
+outputs. The outputs will be a list of strings for predictions with string types, while other outputs will be
+tensors of varying dimensions for probabilities, logits, etc.</p>
 <hr />
 <h3 id="train">train<a class="headerlink" href="#train" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="n">train</span><span class="p">(</span>
@@ -1897,8 +2000,7 @@ constants like <code>logging.DEBUG</code> , <code>logging.INFO</code> and <code>
 <span class="p">)</span>
 </code></pre></div>
 
-<p>This function is used to perform a full training of the model on the
-specified dataset.</p>
+<p>This function is used to perform a full training of the model on the specified dataset.</p>
 <p>During training if the skip parameters are False
 the model and statistics will be saved in a directory
 <code>[output_dir]/[experiment_name]_[model_name]_n</code> where all variables are
@@ -1919,9 +2021,9 @@ source containing validation data.</li>
 source containing test data.</li>
 <li><strong>training_set_metadata</strong> (Union[str, dict], default: <code>None</code>):
 metadata JSON file or loaded metadata. Intermediate preprocessed
-structure containing the mappings of the input
-dataset created the first time an input file is used in the same
-directory with the same name and a '.meta.json' extension.</li>
+structure containing the mappings of the input dataset created the
+first time an input file is used in the same directory with the
+same name and a '.meta.json' extension.</li>
 <li><strong>data_format</strong> (str, default: <code>None</code>): format to interpret data
 sources. Will be inferred automatically if not specified.  Valid
 formats are <code>'auto'</code>, <code>'csv'</code>, <code>'df'</code>, <code>'dict'</code>, <code>'excel'</code>,
@@ -2280,6 +2382,7 @@ descending performance on the target metric.</li>
             </article>
           </div>
         </div>
+        
       </main>
       
         
@@ -2294,8 +2397,8 @@ descending performance on the target metric.</li>
              class="md-footer-nav__inner md-grid">
             
             <a class="md-footer-nav__link md-footer-nav__link--prev"
-               href="../../developer_guide/style_guidelines_and_tests/" rel="prev"
-               title="Style Guidelines and Tests">
+               href="../../developer_guide/unit_test_design_guidelines/" rel="prev"
+               title="Unit Test Design Guidelines">
                 <div class="md-footer-nav__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
                 </div>
@@ -2304,7 +2407,7 @@ descending performance on the target metric.</li>
                  <span class="md-footer-nav__direction">
                    Previous
                  </span>
-                        Style Guidelines and Tests
+                        Unit Test Design Guidelines
                     </div>
                 </div>
             </a>
@@ -2361,10 +2464,10 @@ descending performance on the target metric.</li>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../assets/javascripts/workers/search.fb4a9340.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.709b4209.min.js", "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.a1c7c35e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.29db7785.min.js"></script>
       
     
   </body>

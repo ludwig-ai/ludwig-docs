@@ -162,6 +162,10 @@ button[data-md-color-primary="grey"] {
     background-color: #2b2c2f;
 }
 
+[data-md-color-primary="grey"] .md-tabs {
+    background-color: #2b2c2f;
+}
+
 [data-md-color-primary="grey"] .md-nav__link:active,
 [data-md-color-primary="grey"] .md-nav__link--active {
     font-weight: bold;

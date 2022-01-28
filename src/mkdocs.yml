@@ -77,7 +77,7 @@ theme:
   custom_dir: 'custom/'
   palette:
     scheme: 'slate'
-    primary: 'black'
+    primary: 'grey'
     accent: 'grey'
   features:
     - navigation.tabs
@@ -109,6 +109,7 @@ extra:
     provider: mike
 
 plugins:
+  - search
   - mike:
       # these fields are all optional; the defaults are as below...
       version_selector: true   # set to false to leave out the version selector

@@ -8,8 +8,7 @@ In order to create Ludwig's documentation you have to install them:
 pip install -r requirements.txt
 ```
 
-Be sure that your installed version of `Markdown>=3.0.1`.
-Then generate `api.md` from source (from the `src` directory):
+Generate `api.md` from source:
 
 ```
 python code_doc_autogen.py
@@ -28,3 +27,9 @@ mkdocs build
 ```
 
 It will create the static website in `$LUDWIG_HOME/docs/`.
+
+## Publish a new version
+
+```
+mike deploy --push --update-aliases 0.5 latest
+```

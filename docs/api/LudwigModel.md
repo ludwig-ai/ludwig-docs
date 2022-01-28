@@ -1,4 +1,4 @@
-<span style="float:right;">[[source]](https://github.com/ludwig-ai/ludwig/blob/master/ludwig/api.py#L89)</span>
+<span style="float:right;">[[source]](https://github.com/ludwig-ai/ludwig/blob/master/ludwig/api.py#L75)</span>
 # LudwigModel class
 
 ```python
@@ -43,7 +43,7 @@ Train a model:
 ```python
 config = {...}
 ludwig_model = LudwigModel(config)
-train_stats, _, _ = ludwig_model.train(dataset=file_path)
+train_stats, _, _  = ludwig_model.train(dataset=file_path)
 ```
 
 or
@@ -101,8 +101,8 @@ collect_activations(
 ```
 
 
-Loads a pre-trained model model and input data to collect the values of the activations contained in the
-tensors.
+Loads a pre-trained model model and input data to collect the values
+of the activations contained in the tensors.
 
 __Inputs__
 
@@ -129,7 +129,8 @@ with `inf_or_nan` checks.
 __Return__
 
 - __return__ (list): list of collected tensors.
- 
+
+
 ---
 ## collect_weights
 
@@ -141,7 +142,7 @@ collect_weights(
 ```
 
 
-Load a pre-trained model and collect the tensors with a specific name.
+Load a pre-trained model and collect the tensors with a specific name
 
 __Inputs__
 
@@ -151,7 +152,8 @@ weights
 __Return__
 
 - __return__ (list): List of tensors
- 
+
+
 ---
 ## create_model
 
@@ -164,7 +166,7 @@ create_model(
 ```
 
 
-Instantiates Encoder-Combiner-Decoder (ECD) object.
+Instantiates Encoder-Combiner-Decoder (ECD) object
 
 __Inputs__
 
@@ -176,7 +178,8 @@ splits and any other random function.
 __Return__
 
 - __return__ (ludwig.models.ECD): Instance of the Ludwig model object.
- 
+
+
 ---
 ## evaluate
 
@@ -199,8 +202,9 @@ ludwig.evaluate(
 ```
 
 
-This function is used to predict the output variables given the input variables using the trained model
-and compute test statistics like performance measures, confusion matrices and the like.
+This function is used to predict the output variables given the
+input variables using the trained model and compute test statistics
+like performance measures, confusion matrices and the like.
 
 __Inputs__
 
@@ -236,7 +240,7 @@ collects overall stats during eval.
 - __output_directory__ (str, default: `'results'`): the directory that
 will contain the training statistics, TensorBoard logs, the saved
 model and the training progress files.
-- __return_type__ (Union[str, dict, pd.DataFrame], default: pandas.DataFrame): indicates
+- __return_type__ (Union[str, dict, pandas.DataFrame], default: pandas.DataFrame): indicates
 the format to of the returned predictions.
 - __debug__ (bool, default: `False`): If `True` turns on `tfdbg`
     with `inf_or_nan` checks.
@@ -249,7 +253,8 @@ __Return__
     statistics,
 `postprocess_predictions` contains predicted values,
 `output_directory` is location where results are stored.
- 
+
+
 ---
 ## experiment
 
@@ -285,7 +290,9 @@ experiment(
 ```
 
 
-Trains a model on a dataset's training and validation splits and uses it to predict on the test split.
+
+Trains a model on a dataset's training and validation splits and
+uses it to predict on the test split.
 It saves the trained model and the statistics of training and testing.
 
 __Inputs__
@@ -380,8 +387,7 @@ initialization, splits and any other random function.
 
 __Return__
 
-- __return__ (Tuple[dict, dict, tuple, str)):
-`(evaluation_statistics, training_statistics, preprocessed_data, output_directory)`
+- __return__ (Tuple[dict, dict, tuple, str)) `(evaluation_statistics, training_statistics, preprocessed_data, output_directory):`
 `evaluation_statistics` dictionary with evaluation performance
     statistics on the test_set,
 `training_statistics` is a dictionary of training statistics for
@@ -390,7 +396,8 @@ feature containing loss and metrics values for each epoch,
 `preprocessed_data` tuple containing preprocessed
 `(training_set, validation_set, test_set)`, `output_directory`
 filepath string to where results are stored.
- 
+
+
 ---
 ## load
 
@@ -408,7 +415,7 @@ load(
 ```
 
 
-This function allows for loading pretrained models.
+This function allows for loading pretrained models
 
 __Inputs__
 
@@ -444,7 +451,8 @@ __Example usage__
 ```python
 ludwig_model = LudwigModel.load(model_dir)
 ```
- 
+
+
 ---
 ## load_weights
 
@@ -456,7 +464,8 @@ load_weights(
 ```
 
 
-Loads weights from a pre-trained model.
+
+Loads weights from a pre-trained model
 
 __Inputs__
 
@@ -473,7 +482,8 @@ __Example usage__
 ```python
 ludwig_model.load_weights(model_dir)
 ```
- 
+
+
 ---
 ## predict
 
@@ -491,6 +501,7 @@ ludwig.predict(
   debug=False
 )
 ```
+
 
 
 Using a trained model, make predictions from the provided dataset.
@@ -534,7 +545,8 @@ __Return__
 - __return__ (Tuple[Union[dict, pd.DataFrame], str]) `(predictions, output_directory):`
 `predictions` predictions from the provided dataset,
 `output_directory` filepath string to where data was stored.
- 
+
+
 ---
 ## preprocess
 
@@ -621,7 +633,7 @@ save(
 ```
 
 
-This function allows to save models on disk.
+This function allows to save models on disk
 
 __Inputs__
 
@@ -642,7 +654,8 @@ __Example usage__
 ```python
 ludwig_model.save(save_path)
 ```
- 
+
+
 ---
 ## save_config
 
@@ -652,6 +665,7 @@ save_config(
   save_path
 )
 ```
+
 
 
 Save config to specoficed location.
@@ -664,8 +678,41 @@ JSON file.
 
 __Return__
 
-- __return__ ( `None): `None`
- 
+- __return__ ( `Non): `None`
+
+
+---
+## save_savedmodel
+
+
+```python
+save_savedmodel(
+  save_path
+)
+```
+
+
+This function allows to save models on disk
+
+__Inputs__
+
+
+- __ save_path__ (str): path to the directory where the SavedModel
+    is going to be saved.
+
+__Return__
+
+
+- __return__ ( `Non): `None`
+
+__Example usage__
+
+
+```python
+ludwig_model.save_for_serving(save_path)
+```
+
+
 ---
 ## set_logging_level
 
@@ -675,6 +722,7 @@ set_logging_level(
   logging_level
 )
 ```
+
 
 
 Sets level for log messages.
@@ -690,29 +738,6 @@ __Return__
 
 - __return__ ( `None): `None`
  
----
-## to_torchscript
-
-
-```python
-to_torchscript(
-)
-```
-
-
-Converts the trained LudwigModule, including preprocessing and postprocessing, to Torchscript.
-
-The scripted module takes in a `Dict[str, Union[List[str], Tensor]]` as input.
-
-More specifically, for every input feature, we provide either a Tensor of batch_size inputs or a list of
-strings batch_size in length.
-
-Note that the dimensions of all Tensors and lengths of all lists must match.
-
-Similarly, the output will be a dictionary of dictionaries, where each feature has its own dictionary of
-outputs. The outputs will be a list of strings for predictions with string types, while other outputs will be
-tensors of varying dimensions for probabilities, logits, etc.
-
 ---
 ## train
 
@@ -741,7 +766,8 @@ train(
 ```
 
 
-This function is used to perform a full training of the model on the specified dataset.
+This function is used to perform a full training of the model on the
+specified dataset.
 
 During training if the skip parameters are False
 the model and statistics will be saved in a directory
@@ -765,9 +791,9 @@ source containing validation data.
 source containing test data.
 - __training_set_metadata__ (Union[str, dict], default: `None`):
 metadata JSON file or loaded metadata. Intermediate preprocessed
-structure containing the mappings of the input dataset created the
-first time an input file is used in the same directory with the
-same name and a '.meta.json' extension.
+structure containing the mappings of the input
+dataset created the first time an input file is used in the same
+directory with the same name and a '.meta.json' extension.
 - __data_format__ (str, default: `None`): format to interpret data
 sources. Will be inferred automatically if not specified.  Valid
 formats are `'auto'`, `'csv'`, `'df'`, `'dict'`, `'excel'`,

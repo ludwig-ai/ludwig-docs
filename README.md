@@ -14,22 +14,17 @@ Generate `api.md` from source:
 python code_doc_autogen.py
 ```
 
-Test it (from the `src` directory):
+Deploy docs for the current version of Ludwig in your environment:
 
 ```
-mkdocs serve
+export LUDWIG_VERSION=$(python -c "import ludwig; print('.'.join(ludwig.__version__.split('.')[:2]))")
+mike deploy --push --update-aliases $LUDWIG_VERSION latest
 ```
 
-Finally build the static website (from the `src` directory):
+Run the web server:
 
 ```
-mkdocs build
+mike serve
 ```
 
-It will create the static website in `$LUDWIG_HOME/docs/`.
-
-## Publish a new version
-
-```
-mike deploy --push --update-aliases 0.5 latest
-```
+Navigate to http://localhost:8000 to view the docs.

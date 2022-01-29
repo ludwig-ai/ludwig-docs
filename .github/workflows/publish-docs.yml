@@ -1,0 +1,44 @@
+name: Publish Docs
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  api-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.8"
+
+      - name: Setup Linux
+        if: runner.os == 'linux'
+        run: |
+          sudo apt-get install -y cmake libsndfile1
+
+      - name: Install Ludwig
+        run: pip install ludwig[full]
+
+      - name: Set Ludwig version env
+        run: |
+          echo "ludwig_version=$(python -c "import ludwig; print('.'.join(ludwig.__version__.split('.')[:2]))")" >> $GITHUB_ENV
+      
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate API Docs
+        run: python code_doc_autogen.py
+      
+      - name: Setup doc deploy
+        run: |
+          git config --global user.name ci-bot
+          git config --global user.email ci-bot@ludwig.ai
+      
+      - name: Publish docs
+        run: mike deploy --push --update-aliases ${{ env.ludwig_version } latest

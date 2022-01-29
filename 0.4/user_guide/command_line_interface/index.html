@@ -1,0 +1,2431 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Deep learning toolbox">
+      
+      
+      
+        <meta name="author" content="Piero Molino">
+      
+      
+        <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/command_line_interface/">
+      
+      <link rel="icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.2, mkdocs-material-7.2.3">
+    
+    
+      
+        <title>Command Line Interface - Ludwig</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f7f47774.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#757575">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/monokai.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="grey">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#commands" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Ludwig" class="md-header__button md-logo" aria-label="Ludwig" data-md-component="logo">
+      
+<img alt="logo" src="../../images/ludwig_logo.svg"
+     style="height:1rem;width:4rem;">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Ludwig
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Command Line Interface
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/ludwig-ai/ludwig/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ludwig-ai/ludwig
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      About
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../getting_started/" class="md-tabs__link">
+      Getting Started
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../examples/" class="md-tabs__link">
+      Examples
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../user_guide_intro/" class="md-tabs__link md-tabs__link--active">
+        User Guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../developer_guide/developer_guide_intro/" class="md-tabs__link">
+        Developer Guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../api/LudwigModel/" class="md-tabs__link">
+        API
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../community/" class="md-tabs__link">
+      Community
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../faq/" class="md-tabs__link">
+      FAQ
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Ludwig" class="md-nav__button md-logo" aria-label="Ludwig" data-md-component="logo">
+      
+<img alt="logo" src="../../images/ludwig_logo.svg"
+     style="height:1rem;width:4rem;">
+
+    </a>
+    Ludwig
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/ludwig-ai/ludwig/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ludwig-ai/ludwig
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        About
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/" class="md-nav__link">
+        Examples
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      <label class="md-nav__link" for="__nav_4">
+        User Guide
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="User Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          User Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_guide_intro/" class="md-nav__link">
+        User Guide Intro
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Command Line Interface
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Command Line Interface
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#commands" class="md-nav__link">
+    Commands
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#train" class="md-nav__link">
+    train
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#predict" class="md-nav__link">
+    predict
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluate" class="md-nav__link">
+    evaluate
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#experiment" class="md-nav__link">
+    experiment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hyperopt" class="md-nav__link">
+    hyperopt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serve" class="md-nav__link">
+    serve
+  </a>
+  
+    <nav class="md-nav" aria-label="serve">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-curl" class="md-nav__link">
+    Example curl
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualize" class="md-nav__link">
+    visualize
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collect_summary" class="md-nav__link">
+    collect_summary
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collect_weights" class="md-nav__link">
+    collect_weights
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collect_activations" class="md-nav__link">
+    collect_activations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#export_savedmodel" class="md-nav__link">
+    export_savedmodel
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#export_neuropod" class="md-nav__link">
+    export_neuropod
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#export_mlflow" class="md-nav__link">
+    export_mlflow
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preprocess" class="md-nav__link">
+    preprocess
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synthesize_dataset" class="md-nav__link">
+    synthesize_dataset
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_preprocessing/" class="md-nav__link">
+        Data Preprocessing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_postprocessing/" class="md-nav__link">
+        Data Postprocessing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_5" type="checkbox" id="__nav_4_5" >
+      
+      <label class="md-nav__link" for="__nav_4_5">
+        Configuration
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Configuration" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_5">
+          <span class="md-nav__icon md-icon"></span>
+          Configuration
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/configuration_intro/" class="md-nav__link">
+        Configuration Intro
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/input_features/" class="md-nav__link">
+        Input Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/combiner/" class="md-nav__link">
+        Combiner
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/output_features/" class="md-nav__link">
+        Output Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/training/" class="md-nav__link">
+        Training
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/preprocessing/" class="md-nav__link">
+        Preprocessing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/binary_features/" class="md-nav__link">
+        Binary Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/numerical_features/" class="md-nav__link">
+        Numerical Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/category_features/" class="md-nav__link">
+        Category Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/set_features/" class="md-nav__link">
+        Set Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/bag_features/" class="md-nav__link">
+        Bag Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/sequence_features/" class="md-nav__link">
+        Sequence Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/text_features/" class="md-nav__link">
+        Text Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/time_series_features/" class="md-nav__link">
+        Time Series Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/audio_features/" class="md-nav__link">
+        Audio Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/image_features/" class="md-nav__link">
+        Image Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/date_features/" class="md-nav__link">
+        Date Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/h3_features/" class="md-nav__link">
+        H3 Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/vector_features/" class="md-nav__link">
+        Vector Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/combiners/" class="md-nav__link">
+        Combiners
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../distributed_execution_backends/" class="md-nav__link">
+        Distributed Execution Backends
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hyperparameter_optimization/" class="md-nav__link">
+        Hyper-parameter optimization
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../programmatic_api/" class="md-nav__link">
+        Programmatic API
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../visualizations/" class="md-nav__link">
+        Visualizations
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../serving/" class="md-nav__link">
+        Serving
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../datasets/" class="md-nav__link">
+        Datasets
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../integrations/" class="md-nav__link">
+        Integrations
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        Developer Guide
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Developer Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Developer Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/developer_guide_intro/" class="md-nav__link">
+        Developer Guide Intro
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/codebase_structure/" class="md-nav__link">
+        Codebase Structure
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/add_an_encoder/" class="md-nav__link">
+        Add an Encoder
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/add_a_decoder/" class="md-nav__link">
+        Add a Decoder
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/add_a_feature_type/" class="md-nav__link">
+        Add a Feature Type
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/hyper_parameter_optimization/" class="md-nav__link">
+        Hyper-parameter Optimization
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/add_an_integration/" class="md-nav__link">
+        Add an Integration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/add_a_dataset/" class="md-nav__link">
+        Add an Dataset
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/style_guidelines_and_tests/" class="md-nav__link">
+        Style Guidelines and Tests
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/unit_test_design_guidelines/" class="md-nav__link">
+        Unit Test Design Guidelines
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        API
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/LudwigModel/" class="md-nav__link">
+        LudwigModel
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/visualization/" class="md-nav__link">
+        Visualization
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/" class="md-nav__link">
+        Community
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#commands" class="md-nav__link">
+    Commands
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#train" class="md-nav__link">
+    train
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#predict" class="md-nav__link">
+    predict
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluate" class="md-nav__link">
+    evaluate
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#experiment" class="md-nav__link">
+    experiment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hyperopt" class="md-nav__link">
+    hyperopt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serve" class="md-nav__link">
+    serve
+  </a>
+  
+    <nav class="md-nav" aria-label="serve">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-curl" class="md-nav__link">
+    Example curl
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualize" class="md-nav__link">
+    visualize
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collect_summary" class="md-nav__link">
+    collect_summary
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collect_weights" class="md-nav__link">
+    collect_weights
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collect_activations" class="md-nav__link">
+    collect_activations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#export_savedmodel" class="md-nav__link">
+    export_savedmodel
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#export_neuropod" class="md-nav__link">
+    export_neuropod
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#export_mlflow" class="md-nav__link">
+    export_mlflow
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preprocess" class="md-nav__link">
+    preprocess
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synthesize_dataset" class="md-nav__link">
+    synthesize_dataset
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/ludwig-ai/ludwig-docs/edit/master/src/docs/user_guide/command_line_interface.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  <h1>Command Line Interface</h1>
+                
+                <h2 id="commands">Commands<a class="headerlink" href="#commands" title="Permanent link">&para;</a></h2>
+<p>Ludwig provides several command line interface entry points</p>
+<ul>
+<li><code>train</code>: Trains a model</li>
+<li><code>predict</code>: Predicts using a pretrained model</li>
+<li><code>evaluate</code>: Evaluate a pretrained model's performance</li>
+<li><code>experiment</code>: Runs a full experiment training a model and evaluating it</li>
+<li><code>serve</code>: Serves a pretrained model</li>
+<li><code>visualize</code>: Visualizes experimental results</li>
+<li><code>hyperopt</code>: Perform hyperparameter optimization</li>
+<li><code>collect_summary</code>: Prints names of weights and layers activations to use with other collect commands</li>
+<li><code>collect_weights</code>: Collects tensors containing a pretrained model weights</li>
+<li><code>collect_activations</code>: Collects tensors for each datapoint using a pretrained model</li>
+<li><code>export_savedmodel</code>: Exports Ludwig models to SavedModel</li>
+<li><code>export_neuropod</code>: Exports Ludwig models to Neuropod</li>
+<li><code>export_mlflow</code>: Exports Ludwig models to MLflow</li>
+<li><code>preprocess</code>: Preprocess data and saves it into HDF5 and JSON format</li>
+<li><code>synthesize_dataset</code>: Creates synthetic data for testing purposes</li>
+</ul>
+<p>They are described in detail below.</p>
+<h2 id="train">train<a class="headerlink" href="#train" title="Permanent link">&para;</a></h2>
+<p>This command lets you train a model from your data.
+You can call it with:</p>
+<div class="codehilite"><pre><span></span><code>ludwig train [options]
+</code></pre></div>
+
+<p>or with:</p>
+<div class="codehilite"><pre><span></span><code>python -m ludwig.train [options]
+</code></pre></div>
+
+<p>from within Ludwig's main directory.</p>
+<p>These are the available arguments:</p>
+<div class="codehilite"><pre><span></span><code>usage: ludwig train [options]
+
+This script trains a model
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --output_directory OUTPUT_DIRECTORY
+                        directory that contains the results
+  --experiment_name EXPERIMENT_NAME
+                        experiment name
+  --model_name MODEL_NAME
+                        name for the model
+  --dataset DATASET     input data file path. If it has a split column, it
+                        will be used for splitting (0: train, 1: validation,
+                        2: test), otherwise the dataset will be randomly split
+  --training_set TRAINING_SET
+                        input train data file path
+  --validation_set VALIDATION_SET
+                        input validation data file path
+  --test_set TEST_SET   input test data file path
+  --training_set_metadata TRAINING_SET_METADATA
+                        input metadata JSON file path. An intermediate
+                        preprocessed  containing the mappings of the input
+                        file created the first time a file is used, in the
+                        same directory with the same name and a .json
+                        extension
+  --data_format {auto,csv,excel,feather,fwf,hdf5,htmltables,json,jsonl,parquet,pickle,sas,spss,stata,tsv}
+                        format of the input data
+  -sspi, --skip_save_processed_input
+                        skips saving intermediate HDF5 and JSON files
+  -c CONFIG, --config CONFIG
+                        config
+  -cf CONFIG_FILE, --config_file CONFIG_FILE
+                        YAML file describing the model. Ignores --config
+  -mlp MODEL_LOAD_PATH, --model_load_path MODEL_LOAD_PATH
+                        path of a pretrained model to load as initialization
+  -mrp MODEL_RESUME_PATH, --model_resume_path MODEL_RESUME_PATH
+                        path of the model directory to resume training of
+  -sstd, --skip_save_training_description
+                        disables saving the description JSON file
+  -ssts, --skip_save_training_statistics
+                        disables saving training statistics JSON file
+  -ssm, --skip_save_model
+                        disables saving weights each time the model improves.
+                        By default Ludwig saves weights after each epoch the
+                        validation metric improves, but if the model is really
+                        big that can be time consuming. If you do not want to
+                        keep the weights and just find out what performance
+                        can a model get with a set of hyperparameters, use
+                        this parameter to skip it
+  -ssp, --skip_save_progress
+                        disables saving weights after each epoch. By default
+                        ludwig saves weights after each epoch for enabling
+                        resuming of training, but if the model is really big
+                        that can be time consuming and will save twice as much
+                        space, use this parameter to skip it
+  -ssl, --skip_save_log
+                        disables saving TensorBoard logs. By default Ludwig
+                        saves logs for the TensorBoard, but if it is not
+                        needed turning it off can slightly increase the
+                        overall speed
+  -rs RANDOM_SEED, --random_seed RANDOM_SEED
+                        a random seed that is going to be used anywhere there
+                        is a call to a random number generator: data
+                        splitting, parameter initialization and training set
+                        shuffling
+  -g GPUS [GPUS ...], --gpus GPUS [GPUS ...]
+                        list of gpus to use
+  -gml GPU_MEMORY_LIMIT, --gpu_memory_limit GPU_MEMORY_LIMIT
+                        maximum memory in MB to allocate per GPU device
+  -dpt, --disable_parallel_threads
+                        disable TensorFlow from using multithreading for
+                        reproducibility
+  -b BACKEND, --backend BACKEND 
+                        specifies backend to use for parallel / distributed execution, 
+                        defaults to local execution or Horovod if called using horovodrun
+  -dbg, --debug         enables debugging mode
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use
+</code></pre></div>
+
+<p>When Ludwig trains a model it creates two intermediate files, one HDF5 and one JSON.
+The HDF5 file contains the data mapped to numpy ndarrays, while the JSON file 
+contains the mappings from the values in the tensors to their original labels.</p>
+<p>For instance, for a categorical feature with 3 possible values, the HDF5 file 
+will contain integers from 0 to 3 (with 0 being a <code>&lt;UNK&gt;</code> category), while the 
+JSON file will contain a <code>idx2str</code> list containing all tokens 
+(<code>[&lt;UNK&gt;, label_1, label_2, label_3]</code>), a <code>str2idx</code> dictionary 
+(<code>{"&lt;UNK&gt;": 0, "label_1": 1, "label_2": 2, "label_3": 3}</code>) and a <code>str2freq</code> 
+dictionary (<code>{"&lt;UNK&gt;": 0, "label_1": 93, "label_2": 55, "label_3": 24}</code>).</p>
+<p>The reason to have those  intermediate files is two-fold: on one hand, if you are going to train your model again Ludwig will try to load them instead of recomputing all tensors, which saves a considerable amount of time, and on the other hand when you want to use your model to predict, data has to be mapped to tensors in exactly the same way it was mapped during training, so you'll be required to load the JSON metadata file in the <code>predict</code> command.
+The way this works is: the first time you provide a UTF-8 encoded dataset (<code>--dataset</code>), the HDF5 and JSON files are created, from the second time on Ludwig will load them instead of the dataset even if you specify the dataset (it looks in the same directory for files names in the same way but with a different extension), finally you can directly specify the HDF5 and JSON files.</p>
+<p>As the mapping from raw data to tensors depends on the type of feature that you specify in your configuration, if you change type (for instance from <code>sequence</code> to <code>text</code>) you also have to redo the preprocessing, which is achieved by deleting the HDF5 and JSON files.
+Alternatively you can skip saving the HDF5 and JSON files specifying <code>--skip_save_processed_input</code>.</p>
+<p>Splitting between train, validation and test set can be done in several ways.
+This allows for a few possible input data scenarios:</p>
+<ul>
+<li>one single UTF-8 encoded dataset file is provided (<code>-dataset</code>). In this case if the dataset contains a <code>split</code> column with values <code>0</code> for training, <code>1</code> for validation and <code>2</code> for test, this split will be used. If you want to ignore the split column and perform a random split, use a <code>force_split</code> argument in the configuration. In the case when there is no split column, a random <code>70-20-10</code> split will be performed. You can set the percentages and specify if you want stratified sampling in the configuration preprocessing section.</li>
+<li>you can provide separate UTF-8 encoded training, validation and test sets  (<code>--training_set</code>, <code>--validation_set</code>, <code>--test_set</code>).</li>
+<li>the HDF5 and JSON file indications specified in the case of a single dataset file apply also in the multiple files case, with the only difference that you need to specify only one JSON file (<code>--train_set_metadata_json</code>).</li>
+</ul>
+<p>The validation set is optional, but if absent the training will continue until the end of the training epochs, while when there's a validation set the default behavior is to perform early stopping after the validation measure does not improve for a certain amount of epochs. The test set is optional too.</p>
+<p>Other optional arguments are <code>--output_directory</code>, <code>--experiment_name</code> and <code>--model name</code>.
+By default the output directory is <code>./results</code>.
+That directory will contain a directory named <code>[experiment_name]_[model_name]_0</code> 
+if model name and experiment name are specified.
+If the same combination of experiment and model name is used again, the integer 
+at the end of the name will be increased.
+If neither of them is specified the directory will be named <code>run_0</code>.
+The directory will contain</p>
+<ul>
+<li><code>description.json</code> - a file containing a description of the training process with all the information to reproduce it.</li>
+<li><code>training_statistics.json</code> - a file containing records of all measures and losses for each epoch.</li>
+<li><code>model</code> - a directory containing model hyper-parameters, weights, checkpoints and logs (for TensorBoard).</li>
+</ul>
+<p>The configuration can be provided either as a string (<code>--config</code>) 
+or as YAML file (<code>--config_file</code>).
+Details on how to write your configuration are provided in the <a href="#configuration">Configuration</a> section.</p>
+<p>During training Ludwig saves two sets of weights for the model, one that is the 
+weights at the end of the epoch where the best performance on the validation 
+measure was achieved and one that is the weights at the end of the latest epoch.
+The reason for keeping the second set is to be able to resume training in case 
+the training process gets interrupted somehow.</p>
+<p>To resume training using the latest weights and the whole history of progress so far you have to specify the <code>--model_resume_path</code> argument.
+You can avoid saving the latest weights and the overall progress so far by using the argument <code>--skip_save_progress</code>, but you will not be able to resume it afterwards.
+Another available option is to load a previously trained model as an initialization for a new training process.
+In this case Ludwig will start a new training process, without knowing any progress of the previous model, no training statistics, nor the number of epochs the model has been trained on so far.
+It's not resuming training, just initializing training with a previously trained model with the same configuration, and it is accomplished through the <code>--model_load_path</code> argument.</p>
+<p>You can specify a random seed to be used by the python environment, python random package, numpy and TensorFlow with the <code>--random_seed</code> argument.
+This is useful for reproducibility.
+Be aware that due to asynchronicity in the TensorFlow GPU execution, when training on GPU results may not be reproducible.</p>
+<p>You can manage which GPUs on your machine are used with the <code>--gpus</code> argument, which accepts a string identical to the format of <code>CUDA_VISIBLE_DEVICES</code> environment variable, namely a list of integers separated by comma.
+You can also specify the amount of GPU memory that will be initially assigned to TensorFlow with <code>--gpu_memory_limit</code>.
+By default all of memory is allocated.
+If less than all of memory is allcoated, TensorFlow will need more GPU memory it will try to increase this amount.</p>
+<p>If parameter <code>--backend</code> is set, will use the given backend for distributed processing (Horovod or Ray).</p>
+<p>Finally the <code>--logging_level</code> argument lets you set the amount of logging that you want to see during training and the <code>--debug</code> argument turns on TensorFlow's <code>tfdbg</code>. Be careful when doing so, as it will help in catching errors, in particular <code>infs</code> and <code>NaNs</code> but it will consume much more memory.</p>
+<p>Example:</p>
+<div class="codehilite"><pre><span></span><code>ludwig train --dataset reuters-allcats.csv --config &quot;{input_features: [{name: text, type: text, encoder: parallel_cnn, level: word}], output_features: [{name: class, type: category}]}&quot;
+</code></pre></div>
+
+<h2 id="predict">predict<a class="headerlink" href="#predict" title="Permanent link">&para;</a></h2>
+<p>This command lets you use a previously trained model to predict on new data.
+You can call it with:</p>
+<div class="codehilite"><pre><span></span><code>ludwig predict [options]
+</code></pre></div>
+
+<p>or with:</p>
+<div class="codehilite"><pre><span></span><code>python -m ludwig.predict [options]
+</code></pre></div>
+
+<p>from within Ludwig's main directory.</p>
+<p>These are the available arguments:</p>
+<div class="codehilite"><pre><span></span><code>usage: ludwig predict [options]
+
+This script loads a pretrained model and uses it to predict
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --dataset DATASET     input data file path
+  --data_format {auto,csv,excel,feather,fwf,hdf5,htmltables,json,jsonl,parquet,pickle,sas,spss,stata,tsv}
+                        format of the input data
+  -s {training,validation,test,full}, --split {training,validation,test,full}
+                        the split to test the model on
+  -m MODEL_PATH, --model_path MODEL_PATH
+                        model to load
+  -od OUTPUT_DIRECTORY, --output_directory OUTPUT_DIRECTORY
+                        directory that contains the results
+  -ssuo, --skip_save_unprocessed_output
+                        skips saving intermediate NPY output files
+  -sstp, --skip_save_predictions
+                        skips saving predictions CSV files
+  -bs BATCH_SIZE, --batch_size BATCH_SIZE
+                        size of batches
+  -g GPUS, --gpus GPUS  list of gpu to use
+  -gml GPU_MEMORY_LIMIT, --gpu_memory_limit GPU_MEMORY_LIMIT
+                        maximum memory in MB to allocate per GPU device
+  -dpt, --disable_parallel_threads
+                        disable TensorFlow from using multithreading for
+                        reproducibility
+  -b BACKEND, --backend BACKEND 
+                        specifies backend to use for parallel / distributed execution, 
+                        defaults to local execution or Horovod if called using horovodrun
+  -dbg, --debug         enables debugging mode
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use
+</code></pre></div>
+
+<p>The same distinction between UTF-8 encoded dataset files and HDF5 / JSON files explained in the <a href="#train">train</a> section also applies here.
+In either case, the JSON metadata file obtained during training is needed in order to map the new data into tensors.
+If the new data contains a split column, you can specify which split to use to calculate the predictions with the <code>--split</code> argument. By default it's <code>full</code> which means all the splits will be used.</p>
+<p>A model to load is needed, and you can specify its path with the <code>--model_path</code> argument.
+If you trained a model previously and got the results in, for instance, 
+<code>./results/experiment_run_0</code>, you have to specify 
+<code>./results/experiment_run_0/model</code> for using it to predict.</p>
+<p>You can specify an output directory with the argument <code>--output-directory</code>, by 
+default it will be <code>./result_0</code>, with increasing numbers if a directory with the same name is present.</p>
+<p>The directory will contain a prediction CSV file and a probability CSV file for 
+each output feature, together with raw NPY files containing raw tensors.
+You can specify not to save the raw NPY output files with the argument <code>skip_save_unprocessed_output</code>.</p>
+<p>A specific batch size for speeding up the prediction can be specified using the argument <code>--batch_size</code>.</p>
+<p>Finally the <code>--logging_level</code>, <code>--debug</code>, <code>--gpus</code>, <code>--gpu_memory_limit</code> and <code>--disable_parallel_threads</code>  related arguments behave exactly like described in the train command section.</p>
+<p>Example:</p>
+<div class="codehilite"><pre><span></span><code>ludwig predict --dataset reuters-allcats.csv --model_path results/experiment_run_0/model/
+</code></pre></div>
+
+<h2 id="evaluate">evaluate<a class="headerlink" href="#evaluate" title="Permanent link">&para;</a></h2>
+<p>This command lets you use a previously trained model to predict on new data and 
+evaluate the performance of the prediction compared to ground truth.
+You can call it with:</p>
+<div class="codehilite"><pre><span></span><code>ludwig evaluate [options]
+</code></pre></div>
+
+<p>or with:</p>
+<div class="codehilite"><pre><span></span><code>python -m ludwig.evaluate [options]
+</code></pre></div>
+
+<p>from within Ludwig's main directory.</p>
+<p>These are the available arguments:</p>
+<div class="codehilite"><pre><span></span><code>usage: ludwig evaluate [options]
+
+This script loads a pretrained model and evaluates its performance by
+comparing its predictions with ground truth.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --dataset DATASET     input data file path
+  --data_format {auto,csv,excel,feather,fwf,hdf5,htmltables,json,jsonl,parquet,pickle,sas,spss,stata,tsv}
+                        format of the input data
+  -s {training,validation,test,full}, --split {training,validation,test,full}
+                        the split to test the model on
+  -m MODEL_PATH, --model_path MODEL_PATH
+                        model to load
+  -od OUTPUT_DIRECTORY, --output_directory OUTPUT_DIRECTORY
+                        directory that contains the results
+  -ssuo, --skip_save_unprocessed_output
+                        skips saving intermediate NPY output files
+  -sses, --skip_save_eval_stats
+                        skips saving intermediate JSON eval statistics
+  -scp, --skip_collect_predictions
+                        skips collecting predictions
+  -scos, --skip_collect_overall_stats
+                        skips collecting overall stats
+  -bs BATCH_SIZE, --batch_size BATCH_SIZE
+                        size of batches
+  -g GPUS, --gpus GPUS  list of gpu to use
+  -gml GPU_MEMORY_LIMIT, --gpu_memory_limit GPU_MEMORY_LIMIT
+                        maximum memory in MB to allocate per GPU device
+  -dpt, --disable_parallel_threads
+                        disable TensorFlow from using multithreading for
+                        reproducibility
+  -b BACKEND, --backend BACKEND 
+                        specifies backend to use for parallel / distributed execution, 
+                        defaults to local execution or Horovod if called using horovodrun
+  -dbg, --debug         enables debugging mode
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use
+</code></pre></div>
+
+<p>All parameters are the same of <a href="#predict">predict</a> and the behavior is the same.
+The only difference isthat <code>evaluate</code> requires the dataset to contain also columns with the same name of output features.
+This is needed because <code>evaluate</code> compares the predictions produced by the model with the ground truth and will save all those statistics in a <code>test_statistics.json</code> file in the result directory.</p>
+<p>Note that the data must contain columns for each output feature with ground 
+truth output values in order to compute the performance statistics.
+If you receive an error regarding a missing output feature column in your data, 
+it means that the data does not contain the columns for each output feature to use as ground truth.</p>
+<p>Example:</p>
+<div class="codehilite"><pre><span></span><code>ludwig evaluate --dataset reuters-allcats.csv --model_path results/experiment_run_0/model/
+</code></pre></div>
+
+<h2 id="experiment">experiment<a class="headerlink" href="#experiment" title="Permanent link">&para;</a></h2>
+<p>This command combines training and evaluation into a single handy command.<br />
+You can request a k-fold cross validation run by specifing the <code>--k_fold</code>
+parameter.
+You can call it with:</p>
+<div class="codehilite"><pre><span></span><code>ludwig experiment [options]
+</code></pre></div>
+
+<p>or with:</p>
+<div class="codehilite"><pre><span></span><code>python -m ludwig.experiment [options]
+</code></pre></div>
+
+<p>from within Ludwig's main directory.</p>
+<p>These are the available arguments:</p>
+<div class="codehilite"><pre><span></span><code>usage: ludwig experiment [options]
+
+This script trains and evaluates a model
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --output_directory OUTPUT_DIRECTORY
+                        directory that contains the results
+  --experiment_name EXPERIMENT_NAME
+                        experiment name
+  --model_name MODEL_NAME
+                        name for the model
+  --dataset DATASET     input data file path. If it has a split column, it
+                        will be used for splitting (0: train, 1: validation,
+                        2: test), otherwise the dataset will be randomly split
+  --training_set TRAINING_SET
+                        input train data file path
+  --validation_set VALIDATION_SET
+                        input validation data file path
+  --test_set TEST_SET   input test data file path
+  --training_set_metadata TRAINING_SET_METADATA
+                        input metadata JSON file path. An intermediate
+                        preprocessed  containing the mappings of the input
+                        file created the first time a file is used, in the
+                        same directory with the same name and a .json
+                        extension
+  --data_format {auto,csv,excel,feather,fwf,hdf5,htmltables,json,jsonl,parquet,pickle,sas,spss,stata,tsv}
+                        format of the input data
+  -es {training,validation,test,full}, --eval_split {training,validation,test,full}
+                        the split to evaluate the model on
+  -sspi, --skip_save_processed_input
+                        skips saving intermediate HDF5 and JSON files
+  -ssuo, --skip_save_unprocessed_output
+                        skips saving intermediate NPY output files
+  -kf K_FOLD, --k_fold K_FOLD
+                        number of folds for a k-fold cross validation run
+  -skfsi, --skip_save_k_fold_split_indices
+                        disables saving indices generated to split training
+                        data set for the k-fold cross validation run, but if
+                        it is not needed turning it off can slightly increase
+                        the overall speed
+  -c CONFIG, --config CONFIG
+                        config
+  -cf CONFIG_FILE, --config_file CONFIG_FILE
+                        YAML file describing the model. Ignores
+                        --model_hyperparameters
+  -mlp MODEL_LOAD_PATH, --model_load_path MODEL_LOAD_PATH
+                        path of a pretrained model to load as initialization
+  -mrp MODEL_RESUME_PATH, --model_resume_path MODEL_RESUME_PATH
+                        path of the model directory to resume training of
+  -sstd, --skip_save_training_description
+                        disables saving the description JSON file
+  -ssts, --skip_save_training_statistics
+                        disables saving training statistics JSON file
+  -sstp, --skip_save_predictions
+                        skips saving test predictions CSV files
+  -sstes, --skip_save_eval_stats
+                        skips saving eval statistics JSON file
+  -ssm, --skip_save_model
+                        disables saving model weights and hyperparameters each
+                        time the model improves. By default Ludwig saves model
+                        weights after each epoch the validation metric
+                        imprvoes, but if the model is really big that can be
+                        time consuming if you do not want to keep the weights
+                        and just find out what performance a model can get
+                        with a set of hyperparameters, use this parameter to
+                        skip it,but the model will not be loadable later on
+  -ssp, --skip_save_progress
+                        disables saving progress each epoch. By default Ludwig
+                        saves weights and stats after each epoch for enabling
+                        resuming of training, but if the model is really big
+                        that can be time consuming and will uses twice as much
+                        space, use this parameter to skip it, but training
+                        cannot be resumed later on
+  -ssl, --skip_save_log
+                        disables saving TensorBoard logs. By default Ludwig
+                        saves logs for the TensorBoard, but if it is not
+                        needed turning it off can slightly increase the
+                        overall speed
+  -rs RANDOM_SEED, --random_seed RANDOM_SEED
+                        a random seed that is going to be used anywhere there
+                        is a call to a random number generator: data
+                        splitting, parameter initialization and training set
+                        shuffling
+  -g GPUS [GPUS ...], --gpus GPUS [GPUS ...]
+                        list of GPUs to use
+  -gml GPU_MEMORY_LIMIT, --gpu_memory_limit GPU_MEMORY_LIMIT
+                        maximum memory in MB to allocate per GPU device
+  -dpt, --disable_parallel_threads
+                        disable TensorFlow from using multithreading for
+                        reproducibility
+  -b BACKEND, --backend BACKEND 
+                        specifies backend to use for parallel / distributed execution, 
+                        defaults to local execution or Horovod if called using horovodrun
+  -dbg, --debug         enables debugging mode
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use
+</code></pre></div>
+
+<p>The parameters combine parameters from both <a href="#train">train</a> and <a href="#test">test</a> so 
+refer to those sections for an in depth explanation.
+The output directory will contain the outputs both commands produce.</p>
+<p>Example:</p>
+<div class="codehilite"><pre><span></span><code>ludwig experiment --dataset reuters-allcats.csv --config &quot;{input_features: [{name: text, type: text, encoder: parallel_cnn, level: word}], output_features: [{name: class, type: category}]}&quot;
+</code></pre></div>
+
+<h2 id="hyperopt">hyperopt<a class="headerlink" href="#hyperopt" title="Permanent link">&para;</a></h2>
+<p>This command lets you perform an hyper-parameter search with a given sampler and parameters.
+You can call it with:</p>
+<div class="codehilite"><pre><span></span><code>ludwig hyperopt [options]
+</code></pre></div>
+
+<p>or with:</p>
+<div class="codehilite"><pre><span></span><code>python -m ludwig.hyperopt [options]
+</code></pre></div>
+
+<p>from within Ludwig's main directory.</p>
+<p>These are the available arguments:</p>
+<div class="codehilite"><pre><span></span><code>usage: ludwig hyperopt [options]
+
+This script searches for optimal Hyperparameters
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -sshs, --skip_save_hyperopt_statistics
+                        skips saving hyperopt statistics file
+  --output_directory OUTPUT_DIRECTORY
+                        directory that contains the results
+  --experiment_name EXPERIMENT_NAME
+                        experiment name
+  --model_name MODEL_NAME
+                        name for the model
+  --dataset DATASET     input data file path. If it has a split column, it
+                        will be used for splitting (0: train, 1: validation,
+                        2: test), otherwise the dataset will be randomly split
+  --training_set TRAINING_SET
+                        input train data file path
+  --validation_set VALIDATION_SET
+                        input validation data file path
+  --test_set TEST_SET   input test data file path
+  --training_set_metadata TRAINING_SET_METADATA
+                        input metadata JSON file path. An intermediate
+                        preprocessed file containing the mappings of the input
+                        file created the first time a file is used, in the
+                        same directory with the same name and a .json
+                        extension
+  --data_format {auto,csv,excel,feather,fwf,hdf5,htmltables,json,jsonl,parquet,pickle,sas,spss,stata,tsv}
+                        format of the input data
+  -sspi, --skip_save_processed_input
+                        skips saving intermediate HDF5 and JSON files
+  -c CONFIG, --config CONFIG
+                        config
+  -cf CONFIG_FILE, --config_file CONFIG_FILE
+                        YAML file describing the model. Ignores
+                        --model_hyperparameters
+  -mlp MODEL_LOAD_PATH, --model_load_path MODEL_LOAD_PATH
+                        path of a pretrained model to load as initialization
+  -mrp MODEL_RESUME_PATH, --model_resume_path MODEL_RESUME_PATH
+                        path of the model directory to resume training of
+  -sstd, --skip_save_training_description
+                        disables saving the description JSON file
+  -ssts, --skip_save_training_statistics
+                        disables saving training statistics JSON file
+  -ssm, --skip_save_model
+                        disables saving weights each time the model improves.
+                        By default Ludwig saves weights after each epoch the
+                        validation metric improves, but if the model is really
+                        big that can be time consuming. If you do not want to
+                        keep the weights and just find out what performance
+                        can a model get with a set of hyperparameters, use
+                        this parameter to skip it
+  -ssp, --skip_save_progress
+                        disables saving weights after each epoch. By default
+                        ludwig saves weights after each epoch for enabling
+                        resuming of training, but if the model is really big
+                        that can be time consuming and will save twice as much
+                        space, use this parameter to skip it
+  -ssl, --skip_save_log
+                        disables saving TensorBoard logs. By default Ludwig
+                        saves logs for the TensorBoard, but if it is not
+                        needed turning it off can slightly increase the
+                        overall speed
+  -rs RANDOM_SEED, --random_seed RANDOM_SEED
+                        a random seed that is going to be used anywhere there
+                        is a call to a random number generator: data
+                        splitting, parameter initialization and training set
+                        shuffling
+  -g GPUS [GPUS ...], --gpus GPUS [GPUS ...]
+                        list of gpus to use
+  -gml GPU_MEMORY_LIMIT, --gpu_memory_limit GPU_MEMORY_LIMIT
+                        maximum memory in MB to allocate per GPU device
+  -b BACKEND, --backend BACKEND 
+                        specifies backend to use for parallel / distributed execution, 
+                        defaults to local execution or Horovod if called using horovodrun
+  -dbg, --debug         enables debugging mode
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use
+</code></pre></div>
+
+<p>The parameters combine parameters from both <a href="#train">train</a> and <a href="#test">test</a> so refer to those sections for an in depth explanation. The output directory will contain a <code>hyperopt_statistics.json</code> file that summarizes the results obtained.</p>
+<p>In order to perform an hyper-parameter optimization, the <code>hyperopt</code> section needs to be provided within the configuration.
+In the <code>hyperopt</code> section you will be able to define what metric to optimize, what parameters, what sampler to use to optimize them and how to execute the optimization.
+For details on the <code>hyperopt</code> section see the detailed description in the <a href="#hyper-parameter-optimization">Hyper-parameter Optimization</a> section.</p>
+<h2 id="serve">serve<a class="headerlink" href="#serve" title="Permanent link">&para;</a></h2>
+<p>This command lets you load a pre-trained model and serve it on an http server.</p>
+<p>You can call it with:</p>
+<div class="codehilite"><pre><span></span><code>ludwig serve [options]
+</code></pre></div>
+
+<p>or with</p>
+<div class="codehilite"><pre><span></span><code>python -m ludwig.serve [options]
+</code></pre></div>
+
+<p>from within Ludwig's main directory.</p>
+<p>These are the available arguments:</p>
+<div class="codehilite"><pre><span></span><code>usage: ludwig serve [options]
+
+This script serves a pretrained model
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -m MODEL_PATH, --model_path MODEL_PATH
+                        model to load
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use
+  -p PORT, --port PORT  port for server (default: 8000)
+  -H HOST, --host HOST  host for server (default: 0.0.0.0)
+</code></pre></div>
+
+<p>The most important argument is <code>--model_path</code> where you have to specify the path of the model to load.</p>
+<p>Once running, you can make a POST request on the <code>/predict</code> endpoint to run inference on the form data submitted.</p>
+<h4 id="example-curl">Example curl<a class="headerlink" href="#example-curl" title="Permanent link">&para;</a></h4>
+<p><strong>File</strong></p>
+<p><code>curl http://0.0.0.0:8000/predict -X POST -F 'image_path=@path_to_image/example.png'</code></p>
+<p><strong>Text</strong></p>
+<p><code>curl http://0.0.0.0:8000/predict -X POST -F 'english_text=words to be translated'</code></p>
+<p><strong>Both Text and File</strong></p>
+<p><code>curl http://0.0.0.0:8000/predict -X POST -F 'text=mixed together with' -F 'image=@path_to_image/example.png'</code></p>
+<p><strong>Batch prediction</strong></p>
+<p>You can also make a POST request on the <code>/batch_predict</code> endpoint to run inference on multiple samples at once.</p>
+<p>Requests must be submitted as form data, with one of fields being <code>dataset</code>: a JSON encoded string representation of the data to be predicted.</p>
+<p>The <code>dataset</code> JSON string is expected to be in the Pandas "split" format to reduce payload size. This format divides the dataset into three parts:</p>
+<ol>
+<li>columns: <code>List[str]</code></li>
+<li>index (optional): <code>List[Union[str, int]]</code></li>
+<li>data: <code>List[List[object]]</code></li>
+</ol>
+<p>Additional form fields can be used to provide file resources like images that are referenced within the dataset.</p>
+<p>Batch prediction example:</p>
+<p><code>curl http://0.0.0.0:8000/batch_predict -X POST -F 'dataset={"columns": ["a", "b"], "data": [[1, 2], [3, 4]]}'</code></p>
+<h2 id="visualize">visualize<a class="headerlink" href="#visualize" title="Permanent link">&para;</a></h2>
+<p>This command lets you visualize training and prediction statistics, alongside with comparing different models performances and predictions.
+You can call it with:</p>
+<div class="codehilite"><pre><span></span><code>ludwig visualize [options]
+</code></pre></div>
+
+<p>or with:</p>
+<div class="codehilite"><pre><span></span><code>python -m ludwig.visualize [options]
+</code></pre></div>
+
+<p>from within Ludwig's main directory.</p>
+<p>These are the available arguments:</p>
+<div class="codehilite"><pre><span></span><code>usage: ludwig visualize [options]
+
+This script analyzes results and shows some nice plots.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -g GROUND_TRUTH, --ground_truth GROUND_TRUTH
+                        ground truth file
+  -gm GROUND_TRUTH_METADATA, --ground_truth_metadata GROUND_TRUTH_METADATA
+                        input metadata JSON file
+  -od OUTPUT_DIRECTORY, --output_directory OUTPUT_DIRECTORY
+                        directory where to save plots.If not specified, plots
+                        will be displayed in a window
+  -ff {pdf,png}, --file_format {pdf,png}
+                        file format of output plots
+  -v {binary_threshold_vs_metric,calibration_1_vs_all,calibration_multiclass,compare_classifiers_multiclass_multimetric,compare_classifiers_performance_changing_k,compare_classifiers_performance_from_pred,compare_classifiers_performance_from_prob,compare_classifiers_performance_subset,compare_classifiers_predictions,compare_classifiers_predictions_distribution,compare_performance,confidence_thresholding,confidence_thresholding_2thresholds_2d,confidence_thresholding_2thresholds_3d,confidence_thresholding_data_vs_acc,confidence_thresholding_data_vs_acc_subset,confidence_thresholding_data_vs_acc_subset_per_class,confusion_matrix,frequency_vs_f1,hyperopt_hiplot,hyperopt_report,learning_curves,roc_curves,roc_curves_from_test_statistics}, --visualization {binary_threshold_vs_metric,calibration_1_vs_all,calibration_multiclass,compare_classifiers_multiclass_multimetric,compare_classifiers_performance_changing_k,compare_classifiers_performance_from_pred,compare_classifiers_performance_from_prob,compare_classifiers_performance_subset,compare_classifiers_predictions,compare_classifiers_predictions_distribution,compare_performance,confidence_thresholding,confidence_thresholding_2thresholds_2d,confidence_thresholding_2thresholds_3d,confidence_thresholding_data_vs_acc,confidence_thresholding_data_vs_acc_subset,confidence_thresholding_data_vs_acc_subset_per_class,confusion_matrix,frequency_vs_f1,hyperopt_hiplot,hyperopt_report,learning_curves,roc_curves,roc_curves_from_test_statistics}
+                        type of visualization
+  -f OUTPUT_FEATURE_NAME, --output_feature_name OUTPUT_FEATURE_NAME
+                        name of the output feature to visualize
+  -gts GROUND_TRUTH_SPLIT, --ground_truth_split GROUND_TRUTH_SPLIT
+                        ground truth split - 0:train, 1:validation, 2:test
+                        split
+  -tf THRESHOLD_OUTPUT_FEATURE_NAMES [THRESHOLD_OUTPUT_FEATURE_NAMES ...], --threshold_output_feature_names THRESHOLD_OUTPUT_FEATURE_NAMES [THRESHOLD_OUTPUT_FEATURE_NAMES ...]
+                        names of output features for 2d threshold
+  -pred PREDICTIONS [PREDICTIONS ...], --predictions PREDICTIONS [PREDICTIONS ...]
+                        predictions files
+  -prob PROBABILITIES [PROBABILITIES ...], --probabilities PROBABILITIES [PROBABILITIES ...]
+                        probabilities files
+  -trs TRAINING_STATISTICS [TRAINING_STATISTICS ...], --training_statistics TRAINING_STATISTICS [TRAINING_STATISTICS ...]
+                        training stats files
+  -tes TEST_STATISTICS [TEST_STATISTICS ...], --test_statistics TEST_STATISTICS [TEST_STATISTICS ...]
+                        test stats files
+  -hs HYPEROPT_STATS_PATH, --hyperopt_stats_path HYPEROPT_STATS_PATH
+                        hyperopt stats file
+  -mn MODEL_NAMES [MODEL_NAMES ...], --model_names MODEL_NAMES [MODEL_NAMES ...]
+                        names of the models to use as labels
+  -tn TOP_N_CLASSES [TOP_N_CLASSES ...], --top_n_classes TOP_N_CLASSES [TOP_N_CLASSES ...]
+                        number of classes to plot
+  -k TOP_K, --top_k TOP_K
+                        number of elements in the ranklist to consider
+  -ll LABELS_LIMIT, --labels_limit LABELS_LIMIT
+                        maximum numbers of labels. If labels in dataset are
+                        higher than this number, &quot;rare&quot; label
+  -ss {ground_truth,predictions}, --subset {ground_truth,predictions}
+                        type of subset filtering
+  -n, --normalize       normalize rows in confusion matrix
+  -m METRICS [METRICS ...], --metrics METRICS [METRICS ...]
+                        metrics to dispay in threshold_vs_metric
+  -pl POSITIVE_LABEL, --positive_label POSITIVE_LABEL
+                        label of the positive class for the roc curve
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use
+</code></pre></div>
+
+<p>As the <code>--visualization</code> parameters suggests, there is a vast number of visualizations readily available.
+Each of them requires a different subset of this command's arguments, so they will be described one by one in the <a href="#visualizations">Visualizations</a> section.</p>
+<h2 id="collect_summary">collect_summary<a class="headerlink" href="#collect_summary" title="Permanent link">&para;</a></h2>
+<p>This command loads a pretrained model and prints names of weights and layers activations to use with <code>collect_weights</code> or <code>collect_activations</code>.</p>
+<div class="codehilite"><pre><span></span><code>ludwig collect_summary [options]
+</code></pre></div>
+
+<p>or with:</p>
+<div class="codehilite"><pre><span></span><code>python -m ludwig.collect names [options]
+</code></pre></div>
+
+<p>from within Ludwig's main directory.</p>
+<p>These are the available arguments:</p>
+<div class="codehilite"><pre><span></span><code>usage: ludwig collect_summary [options]
+
+This script loads a pretrained model and print names of weights and layer activations.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -m MODEL_PATH, --model_path MODEL_PATH
+                        model to load
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use
+</code></pre></div>
+
+<h2 id="collect_weights">collect_weights<a class="headerlink" href="#collect_weights" title="Permanent link">&para;</a></h2>
+<p>This command lets you load a pre-trained model and collect the tensors with a specific name in order to save them in a NPY format.
+This may be useful in order to visualize the learned weights (for instance collecting embedding matrices) and for some post-hoc analyses.
+You can call it with:</p>
+<div class="codehilite"><pre><span></span><code>ludwig collect_weights [options]
+</code></pre></div>
+
+<p>or with:</p>
+<div class="codehilite"><pre><span></span><code>python -m ludwig.collect weights [options]
+</code></pre></div>
+
+<p>from within Ludwig's main directory.</p>
+<p>These are the available arguments:</p>
+<div class="codehilite"><pre><span></span><code>usage: ludwig collect_weights [options]
+
+This script loads a pretrained model and uses it collect weights.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -m MODEL_PATH, --model_path MODEL_PATH
+                        model to load
+  -t TENSORS [TENSORS ...], --tensors TENSORS [TENSORS ...]
+                        tensors to collect
+  -od OUTPUT_DIRECTORY, --output_directory OUTPUT_DIRECTORY
+                        directory that contains the results
+  -dbg, --debug         enables debugging mode
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use
+</code></pre></div>
+
+<p>The three most important arguments are <code>--model_path</code> where you have to specify the path of the model to load, <code>--tensors</code> that lets you specify a list of tensor names in the TensorFlow graph that contain the weights you want to collect, and finally <code>--output_directory</code> that lets you specify where the NPY files (one for each tensor name specified) will be saved.</p>
+<p>In order to figure out the names of the tensors containing the weights you want to collect, the best way is to inspect the graph of the model with TensorBoard.</p>
+<div class="codehilite"><pre><span></span><code>tensorboard --logdir /path/to/model/log
+</code></pre></div>
+
+<p>Or use the <code>collect_summary</code> command.</p>
+<h2 id="collect_activations">collect_activations<a class="headerlink" href="#collect_activations" title="Permanent link">&para;</a></h2>
+<p>This command lets you load a pre-trained model and input data and collects the values of activations contained in tensors with a specific name in order to save them in a NPY format.
+This may be useful in order to visualize the activations (for instance collecting last layer's activations as embeddings representations of the input datapoint) and for some post-hoc analyses.
+You can call it with:</p>
+<div class="codehilite"><pre><span></span><code>ludwig collect_activations [options]
+</code></pre></div>
+
+<p>or with:</p>
+<div class="codehilite"><pre><span></span><code>python -m ludwig.collect activations [options]
+</code></pre></div>
+
+<p>from within Ludwig's main directory.</p>
+<p>These are the available arguments:</p>
+<div class="codehilite"><pre><span></span><code>usage: ludwig collect_activations [options]
+
+This script loads a pretrained model and uses it collect tensors for each
+datapoint in the dataset.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --dataset  DATASET    filepath for input dataset
+  --data_format DATA_FORMAT  format of the dataset.  Valid values are auto,
+                        csv, excel, feature, fwf, hdf5, html, tables, json,
+                        json, jsonl, parquet, pickle, sas, spss, stata, tsv
+  -s {training,validation,test,full}, --split {training,validation,test,full}
+                        the split to test the model on
+  -m MODEL_PATH, --model_path MODEL_PATH
+                        model to load
+  -lyr LAYER [LAYER ..], --layers LAYER [LAYER ..]
+                        layers to collect
+  -od OUTPUT_DIRECTORY, --output_directory OUTPUT_DIRECTORY
+                        directory that contains the results
+  -bs BATCH_SIZE, --batch_size BATCH_SIZE
+                        size of batches
+  -g GPUS, --gpus GPUS  list of gpu to use
+  -gml GPU_MEMORY, --gpu_memory_limit GPU_MEMORY
+                        maximum memory in MB of gpu memory to allocate per
+                        GPU device
+  -dpt, --disable_parallel_threads
+                        disable Tensorflow from using multithreading
+                        for reproducibility
+  -b BACKEND, --backend BACKEND 
+                        specifies backend to use for parallel / distributed execution, 
+                        defaults to local execution or Horovod if called using horovodrun
+  -dbg, --debug         enables debugging mode
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use
+</code></pre></div>
+
+<p>The data related and runtime related arguments (GPUs, batch size, etc.) are the same used in <a href="#predict">predict</a>, you can refer to that section for an explanation.
+The collect specific arguments <code>--model_path</code>, <code>--tensors</code> and <code>--output_directory</code> are the same used in <a href="#collect_weights">collect_weights</a>, you can refer to that section for an explanation.</p>
+<p>In order to figure out the names of the tensors containing the activations you want to collect, the best way is to inspect the graph of the model with TensorBoard.</p>
+<div class="codehilite"><pre><span></span><code>tensorboard --logdir /path/to/model/log
+</code></pre></div>
+
+<h2 id="export_savedmodel">export_savedmodel<a class="headerlink" href="#export_savedmodel" title="Permanent link">&para;</a></h2>
+<p>Exports a pre-trained model to Tensorflow <code>SavedModel</code> format.</p>
+<div class="codehilite"><pre><span></span><code>ludwig export_savedmodel [options]
+</code></pre></div>
+
+<p>or with:</p>
+<div class="codehilite"><pre><span></span><code>python -m ludwig.export savedmodel [options]
+</code></pre></div>
+
+<p>These are the available arguments:</p>
+<div class="codehilite"><pre><span></span><code>usage: ludwig export_savedmodel [options]
+
+This script loads a pretrained model and uses it collect weights.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -m MODEL_PATH, --model_path MODEL_PATH
+                        model to load
+  -od OUTPUT_PATH, --output_path OUTPUT_PATH
+                        path where to save the export model  
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use
+</code></pre></div>
+
+<h2 id="export_neuropod">export_neuropod<a class="headerlink" href="#export_neuropod" title="Permanent link">&para;</a></h2>
+<p>A Ludwig model can be exported as a <a href="https://github.com/uber/neuropod">Neuropod</a>, a mechanism that allows it to be executed in a framework agnostic way.</p>
+<p>In order to export a Ludwig model as a Neuropod, first make sure the <code>neuropod</code> package is installed in your environment together with the approrpiate backend (only use Python 3.7+), then run the following command:</p>
+<div class="codehilite"><pre><span></span><code>ludwig export_neuropod [options]
+</code></pre></div>
+
+<p>or with:</p>
+<div class="codehilite"><pre><span></span><code>python -m ludwig.export neuropod [options]
+</code></pre></div>
+
+<p>These are the available arguments:</p>
+<div class="codehilite"><pre><span></span><code>usage: ludwig export_neuropod [options]
+
+This script loads a pretrained model and uses it collect weights.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -m MODEL_PATH, --model_path MODEL_PATH
+                        model to load
+  -mn MODEL_NAME, --model_name MODEL_NAME
+                        model name
+  -od OUTPUT_PATH, --output_path OUTPUT_PATH
+                        path where to save the export model  
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use
+</code></pre></div>
+
+<p>This functionality has been tested with <code>neuropod==0.2.0</code>.</p>
+<h2 id="export_mlflow">export_mlflow<a class="headerlink" href="#export_mlflow" title="Permanent link">&para;</a></h2>
+<p>A Ludwig model can be exported as an <a href="https://www.mlflow.org/docs/latest/python_api/mlflow.pyfunc.html">mlflow.pyfunc</a> model, which allows it to be executed in a framework agnostic way.</p>
+<p>There are two ways to export a Ludwig model to MLflow:</p>
+<ol>
+<li>Convert a saved model directory on disk to the MLflow format on disk.</li>
+<li>Register a saved model directory on disk or in an existing MLflow experiment to an MLflow model registry.</li>
+</ol>
+<p>For the first approach, you only need to provide the location of the saved Ludwig model locally and the location where the model should be written to on local disk:</p>
+<div class="codehilite"><pre><span></span><code>ludwig export_mlflow --model_path /saved/ludwig/model --output_path /exported/mlflow/model
+</code></pre></div>
+
+<p>For the second, you will need to provide a registered model name used by the model registry:</p>
+<div class="codehilite"><pre><span></span><code>ludwig export_mlflow --model_path /saved/ludwig/model --output_path relative/model/path --registered_model_name my_ludwig_model
+</code></pre></div>
+
+<h2 id="preprocess">preprocess<a class="headerlink" href="#preprocess" title="Permanent link">&para;</a></h2>
+<p>Preprocess data and saves it into HDF5 and JSON format.
+The preprocessed files can be then used for performing training, prediction and evaluation.
+The advantage is that, being the data already preprocessed, if multiple models have to be trained on the same data, the preprocessed files act as a cache to avoid performing preprocessing multiple times.</p>
+<div class="codehilite"><pre><span></span><code>ludwig preprocess [options]
+</code></pre></div>
+
+<p>or with:</p>
+<div class="codehilite"><pre><span></span><code>python -m ludwig.preprocess [options]
+</code></pre></div>
+
+<p>These are the available arguments:</p>
+<div class="codehilite"><pre><span></span><code>usage: ludwig preprocess [options]
+
+This script preprocess a dataset
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --dataset DATASET     input data file path. If it has a split column, it
+                        will be used for splitting (0: train, 1: validation,
+                        2: test), otherwise the dataset will be randomly split
+  --training_set TRAINING_SET
+                        input train data file path
+  --validation_set VALIDATION_SET
+                        input validation data file path
+  --test_set TEST_SET   input test data file path
+  --training_set_metadata TRAINING_SET_METADATA
+                        input metadata JSON file path. An intermediate
+                        preprocessed  containing the mappings of the input
+                        file created the first time a file is used, in the
+                        same directory with the same name and a .json
+                        extension
+  --data_format {auto,csv,excel,feather,fwf,hdf5,htmltables,json,jsonl,parquet,pickle,sas,spss,stata,tsv}
+                        format of the input data
+  -pc PREPROCESSING_CONFIG, --preprocessing_config PREPROCESSING_CONFIG
+                        preproceesing config. Uses the same format of config,
+                        but ignores encoder specific parameters, decoder
+                        specific paramters, combiner and training parameters
+  -pcf PREPROCESSING_CONFIG_FILE, --preprocessing_config_file PREPROCESSING_CONFIG_FILE
+                        YAML file describing the preprocessing. Ignores
+                        --preprocessing_config.Uses the same format of config,
+                        but ignores encoder specific parameters, decoder
+                        specific paramters, combiner and training parameters
+  -rs RANDOM_SEED, --random_seed RANDOM_SEED
+                        a random seed that is going to be used anywhere there
+                        is a call to a random number generator: data
+                        splitting, parameter initialization and training set
+                        shuffling
+  -dbg, --debug         enables debugging mode
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use
+</code></pre></div>
+
+<h2 id="synthesize_dataset">synthesize_dataset<a class="headerlink" href="#synthesize_dataset" title="Permanent link">&para;</a></h2>
+<p>Creates synthetic data for testing purposes depending on the feature list parameters provided in YAML format.</p>
+<div class="codehilite"><pre><span></span><code>ludwig synthesize_dataset [options]
+</code></pre></div>
+
+<p>or with:</p>
+<div class="codehilite"><pre><span></span><code>python -m ludwig.data.dataset_synthesizer [options]
+</code></pre></div>
+
+<p>These are the available arguments:</p>
+<div class="codehilite"><pre><span></span><code>usage: ludwig synthesize_dataset [options]
+
+This script generates a synthetic dataset.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -od OUTPUT_PATH, --output_path OUTPUT_PATH
+                        output CSV file path
+  -d DATASET_SIZE, --dataset_size DATASET_SIZE
+                        size of the dataset
+  -f FEATURES, --features FEATURES
+                        list of features to generate in YAML format. Provide a
+                        list containing one dictionary for each feature, each
+                        dictionary must include a name, a type and can include
+                        some generation parameters depending on the type
+
+Process finished with exit code 0
+</code></pre></div>
+
+<p>The feature list file should contain one entry dictionary per feature, with its name and type, plus optional hyperparameters.</p>
+<div class="codehilite"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"></span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">first_feature</span><span class="w"></span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">first_feature_type</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"></span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">second_feature</span><span class="w"></span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">second_feature_type</span><span class="w"></span>
+<span class="nn">...</span><span class="w"></span>
+</code></pre></div>
+
+<p>The available parameters depend on the feature type.</p>
+<p><strong>binary</strong></p>
+<ul>
+<li><code>prob</code> (float, default: <code>0.5</code>): probability of generating <code>true</code>.</li>
+<li><code>cycle</code> (boolean, default: <code>false</code>): cycle through values instead of sampling.</li>
+</ul>
+<p><strong>numerical</strong></p>
+<ul>
+<li><code>min</code> (float, default: <code>0</code>): minimum value of the range of values to generate.</li>
+<li><code>max</code> (float, default: <code>1</code>): maximum value of the range of values to generate.</li>
+</ul>
+<p><strong>category</strong></p>
+<ul>
+<li><code>vocab_size</code> (int, default: <code>10</code>): size of the vocabulary to sample from.</li>
+<li><code>cycle</code> (boolean, default: <code>false</code>): cycle through values instead of sampling.</li>
+</ul>
+<p><strong>sequence</strong></p>
+<ul>
+<li><code>vocab_size</code> (int, default: <code>10</code>): size of the vocabulary to sample from.</li>
+<li><code>max_len</code> (int, default: <code>10</code>): maximum length of the generated sequence.</li>
+<li><code>min_len</code> (int, default: <code>null</code>): if <code>null</code> all sequences will be of size <code>max_len</code>. If a value is provided, the length will be randomly determined between <code>min_len</code> and <code>max_len</code>.</li>
+</ul>
+<p><strong>set</strong></p>
+<ul>
+<li><code>vocab_size</code> (int, default: <code>10</code>): size of the vocabulary to sample from.</li>
+<li><code>max_len</code> (int, default: <code>10</code>): maximum length of the generated set.</li>
+</ul>
+<p><strong>bag</strong></p>
+<ul>
+<li><code>vocab_size</code> (int, default: <code>10</code>): size of the vocabulary to sample from.</li>
+<li><code>max_len</code> (int, default: <code>10</code>): maximum length of the generated set.</li>
+</ul>
+<p><strong>text</strong></p>
+<ul>
+<li><code>vocab_size</code> (int, default: <code>10</code>): size of the vocabulary to sample from.</li>
+<li><code>max_len</code> (int, default: <code>10</code>): maximum length of the generated sequence, lengths will be randomly sampled between <code>max_len - 20%</code> and <code>max_len</code>.</li>
+</ul>
+<p><strong>timeseries</strong></p>
+<ul>
+<li><code>max_len</code> (int, default: <code>10</code>): maximum length of the generated sequence.</li>
+<li><code>min</code> (float, default: <code>0</code>): minimum value of the range of values to generate.</li>
+<li><code>max</code> (float, default: <code>1</code>): maximum value of the range of values to generate.</li>
+</ul>
+<p><strong>audio</strong></p>
+<ul>
+<li><code>destination_folder</code> (str): folder where the generated audio files will be saved.</li>
+<li><code>preprocessing: {audio_file_length_limit_in_s}</code> (int, default: <code>1</code>): length of the generated audio in seconds.</li>
+</ul>
+<p><strong>image</strong></p>
+<ul>
+<li><code>destination_folder</code> (str): folder where the generated image files will be saved.</li>
+<li><code>preprocessing: {height}</code> (int, default: <code>28</code>): height of the generated image in pixels.</li>
+<li><code>preprocessing: {width}</code> (int, default: <code>28</code>): width of the generated image in pixels.</li>
+<li><code>preprocessing: {num_channels}</code> (int, default: <code>1</code>): number of channels of the generated images. Valid values are <code>1</code>, <code>3</code>, <code>4</code>.</li>
+</ul>
+<p><strong>date</strong></p>
+<p>No parameters.</p>
+<p><strong>h3</strong></p>
+<p>No parameters.</p>
+<p><strong>vector</strong></p>
+<ul>
+<li><code>vector_size</code> (int, default: <code>10</code>): size of the vectors to generate.</li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+    <!-- Link to previous and/or next page -->
+    
+    <div class="md-footer-nav">
+        <nav aria-label="Footer"
+             class="md-footer-nav__inner md-grid">
+            
+            <a class="md-footer-nav__link md-footer-nav__link--prev"
+               href="../user_guide_intro/" rel="prev"
+               title="User Guide Intro">
+                <div class="md-footer-nav__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+                </div>
+                <div class="md-footer-nav__title">
+                    <div class="md-ellipsis">
+                 <span class="md-footer-nav__direction">
+                   Previous
+                 </span>
+                        User Guide Intro
+                    </div>
+                </div>
+            </a>
+            
+            
+            <a class="md-footer-nav__link md-footer-nav__link--next"
+               href="../data_preprocessing/" rel="next"
+               title="Data Preprocessing">
+                <div class="md-footer-nav__title">
+                    <div class="md-ellipsis">
+                 <span class="md-footer-nav__direction">
+                   Next
+                 </span>
+                        Data Preprocessing
+                    </div>
+                </div>
+                <div class="md-footer-nav__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+                </div>
+            </a>
+            
+        </nav>
+    </div>
+    
+
+    <!-- Further information -->
+    <div class="md-footer-meta md-typeset">
+        <div class="md-footer-meta__inner md-grid">
+
+            <!-- Copyright and theme information -->
+            <div class="md-footer-copyright">
+                <div class="footer-logo-smallpad"></div>
+                
+                <div class="md-footer-copyright__highlight">
+                    Copyright &copy; 2018 - 2020 Uber Technologies Inc., 2021 Linux Foundation Data & AI
+                </div>
+                
+                Website by <a href="http://w4nderlu.st">w4nderlust</a> powered by
+                <a href="https://www.mkdocs.org">MkDocs</a>,
+                <a href="https://squidfunk.github.io/mkdocs-material/">Material for MkDocs</a>,
+                <a href="http://www.styleshout.com/">styleshout</a> and
+                <a href="http://cables.gl/">cables</a>.
+            </div>
+
+            <!-- Social links -->
+            
+            
+            
+        </div>
+    </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.709b4209.min.js", "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.29db7785.min.js"></script>
+      
+    
+  </body>
+</html>

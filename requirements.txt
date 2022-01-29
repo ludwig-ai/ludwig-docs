@@ -1,0 +1,4 @@
+mkdocs<=1.2
+mkdocs-material
+mike
+Markdown>=3.0.1

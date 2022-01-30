@@ -132,6 +132,7 @@ a footnote-ref::before {
 
 :root {
     --md-default-fg-color--light: white;
+    --md-accent-fg-color: #c7bec6;
 }
 
 .md-typeset table:not([class]) th {

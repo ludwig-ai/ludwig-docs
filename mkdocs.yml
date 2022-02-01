@@ -15,10 +15,10 @@ copyright: 'Copyright &copy; 2018 - 2020 Uber Technologies Inc., 2021 Linux Foun
 # Navigation
 nav:
   - About: 'index.md'
-  - Getting Started: 'getting_started.md'
+  - Getting Started:
+      - 'Installation': 'getting_started/installation.md'
   - Examples: 'examples.md'
   - User Guide:
-      - 'User Guide Intro': 'user_guide/user_guide_intro.md'
       - 'Command Line Interface': 'user_guide/command_line_interface.md'
       - 'Data Preprocessing': 'user_guide/data_preprocessing.md'
       - 'Data Postprocessing': 'user_guide/data_postprocessing.md'
@@ -51,7 +51,6 @@ nav:
       - 'Datasets': 'user_guide/datasets.md'
       - 'Integrations': 'user_guide/integrations.md'
   - Developer Guide:
-      - 'Developer Guide Intro': 'developer_guide/developer_guide_intro.md'
       - 'Codebase Structure': 'developer_guide/codebase_structure.md'
       - 'Add an Encoder': 'developer_guide/add_an_encoder.md'
       - 'Add a Decoder': 'developer_guide/add_a_decoder.md'
@@ -98,6 +97,11 @@ markdown_extensions:
       baselevel: 2
   - codehilite:
       guess_lang: false
+  - attr_list
+  - md_in_html
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true 
 #  - pymdownx.superfences:
 #      custom_fences:
 #        - name: mermaid

@@ -17,6 +17,12 @@ nav:
   - About: 'index.md'
   - Getting Started:
       - 'Installation': 'getting_started/installation.md'
+      - 'Prepare the dataset': 'getting_started/prepare_data.md'
+      - 'Train a model': 'getting_started/train.md'
+      - 'Evaluate performance': 'getting_started/evaluate.md'
+      - 'Serving': 'getting_started/serve.md'
+      - 'Distributed training on Ray': 'getting_started/ray.md'
+      - 'AutoML and Hyperopt': 'getting_started/hyperopt.md'
   - Examples: 'examples.md'
   - User Guide:
       - 'Command Line Interface': 'user_guide/command_line_interface.md'
@@ -99,6 +105,7 @@ markdown_extensions:
       guess_lang: false
   - attr_list
   - md_in_html
+  - pymdownx.details
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true 

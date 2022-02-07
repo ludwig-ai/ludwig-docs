@@ -1,7 +1,6 @@
-Backend config
-==============
+# Backend config
 
-The same Ludwig config / Python code that runs on your local machine can be executed remotely in a distributed manner with zero code changes. This distributed execution include preprocessing, training, and batch prediction. 
+The same Ludwig config / Python code that runs on your local machine can be executed remotely in a distributed manner with zero code changes. This distributed execution include preprocessing, training, and batch prediction.
 
 In most cases, Ludwig will be able to automatically detect if you're running in an environment that supports distributed execution, but you can also make this explicit on the command line with the `--backend` arg or by providing a `backend` section to the Ludwig config YAML:
 
@@ -18,9 +17,7 @@ Parameters:
 - `cache_format`: Representation of the preprocessed data in the cache, one of `hdf5`, `parquet`, `tfrecord`.
 - `cache_dir`: Where the preprocessed data will be written on disk, defaults to the location of the input dataset.
 
-
-Horovod
-=======
+# Horovod
 
 You can distribute the training and prediction of your models using [Horovod](https://github.com/uber/horovod), which allows to train on a single machine with multiple GPUs as well as on multiple machines with multiple GPUs.
 
@@ -55,9 +52,7 @@ The same applies to `experiment`, `predict` and `test`.
 
 More details on Horovod installation and run parameters can be found in [Horovod's documentation](https://github.com/uber/horovod).
 
-
-Ray
-===
+# Ray
 
 [Ray](https://ray.io/) is a framework for distributed computing that makes it easy to scale up code that runs on your local machine to execute in parallel across a cluster.
 
@@ -86,7 +81,6 @@ backend:
   engine:
     type: dask
 ```
-
 
 ## Running Ludwig with Ray
 

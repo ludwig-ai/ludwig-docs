@@ -1,4 +1,4 @@
-The configuration is the core of Ludwig. 
+The configuration is the core of Ludwig.
 It is a dictionary that contains all the information needed to build and train a Ludwig model.
 It mixes ease of use, by means of reasonable defaults, with flexibility, by means of detailed control over the parameters of your model.
 It is provided to both `experiment` and `train` commands either as a string (`--config`) or as a file (`--config_file`).
@@ -34,11 +34,10 @@ training: {}
 preprocessing: {}
 ```
 
-Only `input_features` and `output_features` are required, the other three fields 
+Only `input_features` and `output_features` are required, the other three fields
 have default values, but you are free to modify them.
 
-Input features
---------------
+## Input features
 
 The `input_features` list contains a list of dictionaries, each of them containing two required fields `name` and `type`.
 `name` is the name of the feature and is the same name of the column of the dataset input file, `type` is one of the supported datatypes.
@@ -73,8 +72,7 @@ input_features:
 If you specify a name of an input feature that has not been defined yet, it will result in an error.
 Also, in order to be able to have tied weights, all encoder parameters have to be identical between the two input features.
 
-Combiner
---------
+## Combiner
 
 Combiners are part of the model that take all the outputs of the different input features and combine them in a single representation that is passed to the outputs.
 You can specify which one to use in the `combiner` section of the configuration.
@@ -96,8 +94,7 @@ Different combiners implement different combination logic, but the default one `
 
 For the sake of simplicity you can imagine the both inputs and outputs are vectors in most of the cases, but there are `reduce_input` and `reduce_output` parameters to specify to change the default behavior.
 
-Output Features
----------------
+## Output Features
 
 The `output_features` list has the same structure of the `input_features` list: it is a list of dictionaries containing a `name` and a `type`.
 They represent outputs / targets that you want your model to predict.
@@ -162,8 +159,7 @@ output_features:
 
 Assuming the input coming from the combiner has hidden dimension `h` 128, there are two fully connected layers that return a vector with hidden size 64 at the end of the `coarse_class` decoder (that vector will be used for the final layer before projecting in the output `coarse_class` space).  In the decoder of `fine_class`, the 64 dimensional vector of `coarse_class` will be concatenated to the combiner output vector, making a vector of hidden size 192 that will be passed through a fully connected layer and the 64 dimensional output will be used for the final layer before projecting in the output class space of the `fine_class`.
 
-Training
---------
+## Training
 
 The `training` section of the configuration lets you specify some parameters of the training process, like for instance the number of epochs or the learning rate.
 
@@ -174,7 +170,7 @@ These are the available training parameters:
 - `epochs` (default `100`): number of epochs the training process will run for.
 - `early_stop` (default `5`): if there's a validation set, number of epochs of patience without an improvement on the validation measure before the training is stopped.
 - `optimizer` (default `{type: adam, beta1: 0.9, beta2: 0.999, epsilon: 1e-08}`): which optimizer to use with the relative parameters. The available optimizers are: `sgd` (or `stochastic_gradient_descent`, `gd`, `gradient_descent`, they are all the same), `adam`, `adadelta`, `adagrad`, `adamax`, `ftrl`, `nadam`,
-`rmsprop`. To know their parameters check [TensorFlow's optimizer documentation](https://www.tensorflow.org/api_docs/python/tf/train).
+  `rmsprop`. To know their parameters check [TensorFlow's optimizer documentation](https://www.tensorflow.org/api_docs/python/tf/train).
 - `learning_rate` (default `0.001`): the learning rate to use.
 - `decay` (default `false`): if to use exponential decay of the learning rate or not.
 - `decay_rate` (default `0.96`): the rate of the exponential learning rate decay.
@@ -202,12 +198,14 @@ The `learning_rate` parameter the optimizer will use come from the `training` se
 Other optimizer specific parameters, shown with their Ludwig default settings, follow:
 
 - `sgd` (or `stochastic_gradient_descent`, `gd`, `gradient_descent`)
+
 ```
 'momentum': 0.0,
 'nesterov': false
 ```
 
 - `adam`
+
 ```
 'beta_1': 0.9,
 'beta_2': 0.999,
@@ -215,18 +213,21 @@ Other optimizer specific parameters, shown with their Ludwig default settings, f
 ```
 
 - `adadelta`
+
 ```
 'rho': 0.95,
 'epsilon': 1e-08
 ```
 
 - `adagrad`
+
 ```
 'initial_accumulator_value': 0.1,
 'epsilon': 1e-07
 ```
 
 - `adamax`
+
 ```
 'beta_1': 0.9, 
 'beta_2': 0.999, 
@@ -234,7 +235,8 @@ Other optimizer specific parameters, shown with their Ludwig default settings, f
 ```
 
 - `ftrl`
-``` 
+
+```
 'learning_rate_power': -0.5, 
 'initial_accumulator_value': 0.1,
 'l1_regularization_strength': 0.0, 
@@ -242,6 +244,7 @@ Other optimizer specific parameters, shown with their Ludwig default settings, f
 ```
 
 - `nadam`,
+
 ```
 'beta_1': 0.9, 
 'beta_2': 0.999, 
@@ -249,16 +252,15 @@ Other optimizer specific parameters, shown with their Ludwig default settings, f
 ```
 
 - `rmsprop`
-``` 
+
+```
 'decay': 0.9,
 'momentum': 0.0,
 'epsilon': 1e-10,
 'centered': false
 ```
 
-
-Preprocessing
--------------
+## Preprocessing
 
 The `preprocessing` section of the configuration makes it possible to specify datatype specific parameters to perform data preprocessing.
 The preprocessing dictionary contains one key of each datatype, but you have to specify only the ones that apply to your case, the other ones will be kept as defaults.
@@ -316,7 +318,7 @@ Here are the tokenizers options you can specify for those features:
 
 - `characters`: splits every character of the input string in a separate token.
 - `space`: splits on space characters using the regex `\s+`.
-- `space_punct`: splits on space characters and punctuation using the regex `\w+|[^\w\s]`. 
+- `space_punct`: splits on space characters and punctuation using the regex `\w+|[^\w\s]`.
 - `underscore`: splits on the underscore character `_`.
 - `comma`: splits on the underscore character `,`.
 - `untokenized`: treats the whole string as a single token.
@@ -344,9 +346,7 @@ python -m spacy download <language_code>
 and provide `<language>_<function>` as `tokenizer` like: `english_tokenizer`, `italian_lemmatize_filter`, `multi_tokenize_filter` and so on.
 More details on the models can be found in the [spaCy documentation](https://spacy.io/models).
 
- 
-Binary Features
----------------
+## Binary Features
 
 ### Binary Features Preprocessing
 
@@ -364,7 +364,7 @@ Binary features have two encoders.
 One encoder (`passthrough'`) takes the raw binary values coming from the input placeholders are just returned as outputs.
 Inputs are of size `b` while outputs are of size `b x 1` where `b` is the batch size.
 The other encoder (`'dense'`) passes the raw binary values through a fully connected layers.
-In this case the inputs of size `b` are transformed to size `b x h`.  
+In this case the inputs of size `b` are transformed to size `b x h`.
 
 Example binary feature entry in the input features list:
 
@@ -377,7 +377,6 @@ encoder: passthrough
 Binary input feature parameters are
 
 - `encoder` (default `'passthrough'`) encodes the binary feature. Valid choices:  `'passthrough'`: binary feature is passed through as-is, `'dense'`: binary feature is fed through a fully connected layer.
-
 
 There are no additional parameters for the `passthrough` encoder.
 
@@ -458,8 +457,7 @@ threshold: 0.5
 The only measures that are calculated every epoch and are available for binary features are the `accuracy` and the `loss` itself.
 You can set either of them as `validation_measure` in the `training` section of the configuration if you set the `validation_field` to be the name of a binary feature.
 
-Numerical Features
-------------------
+## Numerical Features
 
 ### Numerical Features Preprocessing
 
@@ -478,7 +476,7 @@ Numerical features have two encoders.
 One encoder (`passthrough'`) takes the raw binary values coming from the input placeholders are just returned as outputs.
 Inputs are of size `b` while outputs are of size `b x 1` where `b` is the batch size.
 The other encoder (`'dense'`) passes the raw binary values through fully connected layers.
-In this case the inputs of size `b` are transformed to size `b x h`.  
+In this case the inputs of size `b` are transformed to size `b x h`.
 
 The available encoder parameters are:
 
@@ -503,7 +501,6 @@ For the `dense` encoder these are the available parameters.
 - `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `dropout` (default `0`): dropout rate
-
 
 Example numerical feature entry in the input features list:
 
@@ -584,8 +581,7 @@ clip: null
 The measures that are calculated every epoch and are available for numerical features are `mean_squared_error`, `mean_absolute_error`, `r2` and the `loss` itself.
 You can set either of them as `validation_measure` in the `training` section of the configuration if you set the `validation_field` to be the name of a numerical feature.
 
-Category Features
------------------
+## Category Features
 
 ### Category Features Preprocessing
 
@@ -594,10 +590,10 @@ The way categories are mapped into integers consists in first collecting a dicti
 The column name is added to the JSON file, with an associated dictionary containing
 
 1. the mapping from integer to string (`idx2str`)
-2. the mapping from string to id (`str2idx`)
-3. the mapping from string to frequency (`str2freq`)
-4. the size of the set of all tokens (`vocab_size`)
-5. additional preprocessing information (by default how to fill missing values and what token to use to fill missing values)
+1. the mapping from string to id (`str2idx`)
+1. the mapping from string to frequency (`str2freq`)
+1. the size of the set of all tokens (`vocab_size`)
+1. additional preprocessing information (by default how to fill missing values and what token to use to fill missing values)
 
 The parameters available for preprocessing are
 
@@ -637,7 +633,6 @@ The available encoder parameters:
 - `dropout` (default `0`): dropout rate.
 - `embedding_initializer` (default `null`): the initializer to use. If `null`, the default initialized of each variable is used (`glorot_uniform` in most cases). Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
 - `embedding_regularizer` (default `null`): specifies the type of regularizer to use `l1`, `l2` or `l1_l2`.
-
 
 #### Sparse Encoder
 
@@ -756,8 +751,7 @@ top_k: 3
 The measures that are calculated every epoch and are available for category features are `accuracy`, `top_k` (computes accuracy considering as a match if the true category appears in the first `k` predicted categories ranked by decoder's confidence) and the `loss` itself.
 You can set either of them as `validation_measure` in the `training` section of the configuration if you set the `validation_field` to be the name of a category feature.
 
-Set Features
-------------
+## Set Features
 
 ### Set Features Preprocessing
 
@@ -768,10 +762,10 @@ Then a dictionary of all the different set item strings present in the column of
 The column name is added to the JSON file, with an associated dictionary containing
 
 1. the mapping from integer to string (`idx2str`)
-2. the mapping from string to id (`str2idx`)
-3. the mapping from string to frequency (`str2freq`)
-4. the maximum size of all sets (`max_set_size`)
-5. additional preprocessing information (by default how to fill missing values and what token to use to fill missing values)
+1. the mapping from string to id (`str2idx`)
+1. the mapping from string to frequency (`str2freq`)
+1. the maximum size of all sets (`max_set_size`)
+1. additional preprocessing information (by default how to fill missing values and what token to use to fill missing values)
 
 The parameters available for preprocessing are
 
@@ -916,8 +910,7 @@ threshold: 0.5
 The measures that are calculated every epoch and are available for category features are `jaccard_index` and the `loss` itself.
 You can set either of them as `validation_measure` in the `training` section of the configuration if you set the `validation_field` to be the name of a set feature.
 
-Bag Features
-------------
+## Bag Features
 
 ### Bag Features Preprocessing
 
@@ -939,8 +932,7 @@ There is no bag decoder available yet.
 
 As there is no decoder there is also no measure available yet for bag feature.
 
-Sequence Features
------------------
+## Sequence Features
 
 ### Sequence Features Preprocessing
 
@@ -950,10 +942,10 @@ Then a dictionary of all the different token strings present in the column of th
 The column name is added to the JSON file, with an associated dictionary containing
 
 1. the mapping from integer to string (`idx2str`)
-2. the mapping from string to id (`str2idx`)
-3. the mapping from string to frequency (`str2freq`)
-4. the maximum length of all sequences (`sequence_length_limit`)
-5. additional preprocessing information (by default how to fill missing values and what token to use to fill missing values)
+1. the mapping from string to id (`str2idx`)
+1. the mapping from string to frequency (`str2freq`)
+1. the maximum length of all sequences (`sequence_length_limit`)
+1. additional preprocessing information (by default how to fill missing values and what token to use to fill missing values)
 
 The parameters available for preprocessing are
 
@@ -978,7 +970,7 @@ For instance the `parallel_cnn` encoder, by default pools and flattens the seque
 
 Sequence input feature parameters are
 
-- `encoder` (default ``parallel_cnn``): the name of the encoder to use to encode the sequence. The available ones are  `embed`, `parallel_cnn`, `stacked_cnn`, `stacked_parallel_cnn`, `rnn`, `cnnrnn`, `transformer` and `passthrough` (equivalent to specify `null` or `'None'`).
+- `encoder` (default `parallel_cnn`): the name of the encoder to use to encode the sequence. The available ones are  `embed`, `parallel_cnn`, `stacked_cnn`, `stacked_parallel_cnn`, `rnn`, `cnnrnn`, `transformer` and `passthrough` (equivalent to specify `null` or `'None'`).
 - `tied_weights` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
 
 #### Embed Encoder
@@ -1613,7 +1605,6 @@ fc_dropout: 0
 reduce_output: last
 ```
 
-
 #### Passthrough Encoder
 
 The passthrough decoder simply transforms each input value into a float value and adds a dimension to the input tensor, creating a `b x s x 1` tensor where `b` is the batch size and `s` is the length of the sequence.
@@ -1621,7 +1612,7 @@ The tensor is reduced along the `s` dimension to obtain a single vector of size 
 If you want to output the full `b x s x h` tensor, you can specify `reduce_output: null`.
 This encoder is not really useful for `sequence` or `text` features, but may be useful for `timeseries` features, as it allows for using them without any processing in later stages of the model, like in a sequence combiner for instance.
 
-```  
+```
 +--+   
 |12|   
 |7 |                    +-----------+
@@ -1756,9 +1747,7 @@ If a `b x h` input is provided to a generator decoder using an rnn with attentio
                               GO    +-----+     +-----+
 ```
 
-
 - `reduce_input` (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension).
-
 
 These are the available parameters of a Generator decoder:
 
@@ -1831,8 +1820,7 @@ max_sequence_length: 0
 The measures that are calculated every epoch and are available for category features are `accuracy` (counts the number of datapoints where all the elements of the predicted sequence are correct over the number of all datapoints), `token_accuracy` (computes the number of elements in all the sequences that are correctly predicted over the number of all the elements in all the sequences), `last_accuracy` (accuracy considering only the last element of the sequence, it is useful for being sure special end-of-sequence tokens are generated or tagged), `edit_distance` (the levenshtein distance between the predicted and ground truth sequence), `perplexity` (the perplexity of the ground truth sequence according to the model) and the `loss` itself.
 You can set either of them as `validation_measure` in the `training` section of the configuration if you set the `validation_field` to be the name of a sequence feature.
 
-Text Features
--------------
+## Text Features
 
 ### Text Features Preprocessing
 
@@ -1891,15 +1879,13 @@ Text input feature parameters are
 - `level` (default `word`): `word` specifies using text words, `char` use individual characters.
 - `tied_weights` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
 
-
 #### BERT Encoder
 
 The `bert` encoder loads a pretrained [BERT](https://arxiv.org/abs/1810.04805) model using the Hugging Face transformers package.
 
 - `pretrained_model_name_or_path` (default `bert-base-uncased`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/bert.html).
 - `reduced_output` (default `cls_pooled`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `cls_pool`, `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and  `null` (which does not reduce and returns the full tensor).
-- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
-
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen.
 
 #### GPT Encoder
 
@@ -1907,125 +1893,111 @@ The `gpt` encoder loads a pretrained [GPT](https://s3-us-west-2.amazonaws.com/op
 
 - `pretrained_model_name_or_path` (default `openai-gpt`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/gpt.html).
 - `reduced_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and  `null` (which does not reduce and returns the full tensor).
-- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen.
 
-
-#### GPT-2 Encoder 
+#### GPT-2 Encoder
 
 The `gpt2` encoder loads a pretrained [GPT-2](https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf) model using the Hugging Face transformers package.
 
 - `pretrained_model_name_or_path` (default `gpt2`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/gpt2.html).
 - `reduced_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and  `null` (which does not reduce and returns the full tensor).
-- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen.
 
-
-#### XLNet Encoder 
+#### XLNet Encoder
 
 The `xlnet` encoder loads a pretrained [XLNet](https://arxiv.org/abs/1906.08237) model using the Hugging Face transformers package.
 
 - `pretrained_model_name_or_path` (default `xlnet-base-cased`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/xlnet.html).
 - `reduced_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and  `null` (which does not reduce and returns the full tensor).
-- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen.
 
-
-#### XLM Encoder 
+#### XLM Encoder
 
 The `xlm` encoder loads a pretrained [XLM](https://arxiv.org/abs/1901.07291) model using the Hugging Face transformers package.
 
 - `pretrained_model_name_or_path` (default `xlm-mlm-en-2048`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/xlm.html).
 - `reduced_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and  `null` (which does not reduce and returns the full tensor).
-- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen.
 
-
-#### RoBERTa Encoder 
+#### RoBERTa Encoder
 
 The `roberta` encoder loads a pretrained [RoBERTa](https://arxiv.org/abs/1907.11692) model using the Hugging Face transformers package.
 
 - `pretrained_model_name_or_path` (default `roberta-base`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/roberta.html).
 - `reduced_output` (default `cls_pooled`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `cls_pool`, `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and  `null` (which does not reduce and returns the full tensor).
-- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen.
 
-
-#### DistilBERT Encoder 
+#### DistilBERT Encoder
 
 The `distilbert` encoder loads a pretrained [DistilBERT](https://medium.com/huggingface/distilbert-8cf3380435b5) model using the Hugging Face transformers package.
 
 - `pretrained_model_name_or_path` (default `istilbert-base-uncased`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/distilbert.html).
 - `reduced_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and  `null` (which does not reduce and returns the full tensor).
-- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen.
 
-
-#### CTRL Encoder 
+#### CTRL Encoder
 
 The `ctrl` encoder loads a pretrained [CTRL](https://arxiv.org/abs/1909.05858) model using the Hugging Face transformers package.
 
 - `pretrained_model_name_or_path` (default `ctrl`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/ctrl.html).
 - `reduced_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and  `null` (which does not reduce and returns the full tensor).
-- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen.
 
-
-#### CamemBERT Encoder 
+#### CamemBERT Encoder
 
 The `camembert` encoder loads a pretrained [CamemBERT](https://arxiv.org/abs/1911.03894) model using the Hugging Face transformers package.
 
 - `pretrained_model_name_or_path` (default `jplu/tf-camembert-base`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/camembert.html).
 - `reduced_output` (default `cls_pooled`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `cls_pool`, `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and  `null` (which does not reduce and returns the full tensor).
-- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen.
 
-
-#### ALBERT Encoder 
+#### ALBERT Encoder
 
 The `albert` encoder loads a pretrained [ALBERT](https://arxiv.org/abs/1909.11942) model using the Hugging Face transformers package.
 
 - `pretrained_model_name_or_path` (default `albert-base-v2`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/albert.html).
 - `reduced_output` (default `cls_pooled`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `cls_pool`, `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and  `null` (which does not reduce and returns the full tensor).
-- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen.
 
-
-#### T5 Encoder 
+#### T5 Encoder
 
 The `t5` encoder loads a pretrained [T5](https://arxiv.org/pdf/1910.10683.pdf) model using the Hugging Face transformers package.
 
 - `pretrained_model_name_or_path` (default `t5-small`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/t5.html).
 - `reduced_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and  `null` (which does not reduce and returns the full tensor).
-- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen.
 
-
-#### XLM-RoBERTa Encoder 
+#### XLM-RoBERTa Encoder
 
 The `xlmroberta` encoder loads a pretrained [XLM-RoBERTa](https://arxiv.org/abs/1911.02116) model using the Hugging Face transformers package.
 
 - `pretrained_model_name_or_path` (default `jplu/tf-xlm-reoberta-base`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/xlmroberta.html).
 - `reduced_output` (default `cls_pooled`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `cls_pool`, `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and  `null` (which does not reduce and returns the full tensor).
-- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen.
 
-
-#### FlauBERT Encoder 
+#### FlauBERT Encoder
 
 The `flaubert` encoder loads a pretrained [FlauBERT](https://arxiv.org/abs/1912.05372) model using the Hugging Face transformers package.
 
 - `pretrained_model_name_or_path` (default `jplu/tf-flaubert-base-uncased`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/flaubert.html).
 - `reduced_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and  `null` (which does not reduce and returns the full tensor).
-- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen.
 
-
-#### ELECTRA Encoder 
+#### ELECTRA Encoder
 
 The `electra` encoder loads a pretrained [ELECTRA](https://openreview.net/pdf?id=r1xMH1BtvB) model using the Hugging Face transformers package.
 
 - `pretrained_model_name_or_path` (default `google/electra-small-discriminator`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/electra.html).
 - `reduced_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and  `null` (which does not reduce and returns the full tensor).
-- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen.
 
-
-#### Longformer Encoder 
+#### Longformer Encoder
 
 The `longformer` encoder loads a pretrained [Longformer](https://arxiv.org/pdf/2004.05150.pdf) model using the Hugging Face transformers package.
 
 - `pretrained_model_name_or_path` (default `allenai/longformer-base-4096`): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/longformer.html).
 - `reduced_output` (default `cls_pooled`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `cls_pool`, `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and  `null` (which does not reduce and returns the full tensor).
-- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
-
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen.
 
 #### Auto-Transformer Encoder
 
@@ -2034,8 +2006,7 @@ It's the best option for customly trained models that don't fit into the other p
 
 - `pretrained_model_name_or_path`: it can be either the name of a model or a path where it was downloaded. For details on the available models to the [Hugging Face documentation](https://huggingface.co/transformers/model_doc/auto.html#tfautomodel).
 - `reduced_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and  `null` (which does not reduce and returns the full tensor).
-- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen. 
-
+- `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen.
 
 #### Example usage
 
@@ -2105,9 +2076,7 @@ max_sequence_length: 0
 
 The measures are the same used for the [Sequence Features](#sequence-features-measures).
 
-
-Time Series Features
---------------------
+## Time Series Features
 
 ### Time Series Features Preprocessing
 
@@ -2127,8 +2096,7 @@ There are no time series decoders at the moment (WIP), so time series cannot be 
 
 As no time series decoders are available at the moment, there are also no time series measures.
 
-Audio Features
---------------
+## Audio Features
 
 ### Audio Features Preprocessing
 
@@ -2137,18 +2105,18 @@ Ludwig supports reads in audio files using Python's library [SoundFile](https://
 - `audio_file_length_limit_in_s`: (default `7.5`): float value that defines the maximum limit of the audio file in seconds. All files longer than this limit are cut off. All files shorter than this limit are padded with `padding_value`
 - `missing_value_strategy` (default: `backfill`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
 - `in_memory` (default `true`): defines whether image dataset will reside in memory during the training process or will be dynamically fetched from disk (useful for large datasets). In the latter case a training batch of input images will be fetched from disk each training iteration. At the moment only `in_memory` = true is supported.
-- `padding_value`: (default 0): float value that is used for padding. 
+- `padding_value`: (default 0): float value that is used for padding.
 - `norm`: (default `null`) the normalization method that can be used for the input data. Supported methods: `null` (data is not normalized), `per_file` (z-norm is applied on a “per file” level)
 - `audio_feature`: (default `{ type: raw }`) dictionary that takes as input the audio feature `type` as well as additional parameters if `type != raw`. The following parameters can/should be defined in the dictionary:
-	- `type` (default `raw`): defines the type of audio features to be used. Supported types at the moment are `raw`, `stft`, `stft_phase`, `group_delay`. For more detail, check [Audio Input Features and Encoders](#audio-input-features-and-encoders).
-	- `window_length_in_s`: defines the window length used for the short time Fourier transformation (only needed if `type != raw`).
-	- `window_shift_in_s`: defines the window shift used for the short time Fourier transformation (also called hop_length) (only needed if `type != raw`).
-	- `num_fft_points`: (default `window_length_in_s * sample_rate` of audio file) defines the number of fft points used for the short time Fourier transformation. If `num_fft_points > window_length_in_s * sample_rate`, then the signal is zero-padded at the end. `num_fft_points` has to be `>= window_length_in_s * sample_rate` (only needed if `type != raw`).
-	- `window_type`: (default `hamming`): defines the type window the signal is weighted before the short time Fourier transformation. All windows provided by [scipy’s window function](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.get_window.html) can be used (only needed if `type != raw`).
-	- `num_filter_bands`: defines the number of filters used in the filterbank (only needed if `type == fbank`).
-
+  - `type` (default `raw`): defines the type of audio features to be used. Supported types at the moment are `raw`, `stft`, `stft_phase`, `group_delay`. For more detail, check [Audio Input Features and Encoders](#audio-input-features-and-encoders).
+  - `window_length_in_s`: defines the window length used for the short time Fourier transformation (only needed if `type != raw`).
+  - `window_shift_in_s`: defines the window shift used for the short time Fourier transformation (also called hop_length) (only needed if `type != raw`).
+  - `num_fft_points`: (default `window_length_in_s * sample_rate` of audio file) defines the number of fft points used for the short time Fourier transformation. If `num_fft_points > window_length_in_s * sample_rate`, then the signal is zero-padded at the end. `num_fft_points` has to be `>= window_length_in_s * sample_rate` (only needed if `type != raw`).
+  - `window_type`: (default `hamming`): defines the type window the signal is weighted before the short time Fourier transformation. All windows provided by [scipy’s window function](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.get_window.html) can be used (only needed if `type != raw`).
+  - `num_filter_bands`: defines the number of filters used in the filterbank (only needed if `type == fbank`).
 
 Example of a preprocessing specification (assuming the audio files have a sample rate of 16000):
+
 ```yaml
 name: audio_path
 type: audio
@@ -2175,7 +2143,6 @@ Audio files are transformed into one of the following types according to `type` 
 The encoders are the same used for the [Sequence Features](#sequence-input-features-and-encoders).
 The only difference is that time series features don't have an embedding layer at the beginning, so the `b x s` placeholders (where `b` is the batch size and `s` is the sequence length) are directly mapped to a `b x s x w` (where `w` is `W` as described above) tensor and then passed to the different sequential encoders.
 
-
 ### Audio Output Features and Decoders
 
 There are no audio decoders at the moment (WIP), so audio cannot be used as output features.
@@ -2184,9 +2151,7 @@ There are no audio decoders at the moment (WIP), so audio cannot be used as outp
 
 As no audio decoders are available at the moment, there are also no audio measures.
 
-
-Image Features
---------------
+## Image Features
 
 ### Image Features Preprocessing
 
@@ -2219,15 +2184,12 @@ preprocessing:
   scaling: pixel_normalization
 ```
 
-
 ### Image Input Features and Encoders
 
 Input image features are transformed into a float valued tensors of size `N x H x W x C` (where `N` is the size of the dataset and `H x W` is a specific resizing of the image that can be set, and `C` is the number of channels) and added to HDF5 with a key that reflects the name of column in the dataset.
 The column name is added to the JSON file, with an associated dictionary containing preprocessing information about the sizes of the resizing.
 
 Currently there are two encoders supported for images: Convolutional Stack Encoder and ResNet encoder which can be set by setting `encoder` parameter to `stacked_cnn` or `resnet` in the input feature dictionary in the configuration (`stacked_cnn` is the default one).
-
-
 
 #### Convolutional Stack Encoder
 
@@ -2380,13 +2342,11 @@ There are no image decoders at the moment (WIP), so image cannot be used as outp
 
 As no image decoders are available at the moment, there are also no image measures.
 
-
-Date Features
--------------
+## Date Features
 
 ### Date Features Preprocessing
 
-Ludwig will try to infer the date format automatically, but a specific fomrat can be provided. 
+Ludwig will try to infer the date format automatically, but a specific fomrat can be provided.
 The format is the same one described in the [datetime package documentation](https://docs.python.org/2/library/time.html#time.strptime).
 
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
@@ -2403,7 +2363,6 @@ preprocessing:
   fill_value: ''
   datetime_format: "%d %b %Y"
 ```
-
 
 ### Date Input Features and Encoders
 
@@ -2505,16 +2464,14 @@ There are no date decoders at the moment (WIP), so date cannot be used as output
 
 As no date decoders are available at the moment, there are also no date measures.
 
-
-H3 Features
--------------
+## H3 Features
 
 H3 is a indexing system for representing geospatial data.
 For more details about it refer to: https://eng.uber.com/h3/ .
 
 ### H3 Features Preprocessing
 
-Ludwig will parse the H3 64bit encoded format automatically. 
+Ludwig will parse the H3 64bit encoded format automatically.
 The parameters for preprocessing are:
 
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
@@ -2529,7 +2486,6 @@ preprocessing:
   missing_value_strategy: fill_with_const
   fill_value: 576495936675512319
 ```
-
 
 ### H3 Input Features and Encoders
 
@@ -2607,7 +2563,6 @@ It takes the following optional parameters:
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `dropout` (default `0`): dropout rate
 - `reduce_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and  `null` (which does not reduce and returns the full tensor).
-
 
 Example date feature entry in the input features list using an embed encoder:
 
@@ -2703,8 +2658,7 @@ There are no date decoders at the moment (WIP), so H3 cannot be used as output f
 
 As no H3 decoders are available at the moment, there are also no date measures.
 
-Vector Features
----------------
+## Vector Features
 
 Vector features allow to provide an ordered set of numerical values all at once.
 This is useful for providing pre-trained representations or activations obtained from other models or for providing multivariate inputs and outputs.
@@ -2719,7 +2673,7 @@ Preprocessing parameters:
 
 - `vector_size` (default `null`): size of the vector. If not provided, it will be inferred from the data.
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
-- `fill_value` (default ""): the value to replace the missing values with in case the `missing_value_strategy` is `fill_value`. 
+- `fill_value` (default ""): the value to replace the missing values with in case the `missing_value_strategy` is `fill_value`.
 
 ### Vector Feature Encoders
 
@@ -2828,9 +2782,7 @@ clip: null
 The measures that are calculated every epoch and are available for numerical features are `mean_squared_error`, `mean_absolute_error`, `r2` and the `loss` itself.
 You can set either of them as `validation_measure` in the `training` section of the configuration if you set the `validation_field` to be the name of a numerical feature.
 
-
-Combiners
----------
+## Combiners
 
 Combiners are the part of the model that take the outputs of the encoders of all input features and combine them before providing the combined representation to the different output decoders.
 If you don't specify a combiner, the `concat` combiner will be used.
@@ -3040,7 +2992,7 @@ The `transformer` combiner combines imput features using a stack of Transformer 
 It assumes all outputs from encoders are tensors of size `b x h` where `b` is the batch size and `h` is the hidden dimension, which can be different for each input.
 If the input tensors have a different shape, it automatically flattens them.
 It then projects each input tensor to the same hidden / embedding size and encodes them wit ha stack of Tranformer layers.
-Finally it applies an reduction to the outputs of the Transformer stack and applies optional fully connected layers. 
+Finally it applies an reduction to the outputs of the Transformer stack and applies optional fully connected layers.
 It returns the final `b x h'` tensor where `h'` is the size of the last fully connected layer or the hidden / embedding size , or it returns `b x n x h'` where `n` is the number of input features and `h'` is the hidden / embedding size if there's no reduction applied.
 
 ```
@@ -3081,7 +3033,6 @@ These are the available parameters of a `transformer` combiner:
 - `fc_residual` (default `false`): if `true` adds a residual connection to each fully connected layer block. It is required that all fully connected layers have the same size for this parameter to work correctly.
 - `reduce_output` (default `mean`): describes the strategy to use to aggregate the embeddings of the items of the set. Possible values are `sum`, `mean` and `sqrt` (the weighted sum divided by the square root of the sum of the squares of the weights).
 
-
 Example configuration of a `transformer` combiner:
 
 ```yaml
@@ -3114,7 +3065,7 @@ The `comparator` combiner compares the hidden representation of two entities def
 It assumes all outputs from encoders are tensors of size `b x h` where `b` is the batch size and `h` is the hidden dimension, which can be different for each input.
 If the input tensors have a different shape, it automatically flattens them.
 It then concatenates the representations of each entity end projects them into the same size.
-Finally it compares the two entity representations by dot product, element-wise multiplication, absolute difference and bilinear product. 
+Finally it compares the two entity representations by dot product, element-wise multiplication, absolute difference and bilinear product.
 It returns the final `b x h'` tensor where `h'` is the size of the concatenation of the four comparisons.
 
 ```

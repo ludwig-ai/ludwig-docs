@@ -68,7 +68,6 @@ The shape of the input tensor and the expected tape of the output tensor varies 
 
 Encoders are initialized as class member variables in input features object constructors and called inside their `call` methods.
 
-
 # 2. Add the new encoder class to the corresponding encoder registry
 
 Mapping between encoder names in the model definition and encoder classes in the codebase is done by encoder registries: for example sequence encoder registry is defined in `ludwig/features/sequence_feature.py` inside the `SequenceInputFeature` as:
@@ -84,4 +83,3 @@ sequence_encoder_registry = {
 ```
 
 All you have to do to make you new encoder available as an option in the model definition is to add it to the appropriate registry.
-

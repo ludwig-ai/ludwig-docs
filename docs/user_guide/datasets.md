@@ -1,5 +1,4 @@
-Datasets module
-===============
+# Datasets module
 
 The Datasets module provides training datasets that can be directly plugged into a Ludwig model.
 Datasets can be accessed programmatically by importing the `ludwig.datasets` module.
@@ -45,9 +44,7 @@ train_stats, _, _ = model.train(
 )
 ```
 
-
-Currently Available Datasets
-============================
+# Currently Available Datasets
 
 Here is the list of the currently available datasets:
 

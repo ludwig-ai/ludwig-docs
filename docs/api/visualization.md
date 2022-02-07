@@ -1,9 +1,8 @@
 # Module functions
 
-----
+______________________________________________________________________
 
 ## learning_curves
-
 
 ```python
 ludwig.visualize.learning_curves(
@@ -16,7 +15,6 @@ ludwig.visualize.learning_curves(
 )
 ```
 
-
 Show how model metrics change over training and validation data epochs.
 
 For each model and for each output feature and metric of the model,
@@ -25,29 +23,27 @@ of the epochs of training on the training and validation sets.
 
 __Inputs__
 
-
-- __train_stats_per_model__ (List[dict]): list containing dictionary of
-training statistics per model.
-- __output_feature_name__ (Union[str, `None`], default: `None`): name of the output feature
-to use for the visualization.  If `None`, use all output features.
-- __model_names__ (Union[str, List[str]], default: `None`): model name or
-list of the model names to use as labels.
+- __train_stats_per_model__ (List\[dict\]): list containing dictionary of
+  training statistics per model.
+- __output_feature_name__ (Union\[str, `None`\], default: `None`): name of the output feature
+  to use for the visualization.  If `None`, use all output features.
+- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
+  list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-plots. If not specified, plots will be displayed in a window
+  plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-`'pdf'` or `'png'`.
+  `'pdf'` or `'png'`.
 - __callbacks__ (list, default: `None`): a list of
-`ludwig.callbacks.Callback` objects that provide hooks into the
-Ludwig pipeline.
+  `ludwig.callbacks.Callback` objects that provide hooks into the
+  Ludwig pipeline.
 
 __Return__
 
 - __return__ (None):
- 
-----
+
+______________________________________________________________________
 
 ## compare_performance
-
 
 ```python
 ludwig.visualize.compare_performance(
@@ -59,8 +55,7 @@ ludwig.visualize.compare_performance(
 )
 ```
 
-
-Produces model comparison barplot visualization for each overall metric
+Produces model comparison barplot visualization for each overall metric.
 
 For each model (in the aligned lists of test_statistics and model_names)
 it produces bars in a bar plot, one for each overall metric available
@@ -68,39 +63,35 @@ in the test_statistics file for the specified output_feature_name.
 
 __Inputs__
 
-
-- __test_stats_per_model__ (List[dict]): dictionary containing evaluation
-performance statistics.
-- __output_feature_name__ (Union[str, `None`], default: `None`): name of the output feature
-to use for the visualization.  If `None`, use all output features.
-- __model_names__ (Union[str, List[str]], default: `None`): model name or
-list of the model names to use as labels.
+- __test_stats_per_model__ (List\[dict\]): dictionary containing evaluation
+  performance statistics.
+- __output_feature_name__ (Union\[str, `None`\], default: `None`): name of the output feature
+  to use for the visualization.  If `None`, use all output features.
+- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
+  list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-plots. If not specified, plots will be displayed in a window
+  plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-`'pdf'` or `'png'`.
+  `'pdf'` or `'png'`.
 
 __Return__
 
-
-:return: (None)
+- __return__ (Non): (None)
 
 __Example usage:__
-
 
 ```python
 model_a = LudwigModel(config)
 model_a.train(dataset)
 a_evaluation_stats, _, _ = model_a.evaluate(eval_set)
-model_b = LudwigModel.load('path/to/model/')
+model_b = LudwigModel.load("path/to/model/")
 b_evaluation_stats, _, _ = model_b.evaluate(eval_set)
-compare_performance([a_evaluation_stats, b_evaluation_stats], model_names=['A', 'B'])
+compare_performance([a_evaluation_stats, b_evaluation_stats], model_names=["A", "B"])
 ```
- 
-----
+
+______________________________________________________________________
 
 ## compare_classifiers_performance_from_prob
-
 
 ```python
 ludwig.visualize.compare_classifiers_performance_from_prob(
@@ -112,10 +103,10 @@ ludwig.visualize.compare_classifiers_performance_from_prob(
   top_n_classes=3,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  ground_truth_apply_idx=True
 )
 ```
-
 
 Produces model comparison barplot visualization from probabilities.
 
@@ -125,33 +116,32 @@ computed on the fly from the probabilities of predictions for the specified
 
 __Inputs__
 
-
-- __probabilities_per_model__ (List[np.ndarray]): path to experiment
-probabilities file
+- __probabilities_per_model__ (List\[np.ndarray\]): path to experiment
+  probabilities file
 - __ground_truth__ (pd.Series): ground truth values
 - __metadata__ (dict): feature metadata dictionary
 - __output_feature_name__ (str): output feature name
-- __top_n_classes__ (List[int]): list containing the number of classes
-to plot.
+- __top_n_classes__ (List\[int\]): list containing the number of classes
+  to plot.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
-Encoded numeric label values in dataset that are higher than
-`label_limit` are considered to be "rare" labels.
-- __model_names__ (Union[str, List[str]], default: `None`): model name or
-list of the model names to use as labels.
+  Encoded numeric label values in dataset that are higher than
+  `label_limit` are considered to be "rare" labels.
+- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
+  list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-plots. If not specified, plots will be displayed in a window
+  plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-`'pdf'` or `'png'`.
+  `'pdf'` or `'png'`.
+- __ground_truth_apply_idx__ (bool, default: `True`): whether to use
+  metadata\['str2idx'\] in np.vectorize
 
 __Return__
 
-
 - __return__ (None):
- 
-----
+
+______________________________________________________________________
 
 ## compare_classifiers_performance_from_pred
-
 
 ```python
 ludwig.visualize.compare_classifiers_performance_from_pred(
@@ -162,10 +152,10 @@ ludwig.visualize.compare_classifiers_performance_from_pred(
   labels_limit,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  ground_truth_apply_idx=True
 )
 ```
-
 
 Produces model comparison barplot visualization from predictions.
 
@@ -175,30 +165,29 @@ computed on the fly from the predictions for the specified
 
 __Inputs__
 
-
-- __predictions_per_model__ (List[str]): path to experiment predictions file.
+- __predictions_per_model__ (List\[str\]): path to experiment predictions file.
 - __ground_truth__ (pd.Series): ground truth values
 - __metadata__ (dict): feature metadata dictionary.
 - __output_feature_name__ (str): name of the output feature to visualize.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
-Encoded numeric label values in dataset that are higher than
-`label_limit` are considered to be "rare" labels.
-- __model_names__ (Union[str, List[str]], default: `None`): model name or
-list of the model names to use as labels.
+  Encoded numeric label values in dataset that are higher than
+  `label_limit` are considered to be "rare" labels.
+- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
+  list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-plots. If not specified, plots will be displayed in a window
+  plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-`'pdf'` or `'png'`.
+  `'pdf'` or `'png'`.
+- __ground_truth_apply_idx__ (bool, default: `True`): whether to use
+  metadata\['str2idx'\] in np.vectorize
 
 __Return__
 
-
 - __return__ (None):
- 
-----
+
+______________________________________________________________________
 
 ## compare_classifiers_performance_subset
-
 
 ```python
 ludwig.visualize.compare_classifiers_performance_subset(
@@ -211,10 +200,10 @@ ludwig.visualize.compare_classifiers_performance_subset(
   subset,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  ground_truth_apply_idx=True
 )
 ```
-
 
 Produces model comparison barplot visualization from train subset.
 
@@ -226,35 +215,34 @@ The way the subset is obtained is using the `top_n_classes` and
 
 __Inputs__
 
-
-- __probabilities_per_model__ (List[numpy.array]): list of model
-   probabilities.
-- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
+- __probabilities_per_model__ (List\[numpy.array\]): list of model
+  probabilities.
+- __ground_truth__ (Union\[pd.Series, np.ndarray\]): ground truth values
 - __metadata__ (dict): feature metadata dictionary
 - __output_feature_name__ (str): output feature name
-- __top_n_classes__ (List[int]): list containing the number of classes
-   to plot.
+- __top_n_classes__ (List\[int\]): list containing the number of classes
+  to plot.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
-   Encoded numeric label values in dataset that are higher than
-   `label_limit` are considered to be "rare" labels.
+  Encoded numeric label values in dataset that are higher than
+  `label_limit` are considered to be "rare" labels.
 - __subset__ (str): string specifying type of subset filtering.  Valid
-   values are `ground_truth` or `predictions`.
-- __model_names__ (Union[str, List[str]], default: `None`): model name or
-   list of the model names to use as labels.
+  values are `ground_truth` or `predictions`.
+- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
+  list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-   plots. If not specified, plots will be displayed in a window
+  plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-   `'pdf'` or `'png'`.
+  `'pdf'` or `'png'`.
+- __ground_truth_apply_idx__ (bool, default: `True`): whether to use
+  metadata\['str2idx'\] in np.vectorize
 
 __Return__
 
-
 - __return__ (None):
- 
-----
+
+______________________________________________________________________
 
 ## compare_classifiers_performance_changing_k
-
 
 ```python
 ludwig.visualize.compare_classifiers_performance_changing_k(
@@ -266,10 +254,10 @@ ludwig.visualize.compare_classifiers_performance_changing_k(
   labels_limit,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  ground_truth_apply_idx=True
 )
 ```
-
 
 Produce lineplot that show Hits@K metric while k goes from 1 to `top_k`.
 
@@ -280,32 +268,31 @@ first k) while changing k from 1 to top_k for the specified
 
 __Inputs__
 
-
-- __probabilities_per_model__ (List[numpy.array]): list of model
-probabilities.
-- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
+- __probabilities_per_model__ (List\[numpy.array\]): list of model
+  probabilities.
+- __ground_truth__ (Union\[pd.Series, np.ndarray\]): ground truth values
 - __metadata__ (dict): feature metadata dictionary
 - __output_feature_name__ (str): output feature name
 - __top_k__ (int): number of elements in the ranklist to consider.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
-Encoded numeric label values in dataset that are higher than
-`label_limit` are considered to be "rare" labels.
-- __model_names__ (Union[str, List[str]], default: `None`): model name or
-list of the model names to use as labels.
+  Encoded numeric label values in dataset that are higher than
+  `label_limit` are considered to be "rare" labels.
+- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
+  list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-plots. If not specified, plots will be displayed in a window
+  plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-`'pdf'` or `'png'`.
+  `'pdf'` or `'png'`.
+- __ground_truth_apply_idx__ (bool, default: `True`): whether to use
+  metadata\['str2idx'\] in np.vectorize
 
 __Return__
 
-
 - __return__ (None):
- 
-----
+
+______________________________________________________________________
 
 ## compare_classifiers_multiclass_multimetric
-
 
 ```python
 ludwig.visualize.compare_classifiers_multiclass_multimetric(
@@ -319,7 +306,6 @@ ludwig.visualize.compare_classifiers_multiclass_multimetric(
 )
 ```
 
-
 Show the precision, recall and F1 of the model for the specified output_feature_name.
 
 For each model it produces four plots that show the precision,
@@ -327,30 +313,28 @@ recall and F1 of the model on several classes for the specified output_feature_n
 
 __Inputs__
 
-
-- __test_stats_per_model__ (List[dict]): list containing dictionary of
-evaluation performance statistics
+- __test_stats_per_model__ (List\[dict\]): list containing dictionary of
+  evaluation performance statistics
 - __metadata__ (dict): intermediate preprocess structure created during
-training containing the mappings of the input dataset.
-- __output_feature_name__ (Union[str, `None`]): name of the output feature
-to use for the visualization.  If `None`, use all output features.
-- __top_n_classes__ (List[int]): list containing the number of classes
-to plot.
-- __model_names__ (Union[str, List[str]], default: `None`): model name or
-list of the model names to use as labels.
+  training containing the mappings of the input dataset.
+- __output_feature_name__ (Union\[str, `None`\]): name of the output feature
+  to use for the visualization.  If `None`, use all output features.
+- __top_n_classes__ (List\[int\]): list containing the number of classes
+  to plot.
+- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
+  list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-plots. If not specified, plots will be displayed in a window
+  plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-`'pdf'` or `'png'`.
+  `'pdf'` or `'png'`.
 
 __Return__
 
 - __return__ (None):
- 
-----
+
+______________________________________________________________________
 
 ## compare_classifiers_predictions
-
 
 ```python
 ludwig.visualize.compare_classifiers_predictions(
@@ -361,40 +345,39 @@ ludwig.visualize.compare_classifiers_predictions(
   labels_limit,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  ground_truth_apply_idx=True
 )
 ```
-
 
 Show two models comparison of their output_feature_name predictions.
 
 __Inputs__
 
-
-- __predictions_per_model__ (List[list]): list containing the model
-predictions for the specified output_feature_name.
-- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
+- __predictions_per_model__ (List\[list\]): list containing the model
+  predictions for the specified output_feature_name.
+- __ground_truth__ (Union\[pd.Series, np.ndarray\]): ground truth values
 - __metadata__ (dict): feature metadata dictionary
 - __output_feature_name__ (str): output feature name
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
-Encoded numeric label values in dataset that are higher than
-`label_limit` are considered to be "rare" labels.
-- __model_names__ (Union[str, List[str]], default: `None`): model name or
-list of the model names to use as labels.
+  Encoded numeric label values in dataset that are higher than
+  `label_limit` are considered to be "rare" labels.
+- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
+  list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-plots. If not specified, plots will be displayed in a window
+  plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-`'pdf'` or `'png'`.
+  `'pdf'` or `'png'`.
+- __ground_truth_apply_idx__ (bool, default: `True`): whether to use
+  metadata\['str2idx'\] in np.vectorize
 
 __Return__
 
-
 - __return__ (None):
- 
-----
+
+______________________________________________________________________
 
 ## confidence_thresholding_2thresholds_2d
-
 
 ```python
 ludwig.visualize.confidence_thresholding_2thresholds_2d(
@@ -409,7 +392,6 @@ ludwig.visualize.confidence_thresholding_2thresholds_2d(
 )
 ```
 
-
 Show confidence threshold data vs accuracy for two output feature names.
 
 The first plot shows several semi transparent lines. They summarize the
@@ -422,33 +404,30 @@ coverage  surface projected onto the accuracy surface.
 
 __Inputs__
 
-
-- __probabilities_per_model__ (List[numpy.array]): list of model
-probabilities.
-- __ground_truth__ (Union[List[np.array], List[pd.Series]]): containing
-ground truth data
+- __probabilities_per_model__ (List\[numpy.array\]): list of model
+  probabilities.
+- __ground_truth__ (Union\[List\[np.array\], List\[pd.Series\]\]): containing
+  ground truth data
 - __metadata__ (dict): feature metadata dictionary
-- __threshold_output_feature_names__ (List[str]): List containing two output
-feature names for visualization.
+- __threshold_output_feature_names__ (List\[str\]): List containing two output
+  feature names for visualization.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
-Encoded numeric label values in dataset that are higher than
-`label_limit` are considered to be "rare" labels.
-- __model_names__ (Union[str, List[str]], default: `None`): model name or
-list of the model names to use as labels.
+  Encoded numeric label values in dataset that are higher than
+  `label_limit` are considered to be "rare" labels.
+- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
+  list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-plots. If not specified, plots will be displayed in a window
+  plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-`'pdf'` or `'png'`.
+  `'pdf'` or `'png'`.
 
 __Return__
 
-
 - __return__ (None):
- 
-----
+
+______________________________________________________________________
 
 ## confidence_thresholding_2thresholds_3d
-
 
 ```python
 ludwig.visualize.confidence_thresholding_2thresholds_3d(
@@ -462,7 +441,6 @@ ludwig.visualize.confidence_thresholding_2thresholds_3d(
 )
 ```
 
-
 Show 3d confidence threshold data vs accuracy for two output feature names.
 
 The plot shows the 3d surfaces displayed by
@@ -473,31 +451,28 @@ as z axis.
 
 __Inputs__
 
-
-- __probabilities_per_model__ (List[numpy.array]): list of model
-probabilities.
-- __ground_truth__ (Union[List[np.array], List[pd.Series]]): containing
-ground truth data
+- __probabilities_per_model__ (List\[numpy.array\]): list of model
+  probabilities.
+- __ground_truth__ (Union\[List\[np.array\], List\[pd.Series\]\]): containing
+  ground truth data
 - __metadata__ (dict): feature metadata dictionary
-- __threshold_output_feature_names__ (List[str]): List containing two output
-feature names for visualization.
+- __threshold_output_feature_names__ (List\[str\]): List containing two output
+  feature names for visualization.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
-Encoded numeric label values in dataset that are higher than
-`label_limit` are considered to be "rare" labels.
+  Encoded numeric label values in dataset that are higher than
+  `label_limit` are considered to be "rare" labels.
 - __output_directory__ (str, default: `None`): directory where to save
-plots. If not specified, plots will be displayed in a window
+  plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-`'pdf'` or `'png'`.
+  `'pdf'` or `'png'`.
 
 __Return__
 
-
 - __return__ (None):
- 
-----
+
+______________________________________________________________________
 
 ## confidence_thresholding
-
 
 ```python
 ludwig.visualize.confidence_thresholding(
@@ -508,12 +483,12 @@ ludwig.visualize.confidence_thresholding(
   labels_limit,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  ground_truth_apply_idx=True
 )
 ```
 
-
-Show models accuracy and data coverage while increasing treshold
+Show models accuracy and data coverage while increasing treshold.
 
 For each model it produces a pair of lines indicating the accuracy of
 the model and the data coverage while increasing a threshold (x axis) on
@@ -521,31 +496,30 @@ the probabilities of predictions for the specified output_feature_name.
 
 __Inputs__
 
-
-- __probabilities_per_model__ (List[numpy.array]): list of model
-probabilities.
-- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
+- __probabilities_per_model__ (List\[numpy.array\]): list of model
+  probabilities.
+- __ground_truth__ (Union\[pd.Series, np.ndarray\]): ground truth values
 - __metadata__ (dict): feature metadata dictionary
 - __output_feature_name__ (str): output feature name
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
-Encoded numeric label values in dataset that are higher than
-`label_limit` are considered to be "rare" labels.
-- __model_names__ (Union[str, List[str]], default: `None`): model name or
-list of the model names to use as labels.
+  Encoded numeric label values in dataset that are higher than
+  `label_limit` are considered to be "rare" labels.
+- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
+  list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-plots. If not specified, plots will be displayed in a window
+  plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-`'pdf'` or `'png'`.
+  `'pdf'` or `'png'`.
+- __ground_truth_apply_idx__ (bool, default: `True`): whether to use
+  metadata\['str2idx'\] in np.vectorize
 
 __Return__
 
-
 - __return__ (None):
- 
-----
+
+______________________________________________________________________
 
 ## confidence_thresholding_data_vs_acc
-
 
 ```python
 ludwig.visualize.confidence_thresholding_data_vs_acc(
@@ -556,10 +530,10 @@ ludwig.visualize.confidence_thresholding_data_vs_acc(
   labels_limit,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  ground_truth_apply_idx=True
 )
 ```
-
 
 Show models comparison of confidence threshold data vs accuracy.
 
@@ -572,30 +546,30 @@ the threshold.
 
 __Inputs__
 
-
-- __probabilities_per_model__ (List[numpy.array]): list of model
-probabilities.
-- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
+- __probabilities_per_model__ (List\[numpy.array\]): list of model
+  probabilities.
+- __ground_truth__ (Union\[pd.Series, np.ndarray\]): ground truth values
 - __metadata__ (dict): feature metadata dictionary
 - __output_feature_name__ (str): output feature name
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
-Encoded numeric label values in dataset that are higher than
-`label_limit` are considered to be "rare" labels.
-- __model_names__ (Union[str, List[str]], default: `None`): model name or
-list of the model names to use as labels.
+  Encoded numeric label values in dataset that are higher than
+  `label_limit` are considered to be "rare" labels.
+- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
+  list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-plots. If not specified, plots will be displayed in a window
+  plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-`'pdf'` or `'png'`.
+  `'pdf'` or `'png'`.
+- __ground_truth_apply_idx__ (bool, default: `True`): whether to use
+  metadata\['str2idx'\] in np.vectorize
 
 __Return__
 
 - __return__ (None):
- 
-----
+
+______________________________________________________________________
 
 ## confidence_thresholding_data_vs_acc_subset
-
 
 ```python
 ludwig.visualize.confidence_thresholding_data_vs_acc_subset(
@@ -608,13 +582,12 @@ ludwig.visualize.confidence_thresholding_data_vs_acc_subset(
   subset,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  ground_truth_apply_idx=True
 )
 ```
 
-
-Show models comparison of confidence threshold data vs accuracy on a
-subset of data.
+Show models comparison of confidence threshold data vs accuracy on a subset of data.
 
 For each model it produces a line indicating the accuracy of the model
 and the data coverage while increasing a threshold on the probabilities
@@ -636,35 +609,34 @@ will be displayed for each model.
 
 __Inputs__
 
-
-- __probabilities_per_model__ (List[numpy.array]): list of model
-probabilities.
-- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
+- __probabilities_per_model__ (List\[numpy.array\]): list of model
+  probabilities.
+- __ground_truth__ (Union\[pd.Series, np.ndarray\]): ground truth values
 - __metadata__ (dict): feature metadata dictionary
 - __output_feature_name__ (str): output feature name
-- __top_n_classes__ (List[int]): list containing the number of classes
-to plot.
+- __top_n_classes__ (List\[int\]): list containing the number of classes
+  to plot.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
-Encoded numeric label values in dataset that are higher than
-`label_limit` are considered to be "rare" labels.
+  Encoded numeric label values in dataset that are higher than
+  `label_limit` are considered to be "rare" labels.
 - __subset__ (str): string specifying type of subset filtering.  Valid
-values are `ground_truth` or `predictions`.
-- __model_names__ (Union[str, List[str]], default: `None`): model name or
-list of the model names to use as labels.
+  values are `ground_truth` or `predictions`.
+- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
+  list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-plots. If not specified, plots will be displayed in a window
+  plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-`'pdf'` or `'png'`.
+  `'pdf'` or `'png'`.
+- __ground_truth_apply_idx__ (bool, default: `True`): whether to use
+  metadata\['str2idx'\] in np.vectorize
 
 __Return__
 
-
 - __return__ (None):
- 
-----
+
+______________________________________________________________________
 
 ## binary_threshold_vs_metric
-
 
 ```python
 ludwig.visualize.binary_threshold_vs_metric(
@@ -676,10 +648,10 @@ ludwig.visualize.binary_threshold_vs_metric(
   positive_label=1,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  ground_truth_apply_idx=True
 )
 ```
-
 
 Show confidence of the model against metric for the specified output_feature_name.
 
@@ -695,32 +667,31 @@ ground_truth_metadata JSON file.
 
 __Inputs__
 
-
-- __probabilities_per_model__ (List[numpy.array]): list of model
-probabilities.
-- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
+- __probabilities_per_model__ (List\[numpy.array\]): list of model
+  probabilities.
+- __ground_truth__ (Union\[pd.Series, np.ndarray\]): ground truth values
 - __metadata__ (dict): feature metadata dictionary
 - __output_feature_name__ (str): output feature name
-- __metrics__ (List[str]): metrics to display (`'f1'`, `'precision'`,
-`'recall'`, `'accuracy'`).
+- __metrics__ (List\[str\]): metrics to display (`'f1'`, `'precision'`,
+  `'recall'`, `'accuracy'`).
 - __positive_label__ (int, default: `1`): numeric encoded value for the
-positive class.
-- __model_names__ (List[str], default: `None`): list of the names of the
-models to use as labels.
+  positive class.
+- __model_names__ (List\[str\], default: `None`): list of the names of the
+  models to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-plots. If not specified, plots will be displayed in a window
+  plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-`'pdf'` or `'png'`.
+  `'pdf'` or `'png'`.
+- __ground_truth_apply_idx__ (bool, default: `True`): whether to use
+  metadata\['str2idx'\] in np.vectorize
 
 __Return__
 
-
 - __return__ (`None`):
- 
-----
+
+______________________________________________________________________
 
 ## roc_curves
-
 
 ```python
 ludwig.visualize.roc_curves(
@@ -731,10 +702,10 @@ ludwig.visualize.roc_curves(
   positive_label=1,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  ground_truth_apply_idx=True
 )
 ```
-
 
 Show the roc curves for output features in the specified models.
 
@@ -748,30 +719,29 @@ training metadata JSON file.
 
 __Inputs__
 
-
-- __probabilities_per_model__ (List[numpy.array]): list of model
-probabilities.
-- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
+- __probabilities_per_model__ (List\[numpy.array\]): list of model
+  probabilities.
+- __ground_truth__ (Union\[pd.Series, np.ndarray\]): ground truth values
 - __metadata__ (dict): feature metadata dictionary
 - __output_feature_name__ (str): output feature name
 - __positive_label__ (int, default: `1`): numeric encoded value for the
-positive class.
-- __model_names__ (Union[str, List[str]], default: `None`): model name or
-list of the model names to use as labels.
+  positive class.
+- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
+  list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-plots. If not specified, plots will be displayed in a window
+  plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-`'pdf'` or `'png'`.
+  `'pdf'` or `'png'`.
+- __ground_truth_apply_idx__ (bool, default: `True`): whether to use
+  metadata\['str2idx'\] in np.vectorize
 
 __Return__
 
-
 - __return__ (None):
- 
-----
+
+______________________________________________________________________
 
 ## roc_curves_from_test_statistics
-
 
 ```python
 ludwig.visualize.roc_curves_from_test_statistics(
@@ -783,9 +753,7 @@ ludwig.visualize.roc_curves_from_test_statistics(
 )
 ```
 
-
-Show the roc curves for the specified models output binary
-`output_feature_name`.
+Show the roc curves for the specified models output binary `output_feature_name`.
 
 This visualization uses `output_feature_name`, `test_stats_per_model` and
 `model_names` parameters. `output_feature_name` needs to be binary feature.
@@ -794,27 +762,24 @@ specified `output_feature_name`.
 
 __Inputs__
 
-
-- __test_stats_per_model__ (List[dict]): dictionary containing evaluation
-performance statistics.
+- __test_stats_per_model__ (List\[dict\]): dictionary containing evaluation
+  performance statistics.
 - __output_feature_name__ (str): name of the output feature to use
-for the visualization.
-- __model_names__ (Union[str, List[str]], default: `None`): model name or
-list of the model names to use as labels.
+  for the visualization.
+- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
+  list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-plots. If not specified, plots will be displayed in a window
+  plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-`'pdf'` or `'png'`.
+  `'pdf'` or `'png'`.
 
 __Return__
 
-
 - __return__ (None):
- 
-----
+
+______________________________________________________________________
 
 ## calibration_1_vs_all
-
 
 ```python
 ludwig.visualize.calibration_1_vs_all(
@@ -826,10 +791,10 @@ ludwig.visualize.calibration_1_vs_all(
   labels_limit,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  ground_truth_apply_idx=True
 )
 ```
-
 
 Show models probability of predictions for the specified output_feature_name.
 
@@ -849,32 +814,31 @@ probabilities and model_names).
 
 __Inputs__
 
-
-- __probabilities_per_model__ (List[numpy.array]): list of model
-probabilities.
-- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
+- __probabilities_per_model__ (List\[numpy.array\]): list of model
+  probabilities.
+- __ground_truth__ (Union\[pd.Series, np.ndarray\]): ground truth values
 - __metadata__ (dict): feature metadata dictionary
 - __output_feature_name__ (str): output feature name
 - __top_n_classes__ (list): List containing the number of classes to plot.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
-Encoded numeric label values in dataset that are higher than
-`label_limit` are considered to be "rare" labels.
-- __model_names__ (List[str], default: `None`): list of the names of the
-models to use as labels.
+  Encoded numeric label values in dataset that are higher than
+  `label_limit` are considered to be "rare" labels.
+- __model_names__ (List\[str\], default: `None`): list of the names of the
+  models to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-plots. If not specified, plots will be displayed in a window
+  plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-`'pdf'` or `'png'`.
+  `'pdf'` or `'png'`.
+- __ground_truth_apply_idx__ (bool, default: `True`): whether to use
+  metadata\['str2idx'\] in np.vectorize
 
 __String__
 
-
 - __return__ (None):
- 
-----
+
+______________________________________________________________________
 
 ## calibration_multiclass
-
 
 ```python
 ludwig.visualize.calibration_multiclass(
@@ -885,41 +849,39 @@ ludwig.visualize.calibration_multiclass(
   labels_limit,
   model_names=None,
   output_directory=None,
-  file_format='pdf'
+  file_format='pdf',
+  ground_truth_apply_idx=True
 )
 ```
 
-
-Show models probability of predictions for each class of the
-specified output_feature_name.
+Show models probability of predictions for each class of the specified output_feature_name.
 
 __Inputs__
 
-
-- __probabilities_per_model__ (List[numpy.array]): list of model
-probabilities.
-- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
+- __probabilities_per_model__ (List\[numpy.array\]): list of model
+  probabilities.
+- __ground_truth__ (Union\[pd.Series, np.ndarray\]): ground truth values
 - __metadata__ (dict): feature metadata dictionary
 - __output_feature_name__ (str): output feature name
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
-Encoded numeric label values in dataset that are higher than
-`label_limit` are considered to be "rare" labels.
-- __model_names__ (List[str], default: `None`): list of the names of the
-models to use as labels.
+  Encoded numeric label values in dataset that are higher than
+  `label_limit` are considered to be "rare" labels.
+- __model_names__ (List\[str\], default: `None`): list of the names of the
+  models to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-plots. If not specified, plots will be displayed in a window
+  plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-`'pdf'` or `'png'`.
+  `'pdf'` or `'png'`.
+- __ground_truth_apply_idx__ (bool, default: `True`): whether to use
+  metadata\['str2idx'\] in np.vectorize
 
 __Return__
 
-
 - __return__ (None):
- 
-----
+
+______________________________________________________________________
 
 ## confusion_matrix
-
 
 ```python
 ludwig.visualize.confusion_matrix(
@@ -934,9 +896,7 @@ ludwig.visualize.confusion_matrix(
 )
 ```
 
-
-Show confision matrix in the models predictions for each
-`output_feature_name`.
+Show confusion matrix in the models predictions for each `output_feature_name`.
 
 For each model (in the aligned lists of test_statistics and model_names)
 it  produces a heatmap of the confusion matrix in the predictions for
@@ -946,32 +906,29 @@ classes.
 
 __Inputs__
 
-
-- __test_stats_per_model__ (List[dict]): dictionary containing evaluation
+- __test_stats_per_model__ (List\[dict\]): dictionary containing evaluation
   performance statistics.
 - __metadata__ (dict): intermediate preprocess structure created during
-training containing the mappings of the input dataset.
-- __output_feature_name__ (Union[str, `None`]): name of the output feature
-to use for the visualization.  If `None`, use all output features.
-- __top_n_classes__ (List[int]): number of top classes or list
-containing the number of top classes to plot.
+  training containing the mappings of the input dataset.
+- __output_feature_name__ (Union\[str, `None`\]): name of the output feature
+  to use for the visualization.  If `None`, use all output features.
+- __top_n_classes__ (List\[int\]): number of top classes or list
+  containing the number of top classes to plot.
 - __normalize__ (bool): flag to normalize rows in confusion matrix.
-- __model_names__ (Union[str, List[str]], default: `None`): model name or
-list of the model names to use as labels.
+- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
+  list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-plots. If not specified, plots will be displayed in a window
+  plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-`'pdf'` or `'png'`.
+  `'pdf'` or `'png'`.
 
 __Return__
 
-
 - __return__ (None):
- 
-----
+
+______________________________________________________________________
 
 ## frequency_vs_f1
-
 
 ```python
 ludwig.visualize.frequency_vs_f1(
@@ -985,9 +942,7 @@ ludwig.visualize.frequency_vs_f1(
 )
 ```
 
-
-Show prediction statistics for the specified `output_feature_name` for
-each model.
+Show prediction statistics for the specified `output_feature_name` for each model.
 
 For each model (in the aligned lists of `test_stats_per_model` and
 `model_names`), produces two plots statistics of predictions for the
@@ -1006,31 +961,28 @@ frequency.
 
 __Inputs__
 
-
-- __test_stats_per_model__ (List[dict]): dictionary containing evaluation
-performance statistics.
+- __test_stats_per_model__ (List\[dict\]): dictionary containing evaluation
+  performance statistics.
 - __metadata__ (dict): intermediate preprocess structure created during
-training containing the mappings of the input dataset.
-- __output_feature_name__ (Union[str, `None`]): name of the output feature
-to use for the visualization.  If `None`, use all output features.
-- __top_n_classes__ (List[int]): number of top classes or list
-containing the number of top classes to plot.
-- __model_names__ (Union[str, List[str]], default: `None`): model name or
-list of the model names to use as labels.
+  training containing the mappings of the input dataset.
+- __output_feature_name__ (Union\[str, `None`\]): name of the output feature
+  to use for the visualization.  If `None`, use all output features.
+- __top_n_classes__ (List\[int\]): number of top classes or list
+  containing the number of top classes to plot.
+- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
+  list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-plots. If not specified, plots will be displayed in a window
+  plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-`'pdf'` or `'png'`.
+  `'pdf'` or `'png'`.
 
 __Return__
 
-
 - __return__ (None):
- 
-----
+
+______________________________________________________________________
 
 ## hyperopt_report
-
 
 ```python
 ludwig.visualize.hyperopt_report(
@@ -1040,30 +992,24 @@ ludwig.visualize.hyperopt_report(
 )
 ```
 
-
-
-Produces a report about hyperparameter optimization
-creating one graph per hyperparameter to show the distribution of results
-and one additional graph of pairwise hyperparameters interactions.
+Produces a report about hyperparameter optimization creating one graph per hyperparameter to show the
+distribution of results and one additional graph of pairwise hyperparameters interactions.
 
 __Inputs__
 
-
 - __hyperopt_stats_path__ (str): path to the hyperopt results JSON file.
 - __output_directory__ (str, default: `None`): directory where to save
-plots. If not specified, plots will be displayed in a window.
+  plots. If not specified, plots will be displayed in a window.
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-`'pdf'` or `'png'`.
+  `'pdf'` or `'png'`.
 
 __Return__
 
-
 - __return__ (None):
- 
-----
+
+______________________________________________________________________
 
 ## hyperopt_hiplot
-
 
 ```python
 ludwig.visualize.hyperopt_hiplot(
@@ -1072,20 +1018,15 @@ ludwig.visualize.hyperopt_hiplot(
 )
 ```
 
-
-
-Produces a parallel coordinate plot about hyperparameter optimization
-creating one HTML file and optionally a CSV file to be read by hiplot
+Produces a parallel coordinate plot about hyperparameter optimization creating one HTML file and optionally
+a CSV file to be read by hiplot.
 
 __Inputs__
 
-
 - __hyperopt_stats_path__ (str): path to the hyperopt results JSON file.
 - __output_directory__ (str, default: `None`): directory where to save
-plots. If not specified, plots will be displayed in a window.
+  plots. If not specified, plots will be displayed in a window.
 
 __Return__
 
-
 - __return__ (None):
- 

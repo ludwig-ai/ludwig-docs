@@ -54,7 +54,7 @@ Here are the tokenizers options you can specify for those features:
 
 - `characters`: splits every character of the input string in a separate token.
 - `space`: splits on space characters using the regex `\s+`.
-- `space_punct`: splits on space characters and punctuation using the regex `\w+|[^\w\s]`. 
+- `space_punct`: splits on space characters and punctuation using the regex `\w+|[^\w\s]`.
 - `underscore`: splits on the underscore character `_`.
 - `comma`: splits on the underscore character `,`.
 - `untokenized`: treats the whole string as a single token.

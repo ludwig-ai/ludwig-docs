@@ -1,5 +1,4 @@
-Commands
-===
+# Commands
 
 Ludwig provides several command line interface entry points
 
@@ -21,8 +20,7 @@ Ludwig provides several command line interface entry points
 
 They are described in detail below.
 
-train
-===
+# train
 
 This command lets you train a model from your data.
 You can call it with:
@@ -124,14 +122,14 @@ optional arguments:
 ```
 
 When Ludwig trains a model it creates two intermediate files, one HDF5 and one JSON.
-The HDF5 file contains the data mapped to numpy ndarrays, while the JSON file 
+The HDF5 file contains the data mapped to numpy ndarrays, while the JSON file
 contains the mappings from the values in the tensors to their original labels.
 
-For instance, for a categorical feature with 3 possible values, the HDF5 file 
-will contain integers from 0 to 3 (with 0 being a `<UNK>` category), while the 
-JSON file will contain a `idx2str` list containing all tokens 
-(`[<UNK>, label_1, label_2, label_3]`), a `str2idx` dictionary 
-(`{"<UNK>": 0, "label_1": 1, "label_2": 2, "label_3": 3}`) and a `str2freq` 
+For instance, for a categorical feature with 3 possible values, the HDF5 file
+will contain integers from 0 to 3 (with 0 being a `<UNK>` category), while the
+JSON file will contain a `idx2str` list containing all tokens
+(`[<UNK>, label_1, label_2, label_3]`), a `str2idx` dictionary
+(`{"<UNK>": 0, "label_1": 1, "label_2": 2, "label_3": 3}`) and a `str2freq`
 dictionary (`{"<UNK>": 0, "label_1": 93, "label_2": 55, "label_3": 24}`).
 
 The reason to have those  intermediate files is two-fold: on one hand, if you are going to train your model again Ludwig will try to load them instead of recomputing all tensors, which saves a considerable amount of time, and on the other hand when you want to use your model to predict, data has to be mapped to tensors in exactly the same way it was mapped during training, so you'll be required to load the JSON metadata file in the `predict` command.
@@ -151,9 +149,9 @@ The validation set is optional, but if absent the training will continue until t
 
 Other optional arguments are `--output_directory`, `--experiment_name` and `--model name`.
 By default the output directory is `./results`.
-That directory will contain a directory named `[experiment_name]_[model_name]_0` 
+That directory will contain a directory named `[experiment_name]_[model_name]_0`
 if model name and experiment name are specified.
-If the same combination of experiment and model name is used again, the integer 
+If the same combination of experiment and model name is used again, the integer
 at the end of the name will be increased.
 If neither of them is specified the directory will be named `run_0`.
 The directory will contain
@@ -162,14 +160,14 @@ The directory will contain
 - `training_statistics.json` - a file containing records of all measures and losses for each epoch.
 - `model` - a directory containing model hyper-parameters, weights, checkpoints and logs (for TensorBoard).
 
-The configuration can be provided either as a string (`--config`) 
+The configuration can be provided either as a string (`--config`)
 or as YAML file (`--config_file`).
 Details on how to write your configuration are provided in the [Configuration](#configuration) section.
 
-During training Ludwig saves two sets of weights for the model, one that is the 
-weights at the end of the epoch where the best performance on the validation 
+During training Ludwig saves two sets of weights for the model, one that is the
+weights at the end of the epoch where the best performance on the validation
 measure was achieved and one that is the weights at the end of the latest epoch.
-The reason for keeping the second set is to be able to resume training in case 
+The reason for keeping the second set is to be able to resume training in case
 the training process gets interrupted somehow.
 
 To resume training using the latest weights and the whole history of progress so far you have to specify the `--model_resume_path` argument.
@@ -192,12 +190,12 @@ If parameter `--backend` is set, will use the given backend for distributed proc
 Finally the `--logging_level` argument lets you set the amount of logging that you want to see during training and the `--debug` argument turns on TensorFlow's `tfdbg`. Be careful when doing so, as it will help in catching errors, in particular `infs` and `NaNs` but it will consume much more memory.
 
 Example:
+
 ```
 ludwig train --dataset reuters-allcats.csv --config "{input_features: [{name: text, type: text, encoder: parallel_cnn, level: word}], output_features: [{name: class, type: category}]}"
 ```
 
-predict
-===
+# predict
 
 This command lets you use a previously trained model to predict on new data.
 You can call it with:
@@ -257,14 +255,14 @@ In either case, the JSON metadata file obtained during training is needed in ord
 If the new data contains a split column, you can specify which split to use to calculate the predictions with the `--split` argument. By default it's `full` which means all the splits will be used.
 
 A model to load is needed, and you can specify its path with the `--model_path` argument.
-If you trained a model previously and got the results in, for instance, 
-`./results/experiment_run_0`, you have to specify 
+If you trained a model previously and got the results in, for instance,
+`./results/experiment_run_0`, you have to specify
 `./results/experiment_run_0/model` for using it to predict.
 
-You can specify an output directory with the argument `--output-directory`, by 
+You can specify an output directory with the argument `--output-directory`, by
 default it will be `./result_0`, with increasing numbers if a directory with the same name is present.
 
-The directory will contain a prediction CSV file and a probability CSV file for 
+The directory will contain a prediction CSV file and a probability CSV file for
 each output feature, together with raw NPY files containing raw tensors.
 You can specify not to save the raw NPY output files with the argument `skip_save_unprocessed_output`.
 
@@ -273,14 +271,14 @@ A specific batch size for speeding up the prediction can be specified using the 
 Finally the `--logging_level`, `--debug`, `--gpus`, `--gpu_memory_limit` and `--disable_parallel_threads`  related arguments behave exactly like described in the train command section.
 
 Example:
+
 ```
 ludwig predict --dataset reuters-allcats.csv --model_path results/experiment_run_0/model/
 ```
 
-evaluate
-===
+# evaluate
 
-This command lets you use a previously trained model to predict on new data and 
+This command lets you use a previously trained model to predict on new data and
 evaluate the performance of the prediction compared to ground truth.
 You can call it with:
 
@@ -343,20 +341,20 @@ All parameters are the same of [predict](#predict) and the behavior is the same.
 The only difference isthat `evaluate` requires the dataset to contain also columns with the same name of output features.
 This is needed because `evaluate` compares the predictions produced by the model with the ground truth and will save all those statistics in a `test_statistics.json` file in the result directory.
 
-Note that the data must contain columns for each output feature with ground 
+Note that the data must contain columns for each output feature with ground
 truth output values in order to compute the performance statistics.
-If you receive an error regarding a missing output feature column in your data, 
+If you receive an error regarding a missing output feature column in your data,
 it means that the data does not contain the columns for each output feature to use as ground truth.
 
 Example:
+
 ```
 ludwig evaluate --dataset reuters-allcats.csv --model_path results/experiment_run_0/model/
 ```
 
-experiment
-===
+# experiment
 
-This command combines training and evaluation into a single handy command.  
+This command combines training and evaluation into a single handy command.\
 You can request a k-fold cross validation run by specifing the `--k_fold`
 parameter.
 You can call it with:
@@ -475,17 +473,17 @@ optional arguments:
                         the level of logging to use
 ```
 
-The parameters combine parameters from both [train](#train) and [test](#test) so 
+The parameters combine parameters from both [train](#train) and [test](#test) so
 refer to those sections for an in depth explanation.
 The output directory will contain the outputs both commands produce.
 
 Example:
+
 ```
 ludwig experiment --dataset reuters-allcats.csv --config "{input_features: [{name: text, type: text, encoder: parallel_cnn, level: word}], output_features: [{name: class, type: category}]}"
 ```
 
-hyperopt
-===
+# hyperopt
 
 This command lets you perform an hyper-parameter search with a given sampler and parameters.
 You can call it with:
@@ -592,9 +590,7 @@ In order to perform an hyper-parameter optimization, the `hyperopt` section need
 In the `hyperopt` section you will be able to define what metric to optimize, what parameters, what sampler to use to optimize them and how to execute the optimization.
 For details on the `hyperopt` section see the detailed description in the [Hyper-parameter Optimization](#hyper-parameter-optimization) section.
 
-
-serve
-===
+# serve
 
 This command lets you load a pre-trained model and serve it on an http server.
 
@@ -613,6 +609,7 @@ python -m ludwig.serve [options]
 from within Ludwig's main directory.
 
 These are the available arguments:
+
 ```
 usage: ludwig serve [options]
 
@@ -655,8 +652,8 @@ Requests must be submitted as form data, with one of fields being `dataset`: a J
 The `dataset` JSON string is expected to be in the Pandas "split" format to reduce payload size. This format divides the dataset into three parts:
 
 1. columns: `List[str]`
-2. index (optional): `List[Union[str, int]]`
-3. data: `List[List[object]]`
+1. index (optional): `List[Union[str, int]]`
+1. data: `List[List[object]]`
 
 Additional form fields can be used to provide file resources like images that are referenced within the dataset.
 
@@ -664,9 +661,7 @@ Batch prediction example:
 
 `curl http://0.0.0.0:8000/batch_predict -X POST -F 'dataset={"columns": ["a", "b"], "data": [[1, 2], [3, 4]]}'`
 
-
-visualize
-===
+# visualize
 
 This command lets you visualize training and prediction statistics, alongside with comparing different models performances and predictions.
 You can call it with:
@@ -684,6 +679,7 @@ python -m ludwig.visualize [options]
 from within Ludwig's main directory.
 
 These are the available arguments:
+
 ```
 usage: ludwig visualize [options]
 
@@ -742,9 +738,7 @@ optional arguments:
 As the `--visualization` parameters suggests, there is a vast number of visualizations readily available.
 Each of them requires a different subset of this command's arguments, so they will be described one by one in the [Visualizations](#visualizations) section.
 
-
-collect_summary
-===
+# collect_summary
 
 This command loads a pretrained model and prints names of weights and layers activations to use with `collect_weights` or `collect_activations`.
 
@@ -775,8 +769,7 @@ optional arguments:
                         the level of logging to use
 ```
 
-collect_weights
-===
+# collect_weights
 
 This command lets you load a pre-trained model and collect the tensors with a specific name in order to save them in a NPY format.
 This may be useful in order to visualize the learned weights (for instance collecting embedding matrices) and for some post-hoc analyses.
@@ -795,6 +788,7 @@ python -m ludwig.collect weights [options]
 from within Ludwig's main directory.
 
 These are the available arguments:
+
 ```
 usage: ludwig collect_weights [options]
 
@@ -823,9 +817,7 @@ tensorboard --logdir /path/to/model/log
 
 Or use the `collect_summary` command.
 
-
-collect_activations
-===
+# collect_activations
 
 This command lets you load a pre-trained model and input data and collects the values of activations contained in tensors with a specific name in order to save them in a NPY format.
 This may be useful in order to visualize the activations (for instance collecting last layer's activations as embeddings representations of the input datapoint) and for some post-hoc analyses.
@@ -891,8 +883,7 @@ In order to figure out the names of the tensors containing the activations you w
 tensorboard --logdir /path/to/model/log
 ```
 
-export_savedmodel
-===
+# export_savedmodel
 
 Exports a pre-trained model to Tensorflow `SavedModel` format.
 
@@ -907,6 +898,7 @@ python -m ludwig.export savedmodel [options]
 ```
 
 These are the available arguments:
+
 ```
 usage: ludwig export_savedmodel [options]
 
@@ -922,8 +914,7 @@ optional arguments:
                         the level of logging to use
 ```
 
-export_neuropod
-===
+# export_neuropod
 
 A Ludwig model can be exported as a [Neuropod](https://github.com/uber/neuropod), a mechanism that allows it to be executed in a framework agnostic way.
 
@@ -940,6 +931,7 @@ python -m ludwig.export neuropod [options]
 ```
 
 These are the available arguments:
+
 ```
 usage: ludwig export_neuropod [options]
 
@@ -959,16 +951,14 @@ optional arguments:
 
 This functionality has been tested with `neuropod==0.2.0`.
 
-
-export_mlflow
-===
+# export_mlflow
 
 A Ludwig model can be exported as an [mlflow.pyfunc](https://www.mlflow.org/docs/latest/python_api/mlflow.pyfunc.html) model, which allows it to be executed in a framework agnostic way.
 
 There are two ways to export a Ludwig model to MLflow:
 
 1. Convert a saved model directory on disk to the MLflow format on disk.
-2. Register a saved model directory on disk or in an existing MLflow experiment to an MLflow model registry.
+1. Register a saved model directory on disk or in an existing MLflow experiment to an MLflow model registry.
 
 For the first approach, you only need to provide the location of the saved Ludwig model locally and the location where the model should be written to on local disk:
 
@@ -982,9 +972,7 @@ For the second, you will need to provide a registered model name used by the mod
 ludwig export_mlflow --model_path /saved/ludwig/model --output_path relative/model/path --registered_model_name my_ludwig_model
 ```
 
-
-preprocess
-===
+# preprocess
 
 Preprocess data and saves it into HDF5 and JSON format.
 The preprocessed files can be then used for performing training, prediction and evaluation.
@@ -1001,6 +989,7 @@ python -m ludwig.preprocess [options]
 ```
 
 These are the available arguments:
+
 ```
 usage: ludwig preprocess [options]
 
@@ -1043,8 +1032,7 @@ optional arguments:
                         the level of logging to use
 ```
 
-synthesize_dataset
-===
+# synthesize_dataset
 
 Creates synthetic data for testing purposes depending on the feature list parameters provided in YAML format.
 
@@ -1059,6 +1047,7 @@ python -m ludwig.data.dataset_synthesizer [options]
 ```
 
 These are the available arguments:
+
 ```
 usage: ludwig synthesize_dataset [options]
 
@@ -1079,7 +1068,6 @@ optional arguments:
 Process finished with exit code 0
 
 ```
-
 
 The feature list file should contain one entry dictionary per feature, with its name and type, plus optional hyperparameters.
 

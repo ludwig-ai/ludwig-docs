@@ -6,7 +6,7 @@ to the command line interface.
 To contribute an integration, follow these steps:
 
 1. Create a Python file in `ludwig/contribs/` with an obvious name. In this example, it is called `mycontrib.py`.
-2. Inside that file, create a class with the following structure, renaming `MyContribution` to a name that is associated with the third-party system:
+1. Inside that file, create a class with the following structure, renaming `MyContribution` to a name that is associated with the third-party system:
 
 ```python
 class MyContribution():

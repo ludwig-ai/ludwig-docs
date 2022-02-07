@@ -17,7 +17,7 @@ The command line interface is managet by the `ludwig/cli.py` script, which impor
 
 The programmatic interface (which is also used by the CLI commands) is available in the `ludwig/api.py` script.
 
-Hyper-parameter optimization logic is implemented in the scripts in the `ludwig/hyperopt` package. 
+Hyper-parameter optimization logic is implemented in the scripts in the `ludwig/hyperopt` package.
 
 The `ludwig/utils` package contains various utilities used by all other packages.
 

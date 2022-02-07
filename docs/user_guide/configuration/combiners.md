@@ -206,7 +206,7 @@ The `transformer` combiner combines imput features using a stack of Transformer 
 It assumes all outputs from encoders are tensors of size `b x h` where `b` is the batch size and `h` is the hidden dimension, which can be different for each input.
 If the input tensors have a different shape, it automatically flattens them.
 It then projects each input tensor to the same hidden / embedding size and encodes them wit ha stack of Tranformer layers.
-Finally it applies an reduction to the outputs of the Transformer stack and applies optional fully connected layers. 
+Finally it applies an reduction to the outputs of the Transformer stack and applies optional fully connected layers.
 It returns the final `b x h'` tensor where `h'` is the size of the last fully connected layer or the hidden / embedding size , or it returns `b x n x h'` where `n` is the number of input features and `h'` is the hidden / embedding size if there's no reduction applied.
 
 ```
@@ -247,7 +247,6 @@ These are the available parameters of a `transformer` combiner:
 - `fc_residual` (default `false`): if `true` adds a residual connection to each fully connected layer block. It is required that all fully connected layers have the same size for this parameter to work correctly.
 - `reduce_output` (default `mean`): describes the strategy to use to aggregate the embeddings of the items of the set. Possible values are `sum`, `mean` and `sqrt` (the weighted sum divided by the square root of the sum of the squares of the weights).
 
-
 Example configuration of a `transformer` combiner:
 
 ```yaml
@@ -280,7 +279,7 @@ The `comparator` combiner compares the hidden representation of two entities def
 It assumes all outputs from encoders are tensors of size `b x h` where `b` is the batch size and `h` is the hidden dimension, which can be different for each input.
 If the input tensors have a different shape, it automatically flattens them.
 It then concatenates the representations of each entity end projects them into the same size.
-Finally it compares the two entity representations by dot product, element-wise multiplication, absolute difference and bilinear product. 
+Finally it compares the two entity representations by dot product, element-wise multiplication, absolute difference and bilinear product.
 It returns the final `b x h'` tensor where `h'` is the size of the concatenation of the four comparisons.
 
 ```

@@ -1,5 +1,4 @@
-Ludwig documentation
-====================
+# Ludwig documentation
 
 ## Building docs locally
 
@@ -30,7 +29,6 @@ mike serve
 ```
 
 Navigate to http://localhost:8000 to view the docs.
-
 
 ## Updating docs for older Ludwig versions
 

@@ -1,19 +1,20 @@
-Hyper-parameter optimization configuration
-==========================================
+# Hyper-parameter optimization configuration
 
 In order to perform hyper-parameter optimization, its configuration has to be provided inside the Ludwig configuration as a root key `hyperopt`.
 Its configuration contains what metric to optimize, which parameters to optimize, which sampler to use, and how to execute the optimization.
 
 The different parameters that could be defined in the `hyperopt` configuration are:
+
 - `goal` which indicates if to minimize or maximize a metric or a loss of any of the output features on any of the dataset splits. Available values are: `minimize` (default) or `maximize`.
 - `output_feature` is a `str` containing the name of the output feature that we want to optimize the metric or loss of. Available values are `combined` (default) or the name of any output feature provided in the configuration. `combined` is a special output feature that allows to optimize for the aggregated loss and metrics of all output features.
 - `metric` is the metric that we want to optimize for. The default one is `loss`, but depending on the type of the feature defined in `output_feature`, different metrics and losses are available. Check the metrics section of the specific output feature type to figure out what metrics are available to use.
 - `split` is the split of data that we want to compute our metric on. By default it is the `validation` split, but you have the flexibility to specify also `train` or `test` splits.
 - `parameters` section consists of a set of hyper-parameters to optimize. They are provided as keys (the names of the parameters) and values associated with them (that define the search space). The values vary depending on the type of the hyper-parameter. Types can be `float`, `int` and `category`.
-- `sampler` section contains the sampler type to be used for sampling hyper-paramters values and its configuration. Currently available sampler types are `grid` and `random`. The sampler configuration parameters modify the sampler behavior, for instance for `random` you can set how many random samples to draw. 
+- `sampler` section contains the sampler type to be used for sampling hyper-paramters values and its configuration. Currently available sampler types are `grid` and `random`. The sampler configuration parameters modify the sampler behavior, for instance for `random` you can set how many random samples to draw.
 - `executor` section specifies how to execute the hyper-parameter optimization. The execution could happen locally in a serial manner or in parallel across multiple workers and with GPUs as well if available.
 
 Example:
+
 ```yaml
 hyperopt:
   goal: minimize
@@ -42,9 +43,7 @@ For instance, to reference the `learning_rate`, one would have to use the name `
 If the parameter to reference is inside an input or output feature, the name of that feature will be be used as starting point.
 For instance, for referencing the `cell_type` of the `utterance` feature, use the name `utterance.cell_type`.
 
-
-Hyper-parameters
-================
+# Hyper-parameters
 
 ## Float parameters
 
@@ -58,6 +57,7 @@ For a `float` value, the parameters to specify are:
 For instance `range: (0.0, 1.0), steps: 3` would yield `[0.0, 0.5, 1.0]` as potential values to sample from, while if `steps` is not specified, the full range between `0.0` and `1.0` will be used.
 
 Example:
+
 ```yaml
 training.learning_rate:
   type: real
@@ -67,18 +67,18 @@ training.learning_rate:
   scale: linear
 ```
 
-
 ## Int parameters
 
 For an `int` value, the parameters to specify are:
 
 - `low`: the minimum value the parameter can have
 - `high`: the maximum value the parameter can have
-- `steps`: OPTIONAL number of steps. 
+- `steps`: OPTIONAL number of steps.
 
 For instance `range: (0, 10), steps: 3` would yield `[0, 5, 10]` for the search, while if `steps` is not specified, `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]` will be used.
 
 Example:
+
 ```yaml
 combiner.num_fc_layers:
   type: int
@@ -86,22 +86,21 @@ combiner.num_fc_layers:
   high: 4
 ```
 
-
 ## Category parameters
 
 For a `category` value, the parameters to specify are:
+
 - `values`: a list of possible values. The type of each value of the list is not important (they could be strings, integers, floats and anything else, even entire dictionaries).
 
 Example:
+
 ```yaml
 utterance.cell_type:
   type: category
   values: [rnn, gru, lstm]
 ```
 
-
-Sampler
-=======
+# Sampler
 
 ## Grid sampler
 
@@ -109,6 +108,7 @@ The `grid` sampler creates a search space by exhaustively selecting all elements
 For `float` parameters, it is required to specify the number of `steps`.
 
 Example:
+
 ```yaml
 sampler:
   type: grid
@@ -120,12 +120,12 @@ The `random` sampler samples hyper-parameter values randomly from the parameters
 `num_samples` (default: `10`) can be specified in the `sampler` section.
 
 Example:
+
 ```yaml
 sampler:
   type: random
   num_samples: 10
 ```
-
 
 ## PySOT sampler
 
@@ -138,8 +138,8 @@ We recommend using at least `10 * d` total samples to allow the algorithm to con
 
 More details are available on the GitHub page: https://github.com/dme65/pySOT.
 
-
 Example:
+
 ```yaml
 sampler:
   type: pysot
@@ -148,7 +148,7 @@ sampler:
 
 ## Ray Tune sampler
 
-The `ray` sampler is used in conjunction with the `ray` executor to enable [Ray Tune](https://docs.ray.io/en/master/tune/index.html) for distributed hyperopt across a cluster of machines. 
+The `ray` sampler is used in conjunction with the `ray` executor to enable [Ray Tune](https://docs.ray.io/en/master/tune/index.html) for distributed hyperopt across a cluster of machines.
 
 Ray Tune supports its own collection of [search algorithms](https://docs.ray.io/en/master/tune/api_docs/suggestion.html), specified by the `search_alg` section of the sampler config:
 
@@ -204,14 +204,14 @@ hyperopt:
   goal: minimize
 ```
 
-Executor
-========
+# Executor
 
 ## Serial Executor
 
 The `serial`executor performs hyper-parameter optimization locally in a serial manner, executing the elements in the set of sampled parameters obtained by the selected sampler one at a time.
 
 Example:
+
 ```yaml
 executor:
   type: serial
@@ -228,6 +228,7 @@ For example, if `num_workers: 4` and 2 GPUs are available, if the provided `gpu_
 An `epsilon` (default: `0.01`) parameter is also provided to allow for additional free GPU memory: the GPU franction to use is defined as `(#gpus / #workers) - epsilon`.
 
 Example:
+
 ```yaml
 executor:
   type: parallel
@@ -258,7 +259,6 @@ executor:
 **Running Ray Executor:**
 
 See the section on [Running Ludwig with Ray](https://ludwig-ai.github.io/ludwig-docs/user_guide/#running-ludwig-with-ray) for guidance on setting up your Ray cluster.
-
 
 ## Fiber Executor
 
@@ -360,9 +360,7 @@ Running hyper-parameter optimization with Fiber is a little bit different from o
 
 Check out [Fiber's documentation](https://uber.github.io/fiber/getting-started/#running-on-a-computer-cluster) for more details on running on clusters.
 
-
-Full hyper-parameter optimization example
-=========================================
+# Full hyper-parameter optimization example
 
 Example YAML:
 
@@ -429,6 +427,7 @@ hyperopt:
 ```
 
 Example CLI command:
+
 ```
 ludwig hyperopt --dataset reuters-allcats.csv --config "{input_features: [{name: utterance, type: text, encoder: rnn, cell_type: lstm, num_layers: 2}], output_features: [{name: class, type: category}], training: {learning_rate: 0.001}, hyperopt: {goal: maximize, output_feature: class, metric: accuracy, split: validation, parameters: {training.learning_rate: {type: float, low: 0.0001, high: 0.1, steps: 4, scale: log}, utterance.cell_type: {type: category, values: [rnn, gru, lstm]}}, sampler: {type: grid}, executor: {type: serial}}}"
 ```

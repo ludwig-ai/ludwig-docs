@@ -3,7 +3,7 @@ For more details about it refer to: https://eng.uber.com/h3/ .
 
 ## H3 Features Preprocessing
 
-Ludwig will parse the H3 64bit encoded format automatically. 
+Ludwig will parse the H3 64bit encoded format automatically.
 The parameters for preprocessing are:
 
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
@@ -18,7 +18,6 @@ preprocessing:
   missing_value_strategy: fill_with_const
   fill_value: 576495936675512319
 ```
-
 
 ## H3 Input Features and Encoders
 
@@ -96,7 +95,6 @@ It takes the following optional parameters:
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `dropout` (default `0`): dropout rate
 - `reduce_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and  `null` (which does not reduce and returns the full tensor).
-
 
 Example date feature entry in the input features list using an embed encoder:
 

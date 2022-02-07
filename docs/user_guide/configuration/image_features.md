@@ -29,15 +29,12 @@ preprocessing:
   scaling: pixel_normalization
 ```
 
-
 ## Image Input Features and Encoders
 
 Input image features are transformed into a float valued tensors of size `N x H x W x C` (where `N` is the size of the dataset and `H x W` is a specific resizing of the image that can be set, and `C` is the number of channels) and added to HDF5 with a key that reflects the name of column in the dataset.
 The column name is added to the JSON file, with an associated dictionary containing preprocessing information about the sizes of the resizing.
 
 Currently there are two encoders supported for images: Convolutional Stack Encoder and ResNet encoder which can be set by setting `encoder` parameter to `stacked_cnn` or `resnet` in the input feature dictionary in the configuration (`stacked_cnn` is the default one).
-
-
 
 ### Convolutional Stack Encoder
 

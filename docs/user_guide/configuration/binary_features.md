@@ -14,7 +14,7 @@ Binary features have two encoders.
 One encoder (`passthrough'`) takes the raw binary values coming from the input placeholders are just returned as outputs.
 Inputs are of size `b` while outputs are of size `b x 1` where `b` is the batch size.
 The other encoder (`'dense'`) passes the raw binary values through a fully connected layers.
-In this case the inputs of size `b` are transformed to size `b x h`.  
+In this case the inputs of size `b` are transformed to size `b x h`.
 
 Example binary feature entry in the input features list:
 
@@ -27,7 +27,6 @@ encoder: passthrough
 Binary input feature parameters are
 
 - `encoder` (default `'passthrough'`) encodes the binary feature. Valid choices:  `'passthrough'`: binary feature is passed through as-is, `'dense'`: binary feature is fed through a fully connected layer.
-
 
 There are no additional parameters for the `passthrough` encoder.
 

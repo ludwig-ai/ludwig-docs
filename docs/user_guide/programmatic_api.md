@@ -1,5 +1,4 @@
-Python API
-==========
+# Python API
 
 Ludwig functionalities can also be accessed through a Python programmatic API.
 The API consists of one `LudwigModel` class that can be initialized with a configuration dictionary and then can be trained with a dataset (either in memory or loaded from file).
@@ -7,8 +6,7 @@ Pretrained models can be loaded and can be used to obtain predictions on s new d
 
 A detailed documentation of all the functions available in `LudwigModel` is provided in the [API documentation](../api.md).
 
-Training a Model
-================
+# Training a Model
 
 To train a model one has first to initialize it using the initializer `LudwigModel()` and a configuration dictionary, and then calling the `train()` function using either a dataframe or a dataset file.
 
@@ -23,7 +21,7 @@ training_statistics, preprocessed_data, output_directory = model.train(dataset=d
 ```
 
 `config` is a dictionary that has the same key-value structure of a configuration YAML file, as it's technically equivalent as parsing the YAML file into a Python dictionary.
-Note that all null values should be provided as Python `None` instead of the YAML `null`, and the same applies for `True/False` instead of `true/false`. 
+Note that all null values should be provided as Python `None` instead of the YAML `null`, and the same applies for `True/False` instead of `true/false`.
 `train_statistics` is a dictionary of training statistics
 for each output feature containing loss and metrics values
 for each epoch.
@@ -32,9 +30,7 @@ The contents are exactly the same of the `training_statistics.json` file produce
 `(training_set, validation_set, test_set)`.
 `output_directory` is the filepath where training results are stored.
 
-
-Loading a Pre-trained Model
-===========================
+# Loading a Pre-trained Model
 
 In order to load a pre-trained Ludwig model you have to call the static function `load()` of the `LudwigModel` class providing the path containing the model.
 
@@ -44,8 +40,7 @@ from ludwig.api import LudwigModel
 model = LudwigModel.load(model_path)
 ```
 
-Predicting
-==========
+# Predicting
 
 Either a newly trained model or a pre-trained loaded model can be used for predicting on new data using the `predict()` function of the model object.
 The dataset has to contain columns with the same names of all the input features of the model.

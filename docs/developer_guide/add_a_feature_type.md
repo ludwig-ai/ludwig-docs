@@ -1,5 +1,6 @@
- 1. Add a new feature class
----------------------------
+1. Add a new feature class
+
+______________________________________________________________________
 
 Souce code for feature classes lives under `ludwig/features`.
 Input and output feature classes are defined in the same file, for example `CategoryInputFeature` and `CategoryOutputFeature` are defined in `ludwig/features/category_feature.py`.
@@ -14,7 +15,6 @@ Feature parameters are provided in a dictionary of key-value pairs as an argumen
 
 All input features should implement `__init__` and `call` methods with the following signatures:
 
-
 ### `__init__`
 
 ```python
@@ -23,10 +23,8 @@ def __init__(self, feature, encoder_obj=None):
 
 __Inputs__
 
-
 - __feature__: (dict) contains all feature parameters.
-- __encoder_obj__: (*Encoder, default: `None`) is an encoder object of the type supported (a cateory encoder, binary encoder, etc.). It is used only when two input features share the encoder.
-
+- __encoder_obj__: (\*Encoder, default: `None`) is an encoder object of the type supported (a cateory encoder, binary encoder, etc.). It is used only when two input features share the encoder.
 
 ### `call`
 
@@ -44,11 +42,9 @@ __Return__
 
 - __hidden__ (tf.Tensor): feature encodings.
 
-
 ## Output features
 
 All input features should implement `__init__`, `logits` and `predictions` methods with the following signatures:
-
 
 ### `__init__`
 
@@ -58,9 +54,8 @@ def __init__(self, feature, encoder_obj=None):
 
 __Inputs__
 
-
 - __feature__ (dict): contains all feature parameters.
-- __decoder_obj__ (*Decoder, default: `None`): is a decoder object of the type supported (a cateory decoder, binary decoder, etc.). It is used only when two output features share the decoder.
+- __decoder_obj__ (\*Decoder, default: `None`): is a decoder object of the type supported (a cateory decoder, binary decoder, etc.). It is used only when two output features share the decoder.
 
 ### `logits`
 
@@ -90,8 +85,8 @@ __Return__
 
 - __hidden__ (dict): contains predictions, probabilities and logits.
 
+2. Add the new feature class to the corresponding feature registry
 
- 2. Add the new feature class to the corresponding feature registry
--------------------------------------------------------------------
+______________________________________________________________________
 
 Input and output feature registries are defined in `ludwig/features/feature_registries.py`.

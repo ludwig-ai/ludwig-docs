@@ -31,7 +31,7 @@ nav:
       - 'Integrations': 'user_guide/integrations.md'
   - Configuration:
       - 'Configuration Intro': 'configuration/configuration_intro.md'
-      = 'Features':
+      - 'Features':
         - 'Input Features': 'configuration/input_features.md'
         - 'Output Features': 'configuration/output_features.md'
         - 'Binary Features': 'configuration/binary_features.md'

@@ -6,10 +6,10 @@ Then a dictionary of all the different token strings present in the column of th
 The column name is added to the JSON file, with an associated dictionary containing
 
 1. the mapping from integer to string (`idx2str`)
-2. the mapping from string to id (`str2idx`)
-3. the mapping from string to frequency (`str2freq`)
-4. the maximum length of all sequences (`sequence_length_limit`)
-5. additional preprocessing information (by default how to fill missing values and what token to use to fill missing values)
+1. the mapping from string to id (`str2idx`)
+1. the mapping from string to frequency (`str2freq`)
+1. the maximum length of all sequences (`sequence_length_limit`)
+1. additional preprocessing information (by default how to fill missing values and what token to use to fill missing values)
 
 The parameters available for preprocessing are
 
@@ -34,7 +34,7 @@ For instance the `parallel_cnn` encoder, by default pools and flattens the seque
 
 Sequence input feature parameters are
 
-- `encoder` (default ``parallel_cnn``): the name of the encoder to use to encode the sequence. The available ones are  `embed`, `parallel_cnn`, `stacked_cnn`, `stacked_parallel_cnn`, `rnn`, `cnnrnn`, `transformer` and `passthrough` (equivalent to specify `null` or `'None'`).
+- `encoder` (default `parallel_cnn`): the name of the encoder to use to encode the sequence. The available ones are  `embed`, `parallel_cnn`, `stacked_cnn`, `stacked_parallel_cnn`, `rnn`, `cnnrnn`, `transformer` and `passthrough` (equivalent to specify `null` or `'None'`).
 - `tied_weights` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
 
 ### Embed Encoder
@@ -669,7 +669,6 @@ fc_dropout: 0
 reduce_output: last
 ```
 
-
 ### Passthrough Encoder
 
 The passthrough decoder simply transforms each input value into a float value and adds a dimension to the input tensor, creating a `b x s x 1` tensor where `b` is the batch size and `s` is the length of the sequence.
@@ -677,7 +676,7 @@ The tensor is reduced along the `s` dimension to obtain a single vector of size 
 If you want to output the full `b x s x h` tensor, you can specify `reduce_output: null`.
 This encoder is not really useful for `sequence` or `text` features, but may be useful for `timeseries` features, as it allows for using them without any processing in later stages of the model, like in a sequence combiner for instance.
 
-```  
+```
 +--+   
 |12|   
 |7 |                    +-----------+
@@ -812,9 +811,7 @@ If a `b x h` input is provided to a generator decoder using an rnn with attentio
                               GO    +-----+     +-----+
 ```
 
-
 - `reduce_input` (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension).
-
 
 These are the available parameters of a Generator decoder:
 

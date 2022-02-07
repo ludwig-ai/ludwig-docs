@@ -1,0 +1,21 @@
+# Apply to all files without committing:
+#   pre-commit run --all-files
+# Apply to changed files:
+#   pre-commit run
+# Update this file:
+#   pre-commit autoupdate
+
+ci:
+  autofix_prs: true
+  autoupdate_commit_msg: "[pre-commit.ci] pre-commit suggestions"
+  autoupdate_schedule: weekly
+
+repos:
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 0.7.13
+    hooks:
+      - id: mdformat
+        additional_dependencies:
+          - mdformat-gfm
+          - mdformat_frontmatter
+        exclude: CHANGELOG.md

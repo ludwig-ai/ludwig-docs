@@ -1,5 +1,4 @@
-Introduction
-============
+# Introduction
 
 Ludwig is a toolbox that allows users to train and test deep learning models without the need to write code.
 It is built on top of TensorFlow.
@@ -18,6 +17,7 @@ Ludwig provides a set of model architectures that can be combined together to cr
 As an analogy, if deep learning libraries provide the building blocks to make your building, Ludwig provides the buildings to make your city, and you can choose among the available buildings or add your own building to the set of available ones.
 
 The core design principles baked into the toolbox are:
+
 - No coding required: no coding skills are required to train a model and use it for obtaining predictions.
 - Generality: a new datatype-based approach to deep learning model design makes the tool usable across many different use cases.
 - Flexibility: experienced users have extensive control over model building and training, while newcomers will find it easy to use.
@@ -25,9 +25,7 @@ The core design principles baked into the toolbox are:
 - Understandability: deep learning model internals are often considered black boxes, but Ludwig provides standard visualizations to understand their performance and compare their predictions.
 - Open Source: Apache License 2.0
 
-
-Installation
-============
+# Installation
 
 Ludwig requires you to use Python 3.6+.
 If you don’t have Python 3 installed, install it by running:
@@ -51,14 +49,15 @@ pip install ludwig
 
 This will install only Ludwig's basic requirements, different feature types require different dependencies.
 We divided them as different extras so that users could install only the ones they actually need:
- - `ludwig[text]` for text dependencies.
- - `ludwig[audio]` for audio and speech dependencies.
- - `ludwig[image]` for image dependencies.
- - `ludwig[hyperopt]` for hyperparameter optimization dependencies.
- - `ludwig[horovod]` for distributed training dependencies.
- - `ludwig[serve]` for serving dependencies.
- - `ludwig[viz]` for visualization dependencies.
- - `ludwig[test]` for dependencies needed for testing.
+
+- `ludwig[text]` for text dependencies.
+- `ludwig[audio]` for audio and speech dependencies.
+- `ludwig[image]` for image dependencies.
+- `ludwig[hyperopt]` for hyperparameter optimization dependencies.
+- `ludwig[horovod]` for distributed training dependencies.
+- `ludwig[serve]` for serving dependencies.
+- `ludwig[viz]` for visualization dependencies.
+- `ludwig[test]` for dependencies needed for testing.
 
 Distributed training is supported with [Horovod](https://github.com/horovod/horovod), which can be installed with `pip install ludwig[horovod]` or `HOROVOD_GPU_OPERATIONS=NCCL pip install ludwig[horovod]` for GPU support.
 See Horovod's [installation guide](https://horovod.readthedocs.io/en/stable/install_include.html)  for full details on available installation options.
@@ -76,14 +75,12 @@ source venv/bin/activate
 pip install -e '.[test]'
 ```
 
-**Note:** that if you are running without GPUs, you may wish to use the CPU-only version of TensorFlow, 
+**Note:** that if you are running without GPUs, you may wish to use the CPU-only version of TensorFlow,
 which takes up much less space on disk.
 To use a CPU-only TensorFlow version, uninstall `tensorflow` and  replace it with `tensorflow-cpu` after having installed `ludwig`.
 Be sure to install a version within the compatible range as shown in `requirements.txt`.
 
-
-Basic Principles
-================
+# Basic Principles
 
 Ludwig provides three main functionalities: training models and using them to predict and evaluate them.
 It is based on datatype abstraction, so that the same data preprocessing and postprocessing will be performed on different datasets that share datatypes and the same encoding and decoding models developed can be re-used across several tasks.
@@ -125,18 +122,16 @@ take a look at the [Examples](examples.md) to see how you can use Ludwig for sev
 The model definition can contain additional information, in particular how to preprocess each column in the data, which encoder and decoder to use for each one, architectural  and training parameters, hyperparameters to optimize.
 This allows ease of use for novices and flexibility for experts.
 
-
-Training
---------
+## Training
 
 For example, given a text classification dataset like the following:
 
-| doc_text                              | class    |
-|---------------------------------------|----------|
-| Former president Barack Obama ...     | politics |
-| Juventus hired Cristiano Ronaldo ...  | sport    |
-| LeBron James joins the Lakers ...     | sport    |
-| ...                                   | ...      |
+| doc_text                             | class    |
+| ------------------------------------ | -------- |
+| Former president Barack Obama ...    | politics |
+| Juventus hired Cristiano Ronaldo ... | sport    |
+| LeBron James joins the Lakers ...    | sport    |
+| ...                                  | ...      |
 
 you want to learn a model that uses the content of the `doc_text` column as input to predict the values in the `class` column.
 You can use the following model definition:
@@ -155,9 +150,9 @@ where `path/to/file.csv` is the path to a UTF-8 encoded CSV file containing the 
 Ludwig will:
 
 1. Perform a random split of the data.
-2. Preprocess the dataset.
-3. Build a ParallelCNN model (the default for text features) that decodes output classes through a softmax classifier.
-4. Train the model on the training set until the performance on the validation set stops improving.
+1. Preprocess the dataset.
+1. Build a ParallelCNN model (the default for text features) that decodes output classes through a softmax classifier.
+1. Train the model on the training set until the performance on the validation set stops improving.
 
 Training progress will be displayed in the console, but the TensorBoard can also be used.
 
@@ -182,16 +177,12 @@ This command will display a graph like the following, where you can see loss and
 
 Several more visualizations are available, please refer to [Visualizations](user_guide/user_guide_intro.md#visualizations) for more details.
 
-
-Distributed Training
---------------------
+## Distributed Training
 
 You can distribute the training of your models using [Horovod](https://github.com/horovod/horovod), which allows training on a single machine with multiple GPUs as well as on multiple machines with multiple GPUs.
 Refer to the [User Guide](user_guide/user_guide_intro.md#distributed-training) for full details.
 
-
-Prediction and Evaluation
--------------------------
+## Prediction and Evaluation
 
 If you want your previously trained model to predict target output values on new data, you can type the following command in your console:
 
@@ -219,9 +210,7 @@ will return a bar plot comparing the models on different metrics:
 
 A handy `ludwig experiment` command that performs training and prediction one after the other is also available.
 
-
-Programmatic API
-----------------
+## Programmatic API
 
 Ludwig also provides a simple programmatic API that allows you to train or load a model and use it to obtain predictions on new data:
 
@@ -243,9 +232,7 @@ predictions = model.predict(test_data)
 `config` containing the same information of the YAML file provided to the command line interface.
 More details are provided in the [User Guide](user_guide/user_guide_intro.md) and in the [API documentation](api.md).
 
-
-Extensibility
-=============
+# Extensibility
 
 Ludwig is built from the ground up with extensibility in mind.
 It is easy to add an additional datatype that is not currently supported by adding a datatype-specific implementation of abstract classes that contain functions to preprocess the data, encode it, and decode it.

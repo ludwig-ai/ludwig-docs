@@ -1,4 +1,4 @@
-The configuration is the core of Ludwig. It is a dictionary containing the following keys: 
+The configuration is the core of Ludwig. It is a dictionary containing the following keys:
 
 ```yaml
 input_features: []
@@ -33,11 +33,10 @@ mylist:
         score: 4
 ```
 
-Only `input_features` and `output_features` are required, the other three fields 
+Only `input_features` and `output_features` are required, the other three fields
 have default values, but you are free to modify them.
 
 Here are the instructions to fill each section of the configuration: ... . And here are the information on how to fill the type-specific parts of input features, outputs features and preprocessing: ... .
-
 
 ##[Input Features](input_features.md)
 ##[Combiner](combiner.md)

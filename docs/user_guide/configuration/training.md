@@ -7,7 +7,7 @@ These are the available training parameters:
 - `epochs` (default `100`): number of epochs the training process will run for.
 - `early_stop` (default `5`): if there's a validation set, number of epochs of patience without an improvement on the validation measure before the training is stopped.
 - `optimizer` (default `{type: adam, beta1: 0.9, beta2: 0.999, epsilon: 1e-08}`): which optimizer to use with the relative parameters. The available optimizers are: `sgd` (or `stochastic_gradient_descent`, `gd`, `gradient_descent`, they are all the same), `adam`, `adadelta`, `adagrad`, `adamax`, `ftrl`, `nadam`,
-`rmsprop`. To know their parameters check [TensorFlow's optimizer documentation](https://www.tensorflow.org/api_docs/python/tf/train).
+  `rmsprop`. To know their parameters check [TensorFlow's optimizer documentation](https://www.tensorflow.org/api_docs/python/tf/train).
 - `learning_rate` (default `0.001`): the learning rate to use.
 - `decay` (default `false`): if to use exponential decay of the learning rate or not.
 - `decay_rate` (default `0.96`): the rate of the exponential learning rate decay.
@@ -35,12 +35,14 @@ The `learning_rate` parameter the optimizer will use come from the `training` se
 Other optimizer specific parameters, shown with their Ludwig default settings, follow:
 
 - `sgd` (or `stochastic_gradient_descent`, `gd`, `gradient_descent`)
+
 ```
 'momentum': 0.0,
 'nesterov': false
 ```
 
 - `adam`
+
 ```
 'beta_1': 0.9,
 'beta_2': 0.999,
@@ -48,18 +50,21 @@ Other optimizer specific parameters, shown with their Ludwig default settings, f
 ```
 
 - `adadelta`
+
 ```
 'rho': 0.95,
 'epsilon': 1e-08
 ```
 
 - `adagrad`
+
 ```
 'initial_accumulator_value': 0.1,
 'epsilon': 1e-07
 ```
 
 - `adamax`
+
 ```
 'beta_1': 0.9, 
 'beta_2': 0.999, 
@@ -67,7 +72,8 @@ Other optimizer specific parameters, shown with their Ludwig default settings, f
 ```
 
 - `ftrl`
-``` 
+
+```
 'learning_rate_power': -0.5, 
 'initial_accumulator_value': 0.1,
 'l1_regularization_strength': 0.0, 
@@ -75,6 +81,7 @@ Other optimizer specific parameters, shown with their Ludwig default settings, f
 ```
 
 - `nadam`,
+
 ```
 'beta_1': 0.9, 
 'beta_2': 0.999, 
@@ -82,7 +89,8 @@ Other optimizer specific parameters, shown with their Ludwig default settings, f
 ```
 
 - `rmsprop`
-``` 
+
+```
 'decay': 0.9,
 'momentum': 0.0,
 'epsilon': 1e-10,

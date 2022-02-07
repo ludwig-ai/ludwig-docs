@@ -1,10 +1,10 @@
-General Guidelines
-==================
+# General Guidelines
 
-* Unit test for all ludwig modules.  **Rationale**:  Confirms quality of the code base.
+- Unit test for all ludwig modules.  **Rationale**:  Confirms quality of the code base.
 
-* At minimum, tests related to tensors should confirm no errors are raised when processing tensor(s) and that resulting tensors are of correct shape and type.  **Rationale**:  This provides minimal assurance that the function is operating as expected.  **Illustrative code fragment**:
-``` 
+- At minimum, tests related to tensors should confirm no errors are raised when processing tensor(s) and that resulting tensors are of correct shape and type.  **Rationale**:  This provides minimal assurance that the function is operating as expected.  **Illustrative code fragment**:
+
+```
     # pass input features through combiner
     # no exception should be raised in this call
     combiner_output = combiner(input_features)
@@ -25,8 +25,9 @@ General Guidelines
 
 ```
 
-* Test combination of parameters that drive through all code paths.  **Rationale**: Ensures correctness of the function under a wide variety of situations.  **Illustrative code fragment**:
-``` 
+- Test combination of parameters that drive through all code paths.  **Rationale**: Ensures correctness of the function under a wide variety of situations.  **Illustrative code fragment**:
+
+```
 # test combination of parameters to exercise all code paths
 @pytest.mark.parametrize(
     'num_total_blocks, num_shared_blocks',
@@ -52,8 +53,9 @@ def test_feature_transformer(
     )
 ```
 
-* Test edge cases when possible, e.g., only one or no item; or data structure is at maximum limit.  **Rationale**: Ensures robustness of code.  **Illustrative code fragment**:
-``` 
+- Test edge cases when possible, e.g., only one or no item; or data structure is at maximum limit.  **Rationale**: Ensures robustness of code.  **Illustrative code fragment**:
+
+```
 @pytest.mark.parametrize(
     'feature_list',  # defines parameter for fixture features_to_test()
     [
@@ -86,19 +88,19 @@ def test_feature_transformer(
 )
 ```
 
-* When testing a complex layer / module / encoder / combiner / model, make sure that all the variables / weights get updates after one training step.  **Rationale**: Ensures the computation graph doesn’t contain dangling nodes. This catches issues that don’t make the code crash, that are not caught by looking at the loss scores, are they likely will go down, and that are not caught by training the model to convergence (albeit to a usually bad loss), For more details see [this link](https://thenerdstation.medium.com/how-to-unit-test-machine-learning-code-57cf6fd81765).
+- When testing a complex layer / module / encoder / combiner / model, make sure that all the variables / weights get updates after one training step.  **Rationale**: Ensures the computation graph doesn’t contain dangling nodes. This catches issues that don’t make the code crash, that are not caught by looking at the loss scores, are they likely will go down, and that are not caught by training the model to convergence (albeit to a usually bad loss), For more details see [this link](https://thenerdstation.medium.com/how-to-unit-test-machine-learning-code-57cf6fd81765).
 
-* Reuse the already established setup for similar tests or establish a new reusable one.  **Rationale**: Ensures consistent test coverage and reduces effort to develop and maintain test.  Examples of reusable test setup can be found in `tests/conftest.py`.  This module contains reusable `pytest.fixtures` that have applicability across many tests.
+- Reuse the already established setup for similar tests or establish a new reusable one.  **Rationale**: Ensures consistent test coverage and reduces effort to develop and maintain test.  Examples of reusable test setup can be found in `tests/conftest.py`.  This module contains reusable `pytest.fixtures` that have applicability across many tests.
 
-* TorchTyping tests -- add typechecking based on torch input/outputs. **Rationale**: Allows for stronger typechecking of the form [batch_size, dim1, dim2, ...]. We can use the torch typing library to add these tests.
+- TorchTyping tests -- add typechecking based on torch input/outputs. **Rationale**: Allows for stronger typechecking of the form \[batch_size, dim1, dim2, ...\]. We can use the torch typing library to add these tests.
 
-* Overfitting tests — ensure that a small ECD model is able to overfit on a small dataset. **Rationale**: Ensures that models are able to converge on reasonable targets and catches any unscoped issues that aren’t captured by shape/weight update tests.
+- Overfitting tests — ensure that a small ECD model is able to overfit on a small dataset. **Rationale**: Ensures that models are able to converge on reasonable targets and catches any unscoped issues that aren’t captured by shape/weight update tests.
 
-Implementation Guidelines
-=========================
+# Implementation Guidelines
 
-* Use pytest.mark.parametrize for test setup.  **Rationale**:  Automates setup for test cases.  **Illustrative code fragment**:
-``` 
+- Use pytest.mark.parametrize for test setup.  **Rationale**:  Automates setup for test cases.  **Illustrative code fragment**:
+
+```
 @pytest.mark.parametrize('enc_should_embed', [True, False])
 @pytest.mark.parametrize('enc_reduce_output', [None, 'sum'])
 @pytest.mark.parametrize('enc_norm', [None, 'batch', 'layer'])
@@ -118,8 +120,9 @@ def test_sequence_encoders(
 ):
 ```
 
-* Use temporary directories for any generated data.  **Rationale**: Avoids polluting the local file system when testing locally.  **Illustrative code fragment**:
-``` 
+- Use temporary directories for any generated data.  **Rationale**: Avoids polluting the local file system when testing locally.  **Illustrative code fragment**:
+
+```
 import tempfile
 
 def test_export_neuropod_cli(csv_filename):
@@ -139,10 +142,11 @@ def test_export_neuropod_cli(csv_filename):
                     )
 ```
 
-* Consolidate tests that require common setup, e.g., training/test data sets, into a single module and use appropriately scoped `@pytest.fixture` to reduce overhead of repeatedly performing setup.  **Rationale**: Reduce test run-time.
+- Consolidate tests that require common setup, e.g., training/test data sets, into a single module and use appropriately scoped `@pytest.fixture` to reduce overhead of repeatedly performing setup.  **Rationale**: Reduce test run-time.
 
-* When you use a random function, always specify a seed.  **Rationale**: If a test fails, it would be bad not to be able to replicate it exactly.  **Illustrative code fragment**:
-``` 
+- When you use a random function, always specify a seed.  **Rationale**: If a test fails, it would be bad not to be able to replicate it exactly.  **Illustrative code fragment**:
+
+```
 import torch 
 
 RANDOM_SEED = 1919 

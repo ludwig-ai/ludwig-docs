@@ -5,10 +5,10 @@ The way categories are mapped into integers consists in first collecting a dicti
 The column name is added to the JSON file, with an associated dictionary containing
 
 1. the mapping from integer to string (`idx2str`)
-2. the mapping from string to id (`str2idx`)
-3. the mapping from string to frequency (`str2freq`)
-4. the size of the set of all tokens (`vocab_size`)
-5. additional preprocessing information (by default how to fill missing values and what token to use to fill missing values)
+1. the mapping from string to id (`str2idx`)
+1. the mapping from string to frequency (`str2freq`)
+1. the size of the set of all tokens (`vocab_size`)
+1. additional preprocessing information (by default how to fill missing values and what token to use to fill missing values)
 
 The parameters available for preprocessing are
 
@@ -48,7 +48,6 @@ The available encoder parameters:
 - `dropout` (default `0`): dropout rate.
 - `embedding_initializer` (default `null`): the initializer to use. If `null`, the default initialized of each variable is used (`glorot_uniform` in most cases). Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
 - `embedding_regularizer` (default `null`): specifies the type of regularizer to use `l1`, `l2` or `l1_l2`.
-
 
 ### Sparse Encoder
 

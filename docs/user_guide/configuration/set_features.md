@@ -7,10 +7,10 @@ Then a dictionary of all the different set item strings present in the column of
 The column name is added to the JSON file, with an associated dictionary containing
 
 1. the mapping from integer to string (`idx2str`)
-2. the mapping from string to id (`str2idx`)
-3. the mapping from string to frequency (`str2freq`)
-4. the maximum size of all sets (`max_set_size`)
-5. additional preprocessing information (by default how to fill missing values and what token to use to fill missing values)
+1. the mapping from string to id (`str2idx`)
+1. the mapping from string to frequency (`str2freq`)
+1. the maximum size of all sets (`max_set_size`)
+1. additional preprocessing information (by default how to fill missing values and what token to use to fill missing values)
 
 The parameters available for preprocessing are
 

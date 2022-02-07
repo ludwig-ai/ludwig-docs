@@ -1,5 +1,4 @@
-Visualize Command
-=================
+# Visualize Command
 
 Several visualization can be obtained from the result files from both `train`, `predict` and `experiment` by using the `visualize` command.
 The command has several parameters, but not all the visualizations use all of them.
@@ -142,18 +141,17 @@ output_features:
         type: binary
 ```
 
-Learning Curves
-===============
+# Learning Curves
 
 ## learning_curves
 
-Parameters for this visualization: 
+Parameters for this visualization:
 
-* `output_directory`
-* `file_format`
-* `output_feature_name` 
-* `training_statistics`
-* `model_names`
+- `output_directory`
+- `file_format`
+- `output_feature_name`
+- `training_statistics`
+- `model_names`
 
 For each model (in the aligned lists of `training_statistics` and `model_names`) and for each output feature and measure of the model, it produces a line plot showing how that measure changed over the course of the epochs of training on the training and validation sets.  If `output_feature_name` is not specified, then all output features are plotted.
 
@@ -171,27 +169,26 @@ ludwig visualize --visualization learning_curves \
 
 ![Learning Curves Accuracy](../images/learning_curves_accuracy.png "Learning Curves Accuracy")
 
-
-Confusion Matrix
-================
+# Confusion Matrix
 
 ## confusion_matrix
 
-Parameters for this visualization: 
+Parameters for this visualization:
 
-* `ground_truth_metadata`
-* `output_directory`
-* `file_format`
-* `output_feature_name`
-* `test_statistics`
-* `model_names`
-* `top_n_classes`
-* `normalize`
+- `ground_truth_metadata`
+- `output_directory`
+- `file_format`
+- `output_feature_name`
+- `test_statistics`
+- `model_names`
+- `top_n_classes`
+- `normalize`
 
 For each model (in the aligned lists of `test_statistics` and `model_names`) it produces a heatmap of the confusion matrix in the predictions for each field that has a confusion matrix in `test_statistics`.
 The value of `top_n_classes` limits the heatmap to the `n` most frequent classes.
 
 Example command:
+
 ```
 ludwig visualize --visualization confusion_matrix \
   --ground_truth_metadata results/titanic_Model1_0/model/train_set_metadata.json \
@@ -205,23 +202,22 @@ The second plot produced, is a barplot showing the entropy of each class, ranked
 
 ![Confusion Matrix Entropy](../images/confusion_matrix_entropy.png "Confusion Matrix Entropy")
 
-
-Compare Performance
-===================
+# Compare Performance
 
 ## compare_performance
 
-Parameters for this visualization: 
+Parameters for this visualization:
 
-* `output_directory`
-* `file_format`
-* `output_feature_name`
-* `test_statistics`
-* `model_names`
+- `output_directory`
+- `file_format`
+- `output_feature_name`
+- `test_statistics`
+- `model_names`
 
 For each model (in the aligned lists of `test_statistics` and `model_names`) it produces bars in a bar plot, one for each overall metric available in the `test_statistics` file for the specified `output_feature_name`.
 
 Example command:
+
 ```
 ludwig visualize --visualization compare_performance \
   --output_feature_name Survived \
@@ -232,27 +228,27 @@ ludwig visualize --visualization compare_performance \
 
 ![Compare Classifiers Performance](../images/compare_performance.png "Compare Classifiers Performance")
 
-
 ## compare_classifiers_performance_from_prob
 
-Parameters for this visualization: 
- 
-* `ground_truth` 
-* `split_file` 
-* `ground_truth_metadata` 
-* `output_directory` 
-* `file_format`
-* `output_feature_name` 
-* `ground_truth_split` 
-* `probabilities` 
-* `model_names` 
-* `top_n_classes` 
-* `labels_limit` 
+Parameters for this visualization:
+
+- `ground_truth`
+- `split_file`
+- `ground_truth_metadata`
+- `output_directory`
+- `file_format`
+- `output_feature_name`
+- `ground_truth_split`
+- `probabilities`
+- `model_names`
+- `top_n_classes`
+- `labels_limit`
 
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `probabilities` and `model_names`) it produces bars in a bar plot, one for each overall metric computed on the fly from the probabilities of predictions for the specified `output_feature_name`.
 
 Example command:
+
 ```
 ludwig visualize --visualization compare_classifiers_performance_from_prob \
   --ground_truth train.hdf5 \
@@ -264,26 +260,26 @@ ludwig visualize --visualization compare_classifiers_performance_from_prob \
 
 ![Compare Classifiers Performance from Probabilities](../images/compare_classifiers_performance_from_prob.png "Compare Classifiers Performance from probabilities")
 
-
 ## compare_classifiers_performance_from_pred
 
-Parameters for this visualization: 
+Parameters for this visualization:
 
-* `ground_truth`
-* `split_file`
-* `ground_truth_metadata`
-* `output_directory`
-* `file_format`
-* `output_feature_name`
-* `ground_truth_split`
-* `predictions`
-* `model_names`
-* `labels_limit`
+- `ground_truth`
+- `split_file`
+- `ground_truth_metadata`
+- `output_directory`
+- `file_format`
+- `output_feature_name`
+- `ground_truth_split`
+- `predictions`
+- `model_names`
+- `labels_limit`
 
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `predictions` and `model_names`) it produces bars in a bar plot, one for each overall metric computed on the fly from the predictions for the specified `output_feature_name`.
 
 Example command:
+
 ```
 ludwig visualize --visualization compare_classifiers_performance_from_pred \
   --ground_truth train.hdf5 \
@@ -296,23 +292,22 @@ ludwig visualize --visualization compare_classifiers_performance_from_pred \
 
 ![Compare Classifiers Performance from Predictions](../images/compare_classifiers_performance_from_pred.png "Compare Classifiers Performance from Predictions")
 
-
 ## compare_classifiers_performance_subset
 
-Parameters for this visualization: 
+Parameters for this visualization:
 
-* `ground_truth`
-* `split_file`
-* `ground_truth_metadata`
-* `output_directory`
-* `file_format`
-* `output_feature_name`
-* `ground_truth_split` 
-* `probabilities`
-* `model_names`
-* `top_n_classes`
-* `labels_limit`
-* `subset`
+- `ground_truth`
+- `split_file`
+- `ground_truth_metadata`
+- `output_directory`
+- `file_format`
+- `output_feature_name`
+- `ground_truth_split`
+- `probabilities`
+- `model_names`
+- `top_n_classes`
+- `labels_limit`
+- `subset`
 
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `predictions` and `model_names`) it produces bars in a bar plot, one for each overall metric computed on the fly from the probabilities predictions for the specified `output_feature_name`, considering only a subset of the full training set.
@@ -321,6 +316,7 @@ The way the subset is obtained is using the `top_n_classes` and `subset` paramet
 If the values of `subset` is `ground_truth`, then only datapoints where the ground truth class is within the top `n` most frequent ones will be considered as test set, and the percentage of datapoints that have been kept from the original set will be displayed.
 
 Example command:
+
 ```
 ludwig visualize --visualization compare_classifiers_performance_subset \
   --ground_truth train.hdf5 \
@@ -339,27 +335,27 @@ If the values of `subset` is `predictions`, then only datapoints where the the m
 
 ![Compare Classifiers Performance Subset Ground Predictions](../images/compare_classifiers_performance_subset_pred.png "Compare Classifiers Performance Subset Ground Predictions")
 
-
 ## compare_classifiers_performance_changing_k
 
-Parameters for this visualization: 
+Parameters for this visualization:
 
-* `ground_truth`
-* `split_file`
-* `ground_truth_metadata`
-* `output_directory` 
-* `file_format`
-* `output_feature_name`
-* `ground_truth_split`
-* `probabilities`
-* `model_names`
-* `top_k`
-* `labels_limit`
+- `ground_truth`
+- `split_file`
+- `ground_truth_metadata`
+- `output_directory`
+- `file_format`
+- `output_feature_name`
+- `ground_truth_split`
+- `probabilities`
+- `model_names`
+- `top_k`
+- `labels_limit`
 
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line plot that shows the Hits@K measure (that counts a prediction as correct if the model produces it among the first `k`) while changing `k` from 1 to `top_k` for the specified `output_feature_name`.
 
 Example command:
+
 ```
 ludwig visualize --visualization compare_classifiers_performance_changing_k \
   --ground_truth train.hdf5 \
@@ -372,18 +368,17 @@ ludwig visualize --visualization compare_classifiers_performance_changing_k \
 
 ![Compare Classifiers Performance Changing K](../images/compare_classifiers_performance_changing_k.png "Compare Classifiers Performance Changing K")
 
-
 ## compare_classifiers_multiclass_multimetric
 
-Parameters for this visualization: 
+Parameters for this visualization:
 
-* `ground_truth_metadata`
-* `output_directory`
-* `file_format`
-* `output_feature_name`
-* `test_statistics`
-* `model_names`
-* `top_n_classes`
+- `ground_truth_metadata`
+- `output_directory`
+- `file_format`
+- `output_feature_name`
+- `test_statistics`
+- `model_names`
+- `top_n_classes`
 
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `test_statistics` and `model_names`) it produces four plots that show the precision, recall and F1 of the model on several classes for the specified `output_feature_name`.
@@ -404,29 +399,28 @@ The fourth one shows the measures on all the classes, sorted by their frequency.
 
 ![Multiclass Multimetric sorted](../images/compare_classifiers_multiclass_multimetric_sorted.png "Multiclass Multimetric sorted classes")
 
-
-Compare Classifier Predictions
-==============================
+# Compare Classifier Predictions
 
 ## compare_classifiers_predictions
 
-Parameters for this visualization: 
+Parameters for this visualization:
 
-* `ground_truth`
-* `split_file`
-* `ground_truth_metadata`
-* `output_directory` 
-* `file_format`
-* `output_feature_name`
-* `ground_truth_split`
-* `predictions`
-* `model_names`
-* `labels_limit`
+- `ground_truth`
+- `split_file`
+- `ground_truth_metadata`
+- `output_directory`
+- `file_format`
+- `output_feature_name`
+- `ground_truth_split`
+- `predictions`
+- `model_names`
+- `labels_limit`
 
 `output_feature_name` needs to be a category and there must be two and only two models (in the aligned lists of `predictions` and `model_names`).
 This visualization produces a pie chart comparing the predictions of the two models for the specified `output_feature_name`.
 
 Example command:
+
 ```
 ludwig visualize --visualization compare_classifiers_predictions \
   --ground_truth train.hdf5 \
@@ -435,68 +429,65 @@ ludwig visualize --visualization compare_classifiers_predictions \
           results/titanic_Model2_0/Survived_predictions.csv \
   --model_names Model1 Model2 
 ```
-![Compare Classifiers Predictions](../images/compare_classifiers_predictions.png "Compare Classifiers Predictions")
 
+![Compare Classifiers Predictions](../images/compare_classifiers_predictions.png "Compare Classifiers Predictions")
 
 ## compare_classifiers_predictions_distribution
 
-Parameters for this visualization: 
+Parameters for this visualization:
 
-* `ground_truth`
-* `split_file`
-* `ground_truth_metadata`
-* `output_directory`
-* `file_format`
-* `output_feature_name`
-* `ground_truth_split`
-* `predictions`
-* `model_names`
-* `label_limits`
+- `ground_truth`
+- `split_file`
+- `ground_truth_metadata`
+- `output_directory`
+- `file_format`
+- `output_feature_name`
+- `ground_truth_split`
+- `predictions`
+- `model_names`
+- `label_limits`
 
 `output_feature_name` needs to be a category.
 This visualization produces a radar plot comparing the distributions of predictions of the models for the first 10 classes of the specified `output_feature_name`.
 
 ![Compare Classifiers Predictions Distribution](../images/compare_classifiers_predictions_distribution.png "Compare Classifiers Predictions Distribution")
 
-
-Confidence Thresholding
-=======================
+# Confidence Thresholding
 
 ## confidence_thresholding
 
-Parameters for this visualization: 
+Parameters for this visualization:
 
-* `ground_truth`
-* `split_file`
-* `ground_truth_metadata`
-* `output_directory`
-* `file_format`
-* `output_feature_name`
-* `ground_truth_split`
-* `probabilities`
-* `model_names`
-* `labels_limit`
+- `ground_truth`
+- `split_file`
+- `ground_truth_metadata`
+- `output_directory`
+- `file_format`
+- `output_feature_name`
+- `ground_truth_split`
+- `probabilities`
+- `model_names`
+- `labels_limit`
 
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `probabilities` and `model_names`) it produces a pair of lines indicating the accuracy of the model and the data coverage while increasing a threshold (x axis) on the probabilities of predictions for the specified `output_feature_name`.
 
 ![Confidence_Thresholding](../images/confidence_thresholding.png "Confidence_Thresholding")
 
-
 ## confidence_thresholding_data_vs_acc
 
-Parameters for this visualization: 
+Parameters for this visualization:
 
-* `ground_truth`
-* `split_file`
-* `ground_truth_metadata`
-* `output_directory`
-* `file_format`
-* `output_feature_name`
-* `ground_truth_split`
-* `probabilities`
-* `model_names`
-* `labels_limit`
+- `ground_truth`
+- `split_file`
+- `ground_truth_metadata`
+- `output_directory`
+- `file_format`
+- `output_feature_name`
+- `ground_truth_split`
+- `probabilities`
+- `model_names`
+- `labels_limit`
 
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line indicating the accuracy of the model and the data coverage while increasing a threshold on the probabilities of predictions for the specified `output_feature_name`.
@@ -504,23 +495,22 @@ The difference with `confidence_thresholding` is that it uses two axes instead o
 
 ![Confidence_Thresholding Data vs Accuracy](../images/confidence_thresholding_data_vs_acc.png "Confidence_Thresholding Data vs Accuracy")
 
-
 ## confidence_thresholding_data_vs_acc_subset
 
-Parameters for this visualization: 
+Parameters for this visualization:
 
-* `ground_truth`
-* `split_file`
-* `ground_truth_metadata`
-* `output_directory`
-* `file_format`
-* `output_feature_name`
-* `ground_truth_split`
-* `probabilities`
-* `model_names`
-* `top_n_classes`
-* `labels_limit`
-* `subset`
+- `ground_truth`
+- `split_file`
+- `ground_truth_metadata`
+- `output_directory`
+- `file_format`
+- `output_feature_name`
+- `ground_truth_split`
+- `probabilities`
+- `model_names`
+- `top_n_classes`
+- `labels_limit`
+- `subset`
 
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line indicating the accuracy of the model and the data coverage while increasing a threshold on the probabilities of predictions for the specified `output_feature_name`, considering only a subset of the full training set.
@@ -532,23 +522,22 @@ If the values of `subset` is `predictions`, then only datapoints where the the m
 
 ![Confidence_Thresholding Data vs Accuracy Subset](../images/confidence_thresholding_data_vs_acc_subset.png "Confidence_Thresholding Data vs Accuracy Subset")
 
-
 ## confidence_thresholding_data_vs_acc_subset_per_class
 
-Parameters for this visualization: 
+Parameters for this visualization:
 
-* `ground_truth`
-* `split_file`
-* `ground_truth_metadata`
-* `output_directory`
-* `file_format`
-* `output_feature_name`
-* `ground_truth_split`
-* `probabilities`
-* `model_names`
-* `top_n_classes`
-* `labels_limit`
-* `subset`
+- `ground_truth`
+- `split_file`
+- `ground_truth_metadata`
+- `output_directory`
+- `file_format`
+- `output_feature_name`
+- `ground_truth_split`
+- `probabilities`
+- `model_names`
+- `top_n_classes`
+- `labels_limit`
+- `subset`
 
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line indicating the accuracy of the model and the data coverage while increasing a threshold on the probabilities of predictions for the specified `output_feature_name`, considering only a subset of the full training set.
@@ -564,21 +553,20 @@ The difference with `confidence_thresholding_data_vs_acc_subset` is that it prod
 
 ![Confidence_Thresholding Data vs Accuracy Subset per class 4](../images/confidence_thresholding_data_vs_acc_subset_per_class_4.png "Confidence_Thresholding Data vs Accuracy Subset per class 4")
 
-
 ## confidence_thresholding_2thresholds_2d
 
-Parameters for this visualization: 
+Parameters for this visualization:
 
-* `ground_truth`
-* `split_file`
-* `ground_truth_metadata`
-* `output_directory`
-* `file_format`
-* `ground_truth_split`
-* `threshold_output_feature_names`
-* `probabilities`
-* `model_names`
-* `labels_limit`
+- `ground_truth`
+- `split_file`
+- `ground_truth_metadata`
+- `output_directory`
+- `file_format`
+- `ground_truth_split`
+- `threshold_output_feature_names`
+- `probabilities`
+- `model_names`
+- `labels_limit`
 
 `threshold_output_feature_names` need to be exactly two, either category or binary.
 `probabilities` need to be exactly two, aligned with `threshold_output_feature_names`.
@@ -599,20 +587,19 @@ The third plot shows the max line and the values of the thresholds that obtained
 
 ![Confidence_Thresholding two thresholds 2D Accuracy and Thresholds](../images/confidence_thresholding_2thresholds_2d_accthr.png "Confidence_Thresholding two thresholds 2D Accuracy and Thresholds")
 
-
 ## confidence_thresholding_2thresholds_3d
 
-Parameters for this visualization: 
+Parameters for this visualization:
 
-* `ground_truth`
-* `split_file`
-* `ground_truth_metadata`
-* `output_directory`
-* `file_format`
-* `ground_truth_split`
-* `threshold_output_feature_names`
-* `probabilities`
-* `labels_limit`
+- `ground_truth`
+- `split_file`
+- `ground_truth_metadata`
+- `output_directory`
+- `file_format`
+- `ground_truth_split`
+- `threshold_output_feature_names`
+- `probabilities`
+- `labels_limit`
 
 `threshold_output_feature_names` need to be exactly two, either category or binary.
 `probabilities` need to be exactly two, aligned with `threshold_output_feature_names`.
@@ -620,25 +607,23 @@ The plot shows the 3d surfaces displayed by `confidence_thresholding_2thresholds
 
 ![Confidence_Thresholding two thresholds 3D](../images/confidence_thresholding_2thresholds_3d.png "Confidence_Thresholding two thresholds 3D")
 
-
-Binary Threshold vs. Metric
-===========================
+# Binary Threshold vs. Metric
 
 ## binary_threshold_vs_metric
 
-Parameters for this visualization: 
+Parameters for this visualization:
 
-* `ground_truth`
-* `split_file`
-* `ground_truth_metadata`
-* `output_directory`
-* `file_format`
-* `output_feature_name`
-* `ground_truth_split`
-* `probabilities`
-* `model_names`
-* `metrics`
-* `positive_label`
+- `ground_truth`
+- `split_file`
+- `ground_truth_metadata`
+- `output_directory`
+- `file_format`
+- `output_feature_name`
+- `ground_truth_split`
+- `probabilities`
+- `model_names`
+- `metrics`
+- `positive_label`
 
 `output_feature_name` can be a category or binary feature.
 For each metric specified in `metrics` (options are `f1`, `precision`, `recall`, `accuracy`), this visualization produces a line chart plotting a threshold on the confidence of the model against the metric for the specified `output_feature_name`.
@@ -647,24 +632,22 @@ It needs to be an integer, to figure out the association between classes and int
 
 ![Binary_Threshold_vs_Metric](../images/binary_threshold_vs_metric.png "Binary_Threshold_vs_Metric")
 
-
-ROC Curves
-==========
+# ROC Curves
 
 ## roc_curves
 
-Parameters for this visualization: 
+Parameters for this visualization:
 
-* `ground_truth`
-* `split_file`
-* `ground_truth_metadata`
-* `output_directory`
-* `file_format`
-* `output_feature_name`
-* `ground_truth_split`
-* `probabilities`
-* `model_names`
-* `positive_label`
+- `ground_truth`
+- `split_file`
+- `ground_truth_metadata`
+- `output_directory`
+- `file_format`
+- `output_feature_name`
+- `ground_truth_split`
+- `probabilities`
+- `model_names`
+- `positive_label`
 
 `output_feature_name` can be a category or binary feature.
 This visualization produces a line chart plotting the roc curves for the specified `output_feature_name`.
@@ -673,41 +656,38 @@ It needs to be an integer, to figure out the association between classes and int
 
 ![ROC Curves](../images/roc_curves.png "ROC Curves")
 
-
 ## roc_curves_from_test_statistics
 
-Parameters for this visualization: 
+Parameters for this visualization:
 
-* `output_directory`
-* `file_format`
-* `output_feature_name`
-* `test_statistics`
-* `model_names`
+- `output_directory`
+- `file_format`
+- `output_feature_name`
+- `test_statistics`
+- `model_names`
 
 `output_feature_name` needs to be binary feature.
 This visualization produces a line chart plotting the roc curves for the specified `output_feature_name`.
 
 ![ROC Curves from Prediction Statistics](../images/roc_curves_from_test_statistics.png "ROC Curves from Prediction Statistics")
 
-
-Calibration Plot
-================
+# Calibration Plot
 
 ## calibration_1_vs_all
 
-Parameters for this visualization: 
+Parameters for this visualization:
 
-* `ground_truth`
-* `split_file`
-* `ground_truth_metadata`
-* `output_directory`
-* `file_format`
-* `output_feature_name`
-* `ground_truth_split`
-* `probabilities`
-* `model_names`
-* `top_n_classes`
-* `labels_limit`
+- `ground_truth`
+- `split_file`
+- `ground_truth_metadata`
+- `output_directory`
+- `file_format`
+- `output_feature_name`
+- `ground_truth_split`
+- `probabilities`
+- `model_names`
+- `top_n_classes`
+- `labels_limit`
 
 `output_feature_name` needs to be a category or binary.
 For each class or each of the `n` most frequent classes if `top_n_classes` is specified, it produces two plots computed on the fly from the probabilities of predictions for the specified `output_feature_name`.
@@ -720,21 +700,20 @@ The second plot shows the distributions of the predictions considering the curre
 
 ![Calibration 1 vs All Counts](../images/calibration_1_vs_all_counts.png "Calibration 1 vs All Counts")
 
-
 ## calibration_multiclass
 
-Parameters for this visualization: 
+Parameters for this visualization:
 
-* `ground_truth`
-* `split_file`
-* `ground_truth_metadata`
-* `output_directory`
-* `file_format`
-* `output_feature_name`
-* `ground_truth_split`
-* `probabilities`
-* `model_names`
-* `labels_limit`
+- `ground_truth`
+- `split_file`
+- `ground_truth_metadata`
+- `output_directory`
+- `file_format`
+- `output_feature_name`
+- `ground_truth_split`
+- `probabilities`
+- `model_names`
+- `labels_limit`
 
 `output_feature_name` needs to be a category.
 For each class, produces two plots computed on the fly from the probabilities of predictions for the specified `output_feature_name`.
@@ -747,28 +726,26 @@ The second plot shows a bar plot of the brier score (that calculates how calibra
 
 ![Calibration Multiclass Brier](../images/calibration_multiclass_brier.png "Calibration Multiclass Brier")
 
-
-Class Frequency vs. F1 score
-============================
+# Class Frequency vs. F1 score
 
 ## frequency_vs_f1
 
-Parameters for this visualization: 
+Parameters for this visualization:
 
-* `ground_truth_metadata`
-* `output_directory`
-* `file_format`
-* `output_feature_name`
-* `test_statistics`
-* `model_names`
-* `top_n_classes`
+- `ground_truth_metadata`
+- `output_directory`
+- `file_format`
+- `output_feature_name`
+- `test_statistics`
+- `model_names`
+- `top_n_classes`
 
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `test_statistics` and `model_names`), produces two plots statistics of predictions for the specified `output_feature_name`.
 
 Generates plots for `top_n_classes`.  The first plot is a line plot with one x axis representing the different classes and two vertical axes colored in orange and blue respectively.
 The orange one is the frequency of the class and an orange line is plotted to show the trend.
-The blue one is the F1 score for that class and a blue line is plotted to show the trend. 
+The blue one is the F1 score for that class and a blue line is plotted to show the trend.
 The classes on the x axis are sorted by f1 score.
 
 ![Frequency vs F1 sorted by F1](../images/freq_vs_f1_sorted_f1.png "Frequency vs F1 sorted by F1")
@@ -777,24 +754,22 @@ The second plot has the same structure of the first one, but the axes are flippe
 
 ![Frequency vs F1 sorted by Frequency](../images/freq_vs_f1_sorted_freq.png "Frequency vs F1 sorted by Frequency")
 
-
-Hyper-parameter optimization visualization
-------------------------------------------
+## Hyper-parameter optimization visualization
 
 The examples of the hyper-parameter visualizations shown here are obtained by running a random search with 100 samples on the [ATIS dataset](https://www.kaggle.com/siddhadev/ms-cntk-atis) used for classifying intents given user utterances.
- 
+
 ## hyperopt_report
 
-Parameters for this visualization: 
+Parameters for this visualization:
 
-* `output_directory`
-* `file_format`
-* `hyperopt_stats_path`
+- `output_directory`
+- `file_format`
+- `hyperopt_stats_path`
 
 The visualization creates one plot for each hyper-parameter in the file at `hyperopt_stats_path`, plus an additional one containing a pair plot of hyper-parameters interactions.
 
 Each plot will show the distribution of the parameters with respect to the metric to optimize.
-For `float` and `int` parameters, a scatter plot is used, while for `category` parameters, a violin plot is used instead. 
+For `float` and `int` parameters, a scatter plot is used, while for `category` parameters, a violin plot is used instead.
 
 ![Float hyperopt plot](../images/hyperopt_float.png "Float hyperopt plot")
 
@@ -808,11 +783,11 @@ The pair plot shows a heatmap of how the values of pairs of hyper-parameters cor
 
 ## hyperopt_hiplot
 
-Parameters for this visualization: 
+Parameters for this visualization:
 
-* `output_directory`
-* `file_format`
-* `hyperopt_stats_path`
+- `output_directory`
+- `file_format`
+- `hyperopt_stats_path`
 
 The visualization creates an interactive HTML page visualizing all the results from the hyper-parameter optimization at once, using a parallel coordinate plot.
 

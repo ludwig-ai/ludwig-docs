@@ -1,7 +1,6 @@
 Source code for datasets lives under `ludwig/datasets/`.
 
-Adding a new Dataset
-====================
+# Adding a new Dataset
 
 Override `ludwig.datasets.base_dataset.BaseDataset` and implement the following methods:
 
@@ -35,9 +34,7 @@ Before submitting a new dataset, please test the functionality locally mimicing 
 For datasets hosted on Kaggle, refer to  [Python Kaggle Client](https://technowhisp.com/kaggle-api-python-documentation/) to see how you can configure your Kaggle credentials locally to download datasets.
 Also see the internals of the [Kaggle DownloadMixin](https://github.com/ludwig-ai/ludwig/blob/master/ludwig/datasets/mixins/kaggle.py).
 
-
-Unit Tests for the Datasets API
-===============================
+# Unit Tests for the Datasets API
 
 The easiest example of how to extend the Datasets API would be to look at the dataset related unit tests:
 

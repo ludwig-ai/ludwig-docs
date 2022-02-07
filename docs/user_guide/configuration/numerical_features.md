@@ -15,7 +15,7 @@ Numerical features have two encoders.
 One encoder (`passthrough'`) takes the raw binary values coming from the input placeholders are just returned as outputs.
 Inputs are of size `b` while outputs are of size `b x 1` where `b` is the batch size.
 The other encoder (`'dense'`) passes the raw binary values through fully connected layers.
-In this case the inputs of size `b` are transformed to size `b x h`.  
+In this case the inputs of size `b` are transformed to size `b x h`.
 
 The available encoder parameters are:
 
@@ -40,7 +40,6 @@ For the `dense` encoder these are the available parameters.
 - `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `dropout` (default `0`): dropout rate
-
 
 Example numerical feature entry in the input features list:
 

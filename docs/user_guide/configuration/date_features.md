@@ -1,6 +1,6 @@
 ## Date Features Preprocessing
 
-Ludwig will try to infer the date format automatically, but a specific fomrat can be provided. 
+Ludwig will try to infer the date format automatically, but a specific fomrat can be provided.
 The format is the same one described in the [datetime package documentation](https://docs.python.org/2/library/time.html#time.strptime).
 
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
@@ -17,7 +17,6 @@ preprocessing:
   fill_value: ''
   datetime_format: "%d %b %Y"
 ```
-
 
 ## Date Input Features and Encoders
 

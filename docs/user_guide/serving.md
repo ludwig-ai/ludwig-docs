@@ -1,5 +1,4 @@
-Serving Ludwig Model Pipelines
-==============================
+# Serving Ludwig Model Pipelines
 
 Model pipelines trained with Ludwig can be served using the [serve command](command_line_interface.md#serve).
 The command will spawn a Rest API using the FastAPI library.
@@ -12,8 +11,7 @@ For instance a text classification model can be defined by a text input and a ca
 
 The structure of the input to the REST API and the structure of the output that will be returned depends on the data types of the input and outputs of the Ludwig model pipeline.
 
-REST Endpoints
-==============
+# REST Endpoints
 
 ## predict
 
@@ -21,6 +19,7 @@ REST Endpoints
 
 For each input of the model, the predict endpoint expects a field with a name.
 For instance, a model trained with an input text field named `english_text` would expect a POST like:
+
 ```
 curl http://0.0.0.0:8000/predict -X POST -F 'english_text=words to be translated'
 ```
@@ -44,6 +43,7 @@ The output format is  a JSON that is independent of the number of inputs and the
 At the moment, Ludwig can predict binary, numerical, categorical, set, sequence and text outputs.
 
 For binary outputs, the JSON structure returned by the REST PI is the following:
+
 ```
 {
    "NAME_predictions": false,
@@ -55,9 +55,9 @@ For binary outputs, the JSON structure returned by the REST PI is the following:
 
 For numerical outputs, the JSON structure returned by the REST PI is the following:
 
-`````
+```
 {"NAME_predictions": 0.381}
-`````
+```
 
 For categorical outputs, the JSON structure returned by the REST PI is the following:
 
@@ -73,6 +73,7 @@ For categorical outputs, the JSON structure returned by the REST PI is the follo
 ```
 
 For set outputs, the JSON structure returned by the REST PI is the following:
+
 ```
 {
    "NAME_predictions":[
@@ -93,6 +94,7 @@ For set outputs, the JSON structure returned by the REST PI is the following:
 ```
 
 For sequence outputs, the JSON structure returned by the REST PI is the following:
+
 ```
 {
    "NAME_predictions":[
@@ -112,7 +114,6 @@ For sequence outputs, the JSON structure returned by the REST PI is the followin
 ```
 
 For text outputs, the JSON structure returned by the REST PI is the same as the sequence one.
-
 
 ## batch_predict
 
@@ -168,6 +169,7 @@ For numerical outputs, the JSON structure returned by the REST PI is the followi
 ```
 
 For categorical outputs, the JSON structure returned by the REST PI is the following:
+
 ```
 {
    "index": [0, 1],
@@ -187,6 +189,7 @@ For categorical outputs, the JSON structure returned by the REST PI is the follo
 ```
 
 For set outputs, the JSON structure returned by the REST PI is the following:
+
 ```
 {
    "index": [0, 1],
@@ -220,6 +223,7 @@ For set outputs, the JSON structure returned by the REST PI is the following:
 ```
 
 For sequence outputs, the JSON structure returned by the REST PI is the following:
+
 ```
 {
    "index": [0, 1],

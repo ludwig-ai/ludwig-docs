@@ -34,5 +34,5 @@ Once you've created `iris.yaml` with the contents above, you're ready to train y
     from ludwig.datasets import iris
 
     model = LudwigModel(config='iris.yaml')
-    model.train(dataset=iris.load())
+    results = model.train(dataset=iris.load())
     ```

@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/0.4/getting_started/">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.8">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.10">
     
     
       
@@ -23,7 +23,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.6e60f8b8.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.d6be258b.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
@@ -1354,13 +1354,15 @@ A suite of visualization tools allows you to analyze models' training and test p
 <p>It can be used by practitioners to quickly train and test deep learning models as well as by researchers to obtain strong baselines to compare against and have an experimentation setting that ensures comparability by performing the same data processing and evaluation.</p>
 <p>Ludwig provides a set of model architectures that can be combined together to create an end-to-end model for a given use case.
 As an analogy, if deep learning libraries provide the building blocks to make your building, Ludwig provides the buildings to make your city, and you can choose among the available buildings or add your own building to the set of available ones.</p>
-<p>The core design principles baked into the toolbox are:
-- No coding required: no coding skills are required to train a model and use it for obtaining predictions.
-- Generality: a new datatype-based approach to deep learning model design makes the tool usable across many different use cases.
-- Flexibility: experienced users have extensive control over model building and training, while newcomers will find it easy to use.
-- Extensibility: easy to add new model architecture and new feature datatypes.
-- Understandability: deep learning model internals are often considered black boxes, but Ludwig provides standard visualizations to understand their performance and compare their predictions.
-- Open Source: Apache License 2.0</p>
+<p>The core design principles baked into the toolbox are:</p>
+<ul>
+<li>No coding required: no coding skills are required to train a model and use it for obtaining predictions.</li>
+<li>Generality: a new datatype-based approach to deep learning model design makes the tool usable across many different use cases.</li>
+<li>Flexibility: experienced users have extensive control over model building and training, while newcomers will find it easy to use.</li>
+<li>Extensibility: easy to add new model architecture and new feature datatypes.</li>
+<li>Understandability: deep learning model internals are often considered black boxes, but Ludwig provides standard visualizations to understand their performance and compare their predictions.</li>
+<li>Open Source: Apache License 2.0</li>
+</ul>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <p>Ludwig requires you to use Python 3.6+.
 If you don’t have Python 3 installed, install it by running:</p>
@@ -1377,15 +1379,17 @@ brew install python3      # on mac
 </code></pre></div>
 
 <p>This will install only Ludwig's basic requirements, different feature types require different dependencies.
-We divided them as different extras so that users could install only the ones they actually need:
- - <code>ludwig[text]</code> for text dependencies.
- - <code>ludwig[audio]</code> for audio and speech dependencies.
- - <code>ludwig[image]</code> for image dependencies.
- - <code>ludwig[hyperopt]</code> for hyperparameter optimization dependencies.
- - <code>ludwig[horovod]</code> for distributed training dependencies.
- - <code>ludwig[serve]</code> for serving dependencies.
- - <code>ludwig[viz]</code> for visualization dependencies.
- - <code>ludwig[test]</code> for dependencies needed for testing.</p>
+We divided them as different extras so that users could install only the ones they actually need:</p>
+<ul>
+<li><code>ludwig[text]</code> for text dependencies.</li>
+<li><code>ludwig[audio]</code> for audio and speech dependencies.</li>
+<li><code>ludwig[image]</code> for image dependencies.</li>
+<li><code>ludwig[hyperopt]</code> for hyperparameter optimization dependencies.</li>
+<li><code>ludwig[horovod]</code> for distributed training dependencies.</li>
+<li><code>ludwig[serve]</code> for serving dependencies.</li>
+<li><code>ludwig[viz]</code> for visualization dependencies.</li>
+<li><code>ludwig[test]</code> for dependencies needed for testing.</li>
+</ul>
 <p>Distributed training is supported with <a href="https://github.com/horovod/horovod">Horovod</a>, which can be installed with <code>pip install ludwig[horovod]</code> or <code>HOROVOD_GPU_OPERATIONS=NCCL pip install ludwig[horovod]</code> for GPU support.
 See Horovod's <a href="https://horovod.readthedocs.io/en/stable/install_include.html">installation guide</a>  for full details on available installation options.</p>
 <p>Any combination of extra packages can be installed at the same time with <code>pip install ludwig[extra1,extra2,...]</code> like for instance <code>pip install ludwig[text,viz]</code>.
@@ -1398,7 +1402,7 @@ source venv/bin/activate
 pip install -e &#39;.[test]&#39;
 </code></pre></div>
 
-<p><strong>Note:</strong> that if you are running without GPUs, you may wish to use the CPU-only version of TensorFlow, 
+<p><strong>Note:</strong> that if you are running without GPUs, you may wish to use the CPU-only version of TensorFlow,
 which takes up much less space on disk.
 To use a CPU-only TensorFlow version, uninstall <code>tensorflow</code> and  replace it with <code>tensorflow-cpu</code> after having installed <code>ludwig</code>.
 Be sure to install a version within the compatible range as shown in <code>requirements.txt</code>.</p>
@@ -1630,10 +1634,10 @@ Refer to the <a href="../developer_guide/developer_guide_intro/">Developer Guide
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.22074ed6.min.js", "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.092fa1f6.min.js", "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.960e086b.min.js"></script>
+      <script src="../assets/javascripts/bundle.e3b2bf44.min.js"></script>
       
     
   </body>

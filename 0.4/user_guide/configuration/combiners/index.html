@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/configuration/combiners/">
       
       <link rel="icon" href="../../../favicon.ico">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.8">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.10">
     
     
       
@@ -23,7 +23,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.6e60f8b8.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.d6be258b.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.e6a45f82.min.css">
@@ -1491,7 +1491,7 @@ It returns the final <code>b x h'</code> tensor where <code>h'</code> is the use
 It assumes all outputs from encoders are tensors of size <code>b x h</code> where <code>b</code> is the batch size and <code>h</code> is the hidden dimension, which can be different for each input.
 If the input tensors have a different shape, it automatically flattens them.
 It then projects each input tensor to the same hidden / embedding size and encodes them wit ha stack of Tranformer layers.
-Finally it applies an reduction to the outputs of the Transformer stack and applies optional fully connected layers. 
+Finally it applies an reduction to the outputs of the Transformer stack and applies optional fully connected layers.
 It returns the final <code>b x h'</code> tensor where <code>h'</code> is the size of the last fully connected layer or the hidden / embedding size , or it returns <code>b x n x h'</code> where <code>n</code> is the number of input features and <code>h'</code> is the hidden / embedding size if there's no reduction applied.</p>
 <div class="codehilite"><pre><span></span><code>+-----------+
 |Input      |
@@ -1559,7 +1559,7 @@ It returns the final <code>b x h'</code> tensor where <code>h'</code> is the siz
 It assumes all outputs from encoders are tensors of size <code>b x h</code> where <code>b</code> is the batch size and <code>h</code> is the hidden dimension, which can be different for each input.
 If the input tensors have a different shape, it automatically flattens them.
 It then concatenates the representations of each entity end projects them into the same size.
-Finally it compares the two entity representations by dot product, element-wise multiplication, absolute difference and bilinear product. 
+Finally it compares the two entity representations by dot product, element-wise multiplication, absolute difference and bilinear product.
 It returns the final <code>b x h'</code> tensor where <code>h'</code> is the size of the concatenation of the four comparisons.</p>
 <div class="codehilite"><pre><span></span><code>+-----------+
 |Entity 1   |
@@ -1716,10 +1716,10 @@ It returns the final <code>b x h'</code> tensor where <code>h'</code> is the siz
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.22074ed6.min.js", "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.092fa1f6.min.js", "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.960e086b.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.e3b2bf44.min.js"></script>
       
     
   </body>

@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/visualizations/">
       
       <link rel="icon" href="../../favicon.ico">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.8">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.10">
     
     
       
@@ -23,7 +23,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.6e60f8b8.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.d6be258b.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
@@ -1954,11 +1954,11 @@ The two models are defined with <code>titanic_model1.yaml</code></p>
 
 <h2 id="learning-curves">Learning Curves<a class="headerlink" href="#learning-curves" title="Permanent link">&para;</a></h2>
 <h3 id="learning_curves">learning_curves<a class="headerlink" href="#learning_curves" title="Permanent link">&para;</a></h3>
-<p>Parameters for this visualization: </p>
+<p>Parameters for this visualization:</p>
 <ul>
 <li><code>output_directory</code></li>
 <li><code>file_format</code></li>
-<li><code>output_feature_name</code> </li>
+<li><code>output_feature_name</code></li>
 <li><code>training_statistics</code></li>
 <li><code>model_names</code></li>
 </ul>
@@ -1975,7 +1975,7 @@ The two models are defined with <code>titanic_model1.yaml</code></p>
 <p><img alt="Learning Curves Accuracy" src="../../images/learning_curves_accuracy.png" title="Learning Curves Accuracy" /></p>
 <h2 id="confusion-matrix">Confusion Matrix<a class="headerlink" href="#confusion-matrix" title="Permanent link">&para;</a></h2>
 <h3 id="confusion_matrix">confusion_matrix<a class="headerlink" href="#confusion_matrix" title="Permanent link">&para;</a></h3>
-<p>Parameters for this visualization: </p>
+<p>Parameters for this visualization:</p>
 <ul>
 <li><code>ground_truth_metadata</code></li>
 <li><code>output_directory</code></li>
@@ -2000,7 +2000,7 @@ The value of <code>top_n_classes</code> limits the heatmap to the <code>n</code>
 <p><img alt="Confusion Matrix Entropy" src="../../images/confusion_matrix_entropy.png" title="Confusion Matrix Entropy" /></p>
 <h2 id="compare-performance">Compare Performance<a class="headerlink" href="#compare-performance" title="Permanent link">&para;</a></h2>
 <h3 id="compare_performance">compare_performance<a class="headerlink" href="#compare_performance" title="Permanent link">&para;</a></h3>
-<p>Parameters for this visualization: </p>
+<p>Parameters for this visualization:</p>
 <ul>
 <li><code>output_directory</code></li>
 <li><code>file_format</code></li>
@@ -2019,19 +2019,19 @@ The value of <code>top_n_classes</code> limits the heatmap to the <code>n</code>
 
 <p><img alt="Compare Classifiers Performance" src="../../images/compare_performance.png" title="Compare Classifiers Performance" /></p>
 <h3 id="compare_classifiers_performance_from_prob">compare_classifiers_performance_from_prob<a class="headerlink" href="#compare_classifiers_performance_from_prob" title="Permanent link">&para;</a></h3>
-<p>Parameters for this visualization: </p>
+<p>Parameters for this visualization:</p>
 <ul>
-<li><code>ground_truth</code> </li>
-<li><code>split_file</code> </li>
-<li><code>ground_truth_metadata</code> </li>
-<li><code>output_directory</code> </li>
+<li><code>ground_truth</code></li>
+<li><code>split_file</code></li>
+<li><code>ground_truth_metadata</code></li>
+<li><code>output_directory</code></li>
 <li><code>file_format</code></li>
-<li><code>output_feature_name</code> </li>
-<li><code>ground_truth_split</code> </li>
-<li><code>probabilities</code> </li>
-<li><code>model_names</code> </li>
-<li><code>top_n_classes</code> </li>
-<li><code>labels_limit</code> </li>
+<li><code>output_feature_name</code></li>
+<li><code>ground_truth_split</code></li>
+<li><code>probabilities</code></li>
+<li><code>model_names</code></li>
+<li><code>top_n_classes</code></li>
+<li><code>labels_limit</code></li>
 </ul>
 <p><code>output_feature_name</code> needs to be a category.
 For each model (in the aligned lists of <code>probabilities</code> and <code>model_names</code>) it produces bars in a bar plot, one for each overall metric computed on the fly from the probabilities of predictions for the specified <code>output_feature_name</code>.</p>
@@ -2046,7 +2046,7 @@ For each model (in the aligned lists of <code>probabilities</code> and <code>mod
 
 <p><img alt="Compare Classifiers Performance from Probabilities" src="../../images/compare_classifiers_performance_from_prob.png" title="Compare Classifiers Performance from probabilities" /></p>
 <h3 id="compare_classifiers_performance_from_pred">compare_classifiers_performance_from_pred<a class="headerlink" href="#compare_classifiers_performance_from_pred" title="Permanent link">&para;</a></h3>
-<p>Parameters for this visualization: </p>
+<p>Parameters for this visualization:</p>
 <ul>
 <li><code>ground_truth</code></li>
 <li><code>split_file</code></li>
@@ -2073,7 +2073,7 @@ For each model (in the aligned lists of <code>predictions</code> and <code>model
 
 <p><img alt="Compare Classifiers Performance from Predictions" src="../../images/compare_classifiers_performance_from_pred.png" title="Compare Classifiers Performance from Predictions" /></p>
 <h3 id="compare_classifiers_performance_subset">compare_classifiers_performance_subset<a class="headerlink" href="#compare_classifiers_performance_subset" title="Permanent link">&para;</a></h3>
-<p>Parameters for this visualization: </p>
+<p>Parameters for this visualization:</p>
 <ul>
 <li><code>ground_truth</code></li>
 <li><code>split_file</code></li>
@@ -2081,7 +2081,7 @@ For each model (in the aligned lists of <code>predictions</code> and <code>model
 <li><code>output_directory</code></li>
 <li><code>file_format</code></li>
 <li><code>output_feature_name</code></li>
-<li><code>ground_truth_split</code> </li>
+<li><code>ground_truth_split</code></li>
 <li><code>probabilities</code></li>
 <li><code>model_names</code></li>
 <li><code>top_n_classes</code></li>
@@ -2108,12 +2108,12 @@ The way the subset is obtained is using the <code>top_n_classes</code> and <code
 <p>If the values of <code>subset</code> is <code>predictions</code>, then only datapoints where the the model predicts a class that is within the top <code>n</code> most frequent ones will be considered as test set, and the percentage of datapoints that have been kept from the original set will be displayed for each model.</p>
 <p><img alt="Compare Classifiers Performance Subset Ground Predictions" src="../../images/compare_classifiers_performance_subset_pred.png" title="Compare Classifiers Performance Subset Ground Predictions" /></p>
 <h3 id="compare_classifiers_performance_changing_k">compare_classifiers_performance_changing_k<a class="headerlink" href="#compare_classifiers_performance_changing_k" title="Permanent link">&para;</a></h3>
-<p>Parameters for this visualization: </p>
+<p>Parameters for this visualization:</p>
 <ul>
 <li><code>ground_truth</code></li>
 <li><code>split_file</code></li>
 <li><code>ground_truth_metadata</code></li>
-<li><code>output_directory</code> </li>
+<li><code>output_directory</code></li>
 <li><code>file_format</code></li>
 <li><code>output_feature_name</code></li>
 <li><code>ground_truth_split</code></li>
@@ -2136,7 +2136,7 @@ For each model (in the aligned lists of <code>probabilities</code> and <code>mod
 
 <p><img alt="Compare Classifiers Performance Changing K" src="../../images/compare_classifiers_performance_changing_k.png" title="Compare Classifiers Performance Changing K" /></p>
 <h3 id="compare_classifiers_multiclass_multimetric">compare_classifiers_multiclass_multimetric<a class="headerlink" href="#compare_classifiers_multiclass_multimetric" title="Permanent link">&para;</a></h3>
-<p>Parameters for this visualization: </p>
+<p>Parameters for this visualization:</p>
 <ul>
 <li><code>ground_truth_metadata</code></li>
 <li><code>output_directory</code></li>
@@ -2158,12 +2158,12 @@ For each model (in the aligned lists of <code>test_statistics</code> and <code>m
 <p><img alt="Multiclass Multimetric sorted" src="../../images/compare_classifiers_multiclass_multimetric_sorted.png" title="Multiclass Multimetric sorted classes" /></p>
 <h2 id="compare-classifier-predictions">Compare Classifier Predictions<a class="headerlink" href="#compare-classifier-predictions" title="Permanent link">&para;</a></h2>
 <h3 id="compare_classifiers_predictions">compare_classifiers_predictions<a class="headerlink" href="#compare_classifiers_predictions" title="Permanent link">&para;</a></h3>
-<p>Parameters for this visualization: </p>
+<p>Parameters for this visualization:</p>
 <ul>
 <li><code>ground_truth</code></li>
 <li><code>split_file</code></li>
 <li><code>ground_truth_metadata</code></li>
-<li><code>output_directory</code> </li>
+<li><code>output_directory</code></li>
 <li><code>file_format</code></li>
 <li><code>output_feature_name</code></li>
 <li><code>ground_truth_split</code></li>
@@ -2184,7 +2184,7 @@ This visualization produces a pie chart comparing the predictions of the two mod
 
 <p><img alt="Compare Classifiers Predictions" src="../../images/compare_classifiers_predictions.png" title="Compare Classifiers Predictions" /></p>
 <h3 id="compare_classifiers_predictions_distribution">compare_classifiers_predictions_distribution<a class="headerlink" href="#compare_classifiers_predictions_distribution" title="Permanent link">&para;</a></h3>
-<p>Parameters for this visualization: </p>
+<p>Parameters for this visualization:</p>
 <ul>
 <li><code>ground_truth</code></li>
 <li><code>split_file</code></li>
@@ -2202,7 +2202,7 @@ This visualization produces a radar plot comparing the distributions of predicti
 <p><img alt="Compare Classifiers Predictions Distribution" src="../../images/compare_classifiers_predictions_distribution.png" title="Compare Classifiers Predictions Distribution" /></p>
 <h2 id="confidence-thresholding">Confidence Thresholding<a class="headerlink" href="#confidence-thresholding" title="Permanent link">&para;</a></h2>
 <h3 id="confidence_thresholding">confidence_thresholding<a class="headerlink" href="#confidence_thresholding" title="Permanent link">&para;</a></h3>
-<p>Parameters for this visualization: </p>
+<p>Parameters for this visualization:</p>
 <ul>
 <li><code>ground_truth</code></li>
 <li><code>split_file</code></li>
@@ -2219,7 +2219,7 @@ This visualization produces a radar plot comparing the distributions of predicti
 For each model (in the aligned lists of <code>probabilities</code> and <code>model_names</code>) it produces a pair of lines indicating the accuracy of the model and the data coverage while increasing a threshold (x axis) on the probabilities of predictions for the specified <code>output_feature_name</code>.</p>
 <p><img alt="Confidence_Thresholding" src="../../images/confidence_thresholding.png" title="Confidence_Thresholding" /></p>
 <h3 id="confidence_thresholding_data_vs_acc">confidence_thresholding_data_vs_acc<a class="headerlink" href="#confidence_thresholding_data_vs_acc" title="Permanent link">&para;</a></h3>
-<p>Parameters for this visualization: </p>
+<p>Parameters for this visualization:</p>
 <ul>
 <li><code>ground_truth</code></li>
 <li><code>split_file</code></li>
@@ -2237,7 +2237,7 @@ For each model (in the aligned lists of <code>probabilities</code> and <code>mod
 The difference with <code>confidence_thresholding</code> is that it uses two axes instead of three, not visualizing the threshold and having coverage as x axis instead of the threshold.</p>
 <p><img alt="Confidence_Thresholding Data vs Accuracy" src="../../images/confidence_thresholding_data_vs_acc.png" title="Confidence_Thresholding Data vs Accuracy" /></p>
 <h3 id="confidence_thresholding_data_vs_acc_subset">confidence_thresholding_data_vs_acc_subset<a class="headerlink" href="#confidence_thresholding_data_vs_acc_subset" title="Permanent link">&para;</a></h3>
-<p>Parameters for this visualization: </p>
+<p>Parameters for this visualization:</p>
 <ul>
 <li><code>ground_truth</code></li>
 <li><code>split_file</code></li>
@@ -2260,7 +2260,7 @@ The difference with <code>confidence_thresholding</code> is that it uses two axe
 If the values of <code>subset</code> is <code>predictions</code>, then only datapoints where the the model predicts a class that is within the top <code>n</code> most frequent ones will be considered as test set, and the percentage of datapoints that have been kept from the original set will be displayed for each model.</p>
 <p><img alt="Confidence_Thresholding Data vs Accuracy Subset" src="../../images/confidence_thresholding_data_vs_acc_subset.png" title="Confidence_Thresholding Data vs Accuracy Subset" /></p>
 <h3 id="confidence_thresholding_data_vs_acc_subset_per_class">confidence_thresholding_data_vs_acc_subset_per_class<a class="headerlink" href="#confidence_thresholding_data_vs_acc_subset_per_class" title="Permanent link">&para;</a></h3>
-<p>Parameters for this visualization: </p>
+<p>Parameters for this visualization:</p>
 <ul>
 <li><code>ground_truth</code></li>
 <li><code>split_file</code></li>
@@ -2285,7 +2285,7 @@ If the values of <code>subset</code> is <code>predictions</code>, then only data
 <p><img alt="Confidence_Thresholding Data vs Accuracy Subset per class 1" src="../../images/confidence_thresholding_data_vs_acc_subset_per_class_1.png" title="Confidence_Thresholding Data vs Accuracy Subset per class 1" /></p>
 <p><img alt="Confidence_Thresholding Data vs Accuracy Subset per class 4" src="../../images/confidence_thresholding_data_vs_acc_subset_per_class_4.png" title="Confidence_Thresholding Data vs Accuracy Subset per class 4" /></p>
 <h3 id="confidence_thresholding_2thresholds_2d">confidence_thresholding_2thresholds_2d<a class="headerlink" href="#confidence_thresholding_2thresholds_2d" title="Permanent link">&para;</a></h3>
-<p>Parameters for this visualization: </p>
+<p>Parameters for this visualization:</p>
 <ul>
 <li><code>ground_truth</code></li>
 <li><code>split_file</code></li>
@@ -2311,7 +2311,7 @@ Each line represents a slice of the data coverage surface projected onto the acc
 <p>The third plot shows the max line and the values of the thresholds that obtained a specific data coverage vs accuracy pair of values.</p>
 <p><img alt="Confidence_Thresholding two thresholds 2D Accuracy and Thresholds" src="../../images/confidence_thresholding_2thresholds_2d_accthr.png" title="Confidence_Thresholding two thresholds 2D Accuracy and Thresholds" /></p>
 <h3 id="confidence_thresholding_2thresholds_3d">confidence_thresholding_2thresholds_3d<a class="headerlink" href="#confidence_thresholding_2thresholds_3d" title="Permanent link">&para;</a></h3>
-<p>Parameters for this visualization: </p>
+<p>Parameters for this visualization:</p>
 <ul>
 <li><code>ground_truth</code></li>
 <li><code>split_file</code></li>
@@ -2329,7 +2329,7 @@ The plot shows the 3d surfaces displayed by <code>confidence_thresholding_2thres
 <p><img alt="Confidence_Thresholding two thresholds 3D" src="../../images/confidence_thresholding_2thresholds_3d.png" title="Confidence_Thresholding two thresholds 3D" /></p>
 <h2 id="binary-threshold-vs-metric">Binary Threshold vs. Metric<a class="headerlink" href="#binary-threshold-vs-metric" title="Permanent link">&para;</a></h2>
 <h3 id="binary_threshold_vs_metric">binary_threshold_vs_metric<a class="headerlink" href="#binary_threshold_vs_metric" title="Permanent link">&para;</a></h3>
-<p>Parameters for this visualization: </p>
+<p>Parameters for this visualization:</p>
 <ul>
 <li><code>ground_truth</code></li>
 <li><code>split_file</code></li>
@@ -2350,7 +2350,7 @@ It needs to be an integer, to figure out the association between classes and int
 <p><img alt="Binary_Threshold_vs_Metric" src="../../images/binary_threshold_vs_metric.png" title="Binary_Threshold_vs_Metric" /></p>
 <h2 id="roc-curves">ROC Curves<a class="headerlink" href="#roc-curves" title="Permanent link">&para;</a></h2>
 <h3 id="roc_curves">roc_curves<a class="headerlink" href="#roc_curves" title="Permanent link">&para;</a></h3>
-<p>Parameters for this visualization: </p>
+<p>Parameters for this visualization:</p>
 <ul>
 <li><code>ground_truth</code></li>
 <li><code>split_file</code></li>
@@ -2369,7 +2369,7 @@ If <code>output_feature_name</code> is a category feature, <code>positive_label<
 It needs to be an integer, to figure out the association between classes and integers check the <code>ground_truth_metadata</code> JSON file.</p>
 <p><img alt="ROC Curves" src="../../images/roc_curves.png" title="ROC Curves" /></p>
 <h3 id="roc_curves_from_test_statistics">roc_curves_from_test_statistics<a class="headerlink" href="#roc_curves_from_test_statistics" title="Permanent link">&para;</a></h3>
-<p>Parameters for this visualization: </p>
+<p>Parameters for this visualization:</p>
 <ul>
 <li><code>output_directory</code></li>
 <li><code>file_format</code></li>
@@ -2382,7 +2382,7 @@ This visualization produces a line chart plotting the roc curves for the specifi
 <p><img alt="ROC Curves from Prediction Statistics" src="../../images/roc_curves_from_test_statistics.png" title="ROC Curves from Prediction Statistics" /></p>
 <h2 id="calibration-plot">Calibration Plot<a class="headerlink" href="#calibration-plot" title="Permanent link">&para;</a></h2>
 <h3 id="calibration_1_vs_all">calibration_1_vs_all<a class="headerlink" href="#calibration_1_vs_all" title="Permanent link">&para;</a></h3>
-<p>Parameters for this visualization: </p>
+<p>Parameters for this visualization:</p>
 <ul>
 <li><code>ground_truth</code></li>
 <li><code>split_file</code></li>
@@ -2403,7 +2403,7 @@ For each class or each of the <code>n</code> most frequent classes if <code>top_
 <p>The second plot shows the distributions of the predictions considering the current class to be the true one and all others to be a false one, drawing the distribution for each model (in the aligned lists of <code>probabilities</code> and <code>model_names</code>).</p>
 <p><img alt="Calibration 1 vs All Counts" src="../../images/calibration_1_vs_all_counts.png" title="Calibration 1 vs All Counts" /></p>
 <h3 id="calibration_multiclass">calibration_multiclass<a class="headerlink" href="#calibration_multiclass" title="Permanent link">&para;</a></h3>
-<p>Parameters for this visualization: </p>
+<p>Parameters for this visualization:</p>
 <ul>
 <li><code>ground_truth</code></li>
 <li><code>split_file</code></li>
@@ -2424,7 +2424,7 @@ For each class, produces two plots computed on the fly from the probabilities of
 <p><img alt="Calibration Multiclass Brier" src="../../images/calibration_multiclass_brier.png" title="Calibration Multiclass Brier" /></p>
 <h2 id="class-frequency-vs-f1-score">Class Frequency vs. F1 score<a class="headerlink" href="#class-frequency-vs-f1-score" title="Permanent link">&para;</a></h2>
 <h3 id="frequency_vs_f1">frequency_vs_f1<a class="headerlink" href="#frequency_vs_f1" title="Permanent link">&para;</a></h3>
-<p>Parameters for this visualization: </p>
+<p>Parameters for this visualization:</p>
 <ul>
 <li><code>ground_truth_metadata</code></li>
 <li><code>output_directory</code></li>
@@ -2438,7 +2438,7 @@ For each class, produces two plots computed on the fly from the probabilities of
 For each model (in the aligned lists of <code>test_statistics</code> and <code>model_names</code>), produces two plots statistics of predictions for the specified <code>output_feature_name</code>.</p>
 <p>Generates plots for <code>top_n_classes</code>.  The first plot is a line plot with one x axis representing the different classes and two vertical axes colored in orange and blue respectively.
 The orange one is the frequency of the class and an orange line is plotted to show the trend.
-The blue one is the F1 score for that class and a blue line is plotted to show the trend. 
+The blue one is the F1 score for that class and a blue line is plotted to show the trend.
 The classes on the x axis are sorted by f1 score.</p>
 <p><img alt="Frequency vs F1 sorted by F1" src="../../images/freq_vs_f1_sorted_f1.png" title="Frequency vs F1 sorted by F1" /></p>
 <p>The second plot has the same structure of the first one, but the axes are flipped and the classes on the x axis are sorted by frequency.</p>
@@ -2446,7 +2446,7 @@ The classes on the x axis are sorted by f1 score.</p>
 <h3 id="hyper-parameter-optimization-visualization">Hyper-parameter optimization visualization<a class="headerlink" href="#hyper-parameter-optimization-visualization" title="Permanent link">&para;</a></h3>
 <p>The examples of the hyper-parameter visualizations shown here are obtained by running a random search with 100 samples on the <a href="https://www.kaggle.com/siddhadev/ms-cntk-atis">ATIS dataset</a> used for classifying intents given user utterances.</p>
 <h3 id="hyperopt_report">hyperopt_report<a class="headerlink" href="#hyperopt_report" title="Permanent link">&para;</a></h3>
-<p>Parameters for this visualization: </p>
+<p>Parameters for this visualization:</p>
 <ul>
 <li><code>output_directory</code></li>
 <li><code>file_format</code></li>
@@ -2454,14 +2454,14 @@ The classes on the x axis are sorted by f1 score.</p>
 </ul>
 <p>The visualization creates one plot for each hyper-parameter in the file at <code>hyperopt_stats_path</code>, plus an additional one containing a pair plot of hyper-parameters interactions.</p>
 <p>Each plot will show the distribution of the parameters with respect to the metric to optimize.
-For <code>float</code> and <code>int</code> parameters, a scatter plot is used, while for <code>category</code> parameters, a violin plot is used instead. </p>
+For <code>float</code> and <code>int</code> parameters, a scatter plot is used, while for <code>category</code> parameters, a violin plot is used instead.</p>
 <p><img alt="Float hyperopt plot" src="../../images/hyperopt_float.png" title="Float hyperopt plot" /></p>
 <p><img alt="Int hyperopt plot" src="../../images/hyperopt_int.png" title="Int hyperopt plot" /></p>
 <p><img alt="Category hyperopt plot" src="../../images/hyperopt_category.png" title="Category hyperopt plot" /></p>
 <p>The pair plot shows a heatmap of how the values of pairs of hyper-parameters correlate with the metric to optimize.</p>
 <p><img alt="Pait hyperopt plot" src="../../images/hyperopt_pair.png" title="Pait hyperopt plot" /></p>
 <h3 id="hyperopt_hiplot">hyperopt_hiplot<a class="headerlink" href="#hyperopt_hiplot" title="Permanent link">&para;</a></h3>
-<p>Parameters for this visualization: </p>
+<p>Parameters for this visualization:</p>
 <ul>
 <li><code>output_directory</code></li>
 <li><code>file_format</code></li>
@@ -2558,10 +2558,10 @@ For <code>float</code> and <code>int</code> parameters, a scatter plot is used, 
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.22074ed6.min.js", "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.092fa1f6.min.js", "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.960e086b.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e3b2bf44.min.js"></script>
       
     
   </body>

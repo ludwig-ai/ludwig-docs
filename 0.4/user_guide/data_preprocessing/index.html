@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/data_preprocessing/">
       
       <link rel="icon" href="../../favicon.ico">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.8">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.10">
     
     
       
@@ -23,7 +23,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.6e60f8b8.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.d6be258b.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
@@ -1357,8 +1357,8 @@ The way categories are mapped into integers consists in first collecting a dicti
 <li>the mapping from string to id (<code>str2idx</code>)</li>
 <li>the mapping from string to frequency (<code>str2freq</code>)</li>
 <li>the size of the set of all tokens (<code>vocab_size</code>)</li>
-<li>additional preprocessing information (by default how to fill missing values 
-and what token to use to fill missing values)</li>
+<li>additional preprocessing information (by default how to fill missing values
+   and what token to use to fill missing values)</li>
 </ol>
 <p><code>Set</code> features are transformed into a binary (int8 actually) valued matrix of size <code>n x l</code> (where <code>n</code> is the size of the dataset and <code>l</code> is the minimum of the size of the biggest set and a <code>max_size</code> parameter) and added to HDF5 with a key that reflects the name of column in the dataset.
 The way sets are mapped into integers consists in first using a tokenizer to map from strings to sequences of set items (by default this is done by splitting on spaces).  Then a dictionary of all the different set item strings present in the column of the dataset is collected, then they are ranked by frequency and an increasing integer ID is assigned to them from the most frequent to the most rare (with 0 being assigned to <code>&lt;PAD&gt;</code> used for padding and 1 assigned to <code>&lt;UNK&gt;</code> item).  The column name is added to the JSON file, with an associated dictionary containing:</p>
@@ -1367,8 +1367,8 @@ The way sets are mapped into integers consists in first using a tokenizer to map
 <li>the mapping from string to id (<code>str2idx</code>)</li>
 <li>the mapping from string to frequency (<code>str2freq</code>)</li>
 <li>the maximum size of all sets (<code>max_set_size</code>)</li>
-<li>additional preprocessing information (by default how to fill missing values 
-and what token to use to fill missing values)</li>
+<li>additional preprocessing information (by default how to fill missing values
+   and what token to use to fill missing values)</li>
 </ol>
 <p><code>Bag</code> features are treated in the same way of set features, with the only difference being that the matrix had float values (frequencies).</p>
 <p><code>Sequence</code> features are transformed into an integer valued matrix of size <code>n x l</code> (where <code>n</code> is the size of the dataset and <code>l</code> is the minimum of the length of the longest sequence and a <code>sequence_length_limit</code> parameter) and added to HDF5 with a key that reflects the name of column in the dataset.
@@ -1380,8 +1380,8 @@ The column name is added to the JSON file, with an associated dictionary contain
 <li>the mapping from string to id (<code>str2idx</code>)</li>
 <li>the mapping from string to frequency (<code>str2freq</code>)</li>
 <li>the maximum length of all sequences (<code>sequence_length_limit</code>)</li>
-<li>additional preprocessing information (by default how to fill missing values 
-and what token to use to fill missing values)</li>
+<li>additional preprocessing information (by default how to fill missing values
+   and what token to use to fill missing values)</li>
 </ol>
 <p><code>Text</code> features are treated in the same way of sequence features, with a couple differences.
 Two different tokenizations happen, one that splits at every character and one that uses a spaCy based tokenizer (and removes stopwords), and two different keys are added to the HDF5 file, one for the matrix of characters and one for the matrix of words.
@@ -1487,10 +1487,10 @@ To handle such cases, we expect the values in the columns to be escaped with bac
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.22074ed6.min.js", "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.092fa1f6.min.js", "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.960e086b.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e3b2bf44.min.js"></script>
       
     
   </body>

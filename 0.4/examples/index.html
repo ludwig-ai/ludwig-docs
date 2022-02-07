@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/0.4/examples/">
       
       <link rel="icon" href="../favicon.ico">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.8">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.10">
     
     
       
@@ -23,7 +23,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.6e60f8b8.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.d6be258b.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#text-classification" class="md-skip">
+        <a href="#tutorials-hello" class="md-skip">
           Skip to content
         </a>
       
@@ -400,6 +400,13 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tutorials-hello" class="md-nav__link">
+    Tutorials HELLO
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#text-classification" class="md-nav__link">
@@ -1402,6 +1409,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#tutorials-hello" class="md-nav__link">
+    Tutorials HELLO
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#text-classification" class="md-nav__link">
     Text Classification
   </a>
@@ -1623,9 +1637,7 @@
 
 <p>This section contains several examples of how to build models with Ludwig for a variety of tasks.
 For each task we show an example dataset and a sample model definition that can be used to train a model from that data.</p>
-<p>Tutorials
-HELLO
-===</p>
+<h2 id="tutorials-hello">Tutorials HELLO<a class="headerlink" href="#tutorials-hello" title="Permanent link">&para;</a></h2>
 <p>On the Ludwig medium publication you can find a three part tutorial on Sentiment Analysis with Ludwig:</p>
 <ul>
 <li><a href="https://medium.com/ludwig-ai/the-complete-guide-to-sentiment-analysis-with-ludwig-part-i-65a9e6bc054e?source=friends_link&amp;sk=420a8859340d40a8f36963bd0fa4d808">Part I (Training models from scratch)</a></li>
@@ -2235,7 +2247,7 @@ The task is, given two images of two handwritten characters, recognize if they a
 </code></pre></div>
 
 <h2 id="spoken-digit-speech-recognition">Spoken Digit Speech Recognition<a class="headerlink" href="#spoken-digit-speech-recognition" title="Permanent link">&para;</a></h2>
-<p>This is a complete example of training an spoken digit speech recognition model on the "MNIST dataset of speech recognition". </p>
+<p>This is a complete example of training an spoken digit speech recognition model on the "MNIST dataset of speech recognition".</p>
 <h3 id="download-the-free-spoken-digit-dataset">Download the free spoken digit dataset<a class="headerlink" href="#download-the-free-spoken-digit-dataset" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code>git clone https://github.com/Jakobovski/free-spoken-digit-dataset.git
 mkdir speech_recog_digit_data
@@ -2286,7 +2298,7 @@ cd &quot;../&quot;
 </tbody>
 </table>
 <h3 id="train-a-model_1">Train a model<a class="headerlink" href="#train-a-model_1" title="Permanent link">&para;</a></h3>
-<p>From the directory where you have virtual environment with ludwig installed: </p>
+<p>From the directory where you have virtual environment with ludwig installed:</p>
 <div class="codehilite"><pre><span></span><code>ludwig experiment \
   --dataset &lt;PATH_TO_SPOKEN_DIGIT_CSV&gt; \
   --config_file config_file.yaml
@@ -3094,10 +3106,10 @@ df.to_csv(&#39;&lt;PATH_TO_FILE&gt;/temperature_la.csv&#39;)
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.22074ed6.min.js", "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.092fa1f6.min.js", "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.960e086b.min.js"></script>
+      <script src="../assets/javascripts/bundle.e3b2bf44.min.js"></script>
       
     
   </body>

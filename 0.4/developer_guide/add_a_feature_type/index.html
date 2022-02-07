@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/0.4/developer_guide/add_a_feature_type/">
       
       <link rel="icon" href="../../favicon.ico">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.8">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.10">
     
     
       
@@ -23,7 +23,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.6e60f8b8.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.d6be258b.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#1-add-a-new-feature-class" class="md-skip">
+        <a href="#input-features" class="md-skip">
           Skip to content
         </a>
       
@@ -1002,13 +1002,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-add-a-new-feature-class" class="md-nav__link">
-    1. Add a new feature class
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#input-features" class="md-nav__link">
     Input features
   </a>
@@ -1066,13 +1059,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-add-the-new-feature-class-to-the-corresponding-feature-registry" class="md-nav__link">
-    2. Add the new feature class to the corresponding feature registry
-  </a>
   
 </li>
       
@@ -1278,13 +1264,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-add-a-new-feature-class" class="md-nav__link">
-    1. Add a new feature class
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#input-features" class="md-nav__link">
     Input features
   </a>
@@ -1345,13 +1324,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#2-add-the-new-feature-class-to-the-corresponding-feature-registry" class="md-nav__link">
-    2. Add the new feature class to the corresponding feature registry
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -1371,7 +1343,10 @@
 
   <h1>Add a Feature Type</h1>
 
-<h3 id="1-add-a-new-feature-class">1. Add a new feature class<a class="headerlink" href="#1-add-a-new-feature-class" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Add a new feature class</li>
+</ol>
+<hr />
 <p>Souce code for feature classes lives under <code>ludwig/features</code>.
 Input and output feature classes are defined in the same file, for example <code>CategoryInputFeature</code> and <code>CategoryOutputFeature</code> are defined in <code>ludwig/features/category_feature.py</code>.</p>
 <p>An input features inherit from the <code>InputFeature</code> and corresponding mixin feature classes, for example <code>CategoryInputFeature</code> inherits from <code>CategoryFeatureMixin</code> and <code>InputFeature</code>.</p>
@@ -1435,9 +1410,14 @@ Input and output feature classes are defined in the same file, for example <code
 </ul>
 <p><strong>Return</strong></p>
 <ul>
-<li><strong>hidden</strong> (dict): contains predictions, probabilities and logits.</li>
+<li>
+<p><strong>hidden</strong> (dict): contains predictions, probabilities and logits.</p>
+</li>
+<li>
+<p>Add the new feature class to the corresponding feature registry</p>
+</li>
 </ul>
-<h3 id="2-add-the-new-feature-class-to-the-corresponding-feature-registry">2. Add the new feature class to the corresponding feature registry<a class="headerlink" href="#2-add-the-new-feature-class-to-the-corresponding-feature-registry" title="Permanent link">&para;</a></h3>
+<hr />
 <p>Input and output feature registries are defined in <code>ludwig/features/feature_registries.py</code>.</p>
 
               
@@ -1528,10 +1508,10 @@ Input and output feature classes are defined in the same file, for example <code
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.22074ed6.min.js", "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.092fa1f6.min.js", "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.960e086b.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e3b2bf44.min.js"></script>
       
     
   </body>

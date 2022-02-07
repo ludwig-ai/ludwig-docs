@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/command_line_interface/">
       
       <link rel="icon" href="../../favicon.ico">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.8">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.10">
     
     
       
@@ -23,7 +23,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.6e60f8b8.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.d6be258b.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
@@ -1585,13 +1585,13 @@ optional arguments:
 </code></pre></div>
 
 <p>When Ludwig trains a model it creates two intermediate files, one HDF5 and one JSON.
-The HDF5 file contains the data mapped to numpy ndarrays, while the JSON file 
+The HDF5 file contains the data mapped to numpy ndarrays, while the JSON file
 contains the mappings from the values in the tensors to their original labels.</p>
-<p>For instance, for a categorical feature with 3 possible values, the HDF5 file 
-will contain integers from 0 to 3 (with 0 being a <code>&lt;UNK&gt;</code> category), while the 
-JSON file will contain a <code>idx2str</code> list containing all tokens 
-(<code>[&lt;UNK&gt;, label_1, label_2, label_3]</code>), a <code>str2idx</code> dictionary 
-(<code>{"&lt;UNK&gt;": 0, "label_1": 1, "label_2": 2, "label_3": 3}</code>) and a <code>str2freq</code> 
+<p>For instance, for a categorical feature with 3 possible values, the HDF5 file
+will contain integers from 0 to 3 (with 0 being a <code>&lt;UNK&gt;</code> category), while the
+JSON file will contain a <code>idx2str</code> list containing all tokens
+(<code>[&lt;UNK&gt;, label_1, label_2, label_3]</code>), a <code>str2idx</code> dictionary
+(<code>{"&lt;UNK&gt;": 0, "label_1": 1, "label_2": 2, "label_3": 3}</code>) and a <code>str2freq</code>
 dictionary (<code>{"&lt;UNK&gt;": 0, "label_1": 93, "label_2": 55, "label_3": 24}</code>).</p>
 <p>The reason to have those  intermediate files is two-fold: on one hand, if you are going to train your model again Ludwig will try to load them instead of recomputing all tensors, which saves a considerable amount of time, and on the other hand when you want to use your model to predict, data has to be mapped to tensors in exactly the same way it was mapped during training, so you'll be required to load the JSON metadata file in the <code>predict</code> command.
 The way this works is: the first time you provide a UTF-8 encoded dataset (<code>--dataset</code>), the HDF5 and JSON files are created, from the second time on Ludwig will load them instead of the dataset even if you specify the dataset (it looks in the same directory for files names in the same way but with a different extension), finally you can directly specify the HDF5 and JSON files.</p>
@@ -1607,9 +1607,9 @@ This allows for a few possible input data scenarios:</p>
 <p>The validation set is optional, but if absent the training will continue until the end of the training epochs, while when there's a validation set the default behavior is to perform early stopping after the validation measure does not improve for a certain amount of epochs. The test set is optional too.</p>
 <p>Other optional arguments are <code>--output_directory</code>, <code>--experiment_name</code> and <code>--model name</code>.
 By default the output directory is <code>./results</code>.
-That directory will contain a directory named <code>[experiment_name]_[model_name]_0</code> 
+That directory will contain a directory named <code>[experiment_name]_[model_name]_0</code>
 if model name and experiment name are specified.
-If the same combination of experiment and model name is used again, the integer 
+If the same combination of experiment and model name is used again, the integer
 at the end of the name will be increased.
 If neither of them is specified the directory will be named <code>run_0</code>.
 The directory will contain</p>
@@ -1618,13 +1618,13 @@ The directory will contain</p>
 <li><code>training_statistics.json</code> - a file containing records of all measures and losses for each epoch.</li>
 <li><code>model</code> - a directory containing model hyper-parameters, weights, checkpoints and logs (for TensorBoard).</li>
 </ul>
-<p>The configuration can be provided either as a string (<code>--config</code>) 
+<p>The configuration can be provided either as a string (<code>--config</code>)
 or as YAML file (<code>--config_file</code>).
 Details on how to write your configuration are provided in the <a href="#configuration">Configuration</a> section.</p>
-<p>During training Ludwig saves two sets of weights for the model, one that is the 
-weights at the end of the epoch where the best performance on the validation 
+<p>During training Ludwig saves two sets of weights for the model, one that is the
+weights at the end of the epoch where the best performance on the validation
 measure was achieved and one that is the weights at the end of the latest epoch.
-The reason for keeping the second set is to be able to resume training in case 
+The reason for keeping the second set is to be able to resume training in case
 the training process gets interrupted somehow.</p>
 <p>To resume training using the latest weights and the whole history of progress so far you have to specify the <code>--model_resume_path</code> argument.
 You can avoid saving the latest weights and the overall progress so far by using the argument <code>--skip_save_progress</code>, but you will not be able to resume it afterwards.
@@ -1695,12 +1695,12 @@ optional arguments:
 In either case, the JSON metadata file obtained during training is needed in order to map the new data into tensors.
 If the new data contains a split column, you can specify which split to use to calculate the predictions with the <code>--split</code> argument. By default it's <code>full</code> which means all the splits will be used.</p>
 <p>A model to load is needed, and you can specify its path with the <code>--model_path</code> argument.
-If you trained a model previously and got the results in, for instance, 
-<code>./results/experiment_run_0</code>, you have to specify 
+If you trained a model previously and got the results in, for instance,
+<code>./results/experiment_run_0</code>, you have to specify
 <code>./results/experiment_run_0/model</code> for using it to predict.</p>
-<p>You can specify an output directory with the argument <code>--output-directory</code>, by 
+<p>You can specify an output directory with the argument <code>--output-directory</code>, by
 default it will be <code>./result_0</code>, with increasing numbers if a directory with the same name is present.</p>
-<p>The directory will contain a prediction CSV file and a probability CSV file for 
+<p>The directory will contain a prediction CSV file and a probability CSV file for
 each output feature, together with raw NPY files containing raw tensors.
 You can specify not to save the raw NPY output files with the argument <code>skip_save_unprocessed_output</code>.</p>
 <p>A specific batch size for speeding up the prediction can be specified using the argument <code>--batch_size</code>.</p>
@@ -1710,7 +1710,7 @@ You can specify not to save the raw NPY output files with the argument <code>ski
 </code></pre></div>
 
 <h2 id="evaluate">evaluate<a class="headerlink" href="#evaluate" title="Permanent link">&para;</a></h2>
-<p>This command lets you use a previously trained model to predict on new data and 
+<p>This command lets you use a previously trained model to predict on new data and
 evaluate the performance of the prediction compared to ground truth.
 You can call it with:</p>
 <div class="codehilite"><pre><span></span><code>ludwig evaluate [options]
@@ -1765,16 +1765,16 @@ optional arguments:
 <p>All parameters are the same of <a href="#predict">predict</a> and the behavior is the same.
 The only difference isthat <code>evaluate</code> requires the dataset to contain also columns with the same name of output features.
 This is needed because <code>evaluate</code> compares the predictions produced by the model with the ground truth and will save all those statistics in a <code>test_statistics.json</code> file in the result directory.</p>
-<p>Note that the data must contain columns for each output feature with ground 
+<p>Note that the data must contain columns for each output feature with ground
 truth output values in order to compute the performance statistics.
-If you receive an error regarding a missing output feature column in your data, 
+If you receive an error regarding a missing output feature column in your data,
 it means that the data does not contain the columns for each output feature to use as ground truth.</p>
 <p>Example:</p>
 <div class="codehilite"><pre><span></span><code>ludwig evaluate --dataset reuters-allcats.csv --model_path results/experiment_run_0/model/
 </code></pre></div>
 
 <h2 id="experiment">experiment<a class="headerlink" href="#experiment" title="Permanent link">&para;</a></h2>
-<p>This command combines training and evaluation into a single handy command.<br />
+<p>This command combines training and evaluation into a single handy command.\
 You can request a k-fold cross validation run by specifing the <code>--k_fold</code>
 parameter.
 You can call it with:</p>
@@ -1886,7 +1886,7 @@ optional arguments:
                         the level of logging to use
 </code></pre></div>
 
-<p>The parameters combine parameters from both <a href="#train">train</a> and <a href="#test">test</a> so 
+<p>The parameters combine parameters from both <a href="#train">train</a> and <a href="#test">test</a> so
 refer to those sections for an in depth explanation.
 The output directory will contain the outputs both commands produce.</p>
 <p>Example:</p>
@@ -2530,10 +2530,10 @@ Process finished with exit code 0
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.22074ed6.min.js", "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.092fa1f6.min.js", "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.960e086b.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e3b2bf44.min.js"></script>
       
     
   </body>

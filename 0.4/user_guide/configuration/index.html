@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/configuration/">
       
       <link rel="icon" href="../../favicon.ico">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.8">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.10">
     
     
       
@@ -23,7 +23,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.6e60f8b8.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.d6be258b.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
@@ -2177,7 +2177,7 @@
 
   <h1>Configuration</h1>
 
-<p>The configuration is the core of Ludwig. 
+<p>The configuration is the core of Ludwig.
 It is a dictionary that contains all the information needed to build and train a Ludwig model.
 It mixes ease of use, by means of reasonable defaults, with flexibility, by means of detailed control over the parameters of your model.
 It is provided to both <code>experiment</code> and <code>train</code> commands either as a string (<code>--config</code>) or as a file (<code>--config_file</code>).
@@ -2207,7 +2207,7 @@ For instance a list of dictionaries can be written both as:</p>
 <span class="nt">preprocessing</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w"></span>
 </code></pre></div>
 
-<p>Only <code>input_features</code> and <code>output_features</code> are required, the other three fields 
+<p>Only <code>input_features</code> and <code>output_features</code> are required, the other three fields
 have default values, but you are free to modify them.</p>
 <h3 id="input-features">Input features<a class="headerlink" href="#input-features" title="Permanent link">&para;</a></h3>
 <p>The <code>input_features</code> list contains a list of dictionaries, each of them containing two required fields <code>name</code> and <code>type</code>.
@@ -2311,7 +2311,7 @@ In this case the following configuration structure can be used:</p>
 <li><code>epochs</code> (default <code>100</code>): number of epochs the training process will run for.</li>
 <li><code>early_stop</code> (default <code>5</code>): if there's a validation set, number of epochs of patience without an improvement on the validation measure before the training is stopped.</li>
 <li><code>optimizer</code> (default <code>{type: adam, beta1: 0.9, beta2: 0.999, epsilon: 1e-08}</code>): which optimizer to use with the relative parameters. The available optimizers are: <code>sgd</code> (or <code>stochastic_gradient_descent</code>, <code>gd</code>, <code>gradient_descent</code>, they are all the same), <code>adam</code>, <code>adadelta</code>, <code>adagrad</code>, <code>adamax</code>, <code>ftrl</code>, <code>nadam</code>,
-<code>rmsprop</code>. To know their parameters check <a href="https://www.tensorflow.org/api_docs/python/tf/train">TensorFlow's optimizer documentation</a>.</li>
+  <code>rmsprop</code>. To know their parameters check <a href="https://www.tensorflow.org/api_docs/python/tf/train">TensorFlow's optimizer documentation</a>.</li>
 <li><code>learning_rate</code> (default <code>0.001</code>): the learning rate to use.</li>
 <li><code>decay</code> (default <code>false</code>): if to use exponential decay of the learning rate or not.</li>
 <li><code>decay_rate</code> (default <code>0.96</code>): the rate of the exponential learning rate decay.</li>
@@ -2446,7 +2446,7 @@ Here are the tokenizers options you can specify for those features:</p>
 <ul>
 <li><code>characters</code>: splits every character of the input string in a separate token.</li>
 <li><code>space</code>: splits on space characters using the regex <code>\s+</code>.</li>
-<li><code>space_punct</code>: splits on space characters and punctuation using the regex <code>\w+|[^\w\s]</code>. </li>
+<li><code>space_punct</code>: splits on space characters and punctuation using the regex <code>\w+|[^\w\s]</code>.</li>
 <li><code>underscore</code>: splits on the underscore character <code>_</code>.</li>
 <li><code>comma</code>: splits on the underscore character <code>,</code>.</li>
 <li><code>untokenized</code>: treats the whole string as a single token.</li>
@@ -2485,7 +2485,7 @@ No additional information about them is available in the JSON metadata file.</p>
 One encoder (<code>passthrough'</code>) takes the raw binary values coming from the input placeholders are just returned as outputs.
 Inputs are of size <code>b</code> while outputs are of size <code>b x 1</code> where <code>b</code> is the batch size.
 The other encoder (<code>'dense'</code>) passes the raw binary values through a fully connected layers.
-In this case the inputs of size <code>b</code> are transformed to size <code>b x h</code>.  </p>
+In this case the inputs of size <code>b</code> are transformed to size <code>b x h</code>.</p>
 <p>Example binary feature entry in the input features list:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary_column_name</span><span class="w"></span>
 <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span><span class="w"></span>
@@ -2582,7 +2582,7 @@ No additional information about them is available in the JSON metadata file.</p>
 One encoder (<code>passthrough'</code>) takes the raw binary values coming from the input placeholders are just returned as outputs.
 Inputs are of size <code>b</code> while outputs are of size <code>b x 1</code> where <code>b</code> is the batch size.
 The other encoder (<code>'dense'</code>) passes the raw binary values through fully connected layers.
-In this case the inputs of size <code>b</code> are transformed to size <code>b x h</code>.  </p>
+In this case the inputs of size <code>b</code> are transformed to size <code>b x h</code>.</p>
 <p>The available encoder parameters are:</p>
 <ul>
 <li><code>norm'</code> (default <code>null</code>): norm to apply after the single neuron. It can be <code>null</code>, <code>batch</code> or <code>layer</code>.</li>
@@ -3874,105 +3874,105 @@ In the configuration you are able to specify which level of representation to us
 <ul>
 <li><code>pretrained_model_name_or_path</code> (default <code>bert-base-uncased</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/bert.html">Hugging Face documentation</a>.</li>
 <li><code>reduced_output</code> (default <code>cls_pooled</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>cls_pool</code>, <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
-<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen.</li>
 </ul>
 <h5 id="gpt-encoder">GPT Encoder<a class="headerlink" href="#gpt-encoder" title="Permanent link">&para;</a></h5>
 <p>The <code>gpt</code> encoder loads a pretrained <a href="https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf">GPT</a> model using the Hugging Face transformers package.</p>
 <ul>
 <li><code>pretrained_model_name_or_path</code> (default <code>openai-gpt</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/gpt.html">Hugging Face documentation</a>.</li>
 <li><code>reduced_output</code> (default <code>sum</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
-<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen.</li>
 </ul>
 <h5 id="gpt-2-encoder">GPT-2 Encoder<a class="headerlink" href="#gpt-2-encoder" title="Permanent link">&para;</a></h5>
 <p>The <code>gpt2</code> encoder loads a pretrained <a href="https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf">GPT-2</a> model using the Hugging Face transformers package.</p>
 <ul>
 <li><code>pretrained_model_name_or_path</code> (default <code>gpt2</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/gpt2.html">Hugging Face documentation</a>.</li>
 <li><code>reduced_output</code> (default <code>sum</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
-<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen.</li>
 </ul>
 <h5 id="xlnet-encoder">XLNet Encoder<a class="headerlink" href="#xlnet-encoder" title="Permanent link">&para;</a></h5>
 <p>The <code>xlnet</code> encoder loads a pretrained <a href="https://arxiv.org/abs/1906.08237">XLNet</a> model using the Hugging Face transformers package.</p>
 <ul>
 <li><code>pretrained_model_name_or_path</code> (default <code>xlnet-base-cased</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/xlnet.html">Hugging Face documentation</a>.</li>
 <li><code>reduced_output</code> (default <code>sum</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
-<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen.</li>
 </ul>
 <h5 id="xlm-encoder">XLM Encoder<a class="headerlink" href="#xlm-encoder" title="Permanent link">&para;</a></h5>
 <p>The <code>xlm</code> encoder loads a pretrained <a href="https://arxiv.org/abs/1901.07291">XLM</a> model using the Hugging Face transformers package.</p>
 <ul>
 <li><code>pretrained_model_name_or_path</code> (default <code>xlm-mlm-en-2048</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/xlm.html">Hugging Face documentation</a>.</li>
 <li><code>reduced_output</code> (default <code>sum</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
-<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen.</li>
 </ul>
 <h5 id="roberta-encoder">RoBERTa Encoder<a class="headerlink" href="#roberta-encoder" title="Permanent link">&para;</a></h5>
 <p>The <code>roberta</code> encoder loads a pretrained <a href="https://arxiv.org/abs/1907.11692">RoBERTa</a> model using the Hugging Face transformers package.</p>
 <ul>
 <li><code>pretrained_model_name_or_path</code> (default <code>roberta-base</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/roberta.html">Hugging Face documentation</a>.</li>
 <li><code>reduced_output</code> (default <code>cls_pooled</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>cls_pool</code>, <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
-<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen.</li>
 </ul>
 <h5 id="distilbert-encoder">DistilBERT Encoder<a class="headerlink" href="#distilbert-encoder" title="Permanent link">&para;</a></h5>
 <p>The <code>distilbert</code> encoder loads a pretrained <a href="https://medium.com/huggingface/distilbert-8cf3380435b5">DistilBERT</a> model using the Hugging Face transformers package.</p>
 <ul>
 <li><code>pretrained_model_name_or_path</code> (default <code>istilbert-base-uncased</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/distilbert.html">Hugging Face documentation</a>.</li>
 <li><code>reduced_output</code> (default <code>sum</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
-<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen.</li>
 </ul>
 <h5 id="ctrl-encoder">CTRL Encoder<a class="headerlink" href="#ctrl-encoder" title="Permanent link">&para;</a></h5>
 <p>The <code>ctrl</code> encoder loads a pretrained <a href="https://arxiv.org/abs/1909.05858">CTRL</a> model using the Hugging Face transformers package.</p>
 <ul>
 <li><code>pretrained_model_name_or_path</code> (default <code>ctrl</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/ctrl.html">Hugging Face documentation</a>.</li>
 <li><code>reduced_output</code> (default <code>sum</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
-<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen.</li>
 </ul>
 <h5 id="camembert-encoder">CamemBERT Encoder<a class="headerlink" href="#camembert-encoder" title="Permanent link">&para;</a></h5>
 <p>The <code>camembert</code> encoder loads a pretrained <a href="https://arxiv.org/abs/1911.03894">CamemBERT</a> model using the Hugging Face transformers package.</p>
 <ul>
 <li><code>pretrained_model_name_or_path</code> (default <code>jplu/tf-camembert-base</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/camembert.html">Hugging Face documentation</a>.</li>
 <li><code>reduced_output</code> (default <code>cls_pooled</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>cls_pool</code>, <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
-<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen.</li>
 </ul>
 <h5 id="albert-encoder">ALBERT Encoder<a class="headerlink" href="#albert-encoder" title="Permanent link">&para;</a></h5>
 <p>The <code>albert</code> encoder loads a pretrained <a href="https://arxiv.org/abs/1909.11942">ALBERT</a> model using the Hugging Face transformers package.</p>
 <ul>
 <li><code>pretrained_model_name_or_path</code> (default <code>albert-base-v2</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/albert.html">Hugging Face documentation</a>.</li>
 <li><code>reduced_output</code> (default <code>cls_pooled</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>cls_pool</code>, <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
-<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen.</li>
 </ul>
 <h5 id="t5-encoder">T5 Encoder<a class="headerlink" href="#t5-encoder" title="Permanent link">&para;</a></h5>
 <p>The <code>t5</code> encoder loads a pretrained <a href="https://arxiv.org/pdf/1910.10683.pdf">T5</a> model using the Hugging Face transformers package.</p>
 <ul>
 <li><code>pretrained_model_name_or_path</code> (default <code>t5-small</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/t5.html">Hugging Face documentation</a>.</li>
 <li><code>reduced_output</code> (default <code>sum</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
-<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen.</li>
 </ul>
 <h5 id="xlm-roberta-encoder">XLM-RoBERTa Encoder<a class="headerlink" href="#xlm-roberta-encoder" title="Permanent link">&para;</a></h5>
 <p>The <code>xlmroberta</code> encoder loads a pretrained <a href="https://arxiv.org/abs/1911.02116">XLM-RoBERTa</a> model using the Hugging Face transformers package.</p>
 <ul>
 <li><code>pretrained_model_name_or_path</code> (default <code>jplu/tf-xlm-reoberta-base</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/xlmroberta.html">Hugging Face documentation</a>.</li>
 <li><code>reduced_output</code> (default <code>cls_pooled</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>cls_pool</code>, <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
-<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen.</li>
 </ul>
 <h5 id="flaubert-encoder">FlauBERT Encoder<a class="headerlink" href="#flaubert-encoder" title="Permanent link">&para;</a></h5>
 <p>The <code>flaubert</code> encoder loads a pretrained <a href="https://arxiv.org/abs/1912.05372">FlauBERT</a> model using the Hugging Face transformers package.</p>
 <ul>
 <li><code>pretrained_model_name_or_path</code> (default <code>jplu/tf-flaubert-base-uncased</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/flaubert.html">Hugging Face documentation</a>.</li>
 <li><code>reduced_output</code> (default <code>sum</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
-<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen.</li>
 </ul>
 <h5 id="electra-encoder">ELECTRA Encoder<a class="headerlink" href="#electra-encoder" title="Permanent link">&para;</a></h5>
 <p>The <code>electra</code> encoder loads a pretrained <a href="https://openreview.net/pdf?id=r1xMH1BtvB">ELECTRA</a> model using the Hugging Face transformers package.</p>
 <ul>
 <li><code>pretrained_model_name_or_path</code> (default <code>google/electra-small-discriminator</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/electra.html">Hugging Face documentation</a>.</li>
 <li><code>reduced_output</code> (default <code>sum</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
-<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen.</li>
 </ul>
 <h5 id="longformer-encoder">Longformer Encoder<a class="headerlink" href="#longformer-encoder" title="Permanent link">&para;</a></h5>
 <p>The <code>longformer</code> encoder loads a pretrained <a href="https://arxiv.org/pdf/2004.05150.pdf">Longformer</a> model using the Hugging Face transformers package.</p>
 <ul>
 <li><code>pretrained_model_name_or_path</code> (default <code>allenai/longformer-base-4096</code>): it can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/transformers/model_doc/longformer.html">Hugging Face documentation</a>.</li>
 <li><code>reduced_output</code> (default <code>cls_pooled</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>cls_pool</code>, <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
-<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen.</li>
 </ul>
 <h5 id="auto-transformer-encoder">Auto-Transformer Encoder<a class="headerlink" href="#auto-transformer-encoder" title="Permanent link">&para;</a></h5>
 <p>The <code>auto_transformer</code> encoder loads a pretrained model using the Hugging Face transformers package.
@@ -3980,7 +3980,7 @@ It's the best option for customly trained models that don't fit into the other p
 <ul>
 <li><code>pretrained_model_name_or_path</code>: it can be either the name of a model or a path where it was downloaded. For details on the available models to the <a href="https://huggingface.co/transformers/model_doc/auto.html#tfautomodel">Hugging Face documentation</a>.</li>
 <li><code>reduced_output</code> (default <code>sum</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
-<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen. </li>
+<li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen.</li>
 </ul>
 <h5 id="example-usage">Example usage<a class="headerlink" href="#example-usage" title="Permanent link">&para;</a></h5>
 <p>Example text input feature encoder usage:</p>
@@ -4059,17 +4059,15 @@ The only difference is that time series features don't have an embedding layer a
 <li><code>audio_file_length_limit_in_s</code>: (default <code>7.5</code>): float value that defines the maximum limit of the audio file in seconds. All files longer than this limit are cut off. All files shorter than this limit are padded with <code>padding_value</code></li>
 <li><code>missing_value_strategy</code> (default: <code>backfill</code>): what strategy to follow when there's a missing value in a binary column. The value should be one of <code>fill_with_const</code> (replaces the missing value with a specific value specified with the <code>fill_value</code> parameter), <code>fill_with_mode</code> (replaces the missing values with the most frequent value in the column), <code>fill_with_mean</code> (replaces the missing values with the mean of the values in the column), <code>backfill</code> (replaces the missing values with the next valid value).</li>
 <li><code>in_memory</code> (default <code>true</code>): defines whether image dataset will reside in memory during the training process or will be dynamically fetched from disk (useful for large datasets). In the latter case a training batch of input images will be fetched from disk each training iteration. At the moment only <code>in_memory</code> = true is supported.</li>
-<li><code>padding_value</code>: (default 0): float value that is used for padding. </li>
+<li><code>padding_value</code>: (default 0): float value that is used for padding.</li>
 <li><code>norm</code>: (default <code>null</code>) the normalization method that can be used for the input data. Supported methods: <code>null</code> (data is not normalized), <code>per_file</code> (z-norm is applied on a “per file” level)</li>
-<li><code>audio_feature</code>: (default <code>{ type: raw }</code>) dictionary that takes as input the audio feature <code>type</code> as well as additional parameters if <code>type != raw</code>. The following parameters can/should be defined in the dictionary:<ul>
+<li><code>audio_feature</code>: (default <code>{ type: raw }</code>) dictionary that takes as input the audio feature <code>type</code> as well as additional parameters if <code>type != raw</code>. The following parameters can/should be defined in the dictionary:</li>
 <li><code>type</code> (default <code>raw</code>): defines the type of audio features to be used. Supported types at the moment are <code>raw</code>, <code>stft</code>, <code>stft_phase</code>, <code>group_delay</code>. For more detail, check <a href="#audio-input-features-and-encoders">Audio Input Features and Encoders</a>.</li>
 <li><code>window_length_in_s</code>: defines the window length used for the short time Fourier transformation (only needed if <code>type != raw</code>).</li>
 <li><code>window_shift_in_s</code>: defines the window shift used for the short time Fourier transformation (also called hop_length) (only needed if <code>type != raw</code>).</li>
 <li><code>num_fft_points</code>: (default <code>window_length_in_s * sample_rate</code> of audio file) defines the number of fft points used for the short time Fourier transformation. If <code>num_fft_points &gt; window_length_in_s * sample_rate</code>, then the signal is zero-padded at the end. <code>num_fft_points</code> has to be <code>&gt;= window_length_in_s * sample_rate</code> (only needed if <code>type != raw</code>).</li>
 <li><code>window_type</code>: (default <code>hamming</code>): defines the type window the signal is weighted before the short time Fourier transformation. All windows provided by <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.get_window.html">scipy’s window function</a> can be used (only needed if <code>type != raw</code>).</li>
 <li><code>num_filter_bands</code>: defines the number of filters used in the filterbank (only needed if <code>type == fbank</code>).</li>
-</ul>
-</li>
 </ul>
 <p>Example of a preprocessing specification (assuming the audio files have a sample rate of 16000):</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio_path</span><span class="w"></span>
@@ -4273,7 +4271,7 @@ The column name is added to the JSON file, with an associated dictionary contain
 <p>As no image decoders are available at the moment, there are also no image measures.</p>
 <h3 id="date-features">Date Features<a class="headerlink" href="#date-features" title="Permanent link">&para;</a></h3>
 <h4 id="date-features-preprocessing">Date Features Preprocessing<a class="headerlink" href="#date-features-preprocessing" title="Permanent link">&para;</a></h4>
-<p>Ludwig will try to infer the date format automatically, but a specific fomrat can be provided. 
+<p>Ludwig will try to infer the date format automatically, but a specific fomrat can be provided.
 The format is the same one described in the <a href="https://docs.python.org/2/library/time.html#time.strptime">datetime package documentation</a>.</p>
 <ul>
 <li><code>missing_value_strategy</code> (default <code>fill_with_const</code>): what strategy to follow when there's a missing value in a binary column. The value should be one of <code>fill_with_const</code> (replaces the missing value with a specific value specified with the <code>fill_value</code> parameter), <code>fill_with_mode</code> (replaces the missing values with the most frequent value in the column), <code>fill_with_mean</code> (replaces the missing values with the mean of the values in the column), <code>backfill</code> (replaces the missing values with the next valid value).</li>
@@ -4380,7 +4378,7 @@ It takes the following optional parameters:</p>
 <p>H3 is a indexing system for representing geospatial data.
 For more details about it refer to: https://eng.uber.com/h3/ .</p>
 <h4 id="h3-features-preprocessing">H3 Features Preprocessing<a class="headerlink" href="#h3-features-preprocessing" title="Permanent link">&para;</a></h4>
-<p>Ludwig will parse the H3 64bit encoded format automatically. 
+<p>Ludwig will parse the H3 64bit encoded format automatically.
 The parameters for preprocessing are:</p>
 <ul>
 <li><code>missing_value_strategy</code> (default <code>fill_with_const</code>): what strategy to follow when there's a missing value in a binary column. The value should be one of <code>fill_with_const</code> (replaces the missing value with a specific value specified with the <code>fill_value</code> parameter), <code>fill_with_mode</code> (replaces the missing values with the most frequent value in the column), <code>fill_with_mean</code> (replaces the missing values with the mean of the values in the column), <code>backfill</code> (replaces the missing values with the next valid value).</li>
@@ -4560,7 +4558,7 @@ This is useful for distillation and noise-aware losses.</p>
 <ul>
 <li><code>vector_size</code> (default <code>null</code>): size of the vector. If not provided, it will be inferred from the data.</li>
 <li><code>missing_value_strategy</code> (default <code>fill_with_const</code>): what strategy to follow when there's a missing value. The value should be one of <code>fill_with_const</code> (replaces the missing value with a specific value specified with the <code>fill_value</code> parameter), <code>fill_with_mode</code> (replaces the missing values with the most frequent value in the column), <code>fill_with_mean</code> (replaces the missing values with the mean of the values in the column), <code>backfill</code> (replaces the missing values with the next valid value).</li>
-<li><code>fill_value</code> (default ""): the value to replace the missing values with in case the <code>missing_value_strategy</code> is <code>fill_value</code>. </li>
+<li><code>fill_value</code> (default ""): the value to replace the missing values with in case the <code>missing_value_strategy</code> is <code>fill_value</code>.</li>
 </ul>
 <h4 id="vector-feature-encoders">Vector Feature Encoders<a class="headerlink" href="#vector-feature-encoders" title="Permanent link">&para;</a></h4>
 <p>The vector feature supports two encoders: <code>dense</code> and <code>passthrough</code>.  Only the <code>dense</code> encoder has additional parameters, which is shown next.</p>
@@ -4842,7 +4840,7 @@ It returns the final <code>b x h'</code> tensor where <code>h'</code> is the use
 It assumes all outputs from encoders are tensors of size <code>b x h</code> where <code>b</code> is the batch size and <code>h</code> is the hidden dimension, which can be different for each input.
 If the input tensors have a different shape, it automatically flattens them.
 It then projects each input tensor to the same hidden / embedding size and encodes them wit ha stack of Tranformer layers.
-Finally it applies an reduction to the outputs of the Transformer stack and applies optional fully connected layers. 
+Finally it applies an reduction to the outputs of the Transformer stack and applies optional fully connected layers.
 It returns the final <code>b x h'</code> tensor where <code>h'</code> is the size of the last fully connected layer or the hidden / embedding size , or it returns <code>b x n x h'</code> where <code>n</code> is the number of input features and <code>h'</code> is the hidden / embedding size if there's no reduction applied.</p>
 <div class="codehilite"><pre><span></span><code>+-----------+
 |Input      |
@@ -4910,7 +4908,7 @@ It returns the final <code>b x h'</code> tensor where <code>h'</code> is the siz
 It assumes all outputs from encoders are tensors of size <code>b x h</code> where <code>b</code> is the batch size and <code>h</code> is the hidden dimension, which can be different for each input.
 If the input tensors have a different shape, it automatically flattens them.
 It then concatenates the representations of each entity end projects them into the same size.
-Finally it compares the two entity representations by dot product, element-wise multiplication, absolute difference and bilinear product. 
+Finally it compares the two entity representations by dot product, element-wise multiplication, absolute difference and bilinear product.
 It returns the final <code>b x h'</code> tensor where <code>h'</code> is the size of the concatenation of the four comparisons.</p>
 <div class="codehilite"><pre><span></span><code>+-----------+
 |Entity 1   |
@@ -5027,10 +5025,10 @@ It returns the final <code>b x h'</code> tensor where <code>h'</code> is the siz
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.22074ed6.min.js", "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.092fa1f6.min.js", "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.960e086b.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e3b2bf44.min.js"></script>
       
     
   </body>

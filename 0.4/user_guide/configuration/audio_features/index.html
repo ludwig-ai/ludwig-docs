@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/configuration/audio_features/">
       
       <link rel="icon" href="../../../favicon.ico">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.8">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.10">
     
     
       
@@ -23,7 +23,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.6e60f8b8.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.d6be258b.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.e6a45f82.min.css">
@@ -1285,17 +1285,15 @@
 <li><code>audio_file_length_limit_in_s</code>: (default <code>7.5</code>): float value that defines the maximum limit of the audio file in seconds. All files longer than this limit are cut off. All files shorter than this limit are padded with <code>padding_value</code></li>
 <li><code>missing_value_strategy</code> (default: <code>backfill</code>): what strategy to follow when there's a missing value in a binary column. The value should be one of <code>fill_with_const</code> (replaces the missing value with a specific value specified with the <code>fill_value</code> parameter), <code>fill_with_mode</code> (replaces the missing values with the most frequent value in the column), <code>fill_with_mean</code> (replaces the missing values with the mean of the values in the column), <code>backfill</code> (replaces the missing values with the next valid value).</li>
 <li><code>in_memory</code> (default <code>true</code>): defines whether image dataset will reside in memory during the training process or will be dynamically fetched from disk (useful for large datasets). In the latter case a training batch of input images will be fetched from disk each training iteration. At the moment only <code>in_memory</code> = true is supported.</li>
-<li><code>padding_value</code>: (default 0): float value that is used for padding. </li>
+<li><code>padding_value</code>: (default 0): float value that is used for padding.</li>
 <li><code>norm</code>: (default <code>null</code>) the normalization method that can be used for the input data. Supported methods: <code>null</code> (data is not normalized), <code>per_file</code> (z-norm is applied on a “per file” level)</li>
-<li><code>audio_feature</code>: (default <code>{ type: raw }</code>) dictionary that takes as input the audio feature <code>type</code> as well as additional parameters if <code>type != raw</code>. The following parameters can/should be defined in the dictionary:<ul>
+<li><code>audio_feature</code>: (default <code>{ type: raw }</code>) dictionary that takes as input the audio feature <code>type</code> as well as additional parameters if <code>type != raw</code>. The following parameters can/should be defined in the dictionary:</li>
 <li><code>type</code> (default <code>raw</code>): defines the type of audio features to be used. Supported types at the moment are <code>raw</code>, <code>stft</code>, <code>stft_phase</code>, <code>group_delay</code>. For more detail, check <a href="#audio-input-features-and-encoders">Audio Input Features and Encoders</a>.</li>
 <li><code>window_length_in_s</code>: defines the window length used for the short time Fourier transformation (only needed if <code>type != raw</code>).</li>
 <li><code>window_shift_in_s</code>: defines the window shift used for the short time Fourier transformation (also called hop_length) (only needed if <code>type != raw</code>).</li>
 <li><code>num_fft_points</code>: (default <code>window_length_in_s * sample_rate</code> of audio file) defines the number of fft points used for the short time Fourier transformation. If <code>num_fft_points &gt; window_length_in_s * sample_rate</code>, then the signal is zero-padded at the end. <code>num_fft_points</code> has to be <code>&gt;= window_length_in_s * sample_rate</code> (only needed if <code>type != raw</code>).</li>
 <li><code>window_type</code>: (default <code>hamming</code>): defines the type window the signal is weighted before the short time Fourier transformation. All windows provided by <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.get_window.html">scipy’s window function</a> can be used (only needed if <code>type != raw</code>).</li>
 <li><code>num_filter_bands</code>: defines the number of filters used in the filterbank (only needed if <code>type == fbank</code>).</li>
-</ul>
-</li>
 </ul>
 <p>Example of a preprocessing specification (assuming the audio files have a sample rate of 16000):</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio_path</span><span class="w"></span>
@@ -1414,10 +1412,10 @@ The only difference is that time series features don't have an embedding layer a
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.22074ed6.min.js", "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.092fa1f6.min.js", "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.960e086b.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.e3b2bf44.min.js"></script>
       
     
   </body>

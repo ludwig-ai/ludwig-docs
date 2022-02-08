@@ -1,22 +1,5 @@
 # Dataset preprocessing
 
-Ludwig is able to read UTF-8 encoded data from 14 file formats.
-Supported formats are:
-
-- Comma Separated Values (`csv`)
-- Excel Workbooks (`excel`)
-- Feather (`feather`)
-- Fixed Width Format (`fwf`)
-- Hierarchical Data Format 5 (`hdf5`)
-- Hypertext Markup Language (`html`) Note: limited to single table in the file.
-- JavaScript Object Notation (`json` and `jsonl`)
-- Parquet (`parquet`)
-- Pickled Pandas DataFrame (`pickle`)
-- SAS data sets in XPORT or SAS7BDAT format (`sas`)
-- SPSS file (`spss`)
-- Stata file (`stata`)
-- Tab Separated Values (`tsv`)
-
 Ludwig data preprocessing maps raw data in a supported dataset into an HDF5 file containing tensors and a JSON file containing mappings from strings to tensors when needed.
 This mapping is performed when a UTF-8 encoded data is provided as input and both HDF5 and JSON files are saved in the same directory as the input dataset, unless the argument `--skip_save_processed_input` is used (both in `train` and `experiment` commands).
 The reason to save those files is both to provide a cache and avoid performing the preprocessing again (as, depending on the type of features involved, it could be time consuming) and to provide the needed mappings to be able to map unseen data into tensors.
@@ -128,13 +111,3 @@ Moreover, there is no need for any mapping in the JSON file.
 
 `Image` features are transformed into a int8 valued tensor of size `n x h x w x c` (where `n` is the size of the dataset and `h x w` is a specific resizing of the image that can be set, and `c` is the number of color channels) and added to HDF5 with a key that reflects the name of column in the dataset.
 The column name is added to the JSON file, with an associated dictionary containing preprocessing information about the sizes of the resizing.
-
-# Dataset Format
-
-Ludwig uses Pandas under the hood to read the UTF-8 encoded dataset files, which allows support for CSV, Excel, Feather, fwf, HDF5, HTML (containing a `<table>`), JSON, JSONL, Parquet, pickle (pickled Pandas DataFrame), SAS, SPSS, Stata and TSV formats.
-Ludwig tries to automatically identify the format by the extension.
-
-In case a \*SV file is provided, Ludwig tries to identify the separator (generally `,`) from the data.
-The default escape character is `\`.
-For example, if `,` is the column separator and one of your data columns has a `,` in it, Pandas would fail to load the data properly.
-To handle such cases, we expect the values in the columns to be escaped with backslashes (replace `,` in the data with `\\,`).

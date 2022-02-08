@@ -180,7 +180,7 @@ Several more visualizations are available, please refer to [Visualizations](user
 ## Distributed Training
 
 You can distribute the training of your models using [Horovod](https://github.com/horovod/horovod), which allows training on a single machine with multiple GPUs as well as on multiple machines with multiple GPUs.
-Refer to the [User Guide](/ludwig-docs/user_guide/distributed_training) for full details.
+Refer to the [User Guide](user_guide/distributed_training.md) for full details.
 
 ## Prediction and Evaluation
 
@@ -230,7 +230,7 @@ predictions = model.predict(test_data)
 ```
 
 `config` containing the same information of the YAML file provided to the command line interface.
-More details are provided in the [User Guide](/ludwig-docs/user_guide) and in the [API documentation](/ludwig-docs/user_guide/api/LudwigModel).
+More details are provided in the [User Guide](user_guide/index.md) and in the [API documentation](user_guide/api/LudwigModel.md).
 
 # Extensibility
 
@@ -239,4 +239,4 @@ It is easy to add an additional datatype that is not currently supported by addi
 
 Furthermore, new models, with their own specific hyperparameters, can be easily added by implementing a class that accepts tensors (of a specific rank, depending on the datatype) as inputs and provides tensors as output.
 This encourages reuse and sharing new models with the community.
-Refer to the [Developer Guide](/ludwig-docs/developer_guide) for further details.
+Refer to the [Developer Guide](developer_guide/index.md) for further details.

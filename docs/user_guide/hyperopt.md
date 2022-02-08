@@ -3,4 +3,4 @@ Ludwig supports hyperparameter optimization using [Ray Tune](https://docs.ray.io
 The hyperparameter optimization strategy is specified as part of the Ludwig configuration and run using 
 the `ludwig hyperopt` command. Every parameter within the config can be tuned using hyperopt.
 
-The full configuration specification can be found [here](/ludwig-docs/configuration/hyperparameter_optimization).
+The full configuration specification can be found [here](../configuration/hyperparameter_optimization.md).

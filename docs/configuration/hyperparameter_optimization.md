@@ -256,7 +256,7 @@ executor:
 
 **Running Ray Executor:**
 
-See the section on [Running Ludwig with Ray](https://ludwig-ai.github.io/ludwig-docs/user_guide/#running-ludwig-with-ray) for guidance on setting up your Ray cluster.
+See the section on [Running Ludwig with Ray](../user_guide/distributed_training.md#ray) for guidance on setting up your Ray cluster.
 
 ## Fiber Executor
 

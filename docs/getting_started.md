@@ -117,7 +117,7 @@ By choosing different datatype for inputs and outputs, users can solve many diff
 - timeseries input + numerical output = forecasting model
 - category, numerical and binary inputs + binary output = fraud detection
 
-take a look at the [Examples](examples.md) to see how you can use Ludwig for several more tasks.
+take a look at the [Examples](examples) to see how you can use Ludwig for several more tasks.
 
 The model definition can contain additional information, in particular how to preprocess each column in the data, which encoder and decoder to use for each one, architectural  and training parameters, hyperparameters to optimize.
 This allows ease of use for novices and flexibility for experts.
@@ -162,7 +162,7 @@ If you prefer to use an RNN encoder and increase the number of epochs to train f
 {input_features: [{name: doc_text, type: text, encoder: rnn}], output_features: [{name: class, type: category}], training: {epochs: 50}}
 ```
 
-Refer to the [User Guide](user_guide/user_guide_intro.md) to find out all the options available to you in the model definition and take a look at the [Examples](examples.md) to see how you can use Ludwig for several different tasks.
+Refer to the [User Guide](user_guide) to find out all the options available to you in the model definition and take a look at the [Examples](examples) to see how you can use Ludwig for several different tasks.
 
 After training, Ludwig will create a `results` directory containing the trained model with its hyperparameters and summary statistics of the training process.
 You can visualize them using one of the several visualization options available in the `visualize` tool, for instance:
@@ -175,12 +175,12 @@ This command will display a graph like the following, where you can see loss and
 
 ![Learning Curves](images/getting_started_learning_curves.png "Learning Curves")
 
-Several more visualizations are available, please refer to [Visualizations](user_guide/user_guide_intro.md#visualizations) for more details.
+Several more visualizations are available, please refer to [Visualizations](user_guide/visualizations) for more details.
 
 ## Distributed Training
 
 You can distribute the training of your models using [Horovod](https://github.com/horovod/horovod), which allows training on a single machine with multiple GPUs as well as on multiple machines with multiple GPUs.
-Refer to the [User Guide](user_guide/user_guide_intro.md#distributed-training) for full details.
+Refer to the [User Guide](/ludwig-docs/user_guide/distributed_training) for full details.
 
 ## Prediction and Evaluation
 
@@ -230,7 +230,7 @@ predictions = model.predict(test_data)
 ```
 
 `config` containing the same information of the YAML file provided to the command line interface.
-More details are provided in the [User Guide](user_guide/user_guide_intro.md) and in the [API documentation](api.md).
+More details are provided in the [User Guide](/ludwig-docs/user_guide) and in the [API documentation](/ludwig-docs/user_guide/api/LudwigModel).
 
 # Extensibility
 
@@ -239,4 +239,4 @@ It is easy to add an additional datatype that is not currently supported by addi
 
 Furthermore, new models, with their own specific hyperparameters, can be easily added by implementing a class that accepts tensors (of a specific rank, depending on the datatype) as inputs and provides tensors as output.
 This encourages reuse and sharing new models with the community.
-Refer to the [Developer Guide](developer_guide/developer_guide_intro.md) for further details.
+Refer to the [Developer Guide](/ludwig-docs/developer_guide) for further details.

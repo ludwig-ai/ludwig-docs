@@ -27,7 +27,7 @@ nav:
         - 'Data Preprocessing': 'user_guide/datasets/data_preprocessing.md'
         - 'Data Postprocessing': 'user_guide/datasets/data_postprocessing.md'
         - 'Dataset Zoo': 'user_guide/datasets/dataset_zoo.md'
-      - 'Distributed Training': 'user_guide/distributed_execution_backends.md'
+      - 'Distributed Training': 'user_guide/distributed_training.md'
       - 'Hyperparameter Optimization': 'user_guide/hyperopt.md'
       - 'Visualizations': 'user_guide/visualizations.md'
       - 'Serving': 'user_guide/serving.md'

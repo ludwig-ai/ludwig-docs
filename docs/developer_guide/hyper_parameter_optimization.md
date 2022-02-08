@@ -3,7 +3,7 @@ The hyper-parameter optimization design in Ludwig is based on two abstract inter
 `HyperoptSampler` represents the sampler adopted for sampling hyper-parameters values.
 Which sampler to use is defined in the `sampler` section of the model definition.
 A `Sampler` uses the `parameters` defined in the `hyperopt` section of the YAML model definition and a `goal` , either to minimize or maximize.
-Each sub-class of `HyperoptSampler` that implements its abstract methods samples parameters according to their definition and type differently (see [User Guide](../user_guide/user_guide_intro.md#hyper-parameter-optimization) for details), like using a random search (implemented in `RandomSampler`), or a grid serach (implemented in `GridSampler`, or bayesian optimization or evolutionary techniques.
+Each sub-class of `HyperoptSampler` that implements its abstract methods samples parameters according to their definition and type differently (see [User Guide](/ludwig-docs/user_guide/hyperopt) for details), like using a random search (implemented in `RandomSampler`), or a grid serach (implemented in `GridSampler`, or bayesian optimization or evolutionary techniques.
 
 `HyperoptExecutor` represents the method used to execute the hyper-parameter optimization, independently of how the values for the hyperparameters are sampled.
 Available implementations are a serial executor that executes the training with the different sampled hyper-parameters values one at a time (implemented in `SerialExecutor`), a parallel executor that runs the training using sampled hyper-parameters values in parallel on the same machine (implemented in the `ParallelExecutor`), and a [Fiber](https://uber.github.io/fiber/)-based executor that enables to run the training using sampled hyper-parameters values in parallel on multiple machines within a cluster.
@@ -13,7 +13,7 @@ Then, sampled parameters values are merged with the basic model definition param
 Training is executed using the merged model definition and training and validation losses and metrics are collected.
 A `(sampled_parameters, statistics)` pair is provided to the `HyperoptSampler.update` function and the loop is repeated until all the samples are sampled.
 At the end, `HyperoptExecutor.execute` returns a list of dictionaries that include a parameter sample, its metric score, and its training and test statistics.
-The returned list is printed and saved to disk, so that it can also be used as input to [hyper-parameter optimization visualizations](../user_guide/user_guide_intro.md#hyper-parameter-optimization-visualization).
+The returned list is printed and saved to disk, so that it can also be used as input to [hyper-parameter optimization visualizations](/ludwig-docs/user_guide/hyperopt).
 
 # Adding a HyperoptSampler
 

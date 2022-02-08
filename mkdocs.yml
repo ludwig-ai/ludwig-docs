@@ -16,15 +16,15 @@ copyright: 'Copyright &copy; 2018 - 2020 Uber Technologies Inc., 2021 Linux Foun
 nav:
   - About: 'index.md'
   - Getting Started: 'getting_started.md'
-  - Examples: 'examples.md'
   - User Guide:
       - 'User Guide Intro': 'user_guide/user_guide_intro.md'
       - 'Command Line Interface': 'user_guide/command_line_interface.md'
+      - 'Python API':
+        - 'LudwigModel': 'api/LudwigModel.md'
+        - 'Visualization': 'api/visualization.md'
       - 'Data Preprocessing': 'user_guide/data_preprocessing.md'
       - 'Data Postprocessing': 'user_guide/data_postprocessing.md'
       - 'Distributed Execution Backends': 'user_guide/distributed_execution_backends.md'
-      - 'Hyper-parameter optimization': 'user_guide/hyperparameter_optimization.md'
-      - 'Programmatic API': 'user_guide/programmatic_api.md'
       - 'Visualizations': 'user_guide/visualizations.md'
       - 'Serving': 'user_guide/serving.md'
       - 'Datasets': 'user_guide/datasets.md'
@@ -50,6 +50,8 @@ nav:
       - 'Combiner': 'configuration/combiner.md'
       - 'Preprocessing': 'configuration/preprocessing.md'
       - 'Training': 'configuration/training.md'
+      - 'Hyperopt': 'configuration/hyperparameter_optimization.md'
+  - Examples: 'examples.md'
   - Developer Guide:
       - 'Developer Guide Intro': 'developer_guide/developer_guide_intro.md'
       - 'Codebase Structure': 'developer_guide/codebase_structure.md'
@@ -61,9 +63,6 @@ nav:
       - 'Add an Dataset': 'developer_guide/add_a_dataset.md'
       - 'Style Guidelines and Tests': 'developer_guide/style_guidelines_and_tests.md'
       - 'Unit Test Design Guidelines': 'developer_guide/unit_test_design_guidelines.md'
-  - API:
-      - 'LudwigModel': 'api/LudwigModel.md'
-      - 'Visualization': 'api/visualization.md'
   - Community: 'community.md'
   - FAQ: 'faq.md'
 

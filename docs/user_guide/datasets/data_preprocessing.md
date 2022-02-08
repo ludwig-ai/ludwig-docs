@@ -1,5 +1,3 @@
-# Dataset preprocessing
-
 Ludwig data preprocessing maps raw data in a supported dataset into an HDF5 file containing tensors and a JSON file containing mappings from strings to tensors when needed.
 This mapping is performed when a UTF-8 encoded data is provided as input and both HDF5 and JSON files are saved in the same directory as the input dataset, unless the argument `--skip_save_processed_input` is used (both in `train` and `experiment` commands).
 The reason to save those files is both to provide a cache and avoid performing the preprocessing again (as, depending on the type of features involved, it could be time consuming) and to provide the needed mappings to be able to map unseen data into tensors.

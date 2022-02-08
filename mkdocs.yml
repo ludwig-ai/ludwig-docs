@@ -23,9 +23,10 @@ nav:
         - 'LudwigModel': 'user_guide/api/LudwigModel.md'
         - 'Visualization': 'user_guide/api/visualization.md'
       - 'Datasets':
-        - 'Data Preprocessing': 'user_guide/data_preprocessing.md'
-        - 'Data Postprocessing': 'user_guide/data_postprocessing.md'
-        - 'Dataset Zoo': 'user_guide/datasets.md'
+        - 'Supported Formats': 'user_guide/datasets/supported_formats.md'
+        - 'Data Preprocessing': 'user_guide/datasets/data_preprocessing.md'
+        - 'Data Postprocessing': 'user_guide/datasets/data_postprocessing.md'
+        - 'Dataset Zoo': 'user_guide/datasets/dataset_zoo.md'
       - 'Distributed Training': 'user_guide/distributed_execution_backends.md'
       - 'Visualizations': 'user_guide/visualizations.md'
       - 'Serving': 'user_guide/serving.md'

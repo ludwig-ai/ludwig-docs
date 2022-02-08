@@ -88,7 +88,7 @@ EXCLUDE = {}
 
 PAGES = [
     {
-        'page': 'api/LudwigModel.md',
+        'page': 'user_guide/api/LudwigModel.md',
         'classes': [
             (LudwigModel, "*")
         ],
@@ -98,7 +98,7 @@ PAGES = [
         ]
     },
     {
-        'page': 'api/visualization.md',
+        'page': 'user_guide/api/visualization.md',
         'functions': [
             learning_curves,
             compare_performance,

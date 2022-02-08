@@ -17,7 +17,7 @@ nav:
   - About: 'index.md'
   - Getting Started: 'getting_started.md'
   - User Guide:
-      - 'User Guide Intro': 'user_guide/user_guide_intro.md'
+      - 'User Guide': 'user_guide/index.md'
       - 'Command Line Interface': 'user_guide/command_line_interface.md'
       - 'Python API':
         - 'LudwigModel': 'user_guide/api/LudwigModel.md'
@@ -30,7 +30,7 @@ nav:
       - 'Datasets': 'user_guide/datasets.md'
       - 'Integrations': 'user_guide/integrations.md'
   - Configuration:
-      - 'configuration/index.md'
+      - 'Configuration': 'configuration/index.md'
       - 'Features':
         - 'Input Features': 'configuration/features/input_features.md'
         - 'Output Features': 'configuration/features/output_features.md'
@@ -53,7 +53,7 @@ nav:
       - 'Hyperopt': 'configuration/hyperparameter_optimization.md'
   - Examples: 'examples.md'
   - Developer Guide:
-      - 'Developer Guide Intro': 'developer_guide/developer_guide_intro.md'
+      - 'Developer Guide': 'developer_guide/index.md'
       - 'Codebase Structure': 'developer_guide/codebase_structure.md'
       - 'Add an Encoder': 'developer_guide/add_an_encoder.md'
       - 'Add a Decoder': 'developer_guide/add_a_decoder.md'

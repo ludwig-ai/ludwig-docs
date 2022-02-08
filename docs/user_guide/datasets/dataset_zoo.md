@@ -1,5 +1,3 @@
-# Datasets module
-
 The Datasets module provides training datasets that can be directly plugged into a Ludwig model.
 Datasets can be accessed programmatically by importing the `ludwig.datasets` module.
 Each dataset class in the module has a `download`, `process` and `load` function, plus a handy static `load` function to import from the module itself (i.e. `datasets.titanic.load`).

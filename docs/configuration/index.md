@@ -35,25 +35,3 @@ mylist:
 
 Only `input_features` and `output_features` are required, the other three fields
 have default values, but you are free to modify them.
-
-Here are the instructions to fill each section of the configuration: ... . And here are the information on how to fill the type-specific parts of input features, outputs features and preprocessing: ... .
-
-##[Input Features](input_features.md)
-##[Combiner](combiner.md)
-##[Output Features](output_features.md)
-##[Training](training.md)
-##[Preprocessing](preprocessing.md)
-##[Binary Features](binary_features.md)
-##[Numerical Features](numerical_features.md)
-##[Category Features](category_features.md)
-##[Set Features](set_features.md)
-##[Bag Features](bag_features.md)
-##[Sequence Features](sequence_features.md)
-##[Text Features](text_features.md)
-##[Time Series Features](time_series_features.md)
-##[Audio Features](audio_features.md)
-##[Image Features](image_features.md)
-##[Date Features](date_features.md)
-##[H3 Features](h3_features.md)
-##[Vector Features](vector_features.md)
-##[Combiners](combiners.md)

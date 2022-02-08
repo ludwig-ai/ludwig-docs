@@ -15,6 +15,16 @@ Generate `api.md` from source:
 python code_doc_autogen.py
 ```
 
+Run the web server:
+
+```
+mkdocs serve
+```
+
+Navigate to http://localhost:8000 to view the docs.
+
+### Test versioning locally
+
 Deploy docs for the current version of Ludwig in your environment:
 
 ```

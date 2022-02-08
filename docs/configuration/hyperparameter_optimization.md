@@ -1,5 +1,3 @@
-# Hyper-parameter optimization configuration
-
 In order to perform hyper-parameter optimization, its configuration has to be provided inside the Ludwig configuration as a root key `hyperopt`.
 Its configuration contains what metric to optimize, which parameters to optimize, which sampler to use, and how to execute the optimization.
 
@@ -258,7 +256,7 @@ executor:
 
 **Running Ray Executor:**
 
-See the section on [Running Ludwig with Ray](https://ludwig-ai.github.io/ludwig-docs/user_guide/#running-ludwig-with-ray) for guidance on setting up your Ray cluster.
+See the section on [Running Ludwig with Ray](../user_guide/distributed_training.md#ray) for guidance on setting up your Ray cluster.
 
 ## Fiber Executor
 

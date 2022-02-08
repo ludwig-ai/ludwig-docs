@@ -1,5 +1,6 @@
 Combiners are the part of the model that take the outputs of the encoders of all input features and combine them before providing the combined representation to the different output decoders.
-If you don't specify a combiner, the `concat` combiner will be used.
+
+You can specify which one to use in the `combiner` section of the configuration, and if you don't specify a combiner, the `concat` combiner will be used.
 
 ## Concat Combiner
 

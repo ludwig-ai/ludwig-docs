@@ -30,7 +30,7 @@ nav:
       - 'Datasets': 'user_guide/datasets.md'
       - 'Integrations': 'user_guide/integrations.md'
   - Configuration:
-      - 'Configuration Intro': 'configuration/configuration_intro.md'
+      - 'configuration/index.md'
       - 'Features':
         - 'Input Features': 'configuration/features/input_features.md'
         - 'Output Features': 'configuration/features/output_features.md'
@@ -80,6 +80,7 @@ theme:
     accent: 'grey'
   features:
     - navigation.tabs
+    - navigation.indexes
 
 # Customization
 extra_css:

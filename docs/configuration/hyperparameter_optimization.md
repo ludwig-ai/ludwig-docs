@@ -1,5 +1,3 @@
-# Hyper-parameter optimization configuration
-
 In order to perform hyper-parameter optimization, its configuration has to be provided inside the Ludwig configuration as a root key `hyperopt`.
 Its configuration contains what metric to optimize, which parameters to optimize, which sampler to use, and how to execute the optimization.
 

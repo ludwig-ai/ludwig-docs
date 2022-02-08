@@ -22,13 +22,14 @@ nav:
       - 'Python API':
         - 'LudwigModel': 'user_guide/api/LudwigModel.md'
         - 'Visualization': 'user_guide/api/visualization.md'
-      - 'Data Preprocessing': 'user_guide/data_preprocessing.md'
-      - 'Data Postprocessing': 'user_guide/data_postprocessing.md'
+      - 'Datasets':
+        - 'Data Preprocessing': 'user_guide/data_preprocessing.md'
+        - 'Data Postprocessing': 'user_guide/data_postprocessing.md'
+        - 'Dataset Zoo': 'user_guide/datasets.md'
       - 'Distributed Training': 'user_guide/distributed_execution_backends.md'
       - 'Visualizations': 'user_guide/visualizations.md'
       - 'Serving': 'user_guide/serving.md'
-      - 'Datasets': 'user_guide/datasets.md'
-      - 'Integrations': 'user_guide/integrations.md'
+      - 'Third-Party Integrations': 'user_guide/integrations.md'
   - Configuration:
       - 'Configuration': 'configuration/index.md'
       - 'Features':

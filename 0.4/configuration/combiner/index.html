@@ -1,0 +1,2239 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Deep learning toolbox">
+      
+      
+        <meta name="author" content="Piero Molino">
+      
+      
+        <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/combiner/">
+      
+      <link rel="icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.10">
+    
+    
+      
+        <title>Combiner - Ludwig</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.d6be258b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#757575">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/monokai.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="grey">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#concat-combiner" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        <aside class="md-banner md-banner--warning">
+          
+        </aside>
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Ludwig" class="md-header__button md-logo" aria-label="Ludwig" data-md-component="logo">
+      
+<img alt="logo" src="../../images/ludwig_logo.svg"
+     style="height:1rem;width:4rem;">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Ludwig
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Combiner
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ludwig-ai/ludwig/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ludwig-ai/ludwig
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      About
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../getting_started/" class="md-tabs__link">
+      Getting Started
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../user_guide/" class="md-tabs__link">
+        User Guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
+        Configuration
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../examples/" class="md-tabs__link">
+        Examples
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../developer_guide/" class="md-tabs__link">
+        Developer Guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../community/" class="md-tabs__link">
+      Community
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../faq/" class="md-tabs__link">
+      FAQ
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Ludwig" class="md-nav__button md-logo" aria-label="Ludwig" data-md-component="logo">
+      
+<img alt="logo" src="../../images/ludwig_logo.svg"
+     style="height:1rem;width:4rem;">
+
+    </a>
+    Ludwig
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ludwig-ai/ludwig/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ludwig-ai/ludwig
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        About
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../user_guide/">User Guide</a>
+          
+            <label for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="User Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          User Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user_guide/command_line_interface/" class="md-nav__link">
+        Command Line Interface
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_3">
+          Python API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python API" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Python API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user_guide/api/LudwigModel/" class="md-nav__link">
+        LudwigModel
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user_guide/api/visualization/" class="md-nav__link">
+        Visualization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4" type="checkbox" id="__nav_3_4" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_4">
+          Datasets
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Datasets" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Datasets
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user_guide/datasets/supported_formats/" class="md-nav__link">
+        Supported Formats
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user_guide/datasets/data_preprocessing/" class="md-nav__link">
+        Data Preprocessing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user_guide/datasets/data_postprocessing/" class="md-nav__link">
+        Data Postprocessing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user_guide/datasets/dataset_zoo/" class="md-nav__link">
+        Dataset Zoo
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user_guide/distributed_training/" class="md-nav__link">
+        Distributed Training
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user_guide/hyperopt/" class="md-nav__link">
+        Hyperparameter Optimization
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user_guide/visualizations/" class="md-nav__link">
+        Visualizations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user_guide/serving/" class="md-nav__link">
+        Serving
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user_guide/integrations/" class="md-nav__link">
+        Third-Party Integrations
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../">Configuration</a>
+          
+            <label for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Configuration" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Configuration
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_2">
+          Features
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Features" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Features
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/input_features/" class="md-nav__link">
+        Input Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/output_features/" class="md-nav__link">
+        Output Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/numerical_features/" class="md-nav__link">
+        Numerical Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/category_features/" class="md-nav__link">
+        Category Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/binary_features/" class="md-nav__link">
+        Binary Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/text_features/" class="md-nav__link">
+        Text Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/image_features/" class="md-nav__link">
+        Image Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/audio_features/" class="md-nav__link">
+        Audio Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/sequence_features/" class="md-nav__link">
+        Sequence Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/set_features/" class="md-nav__link">
+        Set Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/bag_features/" class="md-nav__link">
+        Bag Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/date_features/" class="md-nav__link">
+        Date Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/h3_features/" class="md-nav__link">
+        H3 Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/time_series_features/" class="md-nav__link">
+        Time Series Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/vector_features/" class="md-nav__link">
+        Vector Features
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Combiner
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Combiner
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#concat-combiner" class="md-nav__link">
+    Concat Combiner
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-concat-combiner" class="md-nav__link">
+    Sequence Concat Combiner
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-combiner" class="md-nav__link">
+    Sequence Combiner
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabnet-combiner" class="md-nav__link">
+    TabNet Combiner
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformer-combiner" class="md-nav__link">
+    Transformer Combiner
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparator-combiner" class="md-nav__link">
+    Comparator Combiner
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preprocessing/" class="md-nav__link">
+        Preprocessing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../training/" class="md-nav__link">
+        Training
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hyperparameter_optimization/" class="md-nav__link">
+        Hyperopt
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../examples/">Examples</a>
+          
+            <label for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Examples" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/text_classification/" class="md-nav__link">
+        Text Classification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/ner_tagging/" class="md-nav__link">
+        Named Entity Recognition Tagging
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/nlu/" class="md-nav__link">
+        Natural Language Understanding
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/machine_translation/" class="md-nav__link">
+        Machine Translation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/seq2seq/" class="md-nav__link">
+        Chit-Chat Dialogue Modeling through Sequence2Sequence
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/sentiment_analysis/" class="md-nav__link">
+        Sentiment Analysis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/image_classification/" class="md-nav__link">
+        Image Classification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/mnist/" class="md-nav__link">
+        Image Classification (MNIST)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/oneshot/" class="md-nav__link">
+        One-shot Learning with Siamese Networks
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/visual_qa/" class="md-nav__link">
+        Visual Question Answering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/speech_recognition/" class="md-nav__link">
+        Spoken Digit Speech Recognition
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/speaker_verification/" class="md-nav__link">
+        Speaker Verification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/titanic/" class="md-nav__link">
+        Binary Classification (Titanic)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/forecasting/" class="md-nav__link">
+        Timeseries forecasting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/weather/" class="md-nav__link">
+        Timeseries forecasting (Weather)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/movie_ratings/" class="md-nav__link">
+        Movie rating prediction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/multi_label/" class="md-nav__link">
+        Multi-label classification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/multi_task/" class="md-nav__link">
+        Multi-Task Learning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/fuel_efficiency/" class="md-nav__link">
+        Simple Regression: Fuel Efficiency Prediction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/fraud/" class="md-nav__link">
+        Fraud Detection
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../developer_guide/">Developer Guide</a>
+          
+            <label for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Developer Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Developer Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/codebase_structure/" class="md-nav__link">
+        Codebase Structure
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/add_an_encoder/" class="md-nav__link">
+        Add an Encoder
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/add_a_decoder/" class="md-nav__link">
+        Add a Decoder
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/add_a_feature_type/" class="md-nav__link">
+        Add a Feature Type
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/hyper_parameter_optimization/" class="md-nav__link">
+        Hyper-parameter Optimization
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/add_an_integration/" class="md-nav__link">
+        Add an Integration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/add_a_dataset/" class="md-nav__link">
+        Add an Dataset
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/style_guidelines_and_tests/" class="md-nav__link">
+        Style Guidelines and Tests
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/unit_test_design_guidelines/" class="md-nav__link">
+        Unit Test Design Guidelines
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/" class="md-nav__link">
+        Community
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#concat-combiner" class="md-nav__link">
+    Concat Combiner
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-concat-combiner" class="md-nav__link">
+    Sequence Concat Combiner
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-combiner" class="md-nav__link">
+    Sequence Combiner
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tabnet-combiner" class="md-nav__link">
+    TabNet Combiner
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformer-combiner" class="md-nav__link">
+    Transformer Combiner
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparator-combiner" class="md-nav__link">
+    Comparator Combiner
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/ludwig-ai/ludwig-docs/edit/master/src/docs/configuration/combiner.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+  <h1>Combiner</h1>
+
+<p>Combiners are the part of the model that take the outputs of the encoders of all input features and combine them before providing the combined representation to the different output decoders.</p>
+<p>You can specify which one to use in the <code>combiner</code> section of the configuration, and if you don't specify a combiner, the <code>concat</code> combiner will be used.</p>
+<h3 id="concat-combiner">Concat Combiner<a class="headerlink" href="#concat-combiner" title="Permanent link">&para;</a></h3>
+<p>The <code>concat</code> combiner assumes all outputs from encoders are tensors of size <code>b x h</code> where <code>b</code> is the batch size and <code>h</code> is the hidden dimension, which can be different for each input.
+If inputs are tensors with different shapes, set the <code>flatten_inputs</code> parameter to <code>true</code>.
+It concatenates along the <code>h</code> dimension, and then (optionally) passes the concatenated tensor through a stack of fully connected layers.
+It returns the final <code>b x h'</code> tensor where <code>h'</code> is the size of the last fully connected layer or the sum of the sizes of the <code>h</code> of all inputs in the case there are no fully connected layers.
+If there's only one input feature and no fully connected layers are specified, the output of the input feature is just passed through as output.</p>
+<div class="codehilite"><pre><span></span><code>+-----------+
+|Input      |
+|Feature 1  +-+
++-----------+ |            +---------+
++-----------+ | +------+   |Fully    |
+|...        +---&gt;Concat+---&gt;Connected+-&gt;
++-----------+ | +------+   |Layers   |
++-----------+ |            +---------+
+|Input      +-+
+|Feature N  |
++-----------+
+</code></pre></div>
+
+<p>These are the available parameters of a <code>concat</code> combiner:</p>
+<ul>
+<li><code>fc_layers</code> (default <code>null</code>): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: <code>fc_size</code>, <code>norm</code>, <code>activation</code>, <code>dropout</code>, <code>initializer</code> and <code>regularize</code>. If any of those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.</li>
+<li><code>num_fc_layers</code> (default 0): this is the number of stacked fully connected layers that the input to the feature passes through. Their output is projected in the feature's output space.</li>
+<li><code>fc_size</code> (default <code>256</code>): if a <code>fc_size</code> is not already specified in <code>fc_layers</code> this is the default <code>fc_size</code> that will be used for each layer. It indicates the size of the output of a fully connected layer.</li>
+<li><code>use_bias</code> (default <code>true</code>): boolean, whether the layer uses a bias vector.</li>
+<li><code>weights_initializer</code> (default <code>'glorot_uniform'</code>): initializer for the weights matrix. Options are: <code>constant</code>, <code>identity</code>, <code>zeros</code>, <code>ones</code>, <code>orthogonal</code>, <code>normal</code>, <code>uniform</code>, <code>truncated_normal</code>, <code>variance_scaling</code>, <code>glorot_normal</code>, <code>glorot_uniform</code>, <code>xavier_normal</code>, <code>xavier_uniform</code>, <code>he_normal</code>, <code>he_uniform</code>, <code>lecun_normal</code>, <code>lecun_uniform</code>. Alternatively it is possible to specify a dictionary with a key <code>type</code> that identifies the type of initializer and other keys for its parameters, e.g. <code>{type: normal, mean: 0, stddev: 0}</code>. To know the parameters of each initializer, please refer to <a href="https://www.tensorflow.org/api_docs/python/tf/keras/initializers">TensorFlow's documentation</a>.</li>
+<li><code>bias_initializer</code> (default <code>'zeros'</code>):  initializer for the bias vector. Options are: <code>constant</code>, <code>identity</code>, <code>zeros</code>, <code>ones</code>, <code>orthogonal</code>, <code>normal</code>, <code>uniform</code>, <code>truncated_normal</code>, <code>variance_scaling</code>, <code>glorot_normal</code>, <code>glorot_uniform</code>, <code>xavier_normal</code>, <code>xavier_uniform</code>, <code>he_normal</code>, <code>he_uniform</code>, <code>lecun_normal</code>, <code>lecun_uniform</code>. Alternatively it is possible to specify a dictionary with a key <code>type</code> that identifies the type of initializer and other keys for its parameters, e.g. <code>{type: normal, mean: 0, stddev: 0}</code>. To know the parameters of each initializer, please refer to <a href="https://www.tensorflow.org/api_docs/python/tf/keras/initializers">TensorFlow's documentation</a>.</li>
+<li><code>weights_regularizer</code> (default <code>null</code>): regularizer function applied to the weights matrix.  Valid values are <code>l1</code>, <code>l2</code> or <code>l1_l2</code>.</li>
+<li><code>bias_regularizer</code> (default <code>null</code>): regularizer function applied to the bias vector.  Valid values are <code>l1</code>, <code>l2</code> or <code>l1_l2</code>.</li>
+<li><code>activity_regularizer</code> (default <code>null</code>): regurlizer function applied to the output of the layer.  Valid values are <code>l1</code>, <code>l2</code> or <code>l1_l2</code>.</li>
+<li><code>norm</code> (default <code>null</code>): if a <code>norm</code> is not already specified in <code>fc_layers</code> this is the default <code>norm</code> that will be used for each layer. It indicates the norm of the output and it can be <code>null</code>, <code>batch</code> or <code>layer</code>.</li>
+<li><code>norm_params</code> (default <code>null</code>): parameters used if <code>norm</code> is either <code>batch</code> or <code>layer</code>.  For information on parameters used with <code>batch</code> see <a href="https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization">Tensorflow's documentation on batch normalization</a> or for <code>layer</code> see <a href="https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization">Tensorflow's documentation on layer normalization</a>.</li>
+<li><code>activation</code> (default <code>relu</code>): if an <code>activation</code> is not already specified in <code>fc_layers</code> this is the default <code>activation</code> that will be used for each layer. It indicates the activation function applied to the output.</li>
+<li><code>dropout</code> (default <code>0</code>): dropout rate.</li>
+<li><code>flatten_inputs</code> (default <code>false</code>): if <code>true</code> flatten the tensors from all the input features into a vector.</li>
+<li><code>residual</code> (default <code>false</code>): if <code>true</code> adds a residual connection to each fully connected layer block. It is required that all fully connected layers have the same size for this parameter to work correctly.</li>
+</ul>
+<p>Example configuration of a <code>concat</code> combiner:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">concat</span><span class="w"></span>
+<span class="nt">fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
+<span class="nt">fc_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
+<span class="nt">use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="nt">weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;glorot_uniform&#39;</span><span class="w"></span>
+<span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;zeros&#39;</span><span class="w"></span>
+<span class="nt">weights_regularizer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">bias_regularizer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">activity_regularizer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">norm_params</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span><span class="w"></span>
+<span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
+<span class="nt">flatten_inputs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<span class="nt">residual</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+</code></pre></div>
+
+<h3 id="sequence-concat-combiner">Sequence Concat Combiner<a class="headerlink" href="#sequence-concat-combiner" title="Permanent link">&para;</a></h3>
+<p>The <code>sequence?concat</code> combiner assumes at least one output from encoders is a tensors of size <code>b x s x h</code> where <code>b</code> is the batch size, <code>s</code> is the length of the sequence and <code>h</code> is the hidden dimension.
+The sequence / text / sequential input can be specified with the <code>main_sequence_feature</code> parameter that should have the name of the sequential feature as value.
+If no <code>main_sequence_feature</code> is specified, the combiner will look through all the features in the order they are defined in the configuration and will look for a feature with a rank 3 tensor output (sequence, text or time series).
+If it cannot find one it will raise an exception, otherwise the output of that feature will be used for concatenating the other features along the sequence <code>s</code> dimension.</p>
+<p>If there are other input features with a rank 3 output tensor, the combiner will concatenate them alongside the <code>s</code> dimension, which means that all of them must have identical <code>s</code> dimension, otherwise an error will be thrown.
+Specifically, as the placeholders of the sequential features are of dimension <code>[None, None]</code> in order to make the <code>BucketedBatcher</code> trim longer sequences to their actual length, the check if the sequences are of the same length cannot be performed at model building time, and a dimension mismatch error will be returned during training when a datapoint with two sequential features of different lengths are provided.</p>
+<p>Other features that have a <code>b x h</code> rank 2 tensor output will be replicated <code>s</code> times and concatenated to the <code>s</code> dimension.
+The final output is a <code>b x s x h'</code> tensor where <code>h'</code> is the size of the concatenation of the <code>h</code> dimensions of all input features.</p>
+<div class="codehilite"><pre><span></span><code>Sequence
+Feature
+Output
+
++---------+
+|emb seq 1|
++---------+
+|...      +--+
++---------+  |  +-----------------+
+|emb seq n|  |  |emb seq 1|emb oth|   +------+
++---------+  |  +-----------------+   |      |
+             +--&gt;...      |...    +--&gt;+Reduce+-&gt;
+Other        |  +-----------------+   |      |
+Feature      |  |emb seq n|emb oth|   +------+
+Output       |  +-----------------+
+             |
++-------+    |
+|emb oth+----+
++-------+
+</code></pre></div>
+
+<p>These are the available parameters of a <code>sequence_concat</code> combiner:</p>
+<ul>
+<li><code>main_sequence_feature</code> (default <code>null</code>): name of the sequence / text/ time series feature to concatenate the outputs of the other features to. If no <code>main_sequence_feature</code> is specified, the combiner will look through all the features in the order they are defined in the configuration and will look for a feature with a rank 3 tensor output (sequence, text or time series). If it cannot find one it will raise an exception, otherwise the output of that feature will be used for concatenating the other features along the sequence <code>s</code> dimension. If there are other input features with a rank 3 output tensor, the combiner will concatenate them alongside the <code>s</code> dimension, which means that all of them must have identical <code>s</code> dimension, otherwise an error will be thrown.</li>
+<li><code>reduce_output</code> (default <code>null</code>): describes the strategy to use to aggregate the embeddings of the items of the set. Possible values are <code>null</code>, <code>sum</code>, <code>mean</code> and <code>sqrt</code> (the weighted sum divided by the square root of the sum of the squares of the weights).</li>
+</ul>
+<p>Example configuration of a <code>sequence_concat</code> combiner:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sequence_concat</span><span class="w"></span>
+<span class="nt">main_sequence_feature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+</code></pre></div>
+
+<h3 id="sequence-combiner">Sequence Combiner<a class="headerlink" href="#sequence-combiner" title="Permanent link">&para;</a></h3>
+<p>The <code>sequence</code> combiner stacks a sequence concat combiner with a sequence encoder one on top of each other.
+All the considerations about inputs tensor ranks describer for the <a href="#sequence-concat-combiner">sequence concat combiner</a> apply also in this case, but the main difference is that this combiner uses the <code>b x s x h'</code> output of the sequence concat combiner, where <code>b</code> is the batch size, <code>s</code> is the sequence length and <code>h'</code> is the sum of the hidden dimensions of all input features, as input for any of the sequence encoders described in the <a href="#sequence-inpit-features-and-encoders">sequence features encoders section</a>.
+Refer to that section for more detailed information about the sequence encoders and their parameters.
+Also all the considerations on the shape of the outputs done for the sequence encoders apply in this case too.</p>
+<div class="codehilite"><pre><span></span><code>Sequence
+Feature
+Output
+
++---------+
+|emb seq 1|
++---------+
+|...      +--+
++---------+  |  +-----------------+
+|emb seq n|  |  |emb seq 1|emb oth|   +--------+
++---------+  |  +-----------------+   |Sequence|
+             +--&gt;...      |...    +--&gt;+Encoder +-&gt;
+Other        |  +-----------------+   |        |
+Feature      |  |emb seq n|emb oth|   +--------+
+Output       |  +-----------------+
+             |
++-------+    |
+|emb oth+----+
++-------+
+</code></pre></div>
+
+<p>Example configuration of a <code>sequence</code> combiner:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sequence</span><span class="w"></span>
+<span class="nt">main_sequence_feature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">parallel_cnn</span><span class="w"></span>
+<span class="nn">...</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">encoder parameters ...</span><span class="w"></span>
+</code></pre></div>
+
+<h3 id="tabnet-combiner">TabNet Combiner<a class="headerlink" href="#tabnet-combiner" title="Permanent link">&para;</a></h3>
+<p>The <code>tabnet</code> combiner implements the <a href="https://arxiv.org/abs/1908.07442">TabNet</a> model, which uses attention and sparsity to achieve high performnce on tabular data.
+It assumes all outputs from encoders are tensors of size <code>b x h</code> where <code>b</code> is the batch size and <code>h</code> is the hidden dimension, which can be different for each input.
+If the input tensors have a different shape, it automatically flattens them.
+It returns the final <code>b x h'</code> tensor where <code>h'</code> is the user-specified output size.</p>
+<div class="codehilite"><pre><span></span><code>+-----------+
+|Input      |
+|Feature 1  +-+
++-----------+ |            
++-----------+ | +------+   
+|...        +---&gt;TabNet+--&gt;
++-----------+ | +------+   
++-----------+ |            
+|Input      +-+
+|Feature N  |
++-----------+
+</code></pre></div>
+
+<p>These are the available parameters of a <code>tabnet</code> combiner:</p>
+<ul>
+<li><code>size</code>: the size of the hidden layers. <code>N_a</code> in the paper.</li>
+<li><code>output_size</code>: the size of the output of each step and of the final aggregated representation. <code>N_d</code> in the paper.</li>
+<li><code>num_steps</code> (default <code>1</code>): number of steps / repetitions of the the attentive transformer and feature transformer computations. <code>N_steps</code> in the paper.</li>
+<li><code>num_total_blocks</code> (default <code>4</code>): total number of feature transformer block at each step.</li>
+<li><code>num_shared_blocks</code> (default <code>2</code>): number of shared feature transformer blocks across the steps.</li>
+<li><code>relaxation_factor</code> (default <code>1.5</code>): Factor that influences how many times a feature should be used across the steps of computation. a value of <code>1</code> implies it each feature should be use once, a higher value allows for multiple usages. <code>gamma</code> in the paper.</li>
+<li><code>bn_epsilon</code> (default <code>0.001</code>): epsilon to be added to the batch norm denominator.</li>
+<li><code>bn_momentum</code> (default <code>0.7</code>): momentum of the batch norm. <code>m_B</code> in the paper.</li>
+<li><code>bn_virtual_bs</code> (default <code>null</code>): size of the virtual batch size used by ghost batch norm. If <code>null</code>, regular batch norm is used instead. <code>B_v</code> from the paper.</li>
+<li><code>sparsity</code> (default <code>0.00001</code>): multiplier of the sparsity inducing loss. <code>lambda_sparse</code> in the paper.</li>
+<li><code>dropout</code> (default <code>0</code>): dropout rate.</li>
+</ul>
+<p>Example configuration of a <code>tabnet</code> combiner:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tabnet</span><span class="w"></span>
+<span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span><span class="w"></span>
+<span class="nt">ooutput_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span><span class="w"></span>
+<span class="nt">num_steps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span><span class="w"></span>
+<span class="nt">num_total_blocks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"></span>
+<span class="nt">num_shared_blocks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
+<span class="nt">relaxation_factor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.5</span><span class="w"></span>
+<span class="nt">bn_epsilon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span><span class="w"></span>
+<span class="nt">bn_momentum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span><span class="w"></span>
+<span class="nt">bn_virtual_bs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span><span class="w"></span>
+<span class="nt">sparsity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.00001</span><span class="w"></span>
+<span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
+</code></pre></div>
+
+<h3 id="transformer-combiner">Transformer Combiner<a class="headerlink" href="#transformer-combiner" title="Permanent link">&para;</a></h3>
+<p>The <code>transformer</code> combiner combines imput features using a stack of Transformer blocks (from <a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a>).
+It assumes all outputs from encoders are tensors of size <code>b x h</code> where <code>b</code> is the batch size and <code>h</code> is the hidden dimension, which can be different for each input.
+If the input tensors have a different shape, it automatically flattens them.
+It then projects each input tensor to the same hidden / embedding size and encodes them wit ha stack of Tranformer layers.
+Finally it applies an reduction to the outputs of the Transformer stack and applies optional fully connected layers.
+It returns the final <code>b x h'</code> tensor where <code>h'</code> is the size of the last fully connected layer or the hidden / embedding size , or it returns <code>b x n x h'</code> where <code>n</code> is the number of input features and <code>h'</code> is the hidden / embedding size if there's no reduction applied.</p>
+<div class="codehilite"><pre><span></span><code>+-----------+
+|Input      |
+|Feature 1  +-+
++-----------+ |            
++-----------+ |  +------------+   +------+   +----------+
+|...        +---&gt;|Transformer +--&gt;|Reduce+--&gt;|Fully     +-&gt;
+|           | |  |Stack       |   +------+   |Connected |
++-----------+ |  +------------+              |Layers    |
++-----------+ |                              +----------+            
+|Input      +-+
+|Feature N  |
++-----------+
+</code></pre></div>
+
+<p>These are the available parameters of a <code>transformer</code> combiner:</p>
+<ul>
+<li><code>num_layers</code> (default <code>1</code>): number of layers in the stack of transformer bloks.</li>
+<li><code>hidden_size</code> (default <code>256</code>): hidden / embedding size of each transformer block.</li>
+<li><code>num_heads</code> (default <code>8</code>): number of heads of each transformer block.</li>
+<li><code>transformer_fc_size</code> (default <code>256</code>): size of the fully connected layers inside each transformer block.</li>
+<li><code>dropout</code> (default <code>0</code>): dropout rate after the transformer.</li>
+<li><code>fc_layers</code> (default <code>null</code>): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: <code>fc_size</code>, <code>norm</code>, <code>activation</code>, <code>dropout</code>, <code>initializer</code> and <code>regularize</code>. If any of those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.</li>
+<li><code>num_fc_layers</code> (default 0): this is the number of stacked fully connected layers that the input to the feature passes through. Their output is projected in the feature's output space.</li>
+<li><code>fc_size</code> (default <code>256</code>): if a <code>fc_size</code> is not already specified in <code>fc_layers</code> this is the default <code>fc_size</code> that will be used for each layer. It indicates the size of the output of a fully connected layer.</li>
+<li><code>use_bias</code> (default <code>true</code>): boolean, whether the layer uses a bias vector.</li>
+<li><code>weights_initializer</code> (default <code>'glorot_uniform'</code>): initializer for the weights matrix. Options are: <code>constant</code>, <code>identity</code>, <code>zeros</code>, <code>ones</code>, <code>orthogonal</code>, <code>normal</code>, <code>uniform</code>, <code>truncated_normal</code>, <code>variance_scaling</code>, <code>glorot_normal</code>, <code>glorot_uniform</code>, <code>xavier_normal</code>, <code>xavier_uniform</code>, <code>he_normal</code>, <code>he_uniform</code>, <code>lecun_normal</code>, <code>lecun_uniform</code>. Alternatively it is possible to specify a dictionary with a key <code>type</code> that identifies the type of initializer and other keys for its parameters, e.g. <code>{type: normal, mean: 0, stddev: 0}</code>. To know the parameters of each initializer, please refer to <a href="https://www.tensorflow.org/api_docs/python/tf/keras/initializers">TensorFlow's documentation</a>.</li>
+<li><code>bias_initializer</code> (default <code>'zeros'</code>):  initializer for the bias vector. Options are: <code>constant</code>, <code>identity</code>, <code>zeros</code>, <code>ones</code>, <code>orthogonal</code>, <code>normal</code>, <code>uniform</code>, <code>truncated_normal</code>, <code>variance_scaling</code>, <code>glorot_normal</code>, <code>glorot_uniform</code>, <code>xavier_normal</code>, <code>xavier_uniform</code>, <code>he_normal</code>, <code>he_uniform</code>, <code>lecun_normal</code>, <code>lecun_uniform</code>. Alternatively it is possible to specify a dictionary with a key <code>type</code> that identifies the type of initializer and other keys for its parameters, e.g. <code>{type: normal, mean: 0, stddev: 0}</code>. To know the parameters of each initializer, please refer to <a href="https://www.tensorflow.org/api_docs/python/tf/keras/initializers">TensorFlow's documentation</a>.</li>
+<li><code>weights_regularizer</code> (default <code>null</code>): regularizer function applied to the weights matrix.  Valid values are <code>l1</code>, <code>l2</code> or <code>l1_l2</code>.</li>
+<li><code>bias_regularizer</code> (default <code>null</code>): regularizer function applied to the bias vector.  Valid values are <code>l1</code>, <code>l2</code> or <code>l1_l2</code>.</li>
+<li><code>activity_regularizer</code> (default <code>null</code>): regurlizer function applied to the output of the layer.  Valid values are <code>l1</code>, <code>l2</code> or <code>l1_l2</code>.</li>
+<li><code>norm</code> (default <code>null</code>): if a <code>norm</code> is not already specified in <code>fc_layers</code> this is the default <code>norm</code> that will be used for each layer. It indicates the norm of the output and it can be <code>null</code>, <code>batch</code> or <code>layer</code>.</li>
+<li><code>norm_params</code> (default <code>null</code>): parameters used if <code>norm</code> is either <code>batch</code> or <code>layer</code>.  For information on parameters used with <code>batch</code> see <a href="https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization">Tensorflow's documentation on batch normalization</a> or for <code>layer</code> see <a href="https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization">Tensorflow's documentation on layer normalization</a>.</li>
+<li><code>activation</code> (default <code>relu</code>): if an <code>activation</code> is not already specified in <code>fc_layers</code> this is the default <code>activation</code> that will be used for each layer. It indicates the activation function applied to the output.</li>
+<li><code>fc_dropout</code> (default <code>0</code>): dropout rate for the fully connected layers.</li>
+<li><code>fc_residual</code> (default <code>false</code>): if <code>true</code> adds a residual connection to each fully connected layer block. It is required that all fully connected layers have the same size for this parameter to work correctly.</li>
+<li><code>reduce_output</code> (default <code>mean</code>): describes the strategy to use to aggregate the embeddings of the items of the set. Possible values are <code>sum</code>, <code>mean</code> and <code>sqrt</code> (the weighted sum divided by the square root of the sum of the squares of the weights).</li>
+</ul>
+<p>Example configuration of a <code>transformer</code> combiner:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">transformer</span><span class="w"></span>
+<span class="nt">num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="nt">hidden_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
+<span class="nt">num_heads</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span><span class="w"></span>
+<span class="nt">transformer_fc_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
+<span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span><span class="w"></span>
+<span class="nt">fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
+<span class="nt">fc_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
+<span class="nt">use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span><span class="w"></span>
+<span class="nt">weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glorot_uniform</span><span class="w"></span>
+<span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span><span class="w"></span>
+<span class="nt">weights_regularizer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">bias_regularizer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">activity_regularizer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">norm_params</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">fc_activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span><span class="w"></span>
+<span class="nt">fc_dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
+<span class="nt">fc_residual</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mean</span><span class="w"></span>
+</code></pre></div>
+
+<h3 id="comparator-combiner">Comparator Combiner<a class="headerlink" href="#comparator-combiner" title="Permanent link">&para;</a></h3>
+<p>The <code>comparator</code> combiner compares the hidden representation of two entities definef by lists of features.
+It assumes all outputs from encoders are tensors of size <code>b x h</code> where <code>b</code> is the batch size and <code>h</code> is the hidden dimension, which can be different for each input.
+If the input tensors have a different shape, it automatically flattens them.
+It then concatenates the representations of each entity end projects them into the same size.
+Finally it compares the two entity representations by dot product, element-wise multiplication, absolute difference and bilinear product.
+It returns the final <code>b x h'</code> tensor where <code>h'</code> is the size of the concatenation of the four comparisons.</p>
+<div class="codehilite"><pre><span></span><code>+-----------+
+|Entity 1   |
+|Input      |
+|Feature 1  +-+
++-----------+ |            
++-----------+ |  +-------+   +----------+
+|...        +---&gt;|Concat +--&gt;|FC Layers +--+
+|           | |  +-------+   +----------+  |
++-----------+ |                            |
++-----------+ |                            |     
+|Entity 1   +-+                            |
+|Input      |                              |
+|Feature N  |                              |
++-----------+                              |   +---------+
+                                           +--&gt;| Compare +-&gt;
++-----------+                              |   +---------+
+|Entity 2   |                              |
+|Input      |                              |
+|Feature 1  +-+                            |
++-----------+ |                            |
++-----------+ |  +-------+   +----------+  |
+|...        +---&gt;|Concat +--&gt;|FC Layers +--+
+|           | |  +-------+   +----------+
++-----------+ |             
++-----------+ |                                   
+|Entity 2   +-+
+|Input      |
+|Feature N  |
++-----------+
+</code></pre></div>
+
+<p>These are the available parameters of a <code>comparator</code> combiner:</p>
+<ul>
+<li><code>entity_1</code>: list of input features that compose the first entity to compare.</li>
+<li><code>entity_2</code>: list of input features that compose the second entity to compare.</li>
+<li><code>num_fc_layers</code> (default 0): this is the number of stacked fully connected layers that the input to the feature passes through. Their output is projected in the feature's output space.</li>
+<li><code>fc_size</code> (default <code>256</code>): if a <code>fc_size</code> is not already specified in <code>fc_layers</code> this is the default <code>fc_size</code> that will be used for each layer. It indicates the size of the output of a fully connected layer.</li>
+<li><code>use_bias</code> (default <code>true</code>): boolean, whether the layer uses a bias vector.</li>
+<li><code>weights_initializer</code> (default <code>'glorot_uniform'</code>): initializer for the weights matrix. Options are: <code>constant</code>, <code>identity</code>, <code>zeros</code>, <code>ones</code>, <code>orthogonal</code>, <code>normal</code>, <code>uniform</code>, <code>truncated_normal</code>, <code>variance_scaling</code>, <code>glorot_normal</code>, <code>glorot_uniform</code>, <code>xavier_normal</code>, <code>xavier_uniform</code>, <code>he_normal</code>, <code>he_uniform</code>, <code>lecun_normal</code>, <code>lecun_uniform</code>. Alternatively it is possible to specify a dictionary with a key <code>type</code> that identifies the type of initializer and other keys for its parameters, e.g. <code>{type: normal, mean: 0, stddev: 0}</code>. To know the parameters of each initializer, please refer to <a href="https://www.tensorflow.org/api_docs/python/tf/keras/initializers">TensorFlow's documentation</a>.</li>
+<li><code>bias_initializer</code> (default <code>'zeros'</code>):  initializer for the bias vector. Options are: <code>constant</code>, <code>identity</code>, <code>zeros</code>, <code>ones</code>, <code>orthogonal</code>, <code>normal</code>, <code>uniform</code>, <code>truncated_normal</code>, <code>variance_scaling</code>, <code>glorot_normal</code>, <code>glorot_uniform</code>, <code>xavier_normal</code>, <code>xavier_uniform</code>, <code>he_normal</code>, <code>he_uniform</code>, <code>lecun_normal</code>, <code>lecun_uniform</code>. Alternatively it is possible to specify a dictionary with a key <code>type</code> that identifies the type of initializer and other keys for its parameters, e.g. <code>{type: normal, mean: 0, stddev: 0}</code>. To know the parameters of each initializer, please refer to <a href="https://www.tensorflow.org/api_docs/python/tf/keras/initializers">TensorFlow's documentation</a>.</li>
+<li><code>weights_regularizer</code> (default <code>null</code>): regularizer function applied to the weights matrix.  Valid values are <code>l1</code>, <code>l2</code> or <code>l1_l2</code>.</li>
+<li><code>bias_regularizer</code> (default <code>null</code>): regularizer function applied to the bias vector.  Valid values are <code>l1</code>, <code>l2</code> or <code>l1_l2</code>.</li>
+<li><code>activity_regularizer</code> (default <code>null</code>): regurlizer function applied to the output of the layer.  Valid values are <code>l1</code>, <code>l2</code> or <code>l1_l2</code>.</li>
+<li><code>norm</code> (default <code>null</code>): if a <code>norm</code> is not already specified in <code>fc_layers</code> this is the default <code>norm</code> that will be used for each layer. It indicates the norm of the output and it can be <code>null</code>, <code>batch</code> or <code>layer</code>.</li>
+<li><code>norm_params</code> (default <code>null</code>): parameters used if <code>norm</code> is either <code>batch</code> or <code>layer</code>.  For information on parameters used with <code>batch</code> see <a href="https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization">Tensorflow's documentation on batch normalization</a> or for <code>layer</code> see <a href="https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization">Tensorflow's documentation on layer normalization</a>.</li>
+<li><code>activation</code> (default <code>relu</code>): if an <code>activation</code> is not already specified in <code>fc_layers</code> this is the default <code>activation</code> that will be used for each layer. It indicates the activation function applied to the output.</li>
+<li><code>dropout</code> (default <code>0</code>): dropout rate for the fully connected layers.</li>
+</ul>
+<p>Example configuration of a <code>comparator</code> combiner:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">comparator</span><span class="w"></span>
+<span class="nt">entity_1</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">feature_1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">feature_2</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="nt">entity_3</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">feature_3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">feature_4</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="nt">fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
+<span class="nt">fc_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
+<span class="nt">use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="nt">weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;glorot_uniform&#39;</span><span class="w"></span>
+<span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;zeros&#39;</span><span class="w"></span>
+<span class="nt">weights_regularizer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">bias_regularizer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">activity_regularizer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">norm_params</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span><span class="w"></span>
+<span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
+</code></pre></div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+    <!-- Link to previous and/or next page -->
+    
+    <div class="md-footer-nav">
+        <nav aria-label="Footer"
+             class="md-footer-nav__inner md-grid">
+            
+            <a class="md-footer-nav__link md-footer-nav__link--prev"
+               href="../features/vector_features/" rel="prev"
+               title="Vector Features">
+                <div class="md-footer-nav__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+                </div>
+                <div class="md-footer-nav__title">
+                    <div class="md-ellipsis">
+                 <span class="md-footer-nav__direction">
+                   Previous
+                 </span>
+                        Vector Features
+                    </div>
+                </div>
+            </a>
+            
+            
+            <a class="md-footer-nav__link md-footer-nav__link--next"
+               href="../preprocessing/" rel="next"
+               title="Preprocessing">
+                <div class="md-footer-nav__title">
+                    <div class="md-ellipsis">
+                 <span class="md-footer-nav__direction">
+                   Next
+                 </span>
+                        Preprocessing
+                    </div>
+                </div>
+                <div class="md-footer-nav__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+                </div>
+            </a>
+            
+        </nav>
+    </div>
+    
+
+    <!-- Further information -->
+    <div class="md-footer-meta md-typeset">
+        <div class="md-footer-meta__inner md-grid">
+
+            <!-- Copyright and theme information -->
+            <div class="md-footer-copyright">
+                <div class="footer-logo-smallpad"></div>
+                
+                <div class="md-footer-copyright__highlight">
+                    Copyright &copy; 2018 - 2020 Uber Technologies Inc., 2021 Linux Foundation Data & AI
+                </div>
+                
+                Website by <a href="http://w4nderlu.st">w4nderlust</a> powered by
+                <a href="https://www.mkdocs.org">MkDocs</a>,
+                <a href="https://squidfunk.github.io/mkdocs-material/">Material for MkDocs</a>,
+                <a href="http://www.styleshout.com/">styleshout</a> and
+                <a href="http://cables.gl/">cables</a>.
+            </div>
+
+            <!-- Social links -->
+            
+            <div class="md-social">
+  
+</div>
+            
+        </div>
+    </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.indexes"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.092fa1f6.min.js", "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e3b2bf44.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -8,7 +8,9 @@ See [Ludwig configurations](../../configuration) for an in-depth reference.
 
 # Data type abstractions
 
-Every feature in Ludwig is described by a specific data type. Each data type maps to a specific set of modules that handle preprocessing, encoding, decoding, and post-processing for that type. Vice versa, every module (preprocessor, encoder, decoder) is registered to a specific set of data types that the module supports.
+Every feature in Ludwig is described by a specific data type.
+Each data type maps to a specific set of modules that handle preprocessing, encoding, decoding, and post-processing for that type.
+Vice versa, every module (preprocessor, encoder, decoder) is registered to a specific set of data types that the module supports.
 
 The available data types in Ludwig are:
 
@@ -26,19 +28,20 @@ The available data types in Ludwig are:
 - h3
 - vector
 
-Read more about [Ludwig data types and features](../../configuration/features/input_features).
+Read more about [Ludwig data types and features](../../configuration/features/).
 
 # ECD Architecture
 
-Ludwig’s core modeling architecture is referred to as ECD (encoder-combiner-decoder). Multiple input features are encoded and fed through the [Combiner](../../configuration/combiner) model that operates on combined encoded inputs.
-
-On the output side, the combiner model's outputs are fed to decoders for each output feature for predictions and post-processing. Find out [more](../../configuration/combiner) about Ludwig's Combiner models like [TabNet](https://arxiv.org/abs/1908.07442), Transformer, and Concat ([Wide and Deep learning](https://ai.googleblog.com/2016/06/wide-deep-learning-better-together-with.html)).
+Ludwig’s core modeling architecture is referred to as ECD (encoder-combiner-decoder).
+Multiple input features are encoded and fed through the [Combiner](../../configuration/combiner) model that operates on encoded inputs to combine them.
+On the output side, the combiner model's outputs are fed to decoders for each output feature for predictions and post-processing.
+Find out [more](../../configuration/combiner) about Ludwig's Combiner models like [TabNet](https://arxiv.org/abs/1908.07442), Transformer, and Concat ([Wide and Deep learning](https://ai.googleblog.com/2016/06/wide-deep-learning-better-together-with.html)).
 
 Visualized, the ECD architecture looks like a butterfly and sometimes we refer to it as the “butterfly architecture”.
 
 ![img](../images/ecd.png)
 
-ECD flexibly handles many different compositions of input and output data types, making the tool well-suited for many different applications.
+ECD flexibly handles many different combinations of input and output data types, making the tool well-suited for many different applications.
 
 ![img](../images/ecd_examples.png)
 

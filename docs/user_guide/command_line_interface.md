@@ -1136,6 +1136,10 @@ __image__
 - `preprocessing: {height}` (int, default: `28`): height of the generated image in pixels.
 - `preprocessing: {width}` (int, default: `28`): width of the generated image in pixels.
 - `preprocessing: {num_channels}` (int, default: `1`): number of channels of the generated images. Valid values are `1`, `3`, `4`.
+- `preprocessing: {infer_image_dimensions}` (boolean, default: `true`): whether to transform differently-sized images to the same width/height dimensions. Target dimensions are inferred by taking the average dimensions of the first `infer_image_sample_size` images, then applying `infer_image_max_height` and `infer_image_max_width`. This parameter has no effect if explicit `width` and `height` are specified.
+- `preprocessing: {infer_image_sample_size}` (int, default `100`): sample size of `infer_image_dimensions`.
+- `preprocessing: {infer_image_max_height}` (int, default `256`): maximum height of an image transformed using `infer_image_dimensions`.
+- `preprocessing: {infer_image_max_width}` (int, default `256`): maximum width of an image transformed using `infer_image_dimensions`.
 
 __date__
 

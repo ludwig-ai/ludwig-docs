@@ -1,4 +1,4 @@
-This example replicates the Keras example at https://www.tensorflow.org/tutorials/keras/basic_regression to predict the miles per gallon of a car given its characteristics in the [Auto MPG](https://archive.ics.uci.edu/ml/datasets/auto+mpg) dataset.
+This example replicates the Keras example at <https://www.tensorflow.org/tutorials/keras/basic_regression> to predict the miles per gallon of a car given its characteristics in the [Auto MPG](https://archive.ics.uci.edu/ml/datasets/auto+mpg) dataset.
 
 | MPG  | Cylinders | Displacement | Horsepower | Weight | Acceleration | ModelYear | Origin |
 | ---- | --------- | ------------ | ---------- | ------ | ------------ | --------- | ------ |

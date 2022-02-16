@@ -21,7 +21,7 @@ Run the web server:
 mkdocs serve
 ```
 
-Navigate to http://localhost:8000 to view the docs.
+Navigate to <http://localhost:8000> to view the docs.
 
 ### Test versioning locally
 
@@ -38,7 +38,7 @@ Run the web server:
 mike serve
 ```
 
-Navigate to http://localhost:8000 to view the docs.
+Navigate to <http://localhost:8000> to view the docs.
 
 ## Updating docs for older Ludwig versions
 

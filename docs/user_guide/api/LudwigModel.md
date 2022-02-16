@@ -116,7 +116,7 @@ __Inputs__
   `'stata'`, `'tsv'`.
   :param: split: (str, default= `'full'`): if the input dataset contains
   a split column, this parameter indicates which split of the data
-  to use. Possible values are `'full'`, `'training'`, ` 'validation'`, `'test'`.
+  to use. Possible values are `'full'`, `'training'`, `'validation'`, `'test'`.
 - __batch_size__ (int, default: 128): size of batch to use when making
   predictions.
 - __debug__ (bool, default: `False`): if `True` turns on `tfdbg`
@@ -208,7 +208,7 @@ __Inputs__
   `'stata'`, `'tsv'`.
   :param: split: (str, default= `'full'`): if the input dataset contains
   a split column, this parameter indicates which split of the data
-  to use. Possible values are `'full'`, `'training'`, ` 'validation'`, `'test'`.
+  to use. Possible values are `'full'`, `'training'`, `'validation'`, `'test'`.
 - __batch_size__ (int, default: 128): size of batch to use when making
   predictions.
 - __skip_save_unprocessed_output__ (bool, default: `True`): if this
@@ -365,7 +365,7 @@ __Inputs__
   model and the training progress files.
 - __random_seed__ (int: default: 42): random seed used for weights
   initialization, splits and any other random function.
-- __debug__ (bool, default: `False): if `True`turns on`tfdbg`with`inf_or_nan\` checks.
+- __debug__ (bool, default: `False): if`True`turns on`tfdbg`with`inf_or_nan\` checks.
 
 __Return__
 
@@ -448,7 +448,7 @@ __Inputs__
 
 __Return__
 
-- __return__ ( `Non): `None\`
+- __return__ ( `Non):`None\`
 
 __Example usage__
 
@@ -489,7 +489,7 @@ __Inputs__
   `'stata'`, `'tsv'`.
   :param: split: (str, default= `'full'`): if the input dataset contains
   a split column, this parameter indicates which split of the data
-  to use. Possible values are `'full'`, `'training'`, ` 'validation'`, `'test'`.
+  to use. Possible values are `'full'`, `'training'`, `'validation'`, `'test'`.
 - __batch_size__ (int, default: 128): size of batch to use when making
   predictions.
 - __skip_save_unprocessed_output__ (bool, default: `True`): if this
@@ -633,7 +633,7 @@ __Inputs__
 
 __Return__
 
-- __return__ ( `None): `None\`
+- __return__ ( `None):`None\`
 
 ______________________________________________________________________
 
@@ -654,7 +654,7 @@ __Inputs__
 
 __Return__
 
-- __return__ ( `None): `None\`
+- __return__ ( `None):`None\`
 
 ______________________________________________________________________
 
@@ -1086,7 +1086,7 @@ __Inputs__
   of backend to use to execute preprocessing / training steps.
 - __random_seed__ (int: default: 42): random seed used for weights
   initialization, splits and any other random function.
-- __debug__ (bool, default: `False): if `True`turns on`tfdbg`with`inf_or_nan\` checks.
+- __debug__ (bool, default: `False): if`True`turns on`tfdbg`with`inf_or_nan\` checks.
 
 __Return__
 

@@ -11,11 +11,16 @@ ci:
   autoupdate_schedule: weekly
 
 repos:
-  - repo: https://github.com/executablebooks/mdformat
-    rev: 0.7.13
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.31.1
     hooks:
-      - id: mdformat
-        additional_dependencies:
-          - mdformat-gfm
-          - mdformat_frontmatter
-        exclude: CHANGELOG.md
+      - id: markdownlint-fix
+#   NOTE: mdformat is incompatible with mkdocs content tabs.
+#   - repo: https://github.com/executablebooks/mdformat
+#     rev: 0.7.13
+#     hooks:
+#       - id: mdformat
+#         additional_dependencies:
+#           - mdformat-gfm
+#           - mdformat_frontmatter
+#         exclude: CHANGELOG.md

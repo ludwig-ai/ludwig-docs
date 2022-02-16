@@ -4,30 +4,60 @@ It was created and open sourced by Uber and is hosted by the LF AI & Data Founda
 Ludwig enables you to apply state-of-the-art tabular, natural language processing, and computer vision models to your existing data and put them into production with just a [few short commands](../command_line_interface).
 
 === "CLI"
-`sh     ludwig train --config config.yaml --dataset data.csv     ludwig predict --model_path results/experiment_run/model --dataset test.csv    `
+
+    ```sh
+    ludwig train --config config.yaml --dataset data.csv
+    ludwig predict --model_path results/experiment_run/model --dataset test.csv
+    ```
+
 === "Python"
-\`\`\` python
-from ludwig.api import LudwigModel
 
-````
-# train a model
-config = {...}
-model = LudwigModel(config)
-train_stats = model.train(training_data)
+    ```python
+    from ludwig.api import LudwigModel
 
-# or load a model
-model = LudwigModel.load(model_path)
+    # train a model
+    config = {...}
+    model = LudwigModel(config)
+    train_stats = model.train(training_data)
 
-# obtain predictions
-predictions = model.predict(test_data)
-```
-````
+    # or load a model
+    model = LudwigModel.load(model_path)
+
+    # obtain predictions
+    predictions = model.predict(test_data)
+    ```
 
 === "data.csv"
-`     sepal_length_cm,sepal_width_cm,petal_length_cm,petal_width_cm     4.9,3.0,1.4,0.2     4.7,3.2,1.3,0.2     4.6,3.1,1.5,0.2     5.0,3.6,1.4,0.2     5.4,3.9,1.7,0.4     4.6,3.4,1.4,0.3     5.0,3.4,1.5,0.2     4.4,2.9,1.4,0.2     4.9,3.1,1.5,0.1     `
+
+    ```
+    sepal_length_cm,sepal_width_cm,petal_length_cm,petal_width_cm
+    4.9,3.0,1.4,0.2
+    4.7,3.2,1.3,0.2
+    4.6,3.1,1.5,0.2
+    5.0,3.6,1.4,0.2
+    5.4,3.9,1.7,0.4
+    4.6,3.4,1.4,0.3
+    5.0,3.4,1.5,0.2
+    4.4,2.9,1.4,0.2
+    4.9,3.1,1.5,0.1
+    ```
 
 === "config.yaml"
-`yaml     input_features:         - name: sepal_length_cm         type: numerical         - name: sepal_width_cm         type: numerical         - name: petal_length_cm         type: numerical         - name: petal_width_cm         type: numerical     output_features:         - name: class         type: category    `
+
+    ```yaml
+    input_features:
+        - name: sepal_length_cm
+        type: numerical
+        - name: sepal_width_cm
+        type: numerical
+        - name: petal_length_cm
+        type: numerical
+        - name: petal_width_cm
+        type: numerical
+    output_features:
+        - name: class
+        type: category
+    ```
 
 Ludwig makes this possible through its **declarative** approach to structuring machine learning pipelines. Instead of writing code for your model, training loop, preprocessing, postprocessing, evaluation and hyperparameter optimization, you only need to declare the schema of your data with a simple YAML configuration:
 

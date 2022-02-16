@@ -1,7 +1,7 @@
 This example illustrates univariate timeseries forecasting using historical temperature data for Los Angeles.
 
 Dowload and unpack historical hourly weather data available on Kaggle
-https://www.kaggle.com/selfishgene/historical-hourly-weather-data
+<https://www.kaggle.com/selfishgene/historical-hourly-weather-data>
 
 Run the following python script to prepare the training dataset:
 

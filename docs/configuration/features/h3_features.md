@@ -1,5 +1,5 @@
 H3 is a indexing system for representing geospatial data.
-For more details about it refer to: https://eng.uber.com/h3/ .
+For more details about it refer to: <https://eng.uber.com/h3/> .
 
 ## H3 Features Preprocessing
 

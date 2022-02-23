@@ -68,6 +68,10 @@ a footnote-ref::before {
     border-bottom: .1rem dotted #666;
 }
 
+.md-footer {
+    background: #2b2c2f;
+}
+
 .md-footer-copyright {
     color: #666;
 }

@@ -66,25 +66,25 @@ Other optimizer specific parameters, shown with their Ludwig default settings, f
 - `adamax`
 
 ```
-'beta_1': 0.9, 
-'beta_2': 0.999, 
+'beta_1': 0.9,
+'beta_2': 0.999,
 'epsilon': 1e-07
 ```
 
 - `ftrl`
 
 ```
-'learning_rate_power': -0.5, 
+'learning_rate_power': -0.5,
 'initial_accumulator_value': 0.1,
-'l1_regularization_strength': 0.0, 
+'l1_regularization_strength': 0.0,
 'l2_regularization_strength': 0.0,
 ```
 
 - `nadam`,
 
 ```
-'beta_1': 0.9, 
-'beta_2': 0.999, 
+'beta_1': 0.9,
+'beta_2': 0.999,
 'epsilon': 1e-07
 ```
 

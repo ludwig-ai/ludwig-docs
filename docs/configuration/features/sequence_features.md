@@ -593,21 +593,21 @@ reduce_output: last
 The `transformer` encoder implements a stack of transformer blocks, replicating the architecture introduced in the [Attention is all you need](https://arxiv.org/abs/1706.03762) paper, and adds am optional stack of fully connected layers at the end.
 
 ```
-       +------+                     
-       |Emb 12|                     
-       +------+                     
-+--+   |Emb 7 |                     
-|12|   +------+                     
-|7 |   |Emb 43|   +-------------+   +---------+ 
+       +------+
+       |Emb 12|
+       +------+
++--+   |Emb 7 |
+|12|   +------+
+|7 |   |Emb 43|   +-------------+   +---------+
 |43|   +------+   |             |   |Fully    |
 |65+---+Emb 65+---> Transformer +--->Connected+->
 |23|   +------+   | Blocks      |   |Layers   |
 |4 |   |Emb 23|   +-------------+   +---------+
-|1 |   +------+                     
-+--+   |Emb 4 |                     
-       +------+                     
-       |Emb 1 |                     
-       +------+                     
+|1 |   +------+
++--+   |Emb 4 |
+       +------+
+       |Emb 1 |
+       +------+
 
 ```
 
@@ -677,15 +677,15 @@ If you want to output the full `b x s x h` tensor, you can specify `reduce_outpu
 This encoder is not really useful for `sequence` or `text` features, but may be useful for `timeseries` features, as it allows for using them without any processing in later stages of the model, like in a sequence combiner for instance.
 
 ```
-+--+   
-|12|   
++--+
+|12|
 |7 |                    +-----------+
 |43|   +------------+   |Aggregation|
 |65+--->Cast float32+--->Reduce     +->
 |23|   +------------+   |Operation  |
 |4 |                    +-----------+
-|1 |   
-+--+   
+|1 |
++--+
 ```
 
 These are the parameters available for the passthrough encoder

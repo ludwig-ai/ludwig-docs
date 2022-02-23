@@ -1,8 +1,8 @@
-1. Add a new feature class
+# 1. Add a new feature class
 
 ______________________________________________________________________
 
-Souce code for feature classes lives under `ludwig/features`.
+Source code for feature classes lives under `ludwig/features`.
 Input and output feature classes are defined in the same file, for example `CategoryInputFeature` and `CategoryOutputFeature` are defined in `ludwig/features/category_feature.py`.
 
 An input features inherit from the `InputFeature` and corresponding mixin feature classes, for example `CategoryInputFeature` inherits from `CategoryFeatureMixin` and `InputFeature`.
@@ -85,7 +85,7 @@ __Return__
 
 - __hidden__ (dict): contains predictions, probabilities and logits.
 
-2. Add the new feature class to the corresponding feature registry
+# 2. Add the new feature class to the corresponding feature registry
 
 ______________________________________________________________________
 

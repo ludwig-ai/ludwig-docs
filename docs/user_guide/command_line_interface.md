@@ -113,8 +113,8 @@ optional arguments:
   -dpt, --disable_parallel_threads
                         disable TensorFlow from using multithreading for
                         reproducibility
-  -b BACKEND, --backend BACKEND 
-                        specifies backend to use for parallel / distributed execution, 
+  -b BACKEND, --backend BACKEND
+                        specifies backend to use for parallel / distributed execution,
                         defaults to local execution or Horovod if called using horovodrun
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
@@ -242,8 +242,8 @@ optional arguments:
   -dpt, --disable_parallel_threads
                         disable TensorFlow from using multithreading for
                         reproducibility
-  -b BACKEND, --backend BACKEND 
-                        specifies backend to use for parallel / distributed execution, 
+  -b BACKEND, --backend BACKEND
+                        specifies backend to use for parallel / distributed execution,
                         defaults to local execution or Horovod if called using horovodrun
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
@@ -329,8 +329,8 @@ optional arguments:
   -dpt, --disable_parallel_threads
                         disable TensorFlow from using multithreading for
                         reproducibility
-  -b BACKEND, --backend BACKEND 
-                        specifies backend to use for parallel / distributed execution, 
+  -b BACKEND, --backend BACKEND
+                        specifies backend to use for parallel / distributed execution,
                         defaults to local execution or Horovod if called using horovodrun
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
@@ -465,8 +465,8 @@ optional arguments:
   -dpt, --disable_parallel_threads
                         disable TensorFlow from using multithreading for
                         reproducibility
-  -b BACKEND, --backend BACKEND 
-                        specifies backend to use for parallel / distributed execution, 
+  -b BACKEND, --backend BACKEND
+                        specifies backend to use for parallel / distributed execution,
                         defaults to local execution or Horovod if called using horovodrun
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
@@ -576,8 +576,8 @@ optional arguments:
                         list of gpus to use
   -gml GPU_MEMORY_LIMIT, --gpu_memory_limit GPU_MEMORY_LIMIT
                         maximum memory in MB to allocate per GPU device
-  -b BACKEND, --backend BACKEND 
-                        specifies backend to use for parallel / distributed execution, 
+  -b BACKEND, --backend BACKEND
+                        specifies backend to use for parallel / distributed execution,
                         defaults to local execution or Horovod if called using horovodrun
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
@@ -629,7 +629,7 @@ The most important argument is `--model_path` where you have to specify the path
 
 Once running, you can make a POST request on the `/predict` endpoint to run inference on the form data submitted.
 
-### Example curl
+## Example curl
 
 __File__
 
@@ -866,8 +866,8 @@ optional arguments:
   -dpt, --disable_parallel_threads
                         disable Tensorflow from using multithreading
                         for reproducibility
-  -b BACKEND, --backend BACKEND 
-                        specifies backend to use for parallel / distributed execution, 
+  -b BACKEND, --backend BACKEND
+                        specifies backend to use for parallel / distributed execution,
                         defaults to local execution or Horovod if called using horovodrun
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
@@ -909,7 +909,7 @@ optional arguments:
   -m MODEL_PATH, --model_path MODEL_PATH
                         model to load
   -od OUTPUT_PATH, --output_path OUTPUT_PATH
-                        path where to save the export model  
+                        path where to save the export model
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
 ```
@@ -944,7 +944,7 @@ optional arguments:
   -mn MODEL_NAME, --model_name MODEL_NAME
                         model name
   -od OUTPUT_PATH, --output_path OUTPUT_PATH
-                        path where to save the export model  
+                        path where to save the export model
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
 ```

@@ -8,12 +8,12 @@
     # pass input features through combiner
     # no exception should be raised in this call
     combiner_output = combiner(input_features)
-    
+
     # check for required attributes in the generated output
     assert hasattr(combiner, 'input_dtype')
     assert hasattr(combiner, 'output_shape')
 
-    # check for correct data type 
+    # check for correct data type
     assert isinstance(combiner_output, dict)
 
     # required key present
@@ -147,9 +147,9 @@ def test_export_neuropod_cli(csv_filename):
 - When you use a random function, always specify a seed.  **Rationale**: If a test fails, it would be bad not to be able to replicate it exactly.  **Illustrative code fragment**:
 
 ```
-import torch 
+import torch
 
-RANDOM_SEED = 1919 
+RANDOM_SEED = 1919
 
 # setup synthetic tensor, ensure reproducibility by setting seed
 torch.manual_seed(RANDOM_SEED)

@@ -1,6 +1,6 @@
-/* =================================================================== 
+/* ===================================================================
  *
- *  Dazzle v1.0 Vendor/Third Party CSS 
+ *  Dazzle v1.0 Vendor/Third Party CSS
  *  04-27-2017
  *  ------------------------------------------------------------------
  *
@@ -12,8 +12,8 @@
  * =================================================================== */
 
 
-/*! 
- *  01. animate on scroll 
+/*!
+ *  01. animate on scroll
  *  https://michalsnik.github.io/aos/
  *
  */
@@ -1414,7 +1414,7 @@ body[data-aos-easing=ease-in-out-quart] [data-aos] {
 }
 
 
-/*! 
+/*!
  *  03. lity - v1.6.6 - 2016-04-22
  *  http://sorgalla.com/lity/
  *  Copyright (c) 2016 Jan Sorgalla; Licensed MIT */

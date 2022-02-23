@@ -193,7 +193,7 @@ Example command:
 ludwig visualize --visualization confusion_matrix \
   --ground_truth_metadata results/titanic_Model1_0/model/train_set_metadata.json \
   --test_statistics results/titanic_Model1_0/test_statistics.json \
-  --top_n_classes 2 
+  --top_n_classes 2
 ```
 
 ![Confusion Matrix](../images/confusion_matrix.png "Confusion Matrix")
@@ -223,7 +223,7 @@ ludwig visualize --visualization compare_performance \
   --output_feature_name Survived \
   --test_statistics results/titanic_Model1_0/test_statistics.json \
        results/titanic_Model2_0/test_statistics.json \
-  --model_names Model1 Model2 
+  --model_names Model1 Model2
 ```
 
 ![Compare Classifiers Performance](../images/compare_performance.png "Compare Classifiers Performance")
@@ -255,7 +255,7 @@ ludwig visualize --visualization compare_classifiers_performance_from_prob \
   --output_feature_name Survived \
   --probabilities results/titanic_Model1_0/Survived_probabilities.csv \
         results/titanic_Model2_0/Survived_probabilities.csv \
-  --model_names Model1 Model2 
+  --model_names Model1 Model2
 ```
 
 ![Compare Classifiers Performance from Probabilities](../images/compare_classifiers_performance_from_prob.png "Compare Classifiers Performance from probabilities")
@@ -287,7 +287,7 @@ ludwig visualize --visualization compare_classifiers_performance_from_pred \
   --output_feature_name Survived \
   --predictions results/titanic_Model1_0/Survived_predictions.csv \
         results/titanic_Model2_0/Survived_predictions.csv \
-  --model_names Model1 Model2 
+  --model_names Model1 Model2
 ```
 
 ![Compare Classifiers Performance from Predictions](../images/compare_classifiers_performance_from_pred.png "Compare Classifiers Performance from Predictions")
@@ -326,7 +326,7 @@ ludwig visualize --visualization compare_classifiers_performance_subset \
            results/titanic_Model2_0/Survived_probabilities.csv \
   --model_names Model1 Model2 \
   --top_n_classes 2 \
-  --subset ground_truth 
+  --subset ground_truth
 ```
 
 ![Compare Classifiers Performance Subset Ground Truth](../images/compare_classifiers_performance_subset_gt.png "Compare Classifiers Performance Subset Ground Truth")
@@ -363,7 +363,7 @@ ludwig visualize --visualization compare_classifiers_performance_changing_k \
   --probabilities results/titanic_Model1_0/Survived_probabilities.csv \
          results/titanic_Model2_0/Survived_probabilities.csv \
   --model_names Model1 Model2 \
-  --top_k 5 
+  --top_k 5
 ```
 
 ![Compare Classifiers Performance Changing K](../images/compare_classifiers_performance_changing_k.png "Compare Classifiers Performance Changing K")
@@ -427,7 +427,7 @@ ludwig visualize --visualization compare_classifiers_predictions \
   --output_feature_name Survived \
   --predictions results/titanic_Model1_0/Survived_predictions.csv \
           results/titanic_Model2_0/Survived_predictions.csv \
-  --model_names Model1 Model2 
+  --model_names Model1 Model2
 ```
 
 ![Compare Classifiers Predictions](../images/compare_classifiers_predictions.png "Compare Classifiers Predictions")

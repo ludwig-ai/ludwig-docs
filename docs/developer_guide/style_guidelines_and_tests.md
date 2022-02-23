@@ -11,10 +11,9 @@ Current test coverage is limited to several integration tests which ensure end-t
 ## Checklist
 
 Before running tests, make sure
-<br>
 
-1. Your environment is properly setup.<br>
-1. You have write access on the machine. Some of the tests require saving data to disk.
+1. Your environment is properly setup.
+2. You have write access on the machine. Some of the tests require saving data to disk.
 
 ## Running tests
 

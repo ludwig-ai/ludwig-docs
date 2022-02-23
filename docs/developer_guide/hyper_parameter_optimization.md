@@ -22,7 +22,7 @@ The returned list is printed and saved to disk, so that it can also be used as i
 The source code for the base `HyperoptSampler` class is in the `ludwig/hyperopt/sampling.py` module.
 Classes extending the base class should be defined in the same module.
 
-#### `__init__`
+### `__init__`
 
 ```python
 def __init__(self, goal: str, parameters: Dict[str, Any]):
@@ -109,9 +109,9 @@ Example:
 ```python
 sampled_parameters = {
     'training.learning_rate': 0.005,
-    'combiner.num_fc_layers': 2, 
+    'combiner.num_fc_layers': 2,
     'utterance.cell_type': 'gru'
-} 
+}
 metric_score = 2.53463
 
 sampler.update(sampled_parameters, metric_score)
@@ -138,12 +138,12 @@ Example:
 sampled_parameters = [
     {
         'training.learning_rate': 0.005,
-        'combiner.num_fc_layers': 2, 
+        'combiner.num_fc_layers': 2,
         'utterance.cell_type': 'gru'
     },
     {
         'training.learning_rate': 0.015,
-        'combiner.num_fc_layers': 5, 
+        'combiner.num_fc_layers': 5,
         'utterance.cell_type': 'lstm'
     }
 ]
@@ -181,7 +181,7 @@ sampler_registry = {
 The source code for the base `HyperoptExecutor` class is in the `ludwig/utils/hyperopt_utils.py` module.
 Classes extending the base class should be defined in the module.
 
-#### `__init__`
+### `__init__`
 
 ```python
 def __init__(

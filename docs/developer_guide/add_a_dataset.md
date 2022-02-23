@@ -5,17 +5,19 @@ Source code for datasets lives under `ludwig/datasets/`.
 Override `ludwig.datasets.base_dataset.BaseDataset` and implement the following methods:
 
 ```python
-    @abc.abstractmethod
-    def download_raw_dataset(self):
-        raise NotImplementedError()
+@abc.abstractmethod
+def download_raw_dataset(self):
+    raise NotImplementedError()
 
-    @abc.abstractmethod
-    def process_downloaded_dataset(self):
-        raise NotImplementedError()
 
-    @abc.abstractmethod
-    def load_processed_dataset(self, split):
-        raise NotImplementedError()
+@abc.abstractmethod
+def process_downloaded_dataset(self):
+    raise NotImplementedError()
+
+
+@abc.abstractmethod
+def load_processed_dataset(self, split):
+    raise NotImplementedError()
 ```
 
 For common steps (e.g., extracting zip files, downloading from Kaggle, etc.) a set of mixins are available for your subclass:

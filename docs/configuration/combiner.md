@@ -160,11 +160,11 @@ It returns the final `b x h'` tensor where `h'` is the user-specified output siz
 +-----------+
 |Input      |
 |Feature 1  +-+
-+-----------+ |            
-+-----------+ | +------+   
++-----------+ |
++-----------+ | +------+
 |...        +--->TabNet+-->
-+-----------+ | +------+   
-+-----------+ |            
++-----------+ | +------+
++-----------+ |
 |Input      +-+
 |Feature N  |
 +-----------+
@@ -214,12 +214,12 @@ It returns the final `b x h'` tensor where `h'` is the size of the last fully co
 +-----------+
 |Input      |
 |Feature 1  +-+
-+-----------+ |            
++-----------+ |
 +-----------+ |  +------------+   +------+   +----------+
 |...        +--->|Transformer +-->|Reduce+-->|Fully     +->
 |           | |  |Stack       |   +------+   |Connected |
 +-----------+ |  +------------+              |Layers    |
-+-----------+ |                              +----------+            
++-----------+ |                              +----------+
 |Input      +-+
 |Feature N  |
 +-----------+
@@ -288,12 +288,12 @@ It returns the final `b x h'` tensor where `h'` is the size of the concatenation
 |Entity 1   |
 |Input      |
 |Feature 1  +-+
-+-----------+ |            
++-----------+ |
 +-----------+ |  +-------+   +----------+
 |...        +--->|Concat +-->|FC Layers +--+
 |           | |  +-------+   +----------+  |
 +-----------+ |                            |
-+-----------+ |                            |     
++-----------+ |                            |
 |Entity 1   +-+                            |
 |Input      |                              |
 |Feature N  |                              |
@@ -307,8 +307,8 @@ It returns the final `b x h'` tensor where `h'` is the size of the concatenation
 +-----------+ |  +-------+   +----------+  |
 |...        +--->|Concat +-->|FC Layers +--+
 |           | |  +-------+   +----------+
-+-----------+ |             
-+-----------+ |                                   
++-----------+ |
++-----------+ |
 |Entity 2   +-+
 |Input      |
 |Feature N  |

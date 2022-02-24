@@ -35,6 +35,5 @@ Use the `ludwig hyperopt` command to run hyperparameter optimization.
 ludwig hyperopt --dataset reuters-allcats.csv --config hyperopt_config.yaml
 ```
 
-
 For a complete reference of hyperparameter search and execution options, see the
 [Hyperopt](../configuration/hyperparameter_optimization.md) page of the Ludwig configuration guide.

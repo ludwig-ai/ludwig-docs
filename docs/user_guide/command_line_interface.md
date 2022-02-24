@@ -114,7 +114,7 @@ optional arguments:
   -gml GPU_MEMORY_LIMIT, --gpu_memory_limit GPU_MEMORY_LIMIT
                         maximum memory in MB to allocate per GPU device
   -dpt, --disable_parallel_threads
-                        disable TensorFlow from using multithreading for
+                        disable Torch from using multithreading for
                         reproducibility
   -b BACKEND, --backend BACKEND
                         specifies backend to use for parallel / distributed execution,
@@ -185,9 +185,9 @@ This is useful for reproducibility.
 Be aware that due to asynchronicity in the Torch's GPU execution, when training on GPU results may not be reproducible.
 
 You can manage which GPUs on your machine are used with the `--gpus` argument, which accepts a string identical to the format of `CUDA_VISIBLE_DEVICES` environment variable, namely a list of integers separated by comma.
-You can also specify the amount of GPU memory that will be initially assigned to TensorFlow with `--gpu_memory_limit`.
+You can also specify the maximum amount of GPU memory which will be allocated per device with `--gpu_memory_limit`.
 By default all of memory is allocated.
-If less than all of memory is allocated, TensorFlow will need more GPU memory it will try to increase this amount.
+If less than all of memory is allocated, Torch will need more GPU memory it will try to increase this amount.
 
 If parameter `--backend` is set, will use the given backend for distributed processing (Horovod or Ray).
 
@@ -244,7 +244,7 @@ optional arguments:
   -gml GPU_MEMORY_LIMIT, --gpu_memory_limit GPU_MEMORY_LIMIT
                         maximum memory in MB to allocate per GPU device
   -dpt, --disable_parallel_threads
-                        disable TensorFlow from using multithreading for
+                        disable Torch from using multithreading for
                         reproducibility
   -b BACKEND, --backend BACKEND
                         specifies backend to use for parallel / distributed execution,
@@ -331,7 +331,7 @@ optional arguments:
   -gml GPU_MEMORY_LIMIT, --gpu_memory_limit GPU_MEMORY_LIMIT
                         maximum memory in MB to allocate per GPU device
   -dpt, --disable_parallel_threads
-                        disable TensorFlow from using multithreading for
+                        disable Torch from using multithreading for
                         reproducibility
   -b BACKEND, --backend BACKEND
                         specifies backend to use for parallel / distributed execution,
@@ -467,7 +467,7 @@ optional arguments:
   -gml GPU_MEMORY_LIMIT, --gpu_memory_limit GPU_MEMORY_LIMIT
                         maximum memory in MB to allocate per GPU device
   -dpt, --disable_parallel_threads
-                        disable TensorFlow from using multithreading for
+                        disable Torch from using multithreading for
                         reproducibility
   -b BACKEND, --backend BACKEND
                         specifies backend to use for parallel / distributed execution,
@@ -850,7 +850,7 @@ optional arguments:
                         the level of logging to use
 ```
 
-The three most important arguments are `--model_path` where you have to specify the path of the model to load, `--tensors` that lets you specify a list of tensor names in the TensorFlow graph that contain the weights you want to collect, and finally `--output_directory` that lets you specify where the NPY files (one for each tensor name specified) will be saved.
+The three most important arguments are `--model_path` where you have to specify the path of the model to load, `--tensors` that lets you specify a list of tensor names in the Torch graph that contain the weights you want to collect, and finally `--output_directory` that lets you specify where the NPY files (one for each tensor name specified) will be saved.
 
 In order to figure out the names of the tensors containing the weights you want to collect, the best way is to inspect the graph of the model with TensorBoard.
 
@@ -907,7 +907,7 @@ optional arguments:
                         maximum memory in MB of gpu memory to allocate per
                         GPU device
   -dpt, --disable_parallel_threads
-                        disable Tensorflow from using multithreading
+                        disable Torch from using multithreading
                         for reproducibility
   -b BACKEND, --backend BACKEND
                         specifies backend to use for parallel / distributed execution,

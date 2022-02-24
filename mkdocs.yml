@@ -100,10 +100,20 @@ theme:
   logo: "images/ludwig_logo.svg"
   favicon: "favicon.ico"
   custom_dir: "custom/"
+  primary: "grey"
   palette:
-    scheme: "slate"
-    primary: "grey"
-    accent: "grey"
+    - media: "(prefers-color-scheme: light)" # (1)!
+      scheme: default
+      accent: deep orange
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)" # (2)!
+      scheme: slate
+      accent: deep orange
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
   features:
     - navigation.tabs
     - navigation.indexes
@@ -112,6 +122,7 @@ theme:
 extra_css:
   - "stylesheets/extra.css"
   - "stylesheets/monokai.css"
+  - "stylesheets/colorful.css"
 
 #extra_javascript:
 #  - https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js
@@ -122,12 +133,17 @@ markdown_extensions:
   - toc:
       permalink: true
       baselevel: 2
-  - codehilite:
-      guess_lang: false
   - attr_list
   - md_in_html
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.highlight:
+      extend_pygments_lang:
+        - name: pycon3
+          lang: pycon
+          options:
+            python3: true
+      linenums_style: pymdownx-inline
   - pymdownx.tabbed:
       alternate_style: true
 #  - pymdownx.superfences:

@@ -2,13 +2,13 @@
 
 Ludwig data preprocessing performs a few different operations on the incoming dataset:
 
-1. **Computing metadata** like vocabulary, vocabulary size, and sequence lengths. This allows Ludwig to create 
+1. **Computing metadata** like vocabulary, vocabulary size, and sequence lengths. This allows Ludwig to create
     dictionaries like `idx2str` or `str2idx` to map between raw data values to tensor values.
-1. **Handling missing values** any rows/examples that have missing feature values are filled in with constants or other
+2. **Handling missing values** any rows/examples that have missing feature values are filled in with constants or other
    example-derived values (see [Preprocessing Configuration](../../configuration/preprocessing)).
-2. (optional) **Splitting dataset** into train, validation, and test based on splitting percentages, or using explicitly
+3. (optional) **Splitting dataset** into train, validation, and test based on splitting percentages, or using explicitly
    specified splits.
-3. (optional) **Balancing data** which can be useful for datasets with heavily underrepresented or overrepresented 
+4. (optional) **Balancing data** which can be useful for datasets with heavily underrepresented or overrepresented
    classes.
 
 Data preprocessing maps raw data to two files: 1) an HDF5 file containing tensors and 2) a JSON file of metadata.
@@ -16,18 +16,18 @@ The HDF5 and JSON files are saved in the same directory as the input dataset, un
 used. The two files will serve as a cache to help avoid performing the same preprocessing again, which can be time
 consuming.
 
-The preprocessing process is highly customizable via the [Preprocessing section](../../configuration/preprocessing) of 
-the Ludwig config. The basic assumption is always that all data is UTF-8 encoded and contains one row for each 
+The preprocessing process is highly customizable via the [Preprocessing section](../../configuration/preprocessing) of
+the Ludwig config. The basic assumption is always that all data is UTF-8 encoded and contains one row for each
 example and one column for each feature.
 
-It's helpful to assign types to each feature. Some types assume a specific format, and different types will have 
-different ways of mapping raw data into tensors. From v0.5, users also have the option to rely on Ludwig AutoML to 
+It's helpful to assign types to each feature. Some types assume a specific format, and different types will have
+different ways of mapping raw data into tensors. From v0.5, users also have the option to rely on Ludwig AutoML to
 assign types automatically.
 
 # Preprocessing for different data types
 
 Each datatype is preprocessed in a different way, using different parameters and different tokenizers.
-Details on how to set those parameters for each feature type and for each specific feature is described in the 
+Details on how to set those parameters for each feature type and for each specific feature is described in the
 [Configuration - Preprocessing](../../configuration/preprocessing) section.
 
 ## Binary features
@@ -39,7 +39,7 @@ about them is available in the JSON metadata file.
 ## Number features
 
 `Number` features are directly transformed into a float valued vector of length `n` (where `n` is the size of the
-dataset) and added to the HDF5 with a key that reflects the name of column in the dataset. No additional information 
+dataset) and added to the HDF5 with a key that reflects the name of column in the dataset. No additional information
 about them is available in the JSON metadata file.
 
 ## Category features
@@ -147,6 +147,7 @@ manually.
 If a `huggingface` encoder is specified, then that encoder's special symbol indices will be used instead.
 
 The computed metadata includes:
+
 1. the mapping from integer to string (`idx2str`)
 2. the mapping from string to id (`str2idx`)
 3. the mapping from string to frequency (`str2freq`)
@@ -166,6 +167,7 @@ integers (and the inverse) and symbols to integers (and their inverse).
 If a `huggingface` encoder is specified, then that encoder's tokenizer will be used for the symbol-based tokenizer.
 
 In the configuration users can specify which level of representation to use: the character level or the symbol level.
+
 ## Timeseries features
 
 `Timeseries` features are treated in the same way of sequence features, with the only difference being that the matrix

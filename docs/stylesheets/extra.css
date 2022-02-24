@@ -105,12 +105,6 @@
     color: #E25637;
 }
 
-[data-md-color-scheme="slate"] .codehilite code, .codehilite pre {
-    padding: 6px 0px 6px 12px;
-    margin-bottom: 16px;
-    background-color: #2b2c2f;
-}
-
 [data-md-color-scheme="slate"] html body .md-typeset .headerlink {
     color: #c7bec6;
 }

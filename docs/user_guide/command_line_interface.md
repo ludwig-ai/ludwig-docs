@@ -1,37 +1,40 @@
 # Commands
 
-Ludwig provides several command line interface entry points
+Ludwig provides several functions through its command line interface.
 
-- `train`: Trains a model
-- `predict`: Predicts using a pretrained model
-- `evaluate`: Evaluate a pretrained model's performance
-- `experiment`: Runs a full experiment training a model and evaluating it
-- `serve`: Serves a pretrained model
-- `visualize`: Visualizes experimental results
-- `hyperopt`: Perform hyperparameter optimization
-- `collect_summary`: Prints names of weights and layers activations to use with other collect commands
-- `collect_weights`: Collects tensors containing a pretrained model weights
-- `collect_activations`: Collects tensors for each datapoint using a pretrained model
-- `export_savedmodel`: Exports Ludwig models to SavedModel
-- `export_neuropod`: Exports Ludwig models to Neuropod
-- `export_mlflow`: Exports Ludwig models to MLflow
-- `preprocess`: Preprocess data and saves it into HDF5 and JSON format
-- `synthesize_dataset`: Creates synthetic data for testing purposes
+| Mode                  | Description                                                                       |
+| --------------------- | --------------------------------------------------------------------------------- |
+| `train`               | Trains a model                                                                    |
+| `predict`             | Predicts using a pretrained model                                                 |
+| `evaluate`            | Evaluate a pretrained model's performance                                         |
+| `experiment`          | Runs a full experiment training a model and evaluating it                         |
+| `hyperopt`            | Perform hyperparameter optimization                                               |
+| `serve`               | Serves a pretrained model                                                         |
+| `visualize`           | Visualizes experiment results                                                     |
+| `init_config`         | Initialize a user config from a dataset and targets                               |
+| `render_config`       | Renders the fully populated config with all defaults set                          |
+| `collect_summary`     | Prints names of weights and layers activations to use with other collect commands |
+| `collect_weights`     | Collects tensors containing a pretrained model weights                            |
+| `collect_activations` | Collects tensors for each datapoint using a pretrained model                      |
+| `export_torchscript`  | Exports Ludwig models to Torchscript                                              |
+| `export_neuropod`     | Exports Ludwig models to Neuropod                                                 |
+| `export_mlflow`       | Exports Ludwig models to MLflow                                                   |
+| `preprocess`          | Preprocess data and saves it into HDF5 and JSON format                            |
+| `synthesize_dataset`  | Creates synthetic data for testing purposes                                       |
 
-They are described in detail below.
+These are described in detail below.
 
 # train
 
-This command lets you train a model from your data.
-You can call it with:
+Train a model from your data.
 
-```
+```bash
 ludwig train [options]
 ```
 
 or with:
 
-```
+```bash
 python -m ludwig.train [options]
 ```
 
@@ -116,9 +119,6 @@ optional arguments:
   -b BACKEND, --backend BACKEND
                         specifies backend to use for parallel / distributed execution,
                         defaults to local execution or Horovod if called using horovodrun
-  -dbg, --debug         enables debugging mode
-  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
-                        the level of logging to use
 ```
 
 When Ludwig trains a model it creates two intermediate files, one HDF5 and one JSON.
@@ -133,7 +133,8 @@ JSON file will contain a `idx2str` list containing all tokens
 dictionary (`{"<UNK>": 0, "label_1": 93, "label_2": 55, "label_3": 24}`).
 
 The reason to have those  intermediate files is two-fold: on one hand, if you are going to train your model again Ludwig will try to load them instead of recomputing all tensors, which saves a considerable amount of time, and on the other hand when you want to use your model to predict, data has to be mapped to tensors in exactly the same way it was mapped during training, so you'll be required to load the JSON metadata file in the `predict` command.
-The way this works is: the first time you provide a UTF-8 encoded dataset (`--dataset`), the HDF5 and JSON files are created, from the second time on Ludwig will load them instead of the dataset even if you specify the dataset (it looks in the same directory for files names in the same way but with a different extension), finally you can directly specify the HDF5 and JSON files.
+
+The first time you provide a UTF-8 encoded dataset (`--dataset`), the HDF5 and JSON files are created, from the second time on Ludwig will load them instead of the dataset even if you specify the dataset (it looks in the same directory for files names in the same way but with a different extension), finally you can directly specify the HDF5 and JSON files.
 
 As the mapping from raw data to tensors depends on the type of feature that you specify in your configuration, if you change type (for instance from `sequence` to `text`) you also have to redo the preprocessing, which is achieved by deleting the HDF5 and JSON files.
 Alternatively you can skip saving the HDF5 and JSON files specifying `--skip_save_processed_input`.
@@ -172,22 +173,25 @@ the training process gets interrupted somehow.
 
 To resume training using the latest weights and the whole history of progress so far you have to specify the `--model_resume_path` argument.
 You can avoid saving the latest weights and the overall progress so far by using the argument `--skip_save_progress`, but you will not be able to resume it afterwards.
+
 Another available option is to load a previously trained model as an initialization for a new training process.
 In this case Ludwig will start a new training process, without knowing any progress of the previous model, no training statistics, nor the number of epochs the model has been trained on so far.
+
 It's not resuming training, just initializing training with a previously trained model with the same configuration, and it is accomplished through the `--model_load_path` argument.
 
-You can specify a random seed to be used by the python environment, python random package, numpy and TensorFlow with the `--random_seed` argument.
+You can specify a random seed to be used by the python environment, python random package, numpy and Torch with the `--random_seed` argument.
 This is useful for reproducibility.
-Be aware that due to asynchronicity in the TensorFlow GPU execution, when training on GPU results may not be reproducible.
+
+Be aware that due to asynchronicity in the Torch's GPU execution, when training on GPU results may not be reproducible.
 
 You can manage which GPUs on your machine are used with the `--gpus` argument, which accepts a string identical to the format of `CUDA_VISIBLE_DEVICES` environment variable, namely a list of integers separated by comma.
 You can also specify the amount of GPU memory that will be initially assigned to TensorFlow with `--gpu_memory_limit`.
 By default all of memory is allocated.
-If less than all of memory is allcoated, TensorFlow will need more GPU memory it will try to increase this amount.
+If less than all of memory is allocated, TensorFlow will need more GPU memory it will try to increase this amount.
 
 If parameter `--backend` is set, will use the given backend for distributed processing (Horovod or Ray).
 
-Finally the `--logging_level` argument lets you set the amount of logging that you want to see during training and the `--debug` argument turns on TensorFlow's `tfdbg`. Be careful when doing so, as it will help in catching errors, in particular `infs` and `NaNs` but it will consume much more memory.
+Finally the `--logging_level` argument lets you set the amount of logging that you want to see during training.
 
 Example:
 
@@ -200,13 +204,13 @@ ludwig train --dataset reuters-allcats.csv --config "{input_features: [{name: te
 This command lets you use a previously trained model to predict on new data.
 You can call it with:
 
-```
+```bash
 ludwig predict [options]
 ```
 
 or with:
 
-```
+```bash
 python -m ludwig.predict [options]
 ```
 
@@ -282,13 +286,13 @@ This command lets you use a previously trained model to predict on new data and
 evaluate the performance of the prediction compared to ground truth.
 You can call it with:
 
-```
+```bash
 ludwig evaluate [options]
 ```
 
 or with:
 
-```
+```bash
 python -m ludwig.evaluate [options]
 ```
 
@@ -348,24 +352,24 @@ it means that the data does not contain the columns for each output feature to u
 
 Example:
 
-```
+```bash
 ludwig evaluate --dataset reuters-allcats.csv --model_path results/experiment_run_0/model/
 ```
 
 # experiment
 
 This command combines training and evaluation into a single handy command.\
-You can request a k-fold cross validation run by specifing the `--k_fold`
+You can request a k-fold cross validation run by specifying the `--k_fold`
 parameter.
 You can call it with:
 
-```
+```bash
 ludwig experiment [options]
 ```
 
 or with:
 
-```
+```bash
 python -m ludwig.experiment [options]
 ```
 
@@ -436,7 +440,7 @@ optional arguments:
                         disables saving model weights and hyperparameters each
                         time the model improves. By default Ludwig saves model
                         weights after each epoch the validation metric
-                        imprvoes, but if the model is really big that can be
+                        improves, but if the model is really big that can be
                         time consuming if you do not want to keep the weights
                         and just find out what performance a model can get
                         with a set of hyperparameters, use this parameter to
@@ -479,7 +483,7 @@ The output directory will contain the outputs both commands produce.
 
 Example:
 
-```
+```bash
 ludwig experiment --dataset reuters-allcats.csv --config "{input_features: [{name: text, type: text, encoder: parallel_cnn, level: word}], output_features: [{name: class, type: category}]}"
 ```
 
@@ -488,13 +492,13 @@ ludwig experiment --dataset reuters-allcats.csv --config "{input_features: [{nam
 This command lets you perform an hyper-parameter search with a given sampler and parameters.
 You can call it with:
 
-```
+```bash
 ludwig hyperopt [options]
 ```
 
 or with:
 
-```
+```bash
 python -m ludwig.hyperopt [options]
 ```
 
@@ -502,7 +506,7 @@ from within Ludwig's main directory.
 
 These are the available arguments:
 
-```
+```bash
 usage: ludwig hyperopt [options]
 
 This script searches for optimal Hyperparameters
@@ -596,13 +600,13 @@ This command lets you load a pre-trained model and serve it on an http server.
 
 You can call it with:
 
-```
+```bash
 ludwig serve [options]
 ```
 
 or with
 
-```
+```bash
 python -m ludwig.serve [options]
 ```
 
@@ -666,13 +670,13 @@ Batch prediction example:
 This command lets you visualize training and prediction statistics, alongside with comparing different models performances and predictions.
 You can call it with:
 
-```
+```bash
 ludwig visualize [options]
 ```
 
 or with:
 
-```
+```bash
 python -m ludwig.visualize [options]
 ```
 
@@ -728,7 +732,7 @@ optional arguments:
                         type of subset filtering
   -n, --normalize       normalize rows in confusion matrix
   -m METRICS [METRICS ...], --metrics METRICS [METRICS ...]
-                        metrics to dispay in threshold_vs_metric
+                        metrics to display in threshold_vs_metric
   -pl POSITIVE_LABEL, --positive_label POSITIVE_LABEL
                         label of the positive class for the roc curve
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
@@ -738,17 +742,56 @@ optional arguments:
 As the `--visualization` parameters suggests, there is a vast number of visualizations readily available.
 Each of them requires a different subset of this command's arguments, so they will be described one by one in the [Visualizations](#visualizations) section.
 
+# init_config
+
+```
+usage: ludwig init_config [options]
+
+This script initializes a valid config from a dataset.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -d DATASET, --dataset DATASET
+                        input data file path
+  -t TARGET, --target TARGET
+                        target(s) to predict as output features of the model
+  --time_limit_s TIME_LIMIT_S
+                        time limit to train the model in seconds when using hyperopt
+  --tune_for_memory TUNE_FOR_MEMORY
+                        refine hyperopt search space based on available host / GPU memory
+  --hyperopt HYPEROPT   include automl hyperopt config
+  --random_seed RANDOM_SEED
+                        seed for random number generators used in hyperopt to improve repeatability
+  --use_reference_config USE_REFERENCE_CONFIG
+                        refine hyperopt search space by setting first search point from stored reference model config
+  -o OUTPUT, --output OUTPUT
+                        output initialized YAML config path
+```
+
+# render_config
+
+```
+usage: ludwig render_config [options]
+
+This script renders the full config from a user config.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -o OUTPUT, --output OUTPUT
+                        output rendered YAML config path
+```
+
 # collect_summary
 
 This command loads a pretrained model and prints names of weights and layers activations to use with `collect_weights` or `collect_activations`.
 
-```
+```bash
 ludwig collect_summary [options]
 ```
 
 or with:
 
-```
+```bash
 python -m ludwig.collect names [options]
 ```
 
@@ -775,13 +818,13 @@ This command lets you load a pre-trained model and collect the tensors with a sp
 This may be useful in order to visualize the learned weights (for instance collecting embedding matrices) and for some post-hoc analyses.
 You can call it with:
 
-```
+```bash
 ludwig collect_weights [options]
 ```
 
 or with:
 
-```
+```bash
 python -m ludwig.collect weights [options]
 ```
 
@@ -811,7 +854,7 @@ The three most important arguments are `--model_path` where you have to specify 
 
 In order to figure out the names of the tensors containing the weights you want to collect, the best way is to inspect the graph of the model with TensorBoard.
 
-```
+```bash
 tensorboard --logdir /path/to/model/log
 ```
 
@@ -823,13 +866,13 @@ This command lets you load a pre-trained model and input data and collects the v
 This may be useful in order to visualize the activations (for instance collecting last layer's activations as embeddings representations of the input datapoint) and for some post-hoc analyses.
 You can call it with:
 
-```
+```bash
 ludwig collect_activations [options]
 ```
 
 or with:
 
-```
+```bash
 python -m ludwig.collect activations [options]
 ```
 
@@ -883,24 +926,24 @@ In order to figure out the names of the tensors containing the activations you w
 tensorboard --logdir /path/to/model/log
 ```
 
-# export_savedmodel
+# export_torchscript
 
-Exports a pre-trained model to Tensorflow `SavedModel` format.
+Exports a pre-trained model to Torch's `torchscript` format.
 
-```
-ludwig export_savedmodel [options]
+```bash
+ludwig export_torchscript [options]
 ```
 
 or with:
 
-```
-python -m ludwig.export savedmodel [options]
+```bash
+python -m ludwig.export torchscript [options]
 ```
 
 These are the available arguments:
 
 ```
-usage: ludwig export_savedmodel [options]
+usage: ludwig export_torchscript [options]
 
 This script loads a pretrained model and uses it collect weights.
 
@@ -918,15 +961,15 @@ optional arguments:
 
 A Ludwig model can be exported as a [Neuropod](https://github.com/uber/neuropod), a mechanism that allows it to be executed in a framework agnostic way.
 
-In order to export a Ludwig model as a Neuropod, first make sure the `neuropod` package is installed in your environment together with the approrpiate backend (only use Python 3.7+), then run the following command:
+In order to export a Ludwig model as a Neuropod, first make sure the `neuropod` package is installed in your environment together with the appropriate backend (only use Python 3.7+), then run the following command:
 
-```
+```bash
 ludwig export_neuropod [options]
 ```
 
 or with:
 
-```
+```bash
 python -m ludwig.export neuropod [options]
 ```
 
@@ -1014,14 +1057,14 @@ optional arguments:
   --data_format {auto,csv,excel,feather,fwf,hdf5,htmltables,json,jsonl,parquet,pickle,sas,spss,stata,tsv}
                         format of the input data
   -pc PREPROCESSING_CONFIG, --preprocessing_config PREPROCESSING_CONFIG
-                        preproceesing config. Uses the same format of config,
+                        preprocessing config. Uses the same format of config,
                         but ignores encoder specific parameters, decoder
-                        specific paramters, combiner and training parameters
+                        specific parameters, combiner and training parameters
   -pcf PREPROCESSING_CONFIG_FILE, --preprocessing_config_file PREPROCESSING_CONFIG_FILE
                         YAML file describing the preprocessing. Ignores
                         --preprocessing_config.Uses the same format of config,
                         but ignores encoder specific parameters, decoder
-                        specific paramters, combiner and training parameters
+                        specific parameters, combiner and training parameters
   -rs RANDOM_SEED, --random_seed RANDOM_SEED
                         a random seed that is going to be used anywhere there
                         is a call to a random number generator: data

@@ -41,7 +41,7 @@ curl http://0.0.0.0:8000/predict -X POST -F 'text=mixed together with' -F 'image
 
 ### Output format
 
-The output format is a JSON that depends on the number and types of outputs the model pipeline was trained to predict.
+ The response is a JSON dictionary with keys prefixed by the names of the model's output features.
 
 For binary outputs, the JSON structure returned by the REST API is the following:
 
@@ -142,10 +142,7 @@ curl http://0.0.0.0:8000/batch_predict -X POST -F 'dataset={"columns": ["a", "b"
 
 ### Output format
 
-The output format is  a JSON that is independent of the number of inputs and their data types, it only depends on the
-number of outputs the model pipeline was trained to predict and their data types.
-
-At the moment, Ludwig can predict binary, numerical, categorical, set, sequence and text outputs.
+The response is a JSON dictionary with keys prefixed by the names of the model's output features.
 
 For binary outputs, the JSON structure returned by the REST API is the following:
 

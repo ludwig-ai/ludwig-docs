@@ -137,5 +137,6 @@ files to Ray for distributed execution:
 
 ```bash
 ray up cluster.yaml
-ray submit cluster.yaml ludwig train --config config.yaml --dataset s3://mybucket/dataset.parquet
+ray submit cluster.yaml \
+    ludwig train --config config.yaml --dataset s3://mybucket/dataset.parquet
 ```

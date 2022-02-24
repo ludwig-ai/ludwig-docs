@@ -72,17 +72,6 @@
     --md-primary-fg-color: #6a6c74;
 }
 
-[data-md-color-scheme="slate"] .md-typeset table:not([class]) th {
-    background-color: #202124;
-    font-weight: bold;
-    color: #ececec;
-}
-
-[data-md-color-scheme="slate"] table, th, td {
-    border: 1px solid #888;
-    background-color: #2b2c2f;
-}
-
 .md-typeset a {
     font-weight: bold;
 }
@@ -95,12 +84,6 @@
 [data-md-color-scheme="default"] .md-nav__link:active,
 [data-md-color-scheme="default"] .md-nav__link--active {
     color: #E25637;
-}
-
-[data-md-color-scheme="slate"] .codehilite code, .codehilite pre {
-    padding: 6px 0px 6px 12px;
-    margin-bottom: 16px;
-    background-color: #2b2c2f;
 }
 
 [data-md-color-scheme="slate"] html body .md-typeset .headerlink {

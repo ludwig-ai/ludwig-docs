@@ -83,13 +83,21 @@
     background-color: #2b2c2f;
 }
 
-.md-typeset a {
+[data-md-color-scheme="slate"] .md-typeset a {
     font-weight: bold;
+    color: #eb8b76;
+    text-decoration: underline;
+}
+
+[data-md-color-scheme="default"] .md-typeset a {
+    font-weight: bold;
+    color: #E25637;
+    text-decoration: underline;
 }
 
 [data-md-color-scheme="slate"] .md-nav__link:active,
 [data-md-color-scheme="slate"] .md-nav__link--active {
-    color: #E25637;
+    color: #eb8b76;
 }
 
 [data-md-color-scheme="default"] .md-nav__link:active,

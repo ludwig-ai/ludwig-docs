@@ -72,17 +72,6 @@
     --md-primary-fg-color: #6a6c74;
 }
 
-[data-md-color-scheme="slate"] .md-typeset table:not([class]) th {
-    background-color: #202124;
-    font-weight: bold;
-    color: #ececec;
-}
-
-[data-md-color-scheme="slate"] table, th, td {
-    border: 1px solid #888;
-    background-color: #2b2c2f;
-}
-
 [data-md-color-scheme="slate"] .md-typeset a {
     font-weight: bold;
     color: #eb8b76;

@@ -21,4 +21,4 @@ Ludwig tries to automatically identify the format by the extension.
 In case a \*SV file is provided, Ludwig tries to identify the separator (generally `,`) from the data.
 The default escape character is `\`.
 For example, if `,` is the column separator and one of your data columns has a `,` in it, Pandas would fail to load the data properly.
-To handle such cases, we expect the values in the columns to be escaped with backslashes (replace `,` in the data with `\\,`).
+To handle such cases, we expect the values in the columns to be escaped with backslashes (replace `,` in the data with `\,`).

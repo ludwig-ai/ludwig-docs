@@ -1,6 +1,7 @@
 # Visualize Command
 
-Several visualization can be obtained from the result files from both `train`, `predict` and `experiment` by using the `visualize` command.
+Several visualization can be obtained from the result files from both `train`, `predict` and `experiment` by using the
+`ludwig visualize` command.
 The command has several parameters, but not all the visualizations use all of them.
 Let's first present the parameters of the general script, and then, for each available visualization, we will discuss about the specific parameters needed and what visualization they produce.
 
@@ -11,60 +12,89 @@ This script analyzes results and shows some nice plots.
 
 optional arguments:
   -h, --help            show this help message and exit
-  -g GROUND_TRUTH, --ground_truth GROUND_TRUTH
+  -g, --ground_truth GROUND_TRUTH
                         ground truth file
-  -sf SPLIT_FILE, --split_file SPLIT_FILE
-                        file containing split values used in conjunction with ground truth file
-  -gm GROUND_TRUTH_METADATA, --ground_truth_metadata GROUND_TRUTH_METADATA
+  -gm, --ground_truth_metadata GROUND_TRUTH_METADATA
                         input metadata JSON file
-  -od OUTPUT_DIRECTORY, --output_directory OUTPUT_DIRECTORY
-                        directory where to save plots.If not specified, plots
+  -sf, --split_file SPLIT_FILE
+                        file containing split values used in conjunction with
+                        ground truth file.
+  -od, --output_directory OUTPUT_DIRECTORY
+                        directory where to save plots.  If not specified, plots
                         will be displayed in a window
-  -ff {pdf,png}, --file_format {pdf,png}
+  -ff, --file_format {pdf,png}
                         file format of output plots
-  -v {binary_threshold_vs_metric,calibration_1_vs_all,calibration_multiclass,compare_classifiers_multiclass_multimetric,compare_classifiers_performance_changing_k,compare_classifiers_performance_from_pred,compare_classifiers_performance_from_prob,compare_classifiers_performance_subset,compare_classifiers_predictions,compare_classifiers_predictions_distribution,compare_performance,confidence_thresholding,confidence_thresholding_2thresholds_2d,confidence_thresholding_2thresholds_3d,confidence_thresholding_data_vs_acc,confidence_thresholding_data_vs_acc_subset,confidence_thresholding_data_vs_acc_subset_per_class,confusion_matrix,frequency_vs_f1,hyperopt_hiplot,hyperopt_report,learning_curves,roc_curves,roc_curves_from_test_statistics}, --visualization {binary_threshold_vs_metric,calibration_1_vs_all,calibration_multiclass,compare_classifiers_multiclass_multimetric,compare_classifiers_performance_changing_k,compare_classifiers_performance_from_pred,compare_classifiers_performance_from_prob,compare_classifiers_performance_subset,compare_classifiers_predictions,compare_classifiers_predictions_distribution,compare_performance,confidence_thresholding,confidence_thresholding_2thresholds_2d,confidence_thresholding_2thresholds_3d,confidence_thresholding_data_vs_acc,confidence_thresholding_data_vs_acc_subset,confidence_thresholding_data_vs_acc_subset_per_class,confusion_matrix,frequency_vs_f1,hyperopt_hiplot,hyperopt_report,learning_curves,roc_curves,roc_curves_from_test_statistics}
-                        type of visualization
-  -ofn OUTPUT_FEATURE_NAME, --output_feature_name OUTPUT_FEATURE_NAME
+  -v, --visualization {
+      binary_threshold_vs_metric,
+      calibration_1_vs_all,
+      calibration_multiclass,
+      compare_classifiers_multiclass_multimetric,
+      compare_classifiers_performance_changing_k,
+      compare_classifiers_performance_from_pred,
+      compare_classifiers_performance_from_prob
+      compare_classifiers_performance_subset,
+      compare_classifiers_predictions,
+      compare_classifiers_predictions_distribution,
+      compare_performance,confidence_thresholding,
+      confidence_thresholding_2thresholds_2d,
+      confidence_thresholding_2thresholds_3d,
+      confidence_thresholding_data_vs_acc,
+      confidence_thresholding_data_vs_acc_subset,
+      confidence_thresholding_data_vs_acc_subset_per_class,
+      confusion_matrix,
+      frequency_vs_f1,
+      hyperopt_hiplot,
+      hyperopt_report,
+      learning_curves,
+      roc_curves,
+      roc_curves_from_test_statistics
+  },
+                        The type of visualization to generate
+  -ofn, --output_feature_name OUTPUT_FEATURE_NAME
                         name of the output feature to visualize
-  -gts GROUND_TRUTH_SPLIT, --ground_truth_split GROUND_TRUTH_SPLIT
-                        ground truth split - 0:train, 1:validation, 2:test
-                        split
-  -tf THRESHOLD_OUTPUT_FEATURE_NAMES [THRESHOLD_OUTPUT_FEATURE_NAMES ...], --threshold_output_feature_names THRESHOLD_OUTPUT_FEATURE_NAMES [THRESHOLD_OUTPUT_FEATURE_NAMES ...]
+  -gts, --ground_truth_split GROUND_TRUTH_SPLIT
+                        ground truth split - 0:train, 1:validation, 2:test split
+  -tf, --threshold_output_feature_names THRESHOLD_OUTPUT_FEATURE_NAMES [THRESHOLD_OUTPUT_FEATURE_NAMES ...]
                         names of output features for 2d threshold
-  -pred PREDICTIONS [PREDICTIONS ...], --predictions PREDICTIONS [PREDICTIONS ...]
+  -pred, --predictions PREDICTIONS [PREDICTIONS ...]
                         predictions files
-  -prob PROBABILITIES [PROBABILITIES ...], --probabilities PROBABILITIES [PROBABILITIES ...]
+  -prob, --probabilities PROBABILITIES [PROBABILITIES ...]
                         probabilities files
-  -trs TRAINING_STATISTICS [TRAINING_STATISTICS ...], --training_statistics TRAINING_STATISTICS [TRAINING_STATISTICS ...]
+  -trs, --training_statistics TRAINING_STATISTICS [TRAINING_STATISTICS ...]
                         training stats files
-  -tes TEST_STATISTICS [TEST_STATISTICS ...], --test_statistics TEST_STATISTICS [TEST_STATISTICS ...]
+  -tes, --test_statistics TEST_STATISTICS [TEST_STATISTICS ...]
                         test stats files
-  -hs HYPEROPT_STATS_PATH, --hyperopt_stats_path HYPEROPT_STATS_PATH
+  -hs, --hyperopt_stats_path HYPEROPT_STATS_PATH
                         hyperopt stats file
-  -mn MODEL_NAMES [MODEL_NAMES ...], --model_names MODEL_NAMES [MODEL_NAMES ...]
+  -mn, --model_names MODEL_NAMES [MODEL_NAMES ...]
                         names of the models to use as labels
-  -tn TOP_N_CLASSES [TOP_N_CLASSES ...], --top_n_classes TOP_N_CLASSES [TOP_N_CLASSES ...]
+  -tn, --top_n_classes TOP_N_CLASSES [TOP_N_CLASSES ...]
                         number of classes to plot
-  -k TOP_K, --top_k TOP_K
+  -k, --top_k TOP_K
                         number of elements in the ranklist to consider
-  -ll LABELS_LIMIT, --labels_limit LABELS_LIMIT
-                        maximum numbers of labels. If labels in dataset are
-                        higher than this number, "rare" label
-  -ss {ground_truth,predictions}, --subset {ground_truth,predictions}
+  -ll, --labels_limit LABELS_LIMIT
+                        maximum numbers of labels. Encoded numeric label values in
+                        dataset that are higher than labels_limit are considered to
+                        be "rare" labels
+  -ss, --subset {ground_truth,predictions}
                         type of subset filtering
   -n, --normalize       normalize rows in confusion matrix
-  -m METRICS [METRICS ...], --metrics METRICS [METRICS ...]
+  -m, --metrics METRICS [METRICS ...]
                         metrics to dispay in threshold_vs_metric
-  -pl POSITIVE_LABEL, --positive_label POSITIVE_LABEL
+  -pl, --positive_label POSITIVE_LABEL
                         label of the positive class for the roc curve
-  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+  -l, --logging_level {critical, error, warning, info, debug, notset}
                         the level of logging to use
 ```
 
 Some additional information on the parameters:
 
-- The list parameters are considered to be aligned, meaning `predictions`, `probabilities`, `training_statistics`, `test_statistics` and `model_names` are indexed altogether, for instance the name of the model producing the second predictions in the list will be the second in the model names.
-- `ground_truth` and `ground_truth_metadata` are respectively the `HDF5` and `JSON` file obtained during training preprocessing. If you plan to use the visualizations then be sure not to use the `skip_save_preprocessing` when training. Those files are needed because they contain the split performed at preprocessing time, so it is easy to extract the test set from them.
+- The list parameters are all aligned.  In other words, `predictions`, `probabilities`, `training_statistics`,
+`test_statistics` and `model_names` are parallel arrays, and the nth entry of `model_names` should be the name of the
+model which produced the nth entry of `predictions`.
+- `ground_truth` and `ground_truth_metadata` are respectively the `HDF5` and `JSON` file obtained during training
+preprocessing. If you plan to use visualizations do not use `--skip_save_preprocessing` when training. Those files
+contain the train/test split performed at preprocessing time.
 - `output_feature_name` is the output feature to use for creating the visualization.
 
 Other parameters will be detailed for each visualization as different ones use them differently.

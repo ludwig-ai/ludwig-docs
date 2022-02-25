@@ -1,33 +1,22 @@
 Ludwig can train on any *table-like* dataset, meaning that every feature has its own **column** and every example its own **row**.
 
-In this example, we'll use the well-known [Iris](https://archive.ics.uci.edu/ml/datasets/Iris) dataset, a CSV file with 4 numerical features and a categorical target. 
+In this example, we'll use this [Rotten Tomatoes](https://www.kaggle.com/stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset) dataset, a CSV file with variety of feature types and a binary target. 
 
-Ludwig provides Iris and many other popular benchmark datasets through a simple interface:
+We've taken the data from the above link and prepared a dataset for you to use in this first example. Click <a id="raw-url" href="https://raw.githubusercontent.com/connor-mccorm/ludwig-ai/ludwig-docs/tree/master/docs/rotten_tomatoes.csv">here</a> to download the prepared dataset.
+
+Let's take a look at the first 10 rows to see how the data is arranged:
 
 === "CLI"
 
     ``` sh
-    ludwig datasets download iris
+    head -n 10 rotten_tomatoes.csv
     ```
 
 === "Python"
 
     ``` python
-    from ludwig.datasets import iris
+    import pandas as pd
 
-    df = iris.load()
-    ```
-
-Take a look at the first 10 rows to see how the data is arranged:
-
-=== "CLI"
-
-    ``` sh
-    head -n 10 iris.csv
-    ```
-
-=== "Python"
-
-    ``` python
+    df = pd.read_csv('rotten_tomatoes.csv')
     df.head(10)
     ```

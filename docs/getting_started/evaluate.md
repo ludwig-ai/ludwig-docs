@@ -1,24 +1,13 @@
 After the model has been trained, it can be used to predict the target output features on new data.
 
-Let's make a small test dataset `test.csv` containing only input features for the model:
+We've created a small test dataset containing input features for 10 movie reviews that we can use for testing. Download this dataset <a id="raw-url" href="https://raw.githubusercontent.com/connor-mccorm/ludwig-ai/ludwig-docs/tree/master/docs/rotten_tomatoes_test.csv">here</a>.
 
-``` title="test.csv"
-sepal_length_cm,sepal_width_cm,petal_length_cm,petal_width_cm
-4.9,3.0,1.4,0.2
-4.7,3.2,1.3,0.2
-4.6,3.1,1.5,0.2
-5.0,3.6,1.4,0.2
-5.4,3.9,1.7,0.4
-4.6,3.4,1.4,0.3
-5.0,3.4,1.5,0.2
-4.4,2.9,1.4,0.2
-4.9,3.1,1.5,0.1
-```
+Now, let's make some predictions on the test dataset:
 
 === "CLI"
 
     ``` sh
-    ludwig predict --model_path results/experiment_run/model --dataset test.csv
+    ludwig predict --model_path results/experiment_run/model --dataset rotten_tomatoes_test.csv
     ```
 
 === "Python"
@@ -27,7 +16,7 @@ sepal_length_cm,sepal_width_cm,petal_length_cm,petal_width_cm
     from ludwig.api import LudwigModel
 
     model = LudwigModel.load('results/experiment_run/model')
-    results = model.predict(dataset='test.csv')
+    results = model.predict(dataset='rotten_tomatoes_test.csv')
     ```
 
 Running this command will return model predictions.

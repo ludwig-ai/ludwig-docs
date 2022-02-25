@@ -28,7 +28,7 @@ The available data types in Ludwig are:
 - h3
 - vector
 
-Read more about [Ludwig data types and features](../../configuration/features/).
+Read more about [Ludwig data types and features](../../configuration/features/supported_data_types).
 
 # ECD Architecture
 

@@ -37,21 +37,22 @@ nav:
   - Configuration:
       - "Configuration": "configuration/index.md"
       - "Features":
-          - "Input Features": "configuration/features/input_features.md"
-          - "Output Features": "configuration/features/output_features.md"
-          - "Numerical Features": "configuration/features/numerical_features.md"
-          - "Category Features": "configuration/features/category_features.md"
-          - "Binary Features": "configuration/features/binary_features.md"
-          - "Text Features": "configuration/features/text_features.md"
-          - "Image Features": "configuration/features/image_features.md"
-          - "Audio Features": "configuration/features/audio_features.md"
-          - "Sequence Features": "configuration/features/sequence_features.md"
-          - "Set Features": "configuration/features/set_features.md"
-          - "Bag Features": "configuration/features/bag_features.md"
-          - "Date Features": "configuration/features/date_features.md"
-          - "H3 Features": "configuration/features/h3_features.md"
-          - "Time Series Features": "configuration/features/time_series_features.md"
-          - "Vector Features": "configuration/features/vector_features.md"
+          - "Supported Data Types": "configuration/features/supported_data_types.md"
+          - "Input Features (↑)": "configuration/features/input_features.md"
+          - "Output Features (↓)": "configuration/features/output_features.md"
+          - "⇅ Numerical Features": "configuration/features/numerical_features.md"
+          - "⇅ Category Features": "configuration/features/category_features.md"
+          - "⇅ Binary Features": "configuration/features/binary_features.md"
+          - "↑ Image Features": "configuration/features/image_features.md"
+          - "↑ Audio Features": "configuration/features/audio_features.md"
+          - "⇅ Set Features": "configuration/features/set_features.md"
+          - "⇅ Bag Features": "configuration/features/bag_features.md"
+          - "↑ Date Features": "configuration/features/date_features.md"
+          - "↑ H3 Features": "configuration/features/h3_features.md"
+          - "⇅ Sequence Features": "configuration/features/sequence_features.md"
+          - "⇅ Text Features": "configuration/features/text_features.md"
+          - "↑ Time Series Features": "configuration/features/time_series_features.md"
+          - "⇅ Vector Features": "configuration/features/vector_features.md"
       - "Combiner": "configuration/combiner.md"
       - "Preprocessing": "configuration/preprocessing.md"
       - "Training": "configuration/training.md"
@@ -146,6 +147,8 @@ markdown_extensions:
       linenums_style: pymdownx-inline
   - pymdownx.tabbed:
       alternate_style: true
+  - footnotes
+  - meta
 #  - pymdownx.superfences:
 #      custom_fences:
 #        - name: mermaid

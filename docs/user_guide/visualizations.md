@@ -91,13 +91,15 @@ Some additional information on the parameters:
 
 - The list parameters are all aligned.  In other words, `predictions`, `probabilities`, `training_statistics`,
 `test_statistics` and `model_names` are parallel arrays, and the nth entry of `model_names` should be the name of the
-model which produced the nth entry of `predictions`.
+model corresponding to the nth entry of `predictions`.
 - `ground_truth` and `ground_truth_metadata` are respectively the `HDF5` and `JSON` file obtained during training
 preprocessing. If you plan to use visualizations do not use `--skip_save_preprocessing` when training. Those files
 contain the train/test split performed at preprocessing time.
 - `output_feature_name` is the output feature to use for creating the visualization.
 
 Other parameters will be detailed for each visualization as different ones use them differently.
+
+# Examples
 
 Example commands to generate the visualizations are based on running two experiments and comparing them.
 The experiments themselves are run with the following:
@@ -107,8 +109,9 @@ ludwig experiment --experiment_name titanic --model_name Model1 --dataset train.
 ludwig experiment --experiment_name titanic --model_name Model2 --dataset train.csv -cf titanic_model2.yaml
 ```
 
-For this, you need to download the [Titanic Kaggle competition dataset](https://www.kaggle.com/c/titanic/) to get `train.csv`.
-Note that the images associated with each visualization below are not from the Titanic dataset.
+To run these examples, you need to download the [Titanic Kaggle competition dataset](https://www.kaggle.com/c/titanic/)
+to get `train.csv`.  Note that the example images associated with each visualization below were generated using a
+different dataset.
 The two models are defined with `titanic_model1.yaml`
 
 ```yaml
@@ -183,7 +186,9 @@ Parameters for this visualization:
 - `training_statistics`
 - `model_names`
 
-For each model (in the aligned lists of `training_statistics` and `model_names`) and for each output feature and measure of the model, it produces a line plot showing how that measure changed over the course of the epochs of training on the training and validation sets.  If `output_feature_name` is not specified, then all output features are plotted.
+For each model (in the aligned lists of `training_statistics` and `model_names`) and for each output feature and metric
+of the model, it produces a line plot showing how that metric changed over the course of the epochs of training on the
+training and validation sets.  If `output_feature_name` is not specified, then all output features are plotted.
 
 Example command:
 
@@ -382,7 +387,9 @@ Parameters for this visualization:
 - `labels_limit`
 
 `output_feature_name` needs to be a category.
-For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line plot that shows the Hits@K measure (that counts a prediction as correct if the model produces it among the first `k`) while changing `k` from 1 to `top_k` for the specified `output_feature_name`.
+For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line plot that shows the Hits@K
+metric (that counts a prediction as correct if the model produces it among the first `k`) while changing `k` from 1 to
+`top_k` for the specified `output_feature_name`.
 
 Example command:
 
@@ -413,19 +420,19 @@ Parameters for this visualization:
 `output_feature_name` needs to be a category.
 For each model (in the aligned lists of `test_statistics` and `model_names`) it produces four plots that show the precision, recall and F1 of the model on several classes for the specified `output_feature_name`.
 
-The first one show the measures on the `n` most frequent classes.
+The first one shows the metrics on the `n` most frequent classes.
 
 ![Multiclass Multimetric top k](../images/compare_classifiers_multiclass_multimetric_topk.png "Multiclass Multimetric most frequent classes")
 
-The second one shows the measures on the `n` classes where the model performs the best.
+The second one shows the metrics on the `n` classes where the model performs the best.
 
 ![Multiclass Multimetric best k](../images/compare_classifiers_multiclass_multimetric_bestk.png "Multiclass Multimetric best classes")
 
-The third one shows the measures on the `n` classes where the model performs the worst.
+The third one shows the metrics on the `n` classes where the model performs the worst.
 
 ![Multiclass Multimetric worst k](../images/compare_classifiers_multiclass_multimetric_worstk.png "Multiclass Multimetric worst classes")
 
-The fourth one shows the measures on all the classes, sorted by their frequency. This could become unreadable in case the number of classes is really high.
+The fourth one shows the metrics on all the classes, sorted by their frequency. This could become unreadable in case the number of classes is really high.
 
 ![Multiclass Multimetric sorted](../images/compare_classifiers_multiclass_multimetric_sorted.png "Multiclass Multimetric sorted classes")
 

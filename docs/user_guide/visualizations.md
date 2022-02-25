@@ -219,8 +219,9 @@ Parameters for this visualization:
 - `top_n_classes`
 - `normalize`
 
-For each model (in the aligned lists of `test_statistics` and `model_names`) it produces a heatmap of the confusion matrix in the predictions for each field that has a confusion matrix in `test_statistics`.
-The value of `top_n_classes` limits the heatmap to the `n` most frequent classes.
+For each model (in the aligned lists of `test_statistics` and `model_names`) it produces a heatmap of the confusion
+matrix in the predictions for each field that has a confusion matrix in `test_statistics`. The value of `top_n_classes`
+limits the heatmap to the `n` most frequent classes.
 
 Example command:
 
@@ -233,7 +234,7 @@ ludwig visualize --visualization confusion_matrix \
 
 ![Confusion Matrix](../images/confusion_matrix.png "Confusion Matrix")
 
-The second plot produced, is a barplot showing the entropy of each class, ranked from most entropic to least entropic.
+The second plot produced is a bar chart showing the entropy of each class, ranked from most entropic to least entropic.
 
 ![Confusion Matrix Entropy](../images/confusion_matrix_entropy.png "Confusion Matrix Entropy")
 
@@ -249,7 +250,8 @@ Parameters for this visualization:
 - `test_statistics`
 - `model_names`
 
-For each model (in the aligned lists of `test_statistics` and `model_names`) it produces bars in a bar plot, one for each overall metric available in the `test_statistics` file for the specified `output_feature_name`.
+For each model (in the aligned lists of `test_statistics` and `model_names`) it produces bars in a bar plot, one for
+each overall metric available in the `test_statistics` file for the specified `output_feature_name`.
 
 Example command:
 
@@ -279,8 +281,9 @@ Parameters for this visualization:
 - `top_n_classes`
 - `labels_limit`
 
-`output_feature_name` needs to be a category.
-For each model (in the aligned lists of `probabilities` and `model_names`) it produces bars in a bar plot, one for each overall metric computed on the fly from the probabilities of predictions for the specified `output_feature_name`.
+`output_feature_name` must be the name of category feature.
+For each model (in the aligned lists of `probabilities` and `model_names`) it produces bars in a bar plot, one for each
+overall metric computed from the probabilities of predictions for the specified `output_feature_name`.
 
 Example command:
 
@@ -310,8 +313,9 @@ Parameters for this visualization:
 - `model_names`
 - `labels_limit`
 
-`output_feature_name` needs to be a category.
-For each model (in the aligned lists of `predictions` and `model_names`) it produces bars in a bar plot, one for each overall metric computed on the fly from the predictions for the specified `output_feature_name`.
+`output_feature_name` must name a category feature.
+For each model (in the aligned lists of `predictions` and `model_names`) it produces bars in a bar plot, one for each
+overall metric computed on the fly from the predictions for the specified `output_feature_name`.
 
 Example command:
 
@@ -344,11 +348,15 @@ Parameters for this visualization:
 - `labels_limit`
 - `subset`
 
-`output_feature_name` needs to be a category.
-For each model (in the aligned lists of `predictions` and `model_names`) it produces bars in a bar plot, one for each overall metric computed on the fly from the probabilities predictions for the specified `output_feature_name`, considering only a subset of the full training set.
-The way the subset is obtained is using the `top_n_classes` and `subset` parameters.
+`output_feature_name` must name a category feature.
+For each model (in the aligned lists of `predictions` and `model_names`) it produces bars in a bar plot, one for each
+overall metric computed on the fly from the probabilities predictions for the specified `output_feature_name`,
+considering only a subset of the full training set. The way the subset is obtained is using the `top_n_classes` and
+`subset` parameters.
 
-If the values of `subset` is `ground_truth`, then only datapoints where the ground truth class is within the top `n` most frequent ones will be considered as test set, and the percentage of datapoints that have been kept from the original set will be displayed.
+If the values of `subset` is `ground_truth`, then only datapoints where the ground truth class is within the top `n`
+most frequent ones will be considered as test set, and the percentage of datapoints that have been kept from the
+original set will be displayed.
 
 Example command:
 
@@ -366,7 +374,9 @@ ludwig visualize --visualization compare_classifiers_performance_subset \
 
 ![Compare Classifiers Performance Subset Ground Truth](../images/compare_classifiers_performance_subset_gt.png "Compare Classifiers Performance Subset Ground Truth")
 
-If the values of `subset` is `predictions`, then only datapoints where the the model predicts a class that is within the top `n` most frequent ones will be considered as test set, and the percentage of datapoints that have been kept from the original set will be displayed for each model.
+If the values of `subset` is `predictions`, then only datapoints where the model predicts a class that is within the top
+`n` most frequent ones will be considered as test set, and the percentage of datapoints that have been kept from the
+original set will be displayed for each model.
 
 ![Compare Classifiers Performance Subset Ground Predictions](../images/compare_classifiers_performance_subset_pred.png "Compare Classifiers Performance Subset Ground Predictions")
 
@@ -386,7 +396,7 @@ Parameters for this visualization:
 - `top_k`
 - `labels_limit`
 
-`output_feature_name` needs to be a category.
+`output_feature_name` must name a category feature.
 For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line plot that shows the Hits@K
 metric (that counts a prediction as correct if the model produces it among the first `k`) while changing `k` from 1 to
 `top_k` for the specified `output_feature_name`.
@@ -417,8 +427,9 @@ Parameters for this visualization:
 - `model_names`
 - `top_n_classes`
 
-`output_feature_name` needs to be a category.
-For each model (in the aligned lists of `test_statistics` and `model_names`) it produces four plots that show the precision, recall and F1 of the model on several classes for the specified `output_feature_name`.
+`output_feature_name` must name a category feature.
+For each model (in the aligned lists of `test_statistics` and `model_names`) it produces four plots that show the
+precision, recall and F1 of the model on several classes for the specified `output_feature_name`.
 
 The first one shows the metrics on the `n` most frequent classes.
 
@@ -432,7 +443,8 @@ The third one shows the metrics on the `n` classes where the model performs the 
 
 ![Multiclass Multimetric worst k](../images/compare_classifiers_multiclass_multimetric_worstk.png "Multiclass Multimetric worst classes")
 
-The fourth one shows the metrics on all the classes, sorted by their frequency. This could become unreadable in case the number of classes is really high.
+The fourth one shows the metrics on all the classes, sorted by their frequency. This will become unreadable if the
+number of classes is too high.
 
 ![Multiclass Multimetric sorted](../images/compare_classifiers_multiclass_multimetric_sorted.png "Multiclass Multimetric sorted classes")
 
@@ -453,8 +465,9 @@ Parameters for this visualization:
 - `model_names`
 - `labels_limit`
 
-`output_feature_name` needs to be a category and there must be two and only two models (in the aligned lists of `predictions` and `model_names`).
-This visualization produces a pie chart comparing the predictions of the two models for the specified `output_feature_name`.
+`output_feature_name` must name a category feature and there must be two and only two models (in the aligned lists of
+`predictions` and `model_names`). This visualization produces a pie chart comparing the predictions of the two models
+for the specified `output_feature_name`.
 
 Example command:
 
@@ -482,10 +495,11 @@ Parameters for this visualization:
 - `ground_truth_split`
 - `predictions`
 - `model_names`
-- `label_limits`
+- `labels_limit`
 
-`output_feature_name` needs to be a category.
-This visualization produces a radar plot comparing the distributions of predictions of the models for the first 10 classes of the specified `output_feature_name`.
+`output_feature_name` must name a category feature.
+This visualization produces a radar plot comparing the distributions of predictions of the models for the first 10
+classes of the specified `output_feature_name`.
 
 ![Compare Classifiers Predictions Distribution](../images/compare_classifiers_predictions_distribution.png "Compare Classifiers Predictions Distribution")
 
@@ -506,8 +520,10 @@ Parameters for this visualization:
 - `model_names`
 - `labels_limit`
 
-`output_feature_name` needs to be a category.
-For each model (in the aligned lists of `probabilities` and `model_names`) it produces a pair of lines indicating the accuracy of the model and the data coverage while increasing a threshold (x axis) on the probabilities of predictions for the specified `output_feature_name`.
+`output_feature_name` must name a category feature.
+For each model (in the aligned lists of `probabilities` and `model_names`) it produces a pair of lines indicating the
+accuracy of the model and the data coverage while increasing a threshold (x axis) on the probabilities of predictions
+for the specified `output_feature_name`.
 
 ![Confidence_Thresholding](../images/confidence_thresholding.png "Confidence_Thresholding")
 
@@ -526,9 +542,11 @@ Parameters for this visualization:
 - `model_names`
 - `labels_limit`
 
-`output_feature_name` needs to be a category.
-For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line indicating the accuracy of the model and the data coverage while increasing a threshold on the probabilities of predictions for the specified `output_feature_name`.
-The difference with `confidence_thresholding` is that it uses two axes instead of three, not visualizing the threshold and having coverage as x axis instead of the threshold.
+`output_feature_name` must name a category feature.
+For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line indicating the accuracy of
+the model and the data coverage while increasing a threshold on the probabilities of predictions for the specified
+`output_feature_name`. The difference with `confidence_thresholding` is that it uses two axes instead of three, not
+visualizing the threshold and having coverage as x axis instead of the threshold.
 
 ![Confidence_Thresholding Data vs Accuracy](../images/confidence_thresholding_data_vs_acc.png "Confidence_Thresholding Data vs Accuracy")
 
@@ -549,13 +567,20 @@ Parameters for this visualization:
 - `labels_limit`
 - `subset`
 
-`output_feature_name` needs to be a category.
-For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line indicating the accuracy of the model and the data coverage while increasing a threshold on the probabilities of predictions for the specified `output_feature_name`, considering only a subset of the full training set.
-The way the subset is obtained is using the `top_n_classes` and `subset` parameters..
-The difference with `confidence_thresholding` is that it uses two axes instead of three, not visualizing the threshold and having coverage as x axis instead of the threshold.
+`output_feature_name` must name a category feature.
+For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line indicating the accuracy of
+the model and the data coverage while increasing a threshold on the probabilities of predictions for the specified
+`output_feature_name`, considering only a subset of the full training set.
+The way the subset is obtained is using the `top_n_classes` and `subset` parameters.
+The difference with `confidence_thresholding` is that it uses two axes instead of three, not visualizing the threshold
+and having coverage as x axis instead of the threshold.
 
-If the values of `subset` is `ground_truth`, then only datapoints where the ground truth class is within the top `n` most frequent ones will be considered as test set, and the percentage of datapoints that have been kept from the original set will be displayed.
-If the values of `subset` is `predictions`, then only datapoints where the the model predicts a class that is within the top `n` most frequent ones will be considered as test set, and the percentage of datapoints that have been kept from the original set will be displayed for each model.
+If the values of `subset` is `ground_truth`, then only datapoints where the ground truth class is within the top `n`
+most frequent ones will be considered as test set, and the percentage of datapoints that have been kept from the
+original set will be displayed.
+If the values of `subset` is `predictions`, then only datapoints where the model predicts a class that is within the top
+`n` most frequent ones will be considered as test set, and the percentage of datapoints that have been kept from the
+original set will be displayed for each model.
 
 ![Confidence_Thresholding Data vs Accuracy Subset](../images/confidence_thresholding_data_vs_acc_subset.png "Confidence_Thresholding Data vs Accuracy Subset")
 
@@ -576,13 +601,20 @@ Parameters for this visualization:
 - `labels_limit`
 - `subset`
 
-`output_feature_name` needs to be a category.
-For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line indicating the accuracy of the model and the data coverage while increasing a threshold on the probabilities of predictions for the specified `output_feature_name`, considering only a subset of the full training set.
-The way the subset is obtained is using the `top_n_classes` and `subset` parameters..
-The difference with `confidence_thresholding` is that it uses two axes instead of three, not visualizing the threshold and having coverage as x axis instead of the threshold.
+`output_feature_name` must name a category feature.
+For each model (in the aligned lists of `probabilities` and `model_names`) it produces a line indicating the accuracy of
+the model and the data coverage while increasing a threshold on the probabilities of predictions for the specified
+`output_feature_name`, considering only a subset of the full training set.
+The way the subset is obtained is using the `top_n_classes` and `subset` parameters.
+The difference with `confidence_thresholding` is that it uses two axes instead of three, not visualizing the threshold
+and having coverage as x axis instead of the threshold.
 
-If the values of `subset` is `ground_truth`, then only datapoints where the ground truth class is within the top `n` most frequent ones will be considered as test set, and the percentage of datapoints that have been kept from the original set will be displayed.
-If the values of `subset` is `predictions`, then only datapoints where the the model predicts a class that is within the top `n` most frequent ones will be considered as test set, and the percentage of datapoints that have been kept from the original set will be displayed for each model.
+If the values of `subset` is `ground_truth`, then only datapoints where the ground truth class is within the top `n`
+most frequent ones will be considered as test set, and the percentage of datapoints that have been kept from the
+original set will be displayed.
+If the values of `subset` is `predictions`, then only datapoints where the model predicts a class that is within the top
+`n` most frequent ones will be considered as test set, and the percentage of datapoints that have been kept from the
+original set will be displayed for each model.
 
 The difference with `confidence_thresholding_data_vs_acc_subset` is that it produces one plot per class within the `top_n_classes`.
 
@@ -611,7 +643,9 @@ Parameters for this visualization:
 Three plots are produced.
 
 The first plot shows several semi transparent lines.
-They summarize the 3d surfaces displayed by `confidence_thresholding_2thresholds_3d` that have thresholds on the confidence of the predictions of the two `threshold_output_feature_names` as x and y axes and either the data coverage percentage or the accuracy as z axis.
+They summarize the 3d surfaces displayed by `confidence_thresholding_2thresholds_3d` that have thresholds on the
+confidence of the predictions of the two `threshold_output_feature_names` as x and y axes and either the data coverage
+percentage or the accuracy as z axis.
 Each line represents a slice of the data coverage surface projected onto the accuracy surface.
 
 ![Confidence_Thresholding two thresholds 2D Multiline](../images/confidence_thresholding_2thresholds_2d_multiline.png "Confidence_Thresholding two thresholds 2D Multiline")
@@ -640,7 +674,9 @@ Parameters for this visualization:
 
 `threshold_output_feature_names` need to be exactly two, either category or binary.
 `probabilities` need to be exactly two, aligned with `threshold_output_feature_names`.
-The plot shows the 3d surfaces displayed by `confidence_thresholding_2thresholds_3d` that have thresholds on the confidence of the predictions of the two `threshold_output_feature_names` as x and y axes and either the data coverage percentage or the accuracy as z axis.
+The plot shows the 3d surfaces displayed by `confidence_thresholding_2thresholds_3d` that have thresholds on the
+confidence of the predictions of the two `threshold_output_feature_names` as x and y axes and either the data coverage
+percentage or the accuracy as z axis.
 
 ![Confidence_Thresholding two thresholds 3D](../images/confidence_thresholding_2thresholds_3d.png "Confidence_Thresholding two thresholds 3D")
 
@@ -663,9 +699,13 @@ Parameters for this visualization:
 - `positive_label`
 
 `output_feature_name` can be a category or binary feature.
-For each metric specified in `metrics` (options are `f1`, `precision`, `recall`, `accuracy`), this visualization produces a line chart plotting a threshold on the confidence of the model against the metric for the specified `output_feature_name`.
-If `output_feature_name` is a category feature, `positive_label` indicates which is the class to be considered positive class and all the others will be considered negative.
-It needs to be an integer, to figure out the association between classes and integers check the `ground_truth_metadata` JSON file.
+For each metric specified in `metrics` (options are `f1`, `precision`, `recall`, `accuracy`), this visualization
+produces a line chart plotting a threshold on the confidence of the model against the metric for the specified
+`output_feature_name`.
+If `output_feature_name` is a category feature, `positive_label` indicates which class is to be considered the positive
+class, all others will be considered negative.
+`positive_label` must be an integer, to find the integer label associated with a class check the `ground_truth_metadata`
+JSON file.
 
 ![Binary_Threshold_vs_Metric](../images/binary_threshold_vs_metric.png "Binary_Threshold_vs_Metric")
 
@@ -688,8 +728,10 @@ Parameters for this visualization:
 
 `output_feature_name` can be a category or binary feature.
 This visualization produces a line chart plotting the roc curves for the specified `output_feature_name`.
-If `output_feature_name` is a category feature, `positive_label` indicates which is the class to be considered positive class and all the others will be considered negative.
-It needs to be an integer, to figure out the association between classes and integers check the `ground_truth_metadata` JSON file.
+If `output_feature_name` is a category feature, `positive_label` indicates which class is considered the positive class,
+all others will be considered negative.
+`positive_label` must be an integer, to find the integer label associated with a class check the `ground_truth_metadata`
+JSON file.
 
 ![ROC Curves](../images/roc_curves.png "ROC Curves")
 
@@ -703,7 +745,7 @@ Parameters for this visualization:
 - `test_statistics`
 - `model_names`
 
-`output_feature_name` needs to be binary feature.
+`output_feature_name` must name a binary feature.
 This visualization produces a line chart plotting the roc curves for the specified `output_feature_name`.
 
 ![ROC Curves from Prediction Statistics](../images/roc_curves_from_test_statistics.png "ROC Curves from Prediction Statistics")
@@ -726,14 +768,18 @@ Parameters for this visualization:
 - `top_n_classes`
 - `labels_limit`
 
-`output_feature_name` needs to be a category or binary.
-For each class or each of the `n` most frequent classes if `top_n_classes` is specified, it produces two plots computed on the fly from the probabilities of predictions for the specified `output_feature_name`.
+`output_feature_name` must name a category or binary feature.
+For each class or each of the `n` most frequent classes if `top_n_classes` is specified, it produces two plots computed
+from the probabilities of predictions for the specified `output_feature_name`.
 
-The first plot is a calibration curve that shows the calibration of the predictions considering the current class to be the true one and all others to be a false one, drawing one line for each model (in the aligned lists of `probabilities` and `model_names`).
+The first plot is a calibration curve that shows the calibration of the predictions considering the current class to be
+the true one and all others to be a false one, drawing one line for each model (in the aligned lists of `probabilities`
+and `model_names`).
 
 ![Calibration 1 vs All Curve](../images/calibration_1_vs_all_curve.png "Calibration 1 vs All Curve")
 
-The second plot shows the distributions of the predictions considering the current class to be the true one and all others to be a false one, drawing the distribution for each model (in the aligned lists of `probabilities` and `model_names`).
+The second plot shows the distributions of the predictions considering the current class to be the true one and all
+others to be a false one, drawing the distribution for each model (in the aligned lists of `probabilities` and `model_names`).
 
 ![Calibration 1 vs All Counts](../images/calibration_1_vs_all_counts.png "Calibration 1 vs All Counts")
 
@@ -752,14 +798,16 @@ Parameters for this visualization:
 - `model_names`
 - `labels_limit`
 
-`output_feature_name` needs to be a category.
-For each class, produces two plots computed on the fly from the probabilities of predictions for the specified `output_feature_name`.
+`output_feature_name` must name a category feature.
+For each class, produces two plots computed from the probabilities of predictions for the specified `output_feature_name`.
 
-The first plot is a calibration curve that shows the calibration of the predictions considering al classes, drawing one line for each model (in the aligned lists of `probabilities` and `model_names`).
+The first plot is a calibration curve that shows the calibration of the predictions considering al classes, drawing one
+line for each model (in the aligned lists of `probabilities` and `model_names`).
 
 ![Calibration Multiclass Curve](../images/calibration_multiclass_curve.png "Calibration Multiclass Curve")
 
-The second plot shows a bar plot of the brier score (that calculates how calibrated are the probabilities of the predictions of a model), drawing one bar for each model (in the aligned lists of `probabilities` and `model_names`).
+The second plot shows a bar plot of the Brier score (which calculates how calibrated are the probabilities of the
+predictions of a model), drawing one bar for each model (in the aligned lists of `probabilities` and `model_names`).
 
 ![Calibration Multiclass Brier](../images/calibration_multiclass_brier.png "Calibration Multiclass Brier")
 
@@ -777,13 +825,15 @@ Parameters for this visualization:
 - `model_names`
 - `top_n_classes`
 
-`output_feature_name` needs to be a category.
-For each model (in the aligned lists of `test_statistics` and `model_names`), produces two plots statistics of predictions for the specified `output_feature_name`.
+`output_feature_name` must name a category feature.
+For each model (in the aligned lists of `test_statistics` and `model_names`), produces two plots statistics of
+predictions for the specified `output_feature_name`.
 
-Generates plots for `top_n_classes`.  The first plot is a line plot with one x axis representing the different classes and two vertical axes colored in orange and blue respectively.
+Generates plots for `top_n_classes`.  The first plot is a line plot with one x axis representing the different classes
+and two vertical axes colored in orange and blue respectively.
 The orange one is the frequency of the class and an orange line is plotted to show the trend.
 The blue one is the F1 score for that class and a blue line is plotted to show the trend.
-The classes on the x axis are sorted by f1 score.
+The classes on the x axis are sorted by F1 score.
 
 ![Frequency vs F1 sorted by F1](../images/freq_vs_f1_sorted_f1.png "Frequency vs F1 sorted by F1")
 
@@ -793,7 +843,8 @@ The second plot has the same structure of the first one, but the axes are flippe
 
 ## Hyper-parameter optimization visualization
 
-The examples of the hyper-parameter visualizations shown here are obtained by running a random search with 100 samples on the [ATIS dataset](https://www.kaggle.com/siddhadev/ms-cntk-atis) used for classifying intents given user utterances.
+The examples of the hyper-parameter visualizations shown here are obtained by running a random search with 100 samples
+on the [ATIS dataset](https://www.kaggle.com/siddhadev/ms-cntk-atis) used for classifying intents given user utterances.
 
 ## hyperopt_report
 
@@ -803,10 +854,11 @@ Parameters for this visualization:
 - `file_format`
 - `hyperopt_stats_path`
 
-The visualization creates one plot for each hyper-parameter in the file at `hyperopt_stats_path`, plus an additional one containing a pair plot of hyper-parameters interactions.
+The visualization creates one plot for each hyper-parameter in the file at `hyperopt_stats_path`, plus an additional one
+containing a pair plot of hyper-parameters interactions.
 
 Each plot will show the distribution of the parameters with respect to the metric to optimize.
-For `float` and `int` parameters, a scatter plot is used, while for `category` parameters, a violin plot is used instead.
+For `float` and `int` parameters a scatter plot is used, while for `category` parameters a violin plot is used instead.
 
 ![Float hyperopt plot](../images/hyperopt_float.png "Float hyperopt plot")
 
@@ -826,6 +878,7 @@ Parameters for this visualization:
 - `file_format`
 - `hyperopt_stats_path`
 
-The visualization creates an interactive HTML page visualizing all the results from the hyper-parameter optimization at once, using a parallel coordinate plot.
+The visualization creates an interactive HTML page visualizing all the results from the hyper-parameter optimization at
+once using a parallel coordinate plot.
 
 ![Hiplot hyperopt plot](../images/hyperopt_hiplot.jpeg "Hiplot hyperopt plot")

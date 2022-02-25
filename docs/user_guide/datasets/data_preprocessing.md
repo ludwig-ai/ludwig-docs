@@ -3,12 +3,12 @@
 Ludwig data preprocessing performs a few different operations on the incoming dataset:
 
 1. **Computing metadata** like vocabulary, vocabulary size, and sequence lengths. This allows Ludwig to create
-    dictionaries like `idx2str` or `str2idx` to map between raw data values to tensor values.
-2. **Handling missing values** any rows/examples that have missing feature values are filled in with constants or other
+   dictionaries like `idx2str` or `str2idx` to map between raw data values to tensor values.
+1. **Handling missing values** any rows/examples that have missing feature values are filled in with constants or other
    example-derived values (see [Preprocessing Configuration](../../configuration/preprocessing)).
-3. (optional) **Splitting dataset** into train, validation, and test based on splitting percentages, or using explicitly
+1. (optional) **Splitting dataset** into train, validation, and test based on splitting percentages, or using explicitly
    specified splits.
-4. (optional) **Balancing data** which can be useful for datasets with heavily underrepresented or overrepresented
+1. (optional) **Balancing data** which can be useful for datasets with heavily underrepresented or overrepresented
    classes.
 
 Data preprocessing maps raw data to two files: 1) an HDF5 file containing tensors and 2) a JSON file of metadata.
@@ -47,16 +47,16 @@ about them is available in the JSON metadata file.
 `Category` features are transformed into an integer valued vector of size `n` (where `n` is the size of the dataset)
 and added to the HDF5 with a key that reflects the name of column in the dataset.
 
-The way categories are mapped into integers consists of first collecting a dictionary of all the different category
+The way categories are mapped into integers consists of first collecting a dictionary of all the unique category
 strings present in the column of the dataset, then rank them by frequency and then assign them an increasing integer ID
 from the most frequent to the most rare (with 0 being assigned to a `<UNK>` token).  The column name is added to the
 JSON file, with an associated dictionary containing:
 
 1. the mapping from integer to string (`idx2str`)
-2. the mapping from string to id (`str2idx`)
-3. the mapping from string to frequency (`str2freq`)
-4. the size of the set of all tokens (`vocab_size`)
-5. additional preprocessing information (by default how to fill missing values
+1. the mapping from string to id (`str2idx`)
+1. the mapping from string to frequency (`str2freq`)
+1. the size of the set of all tokens (`vocab_size`)
+1. additional preprocessing information (by default how to fill missing values
    and what token to use to fill missing values)
 
 ## Set features
@@ -149,10 +149,10 @@ If a `huggingface` encoder is specified, then that encoder's special symbol indi
 The computed metadata includes:
 
 1. the mapping from integer to string (`idx2str`)
-2. the mapping from string to id (`str2idx`)
-3. the mapping from string to frequency (`str2freq`)
-4. the maximum length of all sequences (`sequence_length_limit`)
-5. additional preprocessing information (by default how to fill missing values
+1. the mapping from string to id (`str2idx`)
+1. the mapping from string to frequency (`str2freq`)
+1. the maximum length of all sequences (`sequence_length_limit`)
+1. additional preprocessing information (by default how to fill missing values
    and what token to use to fill missing values)
 
 ## Text features

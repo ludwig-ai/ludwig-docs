@@ -18,7 +18,7 @@ The parameters available for preprocessing are
 - `padding_symbol` (default `<PAD>`): the string used as a padding symbol. Is is mapped to the integer ID 0 in the vocabulary.
 - `unknown_symbol` (default `<UNK>`): the string used as a unknown symbol. Is is mapped to the integer ID 1 in the vocabulary.
 - `padding` (default `right`): the direction of the padding. `right` and `left` are available options.
-- `tokenizer` (default `space`): defines how to map from the raw string content of the dataset column to a sequence of elements. For the available options refer to the [Tokenizers](#tokenizers)section.
+- `tokenizer` (default `space`): defines how to map from the raw string content of the dataset column to a sequence of elements. For the available options refer to the [Tokenizers](#tokenizers) section.
 - `lowercase` (default `false`): if the string has to be lowercase before being handled by the tokenizer.
 - `vocab_file` (default `null`)  filepath string to a UTF-8 encoded file containing the sequence's vocabulary.  On each line the first string until `\t` or `\n` is considered a word.
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
@@ -27,7 +27,7 @@ The parameters available for preprocessing are
 ## Sequence Input Features and Encoders
 
 Sequence features have several encoders and each of them has its own parameters.
-Inputs are of size `b` while outputs are of size `b x h` where `b` is the batch size and `h` is the dimensionally of the output of the encoder.
+Inputs are of size `b` while outputs are of size `b x h` where `b` is the batch size and `h` is the dimensionality of the output of the encoder.
 In case a representation for each element of the sequence is needed (for example for tagging them, or for using an attention mechanism), one can specify the parameter `reduce_output` to be  `null` and the output will be a `b x s x h` tensor where `s` is the length of the sequence.
 Some encoders, because of their inner workings, may require additional parameters to be specified in order to obtain one representation for each element of the sequence.
 For instance the `parallel_cnn` encoder, by default pools and flattens the sequence dimension and then passes the flattened vector through fully connected layers, so in order to obtain the full tesnor one has to specify `reduce_output: null`.

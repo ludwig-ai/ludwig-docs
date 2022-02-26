@@ -149,10 +149,10 @@ reduce_output: null
 ## Sequence Combiner
 
 The `sequence` combiner stacks a sequence concat combiner with a sequence encoder one on top of each other.
-All the considerations about inputs tensor ranks describer for the [sequence concat combiner](#sequence-concat-combiner)
+All the considerations about inputs tensor ranks described for the [sequence concat combiner](#sequence-concat-combiner)
 apply also in this case, but the main difference is that this combiner uses the `b x s x h'` output of the sequence
 concat combiner, where `b` is the batch size, `s` is the sequence length and `h'` is the sum of the hidden dimensions of
-all input features, as input for any of the sequence encoders described in the [sequence features encoders section](#sequence-input-features-and-encoders).
+all input features, as input for any of the sequence encoders described in the [sequence features encoders section](../features/sequence_features#sequence-input-features-and-encoders).
 Refer to that section for more detailed information about the sequence encoders and their parameters.
 Also all the considerations on the shape of the outputs done for the sequence encoders apply in this case too.
 

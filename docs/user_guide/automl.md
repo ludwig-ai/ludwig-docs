@@ -27,4 +27,3 @@ to override the Ludwig AutoML type detection system’s characterization of the 
 [this](https://github.com/ludwig-ai/experiments/blob/main/automl/validation/mushroom_edibility/run_auto_train_1hr_max_accuracy.py)
 `auto_train` invocation specifies that the hyperparameter search job optimize for maximum accuracy of the specified
 output feature rather than minimal loss of all combined output features, which is the default.
-

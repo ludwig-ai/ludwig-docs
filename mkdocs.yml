@@ -29,6 +29,7 @@ nav:
         - 'Dataset Zoo': 'user_guide/datasets/dataset_zoo.md'
       - 'Distributed Training': 'user_guide/distributed_training.md'
       - 'Hyperparameter Optimization': 'user_guide/hyperopt.md'
+      - 'AutoML': 'user_guide/automl.md'
       - 'Visualizations': 'user_guide/visualizations.md'
       - 'Serving': 'user_guide/serving.md'
       - 'Third-Party Integrations': 'user_guide/integrations.md'

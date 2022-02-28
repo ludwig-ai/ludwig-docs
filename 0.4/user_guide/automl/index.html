@@ -12,14 +12,14 @@
         <meta name="author" content="Piero Molino">
       
       
-        <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/0.4/examples/weather/">
+        <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/automl/">
       
       <link rel="icon" href="../../favicon.ico">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.3">
     
     
       
-        <title>Timeseries forecasting (Weather) - Ludwig</title>
+        <title>AutoML - Ludwig</title>
       
     
     
@@ -71,6 +71,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#auto_train" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -106,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Timeseries forecasting (Weather)
+              AutoML
             
           </span>
         </div>
@@ -202,13 +207,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../../user_guide/" class="md-tabs__link">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
         User Guide
       </a>
     </li>
@@ -234,15 +241,13 @@
         
   
   
-    
-  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../" class="md-tabs__link md-tabs__link--active">
+      <a href="../../examples/" class="md-tabs__link">
         Examples
       </a>
     </li>
@@ -369,12 +374,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
       
       
       
@@ -406,7 +413,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../user_guide/">User Guide</a>
+          <a href="../">User Guide</a>
           
             <label for="__nav_3">
               <span class="md-nav__icon md-icon"></span>
@@ -429,7 +436,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user_guide/command_line_interface/" class="md-nav__link">
+      <a href="../command_line_interface/" class="md-nav__link">
         Command Line Interface
       </a>
     </li>
@@ -475,7 +482,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user_guide/api/LudwigModel/" class="md-nav__link">
+      <a href="../api/LudwigModel/" class="md-nav__link">
         LudwigModel
       </a>
     </li>
@@ -489,7 +496,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user_guide/api/visualization/" class="md-nav__link">
+      <a href="../api/visualization/" class="md-nav__link">
         Visualization
       </a>
     </li>
@@ -546,7 +553,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user_guide/datasets/supported_formats/" class="md-nav__link">
+      <a href="../datasets/supported_formats/" class="md-nav__link">
         Supported Formats
       </a>
     </li>
@@ -560,7 +567,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user_guide/datasets/data_preprocessing/" class="md-nav__link">
+      <a href="../datasets/data_preprocessing/" class="md-nav__link">
         Data Preprocessing
       </a>
     </li>
@@ -574,7 +581,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user_guide/datasets/data_postprocessing/" class="md-nav__link">
+      <a href="../datasets/data_postprocessing/" class="md-nav__link">
         Data Postprocessing
       </a>
     </li>
@@ -588,7 +595,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user_guide/datasets/dataset_zoo/" class="md-nav__link">
+      <a href="../datasets/dataset_zoo/" class="md-nav__link">
         Dataset Zoo
       </a>
     </li>
@@ -609,7 +616,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user_guide/distributed_training/" class="md-nav__link">
+      <a href="../distributed_training/" class="md-nav__link">
         Distributed Training
       </a>
     </li>
@@ -623,7 +630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user_guide/hyperopt/" class="md-nav__link">
+      <a href="../hyperopt/" class="md-nav__link">
         Hyperparameter Optimization
       </a>
     </li>
@@ -635,11 +642,55 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../user_guide/automl/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          AutoML
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         AutoML
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#auto_train" class="md-nav__link">
+    auto_train
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create_auto_config" class="md-nav__link">
+    create_auto_config
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -651,7 +702,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user_guide/visualizations/" class="md-nav__link">
+      <a href="../visualizations/" class="md-nav__link">
         Visualizations
       </a>
     </li>
@@ -665,7 +716,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user_guide/serving/" class="md-nav__link">
+      <a href="../serving/" class="md-nav__link">
         Serving
       </a>
     </li>
@@ -679,7 +730,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user_guide/integrations/" class="md-nav__link">
+      <a href="../integrations/" class="md-nav__link">
         Third-Party Integrations
       </a>
     </li>
@@ -1088,14 +1139,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
       
       
       
@@ -1149,7 +1198,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../">Examples</a>
+          <a href="../../examples/">Examples</a>
           
             <label for="__nav_5">
               <span class="md-nav__icon md-icon"></span>
@@ -1172,7 +1221,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../text_classification/" class="md-nav__link">
+      <a href="../../examples/text_classification/" class="md-nav__link">
         Text Classification
       </a>
     </li>
@@ -1186,7 +1235,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ner_tagging/" class="md-nav__link">
+      <a href="../../examples/ner_tagging/" class="md-nav__link">
         Named Entity Recognition Tagging
       </a>
     </li>
@@ -1200,7 +1249,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../nlu/" class="md-nav__link">
+      <a href="../../examples/nlu/" class="md-nav__link">
         Natural Language Understanding
       </a>
     </li>
@@ -1214,7 +1263,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../machine_translation/" class="md-nav__link">
+      <a href="../../examples/machine_translation/" class="md-nav__link">
         Machine Translation
       </a>
     </li>
@@ -1228,7 +1277,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../seq2seq/" class="md-nav__link">
+      <a href="../../examples/seq2seq/" class="md-nav__link">
         Chit-Chat Dialogue Modeling through Sequence2Sequence
       </a>
     </li>
@@ -1242,7 +1291,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../sentiment_analysis/" class="md-nav__link">
+      <a href="../../examples/sentiment_analysis/" class="md-nav__link">
         Sentiment Analysis
       </a>
     </li>
@@ -1256,7 +1305,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../image_classification/" class="md-nav__link">
+      <a href="../../examples/image_classification/" class="md-nav__link">
         Image Classification
       </a>
     </li>
@@ -1270,7 +1319,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mnist/" class="md-nav__link">
+      <a href="../../examples/mnist/" class="md-nav__link">
         Image Classification (MNIST)
       </a>
     </li>
@@ -1284,7 +1333,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../oneshot/" class="md-nav__link">
+      <a href="../../examples/oneshot/" class="md-nav__link">
         One-shot Learning with Siamese Networks
       </a>
     </li>
@@ -1298,7 +1347,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../visual_qa/" class="md-nav__link">
+      <a href="../../examples/visual_qa/" class="md-nav__link">
         Visual Question Answering
       </a>
     </li>
@@ -1312,7 +1361,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../speech_recognition/" class="md-nav__link">
+      <a href="../../examples/speech_recognition/" class="md-nav__link">
         Spoken Digit Speech Recognition
       </a>
     </li>
@@ -1326,7 +1375,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../speaker_verification/" class="md-nav__link">
+      <a href="../../examples/speaker_verification/" class="md-nav__link">
         Speaker Verification
       </a>
     </li>
@@ -1340,7 +1389,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../titanic/" class="md-nav__link">
+      <a href="../../examples/titanic/" class="md-nav__link">
         Binary Classification (Titanic)
       </a>
     </li>
@@ -1354,7 +1403,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../forecasting/" class="md-nav__link">
+      <a href="../../examples/forecasting/" class="md-nav__link">
         Timeseries forecasting
       </a>
     </li>
@@ -1366,19 +1415,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../examples/weather/" class="md-nav__link">
         Timeseries forecasting (Weather)
       </a>
-      
     </li>
   
 
@@ -1390,7 +1431,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../movie_ratings/" class="md-nav__link">
+      <a href="../../examples/movie_ratings/" class="md-nav__link">
         Movie rating prediction
       </a>
     </li>
@@ -1404,7 +1445,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../multi_label/" class="md-nav__link">
+      <a href="../../examples/multi_label/" class="md-nav__link">
         Multi-label classification
       </a>
     </li>
@@ -1418,7 +1459,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../multi_task/" class="md-nav__link">
+      <a href="../../examples/multi_task/" class="md-nav__link">
         Multi-Task Learning
       </a>
     </li>
@@ -1432,7 +1473,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fuel_efficiency/" class="md-nav__link">
+      <a href="../../examples/fuel_efficiency/" class="md-nav__link">
         Simple Regression: Fuel Efficiency Prediction
       </a>
     </li>
@@ -1446,7 +1487,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fraud/" class="md-nav__link">
+      <a href="../../examples/fraud/" class="md-nav__link">
         Fraud Detection
       </a>
     </li>
@@ -1689,79 +1730,157 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#auto_train" class="md-nav__link">
+    auto_train
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create_auto_config" class="md-nav__link">
+    create_auto_config
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
               
                 
-<a href="https://github.com/ludwig-ai/ludwig-docs/edit/master/src/docs/examples/weather.md" title="Edit this page" class="md-content__button md-icon">
+<a href="https://github.com/ludwig-ai/ludwig-docs/edit/master/src/docs/user_guide/automl.md" title="Edit this page" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
 </a>
 
 
 
-  <h1>Timeseries forecasting (Weather)</h1>
+  <h1>AutoML</h1>
 
-<p>This example illustrates univariate timeseries forecasting using historical temperature data for Los Angeles.</p>
-<p>Dowload and unpack historical hourly weather data available on Kaggle
-https://www.kaggle.com/selfishgene/historical-hourly-weather-data</p>
-<p>Run the following python script to prepare the training dataset:</p>
-<div class="codehilite"><pre><span></span><code>import pandas as pd
-from ludwig.utils.data_utils import add_sequence_feature_column
+<p>Ludwig supports AutoML, which returns a tuned Deep Learning model, given a dataset, the target column, and a time budget.</p>
+<p>Ludwig AutoML is currently experimental and is focused on tabular datasets.  A blog describing its development, evaluation,
+and use is <a href="https://medium.com/ludwig-ai/ludwig-automl-for-deep-learning-cf64de9d49c8">here</a>.</p>
+<p>Ludwig AutoML infers the types of the input and output features, chooses the model architecture, and launches a Ray Tune
+Async HyperBand search job across a set of hyperparameters and ranges, limited by the specified time budget.  It returns
+the set of models produced by the trials in the search sorted from best to worst, along with a hyperparameter search report,
+which can be inspected manually or post-processed by various Ludwig visualization tools.</p>
+<p>Users can audit and interact with Ludwig AutoML in various ways, described below.</p>
+<h3 id="auto_train">auto_train<a class="headerlink" href="#auto_train" title="Permanent link">&para;</a></h3>
+<p>The basic API for Ludwig AutoML is <code>auto_train</code>.  A simple example of its invocation can be found
+<a href="https://github.com/ludwig-ai/experiments/blob/main/automl/validation/mushroom_edibility/run_auto_train_2hr.py">here</a>.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
 
-df = pd.read_csv(
-    &#39;&lt;PATH_TO_FILE&gt;/temperature.csv&#39;,
-    usecols=[&#39;Los Angeles&#39;]
-).rename(
-    columns={&quot;Los Angeles&quot;: &quot;temperature&quot;}
-).fillna(method=&#39;backfill&#39;).fillna(method=&#39;ffill&#39;)
+<span class="kn">from</span> <span class="nn">load_util</span> <span class="kn">import</span> <span class="n">load_mushroom_edibility</span>
+<span class="kn">from</span> <span class="nn">ludwig.automl</span> <span class="kn">import</span> <span class="n">auto_train</span>
 
-# normalize
-df.temperature = ((df.temperature-df.temperature.mean()) /
-                  df.temperature.std())
+<span class="n">mushroom_edibility_df</span> <span class="o">=</span> <span class="n">load_mushroom_edibility</span><span class="p">()</span>
 
-train_size = int(0.6 * len(df))
-vali_size = int(0.2 * len(df))
+<span class="n">auto_train_results</span> <span class="o">=</span> <span class="n">auto_train</span><span class="p">(</span>
+    <span class="n">dataset</span><span class="o">=</span><span class="n">mushroom_edibility_df</span><span class="p">,</span>
+    <span class="n">target</span><span class="o">=</span><span class="s1">&#39;class&#39;</span><span class="p">,</span>
+    <span class="n">time_limit_s</span><span class="o">=</span><span class="mi">7200</span><span class="p">,</span>
+    <span class="n">tune_for_memory</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
 
-# train, validation, test split
-df[&#39;split&#39;] = 0
-df.loc[
-    (
-        (df.index.values &gt;= train_size) &amp;
-        (df.index.values &lt; train_size + vali_size)
-    ),
-    (&#39;split&#39;)
-] = 1
-df.loc[
-    df.index.values &gt;= train_size + vali_size,
-    (&#39;split&#39;)
-] = 2
-
-# prepare timeseries input feature colum
-# (here we are using 20 preceding values to predict the target)
-add_sequence_feature_column(df, &#39;temperature&#39;, 20)
-df.to_csv(&#39;&lt;PATH_TO_FILE&gt;/temperature_la.csv&#39;)
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">auto_train_results</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>ludwig experiment \
---dataset &lt;PATH_TO_FILE&gt;/temperature_la.csv \
-  --config_file config.yaml
+<h3 id="create_auto_config">create_auto_config<a class="headerlink" href="#create_auto_config" title="Permanent link">&para;</a></h3>
+<p>The Ludwig AutoML <code>create_auto_config</code> API outputs <code>auto_train</code>’s hyperparameter search configuration without running the search.
+This API is useful for examining AutoML's chosen input and output feature types, model architecture, and hyperparameters and ranges.
+A simple example of its invocation:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+
+<span class="kn">from</span> <span class="nn">ludwig.datasets</span> <span class="kn">import</span> <span class="n">mushroom_edibility</span>
+<span class="kn">from</span> <span class="nn">ludwig.automl</span> <span class="kn">import</span> <span class="n">create_auto_config</span>
+
+<span class="n">mushroom_edibility_df</span> <span class="o">=</span> <span class="n">mushroom_edibility</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+
+<span class="n">auto_config</span> <span class="o">=</span> <span class="n">create_auto_config</span><span class="p">(</span>
+    <span class="n">dataset</span><span class="o">=</span><span class="n">mushroom_edibility_df</span><span class="p">,</span>
+    <span class="n">target</span><span class="o">=</span><span class="s1">&#39;class&#39;</span><span class="p">,</span>
+    <span class="n">time_limit_s</span><span class="o">=</span><span class="mi">7200</span><span class="p">,</span>
+    <span class="n">tune_for_memory</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">auto_config</span><span class="p">)</span>
 </code></pre></div>
 
-<p>With <code>config.yaml</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">temperature_feature</span><span class="w"></span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">timeseries</span><span class="w"></span>
-<span class="w">        </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rnn</span><span class="w"></span>
-<span class="w">        </span><span class="nt">embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span><span class="w"></span>
-<span class="w">        </span><span class="nt">state_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span><span class="w"></span>
+<p><a href="https://github.com/ludwig-ai/experiments/blob/main/automl/validation/mushroom_edibility/get_auto_train_config.py">Source</a></p>
+<p>The API is also useful for manual refinement of the AutoML-generated search; the output of this API can be edited and then
+directly used as the input configuration for a Ludwig hyperparameter search job.</p>
+<p>The <code>user_config</code> parameter can be provided to the <code>auto_train</code> or <code>create_auto_config</code> APIs to override specified parts of the
+configuration produced.</p>
+<p>For example, we can specify that the <code>TripType</code> output feature for the Walmart Recruiting dataset specifies be set to
+type <code>category</code>, to override the Ludwig AutoML type detection system’s characterization of the feature as a <code>number</code> feature.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
 
-<span class="nt">output_features</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">temperature</span><span class="w"></span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">numerical</span><span class="w"></span>
+<span class="kn">from</span> <span class="nn">load_util</span> <span class="kn">import</span> <span class="n">load_walmart_recruiting</span>
+<span class="kn">from</span> <span class="nn">ludwig.automl</span> <span class="kn">import</span> <span class="n">auto_train</span>
+
+<span class="n">walmart_recruiting_df</span> <span class="o">=</span> <span class="n">load_walmart_recruiting</span><span class="p">()</span>
+
+<span class="n">auto_train_results</span> <span class="o">=</span> <span class="n">auto_train</span><span class="p">(</span>
+    <span class="n">dataset</span><span class="o">=</span><span class="n">walmart_recruiting_df</span><span class="p">,</span>
+    <span class="n">target</span><span class="o">=</span><span class="s1">&#39;TripType&#39;</span><span class="p">,</span>
+    <span class="n">time_limit_s</span><span class="o">=</span><span class="mi">3600</span><span class="p">,</span>
+    <span class="n">tune_for_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">user_config</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;output_features&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="s1">&#39;TripType&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;TripType&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;category&#39;</span><span class="p">}]}</span>
+<span class="p">)</span>
+
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">auto_train_results</span><span class="p">)</span>
 </code></pre></div>
+
+<p><a href="https://github.com/ludwig-ai/experiments/blob/main/automl/heuristics/walmart_recruiting/run_auto_train_1hr.py">Source</a></p>
+<p>We can also specify that the hyperparameter search job optimize for maximum accuracy of the specified output feature
+rather than minimal loss of all combined output features, which is the default.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+
+<span class="kn">from</span> <span class="nn">load_util</span> <span class="kn">import</span> <span class="n">load_mushroom_edibility</span>
+<span class="kn">from</span> <span class="nn">ludwig.automl</span> <span class="kn">import</span> <span class="n">auto_train</span>
+
+<span class="n">mushroom_edibility_df</span> <span class="o">=</span> <span class="n">load_mushroom_edibility</span><span class="p">()</span>
+
+<span class="n">auto_train_results</span> <span class="o">=</span> <span class="n">auto_train</span><span class="p">(</span>
+    <span class="n">dataset</span><span class="o">=</span><span class="n">mushroom_edibility_df</span><span class="p">,</span>
+    <span class="n">target</span><span class="o">=</span><span class="s1">&#39;class&#39;</span><span class="p">,</span>
+    <span class="n">time_limit_s</span><span class="o">=</span><span class="mi">3600</span><span class="p">,</span>
+    <span class="n">tune_for_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">user_config</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;hyperopt&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="s1">&#39;maximize&#39;</span><span class="p">,</span> <span class="s1">&#39;metric&#39;</span><span class="p">:</span> <span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;output_feature&#39;</span><span class="p">:</span> <span class="s1">&#39;class&#39;</span><span class="p">}},</span>
+<span class="p">)</span>
+
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">auto_train_results</span><span class="p">)</span>
+</code></pre></div>
+
+<p><a href="https://github.com/ludwig-ai/experiments/blob/main/automl/validation/mushroom_edibility/run_auto_train_1hr_max_accuracy.py">Source</a></p>
 
               
             </article>
@@ -1782,8 +1901,8 @@ df.to_csv(&#39;&lt;PATH_TO_FILE&gt;/temperature_la.csv&#39;)
              class="md-footer-nav__inner md-grid">
             
             <a class="md-footer-nav__link md-footer-nav__link--prev"
-               href="../forecasting/" rel="prev"
-               title="Timeseries forecasting">
+               href="../hyperopt/" rel="prev"
+               title="Hyperparameter Optimization">
                 <div class="md-footer-nav__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
                 </div>
@@ -1792,21 +1911,21 @@ df.to_csv(&#39;&lt;PATH_TO_FILE&gt;/temperature_la.csv&#39;)
                  <span class="md-footer-nav__direction">
                    Previous
                  </span>
-                        Timeseries forecasting
+                        Hyperparameter Optimization
                     </div>
                 </div>
             </a>
             
             
             <a class="md-footer-nav__link md-footer-nav__link--next"
-               href="../movie_ratings/" rel="next"
-               title="Movie rating prediction">
+               href="../visualizations/" rel="next"
+               title="Visualizations">
                 <div class="md-footer-nav__title">
                     <div class="md-ellipsis">
                  <span class="md-footer-nav__direction">
                    Next
                  </span>
-                        Movie rating prediction
+                        Visualizations
                     </div>
                 </div>
                 <div class="md-footer-nav__button md-icon">

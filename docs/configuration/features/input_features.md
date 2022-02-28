@@ -97,7 +97,7 @@ the encoders that can be used for a certain data type can also be found in each 
                 "preprocessing": {
                     "word_tokenizer": "space"
                 },
-                "reduce_output": "None",
+                "reduce_output": None,
                 "trainable": true
             }
         ]

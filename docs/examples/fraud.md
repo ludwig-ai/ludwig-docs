@@ -31,7 +31,7 @@ input_features:
     type: category
   -
     name: transaction_amount
-    type: numerical
+    type: number
   -
     name: authorization_response_code
     type: category

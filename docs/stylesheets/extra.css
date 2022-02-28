@@ -135,3 +135,8 @@
 [data-md-color-scheme="slate"] .md-typeset h6 {
     color: #ccc;
 }
+
+.md-button {
+    /* padding: 10px */
+    margin-bottom:5px;
+}

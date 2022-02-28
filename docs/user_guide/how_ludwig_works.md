@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD033 -->
 # Configuration
 
 Ludwig provides an expressive declarative configuration system for how users construct their ML pipeline, like data preprocessing, model architecting, backend infrastructure, the training loop, hyperparameter optimization, and more.
@@ -12,23 +13,25 @@ Every feature in Ludwig is described by a specific data type.
 Each data type maps to a specific set of modules that handle preprocessing, encoding, decoding, and post-processing for that type.
 Vice versa, every module (preprocessor, encoder, decoder) is registered to a specific set of data types that the module supports.
 
-The available data types in Ludwig are:
+<div style="text-align: center;" markdown="1">
 
-- binary
-- numerical
-- category
-- set
-- bag
-- sequence
-- text
-- timeseries
-- image
-- audio
-- date
-- h3
-- vector
+[Binary](../configuration/features/binary_features.md){ .md-button }
+[Number](../configuration/features/number_features.md){ .md-button }
+[Category](../configuration/features/category_features.md){ .md-button }
+[Bag](../configuration/features/bag_features.md){ .md-button }
+[Set](../configuration/features/set_features.md){ .md-button }
+[Sequence](../configuration/features/sequence_features.md){ .md-button }
+[Text](../configuration/features/text_features.md){ .md-button }
+[Vector](../configuration/features/vector_features.md){ .md-button }
+[Audio](../configuration/features/audio_features.md){ .md-button }
+[Date](../configuration/features/date_features.md){ .md-button }
+[H3](../configuration/features/h3_features.md){ .md-button }
+[Image](../configuration/features/image_features.md){ .md-button }
+[Timeseries](../configuration/features/time_series_features.md){ .md-button }
 
-Read more about [Ludwig data types and features](../../configuration/features/supported_data_types).
+</div>
+
+Read more about [Ludwig's supported feature types](../../configuration/features/supported_data_types).
 
 # ECD Architecture
 

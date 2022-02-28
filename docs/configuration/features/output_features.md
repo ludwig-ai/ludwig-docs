@@ -30,10 +30,10 @@ Recall Ludwig's butterfly framework:
 
 ![img](../../images/ecd.png)
 
-Instead of having `encoders`, output features have `decoders`. All the other parameters besides `name`, `type`, and
-`preprocessing`, will be passed as parameters to the function that builds the output feature's decoder, and each decoder
-can have different parameters. Extensive documentation for all of the decoders that can be used for a certain data type
-can be found in each data type's documentation.
+Instead of having `encoders`, output features have `decoders`. All the other parameters besides `name` and `type` will
+be passed as parameters to the function that builds the output feature's decoder, and each decoder can have different
+parameters. Extensive documentation for all of the decoders that can be used for a certain data type can be found in
+[each data type's documentation](../features/supported_data_types.md).
 
 === "YAML"
 
@@ -87,7 +87,7 @@ individual output feature.
 By default each loss weight is `1`, but this can be changed by specifying a value for the `weight` parameter in the
 `loss` section of each output feature definition.
 
-For example, given a `category` feature `A` and `numerical` feature `B`, in order to optimize the loss
+For example, given a `category` feature `A` and `number` feature `B`, in order to optimize the loss
 `loss_total = 1.5 * loss_A + 0.8 + loss_B` the `output_feature` section of the configuration should look like:
 
 === "YAML"
@@ -101,7 +101,7 @@ For example, given a `category` feature `A` and `numerical` feature `B`, in orde
                 weight: 1.5
         -
             name: A
-            type: numerical
+            type: number
             loss:
                 weight: 0.8
     ```
@@ -120,7 +120,7 @@ For example, given a `category` feature `A` and `numerical` feature `B`, in orde
             },
             {
                 "name": "A",
-                "type": "numerical",
+                "type": "number",
                 "loss": {
                     "weight": 0.8
                 }

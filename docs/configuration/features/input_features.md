@@ -1,5 +1,5 @@
-The Ludwig configuration's `input_features` section is list of feature definitions. Each feature definition contains two
-required fields: `name` and `type`.
+The `input_features` section is list of feature definitions. Each feature definition contains two required fields:
+`name` and `type`.
 
 === "YAML"
 
@@ -18,8 +18,7 @@ required fields: `name` and `type`.
     }
     ```
 
-`name` is the name of the feature in the dataset. `type` is one of the
-[supported data types](../supported_data_types).
+`name` is the name of the feature in the dataset. `type` is one of the [supported data types](../supported_data_types).
 
 # Preprocessing
 
@@ -56,7 +55,8 @@ Each input feature can specify its own preprocessing via the `preprocessing` sub
     }
     ```
 
-Also, see [type-global preprocessing](../preprocessing.md).
+It's also possible to specify preprocessing rules for all features of a certain type. See
+[type-global preprocessing](../preprocessing.md).
 
 # Encoders
 
@@ -123,8 +123,8 @@ An additional feature that Ludwig provides is the option to have **tied weights*
 For instance, if my model takes two sentences as input and return the probability of their entailment, I may want to
 encode both sentences with the same encoder.
 
-The way to do it is by specifying the `tied_weights` parameter of the second feature you define to be the name of the
-first feature you defined. For example:
+This is done by specifying the `tied_weights` parameter of one feature to be the name of another output feature. For
+example:
 
 === "YAML"
 

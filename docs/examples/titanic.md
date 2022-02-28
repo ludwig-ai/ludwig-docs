@@ -31,18 +31,18 @@ input_features:
         type: category
     -
         name: Age
-        type: numerical
+        type: number
         preprocessing:
           missing_value_strategy: fill_with_mean
     -
         name: SibSp
-        type: numerical
+        type: number
     -
         name: Parch
-        type: numerical
+        type: number
     -
         name: Fare
-        type: numerical
+        type: number
         preprocessing:
           missing_value_strategy: fill_with_mean
     -

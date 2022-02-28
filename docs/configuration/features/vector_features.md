@@ -117,5 +117,5 @@ clip: null
 
 ## Vector Features Measures
 
-The measures that are calculated every epoch and are available for numerical features are `mean_squared_error`, `mean_absolute_error`, `r2` and the `loss` itself.
-You can set either of them as `validation_measure` in the `training` section of the configuration if you set the `validation_field` to be the name of a numerical feature.
+The measures that are calculated every epoch and are available for number features are `mean_squared_error`, `mean_absolute_error`, `r2` and the `loss` itself.
+You can set either of them as `validation_measure` in the `training` section of the configuration if you set the `validation_field` to be the name of a number feature.

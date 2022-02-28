@@ -1,37 +1,105 @@
-The configuration is the core of Ludwig. It is a dictionary containing the following keys:
+Ludwig models are configured by a single config with the following keys:
 
 ```yaml
 input_features: []
 combiner: {}
 output_features: []
-training: {}
+trainer: {}
 preprocessing: {}
+hyperopt: {}
 ```
 
-These contain all the information needed to build and train a Ludwig model.
-It mixes ease of use, by means of reasonable defaults, with flexibility, by means of detailed control over the parameters of your model.
-It is provided to both `experiment` and `train` commands either as a string (`--config`) or as a file (`--config_file`).
-You can provide the dictionary as a YAML file. The string or the content of the file will be parsed by PyYAML into a dictionary in memory, so any style of YAML accepted by the parser is considered to be valid, so both multiline and oneline formats are accepted.
-For instance a list of dictionaries can be written both as:
+The config specifies input features, output features, preprocessing, model architecture, training loop, hyperparameter
+search, and backend infrastructure -- everything that's needed to build, train, and evaluate a model.
 
-```yaml
-mylist: [{name: item1, score: 2}, {name: item2, score: 1}, {name: item3, score: 4}]
-```
+The Ludwig configuration mixes ease of use, by means of reasonable defaults, with flexibility, by means of detailed
+control over the parameters of your model. Only `input_features` and `output_features` are required while all other
+fields use reasonable defaults, but can be optionally set or modified manually.
 
-or as:
+The config can be expressed as a python dictionary (`--config` for
+[Ludwig's CLI](../../docs/user_guide/command_line_interface)), or as a YAML file (`--config_file`).
 
-```yaml
-mylist:
-    -
-        name: item1
-        score: 2
-    -
-        name: item2
-        score: 1
-    -
-        name: item3
-        score: 4
-```
+=== "YAML"
 
-Only `input_features` and `output_features` are required, the other three fields
-have default values, but you are free to modify them.
+    ```yaml
+    input_features:
+        -
+            name: Pclass
+            type: category
+        -
+            name: Sex
+            type: category
+        -
+            name: Age
+            type: number
+            preprocessing:
+                missing_value_strategy: fill_with_mean
+        -
+            name: SibSp
+            type: number
+        -
+            name: Parch
+            type: number
+        -
+            name: Fare
+            type: number
+            preprocessing:
+                missing_value_strategy: fill_with_mean
+        -
+            name: Embarked
+            type: category
+
+    output_features:
+        -
+            name: Survived
+            type: binary
+    ```
+
+=== "Python Dict"
+
+    ```python
+    {
+        "input_features": [
+            {
+                "name": "Pclass",
+                "type": "category"
+            },
+            {
+                "name": "Sex",
+                "type": "category"
+            },
+            {
+                "name": "Age",
+                "type": "number",
+                "preprocessing": {
+                    "missing_value_strategy": "fill_with_mean"
+                }
+            },
+            {
+                "name": "SibSp",
+                "type": "number"
+            },
+            {
+                "name": "Parch",
+                "type": "number"
+            },
+            {
+                "name": "Fare",
+                "type": "number",
+                "preprocessing": {
+                    "missing_value_strategy": "fill_with_mean"
+                }
+            },
+            {
+                "name": "Embarked",
+                "type": "category"
+            }
+        ],
+        "output_features": [
+            {
+                "name": "Survived",
+                "type": "binary"
+            }
+        ]
+    }
+    ```

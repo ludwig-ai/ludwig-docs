@@ -216,9 +216,9 @@ MD044:
 MD045: true
 
 # MD046/code-block-style - Code block style
-MD046:
-    # Block style
-    style: "consistent"
+# MD046:
+#     # Block style
+#     style: "consistent"
 
 # MD047/single-trailing-newline - Files should end with a single newline character
 MD047: true

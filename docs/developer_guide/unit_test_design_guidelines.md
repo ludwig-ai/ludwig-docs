@@ -60,26 +60,26 @@ def test_feature_transformer(
     'feature_list',  # defines parameter for fixture features_to_test()
     [
         [  # single numeric, single categorical
-            ('numerical', [BATCH_SIZE, 1]),  # passthrough encoder
+            ('number', [BATCH_SIZE, 1]),  # passthrough encoder
             ('category', [BATCH_SIZE, 64])   # dense encoder
         ],
         [  # multiple numeric, multiple categorical
             ('binary', [BATCH_SIZE, 1]),  # passthrough encoder
             ('category', [BATCH_SIZE, 16]),  # dense encoder
-            ('numerical', [BATCH_SIZE, 1]),  # passthrough encoder
+            ('number', [BATCH_SIZE, 1]),  # passthrough encoder
             ('category', [BATCH_SIZE, 48]),  # dense encoder
-            ('numerical', [BATCH_SIZE, 32])  # dense encoder
+            ('number', [BATCH_SIZE, 32])  # dense encoder
         ],
         [  # only numeric features
             ('binary', [BATCH_SIZE, 1]),  # passthrough encoder
-            ('numerical', [BATCH_SIZE, 1])  # passthrough encoder
+            ('number', [BATCH_SIZE, 1])  # passthrough encoder
         ],
         [  # only category features
             ('category', [BATCH_SIZE, 16]),  # dense encoder
             ('category', [BATCH_SIZE, 8])   # dense encoder
         ],
         [  # only single numeric feature
-            ('numerical', [BATCH_SIZE, 1])  # passthrough encoder
+            ('number', [BATCH_SIZE, 1])  # passthrough encoder
         ],
         [  # only single category feature
             ('category', [BATCH_SIZE, 8])   # dense encoder

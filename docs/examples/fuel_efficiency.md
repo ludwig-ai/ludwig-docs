@@ -26,29 +26,29 @@ training:
 input_features:
     -
         name: Cylinders
-        type: numerical
+        type: number
     -
         name: Displacement
-        type: numerical
+        type: number
     -
         name: Horsepower
-        type: numerical
+        type: number
     -
         name: Weight
-        type: numerical
+        type: number
     -
         name: Acceleration
-        type: numerical
+        type: number
     -
         name: ModelYear
-        type: numerical
+        type: number
     -
         name: Origin
         type: category
 output_features:
     -
         name: MPG
-        type: numerical
+        type: number
         optimizer:
             type: mean_squared_error
         num_fc_layers: 2

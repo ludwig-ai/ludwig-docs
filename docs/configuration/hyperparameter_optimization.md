@@ -324,7 +324,7 @@ An example `hyperopt.yaml` looks like:
 input_features:
   -
     name: x
-    type: numerical
+    type: number
 output_features:
   -
     name: y

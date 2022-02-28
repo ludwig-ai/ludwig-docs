@@ -63,5 +63,5 @@ input_features:
 output_features:
     -
         name: temperature
-        type: numerical
+        type: number
 ```

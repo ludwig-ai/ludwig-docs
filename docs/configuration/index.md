@@ -4,7 +4,7 @@ Ludwig models are configured by a single config with the following keys:
 input_features: []
 combiner: {}
 output_features: []
-training: {}
+trainer: {}
 preprocessing: {}
 hyperopt: {}
 ```

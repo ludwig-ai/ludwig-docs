@@ -14,7 +14,7 @@ required fields: `name` and `type`.
 
     ```python
     {
-        'input_features': [{'name': 'Pclass', 'type': 'category'}]
+        "input_features": [{"name": "Pclass", "type": "category"}]
     }
     ```
 
@@ -98,7 +98,7 @@ the encoders that can be used for a certain data type can also be found in each 
                     "word_tokenizer": "space"
                 },
                 "reduce_output": None,
-                "trainable": true
+                "trainable": True
             }
         ]
     }

@@ -31,7 +31,7 @@ Recall Ludwig's butterfly framework:
 ![img](../../images/ecd.png)
 
 Instead of having `encoders`, output features have `decoders`. All the other parameters besides `name`, `type`, and
-`preprocessing`, will be passed as parameters to the function that build the output feature's decoder, and each decoder
+`preprocessing`, will be passed as parameters to the function that builds the output feature's decoder, and each decoder
 can have different parameters. Extensive documentation for all of the decoders that can be used for a certain data type
 can be found in each data type's documentation.
 

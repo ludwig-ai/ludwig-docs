@@ -14,7 +14,7 @@ required fields: `name` and `type`.
 
     ```python
     {
-        'input_features': [{'name': 'Pclass', 'type': 'category'}]
+        "input_features": [{"name": "Pclass", "type": "category"}]
     }
     ```
 

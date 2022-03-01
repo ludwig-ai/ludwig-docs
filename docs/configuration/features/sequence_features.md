@@ -1270,14 +1270,14 @@ tied_embeddings: null
 max_sequence_length: 0
 ```
 
-## Sequence Features Measures
+## Sequence Features Metrics
 
-The measures that are calculated every epoch and are available for category features are `accuracy` (counts the number
-of datapoints where all the elements of the predicted sequence are correct over the number of all datapoints),
+The metrics that are calculated every epoch and are available for sequence features are `sequence_accuracy` (counts the
+number of datapoints where all the elements of the predicted sequence are correct over the number of all datapoints),
 `token_accuracy` (computes the number of elements in all the sequences that are correctly predicted over the number of
 all the elements in all the sequences), `last_accuracy` (accuracy considering only the last element of the sequence, it
 is useful for being sure special end-of-sequence tokens are generated or tagged), `edit_distance` (the levenshtein
 distance between the predicted and ground truth sequence), `perplexity` (the perplexity of the ground truth sequence
 according to the model) and the `loss` itself.
-You can set either of them as `validation_measure` in the `training` section of the configuration if you set the
+You can set either of them as `validation_metric` in the `training` section of the configuration if you set the
 `validation_field` to be the name of a sequence feature.

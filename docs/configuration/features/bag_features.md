@@ -20,7 +20,6 @@ the embeddings.
 
 The parameters are the same used for [set input features](../set_features#set-input-features-and-encoders) except for
 `reduce_output` which should not be used because the weighted sum already acts as a reducer.
-g
 
 ```
 +---+

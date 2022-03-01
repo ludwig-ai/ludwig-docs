@@ -60,7 +60,7 @@ initialized randomly, `sparse` means they are initialized to be one-hot encoding
 - `embedding_size` (default `50`): it is the maximum embedding size, the actual size will be
 `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
 encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the input column
-(plus 2 for `<UNK>` and `<PAD>` tokens if present).
+(plus 1 for the unknown token placeholder `<UNK>`).
 - `embeddings_trainable` (default `true`): If `true` embeddings are trained during the training process, if `false`
 embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter
 has effect only when `representation` is `dense` as `sparse` one-hot encodings are not trainable.

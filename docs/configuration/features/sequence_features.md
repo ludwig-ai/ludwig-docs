@@ -174,7 +174,7 @@ These are the available for an parallel cnn encoder:
 
 - `representation'` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
 initialized randomly, `sparse` means they are initialized to be one-hot encodings.
-- `embedding_size` (default `256`): it is the maximum embedding size, the actual size will be 
+- `embedding_size` (default `256`): it is the maximum embedding size, the actual size will be
 `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
 encoding, where `vocabulary_size` is the number of unique strings appearing in the training set in the input column
 (plus 2 for `<UNK>` and `<PAD>` tokens).
@@ -481,7 +481,7 @@ allows for faster access, but in some cases the embedding matrix may be too larg
 placement of the embedding matrix in regular memory and the CPU is used for embedding lookup, slightly slowing down the
 process as a result of data transfer between CPU and GPU memory.
 - `stacked_layers` (default `null`): it is a of lists of list of dictionaries containing the parameters of the stack of
-parallel convolutional layers. The length of the list determines the number of stacked parallel convolutional layers, 
+parallel convolutional layers. The length of the list determines the number of stacked parallel convolutional layers,
 length of the sub-lists determines the number of parallel conv layers and the content of each dictionary determines the
 parameters for a specific layer. The available parameters for each layer are: `activation`, `dropout`, `norm`,
 `norm_params`, `num_filters`, `filter_size`, `strides`, `padding`, `dilation_rate`, `use_bias`, `pool_function`,

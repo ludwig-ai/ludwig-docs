@@ -6,8 +6,9 @@ key that reflects the name of column in the dataset.
 The way sequences are mapped into integers consists of first using a tokenizer to map text to sequences of tokens
 (default tokenization is done by splitting on spaces).
 Next, a dictionary is constructed which maps each unique token to its frequency in the dataset column. Tokens are ranked
-by frequency and a sequential integer ID is assigned from the most frequent to the most rare (with 0 being assigned to
-`<PAD>` used for padding and 1 assigned to `<UNK>` item).
+by frequency and a sequential integer ID is assigned from the most frequent to the most rare. Ludwig uses `<PAD>`,
+`<UNK>`, `<SOS>`, and `<EOS>` special symbols for padding, unknown, start, and end, consistent with common NLP deep
+learning practices. Special symbols can also be set manually in the preprocessing config.
 The column name is added to the JSON file, with an associated dictionary containing
 
 1. the mapping from integer to string (`idx2str`)
@@ -92,8 +93,8 @@ These are the parameters available for the embed encoder
 initialized randomly, `sparse` means they are initialized to be one-hot encodings.
 - `embedding_size` (default `256`): it is the maximum embedding size, the actual size will be
 `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
-encoding, where `vocabulary_size` is the number of different strings appearing in the training set (plus 2 for `<UNK>`
-and `<PAD>` tokens).
+encoding, where `vocabulary_size` is the number of unique strings appearing in the training set input column plus the
+number of special tokens (`<UNK>`, `<PAD>`, `<SOS>`, `<EOS>`).
 - `embeddings_trainable` (default `true`): If `true` embeddings are trained during the training process, if `false`
 embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter
 has effect only when `representation` is `dense`, `sparse` one-hot encodings are not trainable.
@@ -170,14 +171,14 @@ If you want to output the full `b x s x h` tensor, you can specify `reduce_outpu
                    +-------+
 ```
 
-These are the available for an parallel cnn encoder:
+These are the available parameters for a parallel cnn encoder:
 
 - `representation` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
 initialized randomly, `sparse` means they are initialized to be one-hot encodings.
 - `embedding_size` (default `256`): it is the maximum embedding size, the actual size will be
 `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
-encoding, where `vocabulary_size` is the number of unique strings appearing in the training set in the input column
-(plus 2 for `<UNK>` and `<PAD>` tokens).
+encoding, where `vocabulary_size` is the number of unique strings appearing in the training set input column plus the
+number of special tokens (`<UNK>`, `<PAD>`, `<SOS>`, `<EOS>`).
 - `embeddings_trainable` (default `true`): If `true` embeddings are trained during the training process, if `false`
 embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter
 has effect only when `representation` is `dense` as `sparse` one-hot encodings are not trainable.
@@ -315,8 +316,8 @@ These are the parameters available for the stack cnn encoder:
 initialized randomly, `sparse` means they are initialized to be one-hot encodings.
 - `embedding_size` (default `256`): the maximum embedding size, the actual size will be
 `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
-encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the column the
-feature is named after (plus 2 for `<UNK>` and `<PAD>` tokens).
+encoding, where `vocabulary_size` is the number of unique strings appearing in the training set input column plus the
+number of special tokens (`<UNK>`, `<PAD>`, `<SOS>`, `<EOS>`).
 - `embeddings_trainable` (default `true`): If `true` embeddings are trained during the training process, if `false`
 embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter
 has effect only when `representation` is `dense` as `sparse` one-hot encodings are not trainable.
@@ -465,8 +466,8 @@ These are the available parameters for the stack parallel cnn encoder:
 initialized randomly, `sparse` means they are initialized to be one-hot encodings.
 - `embedding_size` (default `256`): the maximum embedding size, the actual size will be
 `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
-encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the column the
-feature is named after (plus 2 for `<UNK>` and `<PAD>` tokens).
+encoding, where `vocabulary_size` is the number of unique strings appearing in the training set input column plus the
+number of special tokens (`<UNK>`, `<PAD>`, `<SOS>`, `<EOS>`).
 - `embeddings_trainable` (default `true`): If `true` embeddings are trained during the training process, if `false`
 embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter
 has effect only when `representation` is `dense` as `sparse` one-hot encodings are not trainable.
@@ -604,8 +605,8 @@ These are the available parameters for the rnn encoder:
 initialized randomly, `sparse` means they are initialized to be one-hot encodings.
 - `embedding_size` (default `256`): the maximum embedding size, the actual size will be
 `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
-encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the column the
-feature is named after (plus 2 for `<UNK>` and `<PAD>` tokens).
+encoding, where `vocabulary_size` is the number of unique strings appearing in the training set input column plus the
+number of special tokens (`<UNK>`, `<PAD>`, `<SOS>`, `<EOS>`).
 - `embeddings_trainable` (default `true`): If `true` embeddings are trained during the training process, if `false`
 embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter
 has effect only when `representation` is `dense` as `sparse` one-hot encodings are not trainable.
@@ -737,8 +738,8 @@ These are the available parameters of the cnn rnn encoder:
 initialized randomly, `sparse` means they are initialized to be one-hot encodings.
 - `embedding_size` (default `256`): the maximum embedding size, the actual size will be
 `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
-encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the column the
-feature is named after (plus 2 for `<UNK>` and `<PAD>` tokens).
+encoding, where `vocabulary_size` is the number of unique strings appearing in the training set input column plus the
+number of special tokens (`<UNK>`, `<PAD>`, `<SOS>`, `<EOS>`).
 - `embeddings_trainable` (default `true`): If `true` embeddings are trained during the training process, if `false`
 embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter
 has effect only when `representation` is `dense` as `sparse` one-hot encodings are not trainable.
@@ -905,8 +906,8 @@ layers at the end.
 initialized randomly, `sparse` means they are initialized to be one-hot encodings.
 - `embedding_size` (default `256`): the maximum embedding size, the actual size will be
 `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
-encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the column the
-feature is named after (plus 2 for `<UNK>` and `<PAD>` tokens).
+encoding, where `vocabulary_size` is the number of unique strings appearing in the training set input column plus the
+number of special tokens (`<UNK>`, `<PAD>`, `<SOS>`, `<EOS>`).
 - `embeddings_trainable` (default `true`): If `true` embeddings are trained during the training process, if `false`
 embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter
 has effect only when `representation` is `dense` as `sparse` one-hot encodings are not trainable.

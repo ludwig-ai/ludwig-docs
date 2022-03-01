@@ -221,9 +221,9 @@ dropout: 0.0
 threshold: 0.5
 ```
 
-## Set Features Measures
+## Set Features Metrics
 
-The measures that are calculated every epoch and are available for set features are `jaccard` (counts the number of
+The metrics that are calculated every epoch and are available for set features are `jaccard` (counts the number of
 elements in the intersection of prediction and label divided by number of elements in the union) and the `loss` itself.
-You can set either of them as `validation_measure` in the `training` section of the configuration if you set the
+You can set either of them as `validation_metric` in the `training` section of the configuration if you set the
 `validation_field` to be the name of a sequence feature.

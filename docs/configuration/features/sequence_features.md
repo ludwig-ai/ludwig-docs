@@ -191,13 +191,13 @@ This parameter has effect only if `representation` is `dense`.
 allows for faster access, but in some cases the embedding matrix may be too large. This parameter forces the
 placement of the embedding matrix in regular memory and the CPU is used for embedding lookup, slightly slowing down the
 process as a result of data transfer between CPU and GPU memory.
-- `conv_layers` (default `null`): it is a list of dictionaries containing the parameters of all the convolutional layers.
-The length of the list determines the number of parallel convolutional layers and the content of each dictionary
-determines the parameters for a specific layer. The available parameters for each layer are: `activation`, `dropout`,
-`norm`, `norm_params`, `num_filters`, `filter_size`, `strides`, `padding`, `dilation_rate`, `use_bias`,
-`pool_function`, `pool_padding`, `pool_size`, `pool_strides`, `bias_initializer`, `weights_initializer`. If any of those
-values is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If
-both `conv_layers` and `num_conv_layers` are `null`, a default list will be assigned to `conv_layers` with the value
+- `conv_layers` (default `null`): a list of dictionaries containing the parameters of all the convolutional layers. The
+length of the list determines the number of parallel convolutional layers and the content of each dictionary determines
+the parameters for a specific layer. The available parameters for each layer are: `activation`, `dropout`, `norm`,
+`norm_params`, `num_filters`, `filter_size`, `strides`, `padding`, `dilation_rate`, `use_bias`, `pool_function`,
+`pool_padding`, `pool_size`, `pool_strides`, `bias_initializer`, `weights_initializer`. If any of those values is
+missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both
+`conv_layers` and `num_conv_layers` are `null`, a default list will be assigned to `conv_layers` with the value
 `[{filter_size: 2}, {filter_size: 3}, {filter_size: 4}, {filter_size: 5}]`.
 - `num_conv_layers` (default `null`): if `conv_layers` is `null`, this is the number of parallel convolutional layers.
 - `filter_size` (default `3`): if a `filter_size` is not already specified in `conv_layers` this is the default
@@ -210,7 +210,7 @@ channels of the 1d convolution.
 - `pool_size` (default `null`): if a `pool_size` is not already specified in `conv_layers` this is the default
 `pool_size` that will be used for each layer. It indicates the size of the max pooling that will be performed along the
 `s` sequence dimension after the convolution operation.
-- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected
+- `fc_layers` (default `null`): a list of dictionaries containing the parameters of all the fully connected
 layers. The length of the list determines the number of stacked fully connected layers and the content of each
 dictionary determines the parameters for a specific layer. The available parameters for each layer are: `activation`,
 `dropout`, `norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of
@@ -313,7 +313,7 @@ These are the parameters available for the stack cnn encoder:
 
 - `representation'` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
 initialized randomly, `sparse` means they are initialized to be one-hot encodings.
-- `embedding_size` (default `256`): it is the maximum embedding size, the actual size will be
+- `embedding_size` (default `256`): the maximum embedding size, the actual size will be
 `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
 encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the column the
 feature is named after (plus 2 for `<UNK>` and `<PAD>` tokens).
@@ -330,7 +330,7 @@ This parameter has effect only if `representation` is `dense`.
 allows for faster access, but in some cases the embedding matrix may be too large. This parameter forces the
 placement of the embedding matrix in regular memory and the CPU is used for embedding lookup, slightly slowing down the
 process as a result of data transfer between CPU and GPU memory.
-- `conv_layers` (default `null`): it is a list of dictionaries containing the parameters of all the convolutional layers.
+- `conv_layers` (default `null`): a list of dictionaries containing the parameters of all the convolutional layers.
 The length of the list determines the number of stacked convolutional layers and the content of each dictionary
 determines the parameters for a specific layer. The available parameters for each layer are: `activation`, `dropout`,
 `norm`, `norm_params`, `num_filters`, `filter_size`, `strides`, `padding`, `dilation_rate`, `use_bias`, `pool_function`,
@@ -353,7 +353,7 @@ missing from the dictionary, the default one specified as a parameter of the enc
 `s` sequence dimension after the convolution operation.
 - `pool_strides` (default `null`): factor to scale down
 - `pool_padding` (default `same`): one of `valid` or `same`
-- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers.
+- `fc_layers` (default `null`): a list of dictionaries containing the parameters of all the fully connected layers.
 The length of the list determines the number of stacked fully connected layers and the content of each dictionary
 determines the parameters for a specific layer. The available parameters for each layer are: `activation`, `dropout`,
 `norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of those values
@@ -463,7 +463,7 @@ These are the available parameters for the stack parallel cnn encoder:
 
 - `representation'` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
 initialized randomly, `sparse` means they are initialized to be one-hot encodings.
-- `embedding_size` (default `256`): it is the maximum embedding size, the actual size will be
+- `embedding_size` (default `256`): the maximum embedding size, the actual size will be
 `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
 encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the column the
 feature is named after (plus 2 for `<UNK>` and `<PAD>` tokens).
@@ -480,7 +480,7 @@ This parameter has effect only if `representation` is `dense`.
 allows for faster access, but in some cases the embedding matrix may be too large. This parameter forces the
 placement of the embedding matrix in regular memory and the CPU is used for embedding lookup, slightly slowing down the
 process as a result of data transfer between CPU and GPU memory.
-- `stacked_layers` (default `null`): it is a of lists of list of dictionaries containing the parameters of the stack of
+- `stacked_layers` (default `null`): a nested list of lists of dictionaries containing the parameters of the stack of
 parallel convolutional layers. The length of the list determines the number of stacked parallel convolutional layers,
 length of the sub-lists determines the number of parallel conv layers and the content of each dictionary determines the
 parameters for a specific layer. The available parameters for each layer are: `activation`, `dropout`, `norm`,
@@ -501,7 +501,7 @@ channels of the 1d convolution.
 - `pool_size` (default `null`): if a `pool_size` is not already specified in `stacked_layers` this is the default
 `pool_size` that will be used for each layer. It indicates the size of the max pooling that will be performed along the
 `s` sequence dimension after the convolution operation.
-- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers.
+- `fc_layers` (default `null`): a list of dictionaries containing the parameters of all the fully connected layers.
 The length of the list determines the number of stacked fully connected layers and the content of each dictionary
 determines the parameters for a specific layer. The available parameters for each layer are: `activation`, `dropout`,
 `norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of those values
@@ -602,7 +602,7 @@ These are the available parameters for the rnn encoder:
 
 - `representation'` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
 initialized randomly, `sparse` means they are initialized to be one-hot encodings.
-- `embedding_size` (default `256`): it is the maximum embedding size, the actual size will be
+- `embedding_size` (default `256`): the maximum embedding size, the actual size will be
 `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
 encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the column the
 feature is named after (plus 2 for `<UNK>` and `<PAD>` tokens).
@@ -632,7 +632,7 @@ direction and their outputs will be concatenated.
 - `recurrent_initializer` (default `'orthogonal'`): initializer for recurrent matrix weights
 - `dropout` (default `0.0`): dropout rate
 - `recurrent_dropout` (default `0.0`): dropout rate for recurrent state
-- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers.
+- `fc_layers` (default `null`): a list of dictionaries containing the parameters of all the fully connected layers.
 The length of the list determines the number of stacked fully connected layers and the content of each dictionary
 determines the parameters for a specific layer. The available parameters for each layer are: `activation`, `dropout`,
 `norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of those values
@@ -735,7 +735,7 @@ These are the available parameters of the cnn rnn encoder:
 
 - `representation'` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
 initialized randomly, `sparse` means they are initialized to be one-hot encodings.
-- `embedding_size` (default `256`): it is the maximum embedding size, the actual size will be
+- `embedding_size` (default `256`): the maximum embedding size, the actual size will be
 `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
 encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the column the
 feature is named after (plus 2 for `<UNK>` and `<PAD>` tokens).
@@ -752,7 +752,7 @@ This parameter has effect only if `representation` is `dense`.
 allows for faster access, but in some cases the embedding matrix may be too large. This parameter forces the
 placement of the embedding matrix in regular memory and the CPU is used for embedding lookup, slightly slowing down the
 process as a result of data transfer between CPU and GPU memory.
-- `conv_layers` (default `null`): it is a list of dictionaries containing the parameters of all the convolutional layers.
+- `conv_layers` (default `null`): a list of dictionaries containing the parameters of all the convolutional layers.
 The length of the list determines the number of stacked convolutional layers and the content of each dictionary
 determines the parameters for a specific layer. The available parameters for each layer are: `activation`, `dropout`,
 `norm`, `norm_params`, `num_filters`, `filter_size`, `strides`, `padding`, `dilation_rate`, `use_bias`, `pool_function`,
@@ -791,7 +791,7 @@ direction and their outputs will be concatenated.
 - `recurrent_initializer` (default `'orthogonal'`): initializer for recurrent matrix weights
 - `dropout` (default `0.0`): dropout rate
 - `recurrent_dropout` (default `0.0`): dropout rate for recurrent state
-- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected
+- `fc_layers` (default `null`): a list of dictionaries containing the parameters of all the fully connected
 layers. The length of the list determines the number of stacked fully connected layers and the content of each
 dictionary determines the parameters for a specific layer. The available parameters for each layer are: `activation`,
 `dropout`, `norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of
@@ -903,7 +903,7 @@ layers at the end.
 
 - `representation'` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
 initialized randomly, `sparse` means they are initialized to be one-hot encodings.
-- `embedding_size` (default `256`): it is the maximum embedding size, the actual size will be
+- `embedding_size` (default `256`): the maximum embedding size, the actual size will be
 `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
 encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the column the
 feature is named after (plus 2 for `<UNK>` and `<PAD>` tokens).
@@ -928,7 +928,7 @@ transformer block.
 - `transformer_output_size` (default `256`): Size of the fully connected layer after self attention in the transformer
 block. This is usually the same as `hidden_size` and `embedding_size`.
 - `dropout` (default `0.1`): dropout rate for the transformer block
-- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers.
+- `fc_layers` (default `null`): a list of dictionaries containing the parameters of all the fully connected layers.
 The length of the list determines the number of stacked fully connected layers and the content of each dictionary
 determines the parameters for a specific layer. The available parameters for each layer are: `activation`, `dropout`,
 `norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of those values
@@ -1078,7 +1078,7 @@ Output
 
 These are the available parameters of a tagger decoder:
 
-- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected
+- `fc_layers` (default `null`): a list of dictionaries containing the parameters of all the fully connected
 layers. The length of the list determines the number of stacked fully connected layers and the content of each
 dictionary determines the parameters for a specific layer. The available parameters for each layer are: `activation`,
 `dropout`, `norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of

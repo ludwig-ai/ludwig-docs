@@ -639,7 +639,8 @@ determines the parameters for a specific layer. The available parameters for eac
 is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both
 `fc_layers` and `num_fc_layers` are `null`, a default list will be assigned to `fc_layers` with the value
 `[{output_size: 512}, {output_size: 256}]` (only applies if `reduce_output` is not `null`).
-- `num_fc_layers` (default `null`): if `fc_layers` is `null`, this is the number of stacked fully connected layers (only applies if `reduce_output` is not `null`).
+- `num_fc_layers` (default `null`): if `fc_layers` is `null`, this is the number of stacked fully connected layers (only
+applies if `reduce_output` is not `null`).
 - `output_size` (default `256`): if an `output_size` is not already specified in `fc_layers` this is the default
 `output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
@@ -782,8 +783,7 @@ dimension after the convolution operation.
 - `state_size` (default `256`): the size of the state of the rnn.
 - `cell_type` (default `rnn`): the type of recurrent cell to use. Available values are: `rnn`, `lstm`, `lstm_block`,
 `lstm`, `ln`, `lstm_cudnn`, `gru`, `gru_block`, `gru_cudnn`. For reference about the differences between the cells
-please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/nn/rnn_cell). We suggest to
-use the `block` variants on CPU and the `cudnn` variants on GPU because of their increased speed.
+please refer to [torch.nn.RNNCell](https://pytorch.org/docs/stable/generated/torch.nn.RNNCell.html).
 - `bidirectional` (default `false`): if `true` two recurrent networks will perform encoding in the forward and backward
 direction and their outputs will be concatenated.
 - `activation` (default `'tanh'`): activation function to use
@@ -799,7 +799,8 @@ dictionary determines the parameters for a specific layer. The available paramet
 those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used
 instead. If both `fc_layers` and `num_fc_layers` are `null`, a default list will be assigned to `fc_layers` with the
 value `[{output_size: 512}, {output_size: 256}]` (only applies if `reduce_output` is not `null`).
-- `num_fc_layers` (default `null`): if `fc_layers` is `null`, this is the number of stacked fully connected layers (only applies if `reduce_output` is not `null`).
+- `num_fc_layers` (default `null`): if `fc_layers` is `null`, this is the number of stacked fully connected layers (only
+applies if `reduce_output` is not `null`).
 - `output_size` (default `256`): if an `output_size` is not already specified in `fc_layers` this is the default
 `output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
@@ -808,18 +809,18 @@ value `[{output_size: 512}, {output_size: 256}]` (only applies if `reduce_output
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
 keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
-refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
 - `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`,
 `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
 keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
-refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
 - `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be
 used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
 - `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters
-used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization)
-or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
+used with `batch` see the [Torch documentation on batch normalization](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm1d.html)
+or for `layer` see the [Torch documentation on layer normalization](https://pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html).
 - `fc_activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default
 `activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `fc_dropout` (default `0`): dropout rate
@@ -878,7 +879,9 @@ reduce_output: last
 
 ### Transformer Encoder
 
-The `transformer` encoder implements a stack of transformer blocks, replicating the architecture introduced in the [Attention is all you need](https://arxiv.org/abs/1706.03762) paper, and adds am optional stack of fully connected layers at the end.
+The `transformer` encoder implements a stack of transformer blocks, replicating the architecture introduced in the
+[Attention is all you need](https://arxiv.org/abs/1706.03762) paper, and adds am optional stack of fully connected
+layers at the end.
 
 ```
        +------+
@@ -899,15 +902,32 @@ The `transformer` encoder implements a stack of transformer blocks, replicating 
 
 ```
 
-- `representation'` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are initialized randomly, `sparse` means they are initialized to be one-hot encodings.
-- `embedding_size` (default `256`): it is the maximum embedding size, the actual size will be `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse` encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the column the feature is named after (plus 1 for `<UNK>`).
-- `embeddings_trainable` (default `true`): If `true` embeddings are trained during the training process, if `false` embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter has effect only when `representation` is `dense` as `sparse` one-hot encodings are not trainable.
-- `pretrained_embeddings` (default `null`): by default `dense` embeddings are initialized randomly, but this parameter allows to specify a path to a file containing embeddings in the [GloVe format](https://nlp.stanford.edu/projects/glove/). When the file containing the embeddings is loaded, only the embeddings with labels present in the vocabulary are kept, the others are discarded. If the vocabulary contains strings that have no match in the embeddings file, their embeddings are initialized with the average of all other embedding plus some random noise to make them different from each other. This parameter has effect only if `representation` is `dense`.
-- `embeddings_on_cpu` (default `false`): by default embeddings matrices are stored on GPU memory if a GPU is used, as it allows for faster access, but in some cases the embedding matrix may be really big and this parameter forces the placement of the embedding matrix in regular memory and the CPU is used to resolve them, slightly slowing down the process as a result of data transfer between CPU and GPU memory.
+- `representation'` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
+initialized randomly, `sparse` means they are initialized to be one-hot encodings.
+- `embedding_size` (default `256`): it is the maximum embedding size, the actual size will be
+`min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
+encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the column the
+feature is named after (plus 2 for `<UNK>` and `<PAD>` tokens).
+- `embeddings_trainable` (default `true`): If `true` embeddings are trained during the training process, if `false`
+embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter
+has effect only when `representation` is `dense` as `sparse` one-hot encodings are not trainable.
+- `pretrained_embeddings` (default `null`): by default `dense` embeddings are initialized randomly, but this parameter
+allows to specify a path to a file containing embeddings in the [GloVe format](https://nlp.stanford.edu/projects/glove/).
+When the file containing the embeddings is loaded, only the embeddings with labels present in the vocabulary are kept,
+the others are discarded. If the vocabulary contains strings that have no match in the embeddings file, their embeddings
+are initialized with the average of all other embedding plus some random noise to make them different from each other.
+This parameter has effect only if `representation` is `dense`.
+- `embeddings_on_cpu` (default `false`): by default embedding matrices are stored on GPU memory if a GPU is used, as it
+allows for faster access, but in some cases the embedding matrix may be too large. This parameter forces the
+placement of the embedding matrix in regular memory and the CPU is used for embedding lookup, slightly slowing down the
+process as a result of data transfer between CPU and GPU memory.
 - `num_layers` (default `1`): number of transformer blocks.
-- `hidden_size` (default `256`): the size of the hidden representation within the transformer block. It is usually the same of the `embedding_size`, but if the two values are different, a projection layer will be added before the first transformer block.
-- `num_heads` (default `8`): number of heads of the self attention in the transformer block.
-- `transformer_output_size` (default `256`): Size of the fully connected layer after self attention in the transformer block. This is usually the same as `hidden_size` and `embedding_size`.
+- `hidden_size` (default `256`): the size of the hidden representation within the transformer block. It is usually the
+same as the `embedding_size`, but if the two values are different, a projection layer will be added before the first
+transformer block.
+- `num_heads` (default `8`): number of attention heads in each transformer block.
+- `transformer_output_size` (default `256`): Size of the fully connected layer after self attention in the transformer
+block. This is usually the same as `hidden_size` and `embedding_size`.
 - `dropout` (default `0.1`): dropout rate for the transformer block
 - `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers.
 The length of the list determines the number of stacked fully connected layers and the content of each dictionary
@@ -916,20 +936,35 @@ determines the parameters for a specific layer. The available parameters for eac
 is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both
 `fc_layers` and `num_fc_layers` are `null`, a default list will be assigned to `fc_layers` with the value
 `[{output_size: 512}, {output_size: 256}]` (only applies if `reduce_output` is not `null`).
-- `num_fc_layers` (default `0`): This is the number of stacked fully connected layers (only applies if `reduce_output` is not `null`).
+- `num_fc_layers` (default `0`): This is the number of stacked fully connected layers (only applies if `reduce_output`
+is not `null`).
 - `output_size` (default `256`): if an `output_size` is not already specified in `fc_layers` this is the default
 `output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
-- `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `weights_regularizer` (default `null`): regularizer function applied to the weights matrix.  Valid values are `l1`, `l2` or `l1_l2`.
-- `bias_regularizer` (default `null`): regularizer function applied to the bias vector.  Valid values are `l1`, `l2` or `l1_l2`.
-- `activity_regularizer` (default `null`): regurlizer function applied to the output of the layer.  Valid values are `l1`, `l2` or `l1_l2`.
-- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
-- `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
-- `fc_activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
+- `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`,
+`identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
+`glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
+Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
+keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
+refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
+- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`,
+`zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
+`glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
+Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
+keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
+refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
+- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be
+used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
+- `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters
+used with `batch` see the [Torch documentation on batch normalization](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm1d.html)
+or for `layer` see the [Torch documentation on layer normalization](https://pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html).
+- `fc_activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default
+`activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `fc_dropout` (default `0`): dropout rate
-- `reduce_output` (default `last`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and  `null` (which does not reduce and returns the full tensor).
+- `reduce_output` (default `last`): defines how to reduce the output tensor along the `s` sequence length dimension if
+the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates
+along the sequence dimension), `last` (returns the last vector of the sequence dimension) and  `null` (which does not
+reduce and returns the full tensor).
 
 Example sequence feature entry in the inputs features list using a Transformer encoder:
 
@@ -954,9 +989,6 @@ output_size: 256
 use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-weights_regularizer: null
-bias_regularizer: null
-activity_regularizer: null
 norm: null
 norm_params: null
 fc_activation: relu
@@ -966,10 +998,12 @@ reduce_output: last
 
 ### Passthrough Encoder
 
-The passthrough decoder simply transforms each input value into a float value and adds a dimension to the input tensor, creating a `b x s x 1` tensor where `b` is the batch size and `s` is the length of the sequence.
+The passthrough decoder simply transforms each input value into a float value and adds a dimension to the input tensor,
+creating a `b x s x 1` tensor where `b` is the batch size and `s` is the length of the sequence.
 The tensor is reduced along the `s` dimension to obtain a single vector of size `h` for each element of the batch.
 If you want to output the full `b x s x h` tensor, you can specify `reduce_output: null`.
-This encoder is not really useful for `sequence` or `text` features, but may be useful for `timeseries` features, as it allows for using them without any processing in later stages of the model, like in a sequence combiner for instance.
+This encoder is not really useful for `sequence` or `text` features, but may be useful for `timeseries` features, as it
+allows for using them without any processing in later stages of the model, like in a sequence combiner for instance.
 
 ```
 +--+
@@ -1001,20 +1035,33 @@ reduce_output: null
 
 ## Sequence Output Features and Decoders
 
-Sequential features can be used when sequence tagging (classifying each element of an input sequence) or sequence generation needs to be performed.
-There are two decoders available for those to tasks names `tagger` and `generator`.
+Sequential features can be used when sequence tagging (classifying each element of an input sequence) or sequence
+generation needs to be performed.  There are two decoders available for those to tasks named `tagger` and `generator`.
 
 These are the available parameters of a sequence output feature
 
-- `reduce_input` (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension).
-- `dependencies` (default `[]`): the output features this one is dependent on. For a detailed explanation refer to [Output Features Dependencies](#output-features-dependencies).
-- `reduce_dependencies` (default `sum`): defines how to reduce the output of a dependent feature that is not a vector, but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension).
-- `loss` (default `{type: softmax_cross_entropy, class_similarities_temperature: 0, class_weights: 1, confidence_penalty: 0, distortion: 1, labels_smoothing: 0, negative_samples: 0, robust_lambda: 0, sampler: null, unique: false}`): is a dictionary containing a loss `type`. The available losses `type` are `softmax_cross_entropy` and `sampled_softmax_cross_entropy`. For details on both losses, please refer to the [category feature output feature section](#category-output-features-and-encoders).
+- `reduce_input` (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order
+tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`,
+`max`, `concat` (concatenates along the sequence dimension), `last` (returns the last vector of the sequence dimension).
+- `dependencies` (default `[]`): the output features this one is dependent on. For a detailed explanation refer to
+[Output Feature Dependencies](../output_features#output-feature-dependencies).
+- `reduce_dependencies` (default `sum`): defines how to reduce the output of a dependent feature that is not a vector,
+but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available
+values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the sequence dimension), `last` (returns the
+last vector of the sequence dimension).
+- `loss` (default `{type: softmax_cross_entropy, class_similarities_temperature: 0, class_weights: 1,
+confidence_penalty: 0, distortion: 1, labels_smoothing: 0, negative_samples: 0, robust_lambda: 0, sampler: null, unique:
+false}`): is a dictionary containing a loss `type`. The available losses `type` are `softmax_cross_entropy` and
+`sampled_softmax_cross_entropy`. For details on both losses, please refer to
+[Category Output Features and Decoders](../category_features#category-output-features-and-decoders).
 
 ### Tagger Decoder
 
-In the case of `tagger` the decoder is a (potentially empty) stack of fully connected layers, followed by a projection into a tensor of size `b x s x c`, where `b` is the batch size, `s` is the length of the sequence and `c` is the number of classes, followed by a softmax_cross_entropy.
-This decoder requires its input to be shaped as `b x s x h`, where `h` is an hidden dimension, which is the output of a sequence, text or timeseries input feature without reduced outputs or the output of a sequence-based combiner.
+In the case of `tagger` the decoder is a (potentially empty) stack of fully connected layers, followed by a projection
+into a tensor of size `b x s x c`, where `b` is the batch size, `s` is the length of the sequence and `c` is the number
+of classes, followed by a softmax_cross_entropy.
+This decoder requires its input to be shaped as `b x s x h`, where `h` is a hidden dimension, which is the output of a
+sequence, text or time series input feature without reduced outputs or the output of a sequence-based combiner.
 If a `b x h` input is provided instead, an error will be raised during model building.
 
 ```
@@ -1037,17 +1084,32 @@ layers. The length of the list determines the number of stacked fully connected 
 dictionary determines the parameters for a specific layer. The available parameters for each layer are: `activation`,
 `dropout`, `norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of
 those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.
-- `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes through. Their output is projected in the feature's output space.
+- `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes
+through. Their output is projected in the feature's output space.
 - `output_size` (default `256`): if an `output_size` is not already specified in `fc_layers` this is the default
 `output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
-- `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates how the output should be normalized and may be one of `null`, `batch` or `layer`.
-- `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
-- `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
+- `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`,
+`identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
+`glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
+Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
+keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
+refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
+- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`,
+`zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
+`glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
+Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
+keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
+refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
+- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be
+used for each layer. It indicates how the output should be normalized and may be one of `null`, `batch` or `layer`.
+- `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters
+used with `batch` see the [Torch documentation on batch normalization](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm1d.html)
+or for `layer` see the [Torch documentation on layer normalization](https://pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html).
+- `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default
+`activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `dropout` (default `0`): dropout rate
-- `attention` (default `false`): If `true`, applies a multi-head self attention layer befre prediction.
+- `attention` (default `false`): If `true`, applies a multi-head self attention layer before prediction.
 - `attention_embedding_size` (default `256`): the embedding size of the multi-head self attention layer.
 - `attention_num_heads` (default `8`): number of attention heads in the multi-head self attention layer.
 
@@ -1089,12 +1151,20 @@ attention_num_heads: 8
 
 ### Generator Decoder
 
-In the case of `generator` the decoder is a (potentially empty) stack of fully connected layers, followed by an rnn that generates outputs feeding on its own previous predictions and generates a tensor of size `b x s' x c`, where `b` is the batch size, `s'` is the length of the generated sequence and `c` is the number of classes, followed by a softmax_cross_entropy.
-During training teacher forcing is adopted, meaning the list of targets is provided as both inputs and outputs (shifted by 1), while at evaluation time greedy decoding (generating one token at a time and feeding it as input for the next step) is performed by beam search, using a beam of 1 by default.
+In the case of `generator` the decoder is a (potentially empty) stack of fully connected layers, followed by an rnn that
+generates outputs feeding on its own previous predictions and generates a tensor of size `b x s' x c`, where `b` is the
+batch size, `s'` is the length of the generated sequence and `c` is the number of classes, followed by a
+softmax_cross_entropy.
+During training teacher forcing is adopted, meaning the list of targets is provided as both inputs and outputs (shifted
+by 1), while at evaluation time greedy decoding (generating one token at a time and feeding it as input for the next
+step) is performed by beam search, using a beam of 1 by default.
 By default a generator expects a `b x h` shaped input tensor, where `h` is a hidden dimension.
 The `h` vectors are (after an optional stack of fully connected layers) fed into the rnn generator.
-One exception is when the generator uses attention, as in that case the expected size of the input tensor is `b x s x h`, which is the output of a sequence, text or timeseries input feature without reduced outputs or the output of a sequence-based combiner.
-If a `b x h` input is provided to a generator decoder using an rnn with attention instead, an error will be raised during model building.
+One exception is when the generator uses attention, as in that case the expected size of the input tensor is
+`b x s x h`, which is the output of a sequence, text or time series input feature without reduced outputs or the output
+of a sequence-based combiner.
+If a `b x h` input is provided to a generator decoder using an rnn with attention instead, an error will be raised
+during model building.
 
 ```
                             Output     Output
@@ -1108,7 +1178,9 @@ If a `b x h` input is provided to a generator decoder using an rnn with attentio
                               GO    +-----+     +-----+
 ```
 
-- `reduce_input` (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension).
+- `reduce_input` (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order
+tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`,
+`max`, `concat` (concatenates along the sequence dimension), `last` (returns the last vector of the sequence dimension).
 
 These are the available parameters of a Generator decoder:
 
@@ -1117,22 +1189,47 @@ layers. The length of the list determines the number of stacked fully connected 
 dictionary determines the parameters for a specific layer. The available parameters for each layer are: `activation`,
 `dropout`, `norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of
 those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.
-- `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes through. Their output is projected in the feature's output space.
+- `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes
+through. Their output is projected in the feature's output space.
 - `output_size` (default `256`): if an `output_size` is not already specified in `fc_layers` this is the default
 `output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
-- `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates how the output should be normalized and may be one of `null`, `batch` or `layer`.
-- `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
-- `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
+- `weights_initializer` (default `'glorot_uniform'`): initializer for the weight matrix. Options are: `constant`,
+`identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
+`glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
+Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
+keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
+refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
+- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`,
+`zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
+`glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
+Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
+keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
+refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
+- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be
+used for each layer. It indicates how the output should be normalized and may be one of `null`, `batch` or `layer`.
+- `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters
+used with `batch` see [Torch documentation on batch normalization](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm1d.html)
+or for `layer` see [Torch documentation on layer normalization](https://pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html).
+- `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default
+`activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `dropout` (default `0`): dropout rate
-- `cell_type` (default `rnn`): the type of recurrent cell to use. Available values are: `rnn`, `lstm`, `lstm_block`, `lstm`, `ln`, `lstm_cudnn`, `gru`, `gru_block`, `gru_cudnn`. For reference about the differences between the cells please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/nn/rnn_cell). We suggest to use the `block` variants on CPU and the `cudnn` variants on GPU because of their increased speed.
+- `cell_type` (default `rnn`): the type of recurrent cell to use. Available values are: `rnn`, `lstm`, `lstm_block`,
+`lstm`, `ln`, `lstm_cudnn`, `gru`, `gru_block`, `gru_cudnn`. For reference about the differences between the cells
+please refer to [torch.nn.RNNCell](https://pytorch.org/docs/stable/generated/torch.nn.RNNCell.html).
 - `state_size` (default `256`): the size of the state of the rnn.
-- `embedding_size` (default `256`): if `tied_target_embeddings` is `false`, the input embeddings and the weights of the softmax_cross_entropy weights before the softmax_cross_entropy are not tied together and can have different sizes, this parameter describes the size of the embeddings of the inputs of the generator.
-- `beam_width` (default `1`): sampling from the rnn generator is performed using beam search. By default, with a beam of one, only a greedy sequence using always the most probably next token is generated, but the beam size can be increased. This usually leads to better performance at the expense of more computation and slower generation.
-- `attention` (default `null`): the recurrent generator may use an attention mechanism. The available ones are `bahdanau` and `luong` (for more information refer to [TensorFlow's documentation](https://www.tensorflow.org/api_guides/python/contrib.seq2seq#Attention)). When `attention` is not `null` the expected size of the input tensor is `b x s x h`, which is the output of a sequence, text or timeseries input feature without reduced outputs or the output of a sequence-based combiner. If a `b x h` input is provided to a generator decoder using an rnn with attention instead, an error will be raised during model building.
-- `tied_embeddings` (default `null`): if `null` the embeddings of the targets are initialized randomly, while if the values is the name of an input feature, the embeddings of that input feature will be used as embeddings of the target. The `vocabulary_size` of that input feature has to be the same of the output feature one and it has to have an embedding matrix (binary and number features will not have one, for instance). In this case the `embedding_size` will be the same as the `state_size`. This is useful for implementing autoencoders where the encoding and decoding part of the model share parameters.
+- `embedding_size` (default `256`): if `tied_target_embeddings` is `false`, the input embeddings and the weights of the
+softmax_cross_entropy weights before the softmax_cross_entropy are not tied together and can have different sizes, this
+parameter describes the size of the embeddings of the inputs of the generator.
+- `beam_width` (default `1`): sampling from the rnn generator is performed using beam search. By default, with a beam of
+one, only a greedy sequence using always the most probably next token is generated, but the beam size can be increased.
+This usually leads to better performance at the expense of more computation and slower generation.
+- `tied_embeddings` (default `null`): if `null` the embeddings of the targets are initialized randomly, while if the
+values is the name of an input feature, the embeddings of that input feature will be used as embeddings of the target.
+The `vocabulary_size` of that input feature has to be the same as the output feature and it has to have an embedding
+matrix (binary and number features will not have one, for instance). In this case the `embedding_size` will be the same
+as the `state_size`. This is useful for implementing autoencoders where the encoding and decoding part of the model
+share parameters.
 - `max_sequence_length` (default `0`):
 
 Example sequence feature entry using a generator decoder (with default parameters) in the output features list:
@@ -1169,12 +1266,18 @@ cell_type: rnn
 state_size: 256
 embedding_size: 256
 beam_width: 1
-attention: null
 tied_embeddings: null
 max_sequence_length: 0
 ```
 
 ## Sequence Features Measures
 
-The measures that are calculated every epoch and are available for category features are `accuracy` (counts the number of datapoints where all the elements of the predicted sequence are correct over the number of all datapoints), `token_accuracy` (computes the number of elements in all the sequences that are correctly predicted over the number of all the elements in all the sequences), `last_accuracy` (accuracy considering only the last element of the sequence, it is useful for being sure special end-of-sequence tokens are generated or tagged), `edit_distance` (the levenshtein distance between the predicted and ground truth sequence), `perplexity` (the perplexity of the ground truth sequence according to the model) and the `loss` itself.
-You can set either of them as `validation_measure` in the `training` section of the configuration if you set the `validation_field` to be the name of a sequence feature.
+The measures that are calculated every epoch and are available for category features are `accuracy` (counts the number
+of datapoints where all the elements of the predicted sequence are correct over the number of all datapoints),
+`token_accuracy` (computes the number of elements in all the sequences that are correctly predicted over the number of
+all the elements in all the sequences), `last_accuracy` (accuracy considering only the last element of the sequence, it
+is useful for being sure special end-of-sequence tokens are generated or tagged), `edit_distance` (the levenshtein
+distance between the predicted and ground truth sequence), `perplexity` (the perplexity of the ground truth sequence
+according to the model) and the `loss` itself.
+You can set either of them as `validation_measure` in the `training` section of the configuration if you set the
+`validation_field` to be the name of a sequence feature.

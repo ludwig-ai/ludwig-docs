@@ -621,9 +621,9 @@ placement of the embedding matrix in regular memory and the CPU is used for embe
 process as a result of data transfer between CPU and GPU memory.
 - `num_layers` (default `1`): the number of stacked recurrent layers.
 - `state_size` (default `256`): the size of the state of the rnn.
-- `cell_type` (default `rnn`): the type of recurrent cell to use. Available values are: `rnn`, `lstm`, `lstm_block`,
-`lstm`, `ln`, `lstm_cudnn`, `gru`, `gru_block`, `gru_cudnn`. For reference about the differences between the cells
-please refer to [torch.nn.RNNCell](https://pytorch.org/docs/stable/generated/torch.nn.RNNCell.html).
+- `cell_type` (default `rnn`): the type of recurrent cell to use. Available values are: `rnn`, `lstm`, `gru`. For
+reference about the differences between the cells please refer to
+[torch.nn Recurrent Layers](https://pytorch.org/docs/stable/nn.html#recurrent-layers).
 - `bidirectional` (default `false`): if `true` two recurrent networks will perform encoding in the forward and backward
 direction and their outputs will be concatenated.
 - `activation` (default `'tanh'`): activation function to use.
@@ -781,9 +781,9 @@ dimension after the convolution operation.
 - `pool_padding` (default `same`): one of `valid` or `same`
 - `num_rec_layers` (default `1`): the number of recurrent layers
 - `state_size` (default `256`): the size of the state of the rnn.
-- `cell_type` (default `rnn`): the type of recurrent cell to use. Available values are: `rnn`, `lstm`, `lstm_block`,
-`lstm`, `ln`, `lstm_cudnn`, `gru`, `gru_block`, `gru_cudnn`. For reference about the differences between the cells
-please refer to [torch.nn.RNNCell](https://pytorch.org/docs/stable/generated/torch.nn.RNNCell.html).
+- `cell_type` (default `rnn`): the type of recurrent cell to use. Available values are: `rnn`, `lstm`, `gru`. For
+reference about the differences between the cells please refer to
+[torch.nn Recurrent Layers](https://pytorch.org/docs/stable/nn.html#recurrent-layers).
 - `bidirectional` (default `false`): if `true` two recurrent networks will perform encoding in the forward and backward
 direction and their outputs will be concatenated.
 - `activation` (default `'tanh'`): activation function to use
@@ -1214,9 +1214,9 @@ or for `layer` see [Torch documentation on layer normalization](https://pytorch.
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default
 `activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `dropout` (default `0`): dropout rate
-- `cell_type` (default `rnn`): the type of recurrent cell to use. Available values are: `rnn`, `lstm`, `lstm_block`,
-`lstm`, `ln`, `lstm_cudnn`, `gru`, `gru_block`, `gru_cudnn`. For reference about the differences between the cells
-please refer to [torch.nn.RNNCell](https://pytorch.org/docs/stable/generated/torch.nn.RNNCell.html).
+- `cell_type` (default `rnn`): the type of recurrent cell to use. Available values are: `rnn`, `lstm`, `gru`. For
+reference about the differences between the cells please refer to
+[torch.nn Recurrent Layers](https://pytorch.org/docs/stable/nn.html#recurrent-layers).
 - `state_size` (default `256`): the size of the state of the rnn.
 - `embedding_size` (default `256`): if `tied_target_embeddings` is `false`, the input embeddings and the weights of the
 softmax_cross_entropy weights before the softmax_cross_entropy are not tied together and can have different sizes, this

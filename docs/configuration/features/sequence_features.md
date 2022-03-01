@@ -193,9 +193,9 @@ process as a result of data transfer between CPU and GPU memory.
 - `conv_layers` (default `null`): it is a list of dictionaries containing the parameters of all the convolutional layers.
 The length of the list determines the number of parallel convolutional layers and the content of each dictionary
 determines the parameters for a specific layer. The available parameters for each layer are: `filter_size`,
-`num_filters`, `pool`, `norm`, `activation` and `regularize`. If any of those values is missing from the dictionary, the
-default one specified as a parameter of the encoder will be used instead. If both `conv_layers` and `num_conv_layers`
-are `null`, a default list will be assigned to `conv_layers` with the value
+`num_filters`, `pool`, `norm`, `activation`, `weights_initializer` and `bias_initializer`. If any of those values is
+missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both
+`conv_layers` and `num_conv_layers` are `null`, a default list will be assigned to `conv_layers` with the value
 `[{filter_size: 2}, {filter_size: 3}, {filter_size: 4}, {filter_size: 5}]`.
 - `num_conv_layers` (default `null`): if `conv_layers` is `null`, this is the number of parallel convolutional layers.
 - `filter_size` (default `3`): if a `filter_size` is not already specified in `conv_layers` this is the default
@@ -210,11 +210,11 @@ channels of the 1d convolution.
 `s` sequence dimension after the convolution operation.
 - `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected
 layers. The length of the list determines the number of stacked fully connected layers and the content of each
-dictionary determines the parameters for a specific layer. The available parameters for each layer are: `output_size`,
-`norm`, `activation` and `initializer`. If any of those values is missing from the dictionary, the default one specified
-as a parameter of the encoder will be used instead. If both `fc_layers` and `num_fc_layers` are `null`, a default list
-will be assigned to `fc_layers` with the value `[{output_size: 512}, {output_size: 256}]` (only applies if
-`reduce_output` is not `null`).
+dictionary determines the parameters for a specific layer. The available parameters for each layer are: `activation`,
+`dropout`, `norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of
+those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used
+instead. If both `fc_layers` and `num_fc_layers` are `null`, a default list will be assigned to `fc_layers` with the
+value `[{output_size: 512}, {output_size: 256}]` (only applies if `reduce_output` is not `null`).
 - `num_fc_layers` (default `null`): if `fc_layers` is `null`, this is the number of stacked fully connected layers (only
 applies if `reduce_output` is not `null`).
 - `output_size` (default `256`): if `output_size` is not already specified in `fc_layers` this is the default
@@ -331,9 +331,9 @@ process as a result of data transfer between CPU and GPU memory.
 - `conv_layers` (default `null`): it is a list of dictionaries containing the parameters of all the convolutional layers.
 The length of the list determines the number of stacked convolutional layers and the content of each dictionary
 determines the parameters for a specific layer. The available parameters for each layer are: `filter_size`,
-`num_filters`, `pool_size`, `norm`, `activation` and `regularize`. If any of those values is missing from the
-dictionary, the default one specified as a parameter of the encoder will be used instead. If both `conv_layers` and
-`num_conv_layers` are `null`, a default list will be assigned to `conv_layers` with the value
+`num_filters`, `pool`, `norm`, `activation`, `weights_initializer` and `bias_initializer`. If any of those values is
+missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both
+`conv_layers` and `num_conv_layers` are `null`, a default list will be assigned to `conv_layers` with the value
 `[{filter_size: 7, pool_size: 3}, {filter_size: 7, pool_size: 3}, {filter_size: 3, pool_size: null}, {filter_size: 3, pool_size: null}, {filter_size: 3, pool_size: null}, {filter_size: 3, pool_size: 3}]`.
 - `num_conv_layers` (default `null`): if `conv_layers` is `null`, this is the number of stacked convolutional layers.
 - `filter_size` (default `3`): if a `filter_size` is not already specified in `conv_layers` this is the default
@@ -352,13 +352,14 @@ dictionary, the default one specified as a parameter of the encoder will be used
 - `pool_padding` (default `same`): one of `valid` or `same`
 - `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers.
 The length of the list determines the number of stacked fully connected layers and the content of each dictionary
-determines the parameters for a specific layer. The available parameters for each layer are: `output_size`, `norm`, and
-`activation`. If any of those values is missing from the dictionary, the default one specified as a parameter of the
-encoder will be used instead. If both `fc_layers` and `num_fc_layers` are `null`, a default list will be assigned to
-`fc_layers` with the value `[{output_size: 512}, {output_size: 256}]` (only applies if `reduce_output` is not `null`).
+determines the parameters for a specific layer. The available parameters for each layer are: `activation`, `dropout`,
+`norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of those values
+is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both
+`fc_layers` and `num_fc_layers` are `null`, a default list will be assigned to `fc_layers` with the value
+`[{output_size: 512}, {output_size: 256}]` (only applies if `reduce_output` is not `null`).
 - `num_fc_layers` (default `null`): if `fc_layers` is `null`, this is the number of stacked fully connected layers (only
 applies if `reduce_output` is not `null`).
-- `output_size` (default `256`): if a `fc_size` is not already specified in `fc_layers` this is the default
+- `output_size` (default `256`): if an `output_size` is not already specified in `fc_layers` this is the default
 `output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
 - `weights_initializer` (default `'glorot_uniform'`): initializer for the weight matrix. Options are: `constant`,
@@ -479,33 +480,33 @@ process as a result of data transfer between CPU and GPU memory.
 - `stacked_layers` (default `null`): it is a of lists of list of dictionaries containing the parameters of the stack of
 parallel convolutional layers. The length of the list determines the number of stacked parallel convolutional layers, 
 length of the sub-lists determines the number of parallel conv layers and the content of each dictionary determines the
-parameters for a specific layer. The available parameters for each layer are: `filter_size`, `num_filters`, `pool_size`,
-`norm` and `activation`. If any of those values is missing from the dictionary, the default one specified as a parameter
-of the encoder will be used instead. If both `stacked_layers` and `num_stacked_layers` are `null`, a default list will
-be assigned to `stacked_layers` with the value
+parameters for a specific layer. The available parameters for each layer are: `filter_size`, `num_filters`, `pool`,
+`norm`, `activation`, `weights_initializer` and `bias_initializer`. If any of those values is missing from the
+dictionary, the default one specified as a parameter of the encoder will be used instead. If both `stacked_layers` and
+`num_stacked_layers` are `null`, a default list will be assigned to `stacked_layers` with the value
 `[[{filter_size: 2}, {filter_size: 3}, {filter_size: 4}, {filter_size: 5}], [{filter_size: 2}, {filter_size: 3}, {filter_size: 4}, {filter_size: 5}], [{filter_size: 2}, {filter_size: 3}, {filter_size: 4}, {filter_size: 5}]]`.
 - `num_stacked_layers` (default `null`): if `stacked_layers` is `null`, this is the number of elements in the stack of
 parallel convolutional layers.
-- `filter_size` (default `3`): if a `filter_size` is not already specified in `conv_layers` this is the default
+- `filter_size` (default `3`): if a `filter_size` is not already specified in `stacked_layers` this is the default
 `filter_size` that will be used for each layer. It indicates how wide is the 1d convolutional filter.
-- `num_filters` (default `256`): if a `num_filters` is not already specified in `conv_layers` this is the default
+- `num_filters` (default `256`): if a `num_filters` is not already specified in `stacker_layers` this is the default
 `num_filters` that will be used for each layer. It indicates the number of filters, and by consequence the output
 channels of the 1d convolution.
 - `pool_function` (default `max`):  pooling function: `max` will select the maximum value.  Any of `average`, `avg` or
 `mean` will compute the mean value.
-- `pool_size` (default `null`): if a `pool_size` is not already specified in `conv_layers` this is the default
+- `pool_size` (default `null`): if a `pool_size` is not already specified in `stacked_layers` this is the default
 `pool_size` that will be used for each layer. It indicates the size of the max pooling that will be performed along the
 `s` sequence dimension after the convolution operation.
 - `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers.
 The length of the list determines the number of stacked fully connected layers and the content of each dictionary
-determines the parameters for a specific layer. The available parameters for each layer are: `output_size`, `norm`,
-`activation` and `initializer`. If any of those values is missing from the dictionary, the default one specified as a
-parameter of the encoder will be used instead. If both `fc_layers` and `num_fc_layers` are `null`, a default list will
-be assigned to `fc_layers` with the value `[{output_size: 512}, {output_size: 256}]` (only applies if `reduce_output` is
-not `null`).
+determines the parameters for a specific layer. The available parameters for each layer are: `activation`, `dropout`,
+`norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of those values
+is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both
+`fc_layers` and `num_fc_layers` are `null`, a default list will be assigned to `fc_layers` with the value
+`[{output_size: 512}, {output_size: 256}]` (only applies if `reduce_output` is not `null`).
 - `num_fc_layers` (default `null`): if `fc_layers` is `null`, this is the number of stacked fully connected layers (only
 applies if `reduce_output` is not `null`).
-- `output_size` (default `256`): if a `output_size` is not already specified in `fc_layers` this is the default
+- `output_size` (default `256`): if an `output_size` is not already specified in `fc_layers` this is the default
 `output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
 - `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`,
@@ -570,7 +571,8 @@ The rnn encoder works by first mapping the input integer sequence `b x s` (where
 length of the sequence) into a sequence of embeddings, then it passes the embedding through a stack of recurrent layers
 (by default 1 layer), followed by a reduce operation that by default only returns the last output, but can perform other
 reduce functions.
-If you want to output the full `b x s x h` where `h` is the size of the output of the last rnn layer, you can specify `reduce_output: null`.
+If you want to output the full `b x s x h` where `h` is the size of the output of the last rnn layer, you can specify
+`reduce_output: null`.
 
 ```
        +------+
@@ -628,12 +630,13 @@ direction and their outputs will be concatenated.
 - `recurrent_dropout` (default `0.0`): dropout rate for recurrent state
 - `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers.
 The length of the list determines the number of stacked fully connected layers and the content of each dictionary
-determines the parameters for a specific layer. The available parameters for each layer are: `output_size`, `norm`,
-`activation` and `initializer`. If any of those values is missing from the dictionary, the default one specified as a
-parameter of the encoder will be used instead. If both `fc_layers` and `num_fc_layers` are `null`, a default list will
-be assigned to `fc_layers` with the value `[{output_size: 512}, {output_size: 256}]` (only applies if `reduce_output` is not `null`).
+determines the parameters for a specific layer. The available parameters for each layer are: `activation`, `dropout`,
+`norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of those values
+is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both
+`fc_layers` and `num_fc_layers` are `null`, a default list will be assigned to `fc_layers` with the value
+`[{output_size: 512}, {output_size: 256}]` (only applies if `reduce_output` is not `null`).
 - `num_fc_layers` (default `null`): if `fc_layers` is `null`, this is the number of stacked fully connected layers (only applies if `reduce_output` is not `null`).
-- `output_size` (default `256`): if a `output_size` is not already specified in `fc_layers` this is the default
+- `output_size` (default `256`): if an `output_size` is not already specified in `fc_layers` this is the default
 `output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
 - `weights_initializer` (default `'glorot_uniform'`): initializer for the weight matrix. Options are: `constant`,
@@ -747,7 +750,8 @@ placement of the embedding matrix in regular memory and the CPU is used for embe
 process as a result of data transfer between CPU and GPU memory.
 - `conv_layers` (default `null`): it is a list of dictionaries containing the parameters of all the convolutional layers.
 The length of the list determines the number of stacked convolutional layers and the content of each dictionary
-determines the parameters for a specific layer. The available parameters for each layer are: `filter_size`, `num_filters`, `pool_size`, `norm`, and `activation`. If any of those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both `conv_layers` and `num_conv_layers` are `null`, a default list will be assigned to `conv_layers` with the value `[{filter_size: 7, pool_size: 3, regularize: false}, {filter_size: 7, pool_size: 3, regularize: false}, {filter_size: 3, pool_size: null, regularize: false}, {filter_size: 3, pool_size: null, regularize: false}, {filter_size: 3, pool_size: null, regularize: true}, {filter_size: 3, pool_size: 3, regularize: true}]`.
+determines the parameters for a specific layer. The available parameters for each layer are: `filter_size`,
+`num_filters`, `pool`, `norm`, `activation`, `weights_initializer` and `bias_initializer`. If any of those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both `conv_layers` and `num_conv_layers` are `null`, a default list will be assigned to `conv_layers` with the value `[{filter_size: 7, pool_size: 3, regularize: false}, {filter_size: 7, pool_size: 3, regularize: false}, {filter_size: 3, pool_size: null, regularize: false}, {filter_size: 3, pool_size: null, regularize: false}, {filter_size: 3, pool_size: null, regularize: true}, {filter_size: 3, pool_size: 3, regularize: true}]`.
 - `num_conv_layers` (default `1`): the number of stacked convolutional layers.
 - `num_filters` (default `256`): if a `num_filters` is not already specified in `conv_layers` this is the default `num_filters` that will be used for each layer. It indicates the number of filters, and by consequence the output channels of the 1d convolution.
 - `filter_size` (default `5`): if a `filter_size` is not already specified in `conv_layers` this is the default `filter_size` that will be used for each layer. It indicates how wide is the 1d convolutional filter.
@@ -770,9 +774,16 @@ determines the parameters for a specific layer. The available parameters for eac
 - `recurrent_initializer` (default `'orthogonal'`): initializer for recurrent matrix weights
 - `dropout` (default `0.0`): dropout rate
 - `recurrent_dropout` (default `0.0`): dropout rate for recurrent state
-- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`, `activation`,  `initializer` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both `fc_layers` and `num_fc_layers` are `null`, a default list will be assigned to `fc_layers` with the value `[{fc_size: 512}, {fc_size: 256}]` (only applies if `reduce_output` is not `null`).
+- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected
+layers. The length of the list determines the number of stacked fully connected layers and the content of each
+dictionary determines the parameters for a specific layer. The available parameters for each layer are: `activation`,
+`dropout`, `norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of
+those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used
+instead. If both `fc_layers` and `num_fc_layers` are `null`, a default list will be assigned to `fc_layers` with the
+value `[{output_size: 512}, {output_size: 256}]` (only applies if `reduce_output` is not `null`).
 - `num_fc_layers` (default `null`): if `fc_layers` is `null`, this is the number of stacked fully connected layers (only applies if `reduce_output` is not `null`).
-- `fc_size` (default `256`): if a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
+- `output_size` (default `256`): if an `output_size` is not already specified in `fc_layers` this is the default
+`output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
 - `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
 - `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
@@ -815,18 +826,14 @@ activation: tanh
 recurrent_activation: sigmoid
 unit_forget_bias: true
 recurrent_initializer: orthogonal
-recurrent_regularizer: null
 dropout: 0.0
 recurrent_dropout: 0.0
 fc_layers: null
 num_fc_layers: null
-fc_size: 256
+output_size: 256
 use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-weights_regularizer: null
-bias_regularizer: null
-activity_regularizer: null
 norm: null
 norm_params: null
 fc_activation: relu
@@ -865,11 +872,18 @@ The `transformer` encoder implements a stack of transformer blocks, replicating 
 - `num_layers` (default `1`): number of transformer blocks.
 - `hidden_size` (default `256`): the size of the hidden representation within the transformer block. It is usually the same of the `embedding_size`, but if the two values are different, a projection layer will be added before the first transformer block.
 - `num_heads` (default `8`): number of heads of the self attention in the transformer block.
-- `transformer_fc_size` (default `256`): Size of the fully connected layer after self attention in the transformer block. This is usually the same as `hidden_size` and `embedding_size`.
+- `transformer_output_size` (default `256`): Size of the fully connected layer after self attention in the transformer block. This is usually the same as `hidden_size` and `embedding_size`.
 - `dropout` (default `0.1`): dropout rate for the transformer block
-- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`, `activation`,  `initializer` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both `fc_layers` and `num_fc_layers` are `null`, a default list will be assigned to `fc_layers` with the value `[{fc_size: 512}, {fc_size: 256}]` (only applies if `reduce_output` is not `null`).
+- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers.
+The length of the list determines the number of stacked fully connected layers and the content of each dictionary
+determines the parameters for a specific layer. The available parameters for each layer are: `activation`, `dropout`,
+`norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of those values
+is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both
+`fc_layers` and `num_fc_layers` are `null`, a default list will be assigned to `fc_layers` with the value
+`[{output_size: 512}, {output_size: 256}]` (only applies if `reduce_output` is not `null`).
 - `num_fc_layers` (default `0`): This is the number of stacked fully connected layers (only applies if `reduce_output` is not `null`).
-- `fc_size` (default `256`): if a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
+- `output_size` (default `256`): if an `output_size` is not already specified in `fc_layers` this is the default
+`output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
 - `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
 - `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
@@ -897,11 +911,11 @@ embeddings_on_cpu: false
 num_layers: 1
 hidden_size: 256
 num_heads: 8
-transformer_fc_size: 256
+transformer_output_size: 256
 dropout: 0.1
 fc_layers: null
 num_fc_layers: 0
-fc_size: 256
+output_size: 256
 use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
@@ -980,15 +994,17 @@ Output
 
 These are the available parameters of a tagger decoder:
 
-- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`, `activation`, `dropout`, `initializer` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.
+- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected
+layers. The length of the list determines the number of stacked fully connected layers and the content of each
+dictionary determines the parameters for a specific layer. The available parameters for each layer are: `activation`,
+`dropout`, `norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of
+those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.
 - `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes through. Their output is projected in the feature's output space.
-- `fc_size` (default `256`): if a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
+- `output_size` (default `256`): if an `output_size` is not already specified in `fc_layers` this is the default
+`output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
 - `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
 - `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `weights_regularizer` (default `null`): regularizer function applied to the weights matrix.  Valid values are `l1`, `l2` or `l1_l2`.
-- `bias_regularizer` (default `null`): regularizer function applied to the bias vector.  Valid values are `l1`, `l2` or `l1_l2`.
-- `activity_regularizer` (default `null`): regurlizer function applied to the output of the layer.  Valid values are `l1`, `l2` or `l1_l2`.
 - `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates how the output should be normalized and may be one of `null`, `batch` or `layer`.
 - `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
@@ -1020,13 +1036,10 @@ loss:
     unique: false
 fc_layers: null
 num_fc_layers: 0
-fc_size: 256
+output_size: 256
 use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-weights_regularizer: null
-bias_regularizer: null
-activity_regularizer: null
 norm: null
 norm_params: null
 activation: relu
@@ -1061,15 +1074,17 @@ If a `b x h` input is provided to a generator decoder using an rnn with attentio
 
 These are the available parameters of a Generator decoder:
 
-- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`, `activation`, `dropout`, `initializer` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.
+- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected
+layers. The length of the list determines the number of stacked fully connected layers and the content of each
+dictionary determines the parameters for a specific layer. The available parameters for each layer are: `activation`,
+`dropout`, `norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of
+those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.
 - `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes through. Their output is projected in the feature's output space.
-- `fc_size` (default `256`): if a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
+- `output_size` (default `256`): if an `output_size` is not already specified in `fc_layers` this is the default
+`output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
 - `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
 - `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `weights_regularizer` (default `null`): regularizer function applied to the weights matrix.  Valid values are `l1`, `l2` or `l1_l2`.
-- `bias_regularizer` (default `null`): regularizer function applied to the bias vector.  Valid values are `l1`, `l2` or `l1_l2`.
-- `activity_regularizer` (default `null`): regurlizer function applied to the output of the layer.  Valid values are `l1`, `l2` or `l1_l2`.
 - `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates how the output should be normalized and may be one of `null`, `batch` or `layer`.
 - `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
@@ -1105,13 +1120,9 @@ loss:
     unique: false
 fc_layers: null
 num_fc_layers: 0
-fc_size: 256
+output_size: 256
 use_bias: true
 weights_initializer: glorot_uniform
-bias_initializer: zeros
-weights_regularizer: null
-bias_regularizer: null
-activity_regularizer: null
 norm: null
 norm_params: null
 activation: relu

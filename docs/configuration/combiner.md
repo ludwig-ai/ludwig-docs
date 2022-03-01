@@ -33,15 +33,15 @@ These are the available parameters of a `concat` combiner:
 
 - `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers.
 The length of the list determines the number of stacked fully connected layers and the content of each dictionary
-determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`,
-`activation`, `dropout`, `initializer` and `regularize`. If any of those values is missing from the dictionary, the
-default one specified as a parameter of the decoder will be used instead.
+determines the parameters for a specific layer. The available parameters for each layer are: `output_size`, `norm`,
+`activation`, `dropout`, `weights_initializer` and `bias_initializer`. If any of those values is missing from the
+dictionary, the default one specified as a parameter of the decoder will be used instead.
 - `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes
 through. Their output is projected in the feature's output space.
-- `fc_size` (default `256`): if a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that
-will be used for each layer. It indicates the size of the output of a fully connected layer.
+- `output_size` (default `256`): if a `output_size` is not already specified in `fc_layers` this is the default
+`output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
-- `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`,
+- `weights_initializer` (default `'glorot_uniform'`): initializer for the weight matrix. Options are: `constant`,
 `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and
@@ -71,7 +71,7 @@ Example configuration of a `concat` combiner:
 type: concat
 fc_layers: null
 num_fc_layers: 0
-fc_size: 256
+output_size: 256
 use_bias: true
 weights_initializer: 'glorot_uniform'
 bias_initializer: 'zeros'
@@ -272,13 +272,13 @@ These are the available parameters of a `transformer` combiner:
 - `num_layers` (default `1`): number of layers in the stack of transformer blocks.
 - `hidden_size` (default `256`): hidden / embedding size of each transformer block.
 - `num_heads` (default `8`): number of attention heads of each transformer block.
-- `transformer_fc_size` (default `256`): size of the fully connected layers inside each transformer block.
+- `transformer_output_size` (default `256`): size of the fully connected layers inside each transformer block.
 - `dropout` (default `0`): dropout rate after the transformer.
-- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers.
+- `fc_layers` (default `null`): is a list of dictionaries containing the parameters of all the fully connected layers.
 The length of the list determines the number of stacked fully connected layers and the content of each dictionary
 determines the parameters for a specific layer. The available parameters for each layer are: `output_size`, `norm`,
-`activation`, `dropout`, and `initializer`. If any of those values is missing from the dictionary, the
-default one specified as a parameter of the decoder will be used instead.
+`activation`, `dropout`, `weights_initializer` and `bias_initializer`. If any of those values is missing from the
+dictionary, the default one specified as a parameter of the decoder will be used instead.
 - `num_fc_layers` (default 0): this is the number of stacked fully connected layers to apply after reduction of the
 transformer output sequence.
 - `output_size` (default `256`): if a `output_size` is not already specified in `fc_layers` this is the default
@@ -378,6 +378,11 @@ These are the available parameters of a `comparator` combiner:
 
 - `entity_1`: list of input features that compose the first entity to compare.
 - `entity_2`: list of input features that compose the second entity to compare.
+- `fc_layers` (default `null`): is a list of dictionaries containing the parameters of all the fully connected layers.
+The length of the list determines the number of stacked fully connected layers and the content of each dictionary
+determines the parameters for a specific layer. The available parameters for each layer are: `output_size`, `norm`,
+`activation`, `dropout`, `weights_initializer` and `bias_initializer`. If any of those values is missing from the
+dictionary, the default one specified as a parameter of the decoder will be used instead.
 - `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes
 through. Their output is projected in the feature's output space.
 - `output_size` (default `256`): if `output_size` is not already specified in `fc_layers` this is the default

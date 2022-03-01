@@ -57,7 +57,7 @@ Sequence input feature parameters are
 
 - `encoder` (default `parallel_cnn`): the name of the encoder to use to encode the sequence, one of `embed`,
 `parallel_cnn`, `stacked_cnn`, `stacked_parallel_cnn`, `rnn`, `cnnrnn`, `transformer` and `passthrough` (equivalent to
-`null` or `'None'`).
+`null` or `None`).
 - `tied_weights` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the
 name of a feature of the same type and with the same encoder parameters.
 
@@ -88,7 +88,7 @@ If you want to output the full `b x s x h` tensor, you can specify `reduce_outpu
 
 These are the parameters available for the embed encoder
 
-- `representation'` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
+- `representation` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
 initialized randomly, `sparse` means they are initialized to be one-hot encodings.
 - `embedding_size` (default `256`): it is the maximum embedding size, the actual size will be
 `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
@@ -108,7 +108,7 @@ allows for faster access, but in some cases the embedding matrix may be too larg
 placement of the embedding matrix in regular memory and the CPU is used for embedding lookup, slightly slowing down the
 process as a result of data transfer between CPU and GPU memory.
 - `dropout` (default `0`): dropout rate.
-- `weights_initializer` (default `'glorot_uniform'`): initializer for the weight matrix. Options are: `constant`,
+- `weights_initializer` (default `glorot_uniform`): initializer for the weight matrix. Options are: `constant`,
 `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
@@ -172,7 +172,7 @@ If you want to output the full `b x s x h` tensor, you can specify `reduce_outpu
 
 These are the available for an parallel cnn encoder:
 
-- `representation'` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
+- `representation` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
 initialized randomly, `sparse` means they are initialized to be one-hot encodings.
 - `embedding_size` (default `256`): it is the maximum embedding size, the actual size will be
 `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
@@ -222,13 +222,13 @@ applies if `reduce_output` is not `null`).
 - `output_size` (default `256`): if `output_size` is not already specified in `fc_layers` this is the default
 `output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
-- `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`,
+- `weights_initializer` (default `glorot_uniform`): initializer for the weights matrix. Options are: `constant`,
 `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
 keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
 refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`,
+- `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`,
 `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
@@ -311,7 +311,7 @@ returned tensor will be of shape `b x s' x h`, where `s'` is width of the output
 
 These are the parameters available for the stack cnn encoder:
 
-- `representation'` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
+- `representation` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
 initialized randomly, `sparse` means they are initialized to be one-hot encodings.
 - `embedding_size` (default `256`): the maximum embedding size, the actual size will be
 `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
@@ -365,13 +365,13 @@ applies if `reduce_output` is not `null`).
 - `output_size` (default `256`): if an `output_size` is not already specified in `fc_layers` this is the default
 `output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
-- `weights_initializer` (default `'glorot_uniform'`): initializer for the weight matrix. Options are: `constant`,
+- `weights_initializer` (default `glorot_uniform`): initializer for the weight matrix. Options are: `constant`,
 `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
 keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
 refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`,
+- `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`,
 `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
@@ -461,7 +461,7 @@ If you want to output the full `b x s x h` tensor, you can specify `reduce_outpu
 
 These are the available parameters for the stack parallel cnn encoder:
 
-- `representation'` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
+- `representation` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
 initialized randomly, `sparse` means they are initialized to be one-hot encodings.
 - `embedding_size` (default `256`): the maximum embedding size, the actual size will be
 `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
@@ -513,13 +513,13 @@ applies if `reduce_output` is not `null`).
 - `output_size` (default `256`): if an `output_size` is not already specified in `fc_layers` this is the default
 `output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
-- `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`,
+- `weights_initializer` (default `glorot_uniform`): initializer for the weights matrix. Options are: `constant`,
 `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
 keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
 refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`,
+- `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`,
 `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
@@ -600,7 +600,7 @@ If you want to output the full `b x s x h` where `h` is the size of the output o
 
 These are the available parameters for the rnn encoder:
 
-- `representation'` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
+- `representation` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
 initialized randomly, `sparse` means they are initialized to be one-hot encodings.
 - `embedding_size` (default `256`): the maximum embedding size, the actual size will be
 `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
@@ -626,10 +626,10 @@ reference about the differences between the cells please refer to
 [torch.nn Recurrent Layers](https://pytorch.org/docs/stable/nn.html#recurrent-layers).
 - `bidirectional` (default `false`): if `true` two recurrent networks will perform encoding in the forward and backward
 direction and their outputs will be concatenated.
-- `activation` (default `'tanh'`): activation function to use.
-- `recurrent_activation` (default `'sigmoid'`): activation function to use in the recurrent step
+- `activation` (default `tanh`): activation function to use.
+- `recurrent_activation` (default `sigmoid`): activation function to use in the recurrent step
 - `unit_forget_bias` (default `true`): If `true`, add 1 to the bias of the forget gate at initialization
-- `recurrent_initializer` (default `'orthogonal'`): initializer for recurrent matrix weights
+- `recurrent_initializer` (default `orthogonal`): initializer for recurrent matrix weights
 - `dropout` (default `0.0`): dropout rate
 - `recurrent_dropout` (default `0.0`): dropout rate for recurrent state
 - `fc_layers` (default `null`): a list of dictionaries containing the parameters of all the fully connected layers.
@@ -644,13 +644,13 @@ applies if `reduce_output` is not `null`).
 - `output_size` (default `256`): if an `output_size` is not already specified in `fc_layers` this is the default
 `output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
-- `weights_initializer` (default `'glorot_uniform'`): initializer for the weight matrix. Options are: `constant`,
+- `weights_initializer` (default `glorot_uniform`): initializer for the weight matrix. Options are: `constant`,
 `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
 keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
 refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`,
+- `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`,
 `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
@@ -733,7 +733,7 @@ If you want to output the full `b x s x h` where `h` is the size of the output o
 
 These are the available parameters of the cnn rnn encoder:
 
-- `representation'` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
+- `representation` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
 initialized randomly, `sparse` means they are initialized to be one-hot encodings.
 - `embedding_size` (default `256`): the maximum embedding size, the actual size will be
 `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
@@ -785,10 +785,10 @@ reference about the differences between the cells please refer to
 [torch.nn Recurrent Layers](https://pytorch.org/docs/stable/nn.html#recurrent-layers).
 - `bidirectional` (default `false`): if `true` two recurrent networks will perform encoding in the forward and backward
 direction and their outputs will be concatenated.
-- `activation` (default `'tanh'`): activation function to use
-- `recurrent_activation` (default `'sigmoid'`): activation function to use in the recurrent step
+- `activation` (default `tanh`): activation function to use
+- `recurrent_activation` (default `sigmoid`): activation function to use in the recurrent step
 - `unit_forget_bias` (default `true`): If `true`, add 1 to the bias of the forget gate at initialization
-- `recurrent_initializer` (default `'orthogonal'`): initializer for recurrent matrix weights
+- `recurrent_initializer` (default `orthogonal`): initializer for recurrent matrix weights
 - `dropout` (default `0.0`): dropout rate
 - `recurrent_dropout` (default `0.0`): dropout rate for recurrent state
 - `fc_layers` (default `null`): a list of dictionaries containing the parameters of all the fully connected
@@ -803,13 +803,13 @@ applies if `reduce_output` is not `null`).
 - `output_size` (default `256`): if an `output_size` is not already specified in `fc_layers` this is the default
 `output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
-- `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`,
+- `weights_initializer` (default `glorot_uniform`): initializer for the weights matrix. Options are: `constant`,
 `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
 keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
 refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`,
+- `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`,
 `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
@@ -901,7 +901,7 @@ layers at the end.
 
 ```
 
-- `representation'` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
+- `representation` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
 initialized randomly, `sparse` means they are initialized to be one-hot encodings.
 - `embedding_size` (default `256`): the maximum embedding size, the actual size will be
 `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
@@ -940,13 +940,13 @@ is not `null`).
 - `output_size` (default `256`): if an `output_size` is not already specified in `fc_layers` this is the default
 `output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
-- `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`,
+- `weights_initializer` (default `glorot_uniform`): initializer for the weights matrix. Options are: `constant`,
 `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
 keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
 refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`,
+- `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`,
 `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
@@ -1088,13 +1088,13 @@ through. Their output is projected in the feature's output space.
 - `output_size` (default `256`): if an `output_size` is not already specified in `fc_layers` this is the default
 `output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
-- `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`,
+- `weights_initializer` (default `glorot_uniform`): initializer for the weights matrix. Options are: `constant`,
 `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
 keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
 refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`,
+- `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`,
 `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
@@ -1193,13 +1193,13 @@ through. Their output is projected in the feature's output space.
 - `output_size` (default `256`): if an `output_size` is not already specified in `fc_layers` this is the default
 `output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
-- `weights_initializer` (default `'glorot_uniform'`): initializer for the weight matrix. Options are: `constant`,
+- `weights_initializer` (default `glorot_uniform`): initializer for the weight matrix. Options are: `constant`,
 `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
 keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
 refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`,
+- `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`,
 `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other

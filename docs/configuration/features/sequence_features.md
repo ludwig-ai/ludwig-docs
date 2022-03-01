@@ -4,7 +4,7 @@ Sequence features are transformed into an integer valued matrix of size `n x l` 
 is the minimum of the length of the longest sequence and a `sequence_length_limit` parameter) and added to HDF5 with a
 key that reflects the name of column in the dataset.
 The way sequences are mapped into integers consists of first using a tokenizer to map text to sequences of tokens
-(by default tokenization is done by splitting on spaces).
+(default tokenization is done by splitting on spaces).
 Next, a dictionary is constructed which maps each unique token to its frequency in the dataset column. Tokens are ranked
 by frequency and a sequential integer ID is assigned from the most frequent to the most rare (with 0 being assigned to
 `<PAD>` used for padding and 1 assigned to `<UNK>` item).
@@ -1158,7 +1158,7 @@ softmax_cross_entropy.
 During training teacher forcing is adopted, meaning the list of targets is provided as both inputs and outputs (shifted
 by 1), while at evaluation time greedy decoding (generating one token at a time and feeding it as input for the next
 step) is performed by beam search, using a beam of 1 by default.
-By default a generator expects a `b x h` shaped input tensor, where `h` is a hidden dimension.
+In general a generator expects a `b x h` shaped input tensor, where `h` is a hidden dimension.
 The `h` vectors are (after an optional stack of fully connected layers) fed into the rnn generator.
 One exception is when the generator uses attention, as in that case the expected size of the input tensor is
 `b x s x h`, which is the output of a sequence, text or time series input feature without reduced outputs or the output

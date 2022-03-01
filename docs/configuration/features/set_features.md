@@ -4,8 +4,8 @@ Set features are expected to be provided as a string of elements separated by wh
 The string values are transformed into a binary (int8 actually) valued matrix of size `n x l` (where `n` is the size of
 the dataset and `l` is the minimum of the size of the biggest set and a `max_size` parameter) and added to HDF5 with a
 key that reflects the name of column in the dataset.
-The way sets are mapped into integers consists in first using a tokenizer to map from strings to sequences of set items
-(by default this is done by splitting on spaces).
+The way sets are mapped into integers consists in first using a tokenizer to map each input string to a sequence of set
+elements (by default this is done by splitting on spaces).
 Next a dictionary is constructed which maps each unique element to its frequency in the dataset column. Elements are
 ranked by frequency and a sequential integer ID is assigned in ascending order from the most frequent to the most rare.
 The column name is added to the JSON file, with an associated dictionary containing
@@ -74,18 +74,42 @@ This parameter has effect only if `representation` is `dense`.
 allows for faster access, but in some cases the embedding matrix may be too large. This parameter forces the placement
 of the embedding matrix in regular memory and the CPU is used for embedding lookup, slightly slowing down the process as
 a result of data transfer between CPU and GPU memory.
-- `fc_layers` (default `null`): a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`, `activation`, `dropout`, `weights_initializer` and `weighs_regularizer`. If any of those values is missing from the dictionary, the default value will be used.
-- `num_fc_layers` (default `1`): this is the number of stacked fully connected layers that the input to the feature passes through. Their output is projected in the feature's output space.
-- `output_size` (default `10`): f a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
+- `fc_layers` (default `null`): a list of dictionaries containing the parameters of all the fully connected
+layers. The length of the list determines the number of stacked fully connected layers and the content of each
+dictionary determines the parameters for a specific layer. The available parameters for each layer are: `activation`,
+`dropout`, `norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of
+those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used
+instead. If both `fc_layers` and `num_fc_layers` are `null`, a default list will be assigned to `fc_layers` with the
+value `[{output_size: 512}, {output_size: 256}]` (only applies if `reduce_output` is not `null`).
+- `num_fc_layers` (default `1`): this is the number of stacked fully connected layers that the input to the feature
+passes through. Their output is projected in the feature's output space.
+- `output_size` (default `10`): if `output_size` is not already specified in `fc_layers` this is the default
+`output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
-- `weights_initializer` (default `glorot_uniform`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
-- `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
-- `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
+- `weights_initializer` (default `glorot_uniform`): initializer for the weight matrix. Options are: `constant`,
+`identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
+`glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
+Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
+keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer,
+please refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
+- `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`,
+`ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`,
+`xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is
+possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its
+parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to
+[torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
+- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be
+used for each layer. It indicates how the output should be normalized and may be one of `null`, `batch` or `layer`.
+- `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters
+used with `batch` see the [Torch documentation on batch normalization](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm1d.html)
+or for `layer` see the [Torch documentation on layer normalization](https://pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html).
+- `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default
+`activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `dropout` (default `0`): dropout rate
-- `reduce_output` (default `sum`): describes the strategy to use to aggregate the embeddings of the items of the set. Possible values are `sum`, `mean` and `sqrt` (the weighted sum divided by the square root of the sum of the squares of the weights).
-- `tied_weights` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
+- `reduce_output` (default `sum`): describes the strategy to use to aggregate the embeddings of the items of the set.
+Available values are: `sum`, `mean` or `avg`, `max`, `concat` and  `null` (which does not reduce and returns the full tensor).
+- `tied_weights` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the
+name of a feature of the same type and with the same encoder parameters.
 
 Example set feature entry in the input features list:
 
@@ -99,7 +123,7 @@ pretrained_embeddings: null
 embeddings_on_cpu: false
 fc_layers: null
 num_fc_layers: 0
-fc_size: 10
+output_size: 10
 use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
@@ -114,7 +138,8 @@ tied_weights: null
 ## Set Output Features and Decoders
 
 Set features can be used when multi-label classification needs to be performed.
-There is only one decoder available for set features and it is a (potentially empty) stack of fully connected layers, followed by a projection into a vector of size of the number of available classes, followed by a sigmoid.
+There is only one decoder available for set features: a (potentially empty) stack of fully connected layers, followed by
+a projection into a vector of size of the number of available classes, followed by a sigmoid.
 
 ```
 +--------------+   +---------+   +-----------+
@@ -126,27 +151,52 @@ There is only one decoder available for set features and it is a (potentially em
 
 These are the available parameters of the set output feature
 
-- `reduce_input` (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension).
-- `dependencies` (default `[]`): the output features this one is dependent on. For a detailed explanation refer to [Output Features Dependencies](#output-features-dependencies).
-- `reduce_dependencies` (default `sum`): defines how to reduce the output of a dependent feature that is not a vector, but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension).
-- `loss` (default `{type: sigmoid_cross_entropy}`): is a dictionary containing a loss `type`. The available loss `type` is `sigmoid_cross_entropy`.
+- `reduce_input` (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order
+tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`,
+`max`, `concat` (concatenates along the first dimension).
+- `dependencies` (default `[]`): the output features this one is dependent on. For a detailed explanation refer to
+[Output Feature Dependencies](../output_features#output-feature-dependencies).
+- `reduce_dependencies` (default `sum`): defines how to reduce the output of a dependent feature that is not a vector,
+but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available
+values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last
+vector of the first dimension).
+- `loss` (default `{type: sigmoid_cross_entropy}`): is a dictionary containing a loss `type`. The only supported loss
+`type` for set features is `sigmoid_cross_entropy`.
 
 These are the available parameters of a set output feature decoder
 
-- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`, `activation`, `dropout`, `initializer` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.
-- `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes through. Their output is projected in the feature's output space.
-- `fc_size` (default `256`): f a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
+- `fc_layers` (default `null`): a list of dictionaries containing the parameters of all the fully connected
+layers. The length of the list determines the number of stacked fully connected layers and the content of each
+dictionary determines the parameters for a specific layer. The available parameters for each layer are: `activation`,
+`dropout`, `norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of
+those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.
+- `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes
+through. Their output is projected in the feature's output space.
+- `output_size` (default `256`): if `output_size` is not already specified in `fc_layers` this is the default
+`output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
-- `weights_initializer` (default `glorot_uniform`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `weights_regularizer` (default `null`): regularizer function applied to the weights matrix.  Valid values are `l1`, `l2` or `l1_l2`.
-- `bias_regularizer` (default `null`): regularizer function applied to the bias vector.  Valid values are `l1`, `l2` or `l1_l2`.
-- `activity_regularizer` (default `null`): regurlizer function applied to the output of the layer.  Valid values are `l1`, `l2` or `l1_l2`.
-- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
-- `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
-- `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
+- `weights_initializer` (default `glorot_uniform`): initializer for the weight matrix. Options are: `constant`,
+`identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
+`glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
+Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
+keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
+refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
+- `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`,
+`ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`,
+`xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is
+possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its
+parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to
+[torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
+- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be
+used for each layer. It indicates how the output should be normalized and may be one of `null`, `batch` or `layer`.
+- `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters
+used with `batch` see the [Torch documentation on batch normalization](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm1d.html)
+or for `layer` see the [Torch documentation on layer normalization](https://pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html).
+- `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default
+`activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `dropout` (default `0`): dropout rate
-- `threshold` (default `0.5`): The threshold above (greater or equal) which the predicted output of the sigmoid will be mapped to 1.
+- `threshold` (default `0.5`): The threshold above (greater or equal) which the predicted output of the sigmoid will be
+mapped to 1.
 
 Example set feature entry (with default parameters) in the output features list:
 
@@ -160,13 +210,10 @@ loss:
     type: sigmoid_cross_entropy
 fc_layers: null
 num_fc_layers: 0
-fc_size: 256
+output_size: 256
 use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-weights_regularizer: null
-bias_regularizer: null
-activity_regularizer: null
 norm: null
 norm_params: null
 activation: relu
@@ -176,5 +223,7 @@ threshold: 0.5
 
 ## Set Features Measures
 
-The measures that are calculated every epoch and are available for category features are `jaccard_index` and the `loss` itself.
-You can set either of them as
+The measures that are calculated every epoch and are available for set features are `jaccard` (counts the number of
+elements in the intersection of prediction and label divided by number of elements in the union) and the `loss` itself.
+You can set either of them as `validation_measure` in the `training` section of the configuration if you set the
+`validation_field` to be the name of a sequence feature.

@@ -1,9 +1,9 @@
 ## Set Features Preprocessing
 
 Set features are expected to be provided as a string of elements separated by whitespace, e.g. "elem5 elem9 elem6".
-The string values are transformed into a binary (int8 actually) valued matrix of size `n x l` (where `n` is the size of
-the dataset and `l` is the minimum of the size of the biggest set and a `max_size` parameter) and added to HDF5 with a
-key that reflects the name of column in the dataset.
+The string values are transformed into a binary (int8 actually) valued matrix of size `n x l` (where `n` is the number
+of rows in the dataset and `l` is the minimum of the size of the biggest set and a `max_size` parameter) and added to
+HDF5 with a key that reflects the name of column in the dataset.
 The way sets are mapped into integers consists in first using a tokenizer to map each input string to a sequence of set
 elements (by default this is done by splitting on spaces).
 Next a dictionary is constructed which maps each unique element to its frequency in the dataset column. Elements are
@@ -35,7 +35,7 @@ than this amount, the most infrequent tokens will be treated as unknown.
 
 ## Set Input Features and Encoders
 
-Set features have one encoder, the raw binary values coming from the input placeholders are first transformed in sparse
+Set features have one encoder, the raw binary values coming from the input placeholders are first transformed to sparse
 integer lists, then they are mapped to either dense or sparse embeddings (one-hot encodings), finally they are
 reduced on the sequence dimension and returned as an aggregated embedding vector.
 Inputs are of size `b` while outputs are of size `b x h` where `b` is the batch size and `h` is the dimensionality of

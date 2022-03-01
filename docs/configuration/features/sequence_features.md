@@ -689,7 +689,6 @@ activation: tanh
 recurrent_activation: sigmoid
 unit_forget_bias: true
 recurrent_initializer: orthogonal
-recurrent_regularizer: null
 dropout: 0.0
 recurrent_dropout: 0.0
 fc_layers: null
@@ -1257,6 +1256,7 @@ fc_layers: null
 num_fc_layers: 0
 output_size: 256
 use_bias: true
+bias_initializer: zeros
 weights_initializer: glorot_uniform
 norm: null
 norm_params: null

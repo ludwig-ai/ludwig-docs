@@ -42,7 +42,7 @@ Audio files are transformed into one of the following types according to `type` 
 - `stft_phase`: the phase information for each stft bin is appended to the `stft` magnitude so that the audio file is transformed into a float valued tensor of size `N x L x 2W` with `N,L,W` being equal to the ones in `stft`.
 - `group_delay`: audio is transformed to group delay features according to Equation (23) in this [paper](https://www.ias.ac.in/article/fullyext/sadh/036/05/0745-0782). Group_delay features has the same tensor size as `stft`.
 
-Audio feature encoders are the same as for [Sequence Features](#sequence-input-features-and-encoders).
+Audio feature encoders are the same as for [Sequence Features](../sequence_features#sequence-input-features-and-encoders).
 
 ## Audio Output Features and Decoders
 

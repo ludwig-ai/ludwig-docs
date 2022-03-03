@@ -200,7 +200,7 @@ hyperopt:
 
 ## Serial Executor
 
-The `serial`executor performs hyper-parameter optimization locally in a serial manner, executing the elements in the set
+The `serial` executor performs hyper-parameter optimization locally in a serial manner, executing the elements in the set
 of sampled parameters obtained by the selected sampler one at a time.
 
 Example:

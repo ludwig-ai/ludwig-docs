@@ -37,6 +37,7 @@ nav:
       - "Third-Party Integrations": "user_guide/integrations.md"
   - Configuration:
       - "Configuration": "configuration/index.md"
+      - "Preprocessing": "configuration/preprocessing.md"
       - "Features":
           - "Supported Data Types": "configuration/features/supported_data_types.md"
           - "Input Features (↑)": "configuration/features/input_features.md"
@@ -55,7 +56,6 @@ nav:
           - "↑ Image Features": "configuration/features/image_features.md"
           - "↑ Time Series Features": "configuration/features/time_series_features.md"
       - "Combiner": "configuration/combiner.md"
-      - "Preprocessing": "configuration/preprocessing.md"
       - "Training": "configuration/training.md"
       - "Hyperopt": "configuration/hyperparameter_optimization.md"
   - Examples:

@@ -104,7 +104,8 @@ These are the available parameters of the vector output feature.
 
 These are the available parameters of a vector output feature decoder.
 
-- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`, `activation`, `dropout`, `initializer` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.
+- `fc_layers` (default `null`): a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `activation`,
+`dropout`, `norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.
 - `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes through. Their output is projected in the feature's output space.
 - `output_size` (default `256`): if a `output_size` is not already specified in `fc_layers` this is the default `output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.

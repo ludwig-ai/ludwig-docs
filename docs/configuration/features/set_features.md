@@ -89,15 +89,9 @@ passes through. Their output is projected in the feature's output space.
 - `weights_initializer` (default `glorot_uniform`): initializer for the weight matrix. Options are: `constant`,
 `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
-Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
-keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer,
-please refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
 - `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`,
 `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`,
-`xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is
-possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its
-parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to
-[torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
+`xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
 - `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be
 used for each layer. It indicates how the output should be normalized and may be one of `null`, `batch` or `layer`.
 - `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters
@@ -178,9 +172,6 @@ through. Their output is projected in the feature's output space.
 - `weights_initializer` (default `glorot_uniform`): initializer for the weight matrix. Options are: `constant`,
 `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
-Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
-keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
-refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
 - `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`,
 `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`,
 `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is
@@ -226,4 +217,4 @@ threshold: 0.5
 The metrics that are calculated every epoch and are available for set features are `jaccard` (counts the number of
 elements in the intersection of prediction and label divided by number of elements in the union) and the `loss` itself.
 You can set either of them as `validation_metric` in the `training` section of the configuration if you set the
-`validation_field` to be the name of a sequence feature.
+`validation_field` to be the name of a set feature.

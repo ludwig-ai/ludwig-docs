@@ -34,9 +34,11 @@ The available encoder parameters are:
 - `tied_weights` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the
 name of a feature of the same type and with the same encoder parameters.
 
+### Passthrough Encoder
+
 There are no additional parameters for the `passthrough` encoder.
 
-## Dense Encoder Parameters
+### Dense Encoder
 
 For the `dense` encoder these are the available parameters.
 

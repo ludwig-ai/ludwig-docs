@@ -155,7 +155,7 @@ It takes the following optional parameters:
 - `state_size` (default `256`): the size of the state of the rnn.
 - `cell_type` (default `rnn`): the type of recurrent cell to use. Available values are: `rnn`, `lstm`, `gru`.
 - `bidirectional` (default `false`): if `true` two recurrent networks will perform encoding in the forward and backward direction and their outputs will be concatenated.
-- `activation` (default `'tanh'`): activation function to use
+- `activation` (default `tanh`): activation function to use
 - `recurrent_activation` (default `sigmoid`): activation function to use in the recurrent step
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
 - `unit_forget_bias` (default `true`): If `true`, add 1 to the bias of the forget gate at initialization

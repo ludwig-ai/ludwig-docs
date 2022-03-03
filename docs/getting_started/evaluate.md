@@ -1,6 +1,6 @@
 After the model has been trained, it can be used to predict the target output features on new data.
 
-We've created a small test dataset containing input features for 10 movie reviews that we can use for testing. Download this dataset <a id="raw-url" href="https://raw.githubusercontent.com/connor-mccorm/ludwig-ai/ludwig-docs/tree/master/docs/rotten_tomatoes_test.csv">here</a>.
+We've created a small test dataset containing input features for 10 movie reviews that we can use for testing. Download this dataset [here](https://github.com/ludwig-ai/ludwig-docs/raw/getting-started/docs/data/rotten_tomatoes_test.csv)
 
 Now, let's make some predictions on the test dataset:
 

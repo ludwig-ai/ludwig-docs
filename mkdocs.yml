@@ -56,7 +56,7 @@ nav:
           - "↑ Time Series Features": "configuration/features/time_series_features.md"
       - "Combiner": "configuration/combiner.md"
       - "Preprocessing": "configuration/preprocessing.md"
-      - "Training": "configuration/training.md"
+      - "Trainer": "configuration/trainer.md"
       - "Hyperopt": "configuration/hyperparameter_optimization.md"
   - Examples:
       - "Examples": "examples/index.md"

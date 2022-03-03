@@ -89,7 +89,6 @@ norm: null
 norm_params: null
 activation: relu
 dropout: 0
-reduce_output: sum
 ```
 
 This encoder encodes each components of the H3 representation (mode, edge, resolution, base cell and children cells) with embeddings.

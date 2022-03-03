@@ -3,7 +3,7 @@
 We craft Ludwig with love and care, at the best of our skills and knowledge, but this project would not be possible without the contribution of an incredible community.
 With the support of the community we were able to improve the quality of Ludwig dramatically, as members provided both fixes, new features and helped directing the developments.
 We are really grateful for that and in exchange we strive to make the development process as open as possible and communication with the development team easy and direct.
-We strive to create an inclusive community where everyone is welcome as long as they respect everyone else, so harassment and any other form of non inclusive behaviour will not be allowed.
+We strive to create an inclusive community where everyone is welcome as long as they respect everyone else, so harassment and any other form of non inclusive behavior will not be allowed.
 
 # Issues
 

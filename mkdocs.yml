@@ -37,6 +37,7 @@ nav:
       - "Third-Party Integrations": "user_guide/integrations.md"
   - Configuration:
       - "Configuration": "configuration/index.md"
+      - "Preprocessing": "configuration/preprocessing.md"
       - "Features":
           - "Supported Data Types": "configuration/features/supported_data_types.md"
           - "Input Features (↑)": "configuration/features/input_features.md"

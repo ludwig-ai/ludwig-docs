@@ -1,7 +1,10 @@
 ## Category Features Preprocessing
 
-Category features are transformed into an integer valued vector of size `n` (where `n` is the size of the dataset) and added to the HDF5 with a key that reflects the name of column in the dataset.
-The way categories are mapped into integers consists in first collecting a dictionary of all the different category strings present in the column of the dataset, then ranking them by frequency and then assigning them an increasing integer ID from the most frequent to the most rare (with 0 being assigned to a `<UNK>` token).
+Category features are transformed into integer valued vectors of size `n` (where `n` is the size of the dataset) and
+added to the HDF5 with a key that reflects the name of column in the dataset.
+Categories are mapped to integers by first collecting a dictionary of all unique category strings present in the column
+of the dataset, ranking them descending by frequency and assigning a sequential integer ID from the most frequent to the
+most rare (with 0 assigned to the special unknown placeholder token `<UNK>`).
 The column name is added to the JSON file, with an associated dictionary containing
 
 1. the mapping from integer to string (`idx2str`)
@@ -12,23 +15,32 @@ The column name is added to the JSON file, with an associated dictionary contain
 
 The parameters available for preprocessing are
 
-- `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
-- `fill_value` (default `"<UNK>"`): the value to replace the missing values with in case the `missing_value_strategy` is `fill-value`.
+- `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there is a missing value in the
+category column. The value should be one of `fill_with_const` (replaces the missing value with a specific value
+specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value
+in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill`
+(replaces the missing values with the next valid value).
+- `fill_value` (default `<UNK>`): the value to replace missing values with when `missing_value_strategy` is
+`fill_with_const`.
 - `lowercase` (default `false`): if the string has to be lowercased before being handled by the tokenizer.
-- `most_common` (default `10000`): the maximum number of most common tokens to be considered. if the data contains more than this amount, the most infrequent tokens will be treated as unknown.
+- `most_common` (default `10000`): the maximum number of most common tokens to be considered. if the data contains more
+than this amount, the most infrequent tokens will be treated as unknown.
 
 ## Category Input Features and Encoders
 
 Category features have three encoders.
 The `passthrough` encoder passes the raw integer values coming from the input placeholders to outputs of size `b x 1`.
-The other two encoders map to either `dense` or `sparse` embeddings (one-hot encodings) and returned as outputs of size `b x h`, where `b` is the batch size and `h` is the dimenionsality of the embeddings.
+The other two encoders map to either `dense` or `sparse` embeddings (one-hot encodings) and returned as outputs of size
+`b x h`, where `b` is the batch size and `h` is the dimensionality of the embeddings.
 
 Input feature parameters.
 
-- `encoder'` (default `dense`): the possible values are `passthrough`, `dense` and `sparse`. `passthrough` means passing the raw integer values unaltered.  `dense` means the embeddings are initialized randomly, `sparse` means they are initialized to be one-hot encodings.
-- `tied_weights` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
+- `encoder` (default `dense`): the possible values are `passthrough`, `dense` and `sparse`. `passthrough` outputs the
+raw integer values unaltered. `dense` randomly initializes a trainable embedding matrix, `sparse` uses one-hot encoding.
+- `tied_weights` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the
+name of a feature of the same type and with the same encoder parameters.
 
-Example binary feature entry in the input features list:
+Example category feature entry in the input features list:
 
 ```yaml
 name: category_column_name
@@ -41,17 +53,36 @@ The available encoder parameters:
 
 ### Dense Encoder
 
-- `embedding_size` (default `256`): it is the maximum embedding size, the actual size will be `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse` encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the column the feature is named after (plus 1 for `<UNK>`).
-- `embeddings_on_cpu` (default `false`): by default embeddings matrices are stored on GPU memory if a GPU is used, as it allows for faster access, but in some cases the embedding matrix may be really big and this parameter forces the placement of the embedding matrix in regular memory and the CPU is used to resolve them, slightly slowing down the process as a result of data transfer between CPU and GPU memory.
-- `pretrained_embeddings` (default `null`): by default `dense` embeddings are initialized randomly, but this parameter allows to specify a path to a file containing embeddings in the [GloVe format](https://nlp.stanford.edu/projects/glove/). When the file containing the embeddings is loaded, only the embeddings with labels present in the vocabulary are kept, the others are discarded. If the vocabulary contains strings that have no match in the embeddings file, their embeddings are initialized with the average of all other embedding plus some random noise to make them different from each other. This parameter has effect only if `representation` is `dense`.
-- `embeddings_trainable` (default `true`): If `true` embeddings are trained during the training process, if `false` embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter has effect only when `representation` is `dense` as `sparse` one-hot encodings are not trainable.
+- `embedding_size` (default `256`): the maximum embedding size, the actual size will be
+`min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
+encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the column the
+feature is named after (plus 1 for `<UNK>`).
+- `embeddings_on_cpu` (default `false`): by default embedding matrices are stored on GPU memory if a GPU is used, as it
+allows for faster access, but in some cases the embedding matrix may be too large. This parameter forces the
+placement of the embedding matrix in regular memory and the CPU is used for embedding lookup, slightly slowing down the
+process as a result of data transfer between CPU and GPU memory.
+- `pretrained_embeddings` (default `null`): by default `dense` embeddings are initialized randomly, but this parameter
+allows to specify a path to a file containing embeddings in the [GloVe format](https://nlp.stanford.edu/projects/glove/).
+When the file containing the embeddings is loaded, only the embeddings with labels present in the vocabulary are kept,
+the others are discarded. If the vocabulary contains strings that have no match in the embeddings file, their embeddings
+are initialized with the average of all other embedding plus some random noise to make them different from each other.
+This parameter has effect only if `representation` is `dense`.
+- `embeddings_trainable` (default `true`): If `true` embeddings are trained during the training process, if `false`
+embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter
+has effect only when `representation` is `dense` as `sparse` one-hot encodings are not trainable.
 - `dropout` (default `0`): dropout rate.
-- `embedding_initializer` (default `null`): the initializer to use. If `null`, the default initialized of each variable is used (`glorot_uniform` in most cases). Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `embedding_regularizer` (default `null`): specifies the type of regularizer to use `l1`, `l2` or `l1_l2`.
+- `embedding_initializer` (default `null`): the initializer to use. If `null`, the default initialized of each variable
+is used (`glorot_uniform` in most cases). Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`,
+`uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`,
+`he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a
+key `type` that identifies the type of initializer and other keys for its parameters, e.g.
+`{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to
+[TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
 
 ### Sparse Encoder
 
-- `embedding_size` (default `256`): it is the maximum embedding size, the actual size will be `min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse` encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the column the feature is named after (plus 1 for `<UNK>`).
+- `embedding_size` (default `256`): it is the maximum embedding size, the actual size will be
+`min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse` encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the column the feature is named after (plus 1 for `<UNK>`).
 - `embeddings_on_cpu` (default `false`): by default embeddings matrices are stored on GPU memory if a GPU is used, as it allows for faster access, but in some cases the embedding matrix may be really big and this parameter forces the placement of the embedding matrix in regular memory and the CPU is used to resolve them, slightly slowing down the process as a result of data transfer between CPU and GPU memory.
 - `pretrained_embeddings` (default `null`): by default `dense` embeddings are initialized randomly, but this parameter allows to specify a path to a file containing embeddings in the [GloVe format](https://nlp.stanford.edu/projects/glove/). When the file containing the embeddings is loaded, only the embeddings with labels present in the vocabulary are kept, the others are discarded. If the vocabulary contains strings that have no match in the embeddings file, their embeddings are initialized with the average of all other embedding plus some random noise to make them different from each other. This parameter has effect only if `representation` is `dense`.
 - `embeddings_trainable` (default `true`): If `true` embeddings are trained during the training process, if `false` embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter has effect only when `representation` is `dense` as `sparse` one-hot encodings are not trainable.
@@ -120,8 +151,8 @@ These are the available parameters of a category output feature decoder
 - `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
 - `dropout` (default `false`): determines if there should be a dropout layer after each layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
-- `weights_initializer` (default `'glorot_uniform'`): initializer for the fully connected weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `weights_initializer` (default `glorot_uniform`): initializer for the fully connected weight matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+- `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
 - `weights_regularizer` (default `null`): regularizer function applied to the fully connected weights matrix.  Valid values are `l1`, `l2` or `l1_l2`.
 - `bias_regularizer` (default `null`): regularizer function applied to the bias vector.  Valid values are `l1`, `l2` or `l1_l2`.
 - `activity_regularizer` (default `null`): regurlizer function applied to the output of the layer.  Valid values are `l1`, `l2` or `l1_l2`.

@@ -19,7 +19,7 @@ The parameters for preprocessing are:
 
 ## H3 Input Features and Encoders
 
-Input date features are transformed into a int valued tensors of size `N x 19` (where `N` is the size of the dataset and the 19 dimensions
+Input H3 features are transformed into a int valued tensors of size `N x 19` (where `N` is the size of the dataset and the 19 dimensions
 represent 4 H3 resolution parameters (4) - mode, edge, resolution, base cell - and 15 cell coordinate values.
 
 Currently there are three encoders supported for H3: `H3Embed` (default), `H3WeightedSum`,  and `H3RNN`. The encoder can be set by specifying `embed`, `weighted_sum`, or `rnn` in the input feature's configuration.
@@ -72,6 +72,26 @@ It takes the following optional parameters:
 
 ### Weighted Sum Embed Encoder
 
+```yaml
+name: h3_column_name
+type: h3
+encoder: weighted_sum
+embedding_size: 10
+embeddings_on_cpu: false
+should_softmax: false
+fc_layers: null
+num_fc_layers: 0
+fc_size: 10
+use_bias: true
+weights_initializer: glorot_uniform
+bias_initializer: zeros
+norm: null
+norm_params: null
+activation: relu
+dropout: 0
+reduce_output: sum
+```
+
 This encoder encodes each components of the H3 representation (mode, edge, resolution, base cell and children cells) with embeddings.
 Children cells with value `0` will be masked out.
 
@@ -93,28 +113,6 @@ It takes the following optional parameters:
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `dropout` (default `0`): dropout rate
 - `reduce_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and  `null` (which does not reduce and returns the full tensor).
-
-Example date feature entry in the input features list using an embed encoder:
-
-```yaml
-name: h3_column_name
-type: h3
-encoder: weighted_sum
-embedding_size: 10
-embeddings_on_cpu: false
-should_softmax: false
-fc_layers: null
-num_fc_layers: 0
-fc_size: 10
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-norm: null
-norm_params: null
-activation: relu
-dropout: 0
-reduce_output: sum
-```
 
 ### RNN Encoder
 

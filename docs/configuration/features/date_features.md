@@ -111,7 +111,12 @@ This encoder passes the year through a fully connected layer of one neuron and r
 
 It takes the following parameters:
 
-- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`, `activation` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both `fc_layers` and `num_fc_layers` are `null`, a default list will be assigned to `fc_layers` with the value `[{fc_size: 512}, {fc_size: 256}]` (only applies if `reduce_output` is not `null`).
+- `fc_layers` (default `null`): a list of dictionaries containing the parameters of all the fully connected
+layers. The length of the list determines the number of stacked fully connected layers and the content of each
+dictionary determines the parameters for a specific layer. The available parameters for each layer are: `activation`,
+`dropout`, `norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of
+those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used
+instead.
 - `num_fc_layers` (default `0`): This is the number of stacked fully connected layers.
 - `fc_size` (default `10`): if a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.

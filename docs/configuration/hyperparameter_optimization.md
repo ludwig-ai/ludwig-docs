@@ -1,17 +1,5 @@
-In order to perform hyper-parameter optimization, its configuration has to be provided inside the Ludwig configuration as a root key `hyperopt`.
-Its configuration contains what metric to optimize, which parameters to optimize, which sampler to use, and how to execute the optimization.
-
-The different parameters that could be defined in the `hyperopt` configuration are:
-
-- `goal` which indicates if to minimize or maximize a metric or a loss of any of the output features on any of the dataset splits. Available values are: `minimize` (default) or `maximize`.
-- `output_feature` is a `str` containing the name of the output feature that we want to optimize the metric or loss of. Available values are `combined` (default) or the name of any output feature provided in the configuration. `combined` is a special output feature that allows to optimize for the aggregated loss and metrics of all output features.
-- `metric` is the metric that we want to optimize for. The default one is `loss`, but depending on the type of the feature defined in `output_feature`, different metrics and losses are available. Check the metrics section of the specific output feature type to figure out what metrics are available to use.
-- `split` is the split of data that we want to compute our metric on. By default it is the `validation` split, but you have the flexibility to specify also `train` or `test` splits.
-- `parameters` section consists of a set of hyper-parameters to optimize. They are provided as keys (the names of the parameters) and values associated with them (that define the search space). The values vary depending on the type of the hyper-parameter. Types can be `float`, `int` and `category`.
-- `sampler` section contains the sampler type to be used for sampling hyper-paramters values and its configuration. Currently available sampler types are `grid` and `random`. The sampler configuration parameters modify the sampler behavior, for instance for `random` you can set how many random samples to draw.
-- `executor` section specifies how to execute the hyper-parameter optimization. The execution could happen locally in a serial manner or in parallel across multiple workers and with GPUs as well if available.
-
-Example:
+The `hyperopt` section of the Ludwig configuration contains what metrics to optimize for, which parameters to optimize,
+sampler, and execution strategy.
 
 ```yaml
 hyperopt:
@@ -36,74 +24,76 @@ hyperopt:
     # executor parameters...
 ```
 
+# Hyperopt configuration parameters
+
+- `goal` which indicates if to minimize or maximize a metric or a loss of any of the output features on any of the dataset splits. Available values are: `minimize` (default) or `maximize`.
+- `output_feature` is a `str` containing the name of the output feature that we want to optimize the metric or loss of. Available values are `combined` (default) or the name of any output feature provided in the configuration. `combined` is a special output feature that allows to optimize for the aggregated loss and metrics of all output features.
+- `metric` is the metric that we want to optimize for. The default one is `loss`, but depending on the type of the feature defined in `output_feature`, different metrics and losses are available. Check the metrics section of the specific output feature type to figure out what metrics are available to use.
+- `split` is the split of data that we want to compute our metric on. By default it is the `validation` split, but you have the flexibility to specify also `train` or `test` splits.
+- `parameters` section consists of a set of hyper-parameters to optimize. They are provided as keys (the names of the parameters) and values associated with them (that define the search space). The values vary depending on the type of the hyper-parameter. Types can be `float`, `int` and `category`.
+- `sampler` section contains the sampler type to be used for sampling hyper-paramters values and its configuration. Currently available sampler types are `grid` and `random`. The sampler configuration parameters modify the sampler behavior, for instance for `random` you can set how many random samples to draw.
+- `executor` section specifies how to execute the hyper-parameter optimization. The execution could happen locally in a serial manner or in parallel across multiple workers and with GPUs as well if available.
+
+# Defining hyper-parameter search spaces
+
 In the `parameters` section, `.` is used to reference an parameter nested inside a section of the configuration.
 For instance, to reference the `learning_rate`, one would have to use the name `training.learning_rate`.
 If the parameter to reference is inside an input or output feature, the name of that feature will be be used as starting point.
 For instance, for referencing the `cell_type` of the `utterance` feature, use the name `utterance.cell_type`.
 
-# Hyper-parameters
+## Numerical ranges
 
-## Float parameters
+- `space`: Use `linear` or `log`.
+- `range.low`: the minimum value the parameter can have
+- `range.high`: the maximum value the parameter can have
+- `steps`: (optional) number of steps to break down a range.
 
-For a `float` value, the parameters to specify are:
+For instance `range: (0.0, 1.0), steps: 3` would yield `[0.0, 0.5, 1.0]` as potential values to sample from, while if
+`steps` is not specified, the full range between `0.0` and `1.0` will be used.
 
-- `low`: the minimum value the parameter can have
-- `high`: the maximum value the parameter can have
-- `scale`: `linear` (default) or `log`
-- `steps`: OPTIONAL number of steps.
-
-For instance `range: (0.0, 1.0), steps: 3` would yield `[0.0, 0.5, 1.0]` as potential values to sample from, while if `steps` is not specified, the full range between `0.0` and `1.0` will be used.
-
-Example:
+Float example:
 
 ```yaml
 training.learning_rate:
-  type: real
-  low: 0.001
-  high: 0.1
+  space: linear
+  range:
+    low: 0.001
+    high: 0.1
   steps: 4
-  scale: linear
 ```
 
-## Int parameters
-
-For an `int` value, the parameters to specify are:
-
-- `low`: the minimum value the parameter can have
-- `high`: the maximum value the parameter can have
-- `steps`: OPTIONAL number of steps.
-
-For instance `range: (0, 10), steps: 3` would yield `[0, 5, 10]` for the search, while if `steps` is not specified, `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]` will be used.
-
-Example:
+Integer example:
 
 ```yaml
 combiner.num_fc_layers:
-  type: int
-  low: 1
-  high: 4
+  space: linear
+  range:
+    low: 1
+    high: 4
 ```
 
-## Category parameters
+## Categorical selection
 
-For a `category` value, the parameters to specify are:
-
-- `values`: a list of possible values. The type of each value of the list is not important (they could be strings, integers, floats and anything else, even entire dictionaries).
+- `space`: Use `choice`.
+- `categories`: a list of possible values. The type of each value of the list is not important (they could be strings,
+integers, floats and anything else, even entire dictionaries).
 
 Example:
 
 ```yaml
 utterance.cell_type:
-  type: category
-  values: [rnn, gru, lstm]
+  categories: [rnn, gru, lstm]
+  space: choice
 ```
 
 # Sampler
 
 ## Grid sampler
 
-The `grid` sampler creates a search space by exhaustively selecting all elements from the outer product of all possible values of the hyper-parameters provided in the `parameters` section.
-For `float` parameters, it is required to specify the number of `steps`.
+The `grid` sampler creates a search space by exhaustively selecting all elements from the outer product of all possible
+combinations of hyper-parameter values provided in the `parameters` section.
+
+To use `grid` sampling with `float` parameters, it is required to specify the number of `steps`.
 
 Example:
 
@@ -127,14 +117,17 @@ sampler:
 
 ## PySOT sampler
 
-The `pysot` sampler uses the [pySOT](https://arxiv.org/pdf/1908.00420.pdf) package for asynchronous surrogate optimization.
-This package implements many popular methods from Bayesian optimization and surrogate optimization.
-By default, pySOT uses the Stochastic RBF (SRBF) method by [Regis and Shoemaker](https://pubsonline.informs.org/doi/10.1287/ijoc.1060.0182).
-SRBF starts by evaluating a symmetric Latin hypercube design of size `2 * d + 1`, where d is the number of hyperparameters that are optimized.
-When these points have been evaluated, SRBF fits a radial basis function surrogate and uses this surrogate together with an acquisition function to select the next sample(s).
-We recommend using at least `10 * d` total samples to allow the algorithm to converge.
+The `pysot` sampler uses the [pySOT](https://arxiv.org/pdf/1908.00420.pdf) package for asynchronous surrogate
+optimization. This package implements many popular methods from Bayesian optimization and surrogate optimization.[^1]
 
-More details are available on the GitHub page: <https://github.com/dme65/pySOT>.
+[^1]:
+    By default, pySOT uses the Stochastic RBF (SRBF) method by [Regis and Shoemaker](https://pubsonline.informs.org/doi/10.1287/ijoc.1060.0182).
+    SRBF starts by evaluating a symmetric Latin hypercube design of size `2 * d + 1`, where d is the number of
+    hyperparameters that are optimized. When these points have been evaluated, SRBF fits a radial basis function surrogate and uses this surrogate together with an acquisition function to select the next sample(s). More details are available on the GitHub page: <https://github.com/dme65/pySOT>.
+
+!!! tip
+
+    We recommend using at least `10 * d` total samples to allow the algorithm to converge.
 
 Example:
 
@@ -165,9 +158,10 @@ Ray Tune also allows you to specify a [scheduler](https://docs.ray.io/en/master/
 sampler:
   type: ray
   search_alg:
-    type: bohb
+    random_state_seed: 42
+    type: hyperopt
   scheduler:
-    type: hb_bohb
+    type: async_hyperband
     time_attr: training_iteration
     reduction_factor: 4
 ```
@@ -206,7 +200,8 @@ hyperopt:
 
 ## Serial Executor
 
-The `serial`executor performs hyper-parameter optimization locally in a serial manner, executing the elements in the set of sampled parameters obtained by the selected sampler one at a time.
+The `serial`executor performs hyper-parameter optimization locally in a serial manner, executing the elements in the set
+of sampled parameters obtained by the selected sampler one at a time.
 
 Example:
 
@@ -217,13 +212,21 @@ executor:
 
 ## Parallel Executor
 
-The `parallel` executor performs hyper-parameter optimization in parallel, executing the elements in the set of sampled parameters obtained by the selected sampler at the same time.
-The maximum numer of parallel workers that train and evaluate models is defined by the parameter `num_workers` (default: `2`).
+The `parallel` executor performs hyper-parameter optimization in parallel, executing the elements in the set of sampled
+parameters obtained by the selected sampler at the same time.
 
-In case of training with GPUs, the `gpus` argument provided to the command line interface contains the list of GPUs to use, while if no `gpus` parameter is provided, all available GPUs will be used.
-The `gpu_fraction` argument can be provided as well, but it gets modified according to the `num_workers` to execute tasks parallely.
-For example, if `num_workers: 4` and 2 GPUs are available, if the provided `gpu_fraction` is above `0.5`, if will be replaced by `0.5`.
-An `epsilon` (default: `0.01`) parameter is also provided to allow for additional free GPU memory: the GPU franction to use is defined as `(#gpus / #workers) - epsilon`.
+The maximum number of parallel workers that train and evaluate models is defined by the parameter `num_workers`
+(default: `2`).
+
+In case of training with GPUs, the `gpus` argument provided to the command line interface contains the list of GPUs to
+use, while if no `gpus` parameter is provided, all available GPUs will be used.
+
+The `gpu_fraction` argument can be provided as well, but it gets modified according to the `num_workers` to execute
+tasks in parallel. For example, if `num_workers: 4` and 2 GPUs are available, if the provided `gpu_fraction` is above
+`0.5`, it will be replaced by `0.5`.
+
+An `epsilon` (default: `0.01`) parameter is also provided to allow for additional free GPU memory: the GPU fraction to
+use is defined as `(#gpus / #workers) - epsilon`.
 
 Example:
 
@@ -243,6 +246,7 @@ The `ray` executor is used in conjunction with the `ray` sampler to enable [Ray 
 - `cpu_resources_per_trial`: The number of CPU cores allocated to each trial (default: 1).
 - `gpu_resources_per_trial`: The number of GPU devices allocated to each trial (default: 0).
 - `kubernetes_namespace`: When running on Kubernetes, provide the namespace of the Ray cluster to sync results between pods. See the [Ray docs](https://docs.ray.io/en/master/_modules/ray/tune/integration/kubernetes.html) for more info.
+- `time_budget_s`: The number of seconds for the entire hyperopt run.
 
 Example:
 
@@ -252,111 +256,13 @@ executor:
   cpu_resources_per_trial: 2
   gpu_resources_per_trial: 1
   kubernetes_namespace: ray
+  time_budget_s: 7200
 ```
 
 **Running Ray Executor:**
 
-See the section on [Running Ludwig with Ray](../user_guide/distributed_training.md#ray) for guidance on setting up your Ray cluster.
-
-## Fiber Executor
-
-[Fiber](https://github.com/uber/fiber) is a Python distributed computing library for modern computer clusters.
-The `fiber` executor performs hyper-parameter optimization in parallel on a computer cluster so that massive parallelism can be achieved.
-Check [this](https://uber.github.io/fiber/platforms/) for supported cluster types.
-
-Fiber Executor requires `fiber` to be installed:
-
-```bash
-pip install fiber
-```
-
-**Parameters:**
-
-- `num_workers`: The number of parallel workers that is used to train and evaluate models. The default value is `2`.
-- `num_cpus_per_worker`: How many CPU cores are allocated per worker.
-- `num_gpus_per_worker`: How many GPUs are allocated per worker.
-- `fiber_backend`: Fiber backend to use. This needs to be set if you want to run hyper-parameter optimization on a cluster. The default value is `local`. Available values are `local`, `kubernetes`, `docker`. Check [Fiber's documentation](https://uber.github.io/fiber/platforms/) for details on the supported platforms.
-
-Example:
-
-```yaml
-executor:
-  type: fiber
-  num_workers: 10
-  fiber_backend: kubernetes
-  num_cpus_per_worker: 2
-  num_gpus_per_worker: 1
-```
-
-**Running Fiber Executor:**
-
-Fiber runs on a computer cluster and uses Docker to encapsulate all the code and dependencies.
-To run a hyper-parameter search powered by Fiber, you have to create a Docker file to encapsulate your code and dependencies.
-
-Example Dockerfile:
-
-```dockerfile
-FROM tensorflow/tensorflow:1.15.2-gpu-py3
-
-RUN apt-get -y update && apt-get -y install git libsndfile1
-
-RUN git clone --depth=1 https://github.com/ludwig-ai/ludwig.git
-RUN cd ludwig/ \
-    && pip install -r requirements.txt -r requirements_text.txt \
-          -r requirements_image.txt -r requirements_audio.txt \
-          -r requirements_serve.txt -r requirements_viz.txt \
-    && python setup.py install
-
-RUN pip install fiber
-
-RUN mkdir /data
-ADD train.csv /data/data.csv
-ADD hyperopt.yaml /data/hyperopt.yaml
-
-WORKDIR /data
-```
-
-In this Dockerfile, the data `data.csv` is embedded in the docker together with `hyperopt.yaml` that specifies the model and hyper-parameter optimization parameters.
-If your data is too big to be added directly in the docker image, refer to the [Fiber's documentation](https://uber.github.io/fiber/advanced/#working-with-persistent-storage) for instructions on how to work with shared persistent storage for Fiber workers.
-An example `hyperopt.yaml` looks like:
-
-```yaml
-input_features:
-  -
-    name: x
-    type: number
-output_features:
-  -
-    name: y
-    type: category
-training:
-  epochs: 1
-hyperopt:
-  sampler:
-    type: random
-    num_samples: 50
-  executor:
-    type: fiber
-    num_workers: 10
-    fiber_backend: kubernetes
-    num_cpus_per_worker: 2
-    num_gpus_per_worker: 1
-  parameters:
-    training.learning_rate:
-      type: float
-      low: 0.0001
-      high: 0.1
-    y.num_fc_layers:
-      type: int
-      low: 0
-      high: 2
-```
-
-Running hyper-parameter optimization with Fiber is a little bit different from other executors because there is docker building and pushing involved, so the `fiber run` command, which takes care of those aspects, is used to run hyper-parameter optimization on a cluster:
-
-`fiber run ludwig hyperopt --dataset train.csv -cf hyperopt.yaml`
-
-Check out [Fiber's documentation](https://uber.github.io/fiber/getting-started/#running-on-a-computer-cluster) for more details on running on clusters.
+See the section on [Running Ludwig with Ray](../user_guide/distributed_training.md#ray) for guidance on setting up your
+Ray cluster.
 
 # Full hyper-parameter optimization example
 

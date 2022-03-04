@@ -74,10 +74,7 @@ has effect only when `representation` is `dense` as `sparse` one-hot encodings a
 - `embedding_initializer` (default `null`): the initializer to use. If `null`, the default initialized of each variable
 is used (`glorot_uniform` in most cases). Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`,
 `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`,
-`he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a
-key `type` that identifies the type of initializer and other keys for its parameters, e.g.
-`{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to
-[tf.nn.init](https://pytorch.org/docs/stable/nn.init.html).
+`he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
 
 ### Sparse Encoder
 

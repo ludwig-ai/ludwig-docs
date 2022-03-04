@@ -72,7 +72,7 @@ encoder: bert
 trainable: true
 ```
 
-## Huggingface models
+### Huggingface models
 
 All huggingface-based text encoders are configured with the following parameters:
 

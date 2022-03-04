@@ -1,9 +1,9 @@
 ```
-├── docker                 -  Ludwig Docker images
-├── examples               -  Configs demonstrating Ludwig on various tasks
-├── ludwig                 -  Ludwig library source code
-│   ├── automl             -  Configurations, defaults, and utilities for AutoML
-│   ├── backend            -  Execution backends (local, horovod, ray)
+├── docker                 - Ludwig Docker images
+├── examples               - Configs demonstrating Ludwig on various tasks
+├── ludwig                 - Ludwig library source code
+│   ├── automl             - Configurations, defaults, and utilities for AutoML
+│   ├── backend            - Execution backends (local, horovod, ray)
 │   ├── combiners
 │   ├── contribs           - 3rd-party integrations (MLFlow, WandB, Comet)
 │   ├── data               - Data loading, pre/postprocessing, sampling

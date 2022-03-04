@@ -87,4 +87,3 @@ list of supported output feature types:
 @register_decoder("generator", [SEQUENCE, TEXT])
 class SequenceGeneratorDecoder(Decoder):
 ```
-g

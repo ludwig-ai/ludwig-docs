@@ -147,7 +147,7 @@ tensor, on the first dimension (second if you count the batch dimension). Availa
 but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available
 values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last
 vector of the first dimension).
-- `loss` (default `{type: softmax_cross_entropy}`): is a dictionary containing a loss `type`. `softmax_cross_entropy` is 
+- `loss` (default `{type: softmax_cross_entropy}`): is a dictionary containing a loss `type`. `softmax_cross_entropy` is
 the only supported loss type for category output features.
 - `top_k` (default `3`): determines the parameter `k`, the number of categories to consider when computing the `top_k`
 measure. It computes accuracy but considering as a match if the true category appears in the first `k` predicted

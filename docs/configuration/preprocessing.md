@@ -28,19 +28,20 @@ preprocessing:
 If you are working with imbalanced classes, you can specify an oversampling or undersampling parameter which will balance the data in the specified manner. For example:
 
 This example will trigger the preprocessing pipeline to oversample the minority class until it has a 50% representation relative to the majority class.
+
 ```yaml
 preprocessing:
     oversample_minority: 0.5
 ```
 
 This example will trigger the preprocessing pipeline to undersample the majority class until the minority class has a 70% representation relative to the majority class.
+
 ```yaml
 preprocessing:
     undersample_majority: 0.7
 ```
 
 Data balancing is only supported for binary output classes currently. Additionally, specifying both parameters at the same time is also not supported currently.
-
 
 ## Type-global Preprocessing
 
@@ -84,3 +85,39 @@ input_features:
 ## Feature-specific preprocessing
 
 To configure feature-specific preprocessing, please check [datatype-specific documentation](../../features/supported_data_types).
+
+## Tokenizers
+
+Sequence, text, and set features tokenize features as part of preprocessing. There are several tokenization options that
+can be specified:
+
+- `characters`: splits every character of the input string in a separate token.
+- `space`: splits on space characters using the regex `\s+`.
+- `space_punct`: splits on space characters and punctuation using the regex `\w+|[^\w\s]`.
+- `underscore`: splits on the underscore character `_`.
+- `comma`: splits on the underscore character `,`.
+- `untokenized`: treats the whole string as a single token.
+- `stripped`: treats the whole string as a single token after removing spaces at the beginning and at the end of the string.
+- `hf_tokenizer`: uses the Hugging Face AutoTokenizer which uses a `pretrained_model_name_or_path` parameter to decide which tokenizer to load.
+- Language specific tokenizers: [spaCy](https://spacy.io) based language tokenizers.
+
+The [spaCy](https://spacy.io) based tokenizers are functions that use the powerful tokenization and NLP preprocessing models provided the library.
+Several languages are available: English (code `en`), Italian (code `it`), Spanish (code `es`), German (code `de`), French (code `fr`), Portuguese (code `pt`), Dutch (code `nl`), Greek (code `el`), Chinese (code `zh`), Danish (code `da`), Dutch (code `el`), Japanese (code `ja`), Lithuanian (code `lt`), Norwegian (code `nb`), Polish (code `pl`), Romanian (code `ro`) and Multi (code `xx`, useful in case you have a dataset containing different languages).
+
+For each language different functions are available:
+
+- `tokenize`: uses spaCy tokenizer,
+- `tokenize_filter`: uses spaCy tokenizer and filters out punctuation, numbers, stopwords and words shorter than 3 characters,
+- `tokenize_remove_stopwords`: uses spaCy tokenizer and filters out stopwords,
+- `lemmatize`: uses spaCy lemmatizer,
+- `lemmatize_filter`: uses spaCy lemmatizer and filters out punctuation, numbers, stopwords and words shorter than 3 characters,
+- `lemmatize_remove_stopwords`: uses spaCy lemmatize and filters out stopwords.
+
+In order to use these options, you must first download the the spaCy model:
+
+```
+python -m spacy download <language_code>
+```
+
+and provide `<language>_<function>` as `tokenizer` like: `english_tokenizer`, `italian_lemmatize_filter`, `multi_tokenize_filter` and so on.
+More details on the models can be found in the [spaCy documentation](https://spacy.io/models).

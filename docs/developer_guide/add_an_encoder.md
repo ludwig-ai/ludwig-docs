@@ -11,8 +11,8 @@ To create a new encoder:
 
 1. Define a new encoder class. Inherit from `ludwig.encoders.base.Encoder` or one of its subclasses.
 2. Create all layers and state in the `__init__` method, after calling `super().__init__()`.
-3. Implement your encoder's forward pass in `def forward(self, inputs, mask=None):`
-4. Define `@property input_shape` and `@property output_shape` if needed.
+3. Implement your encoder's forward pass in `def forward(self, inputs, mask=None):`.
+4. Define `@property input_shape` and `@property output_shape`.
 
 Note: `Encoder` inherits from `LudwigModule`, which is itself a [torch.nn.Module](https://pytorch.org/docs/stable/generated/torch.nn.Module.html),
 so all the usual concerns of developing Torch modules apply.

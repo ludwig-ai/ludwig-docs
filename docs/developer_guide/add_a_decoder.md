@@ -60,8 +60,8 @@ All decoders should have the following signature:
 __Inputs__
 
 - __inputs__ (torch.Tensor): The input tensor, which is the output of a combiner or the combination of combiner and the
-activations of any dependent output decoders.  Inputs will either be a tensor of shape `b x h`, where `b` is the batch
-size and `h` is the embedding size, or a sequence of embeddings `b x s x h` where s is the sequence length.
+activations of any dependent output decoders. Inputs will either be a tensor of shape `b x h`, where `b` is the batch
+size and `h` is the embedding size, or a sequence of embeddings `b x s x h` where `s` is the sequence length.
 
 __Return__
 
@@ -73,8 +73,7 @@ dimension:
 ```python
     @property
     def input_shape(self) -> torch.Size:
-        # Dummy implementation.
-        return torch.Size([1])
+        return torch.Size([self.input_size])
 ```
 
 # 3. Add the new decoder class to the corresponding decoder registry
@@ -88,3 +87,4 @@ list of supported output feature types:
 @register_decoder("generator", [SEQUENCE, TEXT])
 class SequenceGeneratorDecoder(Decoder):
 ```
+g

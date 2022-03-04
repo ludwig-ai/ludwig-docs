@@ -86,7 +86,7 @@ mask is not required, and is not implemented for most encoder types.
 __Return__
 
 - (dict): A dictionary containing the key `encoder_output` whose value is the encoder output tensor.
-`{"encoder_output": output_tensor}` 
+`{"encoder_output": output_tensor}`
 
 The `input_shape` and `output_shape` properties must return the fully-specified shape of the encoder's expected input
 and output, without batch dimension:

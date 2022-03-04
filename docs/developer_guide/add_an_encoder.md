@@ -4,8 +4,10 @@ Source code for encoders lives under `ludwig/encoders/`.
 Encoders are grouped into modules by their input feature type. For instance, all new sequence encoders should be added
 to `ludwig/encoders/sequence_encoders.py`.
 
-Note: An encoder may support multiple types, if so it should be defined in the module corresponding to its most generic
-supported type. If an encoder is generic with respect to input type, add it to `ludwig/encoders/generic_encoders.py`.
+!!! note
+
+    An encoder may support multiple types, if so it should be defined in the module corresponding to its most generic
+    supported type. If an encoder is generic with respect to input type, add it to `ludwig/encoders/generic_encoders.py`.
 
 To create a new encoder:
 

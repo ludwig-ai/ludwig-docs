@@ -28,7 +28,12 @@ git push --set-upstream origin ludwig_release
 
 Update the versions referenced in globals and setup. [Reference PR](https://github.com/ludwig-ai/ludwig/pull/1723/files).
 
-Create a PR with the change.
+```
+git commit -m "Update ludwig version to vX.YrcZ."
+git push
+```
+
+Create a PR with the change (merge ludwig_release -> master).
 
 Get approval from a [Ludwig maintainer](https://github.com/orgs/ludwig-ai/teams/ludwig-maintainers).
 

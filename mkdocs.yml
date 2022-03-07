@@ -92,6 +92,7 @@ nav:
       - "Add an Dataset": "developer_guide/add_a_dataset.md"
       - "Style Guidelines and Tests": "developer_guide/style_guidelines_and_tests.md"
       - "Unit Test Design Guidelines": "developer_guide/unit_test_design_guidelines.md"
+      - "Release Process": "developer_guide/release_process.md"
   - Community: "community.md"
   - FAQ: "faq.md"
 

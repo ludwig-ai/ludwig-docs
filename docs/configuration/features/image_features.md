@@ -1,25 +1,136 @@
-## Image Features Preprocessing
+Input image features are transformed into a float valued tensors of size `N x C x H x W` (where `N` is the size of the dataset, `C` is the number of channels, and `H x W` is the height and width of the image (can be specified by the user). These tensors are added to HDF5 with a key that reflects the name of column in the dataset.
 
-Ludwig supports both grayscale and color images.
-The number of channels is inferred, but make sure all your images have the same number of channels.
+The column name is added to the JSON file, with an associated dictionary containing preprocessing information about the sizes of the resizing.
+
+
+# Supported Image Formats
+
+The number of channels in the image is determined by the image format. The following table lists the supported image formats and the number of channels.
+
+| Format      | Number of channels |
+| ----------- | ----------- |
+| Grayscale      | 1       |
+| Grayscale with Alpha   | 2        |
+| RGB   | 3        |
+| RGB with Alpha      | 4       |
+
+# Image Features Preprocessing
+
 During preprocessing, raw image files are transformed into numpy ndarrays and saved in the hdf5 format.
-All images in the dataset should have the same size.
-If they have different sizes, a `resize_method`, together with a target `width` and `height`, must be specified in the feature preprocessing parameters.
 
-- `missing_value_strategy` (default: `backfill`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
-- `in_memory` (default `true`): defines whether image dataset will reside in memory during the training process or will be dynamically fetched from disk (useful for large datasets). In the latter case a training batch of input images will be fetched from disk each training iteration.
-- `num_processes` (default 1): specifies the number of processes to run for preprocessing images.
-- `resize_method` (default `crop_or_pad`): available options: `crop_or_pad` - crops images larger than the specified `width` and `height` to the desired size or pads smalled images using edge padding; `interpolate` - uses interpolation to resize images to the specified `width` and `height`.
-- `height` (default `null`): image height in pixels, must be set if resizing is required
-- `width` (default `null`): image width in pixels, must be set if resizing is required
-- `infer_image_dimensions` (boolean, default: `true`): whether to automatically resize differently-sized images to inferred dimensions. Target dimensions are inferred by taking the average dimensions of the first `infer_image_sample_size` images, then applying `infer_image_max_height` and `infer_image_max_width`. This parameter has no effect if explicit `width` and `height` are specified.
-- `infer_image_sample_size` (int, default `100`): sample size of `infer_image_dimensions`.
-- `infer_image_max_height` (int, default `256`): maximum height of an image transformed using `infer_image_dimensions`.
-- `infer_image_max_width` (int, default `256`): maximum width of an image transformed using `infer_image_dimensions`.
-- `num_channels` (default `null`): number of channels in the images. By default, if the value is `null`, the number of channels of the first image of the dataset will be used and if there is an image in the dataset with a different number of channels, an error will be reported. If the value specified is not `null`, images in the dataset will be adapted to the specified size. If the value is `1`, all images with more then one channel will be greyscaled and reduced to one channel (trasparecy will be lost). If the value is `3` all images with 1 channel will be repeated 3 times to obtain 3 channels, while images with 4 channels will lose the transparecy channel. If the value is `4`, all the images with less than 4 channels will have the remaining channels filled with zeros.
-- `scaling` (default `pixel_normalization`): what scaling to perform on images. By default `pixel_normalization` is performed, which consists in dividing each pixel values by 255, but `pixel_standardization` is also available, whic uses [TensorFlow's per image standardization](https://www.tensorflow.org/api_docs/python/tf/image/per_image_standardization).
+!!! note
+    Images passed to an image encoder are expected to have the same size. If images are different sizes, by default they will be resized to the dimenions of the first image in the dataset. Optionally, a `resize_method`, together with a target `width` and `height`, can be specified in the feature preprocessing parameters, in which case all images will be resized to the specified target size.
 
-Depending on the application, it is preferrable not to exceed a size of `256 x 256`, as bigger sizes will, in most cases, not provide much advantage in terms of performance, while they will considerably slow down training and inference and also make both forward and backward passes consume considerably more memory, leading to memory overflows on machines with limited amounts of RAM or on GPUs with limited amounts of VRAM.
+
+### `missing_value_strategy`
+The strategy to follow when there's a missing image.
+
+- Default: `backfill`
+- Options:
+    - `fill_with_const`: Replace the missing image with a specific value specified with the `fill_value` parameter.
+    - `fill_with_mode`: Replaces the missing image with the most frequent value in the column.
+    - `fill_with_mean`: Replace the missing image with the mean of the values in the column.
+    - `backfill`: Replace the missing image with the next valid value.
+
+
+### `fill_value`
+The value to use when `missing_value_strategy` is `fill_with_const`.
+
+- Default: `null`
+
+
+### `height`
+
+Image height in pixels. If set, images will be resized to the specified height using the `resize_method` parameter. If unspecified, images will be resized to the size of the first image in the dataset.
+
+- Default: `null` 
+
+### `width`
+
+Image width in pixels. If set, images will be resized to the specified width using the `resize_method` parameter. If unspecified, images will be resized to the size of the first image in the dataset.
+
+- Default: `null`
+
+### `num_channels`
+
+Number of channels in the images. If specified, images will be read in the mode specified by the number of channels. If not specified, the number of channels will be inferred from the image format of the first valid image in the dataset.
+
+E.g., if `num_channels = 1`, any RGB images will be converted to Grayscale. If `num_channels = 3`, any images with 1 channel will be converted to RGB by repeating the channel 3 times.
+
+- Default: `null`
+
+### `resize_method`
+
+The method to use for resizing images.
+
+- Default: `crop_or_pad`
+- Options:
+    - `crop_or_pad`: If image is larger than the specified dimensions, crops images. If image is smaller, pads images using edge padding
+    - `interpolate`: Uses interpolation to resize images to the specified `width` and `height`
+
+
+### `infer_image_dimensions`
+
+If set, then the height and width of images in the dataset will be inferred from a sample of the first `n` images in the dataset. The size of `n` is set by the parameter `infer_image_sample_size`. Each image that doesn't conform to these dimensions will be resized according to `resize_method`. If set to `false`, then the height and width of images in the dataset will be specified by the user.
+
+This parameter will have no effect if `width` and `height` are specified.
+
+- Default: `true`
+
+
+### `infer_image_max_height`
+
+If `infer_image_dimensions` is set, this is used as the maximum height of the images in the dataset.
+
+- Default: 256
+
+
+### `infer_image_max_width`
+
+If `infer_image_dimensions` is set, this is used as the maximum width of the images in the dataset.
+
+- Default: 256
+
+
+### `infer_image_num_channels`
+
+If set, then the number of channels in the dataset is inferred from a sample of the first `n` images in the dataset. The size of `n` is set by the parameter `infer_image_sample_size`.
+
+- Default: `true`
+
+
+### `infer_image_sample_size`
+
+The sample size used for inferring dimensions of images in `infer_image_dimensions`.
+
+- Default: 100
+
+
+### `scaling`
+
+
+The scaling strategy for pixel values in the image.
+
+- Default: `pixel_normalization`
+- Options:
+    - `pixel_normalization`: Normalizes pixel values to be between 0 and 1 by dividing each pixel value by 255.
+    - `pixel_standardization`: Normalizes pixel values based on the mean and standard deviation of images in ImageNet.
+
+
+### `in_memory`
+
+Whether image dataset will reside in memory during the training process or will be dynamically fetched from disk (useful for large datasets). In the latter case a training batch of input images will be fetched from disk each training iteration.
+
+- Default: `true`
+
+### `num_processes`
+
+Specifies the number of processes to run for preprocessing images.
+
+- Default: 1
+
+!!! note
+    Depending on the application, it is preferrable not to exceed a size of `256 x 256`, as bigger sizes will, in most cases, not provide much advantage in terms of performance, while they will considerably slow down training and inference and also make both forward and backward passes consume considerably more memory, leading to memory overflows on machines with limited amounts of RAM or on GPUs with limited amounts of VRAM.
 
 Example of a preprocessing specification:
 
@@ -27,50 +138,185 @@ Example of a preprocessing specification:
 name: image_feature_name
 type: image
 preprocessing:
+  missing_value_strategy: fill_with_const
+  fill_value: 0.5
   height: 128
   width: 128
+  num_channels: 3
   resize_method: interpolate
   scaling: pixel_normalization
+  in_memory: true
+  num_processes: 4
 ```
 
-## Image Input Features and Encoders
+# Image Input Features and Encoders
 
-Input image features are transformed into a float valued tensors of size `N x H x W x C` (where `N` is the size of the dataset and `H x W` is a specific resizing of the image that can be set, and `C` is the number of channels) and added to HDF5 with a key that reflects the name of column in the dataset.
-The column name is added to the JSON file, with an associated dictionary containing preprocessing information about the sizes of the resizing.
+The default encoder is `stacked_cnn`.
 
-Currently there are two encoders supported for images: Convolutional Stack Encoder and ResNet encoder which can be set by setting `encoder` parameter to `stacked_cnn` or `resnet` in the input feature dictionary in the configuration (`stacked_cnn` is the default one).
 
-### Convolutional Stack Encoder
+## Convolutional Stack Encoder (`stacked_cnn`)
 
-Convolutional Stack Encoder takes the following optional parameters:
 
-- `conv_layers` (default `null`): it is a list of dictionaries containing the parameters of all the convolutional layers. The length of the list determines the number of stacked convolutional layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `filter_size`, `num_filters`, `pool_size`, `norm`, `activation` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both `conv_layers` and `num_conv_layers` are `null`, a default list will be assigned to `conv_layers` with the value `[{filter_size: 7, pool_size: 3, regularize: false}, {filter_size: 7, pool_size: 3, regularize: false}, {filter_size: 3, pool_size: null, regularize: false}, {filter_size: 3, pool_size: null, regularize: false}, {filter_size: 3, pool_size: null, regularize: true}, {filter_size: 3, pool_size: 3, regularize: true}]`.
-- `num_conv_layers` (default `null`): if `conv_layers` is `null`, this is the number of stacked convolutional layers.
-- `filter_size` (default `3`): if a `filter_size` is not already specified in `conv_layers` this is the default `filter_size` that will be used for each layer. It indicates how wide is the 1d convolutional filter.
-- `num_filters` (default `256`): if a `num_filters` is not already specified in `conv_layers` this is the default `num_filters` that will be used for each layer. It indicates the number of filters, and by consequence the output channels of the 2d convolution.
-- `strides` (default `(1, 1)`): specifying the strides of the convolution along the height and width
-- `padding` (default `valid`): one of `valid` or `same`.
-- `dilation_rate` (default `(1, 1)`): specifying the dilation rate to use for dilated convolution.
-- `conv_use_bias` (default `true`): boolean, whether the layer uses a bias vector.
-- `conv_weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `conv_bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `conv_norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
-- `conv_norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
-- `conv_activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
-- `conv_dropout` (default `0`): dropout rate
-- `pool_function` (default `max`):  pooling function: `max` will select the maximum value.  Any of these--`average`, `avg` or `mean`--will compute the mean value.
-- `pool_size` (default `(2, 2)`): if a `pool_size` is not already specified in `conv_layers` this is the default `pool_size` that will be used for each layer. It indicates the size of the max pooling that will be performed along the `s` sequence dimension after the convolution operation.
-- `pool_strides` (default `null`): factor to scale down
-- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`, `activation` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both `fc_layers` and `num_fc_layers` are `null`, a default list will be assigned to `fc_layers` with the value `[{fc_size: 512}, {fc_size: 256}]` (only applies if `reduce_output` is not `null`).
-- `num_fc_layers` (default `1`): This is the number of stacked fully connected layers.
-- `fc_size` (default `256`): if a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
-- `fc_use_bias` (default `true`): boolean, whether the layer uses a bias vector.
-- `fc_weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `fc_bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
-- `fc_norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
-- `fc_norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
-- `fc_activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
-- `fc_dropout` (default `0`): dropout rate
+Creates an encoder built by stacking multiple 2D convolutional layers, followed by an optional stack of fully connected layers.
+
+### `conv_layers`
+
+A list of dictionaries containing the parameters of all the convolutional layers. The length of the list determines the number of stacked convolutional layers and the content of each dictionary determines the parameters for a specific layer. If a parameter for a layer is not specified in the dictionary, then the default value for the stacked CNN encoder is used.
+
+- Default: `null`
+- Parameters for each layer:
+    - `kernel_size`: The size of the convolutional kernel.
+    - `out_channels`: The number of output channels.
+    - `stride`: The stride of the convolutional kernel.
+    - `padding`: The padding of the convolutional kernel.
+    - `dilation`: The dilation of the convolutional kernel.
+    - `groups`: The number of groups for grouped convolution.
+    - `bias`: Whether to add a bias term to the convolution.
+    - `padding_mode`: The padding mode to use for the convolution.
+    - `norm`: The type of normalization to use for the convolution.
+    - `norm_params`: Optional parameters for the normalization.
+    - `activation`: The type of activation to use for the convolution.
+    - `dropout`: The dropout probability to use for the convolution.
+    - `pool_function`: The type of pooling function to use for the convolution.
+    - `pool_kernel_size`: The size of the pooling kernel.
+    - `pool_stride`: The stride of the pooling kernel.
+    - `pool_padding`: The padding of the pooling kernel.
+    - `pool_dilation`: The dilation of the pooling kernel.
+
+
+### `num_conv_layers`
+
+If `conv_layers` is `null`, then this parameter determines the number of convolutional layers in the encoder. Each layer will use default parameters for the convolutional layer.
+
+- Default: `null`
+
+!!! note
+    If both `conv_layers` and `num_conv_layers` are `null`, `conv_layers` is set to the following default value:
+
+    ```python
+    conv_layers = [
+      {
+        kernel_size: 3,
+        out_channels: 32,
+        pool_kernel_size: 2,
+      },
+      {
+        kernel_size: 3,
+        out_channels: 64,
+        pool_kernel_size: 2,
+      },
+    ]
+    ```
+
+
+### `out_channels`
+
+If the number of output channels is not specified in `conv_layers`, specifies the default number of output channels for each convolutional layer.
+
+- Default: 32
+
+### `kernel_size`
+
+If a `kernel_size` is not already specified in `conv_layers`, specifies the default `kernel_size` of the 2D convolutional kernel that will be used for each layer.
+
+This can be a single integer or a tuple of integers. If single integer, then the kernel has the same dimension in both height and width. If a tuple of integers, then the first integer is the height and the second integer is the width.
+
+- Default: 3
+
+### `stride`
+
+If a `stride` is not already specified in `conv_layers`, specifies the default `stride` of the 2D convolutional kernel that will be used for each layer.
+
+This can be a single integer or a tuple of integers. If single integer, then the kernel has the same dimension in both height and width. If a tuple of integers, then the first integer is the height and the second integer is the width.
+
+- Default: 1
+
+### `padding`
+
+
+
+ (default `valid`): one of `valid` or `same`.
+
+### `dilation_rate`
+ (default `(1, 1)`): specifying the dilation rate to use for dilated convolution.
+
+### `conv_use_bias`
+ (default `true`): boolean, whether the layer uses a bias vector.
+
+### `conv_weights_initializer`
+ (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+
+### `conv_bias_initializer`
+ (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+
+### `weights_regularizer`
+ (default `null`): regularizer function applied to the weights matrix.  Valid values are `l1`, `l2` or `l1_l2`.
+
+### `conv_bias_regularizer`
+ (default `null`): regularizer function applied to the bias vector.  Valid values are `l1`, `l2` or `l1_l2`.
+
+### `conv_activity_regularizer`
+ (default `null`): regurlizer function applied to the output of the layer.  Valid values are `l1`, `l2` or `l1_l2`.
+
+### `conv_norm`
+ (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
+
+### `conv_norm_params`
+ (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
+
+### `conv_activation`
+ (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
+
+### `conv_dropout`
+ (default `0`): dropout rate
+
+### `pool_function`
+ (default `max`):  pooling function: `max` will select the maximum value.  Any of these--`average`, `avg` or `mean`--will compute the mean value.
+
+### `pool_size`
+ (default `(2, 2)`): if a `pool_size` is not already specified in `conv_layers` this is the default `pool_size` that will be used for each layer. It indicates the size of the max pooling that will be performed along the `s` sequence dimension after the convolution operation.
+
+### `pool_strides`
+ (default `null`): factor to scale down
+
+### `fc_layers`
+ (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`, `activation` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both `fc_layers` and `num_fc_layers` are `null`, a default list will be assigned to `fc_layers` with the value `[{fc_size: 512}, {fc_size: 256}]` (only applies if `reduce_output` is not `null`).
+
+### `num_fc_layers`
+ (default `1`): This is the number of stacked fully connected layers.
+
+### `fc_size`
+ (default `256`): if a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
+
+### `fc_use_bias`
+ (default `true`): boolean, whether the layer uses a bias vector.
+
+### `fc_weights_initializer`
+ (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+
+### `fc_bias_initializer`
+ (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
+
+### `fc_weights_regularizer`
+ (default `null`): regularizer function applied to the weights matrix.  Valid values are `l1`, `l2` or `l1_l2`.
+
+### `fc_bias_regularizer`
+ (default `null`): regularizer function applied to the bias vector.  Valid values are `l1`, `l2` or `l1_l2`.
+
+### `fc_activity_regularizer`
+ (default `null`): regurlizer function applied to the output of the layer.  Valid values are `l1`, `l2` or `l1_l2`.
+
+### `fc_norm`
+ (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
+
+### `fc_norm_params`
+ (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
+
+### `fc_activation`
+ (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
+
+### `fc_dropout`
+ (default `0`): dropout rate
 
 Example image feature entry using a convolutional stack encoder (with default parameters) in the input features list:
 
@@ -113,7 +359,7 @@ preprocessing:  # example pre-processing
 
 ```
 
-### ResNet Encoder
+## ResNet Encoder
 
 [ResNet](https://arxiv.org/abs/1603.05027) Encoder takes the following optional parameters:
 
@@ -165,10 +411,10 @@ preprocessing:
     num_channels: 3
 ```
 
-## Image Output Features and Decoders
+# Image Output Features and Decoders
 
 There are no image decoders at the moment (WIP), so image cannot be used as output features.
 
-## Image Features Measures
+# Image Features Measures
 
 As no image decoders are available at the moment, there are also no image measures.

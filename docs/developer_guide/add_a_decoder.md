@@ -59,8 +59,8 @@ All decoders should have the following signature:
 
 __Inputs__
 
-- __inputs__ (torch.Tensor): The input tensor, which is the output of a combiner or the combination of combiner and the
-activations of any dependent output decoders. Inputs will either be a tensor of shape `b x h`, where `b` is the batch
+- __combiner_outputs__ (Dict[str, torch.Tensor]): The input tensor, which is the output of a combiner or the combination of combiner and the
+activations of any dependent output decoders. The dictionary of combiner outputs includes a tensor of shape `b x h`, where `b` is the batch
 size and `h` is the embedding size, or a sequence of embeddings `b x s x h` where `s` is the sequence length.
 
 __Return__

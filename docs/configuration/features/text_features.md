@@ -57,7 +57,7 @@ preprocessing:
 Text input feature parameters are
 
 - `encoder` (default `parallel_cnn`): encoder to use for the input text feature. The available encoders include encoders
-used for [Sequence Features](#sequence-input-features-and-encoders) as well as encoders from the huggingface
+used for [Sequence Features](../sequence_features#sequence-input-features-and-encoders) as well as encoders from the huggingface
 transformers library: `bert`, `gpt`, `gpt2`, `xlnet`, `xlm`, `roberta`, `distilbert`, `ctrl`, `camembert`, `albert`,
 `t5`, `xlmroberta`, `flaubert`, `electra`, `longformer` and `auto-transformer`.
 - `level` (default `word`): `word` specifies using text words/symbols, `char` use individual characters.

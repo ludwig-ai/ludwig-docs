@@ -61,7 +61,7 @@ used for [Sequence Features](../sequence_features#sequence-input-features-and-en
 transformers library: `bert`, `gpt`, `gpt2`, `xlnet`, `xlm`, `roberta`, `distilbert`, `ctrl`, `camembert`, `albert`,
 `t5`, `xlmroberta`, `flaubert`, `electra`, `longformer` and `auto-transformer`.
 - `level` (default `word`): `word` specifies using text words/symbols, `char` use individual characters.
-- `tied_weights` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
+- `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
 
 Example:
 

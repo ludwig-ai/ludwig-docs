@@ -123,9 +123,6 @@ output_size: 256
 use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-weights_regularizer: null
-bias_regularizer: null
-activity_regularizer: null
 norm: null
 norm_params: null
 activation: relu

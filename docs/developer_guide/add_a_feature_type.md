@@ -1,66 +1,90 @@
 # 1. Add a new feature class
 
-______________________________________________________________________
+Source code for feature classes lives under `ludwig/features/`.
+Input and output feature classes are defined in the same file, for example `CategoryInputFeature` and
+`CategoryOutputFeature` are defined in `ludwig/features/category_feature.py`.
 
-Source code for feature classes lives under `ludwig/features`.
-Input and output feature classes are defined in the same file, for example `CategoryInputFeature` and `CategoryOutputFeature` are defined in `ludwig/features/category_feature.py`.
+Input features inherit from `ludwig.features.base_feature.InputFeature` and corresponding mixin feature classes:
+```python
+class CategoryInputFeature(CategoryFeatureMixin, InputFeature):
+```
 
-An input features inherit from the `InputFeature` and corresponding mixin feature classes, for example `CategoryInputFeature` inherits from `CategoryFeatureMixin` and `InputFeature`.
+Similarly, output features inherit from the `ludwig.features.base_feature.OutputFeature` and corresponding mixin feature
+classes:
+```python
+class CategoryOutputFeature(CategoryFeatureMixin, OutputFeature):
+```
 
-Similarly, output features inherit from the `OutputFeature` and corresponding base feature classes, for example `CategoryOutputFeature` inherits from `CategoryFeatureMixin` and `OutputFeature`.
+Mixin classes provide shared preprocessing/postprocessing state and logic, such as the mapping from categories to
+indices, which are shared by input and output feature implementations. Mixin classes are not torch modules, and do not
+need to provide a forward method.
 
-Feature parameters are provided in a dictionary of key-value pairs as an argument to the input or output feature constructor which contains default parameter values as well.
+Feature base classes (`InputFeature`, `OutputFeature`) do inherit from `LudwigModule` which is itself a
+[torch.nn.Module](https://pytorch.org/docs/stable/generated/torch.nn.Module.html), so all the usual concerns of
+developing Torch modules apply.
+
+# 2. Implement required methods
 
 ## Input features
 
-All input features should implement `__init__` and `call` methods with the following signatures:
+### Constructor
 
-### `__init__`
+Feature parameters are provided in a dictionary of key-value pairs as an argument to the constructor.  The `feature`
+dictionary should usually be passed to the superclass constructor before initialization:
 
 ```python
-def __init__(self, feature, encoder_obj=None):
+def __init__(self, feature: [str, Any], encoder_obj=None):
+    super().__init__(feature)
+    # Initialize any modules, layers, or variable state
 ```
 
 __Inputs__
 
-- __feature__: (dict) contains all feature parameters.
-- __encoder_obj__: (\*Encoder, default: `None`) is an encoder object of the type supported (a cateory encoder, binary encoder, etc.). It is used only when two input features share the encoder.
+- __feature__: (dict) contains all feature config parameters.
+- __encoder_obj__: (Encoder, default: `None`) is an encoder object of the supported type (category encoder, binary
+encoder, etc.). Input features typically create their own encoder, `encoder_obj` is only specified when two input
+features share the same encoder.
 
-### `call`
+### forward
+
+All input features must implement the `forward` method with the following signature:
 
 ```python
-def call(self, inputs, training=None, mask=None):
+def forward(self, inputs: torch.Tensor) -> torch.Tensor:
+    # perform forward pass
+    # ...
+    # inputs_encoded = result of forward pass
+    return inputs_encoded
 ```
 
-__Inputs__
+### input_shape
 
-- __inputs__ (tf.Tensor): input tensor.
-- __training__ (bool, default: `None`): boolean indicating whether we are currently training the model or performing inference for prediction.
-- __mask__ (tf.Tensor, default: `None`): binary tensor indicating which of the values in the inputs tensor should be masked out.
 
-__Return__
+### output_shape
 
-- __hidden__ (tf.Tensor): feature encodings.
 
 ## Output features
 
-All input features should implement `__init__`, `logits` and `predictions` methods with the following signatures:
 
-### `__init__`
+### Constructor
 
 ```python
-def __init__(self, feature, encoder_obj=None):
+    def __init__(self, feature: Dict[str, Any], output_features: Dict[str, OutputFeature]):
+        super().__init__(feature, output_features)
+        self.overwrite_defaults(feature)
+        # Initialize any modules, layers, or variable state
 ```
 
 __Inputs__
 
 - __feature__ (dict): contains all feature parameters.
-- __decoder_obj__ (\*Decoder, default: `None`): is a decoder object of the type supported (a cateory decoder, binary decoder, etc.). It is used only when two output features share the decoder.
+- __decoder_obj__ (\*Decoder, default: `None`): is a decoder object of the type supported (a category decoder, binary decoder, etc.). It is used only when two output features share the decoder.
 
-### `logits`
+### logits
 
 ```python
-def call(self, inputs, **kwargs):
+    def logits(self, inputs: Dict[str, torch.Tensor], target=None):
+        return self.decoder_obj(inputs, target=target)
 ```
 
 __Inputs__
@@ -69,12 +93,13 @@ __Inputs__
 
 __Return__
 
-- __hidden__ (tf.Tensor): feature logits.
+- __hidden__ (torch.Tensor): feature logits.
 
-### `predictions`
+### create_predict_module
 
 ```python
-def call(self, inputs, **kwargs):
+    def create_predict_module(self) -> PredictModule:
+        return _SequencePredict()
 ```
 
 __Inputs__
@@ -85,8 +110,38 @@ __Return__
 
 - __hidden__ (dict): contains predictions, probabilities and logits.
 
-# 2. Add the new feature class to the corresponding feature registry
+### input_shape
 
-______________________________________________________________________
+```python
+    @property
+    def input_shape(self) -> torch.Size:
+        return torch.Size([self.input_size])
 
-Input and output feature registries are defined in `ludwig/features/feature_registries.py`.
+    @property
+    def output_shape(self) -> torch.Size:
+        return torch.Size([self.max_sequence_length])
+
+```
+
+### output_shape
+
+
+# 3. Add the new feature class to the corresponding feature registry
+
+Input and output feature registries are defined in `ludwig/features/feature_registries.py`. Import your new feature
+classes, and add them to the appropriate registry dictionaries:
+
+```python
+base_type_registry = {
+    CATEGORY: CategoryFeatureMixin,
+...
+}
+input_type_registry = {
+    CATEGORY: CategoryInputFeature,
+...
+}
+output_type_registry = {
+    CATEGORY: CategoryOutputFeature,
+...
+}
+```

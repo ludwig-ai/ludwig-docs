@@ -15,7 +15,6 @@ To create a new decoder:
 1. Define a new decoder class. Inherit from `ludwig.decoders.base.Decoder` or one of its subclasses.
 2. Create all layers and state in the `__init__` method, after calling `super().__init__()`.
 3. Implement your decoder's forward pass in `def forward(self, combiner_outputs, **kwargs):`.
-4. Define `@property input_shape`.
 
 Note: `Decoder` inherits from `LudwigModule`, which is itself a [torch.nn.Module](https://pytorch.org/docs/stable/generated/torch.nn.Module.html),
 so all the usual concerns of developing Torch modules apply.
@@ -44,7 +43,7 @@ class SequenceGeneratorDecoder(Decoder):
     # Initialize any modules, layers, or variable state
 ```
 
-# 2. Implement `forward` and `input_shape`
+# 2. Implement `forward`
 
 Actual computation of activations takes place inside the `forward` method of the decoder.
 All decoders should have the following signature:
@@ -53,8 +52,8 @@ All decoders should have the following signature:
     def forward(self, combiner_outputs, **kwargs):
         # perform forward pass
         # ...
-        # output_tensor = result of decoder forward pass
-        return output_tensor
+        # _logits = result of decoder forward pass
+        return {LOGITS: logits}
 ```
 
 __Inputs__
@@ -65,16 +64,8 @@ size and `h` is the embedding size, or a sequence of embeddings `b x s x h` wher
 
 __Return__
 
-- (Dict[str, torch.Tensor]): A dictionary of decoder output tensors.
-
-The `input_shape` property should return the fully-specified shape of the decoder's expected input, without batch
-dimension:
-
-```python
-    @property
-    def input_shape(self) -> torch.Size:
-        return torch.Size([self.input_size])
-```
+- (Dict[str, torch.Tensor]): A dictionary of decoder output tensors.  Typical decoders will return values for the keys
+`LOGITS`, `PREDICTION`, or both (defined in `ludwig.constants`).
 
 # 3. Add the new decoder class to the corresponding decoder registry
 

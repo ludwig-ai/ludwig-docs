@@ -20,12 +20,14 @@ Input and output feature classes are defined in the same file, for example `Cate
 `CategoryOutputFeature` are defined in `ludwig/features/category_feature.py`.
 
 Input features inherit from `ludwig.features.base_feature.InputFeature` and corresponding mixin feature classes:
+
 ```python
 class CategoryInputFeature(CategoryFeatureMixin, InputFeature):
 ```
 
 Similarly, output features inherit from the `ludwig.features.base_feature.OutputFeature` and corresponding mixin feature
 classes:
+
 ```python
 class CategoryOutputFeature(CategoryFeatureMixin, OutputFeature):
 ```
@@ -37,6 +39,7 @@ developing Torch modules apply.
 Mixin classes provide shared preprocessing/postprocessing state and logic, such as the mapping from categories to
 indices, which are shared by input and output feature implementations. Mixin classes are not torch modules, and do not
 need to provide a forward method.
+
 ```python
 class CategoryFeatureMixin(BaseFeatureMixin):
 ```
@@ -82,7 +85,6 @@ __Inputs__
 __Return__
 
 - (torch.Tensor): Input data encoded by the input feature's encoder.
-
 
 ### input_shape
 
@@ -143,7 +145,7 @@ def create_predict_module(self) -> PredictModule:
 
 __Return__
 
--  (PredictModule): A module whose forward method convert feature logits to predictions.
+- (PredictModule): A module whose forward method convert feature logits to predictions.
 
 ### output_shape
 

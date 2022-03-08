@@ -14,7 +14,7 @@ To create a new decoder:
 
 1. Define a new decoder class. Inherit from `ludwig.decoders.base.Decoder` or one of its subclasses.
 2. Create all layers and state in the `__init__` method, after calling `super().__init__()`.
-3. Implement your decoder's forward pass in `def forward(self, inputs, **kwargs):`.
+3. Implement your decoder's forward pass in `def forward(self, combiner_outputs, **kwargs):`.
 4. Define `@property input_shape`.
 
 Note: `Decoder` inherits from `LudwigModule`, which is itself a [torch.nn.Module](https://pytorch.org/docs/stable/generated/torch.nn.Module.html),
@@ -50,7 +50,7 @@ Actual computation of activations takes place inside the `forward` method of the
 All decoders should have the following signature:
 
 ```python
-    def forward(self, inputs, **kwargs):
+    def forward(self, combiner_outputs, **kwargs):
         # perform forward pass
         # ...
         # output_tensor = result of decoder forward pass
@@ -59,13 +59,13 @@ All decoders should have the following signature:
 
 __Inputs__
 
-- __inputs__ (torch.Tensor): The input tensor, which is the output of a combiner or the combination of combiner and the
-activations of any dependent output decoders. Inputs will either be a tensor of shape `b x h`, where `b` is the batch
+- __combiner_outputs__ (Dict[str, torch.Tensor]): The input tensor, which is the output of a combiner or the combination of combiner and the
+activations of any dependent output decoders. The dictionary of combiner outputs includes a tensor of shape `b x h`, where `b` is the batch
 size and `h` is the embedding size, or a sequence of embeddings `b x s x h` where `s` is the sequence length.
 
 __Return__
 
-- (torch.Tensor): The decoder output tensor.
+- (Dict[str, torch.Tensor]): A dictionary of decoder output tensors.
 
 The `input_shape` property should return the fully-specified shape of the decoder's expected input, without batch
 dimension:

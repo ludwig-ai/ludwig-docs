@@ -14,7 +14,7 @@ To create a new decoder:
 
 1. Define a new decoder class. Inherit from `ludwig.decoders.base.Decoder` or one of its subclasses.
 2. Create all layers and state in the `__init__` method, after calling `super().__init__()`.
-3. Implement your decoder's forward pass in `def forward(self, inputs, **kwargs):`.
+3. Implement your decoder's forward pass in `def forward(self, combiner_outputs, **kwargs):`.
 4. Define `@property input_shape`.
 
 Note: `Decoder` inherits from `LudwigModule`, which is itself a [torch.nn.Module](https://pytorch.org/docs/stable/generated/torch.nn.Module.html),

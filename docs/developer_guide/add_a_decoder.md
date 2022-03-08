@@ -65,7 +65,7 @@ size and `h` is the embedding size, or a sequence of embeddings `b x s x h` wher
 
 __Return__
 
-- (torch.Tensor): The decoder output tensor.
+- (Dict[str, torch.Tensor]): A dictionary of decoder output tensors.
 
 The `input_shape` property should return the fully-specified shape of the decoder's expected input, without batch
 dimension:

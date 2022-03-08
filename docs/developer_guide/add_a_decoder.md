@@ -50,7 +50,7 @@ Actual computation of activations takes place inside the `forward` method of the
 All decoders should have the following signature:
 
 ```python
-    def forward(self, inputs, **kwargs):
+    def forward(self, combiner_outputs, **kwargs):
         # perform forward pass
         # ...
         # output_tensor = result of decoder forward pass

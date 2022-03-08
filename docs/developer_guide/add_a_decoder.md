@@ -51,15 +51,16 @@ All decoders should have the following signature:
 ```python
     def forward(self, combiner_outputs, **kwargs):
         # perform forward pass
+        # combiner_hidden_output = combiner_outputs[HIDDEN]
         # ...
-        # _logits = result of decoder forward pass
+        # logits = result of decoder forward pass
         return {LOGITS: logits}
 ```
 
 __Inputs__
 
-- __combiner_outputs__ (Dict[str, torch.Tensor]): The input tensor, which is the output of a combiner or the combination of combiner and the
-activations of any dependent output decoders. The dictionary of combiner outputs includes a tensor of shape `b x h`, where `b` is the batch
+- __combiner_outputs__ (Dict[str, torch.Tensor]): The input tensor, which is the output of a combiner or the combination
+of combiner and the activations of any dependent output decoders. The dictionary of combiner outputs includes a tensor of shape `b x h`, where `b` is the batch
 size and `h` is the embedding size, or a sequence of embeddings `b x s x h` where `s` is the sequence length.
 
 __Return__

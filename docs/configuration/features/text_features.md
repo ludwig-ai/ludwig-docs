@@ -141,4 +141,4 @@ max_sequence_length: 0
 
 ## Text Features Metrics
 
-The measures are the same used for the [Sequence Features](#sequence-features-measures).
+The metrics available for text features are the same as for [Sequence Features](../sequence_features#sequence-features-metrics).

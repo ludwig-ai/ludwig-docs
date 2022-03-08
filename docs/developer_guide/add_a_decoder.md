@@ -1,46 +1,80 @@
 # 1. Add a new decoder class
 
 Source code for decoders lives under `ludwig/decoders/`.
-New decoder objects should be defined in the corresponding files, for example all new sequence decoders should be added to `ludwig/decoders/sequence_decoders.py`.
+Decoders are grouped into modules by their output feature type. For instance, all new sequence decoders should be added
+to `ludwig/decoders/sequence_decoders.py`.
 
-All the decoder parameters should be provided as arguments in the constructor with their default values set.
-For example the `SequenceGeneratorDecoder` decoder takes the following list of arguments in its constructor:
+!!! note
 
-```python
-def __init__(
-    self,
-    num_classes,
-    cell_type='rnn',
-    state_size=256,
-    embedding_size=64,
-    beam_width=1,
-    num_layers=1,
-    attention=None,
-    tied_embeddings=None,
-    is_timeseries=False,
-    max_sequence_length=0,
-    use_bias=True,
-    weights_initializer='glorot_uniform',
-    bias_initializer='zeros',
-    weights_regularizer=None,
-    bias_regularizer=None,
-    activity_regularizer=None,
-    reduce_input='sum',
-    **kwargs
-):
-```
+    A decoder may support multiple output types, if so it should be defined in the module corresponding to its most
+    generic supported type. If a decoder is generic with respect to output type, add it to
+    `ludwig/decoders/generic_decoders.py`.
 
-Decoders are initialized as class member variables in output feature object constructors and called inside `call` methods.
+To create a new decoder:
 
-# 2. Add the new decoder class to the corresponding decoder registry
+1. Define a new decoder class. Inherit from `ludwig.decoders.base.Decoder` or one of its subclasses.
+2. Create all layers and state in the `__init__` method, after calling `super().__init__()`.
+3. Implement your decoder's forward pass in `def forward(self, combiner_outputs, **kwargs):`.
 
-Mapping between decoder names in the model definition and decoder classes in the codebase is done by encoder registries: for example sequence encoder registry is defined in `ludwig/features/sequence_feature.py` inside the `SequenceOutputFeature` as:
+Note: `Decoder` inherits from `LudwigModule`, which is itself a [torch.nn.Module](https://pytorch.org/docs/stable/generated/torch.nn.Module.html),
+so all the usual concerns of developing Torch modules apply.
+
+All decoder parameters should be provided as keyword arguments to the constructor, and must have a default value.
+For example the `SequenceGeneratorDecoder` decoder takes the following list of parameters in its constructor:
 
 ```python
-sequence_decoder_registry = {
-    'generator': Generator,
-    'tagger': Tagger
-}
+from ludwig.constants import SEQUENCE, TEXT
+from ludwig.decoders.base import Decoder
+from ludwig.decoders.registry import register_decoder
+
+@register_decoder("generator", [SEQUENCE, TEXT])
+class SequenceGeneratorDecoder(Decoder):
+    def __init__(
+        self,
+        vocab_size: int,
+        max_sequence_length: int,
+        cell_type: str = "gru",
+        input_size: int = 256,
+        reduce_input: str = "sum",
+        num_layers: int = 1,
+        **kwargs,
+    ):
+    super().__init__()
+    # Initialize any modules, layers, or variable state
 ```
 
-All you have to do to make you new decoder available as an option in the model definition is to add it to the appropriate registry.
+# 2. Implement `forward`
+
+Actual computation of activations takes place inside the `forward` method of the decoder.
+All decoders should have the following signature:
+
+```python
+    def forward(self, combiner_outputs, **kwargs):
+        # perform forward pass
+        # ...
+        # _logits = result of decoder forward pass
+        return {LOGITS: logits}
+```
+
+__Inputs__
+
+- __combiner_outputs__ (Dict[str, torch.Tensor]): The input tensor, which is the output of a combiner or the combination of combiner and the
+activations of any dependent output decoders. The dictionary of combiner outputs includes a tensor of shape `b x h`, where `b` is the batch
+size and `h` is the embedding size, or a sequence of embeddings `b x s x h` where `s` is the sequence length.
+
+__Return__
+
+- (Dict[str, torch.Tensor]): A dictionary of decoder output tensors.  Typical decoders will return values for the keys
+`LOGITS`, `PREDICTION`, or both (defined in `ludwig.constants`).
+
+# 3. Add the new decoder class to the corresponding decoder registry
+
+Mapping between decoder names in the model definition and decoder classes is made by registering the class in a decoder
+registry. The decoder registry is defined in `ludwig/decoders/registry.py`. To register your class,
+add the `@register_decoder` decorator on the line above its class definition, specifying the name of the decoder and a
+list of supported output feature types:
+
+```python
+@register_decoder("generator", [SEQUENCE, TEXT])
+class SequenceGeneratorDecoder(Decoder):
+```

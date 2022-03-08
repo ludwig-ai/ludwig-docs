@@ -57,11 +57,11 @@ preprocessing:
 Text input feature parameters are
 
 - `encoder` (default `parallel_cnn`): encoder to use for the input text feature. The available encoders include encoders
-used for [Sequence Features](#sequence-input-features-and-encoders) as well as encoders from the huggingface
+used for [Sequence Features](../sequence_features#sequence-input-features-and-encoders) as well as encoders from the huggingface
 transformers library: `bert`, `gpt`, `gpt2`, `xlnet`, `xlm`, `roberta`, `distilbert`, `ctrl`, `camembert`, `albert`,
 `t5`, `xlmroberta`, `flaubert`, `electra`, `longformer` and `auto-transformer`.
 - `level` (default `word`): `word` specifies using text words/symbols, `char` use individual characters.
-- `tied_weights` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
+- `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
 
 Example:
 
@@ -77,7 +77,7 @@ trainable: true
 All huggingface-based text encoders are configured with the following parameters:
 
 - `pretrained_model_name_or_path` (default is the huggingface default model path for the specified encoder, i.e. `bert-base-uncased` for BERT). This can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/docs/transformers/).
-- `reduce_output` (default `cls_pooled`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `cls_pool`, `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and  `null` (which does not reduce and returns the full tensor).
+- `reduce_output` (default `cls_pooled`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `cls_pooled`, `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and  `null` (which does not reduce and returns the full tensor).
 - `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen.
 
 !!! note
@@ -138,4 +138,4 @@ max_sequence_length: 0
 
 ## Text Features Metrics
 
-The measures are the same used for the [Sequence Features](#sequence-features-measures).
+The metrics available for text features are the same as for [Sequence Features](../sequence_features#sequence-features-metrics).

@@ -70,7 +70,7 @@ input_features:
                 dropout: 0.4
         fc_layers:
             -
-                fc_size: 128
+                output_size: 128
                 dropout: 0.4
 
 output_features:

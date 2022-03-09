@@ -148,14 +148,14 @@ Output feature dependencies are declared in the feature definition. For example:
             name: coarse_class
             type: category
             num_fc_layers: 2
-            fc_size: 64
+            output_size: 64
         -
             name: fine_class
             type: category
             dependencies:
                 - coarse_class
             num_fc_layers: 1
-            fc_size: 64
+            output_size: 64
     ```
 
 === "Python Dict"
@@ -167,7 +167,7 @@ Output feature dependencies are declared in the feature definition. For example:
                 "name": "coarse_class",
                 "type": "category",
                 "num_fc_layers": 2,
-                "fc_size": 64
+                "output_size": 64
             },
             {
                 "name": "fine_class",
@@ -176,7 +176,7 @@ Output feature dependencies are declared in the feature definition. For example:
                     "coarse_class"
                 ],
                 "num_fc_layers": 1,
-                "fc_size": 64
+                "output_size": 64
             }
         ]
     }

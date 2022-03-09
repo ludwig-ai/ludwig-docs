@@ -123,14 +123,15 @@ used for each layer. It indicates the norm of the output and it can be `null`, `
 used with `batch` see [Torch's documentation on batch normalization](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm2d.html)
 or for `layer` see [Torch's documentation on layer normalization](https://pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html).
 - `dropout` (default `0`): dropout rate
-- `use_base` (default `true`): boolean, whether the layer uses a bias vector.
+- `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
 - `weights_initializer` (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`,
 `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
 - `bias_initializer` (default `'zeros'`): initializer for the bias vector. Options are: `constant`, `identity`, `zeros`,
 `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`,
 `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
-- `threshold` (default `0.5`): The threshold above (greater or equal) which the predicted output of the sigmoid will be mapped to 1.
+- `threshold` (default `0.5`): The threshold above (greater or equal) which the predicted output of the sigmoid will be
+mapped to 1.
 
 ## Binary Feature Metrics
 

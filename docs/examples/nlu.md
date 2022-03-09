@@ -32,7 +32,7 @@ output_features:
         type: category
         reduce_input: sum
         num_fc_layers: 1
-        fc_size: 64
+        output_size: 64
     -
         name: slots
         type: sequence

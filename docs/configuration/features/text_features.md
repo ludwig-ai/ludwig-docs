@@ -132,7 +132,7 @@ state_size: 256
 embedding_size: 256
 beam_width: 1
 attention: null
-tied_embeddings: null
+tied: null
 max_sequence_length: 0
 ```
 

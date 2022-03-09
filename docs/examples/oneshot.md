@@ -39,7 +39,7 @@ input_features:
 combiner:
     type: concat
     num_fc_layers: 2
-    fc_size: 256
+    output_size: 256
 
 output_features:
     -

@@ -57,10 +57,9 @@ type: date
 encoder: embed
 embedding_size: 10
 embeddings_on_cpu: false
-dropout: false
 fc_layers: null
 num_fc_layers: 0
-fc_size: 10
+output_size: 10
 use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
@@ -102,7 +101,7 @@ type: date
 encoder: wave
 fc_layers: null
 num_fc_layers: 0
-fc_size: 10
+output_size: 10
 use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros

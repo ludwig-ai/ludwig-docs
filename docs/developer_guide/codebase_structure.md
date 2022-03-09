@@ -12,7 +12,7 @@
 │   ├── encoders           - Input feature encoders
 │   ├── features           - Implementations of feature types
 │   ├── hyperopt
-│   ├── models             - Implementations of ECG, trainer, predictor.
+│   ├── models             - Implementations of ECD, trainer, predictor.
 │   ├── modules            - Torch modules including layers, metrics, and losses
 │   ├── utils
 │   ├── api.py             - Entry point for python API. Declares LudwigModel.

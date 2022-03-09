@@ -74,9 +74,6 @@ fc_size: 256
 use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-weights_regularizer: null
-bias_regularizer: null
-activity_regularizer: null
 activation: relu
 clip: null
 ```

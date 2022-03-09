@@ -34,7 +34,7 @@ input_features:
           width: 28
           height: 28
           resize_image: true
-        tied_weights: image_path_1
+        tied: image_path_1
 
 combiner:
     type: concat

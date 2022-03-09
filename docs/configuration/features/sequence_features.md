@@ -59,8 +59,8 @@ Sequence input feature parameters are
 - `encoder` (default `parallel_cnn`): the name of the encoder to use to encode the sequence, one of `embed`,
 `parallel_cnn`, `stacked_cnn`, `stacked_parallel_cnn`, `rnn`, `cnnrnn`, `transformer` and `passthrough` (equivalent to
 `null` or `None`).
-- `tied_weights` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the
-name of a feature of the same type and with the same encoder parameters.
+- `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of
+a feature of the same type and with the same encoder parameters.
 
 ### Embed Encoder
 
@@ -126,7 +126,7 @@ Example sequence feature entry in the input features list using an embed encoder
 name: sequence_column_name
 type: sequence
 encoder: embed
-tied_weights: null
+tied: null
 representation: dense
 embedding_size: 256
 embeddings_trainable: true
@@ -254,7 +254,7 @@ Example sequence feature entry in the input features list using a parallel cnn e
 name: sequence_column_name
 type: sequence
 encoder: parallel_cnn
-tied_weights: null
+tied: null
 representation: dense
 embedding_size: 256
 embeddings_on_cpu: false
@@ -397,7 +397,7 @@ Example sequence feature entry in the input features list using a parallel cnn e
 name: sequence_column_name
 type: sequence
 encoder: stacked_cnn
-tied_weights: null
+tied: null
 representation: dense
 embedding_size: 256
 embeddings_trainable: true
@@ -545,7 +545,7 @@ Example sequence feature entry in the input features list using a parallel cnn e
 name: sequence_column_name
 type: sequence
 encoder: stacked_parallel_cnn
-tied_weights: null
+tied: null
 representation: dense
 embedding_size: 256
 embeddings_trainable: true
@@ -676,7 +676,7 @@ Example sequence feature entry in the input features list using a parallel cnn e
 name: sequence_column_name
 type: sequence
 encoder: rnn
-tied_weights: null
+tied: null
 representation': dense
 embedding_size: 256
 embeddings_trainable: true
@@ -835,7 +835,7 @@ Example sequence feature entry in the inputs features list using a cnn rnn encod
 name: sequence_column_name
 type: sequence
 encoder: cnnrnn
-tied_weights: null
+tied: null
 representation: dense
 embedding_size: 256
 embeddings_trainable: true
@@ -972,7 +972,7 @@ Example sequence feature entry in the inputs features list using a Transformer e
 name: sequence_column_name
 type: sequence
 encoder: transformer
-tied_weights: null
+tied: null
 representation: dense
 embedding_size: 256
 embeddings_trainable: true

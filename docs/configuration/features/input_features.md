@@ -123,7 +123,7 @@ An additional feature that Ludwig provides is the option to have **tied weights*
 For instance, if my model takes two sentences as input and return the probability of their entailment, I may want to
 encode both sentences with the same encoder.
 
-This is done by specifying the `tied_weights` parameter of one feature to be the name of another output feature. For
+This is done by specifying the `tied` parameter of one feature to be the name of another output feature. For
 example:
 
 === "YAML"
@@ -136,7 +136,7 @@ example:
         -
             name: sentence2
             type: text
-            tied_weights: sentence1
+            tied: sentence1
     ```
 
 === "Python Dict"
@@ -151,7 +151,7 @@ example:
             {
                 "name": "sentence2",
                 "type": "text",
-                "tied_weights": "sentence1"
+                "tied": "sentence1"
             }
         ]
     }

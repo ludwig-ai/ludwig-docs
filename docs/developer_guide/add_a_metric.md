@@ -131,5 +131,3 @@ feature types:
 @register_metric(TOKEN_ACCURACY, [SEQUENCE, TEXT])
 class TokenAccuracyMetric(MeanMetric):
 ```
-
-g

@@ -24,6 +24,7 @@ We'll use `TokenAccuracyMetric` as an example, which treats each token of a sequ
 computes average accuracy over sequences.
 
 First, declare the new metric class in `ludwig/modules/metric_modules.py`:
+
 ```python
 class TokenAccuracyMetric(MeanMetric):
 ```
@@ -81,7 +82,7 @@ def reset(self) -> None:
     ```python
     def update(self, preds: torch.Tensor, target: torch.Tensor) -> None:
         self.avg.update(self.get_current_value(preds, target))
-    ```
+```
 
 ## get_objective
 

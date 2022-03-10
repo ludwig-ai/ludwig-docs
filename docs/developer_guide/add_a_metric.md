@@ -30,7 +30,6 @@ class TokenAccuracyMetric(MeanMetric):
 
 # 2. Implement required methods
 
-
 ## get_current_value
 
 If using `MeanMetric`, compute the value of the metric given a batch of feature outputs and target values in
@@ -54,7 +53,6 @@ feature.
 __Return__
 
 - (torch.Tensor): The computed metric, in most cases this will be a scalar value.
-
 
 ## update and reset
 
@@ -131,3 +129,4 @@ feature types:
 @register_metric(TOKEN_ACCURACY, [SEQUENCE, TEXT])
 class TokenAccuracyMetric(MeanMetric):
 ```
+g

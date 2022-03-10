@@ -48,7 +48,7 @@ type: vector
 encoder: dense
 layers: null
 num_layers: 0
-fc_size: 256
+output_size: 256
 use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
@@ -70,13 +70,10 @@ loss:
     type: sigmoid_cross_entropy
 fc_layers: null
 num_fc_layers: 0
-fc_size: 256
+output_size: 256
 use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-weights_regularizer: null
-bias_regularizer: null
-activity_regularizer: null
 activation: relu
 clip: null
 ```

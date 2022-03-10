@@ -31,8 +31,8 @@ In this case the inputs of size `b` are transformed to size `b x h`.
 The available encoder parameters are:
 
 - `norm` (default `null`): norm to apply after the single neuron. It can be `null`, `batch` or `layer`.
-- `tied_weights` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the
-name of a feature of the same type and with the same encoder parameters.
+- `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of
+a feature of the same type and with the same encoder parameters.
 
 ### Passthrough Encoder
 
@@ -80,7 +80,7 @@ Example number feature entry in the input features list:
 name: number_column_name
 type: number
 norm: null
-tied_weights: null
+tied: null
 encoder: dense
 num_layers: 1
 output_size: 256

@@ -190,9 +190,9 @@ hyperopt:
     utterance.fc_layers:
       space: choice
       categories:
-        - [{"fc_size": 512}, {"fc_size": 256}]
-        - [{"fc_size": 512}]
-        - [{"fc_size": 256}]
+        - [{"output_size": 512}, {"output_size": 256}]
+        - [{"output_size": 512}]
+        - [{"output_size": 256}]
   goal: minimize
 ```
 

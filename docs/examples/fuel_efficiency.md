@@ -52,6 +52,6 @@ output_features:
         optimizer:
             type: mean_squared_error
         num_fc_layers: 2
-        fc_size: 64
+        output_size: 64
 
 ```

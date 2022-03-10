@@ -102,8 +102,8 @@ or for `layer` see the [Torch documentation on layer normalization](https://pyto
 - `dropout` (default `0`): dropout rate
 - `reduce_output` (default `sum`): describes the strategy to use to aggregate the embeddings of the items of the set.
 Available values are: `sum`, `mean` or `avg`, `max`, `concat` and  `null` (which does not reduce and returns the full tensor).
-- `tied_weights` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the
-name of a feature of the same type and with the same encoder parameters.
+- `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of
+a feature of the same type and with the same encoder parameters.
 
 Example set feature entry in the input features list:
 
@@ -126,7 +126,7 @@ norm_params: null
 activation: relu
 dropout: 0.0
 reduce_output: sum
-tied_weights: null
+tied: null
 ```
 
 ## Set Output Features and Decoders

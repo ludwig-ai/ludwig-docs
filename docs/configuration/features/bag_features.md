@@ -39,7 +39,7 @@ Example bag feature entry in the input features list:
 name: bag_column_name
 type: bag
 representation: dense
-tied_weights: null
+tied: null
 ```
 
 ## Bag Output Features and Decoders

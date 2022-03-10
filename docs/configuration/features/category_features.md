@@ -37,15 +37,15 @@ Input feature parameters.
 
 - `encoder` (default `dense`): the possible values are `passthrough`, `dense` and `sparse`. `passthrough` outputs the
 raw integer values unaltered. `dense` randomly initializes a trainable embedding matrix, `sparse` uses one-hot encoding.
-- `tied_weights` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the
-name of a feature of the same type and with the same encoder parameters.
+- `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of
+a feature of the same type and with the same encoder parameters.
 
 Example category feature entry in the input features list:
 
 ```yaml
 name: category_column_name
 type: category
-tied_weights: null
+tied: null
 encoder: dense
 ```
 
@@ -107,7 +107,7 @@ Example category feature entry in the input features list:
 name: category_column_name
 type: category
 encoder: sparse
-tied_weights: null
+tied: null
 embedding_size: 256
 embeddings_on_cpu: false
 pretrained_embeddings: null

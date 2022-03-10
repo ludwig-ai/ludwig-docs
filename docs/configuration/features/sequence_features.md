@@ -59,8 +59,8 @@ Sequence input feature parameters are
 - `encoder` (default `parallel_cnn`): the name of the encoder to use to encode the sequence, one of `embed`,
 `parallel_cnn`, `stacked_cnn`, `stacked_parallel_cnn`, `rnn`, `cnnrnn`, `transformer` and `passthrough` (equivalent to
 `null` or `None`).
-- `tied_weights` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the
-name of a feature of the same type and with the same encoder parameters.
+- `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of
+a feature of the same type and with the same encoder parameters.
 
 ### Embed Encoder
 
@@ -126,7 +126,7 @@ Example sequence feature entry in the input features list using an embed encoder
 name: sequence_column_name
 type: sequence
 encoder: embed
-tied_weights: null
+tied: null
 representation: dense
 embedding_size: 256
 embeddings_trainable: true
@@ -254,7 +254,7 @@ Example sequence feature entry in the input features list using a parallel cnn e
 name: sequence_column_name
 type: sequence
 encoder: parallel_cnn
-tied_weights: null
+tied: null
 representation: dense
 embedding_size: 256
 embeddings_on_cpu: false
@@ -397,7 +397,7 @@ Example sequence feature entry in the input features list using a parallel cnn e
 name: sequence_column_name
 type: sequence
 encoder: stacked_cnn
-tied_weights: null
+tied: null
 representation: dense
 embedding_size: 256
 embeddings_trainable: true
@@ -545,7 +545,7 @@ Example sequence feature entry in the input features list using a parallel cnn e
 name: sequence_column_name
 type: sequence
 encoder: stacked_parallel_cnn
-tied_weights: null
+tied: null
 representation: dense
 embedding_size: 256
 embeddings_trainable: true
@@ -676,7 +676,7 @@ Example sequence feature entry in the input features list using a parallel cnn e
 name: sequence_column_name
 type: sequence
 encoder: rnn
-tied_weights: null
+tied: null
 representation': dense
 embedding_size: 256
 embeddings_trainable: true
@@ -835,7 +835,7 @@ Example sequence feature entry in the inputs features list using a cnn rnn encod
 name: sequence_column_name
 type: sequence
 encoder: cnnrnn
-tied_weights: null
+tied: null
 representation: dense
 embedding_size: 256
 embeddings_trainable: true
@@ -972,7 +972,7 @@ Example sequence feature entry in the inputs features list using a Transformer e
 name: sequence_column_name
 type: sequence
 encoder: transformer
-tied_weights: null
+tied: null
 representation: dense
 embedding_size: 256
 embeddings_trainable: true
@@ -1224,8 +1224,8 @@ parameter describes the size of the embeddings of the inputs of the generator.
 - `beam_width` (default `1`): sampling from the rnn generator is performed using beam search. By default, with a beam of
 one, only a greedy sequence using always the most probably next token is generated, but the beam size can be increased.
 This usually leads to better performance at the expense of more computation and slower generation.
-- `tied_embeddings` (default `null`): if `null` the embeddings of the targets are initialized randomly, while if the
-values is the name of an input feature, the embeddings of that input feature will be used as embeddings of the target.
+- `tied` (default `null`): if `null` the embeddings of the targets are initialized randomly. If `tied` names an input
+feature, the embeddings of that input feature will be used as embeddings of the target.
 The `vocabulary_size` of that input feature has to be the same as the output feature and it has to have an embedding
 matrix (binary and number features will not have one, for instance). In this case the `embedding_size` will be the same
 as the `state_size`. This is useful for implementing autoencoders where the encoding and decoding part of the model
@@ -1267,7 +1267,7 @@ cell_type: rnn
 state_size: 256
 embedding_size: 256
 beam_width: 1
-tied_embeddings: null
+tied: null
 max_sequence_length: 0
 ```
 

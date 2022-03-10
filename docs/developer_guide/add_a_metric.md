@@ -79,7 +79,7 @@ def reset(self) -> None:
 
 !!! note
     `MeanMetric`'s update method simply delegates metric computation to `get_current_value`.
-    
+
     ```python
     def update(self, preds: torch.Tensor, target: torch.Tensor) -> None:
         self.avg.update(self.get_current_value(preds, target))

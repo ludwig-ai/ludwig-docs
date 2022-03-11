@@ -325,7 +325,6 @@ preprocessing:
     num_channels: 3
 ```
 
-
 ## Image Output Features and Decoders
 
 There are no image decoders at the moment (WIP), so image cannot be used as output features.

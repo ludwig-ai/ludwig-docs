@@ -8,8 +8,8 @@ hyperopt:
   metric: loss
   split: validation
   parameters:
-    utterance.cell_type: ...
-    utterance.num_layers: ...
+    text.cell_type: ...
+    text.num_layers: ...
     combiner.num_fc_layers: ...
     section.embedding_size: ...
     preprocessing.text.vocab_size: ...
@@ -39,7 +39,7 @@ hyperopt:
 In the `parameters` section, `.` is used to reference an parameter nested inside a section of the configuration.
 For instance, to reference the `learning_rate`, one would have to use the name `training.learning_rate`.
 If the parameter to reference is inside an input or output feature, the name of that feature will be be used as starting point.
-For instance, for referencing the `cell_type` of the `utterance` feature, use the name `utterance.cell_type`.
+For instance, for referencing the `cell_type` of the `text` feature, use the name `text.cell_type`.
 
 ## Numerical ranges
 
@@ -81,7 +81,7 @@ integers, floats and anything else, even entire dictionaries).
 Example:
 
 ```yaml
-utterance.cell_type:
+text.cell_type:
   categories: [rnn, gru, lstm]
   space: choice
 ```
@@ -181,13 +181,13 @@ hyperopt:
       space: randint
       lower: 2
       upper: 6
-    utterance.cell_type:
+    text.cell_type:
       space: grid_search
       values: ["rnn", "gru"]
-    utterance.bidirectional:
+    text.bidirectional:
       space: choice
       categories: [True, False]
-    utterance.fc_layers:
+    text.fc_layers:
       space: choice
       categories:
         - [{"output_size": 512}, {"output_size": 256}]
@@ -271,16 +271,11 @@ Example YAML:
 ```yaml
 input_features:
   -
-    name: utterance
+    name: text
     type: text
     encoder: rnn
     cell_type: lstm
     num_layers: 2
-  -
-    name: section
-    type: category
-    representation: dense
-    embedding_size: 100
 combiner:
   type: concat
   num_fc_layers: 1
@@ -319,7 +314,7 @@ hyperopt:
       type: int
       low: 1
       high: 5
-    utterance.cell_type:
+    text.cell_type:
       type: category
       values: [rnn, gru, lstm]
   sampler:
@@ -333,5 +328,5 @@ hyperopt:
 Example CLI command:
 
 ```
-ludwig hyperopt --dataset reuters-allcats.csv --config "{input_features: [{name: utterance, type: text, encoder: rnn, cell_type: lstm, num_layers: 2}], output_features: [{name: class, type: category}], training: {learning_rate: 0.001}, hyperopt: {goal: maximize, output_feature: class, metric: accuracy, split: validation, parameters: {training.learning_rate: {type: float, low: 0.0001, high: 0.1, steps: 4, scale: log}, utterance.cell_type: {type: category, values: [rnn, gru, lstm]}}, sampler: {type: grid}, executor: {type: serial}}}"
+ludwig hyperopt --dataset reuters-allcats.csv --config "{input_features: [{name: text, type: text, encoder: rnn, cell_type: lstm, num_layers: 2}], output_features: [{name: class, type: category}], training: {learning_rate: 0.001}, hyperopt: {goal: maximize, output_feature: class, metric: accuracy, split: validation, parameters: {training.learning_rate: {type: float, low: 0.0001, high: 0.1, steps: 4, scale: log}, text.cell_type: {type: category, values: [rnn, gru, lstm]}}, sampler: {type: grid}, executor: {type: serial}}}"
 ```

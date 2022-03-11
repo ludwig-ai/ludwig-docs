@@ -17,6 +17,7 @@ class MAELoss(torch.nn.L1Loss, LogitsInputsMixin):
     def __init__(self, **kwargs):
         super().__init__()
 ```
+
 The `@register_loss` decorator registers the loss under the name `mean_absolute_error`, and indicates it is supported
 for `NUMBER`, `TIMESERIES`, and `VECTOR` output features.
 
@@ -30,6 +31,7 @@ configuration parameters. For this example, lets suppose we have implemented the
 takes two constant parameters `t1` and `t2`, which we'd like to allow users to specify in the config.
 
 Assuming we have the following function:
+
 ```python
 def tempered_softmax_cross_entropy_loss(
         logits: torch.Tensor,

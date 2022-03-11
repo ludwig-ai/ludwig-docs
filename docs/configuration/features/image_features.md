@@ -253,7 +253,7 @@ representations (tokens) and combining the representations with fully-connected 
 
 The MLP-Mixer Encoder takes the following optional parameters:
 
-- `patch_size` (default `16`): The image patch size. Each patch is `patch_size`<sup>2</sup> pixels. Must evenly divide
+- `patch_size` (default `16`): The image patch size. Each patch is `patch_size`² pixels. Must evenly divide
 the image width and height.
 - `embed_size` (default `512`): The patch embedding size, the output size of the mixer if `avg_pool` is true.
 - `token_size` (default `2048`): The per-patch embedding size.
@@ -261,7 +261,7 @@ the image width and height.
 - `num_layers` (default `8`): The depth of the network (the number of Mixer blocks).
 - `dropout` (default `0`): Dropout rate.
 - `avg_pool` (default `true`): If true, pools output over patch dimension, outputs a vector of shape `(embed_size)`. If
-false, the output tensor is of shape `(n_patches, embed_size)`, where n_patches is `img_height` x `img_width` / `patch_size`<sup>2</sup>.
+false, the output tensor is of shape `(n_patches, embed_size)`, where n_patches is `img_height` x `img_width` / `patch_size`².
 
 Example image feature config using an MLP-Mixer encoder:
 
@@ -308,7 +308,7 @@ pooling.
 weight matrices.
 - `layer_norm_eps` (default `1e-12`): The epsilon used by the layer normalization layers.
 - `gradient_checkpointing` (default `false`):
-- `patch_size` (default `16`): The image patch size. Each patch is `patch_size`<sup>2</sup> pixels. Must evenly divide
+- `patch_size` (default `16`): The image patch size. Each patch is `patch_size`² pixels. Must evenly divide
 the image width and height.
 - `trainable` (default `true`): Is the encoder trainable.
 

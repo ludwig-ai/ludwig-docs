@@ -3,36 +3,36 @@
 Ludwig supports both grayscale and color images.
 The number of channels is inferred, but all images in the dataset should have the same number of channels.
 During preprocessing, raw image files are transformed into numpy arrays and saved in the hdf5 format.
-All images in the dataset should have the same size.
-If they have different sizes, a `resize_method` together with a target `width` and `height` must be specified in the
-feature preprocessing parameters.
+
+Ideally, all images in the dataset should have the same size. If there are different image sizes present in the dataset,
+a `resize_method` together with a target `width` and `height` must be specified in the feature preprocessing parameters.
 
 - `in_memory` (default `true`): defines whether image dataset will reside in memory during the training process or will
 be dynamically fetched from disk (useful for large datasets). In the latter case a training batch of input images will
 be fetched from disk each training iteration.
 - `num_processes` (default 1): specifies the number of processes to run for preprocessing images.
-- `resize_method` (default `crop_or_pad`): available options: `crop_or_pad` - crops images larger than the specified
-`width` and `height` to the desired size or pads smalled images using edge padding; `interpolate` - uses interpolation
-to resize images to the specified `width` and `height`.
-- `height` (default `null`): image height in pixels, must be set if resizing is required
-- `width` (default `null`): image width in pixels, must be set if resizing is required
-- `infer_image_dimensions` (boolean, default: `true`): whether to automatically resize differently-sized images to
-inferred dimensions. Target dimensions are inferred by taking the average dimensions of the first
-`infer_image_sample_size` images, then applying `infer_image_max_height` and `infer_image_max_width`. This parameter has
-no effect if explicit `width` and `height` are specified.
-- `infer_image_sample_size` (int, default `100`): sample size of `infer_image_dimensions`.
+- `resize_method` (default `crop_or_pad`): `crop_or_pad` crops images larger than the specified `width` and `height` to
+the desired size or pads smaller images using edge padding. `interpolate` uses interpolation to resample images to the
+specified `width` and `height`.
+- `height` (default `null`): image height in pixels, must be set if resizing is required.
+- `width` (default `null`): image width in pixels, must be set if resizing is required.
+- `infer_image_dimensions` (default: `true`): whether to automatically resize differently-sized images to
+inferred dimensions. Target dimensions are inferred from the dimensions of the first `infer_image_sample_size` sample
+images, then applying `infer_image_max_height` and `infer_image_max_width`. This parameter has no effect if explicit
+`width` and `height` are specified.
+- `infer_image_sample_size` (int, default `100`): Number of images to sample to `infer_image_dimensions`.
 - `infer_image_max_height` (int, default `256`): maximum height of an image transformed using `infer_image_dimensions`.
 - `infer_image_max_width` (int, default `256`): maximum width of an image transformed using `infer_image_dimensions`.
-- `num_channels` (default `null`): number of channels in the images. By default, if the value is `null`, the number of
-channels of the first image of the dataset will be used and if there is an image in the dataset with a different number
-of channels, an error will be reported. If the value specified is not `null`, images in the dataset will be adapted to
-the specified size. If the value is `1`, all images with more than one channel will be converted to grayscale and
-reduced to one channel (transparency will be lost). If the value is `3` all images with 1 channel will be repeated 3
-times to obtain 3 channels, while images with 4 channels will lose the transparency channel. If the value is `4`, all
-the images with less than 4 channels will have the remaining channels filled with zeros.
+- `num_channels` (default `null`): number of channels in the images. By default, the number of channels of the first
+image of the dataset will be used. If there is an image in the dataset with a different number of channels, an error
+will be reported. If `num_channels` is specified, images in the dataset will be adapted to the specified number of
+channels. If the value is `1`, all images with more than one channel will be converted to grayscale and reduced to one
+channel (transparency will be lost). If the value is `3` all images with 1 channel will be repeated 3 times to obtain 3
+channels, while images with 4 channels will lose the transparency channel. If the value is `4`, all images with less
+than 4 channels will have the remaining channels filled with zeros.
 - `scaling` (default `pixel_normalization`): what scaling to perform on images. By default `pixel_normalization` is
 performed, which consists in dividing each pixel values by 255. `pixel_standardization` is also available, which
-normalizes each image to the same channel-wise means and variances.
+normalizes each image to the same channel-wise mean and variance.
 
 Depending on the application, it is preferable not to exceed a size of `256 x 256` as bigger sizes will seldom provide a
 significant performance advantage. Larger images will considerably slow down training and inference and consume more
@@ -231,7 +231,7 @@ conv_stride: 1
 batch_norm_momentum: 0.9
 batch_norm_epsilon: 0.001
 num_fc_layers: 1
-fc_size: 256
+output_size: 256
 use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
@@ -260,8 +260,8 @@ the image width and height.
 - `channel_dim` (default `256`): Number of channels in hidden layer.
 - `num_layers` (default `8`): The depth of the network (the number of Mixer blocks).
 - `dropout` (default `0`): Dropout rate.
-- `avg_pool` (default `true`): If true, pools output over patch dimension, outputs a vector of shape (`embed_size`). If false,
-the output tensor is of shape `(n_patches, embed_size)`, where n_patches is `img_height` x `img_width` / (`patch_size`<sup>2</sup>)
+- `avg_pool` (default `true`): If true, pools output over patch dimension, outputs a vector of shape `(embed_size)`. If
+false, the output tensor is of shape `(n_patches, embed_size)`, where n_patches is `img_height` x `img_width` / `patch_size`<sup>2</sup>.
 
 Example image feature config using an MLP-Mixer encoder:
 
@@ -333,5 +333,3 @@ There are no image decoders at the moment (WIP), so image cannot be used as outp
 ## Image Features Metrics
 
 As no image decoders are available at the moment, there are also no image metrics.
-
-

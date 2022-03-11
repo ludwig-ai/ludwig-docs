@@ -88,6 +88,7 @@ nav:
       - "Add a Decoder": "developer_guide/add_a_decoder.md"
       - "Add a Feature Type": "developer_guide/add_a_feature_type.md"
       - "Add a Metric": "developer_guide/add_a_metric.md"
+      - "Add a Loss Function": "developer_guide/add_a_loss_function.md"
       - "Hyper-parameter Optimization": "developer_guide/hyper_parameter_optimization.md"
       - "Add an Integration": "developer_guide/add_an_integration.md"
       - "Add a Dataset": "developer_guide/add_a_dataset.md"

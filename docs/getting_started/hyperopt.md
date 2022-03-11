@@ -33,24 +33,25 @@ hyperopt:
     training.optimizer.type:
       type: category
       values: [sgd, adam, adagrad]
-    review_content.level:
+    review_content.embedding_size:
       type: category
-      values: [word, char]
+      values: [128, 256]
   sampler:
     type: random
   executor:
-    type: parallel
+    type: serial
 ```
 
 In this example we have specified a basic hyperopt config with the following specifications:
 
-- We have set the **goal** to maximize the **accuracy** metric on the **validation** split
-- The parameters we are optimizing are the **learning rate**, the **optimizer type**, and the **level** of text representation to use.
-  - When optimizing **learning rate** we are testing *four* values on a *log* scale between 0.0001 and 0.1 ([0.0001, 0.001, 0.01, 0.1]).
-  - When optimizing the **optimizer type**, we are testing the *sgd*, *adam*, and *adagrad* optimizers
-  - When optimizing the **level** of text representation to use, we are testing representations at the *word* level and the *char* level 
-- We set the hyperopt **sampler** to use the random sampler. This selects 10 random hyperparameter combinations from the search space by default.
-- We set the hyperopt **executor** to use the parallel executor which will use 2 workers by default to optimize in parallel.
+* We have set the **goal** to maximize the **accuracy** metric on the **validation** split
+* The parameters we are optimizing are the **learning rate**, the **optimizer type**, and the **level** of text representation to use.
+  * When optimizing **learning rate** we are testing *four* values on a *log* scale between 0.0001 and 0.1 ([0.0001, 0.001, 0.01, 0.1]).
+  * When optimizing the **optimizer type**, we are testing the *sgd*, *adam*, and *adagrad* optimizers
+  * When optimizing the **level** of text representation to use, we are testing representations at the *word* level and the *char* level
+* We set the hyperopt **sampler** to use the random sampler. This selects 10 random hyperparameter combinations from the search space by default.
+  * Ludwig supports advanced hyperparameter sampling algorithms like Bayesian optimization and genetical algorithms, check out [this guide](https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/hyperparameter_optimization/#sampler) for full details.
+* We set the hyperopt **executor** to use the serial executor which performs the optimization locally in a serial manner.
 
 The hyperparameter optimization strategy is run using the ludwig hyperopt command:
 
@@ -65,7 +66,7 @@ The hyperparameter optimization strategy is run using the ludwig hyperopt comman
     ``` python
     from ludwig.hyperopt.run import hyperopt
 
-    results = hyperopt.train(config='rotten_tomatoes.yaml', dataset=df)
+    results = hyperopt(config='rotten_tomatoes.yaml', dataset=df)
     ```
 
-Every parameter within the config can be tuned using hyperopt. If you wish to tune other parameters as well, the full configuration specification can be found [here](docs/configuration/hyperparameter_optimization.md).
+Every parameter within the config can be tuned using hyperopt. You can refer to the full [hyperopt guide](https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/hyperparameter_optimization/) if you wish to tune other parameters as well.

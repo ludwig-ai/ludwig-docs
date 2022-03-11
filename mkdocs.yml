@@ -22,7 +22,7 @@ nav:
       - 'Prediction and Evaluation': 'getting_started/evaluate.md'
       - 'Serving': 'getting_started/serve.md'
       - 'Distributed training on Ray': 'getting_started/ray.md'
-      - 'AutoML and Hyperopt': 'getting_started/hyperopt.md'
+      - 'Hyperopt': 'getting_started/hyperopt.md'
   - Examples: 'examples.md'
   - User Guide:
       - 'Command Line Interface': 'user_guide/command_line_interface.md'

@@ -23,4 +23,4 @@ Since the output feature is a binary type feature, the output from the POST call
 }
 ```
 
-If you would like you can also make a POST request on the /batch_predict endpoint to run inference on multiple samples at once. The full configuration for ludwig serve can be found [here](docs/user_guide/serving.md).
+If you would like you can also make a POST request on the [`/batch_predict`](https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/serving/#batch_predict) endpoint to run inference on multiple samples at once. The full configuration for [ludwig serve](https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/serving/) has more information on how to deploy your models.

@@ -1,4 +1,4 @@
-To train a model with Ludwig, we first need to create a [configuration](/ludwig-docs/user_guide/configuration) file. This file provides at a minimum the input and output features of your model, but you can also expand upon it to include model architectures, training parameters, hyperparameter optimization, and more.
+To train a model with Ludwig, we first need to create a [configuration](https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/) file. This file provides at a minimum the input and output features of your model, but you can also expand upon it to include model architectures, training parameters, hyperparameter optimization, and more.
 
 For now, let's use a basic config that just specifies the inputs and output and leaves the rest to Ludwig:
 
@@ -6,6 +6,8 @@ For now, let's use a basic config that just specifies the inputs and output and 
 input_features:
     - name: genres
       type: set
+      preprocessing:
+          tokenizer: comma
     - name: content_rating
       type: category
     - name: top_critic
@@ -21,6 +23,7 @@ output_features:
 ```
 
 This config file tells Ludwig that we want to train a model that uses the following **input features**:
+
 - The *genres* associated with the movie will be used as a **set feature** 
 - The movie's *content rating* will be used as a **category feature**
 - Whether the review was done by a *top critic* or not will be used as a **binary feature**
@@ -48,3 +51,8 @@ Once you've created the `rotten_tomatoes.yaml` file with the contents above, you
     model = LudwigModel(config='rotten_tomatoes.yaml')
     results = model.train(dataset=df)
     ```
+
+
+For encoding text in this example, we used an embed encoder, which assigns an embedding for each word and sums them. Ludwig provides you with many more options for embedding text (ex: CNNs, RNNs, Transformers, and pretrained models such as BERT or GPT-2) and using them is as simple as changing encoder option in the config from "embed" to "bert". 
+
+Ludwig is very flexible. Users can change just about any parameter in their models including training parameters, preprocessing parameters, and more, directly from the configuration. Check out the [config](/ludwig-docs/user_guide/configuration) section for the full list of parameters available in the configuration.

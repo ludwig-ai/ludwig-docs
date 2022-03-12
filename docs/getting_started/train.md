@@ -52,6 +52,14 @@ Once you've created the `rotten_tomatoes.yaml` file with the contents above, you
     results = model.train(dataset=df)
     ```
 
+=== "Docker CLI"
+
+    ``` sh
+    mkdir rotten_tomatoes_data
+    mv rotten_tomatoes.yaml ./rotten_tomatoes_data
+    mv rotten_tomatoes.csv ./rotten_tomatoes_data
+    docker run -t -i --mount type=bind,source={absolute/path/to/rotten_tomatoes_data},target=/rotten_tomatoes_data ludwigai/ludwig train --config /rotten_tomatoes_data/rotten_tomatoes.yaml --dataset /rotten_tomatoes_data/rotten_tomatoes.csv --output_directory /rotten_tomatoes_data
+    ```
 
 For encoding text in this example, we used an embed encoder, which assigns an embedding for each word and sums them. Ludwig provides you with many more options for embedding text (ex: CNNs, RNNs, Transformers, and pretrained models such as BERT or GPT-2) and using them is as simple as changing encoder option in the config from "embed" to "bert". 
 

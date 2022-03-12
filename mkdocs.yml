@@ -20,9 +20,9 @@ nav:
       - 'Dataset preparation': 'getting_started/prepare_data.md'
       - 'Training': 'getting_started/train.md'
       - 'Prediction and Evaluation': 'getting_started/evaluate.md'
+      - 'Hyperopt': 'getting_started/hyperopt.md'
       - 'Serving': 'getting_started/serve.md'
       - 'Distributed training on Ray': 'getting_started/ray.md'
-      - 'Hyperopt': 'getting_started/hyperopt.md'
   - Examples: 'examples.md'
   - User Guide:
       - 'Command Line Interface': 'user_guide/command_line_interface.md'

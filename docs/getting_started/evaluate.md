@@ -19,6 +19,12 @@ Now, let's make some predictions on the test dataset (Note: if you are working i
     predictions.head()
     ```
 
+=== "Docker CLI"
+
+    ``` sh
+    docker run -t -i --mount type=bind,source={absolute/path/to/rotten_tomatoes_data},target=/rotten_tomatoes_data ludwigai/ludwig predict --model_path /rotten_tomatoes_data/results/experiment_run/model --dataset /rotten_tomatoes_data/rotten_tomatoes.csv
+    ```
+
 Running this command will return model predictions. Your results should look something like this:
 
 
@@ -37,7 +43,7 @@ If your dataset also contains ground truth values of the target outputs, you can
 
 === "CLI"
 
-    ```
+    ``` sh
     ludwig evaluate --dataset path/to/data.csv --model_path /path/to/model
     ```
 
@@ -47,11 +53,18 @@ If your dataset also contains ground truth values of the target outputs, you can
     eval_stats, _, _ = model.evaluate(dataset='rotten_tomatoes_test.csv')
     ```
 
+=== "Docker CLI"
+
+    ``` sh
+    cp rotten_tomatoes_test.csv ./rotten_tomatoes_data
+    docker run -t -i --mount type=bind,source={absolute/path/to/rotten_tomatoes_data},target=/rotten_tomatoes_data ludwigai/ludwig evaluate --dataset /rotten_tomatoes_data/rotten_tomatoes_test.csv --model_path /rotten_tomatoes_data/results/experiment_run/model
+    ```
+
 This will produce evaluation performance statistics that can be visualized by using [`ludwig visualize`](https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/api/visualization/), which can also be used to compare performances and predictions of different models. For instance, if you have two models which you want to compare evaluation statistics for, you could use the following commands:
 
 === "CLI"
 
-    ```
+    ``` sh
     ludwig visualize --visualization compare_performance --test_statistics path/to/test_statistics_model_1.json path/to/test_statistics_model_2.json
     ```
 
@@ -61,6 +74,12 @@ This will produce evaluation performance statistics that can be visualized by us
     from ludwig.visualize import compare_performance
     
     compare_performance([eval_stats_model_1, eval_stats_model_2])
+    ```
+
+=== "Docker CLI"
+
+    ``` sh
+    docker run -t -i --mount type=bind,source={absolute/path/to/rotten_tomatoes_data},target=/rotten_tomatoes_data ludwigai/ludwig visualize --visualization compare_performance --test_statistics /rotten_tomatoes_data/path/to/test_statistics_model_1.json /rotten_tomatoes_data/path/to/test_statistics_model_2.json
     ```
 
 This will return a bar plot comparing the performance of each model on different metrics like the example below.

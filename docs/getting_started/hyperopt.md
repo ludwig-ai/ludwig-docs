@@ -69,4 +69,10 @@ The hyperparameter optimization strategy is run using the ludwig hyperopt comman
     results = hyperopt(config='rotten_tomatoes.yaml', dataset=df)
     ```
 
+=== "Docker CLI"
+
+  ``` sh
+  docker run -t -i --mount type=bind,source={absolute/path/to/rotten_tomatoes_data},target=/rotten_tomatoes_data ludwigai/ludwig hyperopt --config /rotten_tomatoes_data/rotten_tomatoes.yaml --dataset /rotten_tomatoes_data/rotten_tomatoes.csv
+  ```
+
 Every parameter within the config can be tuned using hyperopt. You can refer to the full [hyperopt guide](https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/hyperparameter_optimization/) if you wish to tune other parameters as well.

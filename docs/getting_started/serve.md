@@ -2,9 +2,17 @@ Model pipelines trained with Ludwig can be served by spawning a Rest API using t
 
 Let's serve the pipeline we just created.
 
-``` sh
-ludwig serve --model_path ./results/experiment_run/model
-```
+=== "CLI"
+    ``` sh
+    ludwig serve --model_path ./results/experiment_run/model
+    ```
+
+=== "Docker CLI"
+    
+    ``` sh
+    docker run -t -i --mount type=bind,source={absolute/path/to/rotten_tomatoes_data},target=/rotten_tomatoes_data ludwigai/ludwig serve --model_path /rotten_tomatoes_data/results/experiment_run/model
+    ```
+
 
 Now that our server is up and running, you can make a POST request on the endpoint to get predictions back:
 

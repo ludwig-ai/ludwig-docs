@@ -14,7 +14,7 @@ Now, let's make some predictions on the test dataset (Note: if you are working i
 
     ``` python
     model = LudwigModel.load('results/experiment_run/model')
-    
+
     predictions, _ = model.predict(dataset='rotten_tomatoes_test.csv')
     predictions.head()
     ```
@@ -27,19 +27,17 @@ Now, let's make some predictions on the test dataset (Note: if you are working i
 
 Running this command will return model predictions. Your results should look something like this:
 
-
-| Index |          recommended_probabilities          | recommended_predictions	 | recommended_probabilities_False | 	 recommended_probabilities_True | recommended_probability | 
+| Index |          recommended_probabilities          | recommended_predictions  | recommended_probabilities_False |   recommended_probabilities_True | recommended_probability |
 |:-----:|:-------------------------------------------:|:------------------------:|:-------------------------------:|:--------------------------------:|:-----------------------:|
-|  0	   |  [0.09741002321243286, 0.9025899767875671]  |           True           |            	0.097410            |            	0.902590             |        	0.902590        |  
-|  1	   |  [0.6842662990093231, 0.3157337009906769]   |          False           |            0.684266             |            	0.315734             |        0.684266         |   
-|  2	   | [0.026504933834075928, 0.973495066165 9241] |           True           |            0.026505             |            	0.973495             |        	0.973495        | 
-|  3	   | [0.022977590560913086, 0.9770224094390869]  |           True           |            	0.022978            |            	0.977022             |        	0.977022        | 
-|  4	   | [0.9472369104623795, 0.052763089537620544]  |          False           |            	0.947237            |            	0.052763             |        	0.947237        |
+|  0    |  [0.09741002321243286, 0.9025899767875671]  |           True           |             0.097410            |             0.902590             |         0.902590        |
+|  1    |  [0.6842662990093231, 0.3157337009906769]   |          False           |            0.684266             |             0.315734             |        0.684266         |
+|  2    | [0.026504933834075928, 0.973495066165 9241] |           True           |            0.026505             |             0.973495             |         0.973495        |
+|  3    | [0.022977590560913086, 0.9770224094390869]  |           True           |             0.022978            |             0.977022             |         0.977022        |
+|  4    | [0.9472369104623795, 0.052763089537620544]  |          False           |             0.947237            |             0.052763             |         0.947237        |
 
 A handy [`ludwig experiment`](https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/api/LudwigModel/#experiment) command that performs training and prediction one after the other is also available.
 
 If your dataset also contains ground truth values of the target outputs, you can compare them to the predictions obtained from the model to evaluate the model performance.
-
 
 === "CLI"
 
@@ -48,7 +46,7 @@ If your dataset also contains ground truth values of the target outputs, you can
     ```
 
 === "Python"
-    
+
     ``` python
     eval_stats, _, _ = model.evaluate(dataset='rotten_tomatoes_test.csv')
     ```
@@ -72,7 +70,7 @@ This will produce evaluation performance statistics that can be visualized by us
 
     ``` python
     from ludwig.visualize import compare_performance
-    
+
     compare_performance([eval_stats_model_1, eval_stats_model_2])
     ```
 

@@ -1,5 +1,5 @@
-Ludwig is a *declarative* deep learning framework that allows users to train, evaluate, and deploy models without 
-the need to write code. 
+Ludwig is a *declarative* deep learning framework that allows users to train, evaluate, and deploy models without
+the need to write code.
 
 Being declarative means you only need to tell Ludwig *what* columns in your data are input
 and output features, and Ludwig will figure out *how* to train the best model.
@@ -16,7 +16,6 @@ For large or long-running workloads, Ludwig can be run remotely in the cloud or 
   [git]: #with-git
   [ray]: /getting_started/ray.md
 
-
 ## Python (with Pip) <small>recommended</small> { #with-pip }
 
 ``` sh
@@ -26,16 +25,16 @@ pip install ludwig
 This will install only Ludwig's basic requirements, different feature types require different dependencies.
 We divided them as different extras so that users could install only the ones they actually need:
 
- - `ludwig[text]` for text dependencies.
- - `ludwig[image]` for image dependencies.
- - `ludwig[audio]` for audio and speech dependencies.
- - `ludwig[serve]` for serving dependencies.
- - `ludwig[viz]` for visualization dependencies.
- - `ludwig[hyperopt]` for hyperparameter optimization dependencies.
- - `ludwig[ray]` for distributed training on [Ray](https://www.ray.io/) using [Dask](https://dask.org/) and [Horovod](https://github.com/horovod/horovod).
+- `ludwig[text]` for text dependencies.
+- `ludwig[image]` for image dependencies.
+- `ludwig[audio]` for audio and speech dependencies.
+- `ludwig[serve]` for serving dependencies.
+- `ludwig[viz]` for visualization dependencies.
+- `ludwig[hyperopt]` for hyperparameter optimization dependencies.
+- `ludwig[ray]` for distributed training on [Ray](https://www.ray.io/) using [Dask](https://dask.org/) and [Horovod](https://github.com/horovod/horovod).
 
  The full set of dependencies can be installed with:
- 
+
  ``` sh
  pip install 'ludwig[full]'
  ```
@@ -53,7 +52,7 @@ more details on installing the right version of PyTorch for your environment.
 
 ## Docker { #with-docker }
 
-The Ludwig team publishes official [Docker images](https://hub.docker.com/u/ludwigai) that come with the full set of 
+The Ludwig team publishes official [Docker images](https://hub.docker.com/u/ludwigai) that come with the full set of
 dependencies pre-installed. You can pull the `latest` images (for the most recent official Ludwig release) by running:
 
 ``` sh

@@ -1,9 +1,8 @@
 Ludwig can train on any *table-like* dataset, meaning that every feature has its own **column** and every example its own **row**.
 
-In this example, we'll use this [Rotten Tomatoes](https://www.kaggle.com/stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset) dataset, a CSV file with variety of feature types and a binary target. 
+In this example, we'll use this [Rotten Tomatoes](https://www.kaggle.com/stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset) dataset, a CSV file with variety of feature types and a binary target.
 
 We've taken the data from the above link and prepared a dataset for you to use in this first example. You can download the dataset using this [link.](https://github.com/ludwig-ai/ludwig-docs/raw/getting-started/docs/data/rotten_tomatoes.csv)
-
 
 Let's take a look at the first 5 rows to see how the data is arranged:
 
@@ -21,7 +20,6 @@ Let's take a look at the first 5 rows to see how the data is arranged:
     df = pd.read_csv('rotten_tomatoes.csv')
     df.head()
     ```
-
 
 Your results should look a little something like this:
 

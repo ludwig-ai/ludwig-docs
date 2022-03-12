@@ -24,7 +24,7 @@ output_features:
 
 This config file tells Ludwig that we want to train a model that uses the following **input features**:
 
-- The *genres* associated with the movie will be used as a **set feature** 
+- The *genres* associated with the movie will be used as a **set feature**
 - The movie's *content rating* will be used as a **category feature**
 - Whether the review was done by a *top critic* or not will be used as a **binary feature**
 - The movie's *runtime* will be used as a **number feature**
@@ -33,7 +33,6 @@ This config file tells Ludwig that we want to train a model that uses the follow
 This config file also tells Ludwig that we want our model to have the following **output features**:
 
 - The recommendation of whether to watch the movie or not will be output as a **binary feature**
-
 
 Once you've created the `rotten_tomatoes.yaml` file with the contents above, you're ready to train your first model:
 
@@ -61,6 +60,6 @@ Once you've created the `rotten_tomatoes.yaml` file with the contents above, you
     docker run -t -i --mount type=bind,source={absolute/path/to/rotten_tomatoes_data},target=/rotten_tomatoes_data ludwigai/ludwig train --config /rotten_tomatoes_data/rotten_tomatoes.yaml --dataset /rotten_tomatoes_data/rotten_tomatoes.csv --output_directory /rotten_tomatoes_data
     ```
 
-For encoding text in this example, we used an embed encoder, which assigns an embedding for each word and sums them. Ludwig provides you with many more options for embedding text (ex: CNNs, RNNs, Transformers, and pretrained models such as BERT or GPT-2) and using them is as simple as changing encoder option in the config from "embed" to "bert". 
+For encoding text in this example, we used an embed encoder, which assigns an embedding for each word and sums them. Ludwig provides you with many more options for embedding text (ex: CNNs, RNNs, Transformers, and pretrained models such as BERT or GPT-2) and using them is as simple as changing encoder option in the config from "embed" to "bert".
 
 Ludwig is very flexible. Users can change just about any parameter in their models including training parameters, preprocessing parameters, and more, directly from the configuration. Check out the [config](/ludwig-docs/user_guide/configuration) section for the full list of parameters available in the configuration.

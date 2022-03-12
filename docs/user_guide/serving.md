@@ -1,19 +1,20 @@
-Serving Ludwig Model Pipelines
-==============================
+# Serving Ludwig Models
 
-Model pipelines trained with Ludwig can be served using the [serve command](command_line_interface.md#serve).
-The command will spawn a Rest API using the FastAPI library.
-Such API has two endpoints: `predict` and `predict_batch`.
-`predict` should be used to obtain predictions for a single datapoints, while `predict_batch` should be used to obtain predictions for an entire DataFrame / for multiple datapoints.
+Ludwig models can be served using the [serve command](command_line_interface.md#serve).
 
-In Ludwig model pipelines are defined based on their input, their outputs and their data  types.
-Models can have multiple inputs and multiple outputs of arbitrary data types.
-For instance a text classification model can be defined by a text input and a category outputs, while a regression model can be defined as several numerical, binary and category inputs and one numerical outputs.
+```bash
+ludwig serve --model_path=/path/to/model
+```
 
-The structure of the input to the REST API and the structure of the output that will be returned depends on the data types of the input and outputs of the Ludwig model pipeline.
+The command will spawn a Rest API using the [FastAPI](https://fastapi.tiangolo.com/) library.
 
-REST Endpoints
-==============
+This API has two endpoints: `predict` and `predict_batch`. `predict` should be used to obtain predictions for individual
+examples, while `predict_batch` should be used to obtain predictions for an a batch of examples.
+
+Inputs sent to the REST API should be consistent with the feature names and types used to train the model. The output
+structure from the REST API depends on the model's output features and their data types.
+
+# REST Endpoints
 
 ## predict
 
@@ -21,30 +22,30 @@ REST Endpoints
 
 For each input of the model, the predict endpoint expects a field with a name.
 For instance, a model trained with an input text field named `english_text` would expect a POST like:
-```
+
+```bash
 curl http://0.0.0.0:8000/predict -X POST -F 'english_text=words to be translated'
 ```
 
 If the model was trained with an input image field, it will instead expects a POST with a file, like:
 
-```
+```bash
 curl http://0.0.0.0:8000/predict -X POST -F 'image=@path_to_image/example.png'
 ```
 
 A model with both a text and an image field will expect a POST like:
 
-```
+```bash
 curl http://0.0.0.0:8000/predict -X POST -F 'text=mixed together with' -F 'image=@path_to_image/example.png'
 ```
 
 ### Output format
 
-The output format is  a JSON that is independent of the number of inputs and their data types, it only depends on the number of outputs the model pipeline was trained to predict and their data types.
+ The response is a JSON dictionary with keys prefixed by the names of the model's output features.
 
-At the moment, Ludwig can predict binary, numerical, categorical, set, sequence and text outputs.
+For binary outputs, the JSON structure returned by the REST API is the following:
 
-For binary outputs, the JSON structure returned by the REST PI is the following:
-```
+```json
 {
    "NAME_predictions": false,
    "NAME_probabilities_False": 0.76,
@@ -53,15 +54,15 @@ For binary outputs, the JSON structure returned by the REST PI is the following:
 }
 ```
 
-For numerical outputs, the JSON structure returned by the REST PI is the following:
+For numerical outputs, the JSON structure returned by the REST API is the following:
 
-`````
+```json
 {"NAME_predictions": 0.381}
-`````
-
-For categorical outputs, the JSON structure returned by the REST PI is the following:
-
 ```
+
+For categorical outputs, the JSON structure returned by the REST API is the following:
+
+```json
 {
    "NAME_predictions": "CLASSNAMEK",
    "NAME_probability": 0.62,
@@ -72,8 +73,9 @@ For categorical outputs, the JSON structure returned by the REST PI is the follo
 }
 ```
 
-For set outputs, the JSON structure returned by the REST PI is the following:
-```
+For set outputs, the JSON structure returned by the REST API is the following:
+
+```json
 {
    "NAME_predictions":[
       "CLASSNAMEI",
@@ -92,8 +94,9 @@ For set outputs, the JSON structure returned by the REST PI is the following:
 }
 ```
 
-For sequence outputs, the JSON structure returned by the REST PI is the following:
-```
+For sequence outputs, the JSON structure returned by the REST API is the following:
+
+```json
 {
    "NAME_predictions":[
       "TOKEN1",
@@ -111,8 +114,7 @@ For sequence outputs, the JSON structure returned by the REST PI is the followin
 }
 ```
 
-For text outputs, the JSON structure returned by the REST PI is the same as the sequence one.
-
+For text outputs, the JSON structure returned by the REST API is the same as for sequences.
 
 ## batch_predict
 
@@ -120,7 +122,8 @@ For text outputs, the JSON structure returned by the REST PI is the same as the 
 
 You can also make a POST request on the /batch_predict endpoint to run inference on multiple samples at once.
 
-Requests must be submitted as form data, with one of fields being `dataset`: a JSON encoded string representation of the data to be predicted.
+Requests must be submitted as form data, with one of fields being `dataset`: a JSON encoded string representation of the
+data to be predicted.
 
 The dataset JSON string is expected to be in the Pandas `split` format to reduce payload size.
 This format divides the dataset into three parts:
@@ -133,19 +136,17 @@ Additional form fields can be used to provide file resources like images that ar
 
 An example of batch prediction:
 
-```
+```bash
 curl http://0.0.0.0:8000/batch_predict -X POST -F 'dataset={"columns": ["a", "b"], "data": [[1, 2], [3, 4]]}'
 ```
 
 ### Output format
 
-The output format is  a JSON that is independent of the number of inputs and their data types, it only depends on the number of outputs the model pipeline was trained to predict and their data types.
+The response is a JSON dictionary with keys prefixed by the names of the model's output features.
 
-At the moment, Ludwig can predict binary, numerical, categorical, set, sequence and text outputs.
+For binary outputs, the JSON structure returned by the REST API is the following:
 
-For binary outputs, the JSON structure returned by the REST PI is the following:
-
-```
+```json
 {
    "index": [0, 1],
    "columns": [
@@ -161,14 +162,15 @@ For binary outputs, the JSON structure returned by the REST PI is the following:
 }
 ```
 
-For numerical outputs, the JSON structure returned by the REST PI is the following:
+For numerical outputs, the JSON structure returned by the REST API is the following:
 
-```
+```json
 {"index":[0, 1],"columns":["NAME_predictions"],"data":[[0.381],[0.202]]}
 ```
 
-For categorical outputs, the JSON structure returned by the REST PI is the following:
-```
+For categorical outputs, the JSON structure returned by the REST API is the following:
+
+```json
 {
    "index": [0, 1],
    "columns": [
@@ -186,8 +188,9 @@ For categorical outputs, the JSON structure returned by the REST PI is the follo
 }
 ```
 
-For set outputs, the JSON structure returned by the REST PI is the following:
-```
+For set outputs, the JSON structure returned by the REST API is the following:
+
+```json
 {
    "index": [0, 1],
    "columns": [
@@ -219,8 +222,9 @@ For set outputs, the JSON structure returned by the REST PI is the following:
 }
 ```
 
-For sequence outputs, the JSON structure returned by the REST PI is the following:
-```
+For sequence outputs, the JSON structure returned by the REST API is the following:
+
+```json
 {
    "index": [0, 1],
    "columns": [
@@ -246,4 +250,4 @@ For sequence outputs, the JSON structure returned by the REST PI is the followin
 }
 ```
 
-For text outputs, the JSON structure returned by the REST PI is the same as the sequence one.
+For text outputs, the JSON structure returned by the REST API is the same as for sequences.

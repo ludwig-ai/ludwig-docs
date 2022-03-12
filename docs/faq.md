@@ -2,20 +2,17 @@
 
 We keep an updatet set of tasks ordered by priority in the [GitHub Projects page](https://github.com/ludwig-ai/ludwig/projects).
 
-
 ## Do you support \[feature | encoder | decoder\] in Ludwig?
 
-The list of encoders for each feature type is specified in the [User Guide](user_guide/user_guide_intro.md).
+The list of encoders for each feature type is specified in the [User Guide](user_guide).
 We plan to add additional feature types and additional encoders and decoders for all feature types.
 Refer to [this question](#what-additional-features-are-you-working-on) for more details.
-If you want to help us implementing your favourite feature or model please take a look at the [Developer Guide](developer_guide/developer_guide_intro.md) to see how to contribute.
-
+If you want to help us implementing your favourite feature or model please take a look at the [Developer Guide](developer_guide) to see how to contribute.
 
 ## Do all datasets need to be loaded in memory?
 
 At the moment it depends on the type of feature: image features can be dynamically loaded from disk from an opened hdf5 file, while other types of features (that usually take need less memory than image ones) are loaded entirely in memory for speed.
 We plan to add an option to load also other features from disk in future releases and to also support more input file types and more scalable solutions like [Petastorm](https://github.com/uber/Petastorm).
-
 
 ## My data is on \[ GCS | S3 | Azure \], how can I load it?
 
@@ -26,7 +23,6 @@ These name handlers already work:
 
 - [Google Cloud Storage](https://cloud.google.com/storage/): `gs://`. You just have to install `gcsfs` with `pip install gcsfs>=0.2.1` and you will be able to prive paths to Ludwig with the `gs://` name handler.
 - [Amazon S3](https://aws.amazon.com/s3/): `s3://`. You just have to install `boto` with `pip install boto` and you will be able to prive paths to Ludwig with the `s3://` name handler.
-
 
 ## What additional features are you working on?
 
@@ -48,7 +44,6 @@ We also want to address some of the current limitations:
 
 All these are opportunities to get involved in the community and contribute.
 Feel free to reach out to us and ask as there are tasks for all levels of experience.
-
 
 ## Who develops Ludwig?
 
@@ -83,6 +78,7 @@ Feel free to reach out to us and ask as there are tasks for all levels of experi
 ## How can I cite Ludwig?
 
 Please use this Bibtex:
+
 ```
 @misc{Molino2019,
   author = {Piero Molino and Yaroslav Dudin and Sai Sumanth Miryala},

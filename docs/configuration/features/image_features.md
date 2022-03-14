@@ -233,17 +233,26 @@ This can be a single integer or a tuple of integers. If single integer, then the
 
 ### `padding`
 
+If `padding` is not already specified in `conv_layers`, specifies the default `padding` of the 2D convolutional kernel that will be used for each layer.
 
+- Default: `valid`
+- Choices: `valid`, `same`
 
- (default `valid`): one of `valid` or `same`.
+### `dilation`
 
-### `dilation_rate`
- (default `(1, 1)`): specifying the dilation rate to use for dilated convolution.
+If `dilation` is not already specified in `conv_layers`, specifies the default `dilation` of the 2D convolutional kernel that will be used for each layer.
 
-### `conv_use_bias`
- (default `true`): boolean, whether the layer uses a bias vector.
+- Default: `(1, 1)`
+
+### `conv_bias`
+
+If `bias` not already specified in `conv_layers`, specifies if the 2D convolutional kernel should have a bias term.
+
+- Default: `true`
 
 ### `conv_weights_initializer`
+
+
  (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
 
 ### `conv_bias_initializer`

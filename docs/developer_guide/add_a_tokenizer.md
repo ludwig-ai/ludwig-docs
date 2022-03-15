@@ -1,7 +1,7 @@
-Tokenizers transform a text string into a sequence of tokens. Ludwig will call the tokenizer for each row in the dataset
-during preprocessing. It will then collect a list of unique tokens and assign an integer index to each unique token.
-This ordered list of unique tokens is called the __vocabulary__, and it will be used by encoders to convert tokens to
-embeddings and by decoders to convert output predictions to tokens.
+Tokenizers transform a text string into a sequence of tokens. Ludwig will call the tokenizer for each text column it is
+specified in, for each row of the dataset during preprocessing. It will then collect a list of unique tokens and assign
+an integer index to each unique token. This ordered list of unique tokens is called the __vocabulary__, and will be used
+by encoders to convert tokens to embeddings and by decoders to convert output predictions to tokens.
 
 A tokenizer is primarily responsible for splitting a string into a list of tokens, and may optionally perform other
 processing usually for the purpose of reducing the size of the vocabulary. Some examples of processing tokenizers may

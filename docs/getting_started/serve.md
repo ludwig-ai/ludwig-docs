@@ -3,6 +3,7 @@ Model pipelines trained with Ludwig can be served by spawning a Rest API using t
 Let's serve the pipeline we just created.
 
 === "CLI"
+
     ```sh
     ludwig serve --model_path ./results/experiment_run/model
     ```

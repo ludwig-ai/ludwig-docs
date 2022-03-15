@@ -2,7 +2,6 @@ Input image features are transformed into a float valued tensors of size `N x C 
 
 The column name is added to the JSON file, with an associated dictionary containing preprocessing information about the sizes of the resizing.
 
-
 # Supported Image Formats
 
 The number of channels in the image is determined by the image format. The following table lists the supported image formats and the number of channels.
@@ -21,29 +20,28 @@ During preprocessing, raw image files are transformed into numpy ndarrays and sa
 !!! note
     Images passed to an image encoder are expected to have the same size. If images are different sizes, by default they will be resized to the dimenions of the first image in the dataset. Optionally, a `resize_method`, together with a target `width` and `height`, can be specified in the feature preprocessing parameters, in which case all images will be resized to the specified target size.
 
-
 ### `missing_value_strategy`
+
 The strategy to follow when there's a missing image.
 
 - Default: `backfill`
 - Options:
-    - `fill_with_const`: Replace the missing image with a specific value specified with the `fill_value` parameter.
-    - `fill_with_mode`: Replaces the missing image with the most frequent value in the column.
-    - `fill_with_mean`: Replace the missing image with the mean of the values in the column.
-    - `backfill`: Replace the missing image with the next valid value.
-
+  - `fill_with_const`: Replace the missing image with a specific value specified with the `fill_value` parameter.
+  - `fill_with_mode`: Replaces the missing image with the most frequent value in the column.
+  - `fill_with_mean`: Replace the missing image with the mean of the values in the column.
+  - `backfill`: Replace the missing image with the next valid value.
 
 ### `fill_value`
+
 The value to use when `missing_value_strategy` is `fill_with_const`.
 
 - Default: `null`
-
 
 ### `height`
 
 Image height in pixels. If set, images will be resized to the specified height using the `resize_method` parameter. If unspecified, images will be resized to the size of the first image in the dataset.
 
-- Default: `null` 
+- Default: `null`
 
 ### `width`
 
@@ -65,9 +63,8 @@ The method to use for resizing images.
 
 - Default: `crop_or_pad`
 - Options:
-    - `crop_or_pad`: If image is larger than the specified dimensions, crops images. If image is smaller, pads images using edge padding
-    - `interpolate`: Uses interpolation to resize images to the specified `width` and `height`
-
+  - `crop_or_pad`: If image is larger than the specified dimensions, crops images. If image is smaller, pads images using edge padding
+  - `interpolate`: Uses interpolation to resize images to the specified `width` and `height`
 
 ### `infer_image_dimensions`
 
@@ -77,13 +74,11 @@ This parameter will have no effect if `width` and `height` are specified.
 
 - Default: `true`
 
-
 ### `infer_image_max_height`
 
 If `infer_image_dimensions` is set, this is used as the maximum height of the images in the dataset.
 
 - Default: 256
-
 
 ### `infer_image_max_width`
 
@@ -91,13 +86,11 @@ If `infer_image_dimensions` is set, this is used as the maximum width of the ima
 
 - Default: 256
 
-
 ### `infer_image_num_channels`
 
 If set, then the number of channels in the dataset is inferred from a sample of the first `n` images in the dataset. The size of `n` is set by the parameter `infer_image_sample_size`.
 
 - Default: `true`
-
 
 ### `infer_image_sample_size`
 
@@ -105,17 +98,14 @@ The sample size used for inferring dimensions of images in `infer_image_dimensio
 
 - Default: 100
 
-
 ### `scaling`
-
 
 The scaling strategy for pixel values in the image.
 
 - Default: `pixel_normalization`
 - Options:
-    - `pixel_normalization`: Normalizes pixel values to be between 0 and 1 by dividing each pixel value by 255.
-    - `pixel_standardization`: Normalizes pixel values based on the mean and standard deviation of images in ImageNet.
-
+  - `pixel_normalization`: Normalizes pixel values to be between 0 and 1 by dividing each pixel value by 255.
+  - `pixel_standardization`: Normalizes pixel values based on the mean and standard deviation of images in ImageNet.
 
 ### `in_memory`
 
@@ -153,9 +143,7 @@ preprocessing:
 
 The default encoder is `stacked_cnn`.
 
-
 ## Convolutional Stack Encoder (`stacked_cnn`)
-
 
 Creates an encoder built by stacking multiple 2D convolutional layers, followed by an optional stack of fully connected layers.
 
@@ -165,24 +153,23 @@ A list of dictionaries containing the parameters of all the convolutional layers
 
 - Default: `null`
 - Parameters for each layer:
-    - `kernel_size`: The size of the convolutional kernel.
-    - `out_channels`: The number of output channels.
-    - `stride`: The stride of the convolutional kernel.
-    - `padding`: The padding of the convolutional kernel.
-    - `dilation`: The dilation of the convolutional kernel.
-    - `groups`: The number of groups for grouped convolution.
-    - `bias`: Whether to add a bias term to the convolution.
-    - `padding_mode`: The padding mode to use for the convolution.
-    - `norm`: The type of normalization to use for the convolution.
-    - `norm_params`: Optional parameters for the normalization.
-    - `activation`: The type of activation to use for the convolution.
-    - `dropout`: The dropout probability to use for the convolution.
-    - `pool_function`: The type of pooling function to use for the convolution.
-    - `pool_kernel_size`: The size of the pooling kernel.
-    - `pool_stride`: The stride of the pooling kernel.
-    - `pool_padding`: The padding of the pooling kernel.
-    - `pool_dilation`: The dilation of the pooling kernel.
-
+  - `kernel_size`: The size of the convolutional kernel.
+  - `out_channels`: The number of output channels.
+  - `stride`: The stride of the convolutional kernel.
+  - `padding`: The padding of the convolutional kernel.
+  - `dilation`: The dilation of the convolutional kernel.
+  - `groups`: The number of groups for grouped convolution.
+  - `bias`: Whether to add a bias term to the convolution.
+  - `padding_mode`: The padding mode to use for the convolution.
+  - `norm`: The type of normalization to use for the convolution.
+  - `norm_params`: Optional parameters for the normalization.
+  - `activation`: The type of activation to use for the convolution.
+  - `dropout`: The dropout probability to use for the convolution.
+  - `pool_function`: The type of pooling function to use for the convolution.
+  - `pool_kernel_size`: The size of the pooling kernel.
+  - `pool_stride`: The stride of the pooling kernel.
+  - `pool_padding`: The padding of the pooling kernel.
+  - `pool_dilation`: The dilation of the pooling kernel.
 
 ### `num_conv_layers`
 
@@ -207,7 +194,6 @@ If `conv_layers` is `null`, then this parameter determines the number of convolu
       },
     ]
     ```
-
 
 ### `out_channels`
 
@@ -252,79 +238,102 @@ If `bias` not already specified in `conv_layers`, specifies if the 2D convolutio
 
 ### `conv_weights_initializer`
 
-
  (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
 
 ### `conv_bias_initializer`
+
  (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
 
 ### `weights_regularizer`
+
  (default `null`): regularizer function applied to the weights matrix.  Valid values are `l1`, `l2` or `l1_l2`.
 
 ### `conv_bias_regularizer`
+
  (default `null`): regularizer function applied to the bias vector.  Valid values are `l1`, `l2` or `l1_l2`.
 
 ### `conv_activity_regularizer`
+
  (default `null`): regurlizer function applied to the output of the layer.  Valid values are `l1`, `l2` or `l1_l2`.
 
 ### `conv_norm`
+
  (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
 
 ### `conv_norm_params`
+
  (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
 
 ### `conv_activation`
+
  (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
 
 ### `conv_dropout`
+
  (default `0`): dropout rate
 
 ### `pool_function`
+
  (default `max`):  pooling function: `max` will select the maximum value.  Any of these--`average`, `avg` or `mean`--will compute the mean value.
 
 ### `pool_size`
+
  (default `(2, 2)`): if a `pool_size` is not already specified in `conv_layers` this is the default `pool_size` that will be used for each layer. It indicates the size of the max pooling that will be performed along the `s` sequence dimension after the convolution operation.
 
 ### `pool_strides`
+
  (default `null`): factor to scale down
 
 ### `fc_layers`
+
  (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `fc_size`, `norm`, `activation` and `regularize`. If any of those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. If both `fc_layers` and `num_fc_layers` are `null`, a default list will be assigned to `fc_layers` with the value `[{fc_size: 512}, {fc_size: 256}]` (only applies if `reduce_output` is not `null`).
 
 ### `num_fc_layers`
+
  (default `1`): This is the number of stacked fully connected layers.
 
 ### `fc_size`
+
  (default `256`): if a `fc_size` is not already specified in `fc_layers` this is the default `fc_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 
 ### `fc_use_bias`
+
  (default `true`): boolean, whether the layer uses a bias vector.
 
 ### `fc_weights_initializer`
+
  (default `'glorot_uniform'`): initializer for the weights matrix. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
 
 ### `fc_bias_initializer`
+
  (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to [TensorFlow's documentation](https://www.tensorflow.org/api_docs/python/tf/keras/initializers).
 
 ### `fc_weights_regularizer`
+
  (default `null`): regularizer function applied to the weights matrix.  Valid values are `l1`, `l2` or `l1_l2`.
 
 ### `fc_bias_regularizer`
+
  (default `null`): regularizer function applied to the bias vector.  Valid values are `l1`, `l2` or `l1_l2`.
 
 ### `fc_activity_regularizer`
+
  (default `null`): regurlizer function applied to the output of the layer.  Valid values are `l1`, `l2` or `l1_l2`.
 
 ### `fc_norm`
+
  (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
 
 ### `fc_norm_params`
+
  (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters used with `batch` see [Tensorflow's documentation on batch normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/BatchNormalization) or for `layer` see [Tensorflow's documentation on layer normalization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LayerNormalization).
 
 ### `fc_activation`
+
  (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
 
 ### `fc_dropout`
+
  (default `0`): dropout rate
 
 Example image feature entry using a convolutional stack encoder (with default parameters) in the input features list:

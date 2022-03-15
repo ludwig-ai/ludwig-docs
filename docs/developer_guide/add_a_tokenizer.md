@@ -52,6 +52,7 @@ class NewTokenizer(BaseTokenizer):
 
 Tokenizer names are mapped to their implementations in the `tokenizer_registry` dictionary at the bottom of
 `ludwig/utils/tokenizers.py`.
+
 ```python
 tokenizer_registry = {
     "characters": CharactersToListTokenizer,

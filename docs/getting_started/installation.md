@@ -16,13 +16,14 @@ For large or long-running workloads, Ludwig can be run remotely in the cloud or 
   [git]: #with-git
   [ray]: /getting_started/ray.md
 
-## Python (with Pip) <small>recommended</small> { #with-pip }
+# Python (with Pip) <small>recommended</small> { #with-pip }
 
 ``` sh
 pip install ludwig
 ```
 
-This will install only Ludwig's basic requirements, different feature types require different dependencies.
+This will only install Ludwig's basic requirements for modeling with binary, category, and number features. Other
+[feature types](../../configuration/features/supported_data_types) require different dependencies.
 We divided them as different extras so that users could install only the ones they actually need:
 
 - `ludwig[text]` for text dependencies.
@@ -39,7 +40,7 @@ We divided them as different extras so that users could install only the ones th
  pip install 'ludwig[full]'
  ```
 
-### GPU support
+## GPU support
 
 If your machine has a GPU to accelerate the training process, make sure you install a GPU-enabled version of PyTorch before installing Ludwig:
 
@@ -50,7 +51,7 @@ pip install torch -f https://download.pytorch.org/whl/cu113/torch_stable.html
 The example above will install the latest version of PyTorch with CUDA 11.3. See the official [PyTorch docs](https://pytorch.org/get-started/locally/) for
 more details on installing the right version of PyTorch for your environment.
 
-## Docker { #with-docker }
+# Docker { #with-docker }
 
 The Ludwig team publishes official [Docker images](https://hub.docker.com/u/ludwigai) that come with the full set of
 dependencies pre-installed. You can pull the `latest` images (for the most recent official Ludwig release) by running:
@@ -62,15 +63,15 @@ docker pull ludwigai/ludwig:latest
 The `ludwig` command line tool is provided as the entrypoint for all commands. See our docs on [Running in Docker](/user_guide/docker.md) for
 a comprehensive how-to.
 
-### GPU support
+## GPU support
 
-If your machine has a GPU to accelerate the training process, you will want to pull the official Ludwig image with GPU support:
+If your machine has a GPU to accelerate the training process, pull the official Ludwig image with GPU support:
 
 ``` sh
 docker pull ludwigai/ludwig-gpu:latest
 ```
 
-## Git { #with-git }
+# Git { #with-git }
 
 For developers who wish to build the source code from the [GitHub](https://github.com/ludwig-ai/ludwig/) repository, first clone the repo locally:
 

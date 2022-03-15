@@ -1,6 +1,7 @@
-Ludwig supports hyperparameter optimization using the hyperopt module.
+After training our first model and using it to predict new data with reasonable accuracy, how can we make the model
+better?
 
-Let's update our config file in order to utilize hyperopt:
+Ludwig can perform hyperparameter optimization by simply adding `hyperopt` to the Ludwig config.
 
 ```yaml title="rotten_tomatoes.yaml"
 input_features:
@@ -44,35 +45,37 @@ hyperopt:
 
 In this example we have specified a basic hyperopt config with the following specifications:
 
-* We have set the **goal** to maximize the **accuracy** metric on the **validation** split
+* We have set the `goal` to maximize the **accuracy** metric on the **validation** split
 * The parameters we are optimizing are the **learning rate**, the **optimizer type**, and the **level** of text representation to use.
   * When optimizing **learning rate** we are testing *four* values on a *log* scale between 0.0001 and 0.1 ([0.0001, 0.001, 0.01, 0.1]).
   * When optimizing the **optimizer type**, we are testing the *sgd*, *adam*, and *adagrad* optimizers
   * When optimizing the **level** of text representation to use, we are testing representations at the *word* level and the *char* level
-* We set the hyperopt **sampler** to use the random sampler. This selects 10 random hyperparameter combinations from the search space by default.
-  * Ludwig supports advanced hyperparameter sampling algorithms like Bayesian optimization and genetical algorithms, check out [this guide](https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/hyperparameter_optimization/#sampler) for full details.
-* We set the hyperopt **executor** to use the serial executor which performs the optimization locally in a serial manner.
+* We set the hyperopt `sampler` to use the random sampler. This selects 10 random hyperparameter combinations from the search space by default.
+  * Ludwig supports advanced hyperparameter sampling algorithms like Bayesian optimization and genetical algorithms. See [this guide](../../configuration/hyperparameter_optimization#sampler) for details.
+* We set the hyperopt `executor` to use the serial executor which performs the optimization locally in a serial manner.
 
 The hyperparameter optimization strategy is run using the ludwig hyperopt command:
 
 === "CLI"
 
-    ``` sh
+    ```sh
     ludwig hyperopt --config rotten_tomatoes.yaml --dataset rotten_tomatoes.csv
     ```
 
 === "Python"
 
-    ``` python
+    ```python
     from ludwig.hyperopt.run import hyperopt
+    import pandas
 
+    df = pandas.read_csv('rotten_tomatoes.csv')
     results = hyperopt(config='rotten_tomatoes.yaml', dataset=df)
     ```
 
 === "Docker CLI"
 
-  ``` sh
-  docker run -t -i --mount type=bind,source={absolute/path/to/rotten_tomatoes_data},target=/rotten_tomatoes_data ludwigai/ludwig hyperopt --config /rotten_tomatoes_data/rotten_tomatoes.yaml --dataset /rotten_tomatoes_data/rotten_tomatoes.csv
-  ```
+    ```sh
+    docker run -t -i --mount type=bind,source={absolute/path/to/rotten_tomatoes_data},target=/rotten_tomatoes_data ludwigai/ludwig hyperopt --config /rotten_tomatoes_data/rotten_tomatoes.yaml --dataset /rotten_tomatoes_data/rotten_tomatoes.csv
+    ```
 
-Every parameter within the config can be tuned using hyperopt. You can refer to the full [hyperopt guide](https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/hyperparameter_optimization/) if you wish to tune other parameters as well.
+Every parameter within the config can be tuned using hyperopt. Refer to the full [hyperopt guide](../../configuration/hyperparameter_optimization) to learn more.

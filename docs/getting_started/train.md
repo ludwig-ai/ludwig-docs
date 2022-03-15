@@ -1,4 +1,6 @@
-To train a model with Ludwig, we first need to create a [configuration](https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/) file. This file provides at a minimum the input and output features of your model, but you can also expand upon it to include model architectures, training parameters, hyperparameter optimization, and more.
+To train a model with Ludwig, we first need to create a [Ludwig configuration](../../configuration). The config specifies input features, output features, preprocessing, model architecture, training loop, hyperparameter search, and backend infrastructure -- everything that's needed to build, train, and evaluate a model.
+
+At a minimum, the config must specify the model's input and output features.
 
 For now, let's use a basic config that just specifies the inputs and output and leaves the rest to Ludwig:
 
@@ -46,7 +48,9 @@ Once you've created the `rotten_tomatoes.yaml` file with the contents above, you
 
     ``` python
     from ludwig.api import LudwigModel
+    import pandas
 
+    df = pandas.read_csv('rotten_tomatoes.csv')
     model = LudwigModel(config='rotten_tomatoes.yaml')
     results = model.train(dataset=df)
     ```
@@ -60,6 +64,29 @@ Once you've created the `rotten_tomatoes.yaml` file with the contents above, you
     docker run -t -i --mount type=bind,source={absolute/path/to/rotten_tomatoes_data},target=/rotten_tomatoes_data ludwigai/ludwig train --config /rotten_tomatoes_data/rotten_tomatoes.yaml --dataset /rotten_tomatoes_data/rotten_tomatoes.csv --output_directory /rotten_tomatoes_data
     ```
 
-For encoding text in this example, we used an embed encoder, which assigns an embedding for each word and sums them. Ludwig provides you with many more options for embedding text (ex: CNNs, RNNs, Transformers, and pretrained models such as BERT or GPT-2) and using them is as simple as changing encoder option in the config from "embed" to "bert".
+!!! note
 
-Ludwig is very flexible. Users can change just about any parameter in their models including training parameters, preprocessing parameters, and more, directly from the configuration. Check out the [config](/ludwig-docs/user_guide/configuration) section for the full list of parameters available in the configuration.
+    In this example, we encoded the text feature with an `embed` encoder, which assigns an embedding for each word and sums
+    them. Ludwig provides many options for [tokenizing](../../configuration/preprocessing#tokenizers) and [embedding](../../configuration/features/sequence_features#sequence-input-features-and-encoders) text like with CNNs, RNNs, Transformers, and pretrained models such as BERT or GPT-2 (provided through [huggingface](https://huggingface.co/docs/transformers/index)). Using a different text encoder is simple as changing encoder option in the config from `embed` to `bert`. Give it a try!
+
+    ```yaml
+    input_features:
+        - name: genres
+          type: set
+          preprocessing:
+              tokenizer: comma
+        - name: content_rating
+          type: category
+        - name: top_critic
+          type: binary
+        - name: runtime
+          type: numerical
+        - name: review_content
+          type: text
+          encoder: bert
+    output_features:
+        - name: recommended
+          type: binary
+    ```
+
+Ludwig is very flexible. Users can configure just about any parameter in their models including training parameters, preprocessing parameters, and more, directly from the configuration. Check out the [config documentation](/ludwig-docs/user_guide/configuration) for the full list of parameters available in the configuration.

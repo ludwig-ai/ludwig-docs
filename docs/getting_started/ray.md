@@ -1,6 +1,6 @@
-[Ray](https://www.ray.io/) is a framework for distributed computing that makes it easy to scale up code that runs on your local machine to execute in parallel across a cluster.
+Ludwig has strong support for [Ray](https://www.ray.io/), a framework for distributed computing that makes it easy to scale up code that runs on your local machine to execute in parallel across a cluster of machines.
 
-Let's spin up a ray cluster, so we can try out distributed training and hyperparameter tuning in parallel. For this example, make sure you have access to an AWS EC2 node provider.
+Let's spin up a ray cluster, so we can try out distributed training and hyperparameter tuning in parallel. Make sure you have access to an AWS EC2 node provider.
 
 First install the Ray Cluster Launcher:
 
@@ -8,9 +8,9 @@ First install the Ray Cluster Launcher:
 pip install ray
 ```
 
-Next let's make a configuration file named cluster.yaml for the Ray Cluster:
+Next let's make a configuration file named `cluster.yaml` for the Ray Cluster:
 
-```cluster.yaml
+```yaml  title="cluster.yaml"
 cluster_name: ludwig-ray-gpu-nightly
 
 min_workers: 4
@@ -47,4 +47,4 @@ You can also run a distributed hyperopt job with this command:
 ray submit cluster.yaml ludwig hyperopt --config rotten_tomatoes.yaml --dataset s3://mybucket/rotten_tomatoes.csv
 ```
 
-For more information on using Ray with Ludwig, refer to the full [ray configuration guide](https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/distributed_training/#:~:text=Horovod-,Ray,-Running%20Ludwig%20with).
+For more information on using Ray with Ludwig, refer to the [ray configuration guide](../../user_guide/distributed_training).

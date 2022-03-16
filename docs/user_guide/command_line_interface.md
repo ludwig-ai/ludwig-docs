@@ -1112,16 +1112,23 @@ Process finished with exit code 0
 
 ```
 
-The feature list file should contain one entry dictionary per feature, with its name and type, plus optional hyperparameters.
+Example:
 
-```yaml
--
-  name: first_feature
-  type: first_feature_type
--
-  name: second_feature
-  type: second_feature_type
-...
+```sh
+ludwig synthesize_dataset --features="[ \
+  {name: text, type: text}, \
+  {name: category, type: category}, \
+  {name: number, type: number}, \
+  {name: binary, type: binary}, \
+  {name: set, type: set}, \
+  {name: bag, type: bag}, \
+  {name: sequence, type: sequence}, \
+  {name: timeseries, type: timeseries}, \
+  {name: date, type: date}, \
+  {name: h3, type: h3}, \
+  {name: vector, type: vector}, \
+  {name: image, type: image} \
+]" --dataset_size=10 --output_path=synthetic_dataset.csv
 ```
 
 The available parameters depend on the feature type.

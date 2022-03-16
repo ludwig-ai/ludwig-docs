@@ -159,7 +159,7 @@ The directory will contain
 
 - `description.json` - a file containing a description of the training process with all the information to reproduce it.
 - `training_statistics.json` - a file containing records of all measures and losses for each epoch.
-- `model` - a directory containing model hyper-parameters, weights, checkpoints and logs (for TensorBoard).
+- `model` - a directory containing model hyperparameters, weights, checkpoints and logs (for TensorBoard).
 
 The configuration can be provided either as a string (`--config`)
 or as YAML file (`--config_file`).
@@ -489,7 +489,7 @@ ludwig experiment --dataset reuters-allcats.csv --config "{input_features: [{nam
 
 # hyperopt
 
-This command lets you perform an hyper-parameter search with a given sampler and parameters.
+This command lets you perform an hyperparameter search with a given sampler and parameters.
 You can call it with:
 
 ```bash
@@ -590,9 +590,9 @@ optional arguments:
 
 The parameters combine parameters from both [train](#train) and [test](#test) so refer to those sections for an in depth explanation. The output directory will contain a `hyperopt_statistics.json` file that summarizes the results obtained.
 
-In order to perform an hyper-parameter optimization, the `hyperopt` section needs to be provided within the configuration.
+In order to perform an hyperparameter optimization, the `hyperopt` section needs to be provided within the configuration.
 In the `hyperopt` section you will be able to define what metric to optimize, what parameters, what sampler to use to optimize them and how to execute the optimization.
-For details on the `hyperopt` section see the detailed description in the [Hyper-parameter Optimization](#hyper-parameter-optimization) section.
+For details on the `hyperopt` section see the detailed description in the [Hyperparameter Optimization](#hyperparameter-optimization) section.
 
 # serve
 

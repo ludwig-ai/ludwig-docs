@@ -74,7 +74,7 @@ tree. For more details on testing, see [Style Guidelines and Tests](../style_gui
 
 ## Misc
 
-Hyper-parameter optimization logic is implemented in the scripts in the `ludwig/hyperopt/` package.
+Hyperparameter optimization logic is implemented in the scripts in the `ludwig/hyperopt/` package.
 
 The `ludwig/utils/` package contains various utilities used by all other packages.
 

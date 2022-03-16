@@ -1,26 +1,87 @@
-The hyper-parameter optimization design in Ludwig is based on two abstract interfaces: `HyperoptSampler` and `HyperoptExecutor`.
+The hyperparameter optimization design in Ludwig is based on two abstract
+interfaces: `HyperoptSampler` and `HyperoptExecutor`.
 
-`HyperoptSampler` represents the sampler adopted for sampling hyper-parameters values.
-Which sampler to use is defined in the `sampler` section of the model definition.
-A `Sampler` uses the `parameters` defined in the `hyperopt` section of the YAML model definition and a `goal` , either to minimize or maximize.
-Each sub-class of `HyperoptSampler` that implements its abstract methods samples parameters according to their definition and type differently (see [User Guide](../user_guide/hyperopt.md) for details), like using a random search (implemented in `RandomSampler`), or a grid serach (implemented in `GridSampler`, or bayesian optimization or evolutionary techniques.
+See [Hyperopt configuration](../../configuration/hyperparameter_optimization)
+for examples of how the sampler and executor are configured.
 
-`HyperoptExecutor` represents the method used to execute the hyper-parameter optimization, independently of how the values for the hyperparameters are sampled.
-Available implementations are a serial executor that executes the training with the different sampled hyper-parameters values one at a time (implemented in `SerialExecutor`), a parallel executor that runs the training using sampled hyper-parameters values in parallel on the same machine (implemented in the `ParallelExecutor`), and a [Fiber](https://uber.github.io/fiber/)-based executor that enables to run the training using sampled hyper-parameters values in parallel on multiple machines within a cluster.
-A `HyperoptExecutor` uses a `HyperoptSampler` to sample hyper-parameters values, usually initializes an execution context, like a multithread pool for instance, and executes the hyper-parameter optimization according to the sampler.
+# HyperoptSampler
+
+`HyperoptSampler` dictates how to sample hyperparameters values.
+
+The sampler is configured by `sampler` section of the `hyperopt` section of the
+Ludwig configuration.
+
+Each hyperparameter that should be sampled is declared in `hyperopt.parameters`,
+which also specifies additional constraints that the `Sampler` should honor. For
+example:
+
+```yaml
+hyperopt:
+    goal: minimize
+    output_feature: combined
+    metric: loss
+    split: validation
+    parameters:
+        trainer.learning_rate:
+            space: linear
+            range:
+                low: 0.001
+                high: 0.1
+            steps: 4
+        text.fc_layers:
+            space: choice
+            categories:
+                - [{"output_size": 512}, {"output_size": 256}]
+                - [{"output_size": 512}]
+                - [{"output_size": 256}]
+```
+
+Here, `trainer.learning_rate` is sampled in continuously while `text.fc_layers`
+is sampled discretely.
+
+!!! note
+
+    Different `HyperoptSampler`s are described [here](../../configuration/hyperparameter_optimization#sampler).
+
+# HyperoptExecutor
+
+`HyperoptExecutor` dictates how to execute the hyperparameter optimization,
+which operates independently of how hyperparameters are actually sampled.
+
+A `HyperoptExecutor` uses a `HyperoptSampler` to sample hyperparameters values,
+usually initializes an execution context, like a multithread pool for instance,
+and executes the hyperparameter optimization according to the sampler.
+
 First, a new batch of parameters values is sampled from the `HyperoptSampler`.
-Then, sampled parameters values are merged with the basic model definition parameters specified, with the sampled parameters values overriding the ones in the basic model definition they refer to.
-Training is executed using the merged model definition and training and validation losses and metrics are collected.
-A `(sampled_parameters, statistics)` pair is provided to the `HyperoptSampler.update` function and the loop is repeated until all the samples are sampled.
-At the end, `HyperoptExecutor.execute` returns a list of dictionaries that include a parameter sample, its metric score, and its training and test statistics.
-The returned list is printed and saved to disk, so that it can also be used as input to [hyper-parameter optimization visualizations](../user_guide/hyperopt.md).
+Then, sampled parameters values are merged with the seed Ludwig configuration,
+with the sampled parameters values overriding the seed's.
+
+Training is executed and validation losses and metrics are collected.
+A `(sampled_parameters, statistics)` pair is provided to the
+`HyperoptSampler.update` function to inform the next sample of hyperparameters.
+
+The loop is repeated until all the samples are sampled.
+
+Finally, `HyperoptExecutor.execute` returns a list of dictionaries that each
+contain: the sampled parameters, metric scores, and other training, validation,
+and test statistics.
+
+The returned list is printed and saved to disk, so that it can also be used as
+input to
+[hyperparameter optimization visualizations](../../user_guide/hyperopt).
+
+!!! note
+
+    Different `HyperoptExecutor`s are described [here](../../configuration/hyperparameter_optimization#executor)
 
 # Adding a HyperoptSampler
 
 ## 1. Add a new sampler class
 
-The source code for the base `HyperoptSampler` class is in the `ludwig/hyperopt/sampling.py` module.
-Classes extending the base class should be defined in the same module.
+The source code for the base `HyperoptSampler` class is in
+`ludwig/hyperopt/sampling.py`.
+
+Classes extending the base class should be defined in this file.
 
 ### `__init__`
 
@@ -31,7 +92,7 @@ def __init__(self, goal: str, parameters: Dict[str, Any]):
 The parameters of the base `HyperoptStrategy` class constructor are:
 
 - `goal` which indicates if to minimize or maximize a metric or a loss of any of the output features on any of the splits which is defined in the `hyperopt` section
-- `parameters` which contains all hyper-parameters to optimize with their types and ranges / values.
+- `parameters` which contains all hyperparameters to optimize with their types and ranges / values.
 
 Example:
 
@@ -56,7 +117,7 @@ parameters = {
 sampler = GridSampler(goal, parameters)
 ```
 
-#### `sample`
+### `sample`
 
 ```python
 def sample(self) -> Dict[str, Any]:
@@ -68,11 +129,11 @@ If `finished()` returns `True`, calling `sample` would return a `IndexError`.
 
 Example returned value:
 
-```
+```python
 {'training.learning_rate': 0.005, 'combiner.num_fc_layers': 2, 'utterance.cell_type': 'gru'}
 ```
 
-#### `sample_batch`
+### `sample_batch`
 
 ```python
 def sample_batch(self, batch_size: int = 1) -> List[Dict[str, Any]]:
@@ -83,11 +144,11 @@ If `finished()` returns `True`, calling `sample_batch` would return a `IndexErro
 
 Example returned value:
 
-```
+```python
 [{'training.learning_rate': 0.005, 'combiner.num_fc_layers': 2, 'utterance.cell_type': 'gru'}, {'training.learning_rate': 0.015, 'combiner.num_fc_layers': 3, 'utterance.cell_type': 'lstm'}]
 ```
 
-#### `update`
+### `update`
 
 ```python
 def update(
@@ -117,7 +178,7 @@ metric_score = 2.53463
 sampler.update(sampled_parameters, metric_score)
 ```
 
-#### `update_batch`
+### `update_batch`
 
 ```python
 def update_batch(
@@ -152,7 +213,7 @@ metric_scores = [2.53463, 1.63869]
 sampler.update_batch(zip(sampled_parameters, metric_scores))
 ```
 
-#### `finished`
+### `finished`
 
 ```python
 def finished(self) -> bool:
@@ -162,10 +223,12 @@ The `finished` method return `True` when all samples have been sampled, return `
 
 ## 2. Add the new sampler class to the corresponding sampler registry
 
-The `sampler_registry` contains a mapping between `sampler` names in the `hyperopt` section of model definition and `HyperoptSampler` sub-classes.
-To make a new sampler available, add it to the registry:
+The `sampler_registry` contains a mapping between `sampler` names in the
+`hyperopt` section of model definition and `HyperoptSampler` sub-classes.
 
-```
+Add the new sampler to the registry:
+
+```python
 sampler_registry = {
     "random": RandomSampler,
     "grid": GridSampler,
@@ -178,8 +241,9 @@ sampler_registry = {
 
 ## 1. Add a new executor class
 
-The source code for the base `HyperoptExecutor` class is in the `ludwig/utils/hyperopt_utils.py` module.
-Classes extending the base class should be defined in the module.
+The source code for the base `HyperoptExecutor` class is in the
+`ludwig/utils/hyperopt_utils.py` module. Classes extending the base class should
+be defined in the module.
 
 ### `__init__`
 
@@ -195,30 +259,30 @@ def __init__(
 
 The parameters of the base `HyperoptExecutor` class constructor are
 
-- `hyperopt_sampler` is a `HyperoptSampler` object that will be used to sample hyper-parameters values
+- `hyperopt_sampler` is a `HyperoptSampler` object that will be used to sample hyperparameters values
 - `output_feature` is a `str` containing the name of the output feature that we want to optimize the metric or loss of. Available values are `combined` (default) or the name of any output feature provided in the model definition. `combined` is a special output feature that allows to optimize for the aggregated loss and metrics of all output features.
 - `metric` is the metric that we want to optimize for. The default one is `loss`, but depending on the tye of the feature defined in `output_feature`, different metrics and losses are available. Check the metrics section of the specific output feature type to figure out what metrics are available to use.
-- `split` is the split of data that we want to compute our metric on. By default it is the `validation` split, but you have the flexibility to specify also `train` or `test` splits.
+- `split` is the split of data that we want to compute our metric on. By default it is the `validation` split, but you have the flexibility to specify `train` or `test` splits.
 
 Example:
 
 ```python
 goal = "minimize"
 parameters = {
-            "training.learning_rate": {
-                "type": "float",
-                "low": 0.001,
-                "high": 0.1,
-                "steps": 4,
-                "scale": "linear"
-            },
-            "combiner.num_fc_layers": {
-                "type": "int",
-                "low": 2,
-                "high": 6,
-                "steps": 3
-            }
-        }
+    "training.learning_rate": {
+        "type": "float",
+        "low": 0.001,
+        "high": 0.1,
+        "steps": 4,
+        "scale": "linear"
+    },
+    "combiner.num_fc_layers": {
+        "type": "int",
+        "low": 2,
+        "high": 6,
+        "steps": 3
+    }
+}
 output_feature = "combined"
 metric = "loss"
 split = "validation"
@@ -227,7 +291,7 @@ grid_sampler = GridSampler(goal, parameters)
 executor = SerialExecutor(grid_sampler, output_feature, metric, split)
 ```
 
-#### `execute`
+### `execute`
 
 ```python
 def execute(
@@ -263,7 +327,7 @@ def execute(
 ):
 ```
 
-The `execute` method executes the hyper-parameter optimization.
+The `execute` method executes the hyperparameter optimization.
 It can leverage the `run_experiment` function to obtain training and eval statistics and the `self.get_metric_score` function to extract the metric score from the eval results according to `self.output_feature`, `self.metric` and `self.split`.
 
 ## 2. Add the new executor class to the corresponding executor registry
@@ -271,7 +335,7 @@ It can leverage the `run_experiment` function to obtain training and eval statis
 The `executor_registry` contains a mapping between `executor` names in the `hyperopt` section of model definition and `HyperoptExecutor` sub-classes.
 To make a new executor available, add it to the registry:
 
-```
+```python
 executor_registry = {
     "serial": SerialExecutor,
     "parallel": ParallelExecutor,

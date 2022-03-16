@@ -13,8 +13,8 @@ hyperopt:
     combiner.num_fc_layers: ...
     section.embedding_size: ...
     preprocessing.text.vocab_size: ...
-    training.learning_rate: ...
-    training.optimizer.type: ...
+    trainer.learning_rate: ...
+    trainer.optimizer.type: ...
     ...
   sampler:
     type: grid  # random, ...
@@ -30,14 +30,14 @@ hyperopt:
 - `output_feature` is a `str` containing the name of the output feature that we want to optimize the metric or loss of. Available values are `combined` (default) or the name of any output feature provided in the configuration. `combined` is a special output feature that allows to optimize for the aggregated loss and metrics of all output features.
 - `metric` is the metric that we want to optimize for. The default one is `loss`, but depending on the type of the feature defined in `output_feature`, different metrics and losses are available. Check the metrics section of the specific output feature type to figure out what metrics are available to use.
 - `split` is the split of data that we want to compute our metric on. By default it is the `validation` split, but you have the flexibility to specify also `train` or `test` splits.
-- `parameters` section consists of a set of hyper-parameters to optimize. They are provided as keys (the names of the parameters) and values associated with them (that define the search space). The values vary depending on the type of the hyper-parameter. Types can be `float`, `int` and `category`.
+- `parameters` section consists of a set of hyperparameters to optimize. They are provided as keys (the names of the parameters) and values associated with them (that define the search space). The values vary depending on the type of the hyperparameter. Types can be `float`, `int` and `category`.
 - `sampler` section contains the sampler type to be used for sampling hyper-paramters values and its configuration. Currently available sampler types are `grid` and `random`. The sampler configuration parameters modify the sampler behavior, for instance for `random` you can set how many random samples to draw.
-- `executor` section specifies how to execute the hyper-parameter optimization. The execution could happen locally in a serial manner or in parallel across multiple workers and with GPUs as well if available.
+- `executor` section specifies how to execute the hyperparameter optimization. The execution could happen locally in a serial manner or in parallel across multiple workers and with GPUs as well if available.
 
-# Defining hyper-parameter search spaces
+# Defining hyperparameter search spaces
 
 In the `parameters` section, `.` is used to reference an parameter nested inside a section of the configuration.
-For instance, to reference the `learning_rate`, one would have to use the name `training.learning_rate`.
+For instance, to reference the `learning_rate`, one would have to use the name `trainer.learning_rate`.
 If the parameter to reference is inside an input or output feature, the name of that feature will be be used as starting point.
 For instance, for referencing the `cell_type` of the `text` feature, use the name `text.cell_type`.
 
@@ -54,7 +54,7 @@ For instance `range: (0.0, 1.0), steps: 3` would yield `[0.0, 0.5, 1.0]` as pote
 Float example:
 
 ```yaml
-training.learning_rate:
+trainer.learning_rate:
   space: linear
   range:
     low: 0.001
@@ -91,7 +91,7 @@ text.cell_type:
 ## Grid sampler
 
 The `grid` sampler creates a search space by exhaustively selecting all elements from the outer product of all possible
-combinations of hyper-parameter values provided in the `parameters` section.
+combinations of hyperparameter values provided in the `parameters` section.
 
 To use `grid` sampling with `float` parameters, it is required to specify the number of `steps`.
 
@@ -104,7 +104,7 @@ sampler:
 
 ## Random sampler
 
-The `random` sampler samples hyper-parameter values randomly from the parameters search space.
+The `random` sampler samples hyperparameter values randomly from the parameters search space.
 `num_samples` (default: `10`) can be specified in the `sampler` section.
 
 Example:
@@ -152,7 +152,7 @@ sampler:
 
 You can find the full list of supported search algorithm names in Ray Tune's [create_searcher](https://github.com/ray-project/ray/blob/master/python/ray/tune/suggest/__init__.py) function.
 
-Ray Tune also allows you to specify a [scheduler](https://docs.ray.io/en/master/tune/api_docs/schedulers.html) to support features like early stopping and other population-based strategies that may pause and resume trials during training. Ludwig exposes the complete scheduler API in the `scheduler` section of the config:
+Ray Tune also allows you to specify a [scheduler](https://docs.ray.io/en/master/tune/api_docs/schedulers.html) to support features like early stopping and other population-based strategies that may pause and resume trials during trainer. Ludwig exposes the complete scheduler API in the `scheduler` section of the config:
 
 ```yaml
 sampler:
@@ -173,7 +173,7 @@ Other config options, including `parameters`, `num_samples`, and `goal` work the
 ```yaml
 hyperopt:
   parameters:
-    training.learning_rate:
+    trainer.learning_rate:
       space: loguniform
       lower: 0.001
       upper: 0.1
@@ -200,7 +200,7 @@ hyperopt:
 
 ## Serial Executor
 
-The `serial` executor performs hyper-parameter optimization locally in a serial manner, executing the elements in the set
+The `serial` executor performs hyperparameter optimization locally in a serial manner, executing the elements in the set
 of sampled parameters obtained by the selected sampler one at a time.
 
 Example:
@@ -208,33 +208,6 @@ Example:
 ```yaml
 executor:
   type: serial
-```
-
-## Parallel Executor
-
-The `parallel` executor performs hyper-parameter optimization in parallel, executing the elements in the set of sampled
-parameters obtained by the selected sampler at the same time.
-
-The maximum number of parallel workers that train and evaluate models is defined by the parameter `num_workers`
-(default: `2`).
-
-In case of training with GPUs, the `gpus` argument provided to the command line interface contains the list of GPUs to
-use, while if no `gpus` parameter is provided, all available GPUs will be used.
-
-The `gpu_fraction` argument can be provided as well, but it gets modified according to the `num_workers` to execute
-tasks in parallel. For example, if `num_workers: 4` and 2 GPUs are available, if the provided `gpu_fraction` is above
-`0.5`, it will be replaced by `0.5`.
-
-An `epsilon` (default: `0.01`) parameter is also provided to allow for additional free GPU memory: the GPU fraction to
-use is defined as `(#gpus / #workers) - epsilon`.
-
-Example:
-
-```yaml
-executor:
-  type: parallel
-  num_workers: 2
-  epsilon: 0.01
 ```
 
 ## Ray Tune Executor
@@ -261,10 +234,10 @@ executor:
 
 **Running Ray Executor:**
 
-See the section on [Running Ludwig with Ray](../user_guide/distributed_training.md#ray) for guidance on setting up your
+See the section on [Running Ludwig with Ray](../../user_guide/distributed_training#ray) for guidance on setting up your
 Ray cluster.
 
-# Full hyper-parameter optimization example
+# Full hyperparameter optimization example
 
 Example YAML:
 
@@ -296,13 +269,13 @@ hyperopt:
   metric: accuracy
   split: validation
   parameters:
-    training.learning_rate:
+    trainer.learning_rate:
       type: float
       low: 0.0001
       high: 0.1
       steps: 4
       scale: log
-    training.optimizaer.type:
+    trainer.optimizer.type:
       type: category
       values: [sgd, adam, adagrad]
     preprocessing.text.word_vocab_size:
@@ -328,5 +301,5 @@ hyperopt:
 Example CLI command:
 
 ```
-ludwig hyperopt --dataset reuters-allcats.csv --config "{input_features: [{name: text, type: text, encoder: rnn, cell_type: lstm, num_layers: 2}], output_features: [{name: class, type: category}], training: {learning_rate: 0.001}, hyperopt: {goal: maximize, output_feature: class, metric: accuracy, split: validation, parameters: {training.learning_rate: {type: float, low: 0.0001, high: 0.1, steps: 4, scale: log}, text.cell_type: {type: category, values: [rnn, gru, lstm]}}, sampler: {type: grid}, executor: {type: serial}}}"
+ludwig hyperopt --dataset reuters-allcats.csv --config "{input_features: [{name: text, type: text, encoder: rnn, cell_type: lstm, num_layers: 2}], output_features: [{name: class, type: category}], training: {learning_rate: 0.001}, hyperopt: {goal: maximize, output_feature: class, metric: accuracy, split: validation, parameters: {trainer.learning_rate: {type: float, low: 0.0001, high: 0.1, steps: 4, scale: log}, text.cell_type: {type: category, values: [rnn, gru, lstm]}}, sampler: {type: grid}, executor: {type: serial}}}"
 ```

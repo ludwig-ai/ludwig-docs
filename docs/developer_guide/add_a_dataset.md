@@ -31,12 +31,12 @@ def download_raw_dataset(self):
 
 @abc.abstractmethod
 def process_downloaded_dataset(self):
-    """Process the dataset into a dataframe and save it as processed_dataset_path."""
+    """Process the dataset into a dataframe and save it at self.processed_dataset_path."""
     raise NotImplementedError()
 
 @abc.abstractmethod
 def load_processed_dataset(self, split):
-    """Loads the processed data from processed_dataset_path into a Pandas DataFrame in memory.
+    """Loads the processed data from self.processed_dataset_path into a Pandas DataFrame in memory.
 
     :param split: Splits dataset along 'split' column if present.
     """

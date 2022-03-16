@@ -18,7 +18,7 @@ from ludwig.callbacks import Callback
 
 class MyCallback(Callback):
 ```
-   
+
 # 3. Implement callback methods
 
 Ludwig provides the following callbacks which you can implement to add functionality to Ludwig. All the following

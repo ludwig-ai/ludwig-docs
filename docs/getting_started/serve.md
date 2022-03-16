@@ -1,18 +1,18 @@
-Model pipelines trained with Ludwig can be served by spawning a Rest API using the FastAPI library.
+Model pipelines trained with Ludwig can be served by spawning a Rest API using the [FastAPI](https://fastapi.tiangolo.com/) library.
 
-Let's serve the pipeline we just created.
+Let's serve the model we just created.
 
 === "CLI"
-    ``` sh
+
+    ```sh
     ludwig serve --model_path ./results/experiment_run/model
     ```
 
 === "Docker CLI"
-    
-    ``` sh
+
+    ```sh
     docker run -t -i --mount type=bind,source={absolute/path/to/rotten_tomatoes_data},target=/rotten_tomatoes_data ludwigai/ludwig serve --model_path /rotten_tomatoes_data/results/experiment_run/model
     ```
-
 
 Now that our server is up and running, you can make a POST request on the endpoint to get predictions back:
 
@@ -31,4 +31,6 @@ Since the output feature is a binary type feature, the output from the POST call
 }
 ```
 
-If you would like you can also make a POST request on the [`/batch_predict`](https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/serving/#batch_predict) endpoint to run inference on multiple samples at once. The full configuration for [ludwig serve](https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/serving/) has more information on how to deploy your models.
+!!! note
+
+    Users can also send POST requests to the [`/batch_predict`](../..//user_guide/serving/#batch_predict) endpoint to run inference on multiple examples at once. Read more about [ludwig serve](../../user_guide/serving) to learn more about ludwig deployments.

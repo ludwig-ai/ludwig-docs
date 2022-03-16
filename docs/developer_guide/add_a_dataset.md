@@ -26,19 +26,28 @@ following methods:
 ```python
 @abc.abstractmethod
 def download_raw_dataset(self):
-    """Download the file from config.download_urls and save the file(s) as self.raw_dataset_path."""
+    """Download the file from config.download_urls and save the file(s) as
+    self.raw_dataset_path."""
     raise NotImplementedError()
 
 @abc.abstractmethod
 def process_downloaded_dataset(self):
-    """Process the dataset into a dataframe and save it as processed_dataset_path."""
+    """Process the dataset into a dataframe and save it as
+    processed_dataset_path."""
     raise NotImplementedError()
 
 @abc.abstractmethod
-def load_processed_dataset(self, split):
-    """Loads the processed data from processed_dataset_path into a Pandas DataFrame in memory.
+def load_processed_dataset(self, split: bool):
+    """Loads the processed data from processed_dataset_path into a Pandas
+    DataFrame in memory.
 
-    :param split: Splits dataset along 'split' column if present.
+    Note: This method is also responsible for splitting the data, returning a
+    single dataframe if split=False, and a 3-tuple of train, val, test if
+    split=True.
+
+    The split column should always have values 0: train, 1: validation, 2: test.
+
+    :param split: (bool) splits dataset along 'split' column if present.
     """
     raise NotImplementedError()
 ```
@@ -48,11 +57,11 @@ For example:
 ```python
 @register_dataset(name="wmt15")
 class WMT15(BaseDataset):
-    """French/English parallel texts for training translation models. Over 22.5 million sentences in French and
-    English.
+    """French/English parallel texts for training translation models.
+
+    Over 22.5 million sentences in French and English.
 
     Additional details:
-
     https://www.kaggle.com/dhruvildave/en-fr-translation-dataset
     """
     pass
@@ -67,16 +76,18 @@ Plase use Mixins graciously as leveraging mixins could save your dataset subclas
 
 ```python
 @register_dataset(name="wmt15")
-class WMT15(CSVLoadMixin, IdentityProcessMixin, KaggleDownloadMixin, BaseDataset):
-    """French/English parallel texts for training translation models. Over 22.5 million sentences in French and
-    English.
+class WMT15(CSVLoadMixin, IdentityProcessMixin,
+            KaggleDownloadMixin, BaseDataset):
+    """French/English parallel texts for training translation models.
+
+    Over 22.5 million sentences in French and English.
 
     Additional details:
-
     https://www.kaggle.com/dhruvildave/en-fr-translation-dataset
     """
 
-    def __init__(self, cache_dir=DEFAULT_CACHE_LOCATION, kaggle_username=None, kaggle_key=None):
+    def __init__(self, cache_dir=DEFAULT_CACHE_LOCATION,
+                 kaggle_username=None, kaggle_key=None):
         self.kaggle_username = kaggle_username
         self.kaggle_key = kaggle_key
         self.is_kaggle_competition = False

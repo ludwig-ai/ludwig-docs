@@ -60,8 +60,7 @@ dependencies pre-installed. You can pull the `latest` images (for the most recen
 docker pull ludwigai/ludwig:latest
 ```
 
-The `ludwig` command line tool is provided as the entrypoint for all commands. See our docs on [Running in Docker](/user_guide/docker.md) for
-a comprehensive how-to.
+The `ludwig` command line tool is provided as the entrypoint for all commands.
 
 ### GPU support
 

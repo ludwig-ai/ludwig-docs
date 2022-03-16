@@ -2,7 +2,7 @@ After the model has been trained, it can be used to predict the target output fe
 
 We've created a small test dataset containing input features for 10 movie reviews that we can use for testing. Click this [link](https://github.com/ludwig-ai/ludwig-docs/raw/getting-started/docs/data/rotten_tomatoes_test.csv) to download the test dataset.
 
-Now, let's make some predictions on the test dataset (Note: if you are working in a notebook, you can use the model created in the training section):
+Let's make some predictions on the test dataset!
 
 === "CLI"
 
@@ -13,6 +13,8 @@ Now, let's make some predictions on the test dataset (Note: if you are working i
 === "Python"
 
     ``` python
+    # This step can be skipped if you are working in a notebook, and you can simply 
+    # re-use the model created in the training section.
     model = LudwigModel.load('results/experiment_run/model')
     
     predictions, _ = model.predict(dataset='rotten_tomatoes_test.csv')

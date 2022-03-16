@@ -15,7 +15,14 @@ copyright: "Copyright &copy; 2018 - 2020 Uber Technologies Inc., 2021 - 2022 Lin
 # Navigation
 nav:
   - About: "index.md"
-  - Getting Started: "getting_started.md"
+  - Getting Started:
+      - 'Installation': 'getting_started/installation.md'
+      - 'Dataset preparation': 'getting_started/prepare_data.md'
+      - 'Training': 'getting_started/train.md'
+      - 'Prediction and Evaluation': 'getting_started/evaluate.md'
+      - 'Hyperopt': 'getting_started/hyperopt.md'
+      - 'Serving': 'getting_started/serve.md'
+      - 'Distributed training on Ray': 'getting_started/ray.md'
   - User Guide:
       - "User Guide": "user_guide/index.md"
       - "What is Ludwig?": "user_guide/what_is_ludwig.md"

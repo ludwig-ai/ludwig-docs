@@ -13,7 +13,7 @@ Let's make some predictions on the test dataset!
 === "Python"
 
     ``` python
-    # This step can be skipped if you are working in a notebook, and you can simply 
+    # This step can be skipped if you are working in a notebook, and you can simply
     # re-use the model created in the training section.
     model = LudwigModel.load('results/experiment_run/model')
 

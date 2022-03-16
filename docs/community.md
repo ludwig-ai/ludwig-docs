@@ -22,9 +22,27 @@ If you encounter an issue when using Ludwig, please add it to our
 Please make sure we are able to replicate the issue by providing the model
 definition + command + data or code + data.
 
-If your data cannot be shared, please use the `dataset_synthesizer` script
-available in `ludwig/data/dataset_synthesizer` to create a synthetic data with
-the same feature types.
+If your data cannot be shared, please use the `synthesize_dataset` [command line
+utility](../../user_guide/command_line_interface/#synthesize_dataset), powered
+by `ludwig/data/dataset_synthesizer` to create a synthetic data with the same
+feature types.
+
+```sh
+ludwig synthesize_dataset --features="[ \
+  {name: text, type: text}, \
+  {name: category, type: category}, \
+  {name: number, type: number}, \
+  {name: binary, type: binary}, \
+  {name: set, type: set}, \
+  {name: bag, type: bag}, \
+  {name: sequence, type: sequence}, \
+  {name: timeseries, type: timeseries}, \
+  {name: date, type: date}, \
+  {name: h3, type: h3}, \
+  {name: vector, type: vector}, \
+  {name: image, type: image} \
+]" --dataset_size=10 --output_path=synthetic_dataset.csv
+```
 
 # Forum
 

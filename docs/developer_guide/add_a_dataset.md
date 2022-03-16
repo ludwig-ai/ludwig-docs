@@ -26,7 +26,7 @@ following methods:
 ```python
 @abc.abstractmethod
 def download_raw_dataset(self):
-    """Download the file from config.download_urls and save the file(s) as
+    """Download the file from config.download_urls and save the file(s) at
     self.raw_dataset_path."""
     raise NotImplementedError()
 
@@ -38,16 +38,15 @@ def process_downloaded_dataset(self):
 
 @abc.abstractmethod
 def load_processed_dataset(self, split: bool):
-    """Loads the processed data from processed_dataset_path into a Pandas
+    """Loads the processed data from self.processed_dataset_path into a Pandas
     DataFrame in memory.
 
     Note: This method is also responsible for splitting the data, returning a
     single dataframe if split=False, and a 3-tuple of train, val, test if
     split=True.
 
-    The split column should always have values 0: train, 1: validation, 2: test.
-
-    :param split: (bool) splits dataset along 'split' column if present.
+    :param split: (bool) splits dataset along 'split' column if present. The
+    split column should always have values 0: train, 1: validation, 2: test.
     """
     raise NotImplementedError()
 ```

@@ -32,8 +32,8 @@ def download_raw_dataset(self):
 
 @abc.abstractmethod
 def process_downloaded_dataset(self):
-    """Process the dataset into a dataframe and save it as
-    processed_dataset_path."""
+    """Process the dataset into a dataframe and save it at
+    self.processed_dataset_path."""
     raise NotImplementedError()
 
 @abc.abstractmethod

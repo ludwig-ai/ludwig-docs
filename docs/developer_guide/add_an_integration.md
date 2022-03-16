@@ -1,90 +1,383 @@
-Ludwig provides an open-ended method of third-party system
-integration. This makes it easy to integrate other systems or services
-with Ludwig without having users do anything other than adding a flag
-to the command line interface.
+Ludwig provides an open-ended method of third-party system integration. This makes it easy to integrate other systems or
+services with Ludwig which can be enabled simply by passing a flag to the command line interface.
 
 To contribute an integration, follow these steps:
 
-1. Create a Python file in `ludwig/contribs/` with an obvious name. In this example, it is called `mycontrib.py`.
+# 1. Create a Python file in `ludwig/contribs/`
 
-2. Inside that file, create a class with the following structure, renaming `MyContribution` to a name that is associated with the third-party system:
+The file should have an obvious name associated with the third-party system it integrates with i.e. `comet.py`,
+`wandb.py`. In this example, it is called `my_callback.py`.
 
-    ```python
-    class MyContribution():
-        @staticmethod
-        def import_call(argv, *args, **kwargs):
-            # This is called when your flag is used before any other imports.
+# 2. Create Callback class
 
-        def experiment(self, *args, **kwargs):
-            # See: ludwig/experiment.py and ludwig/cli.py
+Create a new class implementing the `ludwig.callbacks.Callback` interface. The new class should have a name associated
+with the third-party system it integrates with, matching its file name.
 
-        def experiment_save(self, *args, **kwargs):
-            # See: ludwig/experiment.py
+```python
+from ludwig.callbacks import Callback
 
-        def train_init(self, experiment_directory, experiment_name, model_name,
-                    resume, output_directory):
-            # See: ludwig/train.py
+class MyCallback(Callback):
+```
+   
+# 3. Implement callback methods
 
-        def train(self, *args, **kwargs):
-            # See: ludwig/train.py and ludwig/cli.py
+Ludwig provides the following callbacks which you can implement to add functionality to Ludwig. All the following
+methods are optional:
 
-        def train_model(self, *args, **kwargs):
-            # See: ludwig/train.py
+```python
+ def on_cmdline(self, cmd: str, *args: List[str]):
+     """Called when Ludwig is run on the command line with the callback enabled.
 
-        def train_save(self, *args, **kwargs):
-            # See: ludwig/train.py
+     :param cmd: The Ludwig subcommand being run, ex.
+                 "train", "evaluate", "predict", ...
+     :param args: The full list of command-line arguments (sys.argv).
+     """
+     pass
 
-        def train_epoch_end(self, progress_tracker):
-            # See: ludwig/models/model.py
+ def on_preprocess_start(self, config: Dict[str, Any]):
+     """Called before preprocessing starts.
 
-        def predict(self, *args, **kwargs):
-            # See: ludwig/predict.py and ludwig/cli.py
+     :param config: The config dictionary.
+     """
+     pass
 
-        def predict_end(self, test_stats):
-            # See: ludwig/predict.py
+ def on_preprocess_end(
+         self,
+         training_set,
+         validation_set,
+         test_set,
+         training_set_metadata: Dict[str, Any]
+    ):
+     """Called after preprocessing ends.
 
-        def test(self, *args, **kwargs):
-            # See: ludwig/test.py and ludwig/cli.py
+     :param training_set: The training set.
+     :type training_set: ludwig.dataset.base.Dataset
+     :param validation_set: The validation set.
+     :type validation_set: ludwig.dataset.base.Dataset
+     :param test_set: The test set.
+     :type test_set: ludwig.dataset.base.Dataset
+     :param training_set_metadata: Values inferred from the training set,
+            including preprocessing settings, vocabularies, feature statistics,
+            etc. Same as training_set_metadata.json.
+     """
 
-        def visualize(self, *args, **kwargs):
-            # See: ludwig/visualize.py and ludwig/cli.py
+     pass
 
-        def visualize_figure(self, fig):
-            # See ludwig/utils/visualization_utils.py
+ def on_hyperopt_init(self, experiment_name: str):
+     """Called to initialize state before hyperparameter optimization begins.
 
-        def serve(self, *args, **kwargs):
-            # See ludwig/utils/serve.py and ludwig/cli.py
+     :param experiment_name: The name of the current experiment.
+     """
+     pass
 
-        def collect_weights(self, *args, **kwargs):
-            # See ludwig/collect.py and ludwig/cli.py
+ def on_hyperopt_preprocessing_start(self, experiment_name: str):
+     """Called before data preprocessing for hyperparameter optimization begins.
 
-        def collect_activations(self, *args, **kwargs):
-            # See ludwig/collect.py and ludwig/cli.py
-    ```
+     :param experiment_name: The name of the current experiment.
+     """
+     pass
 
-    If your integration does not handle a particular action, you can simply remove the method, or do nothing (e.g., `pass`).
+ def on_hyperopt_preprocessing_end(self, experiment_name: str):
+     """Called after data preprocessing for hyperparameter optimization is
+     completed.
 
-    If you would like to add additional actions not already handled by the
-    above, add them to the appropriate calling location, add the
-    associated method to your class, and add them to this
-    documentation. See existing calls as a pattern to follow.
+     :param experiment_name: The name of the current experiment.
+     """
+     pass
 
-3. In the file `ludwig/contribs/__init__.py` add an import in this pattern, using your names:
+ def on_hyperopt_start(self, experiment_name: str):
+     """Called before any hyperparameter optimization trials are started.
 
-    ```python
-    from .mycontrib import MyContribution
-    ```
+     :param experiment_name: The name of the current experiment.
+     """
+     pass
 
-4. In the file `ludwig/contribs/__init__.py` in the `contrib_registry["classes"]` dictionary, add a key/value pair where the key is your flag, and the value is your class name, like:
+ def on_hyperopt_end(self, experiment_name: str):
+     """Called after all hyperparameter optimization trials are completed.
 
-    ```python
-    contrib_registry = {
-        ...,
-        "classes": {
-            ...,
-            "myflag": MyContribution,
-        }
-    }
-    ```
+     :param experiment_name: The name of the current experiment.
+     """
+     pass
 
-5. Submit your contribution as a pull request to the Ludwig github repository.
+ def on_hyperopt_trial_start(self, parameters: Dict[str, Any]):
+     """Called before the start of each hyperparameter optimization trial.
+
+     :param parameters: The complete dictionary of parameters for this
+            hyperparameter optimization experiment.
+     """
+     pass
+
+ def on_hyperopt_trial_end(self, parameters: Dict[str, Any]):
+     """Called after the end of each hyperparameter optimization trial.
+
+     :param parameters: The complete dictionary of parameters for this
+            hyperparameter optimization experiment.
+     """
+     pass
+
+ def on_train_init(
+     self,
+     base_config: Dict[str, Any],
+     experiment_directory: str,
+     experiment_name: str,
+     model_name: str,
+     output_directory: str,
+     resume: Union[str, None],
+ ):
+     """Called after preprocessing, but before the creation of the model and
+     trainer objects.
+
+     :param base_config: The user-specified config, before the insertion of
+            defaults or inferred values.
+     :param experiment_directory: The experiment directory, same as
+            output_directory if no experiment specified.
+     :param experiment_name: The experiment name.
+     :param model_name: The model name.
+     :param output_directory: file path to where training results are stored.
+     :param resume: model directory to resume training from, or None.
+     """
+     pass
+
+ def on_train_start(
+     self,
+     model,
+     config: Dict[str, Any],
+     config_fp: Union[str, None],
+ ):
+     """Called after creation of trainer, before the start of training.
+
+     :param model: The ludwig model.
+     :type model: ludwig.utils.torch_utils.LudwigModule
+     :param config: The config dictionary.
+     :param config_fp: The file path to the config, or none if config was passed
+            to stdin.
+     """
+     pass
+
+ def on_train_end(self, output_directory: str):
+     """Called at the end of training, before the model is saved.
+
+     :param output_directory: file path to where training results are stored.
+     """
+     pass
+
+ def on_trainer_train_setup(self, trainer, save_path: str, is_coordinator: bool):
+     """Called in every trainer (distributed or local) before training starts.
+
+     :param trainer: The trainer instance.
+     :type trainer: trainer: ludwig.models.Trainer
+     :param save_path: The path to the directory model is saved in.
+     :param is_coordinator: Is this trainer the coordinator.
+     """
+     pass
+
+ def on_trainer_train_teardown(
+         self, trainer, progress_tracker, is_coordinator: bool
+     ):
+     """Called in every trainer (distributed or local) after training completes.
+
+     :param trainer: The trainer instance.
+     :type trainer: ludwig.models.trainer.Trainer
+     :param progress_tracker: An object which tracks training progress.
+     :type progress_tracker: ludwig.models.trainer.ProgressTracker
+     :param is_coordinator: Is this trainer the coordinator.
+     """
+     pass
+
+ def on_batch_start(self, trainer, progress_tracker, save_path: str):
+     """Called on coordinator only before each batch.
+
+     :param trainer: The trainer instance.
+     :type trainer: ludwig.models.trainer.Trainer
+     :param progress_tracker: An object which tracks training progress.
+     :type progress_tracker: ludwig.models.trainer.ProgressTracker
+     :param save_path: The path to the directory model is saved in.
+     """
+     pass
+
+ def on_batch_end(self, trainer, progress_tracker, save_path: str):
+     """Called on coordinator only after each batch.
+
+     :param trainer: The trainer instance.
+     :type trainer: ludwig.models.trainer.Trainer
+     :param progress_tracker: An object which tracks training progress.
+     :type progress_tracker: ludwig.models.trainer.ProgressTracker
+     :param save_path: The path to the directory model is saved in.
+     """
+     pass
+
+ def on_epoch_start(self, trainer, progress_tracker, save_path: str):
+     """Called on coordinator only before the start of each epoch.
+
+     :param trainer: The trainer instance.
+     :type trainer: ludwig.models.trainer.Trainer
+     :param progress_tracker: An object which tracks training progress.
+     :type progress_tracker: ludwig.models.trainer.ProgressTracker
+     :param save_path: The path to the directory model is saved in.
+     """
+     pass
+
+ def on_epoch_end(self, trainer, progress_tracker, save_path: str):
+     """Called on coordinator only after the end of each epoch.
+
+     :param trainer: The trainer instance.
+     :type trainer: ludwig.models.trainer.Trainer
+     :param progress_tracker: An object which tracks training progress.
+     :type progress_tracker: ludwig.models.trainer.ProgressTracker
+     :param save_path: The path to the directory model is saved in.
+     """
+     pass
+
+ def on_validation_start(self, trainer, progress_tracker, save_path: str):
+     """Called on coordinator before validation starts.
+
+     :param trainer: The trainer instance.
+     :type trainer: ludwig.models.trainer.Trainer
+     :param progress_tracker: An object which tracks training progress.
+     :type progress_tracker: ludwig.models.trainer.ProgressTracker
+     :param save_path: The path to the directory model is saved in.
+     """
+     pass
+
+ def on_validation_end(self, trainer, progress_tracker, save_path: str):
+     """Called on coordinator after validation is complete.
+
+     :param trainer: The trainer instance.
+     :type trainer: ludwig.models.trainer.Trainer
+     :param progress_tracker: An object which tracks training progress.
+     :type progress_tracker: ludwig.models.trainer.ProgressTracker
+     :param save_path: The path to the directory model is saved in.
+     """
+     pass
+
+ def on_test_start(self, trainer, progress_tracker, save_path: str):
+     """Called on coordinator before testing starts.
+
+     :param trainer: The trainer instance.
+     :type trainer: ludwig.models.trainer.Trainer
+     :param progress_tracker: An object which tracks training progress.
+     :type progress_tracker: ludwig.models.trainer.ProgressTracker
+     :param save_path: The path to the directory model is saved in.
+     """
+     pass
+
+ def on_test_end(self, trainer, progress_tracker, save_path: str):
+     """Called on coordinator after testing ends.
+
+     :param trainer: The trainer instance.
+     :type trainer: ludwig.models.trainer.Trainer
+     :param progress_tracker: An object which tracks training progress.
+     :type progress_tracker: ludwig.models.trainer.ProgressTracker
+     :param save_path: The path to the directory model is saved in.
+     """
+     pass
+
+ def on_build_metadata_start(self, df, mode: str):
+     """Called before building metadata for dataset.
+
+     :param df: The dataset.
+     :type df: pd.DataFrame
+     :param mode: "prediction", "training", or None.
+     """
+     pass
+
+ def on_build_metadata_end(self, df, mode):
+     """Called after building dataset metadata.
+
+     :param df: The dataset.
+     :type df: pd.DataFrame
+     :param mode: "prediction", "training", or None.
+     """
+     pass
+
+ def on_build_data_start(self, df, mode):
+     """Called before build_data, which does preprocessing, handling missing
+     values, adding metadata to training_set_metadata.
+
+     :param df: The dataset.
+     :type df: pd.DataFrame
+     :param mode: "prediction", "training", or None.
+     """
+     pass
+
+ def on_build_data_end(self, df, mode):
+     """Called after build_data completes.
+
+     :param df: The dataset.
+     :type df: pd.DataFrame
+     :param mode: "prediction", "training", or None.
+     """
+     pass
+
+ def on_evaluation_start(self):
+     """Called before preprocessing for evaluation."""
+     pass
+
+ def on_evaluation_end(self):
+     """Called after evaluation is complete."""
+     pass
+
+ def on_visualize_figure(self, fig):
+     """Called after a visualization is generated.
+
+     :param fig: The figure.
+     :type fig: matplotlib.figure.Figure
+     """
+     pass
+
+ def prepare_ray_tune(
+         self,
+         train_fn: Callable,
+         tune_config: Dict[str, Any],
+         tune_callbacks: List[Callable]
+     ):
+     """Configures Ray Tune callback and config.
+
+     :param train_fn: The function which runs the experiment trial.
+     :param tune_config: The ray tune configuration dictionary.
+     :param tune_callbacks: List of callbacks (not used yet).
+
+     :returns: Tuple[Callable, Dict] The train_fn and tune_config, which will be
+               passed to ray tune.
+     """
+     return train_fn, tune_config
+
+ @staticmethod
+ def preload():
+     """Will always be called when Ludwig CLI is invoked, preload gives the
+     callback an opportunity to import or create any shared resources.
+
+     Importing required 3rd-party libraries should be done here i.e. import wandb.
+     preload is guaranteed to be called before any other callback method, and will
+     only be called once per process.
+     """
+     pass
+```
+
+If you would like to add additional actions not already handled by the above:
+
+1. Add them to the appropriate calling location.
+2. Add the associated method to your callback class.
+3. Write a docstring, and add it to this documentation page.
+
+See existing calls in `ludwig/callbacks.py` as a pattern to follow.
+
+# 4. Import the new callback
+
+In `ludwig/contribs/__init__.py` add an import in this pattern, using your module and class names:
+
+```python
+from my_callback import MyCallback
+```
+
+# 5. Register a flag for the callback
+
+In `ludwig/contribs/__init__.py` in the `contrib_registry["classes"]` dictionary, add a key/value pair where the key is
+the flag which enables the callback and the value is the class:
+
+```python
+contrib_registry = {
+    ...,
+    "myflag": MyCallback,
+}
+```

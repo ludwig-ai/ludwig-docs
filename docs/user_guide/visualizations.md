@@ -841,9 +841,9 @@ The second plot has the same structure of the first one, but the axes are flippe
 
 ![Frequency vs F1 sorted by Frequency](../images/freq_vs_f1_sorted_freq.png "Frequency vs F1 sorted by Frequency")
 
-## Hyper-parameter optimization visualization
+## Hyperparameter optimization visualization
 
-The examples of the hyper-parameter visualizations shown here are obtained by running a random search with 100 samples
+The examples of the hyperparameter visualizations shown here are obtained by running a random search with 100 samples
 on the [ATIS dataset](https://www.kaggle.com/siddhadev/ms-cntk-atis) used for classifying intents given user utterances.
 
 ## hyperopt_report
@@ -854,8 +854,8 @@ Parameters for this visualization:
 - `file_format`
 - `hyperopt_stats_path`
 
-The visualization creates one plot for each hyper-parameter in the file at `hyperopt_stats_path`, plus an additional one
-containing a pair plot of hyper-parameters interactions.
+The visualization creates one plot for each hyperparameter in the file at `hyperopt_stats_path`, plus an additional one
+containing a pair plot of hyperparameters interactions.
 
 Each plot will show the distribution of the parameters with respect to the metric to optimize.
 For `float` and `int` parameters a scatter plot is used, while for `category` parameters a violin plot is used instead.
@@ -866,7 +866,7 @@ For `float` and `int` parameters a scatter plot is used, while for `category` pa
 
 ![Category hyperopt plot](../images/hyperopt_category.png "Category hyperopt plot")
 
-The pair plot shows a heatmap of how the values of pairs of hyper-parameters correlate with the metric to optimize.
+The pair plot shows a heatmap of how the values of pairs of hyperparameters correlate with the metric to optimize.
 
 ![Pait hyperopt plot](../images/hyperopt_pair.png "Pait hyperopt plot")
 
@@ -878,7 +878,7 @@ Parameters for this visualization:
 - `file_format`
 - `hyperopt_stats_path`
 
-The visualization creates an interactive HTML page visualizing all the results from the hyper-parameter optimization at
+The visualization creates an interactive HTML page visualizing all the results from the hyperparameter optimization at
 once using a parallel coordinate plot.
 
 ![Hiplot hyperopt plot](../images/hyperopt_hiplot.jpeg "Hiplot hyperopt plot")

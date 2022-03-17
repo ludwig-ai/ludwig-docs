@@ -7,7 +7,7 @@
 ```
 ludwig experiment \
   --dataset chitchat.csv \
-  --config_file config.yaml
+  --config config.yaml
 ```
 
 With `config.yaml`:

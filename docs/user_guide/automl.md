@@ -1,4 +1,5 @@
-Ludwig supports AutoML, which returns a tuned Deep Learning model, given a dataset, the target column, and a time budget.
+Ludwig AutoML takes a dataset, the target column, and a time budget, and returns
+a trained Ludwig model.
 
 Ludwig AutoML is currently experimental and is focused on tabular datasets.  A blog describing its development, evaluation,
 and use is [here](https://medium.com/ludwig-ai/ludwig-automl-for-deep-learning-cf64de9d49c8).

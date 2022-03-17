@@ -13,7 +13,7 @@ The sample data looks as follows:
 ```
 ludwig experiment \
 --dataset speaker_verification.csv \
-  --config_file config.yaml
+  --config config.yaml
 ```
 
 With `config.yaml`:

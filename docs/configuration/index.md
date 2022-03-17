@@ -16,8 +16,8 @@ The Ludwig configuration mixes ease of use, by means of reasonable defaults, wit
 control over the parameters of your model. Only `input_features` and `output_features` are required while all other
 fields use reasonable defaults, but can be optionally set or modified manually.
 
-The config can be expressed as a python dictionary (`--config` for
-[Ludwig's CLI](../../docs/user_guide/command_line_interface)), or as a YAML file (`--config_file`).
+The config can be expressed as a python dictionary (`--config_str` for
+[Ludwig's CLI](../../docs/user_guide/command_line_interface)), or as a YAML file (`--config`).
 
 === "YAML"
 

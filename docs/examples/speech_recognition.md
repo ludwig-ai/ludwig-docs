@@ -39,7 +39,7 @@ From the directory where you have virtual environment with ludwig installed:
 ```
 ludwig experiment \
   --dataset <PATH_TO_SPOKEN_DIGIT_CSV> \
-  --config_file config_file.yaml
+  --config config_file.yaml
 ```
 
 With `config.yaml`:

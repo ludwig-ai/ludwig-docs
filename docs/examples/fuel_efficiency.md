@@ -10,7 +10,7 @@ This example replicates the Keras example at <https://www.tensorflow.org/tutoria
 ```
 ludwig experiment \
 --dataset auto_mpg.csv \
-  --config_file config.yaml
+  --config config.yaml
 ```
 
 With `config.yaml`:

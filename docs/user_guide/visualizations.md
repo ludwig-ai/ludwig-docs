@@ -882,3 +882,11 @@ The visualization creates an interactive HTML page visualizing all the results f
 once using a parallel coordinate plot.
 
 ![Hiplot hyperopt plot](../images/hyperopt_hiplot.jpeg "Hiplot hyperopt plot")
+
+# Tensorboard
+
+Users can visualize raw training metrics on Tensorboard with:
+
+```bash
+tensorboard --logdir </path/to/model>/log
+```

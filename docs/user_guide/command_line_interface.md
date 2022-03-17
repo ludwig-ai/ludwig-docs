@@ -2,25 +2,25 @@
 
 Ludwig provides several functions through its command line interface.
 
-| Mode                  | Description                                                                       |
-| --------------------- | --------------------------------------------------------------------------------- |
-| `train`               | Trains a model                                                                    |
-| `predict`             | Predicts using a pretrained model                                                 |
-| `evaluate`            | Evaluate a pretrained model's performance                                         |
-| `experiment`          | Runs a full experiment training a model and evaluating it                         |
-| `hyperopt`            | Perform hyperparameter optimization                                               |
-| `serve`               | Serves a pretrained model                                                         |
-| `visualize`           | Visualizes experiment results                                                     |
-| `init_config`         | Initialize a user config from a dataset and targets                               |
-| `render_config`       | Renders the fully populated config with all defaults set                          |
-| `collect_summary`     | Prints names of weights and layers activations to use with other collect commands |
-| `collect_weights`     | Collects tensors containing a pretrained model weights                            |
-| `collect_activations` | Collects tensors for each datapoint using a pretrained model                      |
-| `export_torchscript`  | Exports Ludwig models to Torchscript                                              |
-| `export_neuropod`     | Exports Ludwig models to Neuropod                                                 |
-| `export_mlflow`       | Exports Ludwig models to MLflow                                                   |
-| `preprocess`          | Preprocess data and saves it into HDF5 and JSON format                            |
-| `synthesize_dataset`  | Creates synthetic data for testing purposes                                       |
+| Mode                                          | Description                                                                       |
+| --------------------------------------------- | --------------------------------------------------------------------------------- |
+| [`train`](#train)                             | Trains a model                                                                    |
+| [`predict`](#predict)                         | Predicts using a pretrained model                                                 |
+| [`evaluate`](#evaluate)                       | Evaluate a pretrained model's performance                                         |
+| [`experiment`](#experiment)                   | Runs a full experiment training a model and evaluating it                         |
+| [`hyperopt`](#hyperopt)                       | Perform hyperparameter optimization                                               |
+| [`serve`](#serve)                             | Serves a pretrained model                                                         |
+| [`visualize`](#visualize)                     | Visualizes experiment results                                                     |
+| [`init_config`](#init_config)                 | Initialize a user config from a dataset and targets                               |
+| [`render_config`](#render_config)             | Renders the fully populated config with all defaults set                          |
+| [`collect_summary`](#collect_summary)         | Prints names of weights and layers activations to use with other collect commands |
+| [`collect_weights`](#collect_weights)         | Collects tensors containing a pretrained model weights                            |
+| [`collect_activations`](#collect_activations) | Collects tensors for each datapoint using a pretrained model                      |
+| [`export_torchscript`](#export_torchscript)   | Exports Ludwig models to Torchscript                                              |
+| [`export_neuropod`](#export_neuropod)         | Exports Ludwig models to Neuropod                                                 |
+| [`export_mlflow`](#export_mlflow)             | Exports Ludwig models to MLflow                                                   |
+| [`preprocess`](#preprocess)                   | Preprocess data and saves it into HDF5 and JSON format                            |
+| [`synthesize_dataset`](#synthesize_dataset)   | Creates synthetic data for testing purposes                                       |
 
 These are described in detail below.
 
@@ -74,9 +74,9 @@ optional arguments:
   -sspi, --skip_save_processed_input
                         skips saving intermediate HDF5 and JSON files
   -c CONFIG, --config CONFIG
-                        config
-  -cf CONFIG_FILE, --config_file CONFIG_FILE
-                        YAML file describing the model. Ignores --config
+                        Path to the YAML file containing the model configuration
+  -cs CONFIG_STR, --config_str CONFIG_STRING
+                        JSON or YAML serialized string of the model configuration. Ignores --config
   -mlp MODEL_LOAD_PATH, --model_load_path MODEL_LOAD_PATH
                         path of a pretrained model to load as initialization
   -mrp MODEL_RESUME_PATH, --model_resume_path MODEL_RESUME_PATH
@@ -161,8 +161,9 @@ The directory will contain
 - `training_statistics.json` - a file containing records of all measures and losses for each epoch.
 - `model` - a directory containing model hyperparameters, weights, checkpoints and logs (for TensorBoard).
 
-The configuration can be provided either as a string (`--config`)
-or as YAML file (`--config_file`).
+The configuration can be provided either as a string (`--config_str`)
+or as YAML file (`--config`).
+
 Details on how to write your configuration are provided in the [Configuration](#configuration) section.
 
 During training Ludwig saves two sets of weights for the model, one that is the
@@ -195,7 +196,7 @@ Finally the `--logging_level` argument lets you set the amount of logging that y
 
 Example:
 
-```
+```bash
 ludwig train --dataset reuters-allcats.csv --config "{input_features: [{name: text, type: text, encoder: parallel_cnn, level: word}], output_features: [{name: class, type: category}]}"
 ```
 
@@ -276,7 +277,7 @@ Finally the `--logging_level`, `--debug`, `--gpus`, `--gpu_memory_limit` and `--
 
 Example:
 
-```
+```bash
 ludwig predict --dataset reuters-allcats.csv --model_path results/experiment_run_0/model/
 ```
 
@@ -358,9 +359,10 @@ ludwig evaluate --dataset reuters-allcats.csv --model_path results/experiment_ru
 
 # experiment
 
-This command combines training and evaluation into a single handy command.\
-You can request a k-fold cross validation run by specifying the `--k_fold`
+This command combines training and evaluation into a single handy command. You
+can request a k-fold cross validation run by specifying the `--k_fold`
 parameter.
+
 You can call it with:
 
 ```bash
@@ -420,10 +422,9 @@ optional arguments:
                         it is not needed turning it off can slightly increase
                         the overall speed
   -c CONFIG, --config CONFIG
-                        config
-  -cf CONFIG_FILE, --config_file CONFIG_FILE
-                        YAML file describing the model. Ignores
-                        --model_hyperparameters
+                        Path to the YAML file containing the model configuration
+  -cs CONFIG_STR, --config_str CONFIG_STRING
+                        JSON or YAML serialized string of the model configuration. Ignores --config
   -mlp MODEL_LOAD_PATH, --model_load_path MODEL_LOAD_PATH
                         path of a pretrained model to load as initialization
   -mrp MODEL_RESUME_PATH, --model_resume_path MODEL_RESUME_PATH
@@ -540,10 +541,9 @@ optional arguments:
   -sspi, --skip_save_processed_input
                         skips saving intermediate HDF5 and JSON files
   -c CONFIG, --config CONFIG
-                        config
-  -cf CONFIG_FILE, --config_file CONFIG_FILE
-                        YAML file describing the model. Ignores
-                        --model_hyperparameters
+                        Path to the YAML file containing the model configuration
+  -cs CONFIG_STR, --config_str CONFIG_STRING
+                        JSON or YAML serialized string of the model configuration. Ignores --config
   -mlp MODEL_LOAD_PATH, --model_load_path MODEL_LOAD_PATH
                         path of a pretrained model to load as initialization
   -mrp MODEL_RESUME_PATH, --model_resume_path MODEL_RESUME_PATH
@@ -632,6 +632,11 @@ optional arguments:
 The most important argument is `--model_path` where you have to specify the path of the model to load.
 
 Once running, you can make a POST request on the `/predict` endpoint to run inference on the form data submitted.
+
+!!! note
+
+    `ludwig serve` will automatically use GPUs for serving, if avaiable to the
+    machine-local torch environment.
 
 ## Example curl
 
@@ -744,6 +749,8 @@ Each of them requires a different subset of this command's arguments, so they wi
 
 # init_config
 
+Initialize a user config from a dataset and targets.
+
 ```
 usage: ludwig init_config [options]
 
@@ -769,6 +776,8 @@ optional arguments:
 ```
 
 # render_config
+
+Renders the fully populated config with all defaults set.
 
 ```
 usage: ludwig render_config [options]
@@ -852,18 +861,19 @@ optional arguments:
 
 The three most important arguments are `--model_path` where you have to specify the path of the model to load, `--tensors` that lets you specify a list of tensor names in the Torch graph that contain the weights you want to collect, and finally `--output_directory` that lets you specify where the NPY files (one for each tensor name specified) will be saved.
 
-In order to figure out the names of the tensors containing the weights you want to collect, the best way is to inspect the graph of the model with TensorBoard.
-
-```bash
-tensorboard --logdir /path/to/model/log
-```
-
-Or use the `collect_summary` command.
+In order to figure out the names of the tensors containing the weights you want
+to collect, use the `collect_summary` command.
 
 # collect_activations
 
-This command lets you load a pre-trained model and input data and collects the values of activations contained in tensors with a specific name in order to save them in a NPY format.
-This may be useful in order to visualize the activations (for instance collecting last layer's activations as embeddings representations of the input datapoint) and for some post-hoc analyses.
+This command lets you load a pre-trained model and input data and collects the
+values of activations contained in tensors with a specific name in order to save
+them in a NPY format.
+
+This may be useful in order to visualize the activations (for instance
+collecting the last layer's activations as embeddings representations of the
+input datapoint) and for some post-hoc analyses.
+
 You can call it with:
 
 ```bash
@@ -917,14 +927,13 @@ optional arguments:
                         the level of logging to use
 ```
 
-The data related and runtime related arguments (GPUs, batch size, etc.) are the same used in [predict](#predict), you can refer to that section for an explanation.
-The collect specific arguments `--model_path`, `--tensors` and `--output_directory` are the same used in [collect_weights](#collect_weights), you can refer to that section for an explanation.
+The data related and runtime related arguments (GPUs, batch size, etc.) are the
+same as the ones used in [predict](#predict), you can refer to that section for
+an explanation.
 
-In order to figure out the names of the tensors containing the activations you want to collect, the best way is to inspect the graph of the model with TensorBoard.
-
-```
-tensorboard --logdir /path/to/model/log
-```
+The collect-specific arguments, `--model_path`, `--tensors` and
+`--output_directory`, are the same used in [collect_weights](#collect_weights),
+you can refer to that section for an explanation.
 
 # export_torchscript
 

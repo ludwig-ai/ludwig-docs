@@ -42,11 +42,13 @@ Find out [more](../../configuration/combiner) about Ludwig's Combiner models lik
 
 Visualized, the ECD architecture looks like a butterfly and sometimes we refer to it as the “butterfly architecture”.
 
-![img](../images/ecd.png)
+![img](../images/ecd_light.png#only-light)
+![img](../images/ecd_dark.png#only-dark)
 
 ECD flexibly handles many different combinations of input and output data types, making the tool well-suited for many different applications.
 
-![img](../images/ecd_examples.png)
+![img](../images/ecd_examples_light.png#only-light)
+![img](../images/ecd_examples_dark.png#only-dark)
 
 Take a look at [Examples](../../examples) to see how you can use Ludwig for several many different applications.
 

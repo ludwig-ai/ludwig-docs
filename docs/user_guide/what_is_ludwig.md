@@ -71,7 +71,8 @@ Ludwig is a single framework that guides you through machine learning end-to-end
 
 # Why Declarative Machine Learning Systems
 
-![img](../images/why_declarative.png)
+![img](../images/why_declarative_light.png#only-light)
+![img](../images/why_declarative_dark.png#only-dark)
 
 Ludwig’s declarative approach to machine learning provides the simplicity of an AutoML solution with the flexibility of writing your own PyTorch code.
 This is achieved by creating an extensible, declarative configuration with optional parameters for every aspect of the pipeline.

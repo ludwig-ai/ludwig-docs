@@ -91,6 +91,7 @@ nav:
       - "Add a Loss Function": "developer_guide/add_a_loss_function.md"
       - "Add a Tokenizer": "developer_guide/add_a_tokenizer.md"
       - "Add a Hyperopt Algorithm": "developer_guide/add_a_hyperopt.md"
+      - "Add a Pretrained Model": "developer_guide/add_a_pretrained_model.md"
       - "Add an Integration": "developer_guide/add_an_integration.md"
       - "Add a Dataset": "developer_guide/add_a_dataset.md"
       - "Style Guidelines and Tests": "developer_guide/style_guidelines_and_tests.md"

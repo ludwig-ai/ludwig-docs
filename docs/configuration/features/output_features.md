@@ -28,8 +28,8 @@ model to predict.
 
 Recall Ludwig's butterfly framework:
 
-![img](../images/ecd_light.png#only-light)
-![img](../images/ecd_dark.png#only-dark)
+![img](../../images/ecd_light.png#only-light)
+![img](../../images/ecd_dark.png#only-dark)
 
 Instead of having `encoders`, output features have `decoders`. All the other parameters besides `name` and `type` will
 be passed as parameters to the function that builds the output feature's decoder, and each decoder can have different

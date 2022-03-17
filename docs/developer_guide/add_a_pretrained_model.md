@@ -1,4 +1,4 @@
-For text and images, there exists a wide selection of pre-trained models from
+For text and images, there exist a wide selection of pre-trained models from
 libraries like [huggingface](https://huggingface.co/) that can be useful to
 leverage in a Ludwig model, for instance as an encoder.
 

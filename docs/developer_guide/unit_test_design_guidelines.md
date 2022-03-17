@@ -14,7 +14,6 @@ Examples:
 | `ludwig/features/audio_feature.py`        | `tests/ludwig/features/test_audio_feature.py`        |
 | `ludwig/modules/convolutional_modules.py` | `tests/ludwig/modules/test_convolutional_modules.py` |
 
-
 !!! note
 
     At the time of writing, not all modules in Ludwig have proper unit tests or match the guidelines here. These

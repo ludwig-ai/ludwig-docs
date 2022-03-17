@@ -34,7 +34,7 @@ All datatype-specific logic lives in the corresponding feature module, all of wh
 ## Features
 
 Feature classes provide raw data preprocessing logic specific to each data type in datatype mixin classes, i.e.
-`BinaryFeatureMixin`, `NumericalFeatureMixin`, `CategoryFeatureMixin`.
+`BinaryFeatureMixin`, `NumberFeatureMixin`, `CategoryFeatureMixin`.
 Feature mixins contain data preprocessing functions to obtain feature metadata (`get_feature_meta`, one-time
 dataset-wide operations to collect things like min, max, average, vocabulary, etc.) and to transform raw data into
 tensors using the previously calculated metadata (`add_feature_data`, which usually work on a dataset row basis).

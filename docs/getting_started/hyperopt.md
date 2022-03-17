@@ -12,7 +12,7 @@ input_features:
     - name: top_critic
       type: binary
     - name: runtime
-      type: numerical
+      type: number
     - name: review_content
       type: text
       encoder: embed

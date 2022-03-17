@@ -47,13 +47,13 @@ Ludwig enables you to apply state-of-the-art tabular, natural language processin
     ```yaml
     input_features:
         - name: sepal_length_cm
-        type: numerical
+        type: number
         - name: sepal_width_cm
-        type: numerical
+        type: number
         - name: petal_length_cm
-        type: numerical
+        type: number
         - name: petal_width_cm
-        type: numerical
+        type: number
     output_features:
         - name: class
         type: category

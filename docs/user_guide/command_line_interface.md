@@ -1138,7 +1138,7 @@ __binary__
 - `prob` (float, default: `0.5`): probability of generating `true`.
 - `cycle` (boolean, default: `false`): cycle through values instead of sampling.
 
-__numerical__
+__number__
 
 - `min` (float, default: `0`): minimum value of the range of values to generate.
 - `max` (float, default: `1`): maximum value of the range of values to generate.

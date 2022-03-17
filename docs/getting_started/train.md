@@ -15,7 +15,7 @@ input_features:
     - name: top_critic
       type: binary
     - name: runtime
-      type: numerical
+      type: number
     - name: review_content
       type: text
       encoder: embed
@@ -80,7 +80,7 @@ Once you've created the `rotten_tomatoes.yaml` file with the contents above, you
         - name: top_critic
           type: binary
         - name: runtime
-          type: numerical
+          type: number
         - name: review_content
           type: text
           encoder: bert

@@ -54,7 +54,7 @@ For binary outputs, the JSON structure returned by the REST API is the following
 }
 ```
 
-For numerical outputs, the JSON structure returned by the REST API is the following:
+For number outputs, the JSON structure returned by the REST API is the following:
 
 ```json
 {"NAME_predictions": 0.381}
@@ -162,7 +162,7 @@ For binary outputs, the JSON structure returned by the REST API is the following
 }
 ```
 
-For numerical outputs, the JSON structure returned by the REST API is the following:
+For number outputs, the JSON structure returned by the REST API is the following:
 
 ```json
 {"index":[0, 1],"columns":["NAME_predictions"],"data":[[0.381],[0.202]]}

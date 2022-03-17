@@ -41,7 +41,7 @@ For instance, to reference the `learning_rate`, one would have to use the name `
 If the parameter to reference is inside an input or output feature, the name of that feature will be be used as starting point.
 For instance, for referencing the `cell_type` of the `text` feature, use the name `text.cell_type`.
 
-## Numerical ranges
+## Number ranges
 
 - `space`: Use `linear` or `log`.
 - `range.low`: the minimum value the parameter can have

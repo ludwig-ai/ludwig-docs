@@ -1,49 +1,58 @@
 # General Guidelines
 
-- Unit test for all ludwig modules.  **Rationale**:  Confirms quality of the code base.
+## Create a unit test for every module
 
-- At minimum, tests related to tensors should confirm no errors are raised when processing tensor(s) and that resulting tensors are of correct shape and type.  **Rationale**:  This provides minimal assurance that the function is operating as expected.  **Illustrative code fragment**:
+Unit tests are in `tests/ludwig/` which parallels the `ludwig/` source tree. Every source file in `ludwig/` with testable
+functionality should have a corresponding unit test file in `test/ludwig/`, with a filename corresponding to the source
+file, prefixed by `test_`.
 
-```
-    # pass input features through combiner
-    # no exception should be raised in this call
-    combiner_output = combiner(input_features)
+Examples:
 
-    # check for required attributes in the generated output
-    assert hasattr(combiner, 'input_dtype')
-    assert hasattr(combiner, 'output_shape')
+| Module                                    | Test                                                 |
+| ----------------------------------------- | ---------------------------------------------------- |
+| `ludwig/data/dataset_synthesizer.py`      | `tests/ludwig/data/test_dataset_synthesizer.py`      |
+| `ludwig/features/audio_feature.py`        | `tests/ludwig/features/test_audio_feature.py`        |
+| `ludwig/modules/convolutional_modules.py` | `tests/ludwig/modules/test_convolutional_modules.py` |
 
-    # check for correct data type
-    assert isinstance(combiner_output, dict)
 
-    # required key present
-    assert 'combiner_output' in combiner_output
+!!! note
 
-    # check for correct output shape
-    assert combiner_output['combiner_output'].shape \
-           == (batch_size, *combiner.output_shape)
+    At the time of writing, not all modules in Ludwig have proper unit tests or match the guidelines here. These
+    guidelines are the goals we aspire to, and we believe incremental improvement is better than demanding perfection.
+    Testing of Ludwig is a work in progress, any changes that get us closer to the goal of 100% test coverage are
+    welcomed!
 
-```
+## What should be tested
 
-- Test combination of parameters that drive through all code paths.  **Rationale**: Ensures correctness of the function under a wide variety of situations.  **Illustrative code fragment**:
+Unit tests should generally test every function or method a module exports, with some exceptions. A good rule is that if
+a function or method fulfills a requirement and will be called from outside the module, it should have a test.
 
-```
-# test combination of parameters to exercise all code paths
-@pytest.mark.parametrize(
+- **Test the common cases**. This will provide a notification when something breaks.
+- **Test the edge cases of complex methods** if you think they might have errors.
+- **Test failure cases** If a method must fail, ex. when input out of range, ensure it does.
+- **Bugs** When you find a bug, write a test case to cover it before fixing it.
+
+### Parameterize tests
+
+Use `@pytest.mark.parameterize` to test combinations of parameters that drive through all code paths, to ensure
+correct behavior of the function under a variety of situations.
+
+```python
+# test combinations of parameters to exercise all code paths
+@pytest.mark.parameterize(
     'num_total_blocks, num_shared_blocks',
     [(4, 2), (6, 4), (3, 1)]
 )
-@pytest.mark.parametrize('virtual_batch_size', [None, 7])
-@pytest.mark.parametrize('size', [4, 12])
-@pytest.mark.parametrize('input_size', [2, 6])
+@pytest.mark.parameterize('virtual_batch_size', [None, 7])
+@pytest.mark.parameterize('size', [4, 12])
+@pytest.mark.parameterize('input_size', [2, 6])
 def test_feature_transformer(
-        input_size: int,
-        size: int,
-        virtual_batch_size: Optional[int],
-        num_total_blocks: int,
-        num_shared_blocks: int
+    input_size: int,
+    size: int,
+    virtual_batch_size: Optional[int],
+    num_total_blocks: int,
+    num_shared_blocks: int
 ) -> None:
-
     feature_transformer = FeatureTransformer(
         input_size,
         size,
@@ -53,61 +62,82 @@ def test_feature_transformer(
     )
 ```
 
-- Test edge cases when possible, e.g., only one or no item; or data structure is at maximum limit.  **Rationale**: Ensures robustness of code.  **Illustrative code fragment**:
+### Test edge cases
 
-```
-@pytest.mark.parametrize(
-    'feature_list',  # defines parameter for fixture features_to_test()
-    [
-        [  # single numeric, single categorical
-            ('number', [BATCH_SIZE, 1]),  # passthrough encoder
-            ('category', [BATCH_SIZE, 64])   # dense encoder
-        ],
-        [  # multiple numeric, multiple categorical
-            ('binary', [BATCH_SIZE, 1]),  # passthrough encoder
-            ('category', [BATCH_SIZE, 16]),  # dense encoder
-            ('number', [BATCH_SIZE, 1]),  # passthrough encoder
-            ('category', [BATCH_SIZE, 48]),  # dense encoder
-            ('number', [BATCH_SIZE, 32])  # dense encoder
-        ],
-        [  # only numeric features
-            ('binary', [BATCH_SIZE, 1]),  # passthrough encoder
-            ('number', [BATCH_SIZE, 1])  # passthrough encoder
-        ],
-        [  # only category features
-            ('category', [BATCH_SIZE, 16]),  # dense encoder
-            ('category', [BATCH_SIZE, 8])   # dense encoder
-        ],
-        [  # only single numeric feature
-            ('number', [BATCH_SIZE, 1])  # passthrough encoder
-        ],
-        [  # only single category feature
-            ('category', [BATCH_SIZE, 8])   # dense encoder
-        ]
-    ]
-)
+Test edge cases when possible. For example, if a method takes multiple inputs: test with an empty input, a single input,
+and a large number of inputs.
+
+```python
+@pytest.mark.parametrize("virtual_batch_size", [None, 7, 64])  # Test with no virtual batch norm, odd size, or large.
+@pytest.mark.parametrize("input_size", [1, 8, 256])  # Test with single input feature or many inputs.
 ```
 
-- When testing a complex layer / module / encoder / combiner / model, make sure that all the variables / weights get updates after one training step.  **Rationale**: Ensures the computation graph doesn’t contain dangling nodes. This catches issues that don’t make the code crash, that are not caught by looking at the loss scores, are they likely will go down, and that are not caught by training the model to convergence (albeit to a usually bad loss), For more details see [this link](https://thenerdstation.medium.com/how-to-unit-test-machine-learning-code-57cf6fd81765).
+### Tensor Type and Shape
 
-- Reuse the already established setup for similar tests or establish a new reusable one.  **Rationale**: Ensures consistent test coverage and reduces effort to develop and maintain test.  Examples of reusable test setup can be found in `tests/conftest.py`.  This module contains reusable `pytest.fixtures` that have applicability across many tests.
+At minimum, tests related to tensors should confirm no errors are raised when processing tensor(s) and that resulting
+tensors are of correct shape and type. This provides minimal assurance that the function is operating as expected.
 
-- TorchTyping tests -- add typechecking based on torch input/outputs. **Rationale**: Allows for stronger typechecking of the form \[batch_size, dim1, dim2, ...\]. We can use the torch typing library to add these tests.
+```python
+# pass input features through combiner
+combiner_output = combiner(input_features)
 
-- Overfitting tests — ensure that a small ECD model is able to overfit on a small dataset. **Rationale**: Ensures that models are able to converge on reasonable targets and catches any unscoped issues that aren’t captured by shape/weight update tests.
+# check for required attributes in the generated output
+assert hasattr(combiner, 'input_dtype')
+assert hasattr(combiner, 'output_shape')
+
+# check for correct data type
+assert isinstance(combiner_output, dict)
+
+# required key present
+assert 'combiner_output' in combiner_output
+
+# check for correct output shape
+assert (combiner_output['combiner_output'].shape
+       == (batch_size, *combiner.output_shape))
+```
+
+### Trainable Modules
+
+When testing a trainable module (layer, encoder, decoder, combiner or model), make sure that all the variables / weights
+get updates after one training step. This will ensure that the computation graph does not contain dangling nodes. This
+catches subtle issues which don’t manifest as crashes, which are not caught by looking at the loss scores or by training
+the model to convergence (albeit to a usually bad loss), For more details see
+[how to unit test machine learning code](https://thenerdstation.medium.com/how-to-unit-test-machine-learning-code-57cf6fd81765).
+
+Add **type checking** based on torch input and outputs. Ensure all module outputs have the expected torch datatype,
+dimensionality, and tensor shape.
+
+For trainable modules, we recommend adding at least one **overfitting test**. Ensure that a small ECD model containing
+the module is able to overfit on a small dataset. Ensures that models are able to converge on reasonable targets and
+catches any unscoped issues that are not captured by shape, type, or weight update tests.
+
+## What not to test
+
+It isn't necessary to test every function, a good rule is that if a function or method fulfills a requirement and will
+be called from outside the module, it should have a test.
+
+Things that don't need unit tests:
+
+- Constructors or properties. Test them only if they contain validations.
+- Configurations like constants, readonly fields, configs, etc.
+- Facades or wrappers around other frameworks or libraries.
+- Private methods
 
 # Implementation Guidelines
 
-- Use pytest.mark.parametrize for test setup.  **Rationale**:  Automates setup for test cases.  **Illustrative code fragment**:
+## Use pytest.mark.parameterize
 
-```
-@pytest.mark.parametrize('enc_should_embed', [True, False])
-@pytest.mark.parametrize('enc_reduce_output', [None, 'sum'])
-@pytest.mark.parametrize('enc_norm', [None, 'batch', 'layer'])
-@pytest.mark.parametrize('enc_num_layers', [1, 2])
-@pytest.mark.parametrize('enc_dropout', [0, 0.2])
-@pytest.mark.parametrize('enc_cell_type', ['rnn', 'gru', 'lstm'])
-@pytest.mark.parametrize('enc_encoder', ENCODERS + ['passthrough'])
+Automates setup for test cases. Be careful to only test case parameter values which are meaningfully different, as the
+total number of tests cases grows combinatorially.
+
+```python
+@pytest.mark.parameterize('enc_should_embed', [True, False])
+@pytest.mark.parameterize('enc_reduce_output', [None, 'sum'])
+@pytest.mark.parameterize('enc_norm', [None, 'batch', 'layer'])
+@pytest.mark.parameterize('enc_num_layers', [1, 2])
+@pytest.mark.parameterize('enc_dropout', [0, 0.2])
+@pytest.mark.parameterize('enc_cell_type', ['rnn', 'gru', 'lstm'])
+@pytest.mark.parameterize('enc_encoder', ENCODERS + ['passthrough'])
 def test_sequence_encoders(
         enc_encoder: str,
         enc_cell_type: str,
@@ -120,9 +150,12 @@ def test_sequence_encoders(
 ):
 ```
 
-- Use temporary directories for any generated data.  **Rationale**: Avoids polluting the local file system when testing locally.  **Illustrative code fragment**:
+## Use tempfile for generated data
 
-```
+Use temporary directories for any generated data. PyTest will automatically clean up these directories after test run
+completes. Avoids polluting the local file system when testing locally.
+
+```python
 import tempfile
 
 def test_export_neuropod_cli(csv_filename):
@@ -142,11 +175,21 @@ def test_export_neuropod_cli(csv_filename):
                     )
 ```
 
-- Consolidate tests that require common setup, e.g., training/test data sets, into a single module and use appropriately scoped `@pytest.fixture` to reduce overhead of repeatedly performing setup.  **Rationale**: Reduce test run-time.
+## Consolidate tests which require setup
 
-- When you use a random function, always specify a seed.  **Rationale**: If a test fails, it would be bad not to be able to replicate it exactly.  **Illustrative code fragment**:
+For example, multiple tests may rely on the same training/test data sets which take time to load. If multiple tests rely
+on the same common resources, group these tests into a single module and use appropriately scoped `@pytest.fixture` to
+reduce overhead of repeatedly performing setup.
 
-```
+Examples of reusable test fixtures can be found in
+`tests/conftest.py`. This module contains reusable `@pytest.fixtures` that have applicability across many tests.
+
+## Deterministic tests
+
+Wherever possible, every test run with the same parameters should produce the same result. When using a random number
+generator, always specify a seed. A test will be difficult to debug if it produces different output on different runs.
+
+```python
 import torch
 
 RANDOM_SEED = 1919

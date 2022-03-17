@@ -73,7 +73,7 @@ Ludwig is a single framework that guides you through machine learning end-to-end
 
 ![img](../images/why_declarative.png)
 
-Ludwig’s declarative approach to machine learning provides the simplicity of an AutoML solution with the flexibility of full-featured frameworks like TensorFlow and PyTorch.
+Ludwig’s declarative approach to machine learning provides the simplicity of an AutoML solution with the flexibility of writing your own PyTorch code.
 This is achieved by creating an extensible, declarative configuration with optional parameters for every aspect of the pipeline.
 
 Ludwig’s declarative programming model allows for key features such as:
@@ -82,4 +82,4 @@ Ludwig’s declarative programming model allows for key features such as:
 - **Integration with any structured data source.** If it can be read into a SQL table or Pandas DataFrame, Ludwig can train a model on it.
 - **Easily explore different model configurations and parameters with hyperopt.** Automatically track all trials and metrics with tools like Comet ML, Weights & Biases, and MLflow.
 - **Automatically scale training to multi-GPU, multi-node clusters.** Go from training on your local machine to the cloud without code or config changes.
-- **Fully customize any part of the training process.** Every part of the model and training process is fully configurable in YAML, and easy to extend through custom PyTorch modules with a simple interface.
+- **Fully customizable and extensible..** Every part of the model and training process is fully configurable in YAML, and easy to extend through custom PyTorch modules with a simple interface.

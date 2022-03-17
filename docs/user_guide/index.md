@@ -1,11 +1,11 @@
 Welcome to the Ludwig User Guide!
 
-Here, you can read about [What Ludwig is](../user_guide/what_is_ludwig),
-[How Ludwig works](../user_guide/how_ludwig_works), and various features
-that Ludwig supports like [AutoML](../automl),
-[Hyperparameter optimization](../hyperopt),
-[Distributed Training](../distributed_training), [Serving](../serving)
-[Visualization](../visualizations), the [Dataset Zoo](../datasets/dataset_zoo),
+Here, you can read about [What Ludwig is](what_is_ludwig),
+[How Ludwig works](how_ludwig_works), and various features
+that Ludwig supports like [AutoML](automl),
+[Hyperparameter optimization](hyperopt),
+[Distributed Training](distributed_training), [Serving](serving),
+[Visualization](visualizations), the [Dataset Zoo](datasets/dataset_zoo),
 and more, with code snippets and examples scattered throughout.
 
 For a new-user-friendly guide, check out

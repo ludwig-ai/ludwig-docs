@@ -13,6 +13,7 @@ pre-commit.ci after creating a new pull request. There may be automatic fixes to
 editing to fix.
 
 To run pre-commit on local branches before pushing, you can install pre-commit locally with pip:
+
 ```bash
 # Installs pre-commit tool
 pip install pre-commit

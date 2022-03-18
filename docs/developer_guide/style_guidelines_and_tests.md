@@ -92,19 +92,28 @@ development as the test will import ludwig modules directly from the source tree
 
 To run all unit tests (will take a few minutes):
 
-```python
+```bash
 python -m pytest tests/ludwig/
 ```
 
-Run a single test module (example):
+Run a single test module:
 
-```
+```bash
 python -m pytest tests/ludwig/decoders/test_sequence_decoder.py
 ```
 
-Run an integration test (example):
+To run a single test case of a module, you can use `-k` to specify the test case name:
 
-```python
-# Runs the API integration test.
-python -m pytest tests/integration_tests/test_api.py
+```bash
+python -m pytest tests/integration_tests/test_experiment.py \
+       -k "test_visual_question_answering"
+```
+
+Another useful tool for debugging is the `-vs` flag, which runs the test with eager stdout. This prints log messages to
+the console in real time. Also, individual test cases can be specified with the `module::test_case` pattern instead of
+`-k`:
+
+```bash
+python -m pytest \
+    tests/integration_tests/test_api.py::test_api_training_determinism -vs
 ```

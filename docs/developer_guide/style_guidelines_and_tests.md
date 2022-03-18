@@ -12,6 +12,21 @@ guidelines and automatically fixes minor style issues by adding a commit to pull
 pre-commit.ci after creating a new pull request. There may be automatic fixes to pull, or issues which require manual
 editing to fix.
 
+To run pre-commit on local branches before pushing, you can install pre-commit locally with pip:
+```bash
+# Installs pre-commit tool
+pip install pre-commit
+
+# Adds pre-commit hooks to local clone of git repository.
+pre-commit install
+
+# Runs pre-commit on all files
+pre-commit run --all-files
+
+# To disable, simply uninstall pre-commit from the local clone.
+pre-commit uninstall
+```
+
 ## Docstrings
 
 All new files, classes, and methods should have a docstring. Parameters are documented using

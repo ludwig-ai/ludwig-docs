@@ -30,8 +30,9 @@ pre-commit uninstall
 
 ## Docstrings
 
-All new files, classes, and methods should have a docstring. Type hints should be used in the function signature
-wherever possible, and should use the most specific type accepted by the method.
+All new files, classes, and methods should have a docstring. Docstrings should give a concise description of the method
+and describe the meaning for each parameter, as well as any possible return value. Type hints should also be used
+in the function signature wherever possible, and should use the most specific type accepted by the method.
 
 Example:
 

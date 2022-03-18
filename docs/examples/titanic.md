@@ -16,7 +16,7 @@ After downloading the data, to train a model on this dataset using Ludwig,
 ```
 ludwig experiment \
   --dataset <PATH_TO_TITANIC_CSV> \
-  --config_file config.yaml
+  --config config.yaml
 ```
 
 With `config.yaml`:

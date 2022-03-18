@@ -9,7 +9,7 @@ This example is inspired by the classic paper [Natural Language Processing (Almo
 ```
 ludwig experiment \
 --dataset nl_data.csv \
-  --config_file config.yaml
+  --config config.yaml
 ```
 
 With `config.yaml`:

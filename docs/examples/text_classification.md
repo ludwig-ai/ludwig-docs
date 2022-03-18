@@ -11,7 +11,7 @@ Other datasets available on the same webpage, like [OHSUMED](http://boston.lti.c
 ```
 ludwig experiment \
   --dataset text_classification.csv \
-  --config_file config.yaml
+  --config config.yaml
 ```
 
 With `config.yaml`:

@@ -1,83 +1,27 @@
-## What is the Roadmap for the develpment of Ludwig?
+# Where can I find Ludwig's development roadmap?
 
-We keep an updatet set of tasks ordered by priority in the [GitHub Projects page](https://github.com/ludwig-ai/ludwig/projects).
+Larger projects are tracked in [GitHub Projects](https://github.com/ludwig-ai/ludwig/projects).
 
-## Do you support \[feature | encoder | decoder\] in Ludwig?
+Smaller feature requests are tracked in [Github Issues](https://github.com/ludwig-ai/ludwig/issues).
 
-The list of encoders for each feature type is specified in the [User Guide](user_guide).
-We plan to add additional feature types and additional encoders and decoders for all feature types.
-Refer to [this question](#what-additional-features-are-you-working-on) for more details.
-If you want to help us implementing your favourite feature or model please take a look at the [Developer Guide](developer_guide) to see how to contribute.
+We try our best to keep these up to date, but if there's a specific feature or
+model you are interested in, feel free to ping the
+[Ludwig Slack](https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ).
 
-## Do all datasets need to be loaded in memory?
+# How can I help?
 
-At the moment it depends on the type of feature: image features can be dynamically loaded from disk from an opened hdf5 file, while other types of features (that usually take need less memory than image ones) are loaded entirely in memory for speed.
-We plan to add an option to load also other features from disk in future releases and to also support more input file types and more scalable solutions like [Petastorm](https://github.com/uber/Petastorm).
+Join the [Ludwig Slack](https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ)!
+Sometimes we'll organize community fixit, documentation, and bug bash efforts,
+or consider taking on an [easy bug](https://github.com/ludwig-ai/ludwig/labels/easy)
+to start.
 
-## My data is on \[ GCS | S3 | Azure \], how can I load it?
+# Can I use Ludwig for my project?
 
-Ludwig uses Pandas for loading data at the moment (this may change when we move to Petastorm).
-This means that if your service provides a mechanism for loading data with a name handler, you can load it.
+Yes! The people behind Ludwig are veterans of research and open source. If your
+work does get published, please consider citing Ludwig and submitting
+improvements back to Ludwig.
 
-These name handlers already work:
-
-- [Google Cloud Storage](https://cloud.google.com/storage/): `gs://`. You just have to install `gcsfs` with `pip install gcsfs>=0.2.1` and you will be able to prive paths to Ludwig with the `gs://` name handler.
-- [Amazon S3](https://aws.amazon.com/s3/): `s3://`. You just have to install `boto` with `pip install boto` and you will be able to prive paths to Ludwig with the `s3://` name handler.
-
-## What additional features are you working on?
-
-We will prioritize new features depending on the feedback of the community, but we are already planning to add:
-
-- additional image encoders ([DenseNet](https://arxiv.org/abs/1608.06993) and [FractalNet](https://arxiv.org/abs/1605.07648), ResNext and MobileNet).
-- image decoding (both image generation by deconvolution and pixel-wise classification for image segmentation).
-- time series decoding.
-- additional features types (point clouds, nested lists, multi-sentence documents, graphs, videos).
-- additional metrics and losses.
-- additional data formatters / tokenizers and dataset-specific preprocessing scripts.
-
-We also want to address some of the current limitations:
-
-- currently the full dataset needs to be loaded in memory in order to train a model. Image features already have a way to dynamically read batches of datapoints from disk, and we want to extend this capability to other datatypes.
-- a simple user interface in order to provide a live demo capability.
-- document lower level functions.
-- optimize the data I/O to TensorFlow.
-
-All these are opportunities to get involved in the community and contribute.
-Feel free to reach out to us and ask as there are tasks for all levels of experience.
-
-## Who develops Ludwig?
-
-### Main architect and maintainer
-
-[Piero Molino](http://w4nderlu.st) (Stanford University, previously at Uber AI) is the creator, main architect and maintainer of Ludwig.
-
-### Co-maintainers
-
-- Travis Addair (Uber), who helped with updating the Horovod integration, improving testing and adding features.
-- Jim Thompson (Freddie Mac) who contributed the K-Fold cross validation functionality and greatly helped with the TF2 porting.
-
-### Early key contributors
-
-- Yaroslav Dudin (Uber) is a key contributor who helped improving the architecture and developing the image feature (among many other contributions).
-- Sai Sumanth Miryala (Facebook AI, previously at Uber AI) contributed all the testing, logging and helped polishing.
-
-### Other main contributors
-
-- Yi Shi (Uber) who implemented the time series encoding.
-- Ankit Jain (Facebook AI, previously at Uber AI) who implemented the bag feature encoding.
-- Pranav Subramani (Uber) who contributed documentation.
-- Alex Sergeev (previously at Uber) and Felipe Petroski Such (Uber) who helped with distributed training.
-- Doug Blank (Comet ML) who contributed the Comte ML integration.
-- Patrick Von Platen (Hugging Face) who contributed the audio feature.
-- John Wahba (Stripe), who contributed the serving functionality.
-- Ivaylo Stefanov (Strypes), who contributed a substantial improvement to the visualization capabilities.
-- Carlo Grisetti (DS Group), who contributed improvements on the tracking of metrics during training.
-- Chris Van Pelt (Weights and Biases) and Boris Dayma (Weights and Biases) who contributed the Weights and Biases integration.
-- Emidio Torre helped with the initial design of the landing page.
-
-## How can I cite Ludwig?
-
-Please use this Bibtex:
+How to cite:
 
 ```
 @misc{Molino2019,
@@ -87,3 +31,63 @@ Please use this Bibtex:
   eprint = {arXiv:1909.07930},
 }
 ```
+
+# Can I use Ludwig models in production?
+
+Yes! Ludwig models can be exported to Neuropod, MLFlow, and Torchscript.
+`ludwig serve` provides basic POST/GET serving endpoints, powered by FastAPI.
+
+If you are interested in a more sophisticated, hosted cloud infrastructure
+solution with reliable SLAs, check out Predibase.
+
+# Does Ludwig's Architecture work for model X?
+
+Most likely.
+
+Ludwig's encoder-combiner-decoder framework is designed to generally mapping
+some input to some output.
+
+- Encoders parse raw input data into tensors (potentially using a model).
+- Combiners combine the outputs of Input Encoders (potentially using a model).
+- Decoders decode the outputs of Encoders and Combiners into output tensors
+  (potentially using a model).
+
+Decoder-only, encoder-only, encoder-decoder, vanilla feed-forward, transformers,
+and more have all been implemented in Ludwig.
+
+# What does Ludwig not support (yet)?
+
+Domains of deep learning that Ludwig does not support (yet):
+
+- Self-supervised learning.
+- Reinforcement learning.
+- Generative image and audio models (generative text models are supported).
+
+We are actively working on supporting self-supervised learning.
+
+# Do all datasets need to be loaded in memory?
+
+Locally, it depends on the type of feature: image features can be dynamically
+loaded from disk from an opened hdf5 file, while other types of features are
+loaded entirely in memory for speed.
+
+Ludwig supports training with very large datasets on Ray using
+[Ray Datasets](https://docs.ray.io/en/latest/data/dataset.html). Read more about
+using [Ludwig on Ray](../user_guide/distributed_training/#ray).
+
+If you are interested in a premium hosted Ludwig infrastructure and APIs, with a
+richer set of APIs to support modeling with large datasets, check out Predibase.
+
+# Who develops Ludwig?
+
+Ludwig was created in 2019 by Piero Molino, with help from Yaroslav Dudin, and
+Sai Sumanth Miryala while at Uber AI.
+
+Today, Ludwig is open source, supported by the Linux Foundation, with source
+code hosted on Github.
+
+Ludwig is actively developed and maintained by [Ludwig Maintainers](https://github.com/orgs/ludwig-ai/teams/ludwig-maintainers),
+which consists mostly of staff at Predibase, and community contributors, all of
+whom are listed in each of Ludwig's release notes.
+
+Happy contributing!

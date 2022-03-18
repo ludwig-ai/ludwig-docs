@@ -110,6 +110,18 @@ For trainable modules, we recommend adding at least one **overfitting test**. En
 the module is able to overfit on a small dataset. Ensures that models are able to converge on reasonable targets and
 catches any unscoped issues that are not captured by shape, type, or weight update tests.
 
+## Best practices
+
+There's lots of great advice on the web for writing good tests. Here are a few highlights
+[from Microsoft's recommendations](https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices)
+that we ascribe to:
+
+- [Characteristics of a good unit test](https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices#characteristics-of-a-good-unit-test)
+- [Arranging unit tests](https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices#arranging-your-tests)
+- [Write minimally passing tests](https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices#write-minimally-passing-tests)
+- [Avoid logic in tests](https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices#avoid-logic-in-tests)
+- [Avoid multiple acts](https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices#avoid-multiple-acts)
+
 ## What not to test
 
 It isn't necessary to test every function, a good rule is that if a function or method fulfills a requirement and will

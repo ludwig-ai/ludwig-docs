@@ -45,7 +45,7 @@ From the directory where you have virtual environment with ludwig installed:
 ludwig train \
   --training_set <PATH_TO_MNIST_DATASET_TRAINING_CSV> \
   --test_set <PATH_TO_MNIST_DATASET_TEST_CSV> \
-  --config_file config.yaml
+  --config config.yaml
 ```
 
 With `config.yaml`:
@@ -93,7 +93,7 @@ training:
 ```
 ludwig experiment \
 --dataset image captioning.csv \
-  --config_file config.yaml
+  --config config.yaml
 ```
 
 With `config.yaml`:

@@ -9,7 +9,7 @@ While direct timeseries prediction is a work in progress Ludwig can ingest times
 ```
 ludwig experiment \
 --dataset timeseries_data.csv \
-  --config_file config.yaml
+  --config config.yaml
 ```
 
 With `config.yaml`:

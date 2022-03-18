@@ -11,7 +11,7 @@ The task is, given two images of two handwritten characters, recognize if they a
 ```
 ludwig experiment \
 --dataset balinese_characters.csv \
-  --config_file config.yaml
+  --config config.yaml
 ```
 
 With `config.yaml`:

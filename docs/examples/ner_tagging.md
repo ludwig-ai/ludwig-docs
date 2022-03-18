@@ -7,7 +7,7 @@
 ```
 ludwig experiment \
   --dataset sequence_tags.csv \
-  --config_file config.yaml
+  --config config.yaml
 ```
 
 With `config.yaml`:

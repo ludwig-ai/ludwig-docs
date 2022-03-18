@@ -46,7 +46,7 @@ df.to_csv('<PATH_TO_FILE>/temperature_la.csv')
 ```
 ludwig experiment \
 --dataset <PATH_TO_FILE>/temperature_la.csv \
-  --config_file config.yaml
+  --config config.yaml
 ```
 
 With `config.yaml`:

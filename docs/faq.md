@@ -47,16 +47,17 @@ Most likely.
 Ludwig's encoder-combiner-decoder framework is designed to generally mapping
 some input to some output.
 
-Encoders parse raw input data into tensors (potentially using a model).
-Combiners combine the outputs of Input Encoders (potentially using a model).
-Decoders decode the outputs of Encoders and Combiners into output tensors (potentially using a model).
+- Encoders parse raw input data into tensors (potentially using a model).
+- Combiners combine the outputs of Input Encoders (potentially using a model).
+- Decoders decode the outputs of Encoders and Combiners into output tensors
+  (potentially using a model).
 
 Decoder-only, encoder-only, encoder-decoder, vanilla feed-forward, transformers,
 and more have all been implemented in Ludwig.
 
 # What does Ludwig not support (yet)?
 
-Domains of deep learning that Ludwig does not support:
+Domains of deep learning that Ludwig does not support (yet):
 
 - Self-supervised learning.
 - Reinforcement learning.
@@ -79,11 +80,11 @@ richer set of APIs to support modeling with large datasets, check out Predibase.
 
 # Who develops Ludwig?
 
-Ludwig was created in 2019 by Piero Molino, Yaroslav Dudin, and Sai Sumanth
-Miryala while at Uber AI.
+Ludwig was created in 2019 by Piero Molino, with help from Yaroslav Dudin, and
+Sai Sumanth Miryala while at Uber AI.
 
-Today, Ludwig is open source, licensed by the Linux Foundation, with source code
-hosted on Github.
+Today, Ludwig is open source, supported by the Linux Foundation, with source
+code hosted on Github.
 
 Ludwig is actively developed and maintained by [Ludwig Maintainers](https://github.com/orgs/ludwig-ai/teams/ludwig-maintainers),
 which consists mostly of staff at Predibase, and community contributors, all of

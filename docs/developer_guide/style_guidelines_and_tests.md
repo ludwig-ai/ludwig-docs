@@ -12,7 +12,7 @@ guidelines and automatically fixes minor style issues by adding a commit to pull
 pre-commit.ci after creating a new pull request. There may be automatic fixes to pull, or issues which require manual
 editing to fix.
 
-To run pre-commit on local branches before pushing, you can install pre-commit locally with pip:
+To run pre-commit on local branches, you can install pre-commit locally with pip:
 
 ```bash
 # Installs pre-commit tool

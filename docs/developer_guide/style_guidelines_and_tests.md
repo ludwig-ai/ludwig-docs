@@ -34,6 +34,7 @@ All new files, classes, and methods should have a docstring. Parameters are docu
 Type hints should be used wherever possible, and should use the most specific type accepted by the method.
 
 Example:
+
 ```python
 def load_processed_dataset(
         self,
@@ -47,6 +48,7 @@ def load_processed_dataset(
 ```
 
 Functions with no arguments or return value may have a single-line docstring, ie:
+
 ```python
 @pytest.fixture()
 def csv_filename():
@@ -88,16 +90,19 @@ Note that you don't need to have ludwig module installed. Running tests from the
 development as the test will import ludwig modules directly from the source tree.
 
 To run all unit tests (will take a few minutes):
+
 ```python
 python -m pytest tests/ludwig/
 ```
 
 Run a single test module (example):
+
 ```
 python -m pytest tests/ludwig/decoders/test_sequence_decoder.py
 ```
 
 Run an integration test (example):
+
 ```python
 # Runs the API integration test.
 python -m pytest tests/integration_tests/test_api.py

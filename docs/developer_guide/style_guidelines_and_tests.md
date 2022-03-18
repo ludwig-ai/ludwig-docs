@@ -48,7 +48,7 @@ def load_processed_dataset(
     """
 ```
 
-Functions with no arguments or return value may have a single-line docstring, ie:
+Functions with no arguments or return value may have a isingle-line docstring, ie:
 
 ```python
 @pytest.fixture()

@@ -168,7 +168,8 @@ guaranteed unique for each test run and will be cleaned up automatically. We rec
 `py.path.local` object which is compatible with `os.path` methods. If you are using `pathlib`, PyTest also provides
 `tmp_path`, which is a `pathlib.Path`.
 
-For more details, see the [PyTest Docs](https://docs.pytest.org/en/6.2.x/tmpdir.html).
+For more details, see [Temporary directories and files](https://docs.pytest.org/en/6.2.x/tmpdir.html) in the PyTest
+docs.
 
 Example:
 

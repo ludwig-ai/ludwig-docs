@@ -49,17 +49,17 @@ production with just a [few short commands](../command_line_interface).
 
     ```yaml
     input_features:
-        - name: sepal_length_cm
-        type: number
-        - name: sepal_width_cm
-        type: number
-        - name: petal_length_cm
-        type: number
-        - name: petal_width_cm
-        type: number
+    - name: sepal_length_cm
+      type: number
+    - name: sepal_width_cm
+      type: number
+    - name: petal_length_cm
+      type: number
+    - name: petal_width_cm
+      type: number
     output_features:
-        - name: class
-        type: category
+    - name: class
+      type: category
     ```
 
 Ludwig makes this possible through its **declarative** approach to structuring

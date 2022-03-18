@@ -112,8 +112,8 @@ catches any unscoped issues that are not captured by shape, type, or weight upda
 
 ## Best practices
 
-There's lots of great advice on the web for writing good tests. Here are a few highlights
-[from Microsoft's recommendations](https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices)
+There's lots of great advice on the web for writing good tests. Here are a few highlights from
+[Microsoft's recommendations](https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices)
 that we ascribe to:
 
 - [Characteristics of a good unit test](https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices#characteristics-of-a-good-unit-test)
@@ -161,29 +161,27 @@ def test_sequence_encoders(
 ):
 ```
 
-## Use tempfile for generated data
+## Use temp_path or tmpdir for generated data
 
-Use temporary directories for any generated data. PyTest will automatically clean up these directories after test run
-completes. Avoids polluting the local file system when testing locally.
+Use temporary directories for any generated data. PyTest provides fixtures for temporary directories, which are
+guaranteed unique for each test run and will be cleaned up automatically. We recommend using `tmpdir`, which provides a
+`py.path.local` object which is compatible with `os.path` methods. If you are using `pathlib`, PyTest also provides
+`tmp_path`, which is a `pathlib.Path`.
+
+For more details, see the [PyTest Docs](https://docs.pytest.org/en/6.2.x/tmpdir.html).
+
+Example:
 
 ```python
-import tempfile
-
-def test_export_neuropod_cli(csv_filename):
-    """Test exporting Ludwig model to neuropod format."""
-    with tempfile.TemporaryDirectory() as tmpdir:
-        config_filename = os.path.join(tmpdir,
-                                       'config.yaml')
-        dataset_filename = _prepare_data(csv_filename,
-                                         config_filename)
-        _run_ludwig('train',
-                    dataset=dataset_filename,
-                    config_file=config_filename,
-                    output_directory=tmpdir)
-        _run_ludwig('export_neuropod',
-                    model_path=os.path.join(tmpdir, 'experiment_run', 'model'),
-                    output_path=os.path.join(tmpdir, 'neuropod')
-                    )
+@pytest.mark.parametrize("skip_save_processed_input", [True, False])
+@pytest.mark.parametrize("in_memory", [True, False])
+@pytest.mark.parametrize("image_source", ["file", "tensor"])
+@pytest.mark.parametrize("num_channels", [1, 3])
+def test_basic_image_feature(
+        num_channels, image_source, in_memory, skip_save_processed_input, tmpdir
+):
+    # Image Inputs
+    image_dest_folder = os.path.join(tmpdir, "generated_images")
 ```
 
 ## Consolidate tests which require setup

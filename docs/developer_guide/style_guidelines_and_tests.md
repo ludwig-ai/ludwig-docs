@@ -30,9 +30,8 @@ pre-commit uninstall
 
 ## Docstrings
 
-All new files, classes, and methods should have a docstring. Parameters are documented using
-[Sphinx](https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html#python-signatures)-style signatures.
-Type hints should be used wherever possible, and should use the most specific type accepted by the method.
+All new files, classes, and methods should have a docstring. Type hints should be used in the function signature
+wherever possible, and should use the most specific type accepted by the method.
 
 Example:
 

@@ -1,3 +1,20 @@
+# Chat
+
+We use Slack as a chat solution for allowing both Ludwig users and developers to
+interact in a timely, more synchronous way.
+
+[Click here](https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ)
+to receive an invitation.
+
+# Forum
+
+We use [GitHub Discussions](https://github.com/ludwig-ai/ludwig/discussions) to
+provide a forum for the community to discuss.
+Everything that is not an issue and relates Ludwig can be discussed here:
+use-cases, requests for help and suggestions, discussions on the future of the
+project, and other similar topics. The forum is ideal for asynchronous
+communication.
+
 # Community Policy
 
 We craft Ludwig with love and care, to the best of our skills and knowledge, and
@@ -44,20 +61,3 @@ ludwig synthesize_dataset --features="[ \
   {name: image, type: image} \
 ]" --dataset_size=10 --output_path=synthetic_dataset.csv
 ```
-
-# Forum
-
-We use [GitHub Discussions](https://github.com/ludwig-ai/ludwig/discussions) to
-provide a forum for the community to discuss.
-Everything that is not an issue and relates Ludwig can be discussed here:
-use-cases, requests for help and suggestions, discussions on the future of the
-project, and other similar topics. The forum is ideal for asynchronous
-communication.
-
-# Chat
-
-We use Slack as a chat solution for allowing both Ludwig users and developers to
-interact in a timely, more synchronous way.
-
-[Click here](https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ)
-to receive an invitation.

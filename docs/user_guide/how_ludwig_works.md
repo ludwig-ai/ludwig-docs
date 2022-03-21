@@ -105,8 +105,8 @@ Visualized, the ECD architecture looks like a butterfly and sometimes we refer t
 
 ECD flexibly handles many different combinations of input and output data types, making the tool well-suited for many different applications.
 
-![img](../images/ecd_examples_light.png#only-light)
-![img](../images/ecd_examples_dark.png#only-dark)
+![gif](../images/legos_dark.gif#only-dark)
+![gif](../images/legos_light.gif#only-light)
 
 Take a look at [Examples](../../examples) to see how you can use Ludwig for several many different applications.
 

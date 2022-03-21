@@ -3,7 +3,65 @@
 
 Ludwig provides an expressive declarative configuration system for how users construct their ML pipeline, like data preprocessing, model architecting, backend infrastructure, the training loop, hyperparameter optimization, and more.
 
-![img](../images/involved_example_config.png)
+```yaml
+input_features:
+-
+  name: title
+  type: text
+  encoder: rnn
+  cell: lstm
+  num_layers: 2
+  state_size: 128
+  preprocessing:
+    tokenizer: space_punct
+-
+  name: author
+  type: category
+  embedding_size: 128
+  preprocessing:
+    most_common: 10000
+-
+  name: description
+  type: text
+  encoder: bert
+-
+  name: cover
+  type: image
+  encoder: resnet
+  num_layers: 18
+
+output_features:
+-
+  name: genre
+  type: set
+-
+  name: price
+  type: number
+  preprocessing:
+    normalization: zscore
+
+trainer:
+  epochs: 50
+  batch_size: 256
+  optimizer:
+    type: adam
+    beat1: 0.9
+  learning_rate: 0.001
+
+backend:
+  type: local
+  cache_format: parquet
+
+hyperopt:
+  metric: f1
+  sampler: random
+  parameters:
+    title.num_layers:
+      lower: 1
+      upper: 5
+    training.learning_rate:
+      values: [0.01, 0.003, 0,001]
+```
 
 See [Ludwig configurations](../../configuration) for an in-depth reference.
 

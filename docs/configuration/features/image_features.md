@@ -417,6 +417,86 @@ preprocessing:
     num_channels: 3
 ```
 
+### MLP-Mixer Encoder
+
+Encodes images using MLP-Mixer, as described in [MLP-Mixer: An all-MLP Architecture for Vision](https://arxiv.org/abs/2105.01601)
+MLP-Mixer divides the image into equal-sized patches, applying fully connected layers to each patch to compute per-patch
+representations (tokens) and combining the representations with fully-connected mixer layers.
+
+The MLP-Mixer Encoder takes the following optional parameters:
+
+- `patch_size` (default `16`): The image patch size. Each patch is `patch_size`² pixels. Must evenly divide
+the image width and height.
+- `embed_size` (default `512`): The patch embedding size, the output size of the mixer if `avg_pool` is true.
+- `token_size` (default `2048`): The per-patch embedding size.
+- `channel_dim` (default `256`): Number of channels in hidden layer.
+- `num_layers` (default `8`): The depth of the network (the number of Mixer blocks).
+- `dropout` (default `0`): Dropout rate.
+- `avg_pool` (default `true`): If true, pools output over patch dimension, outputs a vector of shape `(embed_size)`. If
+false, the output tensor is of shape `(n_patches, embed_size)`, where n_patches is `img_height` x `img_width` / `patch_size`².
+
+Example image feature config using an MLP-Mixer encoder:
+
+```yaml
+name: image_column_name
+type: image
+encoder: mlp_mixer
+patch_size: 16
+embed_size: 512
+token_size: 2048
+channel_dim: 256
+num_layers: 8
+dropout: 0.0
+avg_pool: True
+preprocessing:
+    height: 64
+    width: 64
+    num_channels: 3
+```
+
+### Vision Transformer Encoder
+
+Encodes images using a Vision Transformer as described in
+[An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929).
+
+Vision Transformer divides the image into equal-sized patches, uses a linear transformation to encode each flattened
+patch, then applies a deep transformer architecture to the sequence of encoded patches.
+
+The Vision Transformer Encoder takes the following optional parameters:
+
+- `use_pretrained` (default `true`): Use pre-trained model weights from Hugging Face.
+- `pretrained_model` (default `google/vit-base-patch16-224`): The pre-trained model to use. See the [model hub](https://huggingface.co/models?search=vit)
+for other pretrained vision transformer models.
+- `hidden_size` (default `768`): Dimensionality of the encoder layers and the pooling layer.
+- `num_hidden_layers` (default `12`): Number of hidden layers in the Transformer encoder.
+- `num_attention_heads` (default `12`): Number of attention heads in each attention layer.
+- `intermediate_size` (default `3072`): Dimensionality of the intermediate (i.e., feed-forward) layer in the Transformer
+encoder.
+- `hidden_act` (default `gelu`): Hidden layer activation, one of `gelu`, `relu`, `selu` or `gelu_new`.
+- `hidden_dropout_prob` (default `0.1`): The dropout rate for all fully connected layers in the embeddings, encoder, and
+pooling.
+- `attention_probs_dropout_prob` (default `0.1`): The dropout rate for the attention probabilities.
+- `initializer_range` (default `768`): The standard deviation of the truncated_normal_initializer for initializing all
+weight matrices.
+- `layer_norm_eps` (default `1e-12`): The epsilon used by the layer normalization layers.
+- `gradient_checkpointing` (default `false`):
+- `patch_size` (default `16`): The image patch size. Each patch is `patch_size`² pixels. Must evenly divide
+the image width and height.
+- `trainable` (default `true`): Is the encoder trainable.
+
+Example image feature config using an MLP-Mixer encoder:
+
+```yaml
+name: image_column_name
+type: image
+encoder: vit
+use_pretrained: true
+preprocessing:
+    height: 128
+    width: 128
+    num_channels: 3
+```
+
 # Image Output Features and Decoders
 
 There are no image decoders at the moment (WIP), so image cannot be used as output features.

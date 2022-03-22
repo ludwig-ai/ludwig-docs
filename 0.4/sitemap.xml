@@ -2,347 +2,347 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/community/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/faq/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/getting_started/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/combiner/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/hyperparameter_optimization/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/preprocessing/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/training/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/features/audio_features/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/features/bag_features/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/features/binary_features/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/features/category_features/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/features/date_features/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/features/h3_features/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/features/image_features/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/features/input_features/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/features/numerical_features/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/features/output_features/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/features/sequence_features/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/features/set_features/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/features/text_features/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/features/time_series_features/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/configuration/features/vector_features/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/developer_guide/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/developer_guide/add_a_dataset/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/developer_guide/add_a_decoder/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/developer_guide/add_a_feature_type/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/developer_guide/add_an_encoder/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/developer_guide/add_an_integration/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/developer_guide/codebase_structure/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/developer_guide/hyper_parameter_optimization/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/developer_guide/style_guidelines_and_tests/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/developer_guide/unit_test_design_guidelines/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/examples/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/examples/forecasting/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/examples/fraud/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/examples/fuel_efficiency/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/examples/image_classification/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/examples/machine_translation/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/examples/mnist/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/examples/movie_ratings/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/examples/multi_label/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/examples/multi_task/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/examples/ner_tagging/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/examples/nlu/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/examples/oneshot/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/examples/sentiment_analysis/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/examples/seq2seq/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/examples/speaker_verification/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/examples/speech_recognition/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/examples/text_classification/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/examples/titanic/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/examples/visual_qa/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/examples/weather/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/automl/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/command_line_interface/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/distributed_training/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/hyperopt/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/integrations/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/serving/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/visualizations/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/api/LudwigModel/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/api/visualization/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/datasets/data_postprocessing/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/datasets/data_preprocessing/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/datasets/dataset_zoo/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ludwig-ai.github.io/ludwig-docs/0.4/user_guide/datasets/supported_formats/</loc>
-         <lastmod>2022-03-08</lastmod>
+         <lastmod>2022-03-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

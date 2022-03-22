@@ -6,11 +6,33 @@ The top-level `preprocessing` section specifies:
 
 ## Dataset Splitting
 
-Split data into train, validation, and test based on splitting percentages.
+Split data into train, validation, and test.
 
-- `force_split` (default `false`): if `true` the `split` column in the dataset file is ignored and the dataset is randomly split. If `false` the `split` column is used if available.
-- `split_probabilities` (default `[0.7, 0.1, 0.2]`): the proportion of the dataset data to end up in training, validation and test, respectively. The three values have to sum up to one.
-- `stratify` (default `null`): if `null` the split is random, otherwise you can specify the name of a `category` feature and the split will be stratified on that feature.
+By default, Ludwig looks for a column named `split` (case-sensitive) which is
+expected to consist of 3 possible values that correspond to different datasets:
+
+- `0`: train
+- `1`: validation
+- `2`: test
+
+If the data does not contain the  `split` column, then data is randomly split
+based on splitting percentages, defined by `split_probabilities`.
+
+If `force_split` is `true`, the the split column in the dataset is ignored and
+the dataset is randomly split based on splitting percentages, defined by
+`split_probabilities`.
+
+Summary of parameters:
+
+- `force_split` (default `false`): if `true` the `split` column in the dataset
+    file is ignored and the dataset is randomly split. If `false` the `split`
+    column is used if available.
+- `split_probabilities` (default `[0.7, 0.1, 0.2]`): the proportion of the
+    dataset data to end up in training, validation and test, respectively. The
+    three values must sum to 1.0.
+- `stratify` (default `null`): if `null` the split is random, otherwise you can
+    specify the name of a `category` feature and the split will be stratified on
+    that feature.
 
 ```yaml
 preprocessing:

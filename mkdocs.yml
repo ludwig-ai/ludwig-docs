@@ -16,13 +16,13 @@ copyright: "Copyright &copy; 2018 - 2020 Uber Technologies Inc., 2021 - 2022 Lin
 nav:
   - About: "index.md"
   - Getting Started:
-      - 'Installation': 'getting_started/installation.md'
-      - 'Dataset preparation': 'getting_started/prepare_data.md'
-      - 'Training': 'getting_started/train.md'
-      - 'Prediction and Evaluation': 'getting_started/evaluate.md'
-      - 'Hyperopt': 'getting_started/hyperopt.md'
-      - 'Serving': 'getting_started/serve.md'
-      - 'Distributed training on Ray': 'getting_started/ray.md'
+      - "Installation": "getting_started/installation.md"
+      - "Dataset preparation": "getting_started/prepare_data.md"
+      - "Training": "getting_started/train.md"
+      - "Prediction and Evaluation": "getting_started/evaluate.md"
+      - "Hyperopt": "getting_started/hyperopt.md"
+      - "Serving": "getting_started/serve.md"
+      - "Distributed training on Ray": "getting_started/ray.md"
   - User Guide:
       - "User Guide": "user_guide/index.md"
       - "What is Ludwig?": "user_guide/what_is_ludwig.md"
@@ -103,6 +103,7 @@ nav:
       - "Add a Dataset": "developer_guide/add_a_dataset.md"
       - "Style Guidelines and Tests": "developer_guide/style_guidelines_and_tests.md"
       - "Unit Test Design Guidelines": "developer_guide/unit_test_design_guidelines.md"
+      - "Run Tests on GPU Using Ray": "developer_guide/run_tests_on_gpu_using_ray.md"
       - "Release Process": "developer_guide/release_process.md"
   - Community: "community.md"
   - FAQ: "faq.md"

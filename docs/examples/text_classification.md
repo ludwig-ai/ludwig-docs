@@ -27,8 +27,9 @@ Ludwig also provides several other text classification benchmark datasets which 
 
 ## Download Dataset
 
+Downloads the AG news dataset to the current working directory.
+
 ```bash
-# Downloads the AG news dataset to the current working directory.
 ludwig datasets download agnews
 ```
 
@@ -63,8 +64,9 @@ trainer:
 ### Create and train a model
 
 ```bash
-ludwig experiment --dataset agnews.csv \
-                  --config config.yaml
+ludwig experiment \
+    --dataset agnews.csv \
+    --config config.yaml
 ```
 
 ## Evaluate
@@ -72,10 +74,11 @@ ludwig experiment --dataset agnews.csv \
 Generates predictions and performance statistics for the test set.
 
 ```bash
-ludwig evaluate --model_path results/experiment_run/model \
-                --dataset agnews.csv \
-                --split test \
-                --output_directory test_results
+ludwig evaluate \
+    --model_path results/experiment_run/model \
+    --dataset agnews.csv \
+    --split test \
+    --output_directory test_results
 ```
 
 ## Visualize Metrics
@@ -83,19 +86,24 @@ ludwig evaluate --model_path results/experiment_run/model \
 Visualizes confusion matrix, which gives an overview of classifier performance for each class.
 
 ```bash
-ludwig visualize --visualization confusion_matrix \
-                 --ground_truth_metadata results/experiment_run/model/training_set_metadata.json \
-                 --test_statistics test_results/test_statistics.json \
-                 --output_directory visualizations \
-                 --file_format png
+ludwig visualize \
+    --visualization confusion_matrix \
+    --ground_truth_metadata results/experiment_run/model/training_set_metadata.json \
+    --test_statistics test_results/test_statistics.json \
+    --output_directory visualizations \
+    --file_format png
 ```
 
 Visualizes learning curves, which show how performance metrics changed over time during training.
-!ludwig visualize --visualization learning_curves \
-                  --ground_truth_metadata results/experiment_run/model/training_set_metadata.json \
-                  --training_statistics results/experiment_run/training_statistics.json \
-                  --file_format png \
-                  --output_directory visualizations
+
+```bash
+ludwig visualize \
+    --visualization learning_curves \
+    --ground_truth_metadata results/experiment_run/model/training_set_metadata.json \
+    --training_statistics results/experiment_run/training_statistics.json \
+    --file_format png \
+    --output_directory visualizations
+```
 
 ## Make Predictions on New Data
 
@@ -114,7 +122,8 @@ How the pandemic housing market spurred buyer's remorse across America
 ```
 
 ```bash
-ludwig predict --model_path results/experiment_run/model \
-               --dataset text_to_predict.csv \
-               --output_directory predictions
+ludwig predict \
+    --model_path results/experiment_run/model \
+    --dataset text_to_predict.csv \
+    --output_directory predictions
 ```

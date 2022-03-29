@@ -1,6 +1,6 @@
 This example shows how to build a text classifier with Ludwig.
 
-We also have interactive notebook versions of this demo
+These interactive notebooks follow the steps of this example:
 
 - Ludwig CLI: [![Text Classification with Ludwig CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/daniel/text_classification/docs/examples/notebooks/Text_Classification_with_Ludwig_CLI.ipynb)
 - Ludwig Python API: [![Text Classification with Ludwig Python API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/daniel/text_classification/docs/examples/notebooks/Text_Classification_with_Ludwig_Python_API.ipynb)

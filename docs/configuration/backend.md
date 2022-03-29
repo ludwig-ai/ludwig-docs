@@ -62,7 +62,7 @@ backend:
 
 ## Modin
 
-[Modin](https://github.com/modin-project/modin) is an eagerly-executed distributed dataframe library that closely mirrors the behavior of 
+[Modin](https://github.com/modin-project/modin) is an eagerly-executed distributed dataframe library that closely mirrors the behavior of
 Pandas. Because it behaves almost identically to Pandas but is able to distribute the dataset
 across the Ray cluster, there are fewer things to configure to optimize its performance.
 

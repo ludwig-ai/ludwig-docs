@@ -1,4 +1,4 @@
-For large datasets, training on a single machine storing the entire dataset in memory can be prohibitively expensive. As such, 
+For large datasets, training on a single machine storing the entire dataset in memory can be prohibitively expensive. As such,
 Ludwig supports using distributing the preprocessing, training, and prediction steps across multiple machines and GPUs to
 operate on separate partitions of the data in parallel.
 
@@ -6,7 +6,7 @@ operate on separate partitions of the data in parallel.
 
 Ludwig supports two different distributed execution [backends](../configuration/backend.md): **Ray** and **Horovod / MPI**. In most
 cases, we recommend using Ray (supporting both distributed data processing and distributed training at once), but native Horovod execution
-is also supported, particularly for users accustomed to running with MPI. 
+is also supported, particularly for users accustomed to running with MPI.
 
 # Ray
 
@@ -88,7 +88,6 @@ ray up cluster.yaml
 ray submit cluster.yaml \
     ludwig train --config config.yaml --dataset s3://mybucket/dataset.parquet
 ```
-
 
 # Horovod / MPI
 

@@ -2,7 +2,7 @@ For large datasets, training on a single machine storing the entire dataset in m
 Ludwig supports using distributing the preprocessing, training, and prediction steps across multiple machines and GPUs to
 operate on separate partitions of the data in parallel.
 
-![img](../../images/ludwig_on_ray.png)
+![img](../images/ludwig_on_ray.png)
 
 Ludwig supports two different distributed execution [backends](../configuration/backend.md): **Ray** and **Horovod / MPI**. In most
 cases, we recommend using Ray (supporting both distributed data processing and distributed training at once), but native Horovod execution

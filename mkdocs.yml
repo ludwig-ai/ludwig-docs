@@ -66,6 +66,7 @@ nav:
       - "Preprocessing": "configuration/preprocessing.md"
       - "Trainer": "configuration/trainer.md"
       - "Hyperopt": "configuration/hyperparameter_optimization.md"
+      - "Backend": "configuration/backend.md"
   - Examples:
       - "Examples": "examples/index.md"
       - "Text Classification": "examples/text_classification.md"

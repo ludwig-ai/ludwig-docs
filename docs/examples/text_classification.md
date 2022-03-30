@@ -2,8 +2,8 @@ This example shows how to build a text classifier with Ludwig.
 
 These interactive notebooks follow the steps of this example:
 
-- Ludwig CLI: [![Text Classification with Ludwig CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/daniel/text_classification/docs/examples/notebooks/Text_Classification_with_Ludwig_CLI.ipynb)
-- Ludwig Python API: [![Text Classification with Ludwig Python API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/daniel/text_classification/docs/examples/notebooks/Text_Classification_with_Ludwig_Python_API.ipynb)
+- Ludwig CLI: [![Text Classification with Ludwig CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/daniel/text_classification/docs/examples/text_classification/Text_Classification_with_Ludwig_CLI.ipynb)
+- Ludwig Python API: [![Text Classification with Ludwig Python API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/daniel/text_classification/docs/examples/text_classification/Text_Classification_with_Ludwig_Python_API.ipynb)
 
 We'll be using AG's news topic classification dataset, a common benchmark dataset for text classification. This dataset
 is a subset of the full AG news dataset, constructed by choosing 4 largest classes from the original corpus. Each class
@@ -108,6 +108,10 @@ ludwig visualize \
     --file_format png
 ```
 
+| Confusion Matrix                                                     | Class Entropy                                                                        |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| ![Confusion Matrix](text_classification/images/confusion_matrix.png) | ![Confusion Matrix Entropy](text_classification/images/confusion_matrix_entropy.png) |
+
 Visualizes learning curves, which show how performance metrics changed over time during training.
 
 ```bash
@@ -118,6 +122,11 @@ ludwig visualize \
     --file_format png \
     --output_directory visualizations
 ```
+
+| Losses                                                                      | Metrics                                                    |
+| --------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| ![Loss: class_index](text_classification/images/train_loss_class_index.png) | ![Accuracy](text_classification/images/train_accuracy.png) |
+| ![Loss: combined](text_classification/images/train_loss_combined.png)       | ![Hits at K](text_classification/images/hits_at_k.png)     |
 
 ## Make Predictions on New Data
 
@@ -141,3 +150,13 @@ ludwig predict \
     --dataset text_to_predict.csv \
     --output_directory predictions
 ```
+
+This command will write predictions to the `predictions` directory. Predictions outputs are written in multiple formats,
+including csv and parquet. For instance, `predictions/predictions.parquet` contains the predicted classes for eac
+example as well as the psuedo-probabilities for each class:
+
+| class_index_predictions | class_index_probabilities    | class_index_probability | class_index_probabilities_&lt;UNK&gt; | class_index_probabilities_4 | class_index_probabilities_2 | class_index_probabilities_1 | class_index_probabilities_3 |
+| ----------------------- | ---------------------------- | ----------------------- | ------------------------------------- | -------------------------- | --------------------------- | --------------------------- | --------------------------- |
+| 4                       | [1.9864278277825775e-10, ... | 0.954650                | 1.986428e-10                          | 0.954650                    | 0.000033                    | 0.002563                    | 0.042754                    |
+| 1                       | [8.458710176739714e-09, ...  | 0.995293                | 8.458710e-09                          | 0.002305                    | 0.000379                    | 0.995293                    | 0.002022                    |
+| 3                       | [3.710099008458201e-06, ...  | 0.490741                | 3.710099e-06                          | 0.447916                    | 0.000815                    | 0.060523                    | 0.490741                    |

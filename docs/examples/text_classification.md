@@ -33,6 +33,20 @@ Downloads the AG news dataset to the current working directory.
 ludwig datasets download agnews
 ```
 
+This command will download the dataset and write to `agnews.csv` in the current directory.
+
+The CSV file contains the above three columns plus an additional `split` column which is one of 0: train, 1: test,
+2: validation.
+
+Sample (description text omitted for space):
+
+```
+class_index,title,description,split
+3,Carlyle Looks Toward Commercial Aerospace (Reuters),...,0
+3,Oil and Economy Cloud Stocks' Outlook (Reuters),...,0
+3,Iraq Halts Oil Exports from Main Southern Pipeline (Reuters),...,0
+```
+
 ## Train
 
 ### Define ludwig config

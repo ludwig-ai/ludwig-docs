@@ -17,18 +17,16 @@ input_features:
     -
         name: english
         type: text
-        level: word
         encoder: rnn
         cell_type: lstm
         reduce_output: null
         preprocessing:
-          word_tokenizer: english_tokenize
+          tokenizer: english_tokenize
 
 output_features:
     -
         name: italian
         type: text
-        level: word
         decoder: generator
         cell_type: lstm
         attention: bahdanau
@@ -36,7 +34,7 @@ output_features:
         loss:
             type: sampled_softmax_cross_entropy
         preprocessing:
-          word_tokenizer: italian_tokenize
+          tokenizer: italian_tokenize
 
 training:
     batch_size: 96

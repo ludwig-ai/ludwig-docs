@@ -10,11 +10,12 @@ is a subset of the full AG news dataset, constructed by choosing 4 largest class
 contains 30,000 training samples and 1,900 testing samples. The total number of training samples is 120,000 with 7,600
 total testing samples.
 
-This dataset contains three columns:
+This dataset contains four columns:
 
 | column      | description                                                |
 |-------------|------------------------------------------------------------|
-| class_index | 1-4: "world", "sports", "business", "sci/tech" respectively |
+| class_index | An integer from 1 to 4: "world", "sports", "business", "sci_tech" respectively |
+| class       | A string, one of "world", "sports", "business", "sci_tech"           |
 | title       | Title of the news article                                  |
 | description | Description of the news article                            |
 
@@ -123,10 +124,10 @@ ludwig visualize \
     --output_directory visualizations
 ```
 
-| Losses                                                                      | Metrics                                                    |
-| --------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| ![Loss: class_index](text_classification/images/train_loss_class_index.png) | ![Accuracy](text_classification/images/train_accuracy.png) |
-| ![Loss: combined](text_classification/images/train_loss_combined.png)       | ![Hits at K](text_classification/images/hits_at_k.png)     |
+| Losses                                                                | Metrics                                                    |
+| --------------------------------------------------------------------- | ---------------------------------------------------------- |
+| ![Loss: class](text_classification/images/train_loss_index.png)       | ![Accuracy](text_classification/images/train_accuracy.png) |
+| ![Loss: combined](text_classification/images/train_loss_combined.png) | ![Hits at K](text_classification/images/hits_at_k.png)     |
 
 ## Make Predictions on New Data
 
@@ -155,8 +156,8 @@ This command will write predictions to the `predictions` directory. Predictions 
 including csv and parquet. For instance, `predictions/predictions.parquet` contains the predicted classes for eac
 example as well as the psuedo-probabilities for each class:
 
-| class_index_predictions | class_index_probabilities    | class_index_probability | class_index_probabilities_&lt;UNK&gt; | class_index_probabilities_4 | class_index_probabilities_2 | class_index_probabilities_1 | class_index_probabilities_3 |
-| ----------------------- | ---------------------------- | ----------------------- | ------------------------------------- | -------------------------- | --------------------------- | --------------------------- | --------------------------- |
-| 4                       | [1.9864278277825775e-10, ... | 0.954650                | 1.986428e-10                          | 0.954650                    | 0.000033                    | 0.002563                    | 0.042754                    |
-| 1                       | [8.458710176739714e-09, ...  | 0.995293                | 8.458710e-09                          | 0.002305                    | 0.000379                    | 0.995293                    | 0.002022                    |
-| 3                       | [3.710099008458201e-06, ...  | 0.490741                | 3.710099e-06                          | 0.447916                    | 0.000815                    | 0.060523                    | 0.490741                    |
+| class_predictions | class_index_probabilities    | class_index_probability | class_index_probabilities_&lt;UNK&gt; | class_index_probabilities_sci_tech | class_index_probabilities_sports | class_index_probabilities_world | class_index_probabilities_business |
+| ----------------- | ---------------------------- | ----------------------- | ------------------------------------- | ---------------------------------- | -------------------------------- | ------------------------------- | ---------------------------------- |
+| sci_tech          | [1.9864278277825775e-10, ... | 0.954650                | 1.986428e-10                          | 0.954650                           | 0.000033                         | 0.002563                        | 0.042754                           |
+| world             | [8.458710176739714e-09, ...  | 0.995293                | 8.458710e-09                          | 0.002305                           | 0.000379                         | 0.995293                        | 0.002022                           |
+| business          | [3.710099008458201e-06, ...  | 0.490741                | 3.710099e-06                          | 0.447916                           | 0.000815                         | 0.060523                        | 0.490741                           |

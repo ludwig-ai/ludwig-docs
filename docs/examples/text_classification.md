@@ -64,7 +64,6 @@ input_features:
     -
         name: title
         type: text
-        level: word
         encoder: parallel_cnn
 output_features:
     -

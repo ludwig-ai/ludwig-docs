@@ -126,7 +126,7 @@ ludwig visualize \
 
 | Losses                                                                | Metrics                                                    |
 | --------------------------------------------------------------------- | ---------------------------------------------------------- |
-| ![Loss: class](text_classification/images/train_loss_index.png)       | ![Accuracy](text_classification/images/train_accuracy.png) |
+| ![Loss: class](text_classification/images/train_loss_class.png)       | ![Accuracy](text_classification/images/train_accuracy.png) |
 | ![Loss: combined](text_classification/images/train_loss_combined.png) | ![Hits at K](text_classification/images/hits_at_k.png)     |
 
 ## Make Predictions on New Data

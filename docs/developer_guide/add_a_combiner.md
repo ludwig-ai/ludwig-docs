@@ -192,14 +192,14 @@ For example, the following is a simplified version of `TransformerCombiner`'s fo
 
 __Inputs__
 
-- __inputs__ (Dict[str, Dict[str, torch.Tensor]]): A dictionary of input feature outputs, keyed by the input feature
+- __inputs__ (`Dict[str, Dict[str, torch.Tensor]]`): A dictionary of input feature outputs, keyed by the input feature
 names. Each input feature output dictionary is guaranteed to include `encoder_output`, and may include other key/value
 pairs depending on the input feature's encoder.
 
 __Return__
 
-- (dict): A dictionary containing the required key `combiner_output` whose value is the combiner output tensor, and any
-other optional output key/value pairs.
+- (`Dict[str, torch.Tensor]`): A dictionary containing the required key `combiner_output` whose value is the combiner
+output tensor, and any other optional output key/value pairs.
 
 # 5. Add tests
 

@@ -11,7 +11,7 @@ and the combiner's output flows into all output features.
 ```
 +-----------+                      +-----------+
 |Input      |                      | Output    |
-|Feature 1  +-+                  +-+ Feature 1 + --->  Prediction 1
+|Feature 1  +-+                  +-+ Feature 1 + ---> Prediction 1
 +-----------+ |                  | +-----------+
 +-----------+ |   +----------+   | +-----------+
 |...        +---> | Combiner +---> |...        +

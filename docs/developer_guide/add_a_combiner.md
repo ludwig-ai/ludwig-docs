@@ -1,25 +1,45 @@
-Combiners are responsible for combining the outputs of one or more input features and providing a combined
-representation to one or more output features.
-
-There is one additional complexity to be aware of: input features may either output vectors, or __sequences__ of
-vectors. Thus, a combiner may have to handle a mix of sequence and scalar input features. SequenceConcatCombiner, for
-example, resolves this by requiring that all input sequences be of the same length. It will raise a `ValueError`
-exception if they are not. SequenceConcatCombiner tiles scalar inputs to the sequence length before concatenation, so
-all input features are treated as sequences of the same length.
-
-New combiners should make it clear in their doc strings whether they support sequence inputs, declare any requirements
-on sequence length, type, or dimension, and validate their input features.
+Combiners are responsible for combining the outputs of one or more input features into a single combined representation,
+which is usually a vector, but may also be a sequence of vectors or some other higher-dimensional tensor. One or more
+output features will use this combined representation to generate predictions.
 
 Users can specify which combiner to use in the `combiner` section of the configuration, if a combiner is not specified
 the `concat` combiner will be used.
 
-To add a new combiner:
+Recall the ECD (Encoder, Combiner, Decoder) data flow architecture: all input feature outputs flow into the combiner,
+and the combiner's output flows into all output features.
 
-1. Create a dataclass to represent the combiner configuration.
-2. Define a new combiner class inheriting from `ludwig.combiners.Combiner` or one of its subclasses.
-3. Create all layers and state in the `__init__` method.
+```
++-----------+                      +-----------+
+|Input      |                      | Output    |
+|Feature 1  +-+                  +-+ Feature 1 + --->  Prediction 1
++-----------+ |                  | +-----------+
++-----------+ |   +----------+   | +-----------+
+|...        +---> | Combiner +---> |...        +
++-----------+ |   +----------+   | +-----------+
++-----------+ |                  | +-----------+
+|Input      +-+                  +-+ Output    |
+|Feature N  |                      | Feature N + ---> Prediction N
++-----------+                      +-----------+
+```
+
+There is an additional complication to keep in mind: input features may either output vectors, or __sequences__ of
+vectors. Thus, a combiner may have to handle a mix of input features whose outputs are of different dimensionality.
+`SequenceConcatCombiner`, for example, resolves this by requiring that all input sequences be of the same length. It
+will raise a `ValueError` exception if they are not. `SequenceConcatCombiner` tiles non-sequence inputs to the sequence
+length before concatenation, processing all input features as sequences of the same length.
+
+New combiners should make it clear in their doc strings if they support sequence inputs, declare any requirements on
+sequence length, type, or dimension, and validate their input features.
+
+In this guide we'll outline how to extend Ludwig by adding a new combiner, using the `transformer` combiner as a
+template. At a high level, to add a new combiner:
+
+1. Define a dataclass to represent the combiner configuration.
+2. Create a new combiner class inheriting from `ludwig.combiners.Combiner` or one of its subclasses.
+3. Allocate all layers and state in the `__init__` method.
 4. Implement your combiner's forward pass in `def forward(self, inputs: Dict):`.
-5. Add the new combiner to the combiner registry.
+5. Add tests.
+6. Add the new combiner to the combiner registry.
 
 ## 1. Define combiner configuration
 
@@ -57,7 +77,8 @@ class TransformerCombinerConfig:
 # 2. Add a new combiner class
 
 Source code for combiners lives in `ludwig/combiners/`. Add a new python module which declares a new combiner class. For
-this example, we'll show how to implement a simplified version of `transformer` combiner.
+this example, we'll show how to implement a simplified version of `transformer` combiner which would be defined in
+`transformer_combiner.py`.
 
 !!! note
 
@@ -79,8 +100,8 @@ class TransformerCombiner(Combiner):
 
     def forward(
         self,
-        inputs,  # encoder outputs
-    ) -> Dict:
+        inputs: Dict,
+    ) -> Dict[str: torch.Tensor]:
 
     @staticmethod
     def get_schema_cls():
@@ -92,12 +113,13 @@ Implement `@staticmethod def get_schema_cls():` and return the class name of you
 # 3. Implement Constructor
 
 The combiner constructor will be initialized with a dictionary of the input features and the combiner config. The
-constructor must pass the input features to the superclass constructor, set its 'name' property, then create its own
+constructor must pass the input features to the superclass constructor, set its `name` property, then create its own
 layers and state.
 
-You may want to use the `input_features dictionary` to get information about the size and type of the inputs, which
-affect what resources the combiner needs to allocate. For example, the `transformer` combiner treats its input features
-as a sequence, where the sequence length is the number of features: `self.sequence_size = len(self.input_features)`.
+The `input_features` dictionary is passed in to the constructor to make information about the number, size, and type of
+the inputs accessible. This may determine what resources the combiner needs to allocate. For example, the `transformer`
+combiner treats its input features as a sequence, where the sequence length is the number of features. We can determine
+the sequence length here as `self.sequence_size = len(self.input_features)`.
 
 ```python
     def __init__(
@@ -123,16 +145,17 @@ as a sequence, where the sequence length is the number of features: `self.sequen
         # ...
 ```
 
-# 4. Implement `forward`
+# 4. Implement `forward` method
 
-The `forward` method of the combiner should combine the input feature embeddings into a single output tensor, which will
-be passed to output feature decoders. Each key in inputs is an input feature name, and the corresponding value is a
-dictionary of the input feature outputs. Each feature output guaranteed to contain an `encoder_output` key, and may contain other outputs)
+The `forward` method of the combiner should combine the input feature representations into a single output tensor, which
+will be passed to output feature decoders. Each key in inputs is an input feature name, and the respective value is a
+dictionary of the input feature's outputs. Each feature output dictionary is guaranteed to contain an `encoder_output`
+key, and may contain other outputs depending on the encoder.
 
-`forward` returns a dictionary of torch.Tensors which must contain an `encoder_output` key. It may optionally return
-additional value that might be useful for output feature decoding, loss computation, or explanation. For example,
-`TabNetCombiner` returns its sparse attention masks (`attention_masks`, which are useful to see which features were
-attended to in each prediction step.
+`forward` returns a dictionary mapping strings to tensors which must contain a `combiner_output` key. It may optionally
+return additional values that might be useful for output feature decoding, loss computation, or explanation. For
+example, `TabNetCombiner` returns its sparse attention masks (`attention_masks`, and `aggregated_attention_masks`) which
+are useful to see which input features were attended to in each prediction step.
 
 For example, the following is a simplified version of `TransformerCombiner`'s forward method:
 
@@ -170,18 +193,47 @@ For example, the following is a simplified version of `TransformerCombiner`'s fo
 __Inputs__
 
 - __inputs__ (Dict[str, Dict[str, torch.Tensor]]): A dictionary of input feature outputs, keyed by the input feature
-names. Each input feature output is guaranteed to include `encoder_output`, and may include other outputs as well.
+names. Each input feature output dictionary is guaranteed to include `encoder_output`, and may include other key/value
+pairs depending on the input feature's encoder.
 
 __Return__
 
-- (dict): A dictionary containing the key `combiner_output` whose value is the combiner output tensor.
-`{"combiner_output": output_tensor}`.
+- (dict): A dictionary containing the required key `combiner_output` whose value is the combiner output tensor, and any
+other optional output key/value pairs.
 
-# 5. Add new class to the registry
+# 5. Add tests
 
-Mapping between combiner names in the model definition and combiner classes is made by registering the class in a
-combiner registry. The combiner registry is defined in `ludwig/combiners/combiners.py`. To register your class, add the
-`@register_encoder` decorator on the line above its class definition, specifying the name of the combiner:
+Add a corresponding unit test module to `tests/ludwig/combiners`, using the name of your combiner module prefixed by
+`test_` i.e. `test_transformer_combiner.py`.
+
+At a minimum, the unit test should ensure that:
+
+1. The combiner's forward pass succeeds for all feature types it supports.
+2. The combiner fails in expected ways when given unsupported input. (Skip this if the combiner supports all input
+feature types.)
+3. The combiner produces output of the correct type and dimensionality given a variety of configs.
+
+Use `@pytest.mark.parametrize` to parameterize your test with different configurations, also test edge cases:
+
+```python
+@pytest.mark.parametrize("output_size", [8, 16])
+@pytest.mark.parametrize("transformer_output_size", [4, 12])
+def test_transformer_combiner(
+        encoder_outputs: tuple,
+        transformer_output_size: int,
+        output_size: int) -> None:
+    encoder_outputs_dict, input_feature_dict = encoder_outputs
+```
+
+For examples of combiner tests, see `tests/ludwig/combiners/test_combiners.py`.
+
+For more detail about unit testing in Ludiwg, see also [Unit Test Design Guidelines](../unit_test_design_guidelines).
+
+# 6. Add new class to the registry
+
+Mapping between combiner names in the model config and combiner classes is made by registering the class in the combiner
+registry. The combiner registry is defined in `ludwig/combiners/combiners.py`. To register your class, add the
+`@register_combiner` decorator on the line above its class definition, specifying the name of the combiner:
 
 ```python
 @register_combiner(name="transformer")

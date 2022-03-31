@@ -15,10 +15,10 @@ the `concat` combiner will be used.
 
 To add a new combiner:
 
-1. Create a dataclass to represent the new combiner configuration.
-2. Define a new combiner class. Inherit from `ludwig.combiners.Combiner` or one of its subclasses.
-3. Create all layers and state in the `__init__` method, after calling `super().__init__(input_features)`.
-4. Implement your encoder's forward pass in `def forward(self, inputs: Dict):`.
+1. Create a dataclass to represent the combiner configuration.
+2. Define a new combiner class inheriting from `ludwig.combiners.Combiner` or one of its subclasses.
+3. Create all layers and state in the `__init__` method.
+4. Implement your combiner's forward pass in `def forward(self, inputs: Dict):`.
 5. Add the new combiner to the combiner registry.
 
 ## 1. Define combiner configuration
@@ -42,8 +42,10 @@ class TransformerCombinerConfig:
     num_fc_layers: int = schema.NonNegativeInteger(default=0)
     output_size: int = schema.PositiveInteger(default=256)
     use_bias: bool = True
-    weights_initializer: Union[str, Dict] = schema.InitializerOrDict(default="xavier_uniform")
-    bias_initializer: Union[str, Dict] = schema.InitializerOrDict(default="zeros")
+    weights_initializer: Union[str, Dict] = \
+        schema.InitializerOrDict(default="xavier_uniform")
+    bias_initializer: Union[str, Dict] = \
+        schema.InitializerOrDict(default="zeros")
     norm: Optional[str] = schema.StringOptions(["batch", "layer"])
     norm_params: Optional[dict] = schema.Dict()
     fc_activation: str = "relu"
@@ -67,7 +69,10 @@ this example, we'll show how to implement a simplified version of `transformer` 
 @register_combiner(name="transformer")
 class TransformerCombiner(Combiner):
     def __init__(
-        self, input_features: Dict[str, "InputFeature"] = None, config: TransformerCombinerConfig = None, **kwargs
+        self,
+        input_features: Dict[str, InputFeature] = None,
+        config: TransformerCombinerConfig = None,
+        **kwargs
     ):
         super().__init__(input_features)
         self.name = "TransformerCombiner"
@@ -97,19 +102,15 @@ as a sequence, where the sequence length is the number of features: `self.sequen
 ```python
     def __init__(
         self,
-        input_features: Dict[str, "InputFeature"] = None,
+        input_features: Dict[str, InputFeature] = None,
         config: TransformerCombinerConfig = None,
         **kwargs
     ):
         super().__init__(input_features)
         self.name = "TransformerCombiner"
-        logger.debug(f" {self.name}")
-
         # ...
-
         self.sequence_size = len(self.input_features)
 
-        logger.debug("  TransformerStack")
         self.transformer_stack = TransformerStack(
             input_size=config.hidden_size,
             sequence_size=self.sequence_size,
@@ -137,7 +138,8 @@ For example, the following is a simplified version of `TransformerCombiner`'s fo
 
 ```python
     def forward(
-        self, inputs: Dict[str, Dict[str, torch.Tensor]]) -> Dict[str, torch.Tensor]:
+        self, inputs: Dict[str, Dict[str, torch.Tensor]]
+    ) -> Dict[str, torch.Tensor]:
         encoder_outputs = [inputs[k]["encoder_output"] for k in inputs]
 
         # ================ Flatten ================
@@ -175,7 +177,7 @@ __Return__
 - (dict): A dictionary containing the key `combiner_output` whose value is the combiner output tensor.
 `{"combiner_output": output_tensor}`.
 
-# 5. Add the new combiner class to the combiner registry
+# 5. Add new class to the registry
 
 Mapping between combiner names in the model definition and combiner classes is made by registering the class in a
 combiner registry. The combiner registry is defined in `ludwig/combiners/combiners.py`. To register your class, add the

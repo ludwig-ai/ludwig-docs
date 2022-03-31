@@ -6,18 +6,18 @@ These interactive notebooks follow the steps of this example:
 - Ludwig Python API: [![Text Classification with Ludwig Python API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/daniel/text_classification/docs/examples/text_classification/Text_Classification_with_Ludwig_Python_API.ipynb)
 
 We'll be using AG's news topic classification dataset, a common benchmark dataset for text classification. This dataset
-is a subset of the full AG news dataset, constructed by choosing 4 largest classes from the original corpus. Each class
-contains 30,000 training samples and 1,900 testing samples. The total number of training samples is 120,000 with 7,600
-total testing samples.
+is a subset of the full AG news dataset, constructed by choosing the four largest classes from the original corpus. Each
+class contains 30,000 training samples and 1,900 testing samples. The total number of training samples is 120,000 with
+7,600 total testing samples.
 
 This dataset contains four columns:
 
-| column      | description                                                |
-|-------------|------------------------------------------------------------|
+| column      | description                                                                    |
+| ----------- | ------------------------------------------------------------------------------ |
 | class_index | An integer from 1 to 4: "world", "sports", "business", "sci_tech" respectively |
-| class       | A string, one of "world", "sports", "business", "sci_tech"           |
-| title       | Title of the news article                                  |
-| description | Description of the news article                            |
+| class       | A string, one of "world", "sports", "business", "sci_tech"                     |
+| title       | Title of the news article                                                      |
+| description | Description of the news article                                                |
 
 Ludwig also provides several other text classification benchmark datasets which can be used, including:
 
@@ -36,7 +36,7 @@ ludwig datasets download agnews
 
 This command will download the dataset and write to `agnews.csv` in the current directory.
 
-The CSV file contains the above three columns plus an additional `split` column which is one of 0: train, 1: test,
+The CSV file contains the above four columns plus an additional `split` column which is one of 0: train, 1: test,
 2: validation.
 
 Sample (description text omitted for space):
@@ -52,7 +52,8 @@ class_index,title,description,split,class
 
 ### Define ludwig config
 
-The Ludwig config declares the machine learning task. It tells Ludwig what to predict, what columns to use as input, and optionally specifies the model type and hyperparameters.
+The Ludwig config declares the machine learning task. It tells Ludwig what to predict, what columns to use as input, and
+optionally specifies the model type and hyperparameters.
 
 Here, for simplicity, we'll try to predict **class** from **title**.
 

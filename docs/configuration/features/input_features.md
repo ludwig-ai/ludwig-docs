@@ -78,9 +78,8 @@ the encoders that can be used for a certain data type can also be found in each 
             name: text
             type: text
             encoder: bert
-            level: word
             preprocessing:
-                word_tokenizer: space
+                tokenizer: space
             reduce_output: null
             trainable: true
     ```

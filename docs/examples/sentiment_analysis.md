@@ -17,7 +17,6 @@ input_features:
     -
         name: review
         type: text
-        level: word
         encoder: parallel_cnn
 
 output_features:

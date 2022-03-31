@@ -109,7 +109,6 @@ output_features:
     -
         name: caption
         type: text
-        level: word
         decoder: generator
         cell_type: lstm
 ```

@@ -69,9 +69,6 @@ output_features:
     -
         name: class
         type: category
-preprocessing:
-    force_split: true
-    split_probabilities: [0.7, 0.1, 0.2]
 trainer:
     epochs: 3
 ```

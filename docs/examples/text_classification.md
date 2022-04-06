@@ -151,7 +151,7 @@ ludwig predict \
 ```
 
 This command will write predictions to the `predictions` directory. Predictions outputs are written in multiple formats,
-including csv and parquet. For instance, `predictions/predictions.parquet` contains the predicted classes for eac
+including csv and parquet. For instance, `predictions/predictions.parquet` contains the predicted classes for each
 example as well as the psuedo-probabilities for each class:
 
 | class_predictions | class_probabilities          | class_probability | class_probabilities_&lt;UNK&gt; | class_probabilities_sci_tech | class_probabilities_sports | class_probabilities_world | class_probabilities_business |

@@ -8,7 +8,8 @@ These interactive notebooks follow the steps of this example:
 We'll be using AG's news topic classification dataset, a common benchmark dataset for text classification. This dataset
 is a subset of the full AG news dataset, constructed by choosing the four largest classes from the original corpus. Each
 class contains 30,000 training samples and 1,900 testing samples. The total number of training samples is 120,000 with
-7,600 total testing samples.
+7,600 total testing samples. The original split does not include a validation set, so we've labeled the first 5% of each
+training set class as the validation set.
 
 This dataset contains four columns:
 

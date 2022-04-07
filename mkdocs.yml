@@ -70,6 +70,7 @@ nav:
   - Examples:
       - "Examples": "examples/index.md"
       - "Text Classification": "examples/text_classification.md"
+      - "Adult Census Income": "examples/adult_census_income.md"
       - "Named Entity Recognition Tagging": "examples/ner_tagging.md"
       - "Natural Language Understanding": "examples/nlu.md"
       - "Machine Translation": "examples/machine_translation.md"

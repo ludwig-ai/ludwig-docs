@@ -1,18 +1,18 @@
-This is a complete example of training an image classification model on the MNIST
+This is a complete example of training an image classification model on the MNIST handwritten digit
 dataset.
 
 These interactive notebooks follow the steps of this example:
 
 **TODO: point notebook URL to ludwig-ai/ludwig-docs repo before PR merge**
 
-- Ludwig CLI: [![Image Classification with Ludwig CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jimthompson5802/ludwig-docs/blob/expanded-mnist-example-with-colab/docs/examples/mnist_colab_notebooks/MNIST_Classification_with_Ludwig_CLI.ipynb)
-- Ludwig API: [![Image Classification with Ludwig API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jimthompson5802/ludwig-docs/blob/expanded-mnist-example-with-colab/docs/examples/mnist_colab_notebooks/MNIST_Classification_with_Ludwig_API.ipynb)
+- Ludwig CLI: [![MNIST Image Classification with Ludwig CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jimthompson5802/ludwig-docs/blob/expanded-mnist-example-with-colab/docs/examples/mnist_colab_notebooks/MNIST_Classification_with_Ludwig_CLI.ipynb)
+- Ludwig Python API: [![MNIST Image Classification with Ludwig API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jimthompson5802/ludwig-docs/blob/expanded-mnist-example-with-colab/docs/examples/mnist_colab_notebooks/MNIST_Classification_with_Ludwig_API.ipynb)
 
 ## Download the MNIST dataset
 
-MNIST is a collection of gray-scale images of hand-written digits. This collection is made up of 60,000 images for training and 10,000 images for testing model performance.  Each image is 28 X 28 pixels in gray-scale.
+[MNIST](http://yann.lecun.com/exdb/mnist/) is a collection of gray-scale images of handwritten digits. This collection is made up of 60,000 images for training and 10,000 images for testing model performance.  Each image is 28 X 28 pixels in gray-scale.
 
-```
+```shell
 ludwig datasets download mnist
 ```
 
@@ -25,6 +25,9 @@ The columns in the dataset are
 |image_path|file path string for the image|
 |label|single digit 0 to 9 indicating what digit is shown in the image|
 |split|integer value indicating a training example (0) or test example (2)|
+
+Sample of images with `label`.
+![mnist sample images](mnist_colab_notebooks/images/mnist_sample_digits.png)
 
 ## Train
 
@@ -65,8 +68,50 @@ trainer:
   epochs: 5
 ```
 
-```
+```shell
 ludwig train \
   --dataset mnist_dataset.csv \
   --config config.yaml
 ```
+
+## Evaluate
+
+```shell
+ludwig evaluate --model_path results/experiment_run/model \
+                 --dataset mnist_dataset.csv \
+                 --split test \
+                 --output_directory test_results
+```
+
+## Visualize Metrics
+
+Confusion Matrix and class entropy
+```shell
+ludwig visualize --visualization confusion_matrix \
+                  --ground_truth_metadata results/experiment_run/model/training_set_metadata.json \
+                  --test_statistics test_results/test_statistics.json \
+                  --output_directory visualizations \
+                  --file_format png
+```
+![confusion matrix and entropy](mnist_colab_notebooks/images/mnist_confusion_matrix_and_entropy.png)
+Learning Curves
+```shell
+                 --ground_truth_metadata results/experiment_run/model/training_set_metadata.json \
+                  --training_statistics results/experiment_run/training_statistics.json \
+                  --file_format png \
+                  --output_directory visualizations
+```
+![confusion learning curves](mnist_colab_notebooks/images/mnist_learning_curves.png)
+
+## Predictions
+
+Make predictions from test images
+```shell
+ludwig predict --model_path results/experiment_run/model \
+                --dataset mnist_dataset.csv \
+                --split test \
+                --output_directory predictions
+```
+
+Sample test images displaying true("label") and predicted("pred") labels.
+![mnist sample predictions](mnist_colab_notebooks/images/mnist_sample_predictions.png)

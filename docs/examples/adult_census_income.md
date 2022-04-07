@@ -73,7 +73,7 @@ ludwig visualize --visualization confusion_matrix \
                   --file_format png
 ```
 
-![confusion matrix and entropy](mnist_colab_notebooks/images/mnist_confusion_matrix_and_entropy.png)
+![confusion matrix and entropy]()
 Learning Curves
 
 ```shell
@@ -83,7 +83,7 @@ Learning Curves
                   --output_directory visualizations
 ```
 
-![confusion learning curves](mnist_colab_notebooks/images/mnist_learning_curves.png)
+![confusion learning curves]()
 
 ## Predictions
 
@@ -97,4 +97,4 @@ ludwig predict --model_path results/experiment_run/model \
 ```
 
 Sample test images displaying true("label") and predicted("pred") labels.
-![mnist sample predictions](mnist_colab_notebooks/images/mnist_sample_predictions.png)
+![mnist sample predictions]()

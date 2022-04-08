@@ -43,27 +43,77 @@ The columns in the dataset are
 
 The Ludwig configuration file describes the machine learning task.  There is a vast array of options to control the learning process.  This example only covers a small fraction of the options.  Only the options used in this example are described.  Please refer to the [Configuration Section](../../configuration) for all the details.
 
-First it defines the `input_features`.  
+First ['preprocessing' section](../../configuration/preprocessing) defines the gloabl preprocessing options.  All [numeric features](../../configuration/features/number_features) are z-scored normalized, i.e., mean centered and scaled by the standard deviation.  Numeric missing values are filled in with the mean of non-missing values.
 
-Next the `output_features` are defined.  
+The `input_features` section describes each of the predictor variables, i.e., the column name and type of input variable: [number](../../configuration/features/number_features) or [category](../../configuration/features/category_features/)
 
-The last section in this configuration file describes options for how the the [`trainer`](../../configuration/trainer/) will operate.  In this example the `trainer` will process the training data for 5 epochs.
+The 'combiner' section defines how the input features are combined to be passed to the output decoder.  This example uses the [`concat` combiner](configuration/combiner/#concat-combiner), which simply concatenates the output of the input feature encoders.
+
+Next the `output_features` are defined.  In this example, there is one response variable called `income`.  This is a [binary feature](../../configuration/features/binary_features/) with two possible values: " <=50K" or " >50K".  Because thes values are not conventional binary values, i.e., "True" and "False", a feature specific preprocessing option is specified to indicate which string (" >50K") is interpreted as "True".  A four layer fully connected decoder is specified for this output feature.
+
+The last section in this configuration file describes options for how the the [`trainer`](../../configuration/trainer/) will operate.  In this example the `trainer` will process the training data for 5 epochs.  The optimizer type "sgd" is the stochastic gradient descent method.
 
 With `config.yaml`:
 
 ```yaml
-input_features:
+preprocessing:
+  number:
+    normalization: zscore
+    missing_value_strategy: fill_with_mean
 
+input_features:
+  - name: age
+    type: number
+  - name: workclass
+    type: category
+  - name: fnlwgt
+    type: number
+  - name: education
+    type: category
+  - name: education-num
+    type: number
+  - name: marital-status
+    type: category
+  - name: occupation
+    type: category
+  - name: relationship
+    type: category
+  - name: race
+    type: category
+  - name: sex
+    type: category
+  - name: capital-gain
+    type: number
+  - name: capital-loss
+    type: number
+  - name: hours-per-week
+    type: number
+  - name: native-country
+    type: category
+
+combiner:
+  type: concat
+  num_fc_layers: 3
+  output_size: 128
+  dropout: 0.2
 
 output_features:
+  - name: income
+    type: binary
+    preprocessing:
+      fallback_true_label: " >50K"
+    num_fc_layers: 4
+    output_size: 32
 
 trainer:
   epochs: 5
+  optimizer:
+    type: sgd
 ```
 
 ```shell
 ludwig train \
-  --dataset mnist_dataset.csv \
+  --dataset adult_census_income.csv \
   --config config.yaml
 ```
 
@@ -71,8 +121,7 @@ ludwig train \
 
 ```shell
 ludwig evaluate --model_path results/experiment_run/model \
-                 --dataset mnist_dataset.csv \
-                 --split test \
+                 --dataset evaluation_dataset.csv \
                  --output_directory test_results
 ```
 

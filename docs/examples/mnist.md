@@ -68,6 +68,8 @@ trainer:
   epochs: 5
 ```
 
+[Train](../../user_guide/command_line_interface/#train) a model.
+
 ```shell
 ludwig train \
   --dataset mnist_dataset.csv \
@@ -75,6 +77,8 @@ ludwig train \
 ```
 
 ## Evaluate
+
+[Evaluate](../../user_guide/command_line_interface/#evaluate) the trained model.
 
 ```shell
 ludwig evaluate --model_path results/experiment_run/model \
@@ -85,7 +89,7 @@ ludwig evaluate --model_path results/experiment_run/model \
 
 ## Visualize Metrics
 
-Confusion Matrix and class entropy
+[Confusion Matrix and class entropy](../../user_guide/visualizations/#confusion-matrix)
 
 ```shell
 ludwig visualize --visualization confusion_matrix \
@@ -96,7 +100,8 @@ ludwig visualize --visualization confusion_matrix \
 ```
 
 ![confusion matrix and entropy](mnist_colab_notebooks/images/mnist_confusion_matrix_and_entropy.png)
-Learning Curves
+
+[Learning Curves](../../user_guide/visualizations/#learning-curves)
 
 ```shell
 ludwig visualize --visualization learning_curves \
@@ -110,7 +115,7 @@ ludwig visualize --visualization learning_curves \
 
 ## Predictions
 
-Make predictions from test images
+Make [predictions](../../user_guide/command_line_interface/#predict) from test images
 
 ```shell
 ludwig predict --model_path results/experiment_run/model \

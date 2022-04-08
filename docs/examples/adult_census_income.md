@@ -10,18 +10,33 @@ These interactive notebooks follow the steps of this example:
 ## Download the Adult Census Income dataset
 
 [Adult Census Income](https://archive.ics.uci.edu/ml/datasets/adult) is an extract of 1994 Census data for predicting whether a person's income exceeds $50K per year.  The data set consists of over 49K records with 14 attributes with missing data.
+
 ```shell
-ludwig datasets download ....
+ludwig datasets download adult_census_income
 ```
 
-This command will create a dataset `mnist_dataset.csv` in the current directory.
+This command will create a dataset `adult_census_income.csv` in the current directory.
 
 The columns in the dataset are
 
-|column| description |
-|------|-------------|
-
-
+| column         | description                                                  |
+|----------------|--------------------------------------------------------------|
+| age            | numeric variable, age of person                              | 
+| workclass      | categorical variable, Type of empolyment                     | 
+| fnlwgt         | numeric variable, no defintion                               |                                                                                            
+| education      | categorical variable, education level                        |                                 
+| education-num  | nmeric variable, no definition                               |                  
+| marital-status | categorical variable, marital status                         |
+| occupation     | categorical variable, occupation                             |
+| relationship   | categorical variable, Relationship to household              | 
+| race           | categorical variable, race                                   | 
+| sex            | categorical variable, gender                                 | 
+| capital-gain   | numeric variable, no definition                              | 
+| capital-loss   | numeric variable, no definition                              |
+| hours-per-week | numeric variable, hours worked per week                      |
+| native-country | categorical variable, Country of origin                      |
+| income         | binary variable, " <=50K" or " >50K"                         |
+| split          | numeric variable, indicating data split training(0), test(2) | 
 
 
 ## Train

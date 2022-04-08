@@ -146,7 +146,7 @@ ludwig visualize --visualization roc_curves \
 Learning Curves
 
 ```shell
-                
+
 ```
 
 ![confusion learning curves]()

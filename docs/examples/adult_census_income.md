@@ -46,9 +46,9 @@ First ['preprocessing' section](../../configuration/preprocessing) defines the g
 
 The `input_features` section describes each of the predictor variables, i.e., the column name and type of input variable: [number](../../configuration/features/number_features) or [category](../../configuration/features/category_features/)
 
-The 'combiner' section defines how the input features are combined to be passed to the output decoder.  This example uses the [`concat` combiner](configuration/combiner/#concat-combiner), which simply concatenates the output of the input feature encoders.
+The 'combiner' section defines how the input features are combined to be passed to the output decoder.  This example uses the [`concat` combiner](configuration/combiner/#concat-combiner), which simply concatenates the output of the input feature encoders.  The combined data is passed through a three layer fully connected network of 128 cells in each layer with dropout regularization.
 
-Next the `output_features` are defined.  In this example, there is one response variable called `income`.  This is a [binary feature](../../configuration/features/binary_features/) with two possible values: " <=50K" or " >50K".  Because thes values are not conventional binary values, i.e., "True" and "False", a feature specific preprocessing option is specified to indicate which string (" >50K") is interpreted as "True".  A four layer fully connected decoder is specified for this output feature.
+Next the `output_features` are defined.  In this example, there is one response variable called `income`.  This is a [binary feature](../../configuration/features/binary_features/) with two possible values: " <=50K" or " >50K".  Because thes values are not conventional binary values, i.e., "True" and "False", a feature specific preprocessing option is specified to indicate which string (" >50K") is interpreted as "True".  A four layer fully connected decoder of 32 cells in each layer is specified for this output feature.
 
 The last section in this configuration file describes options for how the the [`trainer`](../../configuration/trainer/) will operate.  In this example the `trainer` will process the training data for 5 epochs.  The optimizer type "sgd" is the stochastic gradient descent method.
 
@@ -126,24 +126,27 @@ ludwig evaluate --model_path results/experiment_run/model \
 
 ## Visualize Metrics
 
-Confusion Matrix and class entropy
+ROC Curve
 
 ```shell
-ludwig visualize --visualization confusion_matrix \
+ludwig visualize --visualization roc_curves \
+                  --ground_truth adult_census_income.csv \
+                  --split_file adult_census_income.split.csv \
                   --ground_truth_metadata results/experiment_run/model/training_set_metadata.json \
-                  --test_statistics test_results/test_statistics.json \
+                  --probabilities results/experiment_run/predictions.parquet \
+                  --output_feature_name income \
                   --output_directory visualizations \
+                  --model_names Model1 \
                   --file_format png
+
+                  # --positive_label 2 \
 ```
 
 ![confusion matrix and entropy]()
 Learning Curves
 
 ```shell
-                 --ground_truth_metadata results/experiment_run/model/training_set_metadata.json \
-                  --training_statistics results/experiment_run/training_statistics.json \
-                  --file_format png \
-                  --output_directory visualizations
+                
 ```
 
 ![confusion learning curves]()

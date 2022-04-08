@@ -99,7 +99,8 @@ ludwig visualize --visualization confusion_matrix \
 Learning Curves
 
 ```shell
-                 --ground_truth_metadata results/experiment_run/model/training_set_metadata.json \
+ludwig visualize --visualization learning_curves \
+                  --ground_truth_metadata results/experiment_run/model/training_set_metadata.json \
                   --training_statistics results/experiment_run/training_statistics.json \
                   --file_format png \
                   --output_directory visualizations

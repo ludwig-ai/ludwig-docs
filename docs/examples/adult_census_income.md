@@ -21,23 +21,22 @@ The columns in the dataset are
 
 | column         | description                                                  |
 |----------------|--------------------------------------------------------------|
-| age            | numeric variable, age of person                              | 
-| workclass      | categorical variable, Type of empolyment                     | 
-| fnlwgt         | numeric variable, no defintion                               |                                                                                            
-| education      | categorical variable, education level                        |                                 
-| education-num  | nmeric variable, no definition                               |                  
+| age            | numeric variable, age of person                              |
+| workclass      | categorical variable, Type of empolyment                     |
+| fnlwgt         | numeric variable, no defintion                               |
+| education      | categorical variable, education level                        |
+| education-num  | nmeric variable, no definition                               |
 | marital-status | categorical variable, marital status                         |
 | occupation     | categorical variable, occupation                             |
-| relationship   | categorical variable, Relationship to household              | 
-| race           | categorical variable, race                                   | 
-| sex            | categorical variable, gender                                 | 
-| capital-gain   | numeric variable, no definition                              | 
+| relationship   | categorical variable, Relationship to household              |
+| race           | categorical variable, race                                   |
+| sex            | categorical variable, gender                                 |
+| capital-gain   | numeric variable, no definition                              |
 | capital-loss   | numeric variable, no definition                              |
 | hours-per-week | numeric variable, hours worked per week                      |
 | native-country | categorical variable, Country of origin                      |
 | income         | binary variable, " <=50K" or " >50K"                         |
-| split          | numeric variable, indicating data split training(0), test(2) | 
-
+| split          | numeric variable, indicating data split training(0), test(2) |
 
 ## Train
 

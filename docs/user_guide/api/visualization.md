@@ -4,7 +4,6 @@
 
 ## learning_curves
 
-
 ```python
 ludwig.visualize.learning_curves(
   train_stats_per_model,
@@ -16,7 +15,6 @@ ludwig.visualize.learning_curves(
 )
 ```
 
-
 Show how model metrics change over training and validation data epochs.
 
 For each model and for each output feature and metric of the model,
@@ -24,7 +22,6 @@ it produces a line plot showing how that metric changed over the course
 of the epochs of training on the training and validation sets.
 
 __Inputs__
-
 
 - __train_stats_per_model__ (List[dict]): list containing dictionary of
 training statistics per model.
@@ -43,11 +40,10 @@ Ludwig pipeline.
 __Return__
 
 - __return__ (None):
- 
+
 ---
 
 ## compare_performance
-
 
 ```python
 ludwig.visualize.compare_performance(
@@ -59,7 +55,6 @@ ludwig.visualize.compare_performance(
 )
 ```
 
-
 Produces model comparison barplot visualization for each overall metric.
 
 For each model (in the aligned lists of test_statistics and model_names)
@@ -67,7 +62,6 @@ it produces bars in a bar plot, one for each overall metric available
 in the test_statistics file for the specified output_feature_name.
 
 __Inputs__
-
 
 - __test_stats_per_model__ (List[dict]): dictionary containing evaluation
 performance statistics.
@@ -82,11 +76,9 @@ plots. If not specified, plots will be displayed in a window
 
 __Return__
 
-
 - __return__ (Non): (None)
 
 __Example usage:__
-
 
 ```python
 model_a = LudwigModel(config)
@@ -96,11 +88,10 @@ model_b = LudwigModel.load("path/to/model/")
 b_evaluation_stats, _, _ = model_b.evaluate(eval_set)
 compare_performance([a_evaluation_stats, b_evaluation_stats], model_names=["A", "B"])
 ```
- 
+
 ---
 
 ## compare_classifiers_performance_from_prob
-
 
 ```python
 ludwig.visualize.compare_classifiers_performance_from_prob(
@@ -117,7 +108,6 @@ ludwig.visualize.compare_classifiers_performance_from_prob(
 )
 ```
 
-
 Produces model comparison barplot visualization from probabilities.
 
 For each model it produces bars in a bar plot, one for each overall metric
@@ -125,7 +115,6 @@ computed on the fly from the probabilities of predictions for the specified
 `model_names`.
 
 __Inputs__
-
 
 - __probabilities_per_model__ (List[np.ndarray]): path to experiment
 probabilities file
@@ -148,13 +137,11 @@ metadata['str2idx'] in np.vectorize
 
 __Return__
 
-
 - __return__ (None):
- 
+
 ---
 
 ## compare_classifiers_performance_from_pred
-
 
 ```python
 ludwig.visualize.compare_classifiers_performance_from_pred(
@@ -170,7 +157,6 @@ ludwig.visualize.compare_classifiers_performance_from_pred(
 )
 ```
 
-
 Produces model comparison barplot visualization from predictions.
 
 For each model it produces bars in a bar plot, one for each overall metric
@@ -178,7 +164,6 @@ computed on the fly from the predictions for the specified
 `model_names`.
 
 __Inputs__
-
 
 - __predictions_per_model__ (List[str]): path to experiment predictions file.
 - __ground_truth__ (pd.Series): ground truth values
@@ -198,13 +183,11 @@ metadata['str2idx'] in np.vectorize
 
 __Return__
 
-
 - __return__ (None):
- 
+
 ---
 
 ## compare_classifiers_performance_subset
-
 
 ```python
 ludwig.visualize.compare_classifiers_performance_subset(
@@ -222,7 +205,6 @@ ludwig.visualize.compare_classifiers_performance_subset(
 )
 ```
 
-
 Produces model comparison barplot visualization from train subset.
 
 For each model  it produces bars in a bar plot, one for each overall metric
@@ -232,7 +214,6 @@ The way the subset is obtained is using the `top_n_classes` and
 `subset` parameters.
 
 __Inputs__
-
 
 - __probabilities_per_model__ (List[numpy.array]): list of model
    probabilities.
@@ -257,13 +238,11 @@ __Inputs__
 
 __Return__
 
-
 - __return__ (None):
- 
+
 ---
 
 ## compare_classifiers_performance_changing_k
-
 
 ```python
 ludwig.visualize.compare_classifiers_performance_changing_k(
@@ -280,7 +259,6 @@ ludwig.visualize.compare_classifiers_performance_changing_k(
 )
 ```
 
-
 Produce lineplot that show Hits@K metric while k goes from 1 to `top_k`.
 
 For each model it produces a line plot that shows the Hits@K metric
@@ -289,7 +267,6 @@ first k) while changing k from 1 to top_k for the specified
 `output_feature_name`.
 
 __Inputs__
-
 
 - __probabilities_per_model__ (List[numpy.array]): list of model
 probabilities.
@@ -311,13 +288,11 @@ metadata['str2idx'] in np.vectorize
 
 __Return__
 
-
 - __return__ (None):
- 
+
 ---
 
 ## compare_classifiers_multiclass_multimetric
-
 
 ```python
 ludwig.visualize.compare_classifiers_multiclass_multimetric(
@@ -331,14 +306,12 @@ ludwig.visualize.compare_classifiers_multiclass_multimetric(
 )
 ```
 
-
 Show the precision, recall and F1 of the model for the specified output_feature_name.
 
 For each model it produces four plots that show the precision,
 recall and F1 of the model on several classes for the specified output_feature_name.
 
 __Inputs__
-
 
 - __test_stats_per_model__ (List[dict]): list containing dictionary of
 evaluation performance statistics
@@ -358,11 +331,10 @@ plots. If not specified, plots will be displayed in a window
 __Return__
 
 - __return__ (None):
- 
+
 ---
 
 ## compare_classifiers_predictions
-
 
 ```python
 ludwig.visualize.compare_classifiers_predictions(
@@ -378,11 +350,9 @@ ludwig.visualize.compare_classifiers_predictions(
 )
 ```
 
-
 Show two models comparison of their output_feature_name predictions.
 
 __Inputs__
-
 
 - __predictions_per_model__ (List[list]): list containing the model
 predictions for the specified output_feature_name.
@@ -403,13 +373,11 @@ metadata['str2idx'] in np.vectorize
 
 __Return__
 
-
 - __return__ (None):
- 
+
 ---
 
 ## confidence_thresholding_2thresholds_2d
-
 
 ```python
 ludwig.visualize.confidence_thresholding_2thresholds_2d(
@@ -424,7 +392,6 @@ ludwig.visualize.confidence_thresholding_2thresholds_2d(
 )
 ```
 
-
 Show confidence threshold data vs accuracy for two output feature names.
 
 The first plot shows several semi transparent lines. They summarize the
@@ -436,7 +403,6 @@ the accuracy as z axis. Each line represents a slice of the data
 coverage  surface projected onto the accuracy surface.
 
 __Inputs__
-
 
 - __probabilities_per_model__ (List[numpy.array]): list of model
 probabilities.
@@ -457,13 +423,11 @@ plots. If not specified, plots will be displayed in a window
 
 __Return__
 
-
 - __return__ (None):
- 
+
 ---
 
 ## confidence_thresholding_2thresholds_3d
-
 
 ```python
 ludwig.visualize.confidence_thresholding_2thresholds_3d(
@@ -477,7 +441,6 @@ ludwig.visualize.confidence_thresholding_2thresholds_3d(
 )
 ```
 
-
 Show 3d confidence threshold data vs accuracy for two output feature names.
 
 The plot shows the 3d surfaces displayed by
@@ -487,7 +450,6 @@ as x and y axes and either the data coverage percentage or the accuracy
 as z axis.
 
 __Inputs__
-
 
 - __probabilities_per_model__ (List[numpy.array]): list of model
 probabilities.
@@ -506,13 +468,11 @@ plots. If not specified, plots will be displayed in a window
 
 __Return__
 
-
 - __return__ (None):
- 
+
 ---
 
 ## confidence_thresholding
-
 
 ```python
 ludwig.visualize.confidence_thresholding(
@@ -528,7 +488,6 @@ ludwig.visualize.confidence_thresholding(
 )
 ```
 
-
 Show models accuracy and data coverage while increasing treshold.
 
 For each model it produces a pair of lines indicating the accuracy of
@@ -536,7 +495,6 @@ the model and the data coverage while increasing a threshold (x axis) on
 the probabilities of predictions for the specified output_feature_name.
 
 __Inputs__
-
 
 - __probabilities_per_model__ (List[numpy.array]): list of model
 probabilities.
@@ -557,13 +515,11 @@ metadata['str2idx'] in np.vectorize
 
 __Return__
 
-
 - __return__ (None):
- 
+
 ---
 
 ## confidence_thresholding_data_vs_acc
-
 
 ```python
 ludwig.visualize.confidence_thresholding_data_vs_acc(
@@ -579,7 +535,6 @@ ludwig.visualize.confidence_thresholding_data_vs_acc(
 )
 ```
 
-
 Show models comparison of confidence threshold data vs accuracy.
 
 For each model it produces a line indicating the accuracy of the model
@@ -590,7 +545,6 @@ not visualizing the threshold and having coverage as x axis instead of
 the threshold.
 
 __Inputs__
-
 
 - __probabilities_per_model__ (List[numpy.array]): list of model
 probabilities.
@@ -612,11 +566,10 @@ metadata['str2idx'] in np.vectorize
 __Return__
 
 - __return__ (None):
- 
+
 ---
 
 ## confidence_thresholding_data_vs_acc_subset
-
 
 ```python
 ludwig.visualize.confidence_thresholding_data_vs_acc_subset(
@@ -633,7 +586,6 @@ ludwig.visualize.confidence_thresholding_data_vs_acc_subset(
   ground_truth_apply_idx=True
 )
 ```
-
 
 Show models comparison of confidence threshold data vs accuracy on a subset of data.
 
@@ -656,7 +608,6 @@ and the percentage of datapoints that have been kept from the original set
 will be displayed for each model.
 
 __Inputs__
-
 
 - __probabilities_per_model__ (List[numpy.array]): list of model
 probabilities.
@@ -681,13 +632,11 @@ metadata['str2idx'] in np.vectorize
 
 __Return__
 
-
 - __return__ (None):
- 
+
 ---
 
 ## binary_threshold_vs_metric
-
 
 ```python
 ludwig.visualize.binary_threshold_vs_metric(
@@ -704,7 +653,6 @@ ludwig.visualize.binary_threshold_vs_metric(
 )
 ```
 
-
 Show confidence of the model against metric for the specified output_feature_name.
 
 For each metric specified in metrics (options are `f1`, `precision`, `recall`,
@@ -718,7 +666,6 @@ association between classes and numeric encoded values check the
 ground_truth_metadata JSON file.
 
 __Inputs__
-
 
 - __probabilities_per_model__ (List[numpy.array]): list of model
 probabilities.
@@ -740,13 +687,11 @@ metadata['str2idx'] in np.vectorize
 
 __Return__
 
-
 - __return__ (`None`):
- 
+
 ---
 
 ## roc_curves
-
 
 ```python
 ludwig.visualize.roc_curves(
@@ -762,7 +707,6 @@ ludwig.visualize.roc_curves(
 )
 ```
 
-
 Show the roc curves for output features in the specified models.
 
 This visualization produces a line chart plotting the roc curves for the
@@ -774,7 +718,6 @@ determined by association between classes and integers captured in the
 training metadata JSON file.
 
 __Inputs__
-
 
 - __probabilities_per_model__ (List[numpy.array]): list of model
 probabilities.
@@ -794,13 +737,11 @@ metadata['str2idx'] in np.vectorize
 
 __Return__
 
-
 - __return__ (None):
- 
+
 ---
 
 ## roc_curves_from_test_statistics
-
 
 ```python
 ludwig.visualize.roc_curves_from_test_statistics(
@@ -812,7 +753,6 @@ ludwig.visualize.roc_curves_from_test_statistics(
 )
 ```
 
-
 Show the roc curves for the specified models output binary `output_feature_name`.
 
 This visualization uses `output_feature_name`, `test_stats_per_model` and
@@ -821,7 +761,6 @@ This visualization produces a line chart plotting the roc curves for the
 specified `output_feature_name`.
 
 __Inputs__
-
 
 - __test_stats_per_model__ (List[dict]): dictionary containing evaluation
 performance statistics.
@@ -836,13 +775,11 @@ plots. If not specified, plots will be displayed in a window
 
 __Return__
 
-
 - __return__ (None):
- 
+
 ---
 
 ## calibration_1_vs_all
-
 
 ```python
 ludwig.visualize.calibration_1_vs_all(
@@ -858,7 +795,6 @@ ludwig.visualize.calibration_1_vs_all(
   ground_truth_apply_idx=True
 )
 ```
-
 
 Show models probability of predictions for the specified output_feature_name.
 
@@ -877,7 +813,6 @@ drawing the distribution for each model (in the aligned lists of
 probabilities and model_names).
 
 __Inputs__
-
 
 - __probabilities_per_model__ (List[numpy.array]): list of model
 probabilities.
@@ -899,13 +834,11 @@ metadata['str2idx'] in np.vectorize
 
 __String__
 
-
 - __return__ (None):
- 
+
 ---
 
 ## calibration_multiclass
-
 
 ```python
 ludwig.visualize.calibration_multiclass(
@@ -921,11 +854,9 @@ ludwig.visualize.calibration_multiclass(
 )
 ```
 
-
 Show models probability of predictions for each class of the specified output_feature_name.
 
 __Inputs__
-
 
 - __probabilities_per_model__ (List[numpy.array]): list of model
 probabilities.
@@ -946,13 +877,11 @@ metadata['str2idx'] in np.vectorize
 
 __Return__
 
-
 - __return__ (None):
- 
+
 ---
 
 ## confusion_matrix
-
 
 ```python
 ludwig.visualize.confusion_matrix(
@@ -967,7 +896,6 @@ ludwig.visualize.confusion_matrix(
 )
 ```
 
-
 Show confusion matrix in the models predictions for each `output_feature_name`.
 
 For each model (in the aligned lists of test_statistics and model_names)
@@ -977,7 +905,6 @@ The value of `top_n_classes` limits the heatmap to the n most frequent
 classes.
 
 __Inputs__
-
 
 - __test_stats_per_model__ (List[dict]): dictionary containing evaluation
   performance statistics.
@@ -997,13 +924,11 @@ plots. If not specified, plots will be displayed in a window
 
 __Return__
 
-
 - __return__ (None):
- 
+
 ---
 
 ## frequency_vs_f1
-
 
 ```python
 ludwig.visualize.frequency_vs_f1(
@@ -1016,7 +941,6 @@ ludwig.visualize.frequency_vs_f1(
   file_format='pdf'
 )
 ```
-
 
 Show prediction statistics for the specified `output_feature_name` for each model.
 
@@ -1037,7 +961,6 @@ frequency.
 
 __Inputs__
 
-
 - __test_stats_per_model__ (List[dict]): dictionary containing evaluation
 performance statistics.
 - __metadata__ (dict): intermediate preprocess structure created during
@@ -1055,13 +978,11 @@ plots. If not specified, plots will be displayed in a window
 
 __Return__
 
-
 - __return__ (None):
- 
+
 ---
 
 ## hyperopt_report
-
 
 ```python
 ludwig.visualize.hyperopt_report(
@@ -1071,12 +992,10 @@ ludwig.visualize.hyperopt_report(
 )
 ```
 
-
 Produces a report about hyperparameter optimization creating one graph per hyperparameter to show the
 distribution of results and one additional graph of pairwise hyperparameters interactions.
 
 __Inputs__
-
 
 - __hyperopt_stats_path__ (str): path to the hyperopt results JSON file.
 - __output_directory__ (str, default: `None`): directory where to save
@@ -1086,13 +1005,11 @@ plots. If not specified, plots will be displayed in a window.
 
 __Return__
 
-
 - __return__ (None):
- 
+
 ---
 
 ## hyperopt_hiplot
-
 
 ```python
 ludwig.visualize.hyperopt_hiplot(
@@ -1101,12 +1018,10 @@ ludwig.visualize.hyperopt_hiplot(
 )
 ```
 
-
 Produces a parallel coordinate plot about hyperparameter optimization creating one HTML file and optionally
 a CSV file to be read by hiplot.
 
 __Inputs__
-
 
 - __hyperopt_stats_path__ (str): path to the hyperopt results JSON file.
 - __output_directory__ (str, default: `None`): directory where to save
@@ -1114,6 +1029,4 @@ plots. If not specified, plots will be displayed in a window.
 
 __Return__
 
-
 - __return__ (None):
- 

@@ -50,7 +50,7 @@ The 'combiner' section defines how the input features are combined to be passed 
 
 Next the `output_features` are defined.  In this example, there is one response variable called `income`.  This is a [binary feature](../../configuration/features/binary_features/) with two possible values: " <=50K" or " >50K".  Because thes values are not conventional binary values, i.e., "True" and "False", a feature specific preprocessing option is specified to indicate which string (" >50K") is interpreted as "True".  A four layer fully connected decoder of 32 cells in each layer is specified for this output feature.
 
-The last section in this configuration file describes options for how the the [`trainer`](../../configuration/trainer/) will operate.  In this example the `trainer` will process the training data for 5 epochs.  The optimizer type "sgd" is the stochastic gradient descent method.
+The last section in this configuration file describes options for how the the [`trainer`](../../configuration/trainer/) will operate.  In this example the `trainer` will process the training data for 10 epochs.  The optimizer type is "adam".
 
 With `config.yaml`:
 
@@ -105,9 +105,9 @@ output_features:
     output_size: 32
 
 trainer:
-  epochs: 5
+  epochs:10
   optimizer:
-    type: sgd
+    type: adam
 ```
 
 ```shell

@@ -174,14 +174,13 @@ ludwig visualize --visualization binary_threshold_vs_metric \
 
 ## Predictions
 
-Make predictions from test images
+Make predictions.
 
 ```shell
 ludwig predict --model_path results/experiment_run/model \
-                --dataset mnist_dataset.csv \
-                --split test \
+                --dataset evaluation_dataset.csv \
                 --output_directory predictions
 ```
 
-Sample test images displaying true("label") and predicted("pred") labels.
-![mnist sample predictions]()
+Sample predictions
+![sample_predictions](adult_census_income_colab_notebooks/images/adult_census_income_sample_predictions.png)

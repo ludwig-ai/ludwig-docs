@@ -126,30 +126,51 @@ ludwig evaluate --model_path results/experiment_run/model \
 
 ## Visualize Metrics
 
-ROC Curve
+### ROC Curve
 
 ```shell
-ludwig visualize --visualization roc_curves \
-                  --ground_truth adult_census_income.csv \
-                  --split_file adult_census_income.split.csv \
+!ludwig visualize --visualization roc_curves \
+                  --ground_truth evaluation_dataset.csv \
                   --ground_truth_metadata results/experiment_run/model/training_set_metadata.json \
-                  --probabilities results/experiment_run/predictions.parquet \
+                  --probabilities test_results/predictions.parquet \
                   --output_feature_name income \
                   --output_directory visualizations \
-                  --model_names Model1 \
+                  --model_names "Adult Census Income Model" \
                   --file_format png
-
-                  # --positive_label 2 \
 ```
 
-![confusion matrix and entropy]()
-Learning Curves
+![ROC Curve](adult_census_income_colab_notebooks/images/roc_curves.png)
+
+### Binary Threshold Metrics
 
 ```shell
-
+ludwig visualize --visualization binary_threshold_vs_metric \
+                  --ground_truth evaluation_dataset.csv \
+                  --ground_truth_metadata results/experiment_run/model/training_set_metadata.json \
+                  --probabilities test_results/predictions.parquet \
+                  --output_feature_name income \
+                  --positive_label 1 \
+                  --output_directory visualizations \
+                  --model_names "Adult Census Income Model" \
+                  --metrics accuracy precision recall f1\
+                  --file_format png
 ```
 
-![confusion learning curves]()
+#### Accuracy Metric
+
+![accuracy](adult_census_income_colab_notebooks/images/binary_threshold_vs_metric_accuracy.png)
+
+#### Precision Metric
+
+![precision](adult_census_income_colab_notebooks/images/binary_threshold_vs_metric_precision.png)
+
+#### Recall Metric
+
+![recall](adult_census_income_colab_notebooks/images/binary_threshold_vs_metric_recall.png)
+
+#### F1 Metric
+
+![accuracy](adult_census_income_colab_notebooks/images/binary_threshold_vs_metric_f1.png)
 
 ## Predictions
 

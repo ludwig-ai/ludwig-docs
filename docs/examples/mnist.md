@@ -60,11 +60,11 @@ The last section in this configuration file describes options for how the the [`
       fc_layers:
         - output_size: 128
           dropout: 0.4
-    
+
     output_features:
      - name: label
        type: category
-    
+
     trainer:
       epochs: 5
     ```
@@ -78,18 +78,18 @@ The last section in this configuration file describes options for how the the [`
     config = {
       'input_features': [
         {
-          'name': 'image_path', 
-          'type': 'image', 
-          'preprocessing': {'num_processes': 4}, 
-          'encoder': 'stacked_cnn', 
+          'name': 'image_path',
+          'type': 'image',
+          'preprocessing': {'num_processes': 4},
+          'encoder': 'stacked_cnn',
           'conv_layers': [
-            {'num_filters': 32, 'filter_size': 3, 'pool_size': 2, 'pool_stride': 2}, 
+            {'num_filters': 32, 'filter_size': 3, 'pool_size': 2, 'pool_stride': 2},
             {'num_filters': 64, 'filter_size': 3, 'pool_size': 2, 'pool_stride': 2, 'dropout': 0.4}
-          ], 
+          ],
          'fc_layers': [{'output_size': 128, 'dropout': 0.4}]
         }
-      ], 
-      'output_features': [{'name': 'label', 'type': 'category'}], 
+      ],
+      'output_features': [{'name': 'label', 'type': 'category'}],
       'trainer': {'epochs': 5}
     }
 
@@ -126,7 +126,7 @@ Evaluate the trained model.
 === "cli"
 
     [`ludwig evaluate` command](../../user_guide/command_line_interface/#evaluate)
-    
+
     ```shell
     ludwig evaluate --model_path results/experiment_run/model \
                      --dataset mnist_dataset.csv \
@@ -166,12 +166,12 @@ Display Confusion Matrix and Class Entropy plots.
 === "python"
 
     [`visualize.confusion_matrix()` function](../../user_guide/api/visualization/#confusion_matrix)
-    
+
     ```python
     # Visualizes confusion matrix, which gives an overview of classifier performance
     # for each class.
     from ludwig.visualize import confusion_matrix
-    
+
     confusion_matrix(
       [test_stats],
       model.training_set_metadata,
@@ -182,16 +182,14 @@ Display Confusion Matrix and Class Entropy plots.
     )
     ```
 
-
 ![confusion matrix and entropy](mnist_colab_notebooks/images/mnist_confusion_matrix_and_entropy.png)
-
 
 Display Learning Curves plots.
 
 === "cli"
 
     [`ludwig visualize learning_curves` command](../../user_guide/visualizations/#learning-curves)
-    
+
     ```shell
     ludwig visualize --visualization learning_curves \
                       --ground_truth_metadata results/experiment_run/model/training_set_metadata.json \
@@ -203,12 +201,12 @@ Display Learning Curves plots.
 === "python"
 
     [`visualize.learning_curves()` function](../../ser_guide/api/visualization/#learning_curves)
-    
+
     ```python
     # Visualizes learning curves, which show how performance metrics changed over
     # time during training.
     from ludwig.visualize import learning_curves
-    
+
     learning_curves(train_stats, output_feature_name='label')
     ```
 
@@ -221,7 +219,7 @@ Generate predictions from test dataset.
 === "cli"
 
     [`ludwig predict` command](../../user_guide/command_line_interface/#predict)
-    
+
     ```shell
     ludwig predict --model_path results/experiment_run/model \
                     --dataset mnist_dataset.csv \
@@ -232,7 +230,7 @@ Generate predictions from test dataset.
 === "python"
 
     [`predict()` method](../../user_guide/api/LudwigModel/#predict)
-    
+
     ```python
     predictions, output_directory = model.predict(test_df)
     ```

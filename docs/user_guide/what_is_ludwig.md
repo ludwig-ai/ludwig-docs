@@ -194,8 +194,7 @@ production.
 
 # Why Declarative Machine Learning Systems
 
-![img](../images/why_declarative_light.png#only-light)
-![img](../images/why_declarative_dark.png#only-dark)
+![img](../images/why_declarative.png)
 
 Ludwig’s declarative approach to machine learning provides the simplicity of an
 AutoML solution with the flexibility of writing your own PyTorch code. This is

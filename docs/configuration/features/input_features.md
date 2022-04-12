@@ -24,8 +24,7 @@ The `input_features` section is list of feature definitions. Each feature defini
 
 Recall Ludwig's butterfly framework.
 
-![img](../../images/ecd_light.png#only-light)
-![img](../../images/ecd_dark.png#only-dark)
+![img](../../images/butterfly.png)
 
 Each input feature can specify its own preprocessing via the `preprocessing` sub-section.
 

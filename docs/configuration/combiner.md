@@ -332,6 +332,12 @@ fc_residual: null
 reduce_output: mean
 ```
 
+Resources to learn more about transformers:
+
+- [CS480/680 Lecture 19: Attention and Transformer Networks](https://www.youtube.com/watch?v=OyFJWRnt_AY&list=PLk4mwFjvagV3vp1JZ3lNohb1LalMp-VOY&index=1) (VIDEO)
+- [Attention is all you need - Attentional Neural Network Models Masterclass](https://www.youtube.com/watch?v=rBCqOTEfxvg&list=PLk4mwFjvagV3vp1JZ3lNohb1LalMp-VOY&index=2) (VIDEO)
+- [Illustrated: Self-Attention](https://colab.research.google.com/drive/1rPk3ohrmVclqhH7uQ7qys4oznDdAhpzF) (Colab notebook)
+
 ## Comparator Combiner
 
 The `comparator` combiner compares the hidden representation of two entities defined by lists of features.

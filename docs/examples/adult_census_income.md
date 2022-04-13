@@ -52,109 +52,234 @@ Next the `output_features` are defined.  In this example, there is one response 
 
 The last section in this configuration file describes options for how the the [`trainer`](../../configuration/trainer/) will operate.  In this example the `trainer` will process the training data for 10 epochs.  The optimizer type is "adam".
 
-With `config.yaml`:
+=== "cli"
 
-```yaml
-preprocessing:
-  number:
-    normalization: zscore
-    missing_value_strategy: fill_with_mean
-
-input_features:
-  - name: age
-    type: number
-  - name: workclass
-    type: category
-  - name: fnlwgt
-    type: number
-  - name: education
-    type: category
-  - name: education-num
-    type: number
-  - name: marital-status
-    type: category
-  - name: occupation
-    type: category
-  - name: relationship
-    type: category
-  - name: race
-    type: category
-  - name: sex
-    type: category
-  - name: capital-gain
-    type: number
-  - name: capital-loss
-    type: number
-  - name: hours-per-week
-    type: number
-  - name: native-country
-    type: category
-
-combiner:
-  type: concat
-  num_fc_layers: 3
-  output_size: 128
-  dropout: 0.2
-
-output_features:
-  - name: income
-    type: binary
+    ```yaml
     preprocessing:
-      fallback_true_label: " >50K"
-    num_fc_layers: 4
-    output_size: 32
+      number:
+        normalization: zscore
+        missing_value_strategy: fill_with_mean
+    
+    input_features:
+      - name: age
+        type: number
+      - name: workclass
+        type: category
+      - name: fnlwgt
+        type: number
+      - name: education
+        type: category
+      - name: education-num
+        type: number
+      - name: marital-status
+        type: category
+      - name: occupation
+        type: category
+      - name: relationship
+        type: category
+      - name: race
+        type: category
+      - name: sex
+        type: category
+      - name: capital-gain
+        type: number
+      - name: capital-loss
+        type: number
+      - name: hours-per-week
+        type: number
+      - name: native-country
+        type: category
+    
+    combiner:
+      type: concat
+      num_fc_layers: 3
+      output_size: 128
+      dropout: 0.2
+    
+    output_features:
+      - name: income
+        type: binary
+        preprocessing:
+          fallback_true_label: " >50K"
+        num_fc_layers: 4
+        output_size: 32
+    
+    trainer:
+      epochs:10
+      optimizer:
+        type: adam
+    ```
 
-trainer:
-  epochs:10
-  optimizer:
-    type: adam
-```
+=== "python"
 
-```shell
-ludwig train \
-  --dataset adult_census_income.csv \
-  --config config.yaml
-```
+    [LudwigModel](../../user_guide/api/LudwigModel/)
+    
+    ```python
+    # create Ludwig configuration dictionary
+    # define model configuration
+    config = {'combiner': {'dropout': 0.2,
+                  'num_fc_layers': 3,
+                  'output_size': 128,
+                  'type': 'concat'},
+     'input_features': [{'name': 'age', 'type': 'number'},
+                        {'name': 'workclass', 'type': 'category'},
+                        {'name': 'fnlwgt', 'type': 'number'},
+                        {'name': 'education', 'type': 'category'},
+                        {'name': 'education-num', 'type': 'number'},
+                        {'name': 'marital-status', 'type': 'category'},
+                        {'name': 'occupation', 'type': 'category'},
+                        {'name': 'relationship', 'type': 'category'},
+                        {'name': 'race', 'type': 'category'},
+                        {'name': 'sex', 'type': 'category'},
+                        {'name': 'capital-gain', 'type': 'number'},
+                        {'name': 'capital-loss', 'type': 'number'},
+                        {'name': 'hours-per-week', 'type': 'number'},
+                        {'name': 'native-country', 'type': 'category'}],
+     'output_features': [{'name': 'income',
+                          'num_fc_layers': 4,
+                          'output_size': 32,
+                          'preprocessing': {'fallback_true_label': ' >50K'},
+                          'loss': {'type': 'binary_weighted_cross_entropy'},
+                          'type': 'binary'}],
+     'preprocessing': {'number': {'missing_value_strategy': 'fill_with_mean',
+                                  'normalization': 'zscore'}},
+     'trainer': {'epochs': 10, 'optimizer': {'type': 'adam'}}}
+    
+    # instantiate Ludwig model object
+    model = LudwigModel(config=config, logging_level=logging.INFO)
+    ```
+
+Train the model.
+
+=== "cli"
+
+    [`ludwig train` command](../../user_guide/command_line_interface/#train)
+    
+    ```shell
+    ludwig train \
+      --dataset adult_census_income.csv \
+      --config config.yaml
+    ```
+
+=== "python"
+
+    [train() method](../../user_guide/api/LudwigModel/#train)
+    
+    ```python
+    # Trains the model. This cell might take a few minutes.
+    train_stats, preprocessed_data, output_directory = model.train(training_set=train_df,
+                                                                   test_set=test_df)
+    ```
 
 ## Evaluate
 
-```shell
-ludwig evaluate --model_path results/experiment_run/model \
-                 --dataset evaluation_dataset.csv \
-                 --output_directory test_results
-```
+=== "cli"
+
+    [`ludwig evaluate` command](../../user_guide/command_line_interface/#evaluate)
+
+    ```shell
+    ludwig evaluate --model_path results/experiment_run/model \
+                     --dataset evaluation_dataset.csv \
+                     --output_directory test_results
+    ```
+
+=== "python"
+
+    [evaluate() method](../../user_guide/api/LudwigModel/#evaluate)
+
+    ```python
+    # Generates predictions and performance statistics for the test set.
+    test_stats, predictions, output_directory = model.evaluate(
+      eval_df,
+      collect_predictions=True,
+      collect_overall_stats=True,
+      skip_save_eval_stats=False,
+      skip_save_predictions=False,
+      output_directory="test_results",
+      return_type="dict"
+    )
+    ```
+
 
 ## Visualize Metrics
 
 ### ROC Curve
 
-```shell
-!ludwig visualize --visualization roc_curves \
-                  --ground_truth evaluation_dataset.csv \
-                  --ground_truth_metadata results/experiment_run/model/training_set_metadata.json \
-                  --probabilities test_results/predictions.parquet \
-                  --output_feature_name income \
-                  --output_directory visualizations \
-                  --model_names "Adult Census Income Model" \
-                  --file_format png
-```
+=== "cli"
+
+    [`ludwig visualize roc_curves` command](../../user_guide/visualizations/#roc_curves)
+
+    ```shell
+    !ludwig visualize --visualization roc_curves \
+                      --ground_truth evaluation_dataset.csv \
+                      --ground_truth_metadata results/experiment_run/model/training_set_metadata.json \
+                      --probabilities test_results/predictions.parquet \
+                      --output_feature_name income \
+                      --output_directory visualizations \
+                      --model_names "Adult Census Income Model" \
+                      --file_format png
+    ```
+
+=== "python"
+
+    [`visualize.roc_curves()` function](../../user_guide/api/visualization/#roc_curves)
+
+    ```python
+    from ludwig.visualize import roc_curves
+    
+    roc_curves(
+        [predictions['income']['probabilities']],
+        eval_df['income'],
+        preprocessed_data[-1],
+        'income',
+        '1',
+        model_names=["Adult Census Income"],
+        output_directory='visualization',
+        file_format='png'
+    )
+    ```
 
 ![ROC Curve](adult_census_income_colab_notebooks/images/roc_curves.png)
 
 ### Binary Threshold Metrics
 
-```shell
-ludwig visualize --visualization binary_threshold_vs_metric \
-                  --ground_truth evaluation_dataset.csv \
-                  --ground_truth_metadata results/experiment_run/model/training_set_metadata.json \
-                  --probabilities test_results/predictions.parquet \
-                  --output_feature_name income \
-                  --positive_label 1 \
-                  --output_directory visualizations \
-                  --model_names "Adult Census Income Model" \
-                  --metrics accuracy precision recall f1\
-                  --file_format png
-```
+=== "cli"
+
+    [`ludwig visualize binary_threshole_vs_metric` command](../../user_guide/visualizations/#binary-threshold-vs-metric)
+
+    ```shell
+    ludwig visualize --visualization binary_threshold_vs_metric \
+                      --ground_truth evaluation_dataset.csv \
+                      --ground_truth_metadata results/experiment_run/model/training_set_metadata.json \
+                      --probabilities test_results/predictions.parquet \
+                      --output_feature_name income \
+                      --positive_label 1 \
+                      --output_directory visualizations \
+                      --model_names "Adult Census Income Model" \
+                      --metrics accuracy precision recall f1\
+                      --file_format png
+    ```
+
+=== "python"
+
+    [`visualize.binary_threshold_vs_metric()` function](../../user_guide/api/visualization/#binary_threshold_vs_metric)
+    
+    ```python
+    from ludwig.visualize import binary_threshold_vs_metric
+    
+    binary_threshold_vs_metric(
+        [predictions["income"]["probabilities"]],
+        eval_df["income"],
+        preprocessed_data[-1],
+        "income",
+        ["accuracy", "precision", "recall", "f1"],
+        1,
+        model_names=["Adult Census Income"],
+        output_directory="visualization",
+        file_format="png",
+    )
+    ```
+
 
 #### Accuracy Metric
 

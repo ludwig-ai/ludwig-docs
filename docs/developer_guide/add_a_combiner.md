@@ -43,16 +43,17 @@ template. At a high level, to add a new combiner:
 
 ## 1. Define combiner configuration
 
-The combiner configuration is a `dataclass` whose properties are the configuration parameters of the combiner. All
-fields should have a type and a default value. The `ludwig.utils.schema_utils.py` module provides convenience methods
-for specifying the valid types and ranges of a combiner config. For example, the `TransformerCombiner` has the following
-config schema:
+The combiner configuration is a `dataclass` (that must extend `BaseCombinerConfig`) whose properties are the configuration
+parameters of the combiner. All fields should have a type and a default value. The `ludwig.utils.schema_utils.py` module
+provides convenience methods for specifying the valid types and ranges of a combiner config. For example, the
+`TransformerCombiner` has the following config schema:
 
 ```python
-import ludwig.utils.schema_utils as schema
+import ludwig.marshmallow.marshmallow_schema_utils as schema
+from ludwig.combiners.combiners import BaseCombinerConfig
 
 @dataclass
-class TransformerCombinerConfig:
+class TransformerCombinerConfig(BaseCombinerConfig):
     num_layers: int = schema.PositiveInteger(default=1)
     hidden_size: int = schema.NonNegativeInteger(default=256)
     num_heads: int = schema.NonNegativeInteger(default=8)
@@ -201,7 +202,27 @@ __Return__
 - (`Dict[str, torch.Tensor]`): A dictionary containing the required key `combiner_output` whose value is the combiner
 output tensor, and any other optional output key/value pairs.
 
-# 5. Add tests
+# 5. Add new class to the registry
+
+Mapping between combiner names in the model config and combiner classes is made by registering the class in the combiner
+registry. The combiner registry is defined in `ludwig/combiners/combiners.py`. To register your class, add the
+`@register_combiner` decorator on the line above its class definition, specifying the name of the combiner:
+
+```python
+@register_combiner(name="transformer")
+class TransformerCombiner(Combiner):
+```
+
+# 6. Run schema extraction script
+
+Behind the scenes, the `BaseCombinerConfig` is a `marshmallow` object that generates a schema which functions as
+intermediary for converting (and validating) a dict into the relevant combiner config. Other Ludwig functionality
+requires this schema to be committed as well, so after creating your combiner class finally run the extraction
+script found (from the context of the root directory) in `scripts/extract_schema.py`. Afterwards, you should see
+a new file named `YourNewCombinerConfig.json` under `ludwig/marshmallow/generated` in your git environment. Track
+and commit this file as well.
+
+# 7. Add tests
 
 Add a corresponding unit test module to `tests/ludwig/combiners`, using the name of your combiner module prefixed by
 `test_` i.e. `test_transformer_combiner.py`.
@@ -228,14 +249,3 @@ def test_transformer_combiner(
 For examples of combiner tests, see `tests/ludwig/combiners/test_combiners.py`.
 
 For more detail about unit testing in Ludiwg, see also [Unit Test Design Guidelines](../unit_test_design_guidelines).
-
-# 6. Add new class to the registry
-
-Mapping between combiner names in the model config and combiner classes is made by registering the class in the combiner
-registry. The combiner registry is defined in `ludwig/combiners/combiners.py`. To register your class, add the
-`@register_combiner` decorator on the line above its class definition, specifying the name of the combiner:
-
-```python
-@register_combiner(name="transformer")
-class TransformerCombiner(Combiner):
-```

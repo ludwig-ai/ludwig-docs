@@ -29,15 +29,26 @@ Ludwig also provides several other text classification benchmark datasets which 
 
 ## Download Dataset
 
-Downloads the AG news dataset to the current working directory.
+=== "cli"
 
-```bash
-ludwig datasets download agnews
-```
+    Downloads the dataset and write to `agnews.csv` in the current directory.
 
-This command will download the dataset and write to `agnews.csv` in the current directory.
+    ```shell
+    ludwig datasets download agnews
+    ```
 
-The CSV file contains the above four columns plus an additional `split` column which is one of 0: train, 1: test,
+=== "python"
+
+    Downloads the AG news dataset into a pandas dataframe.
+
+    ```python
+    from ludwig.datasets import agnews
+
+    # Loads the dataset as a pandas.DataFrame
+    train_df, test_df, _ = agnews.load()
+    ```
+
+The dataset contains the above four columns plus an additional `split` column which is one of 0: train, 1: test,
 2: validation.
 
 Sample (description text omitted for space):
@@ -58,54 +69,123 @@ optionally specifies the model type and hyperparameters.
 
 Here, for simplicity, we'll try to predict **class** from **title**.
 
-With `config.yaml`:
+=== "cli"
 
-```yaml
-input_features:
-    -
-        name: title
-        type: text
-        encoder: parallel_cnn
-output_features:
-    -
-        name: class
-        type: category
-trainer:
-    epochs: 3
-```
+    With `config.yaml`:
+
+    ```yaml
+    input_features:
+        -
+            name: title
+            type: text
+            encoder: parallel_cnn
+    output_features:
+        -
+            name: class
+            type: category
+    trainer:
+        epochs: 3
+    ```
+
+=== "python"
+
+    With config defined in a python dict:
+
+    ```python
+    config = {
+      "input_features": [
+        {
+          "name": "title",            # The name of the input column
+          "type": "text",             # Data type of the input column
+          "encoder": "parallel_cnn",  # The model architecture we should use for
+                                      # encoding this column
+        }
+      ],
+      "output_features": [
+        {
+          "name": "class",
+          "type": "category",
+        }
+      ],
+      "trainer": {
+        "epochs": 3,  # We'll train for three epochs. Training longer might give
+                      # better performance.
+      }
+    }
+    ```
 
 ### Create and train a model
 
-```bash
-ludwig experiment \
-    --dataset agnews.csv \
-    --config config.yaml
-```
+=== "cli"
+
+    ```shell
+    ludwig train --dataset agnews.csv -c config.yaml
+    ```
+
+=== "python"
+
+    ```python
+    # Constructs Ludwig model from config dictionary
+    model = LudwigModel(config, logging_level=logging.INFO)
+
+    # Trains the model. This cell might take a few minutes.
+    train_stats, preprocessed_data, output_directory = model.train(dataset=train_df)
+    ```
 
 ## Evaluate
 
 Generates predictions and performance statistics for the test set.
 
-```bash
-ludwig evaluate \
-    --model_path results/experiment_run/model \
-    --dataset agnews.csv \
-    --split test \
-    --output_directory test_results
-```
+=== "cli"
+
+    ```shell
+    ludwig evaluate \
+        --model_path results/experiment_run/model \
+        --dataset agnews.csv \
+        --split test \
+        --output_directory test_results
+    ```
+
+=== "python"
+
+    ```python
+    # Generates predictions and performance statistics for the test set.
+    test_stats, predictions, output_directory = model.evaluate(
+      test_df,
+      collect_predictions=True,
+      collect_overall_stats=True
+    )
+    ```
 
 ## Visualize Metrics
 
 Visualizes confusion matrix, which gives an overview of classifier performance for each class.
 
-```bash
-ludwig visualize \
-    --visualization confusion_matrix \
-    --ground_truth_metadata results/experiment_run/model/training_set_metadata.json \
-    --test_statistics test_results/test_statistics.json \
-    --output_directory visualizations \
-    --file_format png
-```
+=== "cli"
+
+    ```shell
+    ludwig visualize \
+        --visualization confusion_matrix \
+        --ground_truth_metadata results/experiment_run/model/training_set_metadata.json \
+        --test_statistics test_results/test_statistics.json \
+        --output_directory visualizations \
+        --file_format png
+    ```
+
+=== "python"
+
+    ```python
+    from ludwig.visualize import confusion_matrix
+
+    confusion_matrix(
+      [test_stats],
+      model.training_set_metadata,
+      'class',
+      top_n_classes=[5],
+      model_names=[''],
+      normalize=True,
+    )
+    ```
 
 | Confusion Matrix                                                     | Class Entropy                                                                        |
 | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
@@ -113,14 +193,26 @@ ludwig visualize \
 
 Visualizes learning curves, which show how performance metrics changed over time during training.
 
-```bash
-ludwig visualize \
-    --visualization learning_curves \
-    --ground_truth_metadata results/experiment_run/model/training_set_metadata.json \
-    --training_statistics results/experiment_run/training_statistics.json \
-    --file_format png \
-    --output_directory visualizations
-```
+=== "cli"
+
+    ```shell
+    ludwig visualize \
+        --visualization learning_curves \
+        --ground_truth_metadata results/experiment_run/model/training_set_metadata.json \
+        --training_statistics results/experiment_run/training_statistics.json \
+        --file_format png \
+        --output_directory visualizations
+    ```
+
+=== "python"
+
+    ```python
+    # Visualizes learning curves, which show how performance metrics changed over
+    # time during training.
+    from ludwig.visualize import learning_curves
+
+    learning_curves(train_stats, output_feature_name='class')
+    ```
 
 | Losses                                                                | Metrics                                                    |
 | --------------------------------------------------------------------- | ---------------------------------------------------------- |
@@ -134,25 +226,41 @@ Lastly we'll show how to generate predictions for new data.
 The following are some recent news headlines. Feel free to edit or add your own strings to text_to_predict to see how
 the newly trained model classifies them.
 
-With `text_to_predict.csv`:
+=== "cli"
 
-```
-title
-Google may spur cloud cybersecurity M&A with $5.4B Mandiant buy
-Europe struggles to meet mounting needs of Ukraine's fleeing millions
-How the pandemic housing market spurred buyer's remorse across America
-```
+    With `text_to_predict.csv`:
 
-```bash
-ludwig predict \
-    --model_path results/experiment_run/model \
-    --dataset text_to_predict.csv \
-    --output_directory predictions
-```
+    ```
+    title
+    Google may spur cloud cybersecurity M&A with $5.4B Mandiant buy
+    Europe struggles to meet mounting needs of Ukraine's fleeing millions
+    How the pandemic housing market spurred buyer's remorse across America
+    ```
 
-This command will write predictions to the `predictions` directory. Predictions outputs are written in multiple formats,
-including csv and parquet. For instance, `predictions/predictions.parquet` contains the predicted classes for each
-example as well as the psuedo-probabilities for each class:
+    ```shell
+    ludwig predict \
+        --model_path results/experiment_run/model \
+        --dataset text_to_predict.csv \
+        --output_directory predictions
+    ```
+
+=== "python"
+
+    ```python
+    text_to_predict = pd.DataFrame({
+      "title": [
+        "Google may spur cloud cybersecurity M&A with $5.4B Mandiant buy",
+        "Europe struggles to meet mounting needs of Ukraine's fleeing millions",
+        "How the pandemic housing market spurred buyer's remorse across America",
+      ]
+    })
+
+    predictions, output_directory = model.predict(text_to_predict)
+    ```
+
+This command will write predictions to `output_directory`. Predictions outputs are written in multiple formats including
+csv and parquet. For instance, `predictions/predictions.parquet` contains the predicted classes for each example as well
+as the psuedo-probabilities for each class:
 
 | class_predictions | class_probabilities          | class_probability | class_probabilities_&lt;UNK&gt; | class_probabilities_sci_tech | class_probabilities_sports | class_probabilities_world | class_probabilities_business |
 | ----------------- | ---------------------------- | ----------------- | ------------------------------- | ---------------------------- | -------------------------- | ------------------------- | ---------------------------- |

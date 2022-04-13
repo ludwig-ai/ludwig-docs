@@ -59,7 +59,7 @@ The last section in this configuration file describes options for how the the [`
       number:
         normalization: zscore
         missing_value_strategy: fill_with_mean
-    
+
     input_features:
       - name: age
         type: number
@@ -89,13 +89,13 @@ The last section in this configuration file describes options for how the the [`
         type: number
       - name: native-country
         type: category
-    
+
     combiner:
       type: concat
       num_fc_layers: 3
       output_size: 128
       dropout: 0.2
-    
+
     output_features:
       - name: income
         type: binary
@@ -103,7 +103,7 @@ The last section in this configuration file describes options for how the the [`
           fallback_true_label: " >50K"
         num_fc_layers: 4
         output_size: 32
-    
+
     trainer:
       epochs:10
       optimizer:
@@ -113,7 +113,7 @@ The last section in this configuration file describes options for how the the [`
 === "python"
 
     [LudwigModel](../../user_guide/api/LudwigModel/)
-    
+
     ```python
     # create Ludwig configuration dictionary
     # define model configuration
@@ -144,7 +144,7 @@ The last section in this configuration file describes options for how the the [`
      'preprocessing': {'number': {'missing_value_strategy': 'fill_with_mean',
                                   'normalization': 'zscore'}},
      'trainer': {'epochs': 10, 'optimizer': {'type': 'adam'}}}
-    
+
     # instantiate Ludwig model object
     model = LudwigModel(config=config, logging_level=logging.INFO)
     ```
@@ -154,7 +154,7 @@ Train the model.
 === "cli"
 
     [`ludwig train` command](../../user_guide/command_line_interface/#train)
-    
+
     ```shell
     ludwig train \
       --dataset adult_census_income.csv \
@@ -164,7 +164,7 @@ Train the model.
 === "python"
 
     [train() method](../../user_guide/api/LudwigModel/#train)
-    
+
     ```python
     # Trains the model. This cell might take a few minutes.
     train_stats, preprocessed_data, output_directory = model.train(training_set=train_df,
@@ -200,7 +200,6 @@ Train the model.
     )
     ```
 
-
 ## Visualize Metrics
 
 ### ROC Curve
@@ -226,7 +225,7 @@ Train the model.
 
     ```python
     from ludwig.visualize import roc_curves
-    
+
     roc_curves(
         [predictions['income']['probabilities']],
         eval_df['income'],
@@ -263,10 +262,10 @@ Train the model.
 === "python"
 
     [`visualize.binary_threshold_vs_metric()` function](../../user_guide/api/visualization/#binary_threshold_vs_metric)
-    
+
     ```python
     from ludwig.visualize import binary_threshold_vs_metric
-    
+
     binary_threshold_vs_metric(
         [predictions["income"]["probabilities"]],
         eval_df["income"],
@@ -279,7 +278,6 @@ Train the model.
         file_format="png",
     )
     ```
-
 
 #### Accuracy Metric
 

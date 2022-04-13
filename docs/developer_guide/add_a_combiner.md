@@ -43,7 +43,7 @@ template. At a high level, to add a new combiner:
 
 ## 1. Define combiner configuration
 
-The combiner configuration is a `dataclass` whose properties are the configuration parameters of the combiner. All
+The combiner configuration is a `dataclass` (that must extend `BaseCombinerConfig`) whose properties are the configuration parameters of the combiner. All
 fields should have a type and a default value. The `ludwig.utils.schema_utils.py` module provides convenience methods
 for specifying the valid types and ranges of a combiner config. For example, the `TransformerCombiner` has the following
 config schema:
@@ -52,7 +52,7 @@ config schema:
 import ludwig.utils.schema_utils as schema
 
 @dataclass
-class TransformerCombinerConfig:
+class TransformerCombinerConfig(BaseCombinerConfig):
     num_layers: int = schema.PositiveInteger(default=1)
     hidden_size: int = schema.NonNegativeInteger(default=256)
     num_heads: int = schema.NonNegativeInteger(default=8)

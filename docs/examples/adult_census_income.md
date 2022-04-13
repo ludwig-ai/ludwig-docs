@@ -299,13 +299,25 @@ Train the model.
 
 ## Predictions
 
-Make predictions.
+=== "cli"
 
-```shell
-ludwig predict --model_path results/experiment_run/model \
-                --dataset evaluation_dataset.csv \
-                --output_directory predictions
-```
+    [`ludwig predict` command](../../user_guide/command_line_interface/#predict)
+
+    ```shell
+    ludwig predict --model_path results/experiment_run/model \
+                    --dataset evaluation_dataset.csv \
+                    --output_directory predictions
+    ```
+
+=== "python"
+
+    [`predict()` method](../../user_guide/api/LudwigModel/#predict)
+
+    ```python
+    predictions, prediction_results = model.predict(dataset=eval_df, skip_save_predictions=False, output_directory="predictions_results")
+    ```
 
 Sample predictions
 ![sample_predictions](adult_census_income_colab_notebooks/images/adult_census_income_sample_predictions.png)
+
+

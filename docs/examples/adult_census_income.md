@@ -317,5 +317,3 @@ Train the model.
 
 Sample predictions
 ![sample_predictions](adult_census_income_colab_notebooks/images/adult_census_income_sample_predictions.png)
-
-

@@ -49,7 +49,8 @@ provides convenience methods for specifying the valid types and ranges of a comb
 `TransformerCombiner` has the following config schema:
 
 ```python
-import ludwig.utils.schema_utils as schema
+import ludwig.marshmallow.marshmallow_schema_utils as schema
+from ludwig.combiners.combiners import BaseCombinerConfig
 
 @dataclass
 class TransformerCombinerConfig(BaseCombinerConfig):

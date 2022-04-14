@@ -17,11 +17,11 @@ These interactive notebooks follow the steps of this example:
     ```shell
     ludwig datasets download mnist
     ```
-    
+
     This command will create a dataset `mnist_dataset.csv` in the current directory.  In addition, there will be directories `training/` and `testing/` containing the images.
-    
+
     The columns in the dataset are
-    
+
     |column| description |
     |------|-------------|
     |image_path|file path string for the image|
@@ -32,17 +32,16 @@ These interactive notebooks follow the steps of this example:
 
     ```python
     from ludwig.datasets import mnist
-    
+
     # Loads the dataset as a pandas.DataFrame
     train_df, test_df, _ = mnist.load(split=True)
     ```
-    This will create two pandas DataFrames.  `train_df` contains file path information to the 60K training images.  `test_df` has same information for the 10K test images. 
+    This will create two pandas DataFrames.  `train_df` contains file path information to the 60K training images.  `test_df` has same information for the 10K test images.
 
     |column| description |
     |------|-------------|
     |image_path|file path string for the image|
     |label|single digit 0 to 9 indicating what digit is shown in the image|
-
 
 Sample of images with `label`.
 ![mnist sample images](mnist_colab_notebooks/images/mnist_sample_digits.png)

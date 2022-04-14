@@ -3,10 +3,10 @@ dataset.
 
 These interactive notebooks follow the steps of this example:
 
-**TODO: point notebook URL to ludwig-ai/ludwig-docs repo before PR merge**
+**TODO: point notebook URL to correct repo branch before PR merge**
 
-- Ludwig CLI: [![MNIST Image Classification with Ludwig CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jimthompson5802/ludwig-docs/blob/expanded-mnist-example-with-colab/docs/examples/mnist_colab_notebooks/MNIST_Classification_with_Ludwig_CLI.ipynb)
-- Ludwig Python API: [![MNIST Image Classification with Ludwig API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jimthompson5802/ludwig-docs/blob/expanded-mnist-example-with-colab/docs/examples/mnist_colab_notebooks/MNIST_Classification_with_Ludwig_API.ipynb)
+- Ludwig CLI: [![MNIST Image Classification with Ludwig CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/ludwig05/docs/examples/mnist_colab_notebooks/MNIST_Classification_with_Ludwig_CLI.ipynb)
+- Ludwig Python API: [![MNIST Image Classification with Ludwig API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-a/ludwig-docs/blob/ludwig05/docs/examples/mnist_colab_notebooks/MNIST_Classification_with_Ludwig_API.ipynb)
 
 ## Download the MNIST dataset
 

@@ -125,7 +125,7 @@ probabilities file
 to plot.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
-`label_limit` are considered to be "rare" labels.
+`labels_limit` are considered to be "rare" labels.
 - __model_names__ (Union[str, List[str]], default: `None`): model name or
 list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
@@ -171,7 +171,7 @@ __Inputs__
 - __output_feature_name__ (str): name of the output feature to visualize.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
-`label_limit` are considered to be "rare" labels.
+`labels_limit` are considered to be "rare" labels.
 - __model_names__ (Union[str, List[str]], default: `None`): model name or
 list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
@@ -224,7 +224,7 @@ __Inputs__
    to plot.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
    Encoded numeric label values in dataset that are higher than
-   `label_limit` are considered to be "rare" labels.
+   `labels_limit` are considered to be "rare" labels.
 - __subset__ (str): string specifying type of subset filtering.  Valid
    values are `ground_truth` or `predictions`.
 - __model_names__ (Union[str, List[str]], default: `None`): model name or
@@ -276,7 +276,7 @@ probabilities.
 - __top_k__ (int): number of elements in the ranklist to consider.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
-`label_limit` are considered to be "rare" labels.
+`labels_limit` are considered to be "rare" labels.
 - __model_names__ (Union[str, List[str]], default: `None`): model name or
 list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
@@ -361,7 +361,7 @@ predictions for the specified output_feature_name.
 - __output_feature_name__ (str): output feature name
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
-`label_limit` are considered to be "rare" labels.
+`labels_limit` are considered to be "rare" labels.
 - __model_names__ (Union[str, List[str]], default: `None`): model name or
 list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
@@ -413,7 +413,7 @@ ground truth data
 feature names for visualization.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
-`label_limit` are considered to be "rare" labels.
+`labels_limit` are considered to be "rare" labels.
 - __model_names__ (Union[str, List[str]], default: `None`): model name or
 list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
@@ -460,7 +460,7 @@ ground truth data
 feature names for visualization.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
-`label_limit` are considered to be "rare" labels.
+`labels_limit` are considered to be "rare" labels.
 - __output_directory__ (str, default: `None`): directory where to save
 plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
@@ -503,7 +503,7 @@ probabilities.
 - __output_feature_name__ (str): output feature name
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
-`label_limit` are considered to be "rare" labels.
+`labels_limit` are considered to be "rare" labels.
 - __model_names__ (Union[str, List[str]], default: `None`): model name or
 list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
@@ -553,7 +553,7 @@ probabilities.
 - __output_feature_name__ (str): output feature name
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
-`label_limit` are considered to be "rare" labels.
+`labels_limit` are considered to be "rare" labels.
 - __model_names__ (Union[str, List[str]], default: `None`): model name or
 list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
@@ -618,7 +618,7 @@ probabilities.
 to plot.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
-`label_limit` are considered to be "rare" labels.
+`labels_limit` are considered to be "rare" labels.
 - __subset__ (str): string specifying type of subset filtering.  Valid
 values are `ground_truth` or `predictions`.
 - __model_names__ (Union[str, List[str]], default: `None`): model name or
@@ -822,7 +822,7 @@ probabilities.
 - __top_n_classes__ (list): List containing the number of classes to plot.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
-`label_limit` are considered to be "rare" labels.
+`labels_limit` are considered to be "rare" labels.
 - __model_names__ (List[str], default: `None`): list of the names of the
 models to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
@@ -865,7 +865,7 @@ probabilities.
 - __output_feature_name__ (str): output feature name
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
 Encoded numeric label values in dataset that are higher than
-`label_limit` are considered to be "rare" labels.
+`labels_limit` are considered to be "rare" labels.
 - __model_names__ (List[str], default: `None`): list of the names of the
 models to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save

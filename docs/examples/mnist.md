@@ -138,7 +138,7 @@ Evaluate the trained model.
 
     [evaluate() method](../../user_guide/api/LudwigModel/#evaluate)
 
-    ```pyhthon
+    ```python
     # Generates predictions and performance statistics for the test set.
     test_stats, predictions, output_directory = model.evaluate(
       test_df,

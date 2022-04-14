@@ -31,7 +31,7 @@ Sample of images with `label`.
 
 ## Train
 
-The Ludwig configuration file describes the machine learning task.  There is a vast array of options to control the learning process.  This example only covers a small fraction of the options.  Only the options used in this example are described.  Please refer to the [Configuration Section](../../configuration) for all the details.
+The Ludwig configuration file describes the machine learning task. This example only uses a small subset of the options provided by Ludwig. Please refer to the [Configuration Section](../../configuration) for all the details.
 
 First it defines the `input_features`.  For the image feature, the configuration specifies the type of neural network architecture to encode the image.  In this example the encoder is a two layer [Stacked Convolutional Neural Network](../../configuration/features/image_features/#convolutional-stack-encoder-stacked_cnn) followed by a fully connected layer with dropout regularization.
 

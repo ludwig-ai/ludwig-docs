@@ -12,19 +12,37 @@ These interactive notebooks follow the steps of this example:
 
 [MNIST](http://yann.lecun.com/exdb/mnist/) is a collection of gray-scale images of handwritten digits. This collection is made up of 60,000 images for training and 10,000 images for testing model performance.  Each image is 28 X 28 pixels in gray-scale.
 
-```shell
-ludwig datasets download mnist
-```
+=== "cli"
 
-This command will create a dataset `mnist_dataset.csv` in the current directory.
+    ```shell
+    ludwig datasets download mnist
+    ```
+    
+    This command will create a dataset `mnist_dataset.csv` in the current directory.  In addition, there will be directories `training/` and `testing/` containing the images.
+    
+    The columns in the dataset are
+    
+    |column| description |
+    |------|-------------|
+    |image_path|file path string for the image|
+    |label|single digit 0 to 9 indicating what digit is shown in the image|
+    |split|integer value indicating a training example (0) or test example (2)|
 
-The columns in the dataset are
+=== "python"
 
-|column| description |
-|------|-------------|
-|image_path|file path string for the image|
-|label|single digit 0 to 9 indicating what digit is shown in the image|
-|split|integer value indicating a training example (0) or test example (2)|
+    ```python
+    from ludwig.datasets import mnist
+    
+    # Loads the dataset as a pandas.DataFrame
+    train_df, test_df, _ = mnist.load(split=True)
+    ```
+    This will create two pandas DataFrames.  `train_df` contains file path information to the 60K training images.  `test_df` has same information for the 10K test images. 
+
+    |column| description |
+    |------|-------------|
+    |image_path|file path string for the image|
+    |label|single digit 0 to 9 indicating what digit is shown in the image|
+
 
 Sample of images with `label`.
 ![mnist sample images](mnist_colab_notebooks/images/mnist_sample_digits.png)

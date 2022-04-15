@@ -1,5 +1,5 @@
 This section contains several examples of how to build models with Ludwig for a variety of tasks.
-For each task we show an example dataset and a sample model definition that can be used to train a model from that data.  
+For each task we show an example dataset and a sample model definition that can be used to train a model from that data.
 
 Write-ups in the **Tutorials** section show both Ludwig's command line interface and Python API.  For these tutorials, there are ready-to-run notebooks that work in [Google's Colab Service](https://colab.research.google.com/).  The notebooks provide the user a starting point for learning about Ludwig capabilities.
 

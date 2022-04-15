@@ -1,7 +1,7 @@
 This section contains several examples of how to build models with Ludwig for a variety of tasks.
 For each task we show an example dataset and a sample model definition that can be used to train a model from that data.  
 
-The examples in the **Get Started** section show both Ludwig's command line interface and Python API.  For these examples, there are ready-to-run notebooks that work in [Google's Colab Service](https://colab.research.google.com/).  This allows a user to rapidly test Ludwig capabilities.
+Write-ups in the **Tutorials** section show both Ludwig's command line interface and Python API.  For these tutorials, there are ready-to-run notebooks that work in [Google's Colab Service](https://colab.research.google.com/).  The notebooks provide the user a starting point for learning about Ludwig capabilities.
 
 In addition to the examples here, on the Ludwig medium publication you can find a three part tutorial on Sentiment Analysis with Ludwig:
 

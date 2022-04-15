@@ -70,11 +70,11 @@ nav:
       - "Backend": "configuration/backend.md"
   - Examples:
       - "Examples": "examples/index.md"
-      - "Getting Started":
+      - "Tutorials":
         - "Text Classification": "examples/text_classification.md"
         - "Tabular Data Classification": "examples/adult_census_income.md"
         - "Image Classification": "examples/mnist.md"
-      - "Other Use Cases":
+      - "Example Use Cases":
         - "Named Entity Recognition Tagging": "examples/ner_tagging.md"
         - "Natural Language Understanding": "examples/nlu.md"
         - "Machine Translation": "examples/machine_translation.md"

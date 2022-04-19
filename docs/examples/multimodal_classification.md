@@ -21,13 +21,13 @@ This dataset contains 20 columns, but we'll only use these 16 (15 input + 1 targ
 | geo_enabled | binary | Boolean indicating whether the account has the geographic location enabled   |
 | lang | category | Language of the account                                                           |
 | location | category | Location of the account                                                       |
-| profile_background_image_url | image | Profile background image url                                 |
-| profile_image_url | image | Profile image url                                                       |
+| profile_background_image_path | image | Profile background image path                               |
+| profile_image_path | image | Profile image path                                                     |
 | statuses_count | number | Total number of tweets                                                    |
 | verified | binary | Boolean indicating whether the account has been verified                        |
 | average_tweets_per_day | number | Average tweets posted per day                                     |
 | account_age_days | number | Account age measured in days                                            |
-| account_type   | category | Account type, one of {bot, human}                                       |
+| account_type   | binary | Account type, one of {bot, human}                                       |
 
 ## Kaggle API Token (kaggle.json)
 
@@ -47,8 +47,8 @@ the clipboard. The kaggle.json file should look similar to:
 
 These interactive notebooks follow the steps of this example:
 
-- Ludwig CLI: [![Multimodal Classification with Ludwig CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/daniel/text_classification/docs/examples/text_classification/Text_Classification_with_Ludwig_CLI.ipynb)
-- Ludwig Python API: [![Multimodal Classification with Ludwig Python API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/daniel/text_classification/docs/examples/text_classification/Text_Classification_with_Ludwig_Python_API.ipynb)
+- Ludwig CLI: [![Multimodal Classification with Ludwig CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/daniel/twitter_bots_example/docs/examples/multimodal_classification/Multimodal_Classification_with_Ludwig_CLI.ipynb)
+- Ludwig Python API: [![Multimodal Classification with Ludwig Python API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/daniel/twitter_bots_example/docs/examples/multimodal_classification/Multimodal_Classification_with_Ludwig_Python_API.ipynb)
 
 ## Download Dataset
 
@@ -56,17 +56,18 @@ Downloads the dataset and creates `twitter_human_bots_dataset.csv` in the curren
 
 ```shell
 # Downloads the dataset to the current working directory
-kaggle datasets download danieltreiman/twitter-humanbots-dataset
+kaggle datasets download danieltreiman/twitter-human-bots-dataset
 
 # Unzips the downloaded dataset, creates twitter_human_bots_dataset.csv
-unzip -o twitter-humanbots-dataset.zip
+unzip -q -o twitter-human-bots-dataset.zip
 ```
 
 ## Train
 
 ### Define ludwig config
 
-The Ludwig config declares the machine learning task: which columns to use, their datatypes, and which columns to predict.
+The Ludwig config declares the machine learning task: which columns to use, their datatypes, and which columns to
+predict.
 
 === "cli"
 
@@ -106,7 +107,7 @@ The Ludwig config declares the machine learning task: which columns to use, thei
         type: number
     output_features:
       - name: account_type
-        type: category
+        type: binary
     ```
 
 === "python"
@@ -228,7 +229,7 @@ Generates predictions and performance statistics for the test set.
     ```python
     # Generates predictions and performance statistics for the test set.
     test_stats, predictions, output_directory = model.evaluate(
-      test_df,
+      dataset_df[dataset_df.split == 1],
       collect_predictions=True,
       collect_overall_stats=True
     )
@@ -257,8 +258,9 @@ Visualizes confusion matrix, which gives an overview of classifier performance f
     confusion_matrix(
       [test_stats],
       model.training_set_metadata,
-      'class',
-      top_n_classes=[5],
+      'account_type',
+      labels=['human', 'bot'],
+      top_n_classes=[2],
       model_names=[''],
       normalize=True,
     )
@@ -266,7 +268,7 @@ Visualizes confusion matrix, which gives an overview of classifier performance f
 
 | Confusion Matrix                                                     | Class Entropy                                                                        |
 | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| ![Confusion Matrix](text_classification/images/confusion_matrix.png) | ![Confusion Matrix Entropy](text_classification/images/confusion_matrix_entropy.png) |
+| ![Confusion Matrix](multimodal_classification/images/confusion_matrix.png) | ![Confusion Matrix Entropy](multimodal_classification/images/confusion_matrix_entropy.png) |
 
 Visualizes learning curves, which show how performance metrics changed over time during training.
 
@@ -284,14 +286,12 @@ Visualizes learning curves, which show how performance metrics changed over time
 === "python"
 
     ```python
-    # Visualizes learning curves, which show how performance metrics changed over
-    # time during training.
+    # Visualizes learning curves, which show how performance metrics changed over time during training.
     from ludwig.visualize import learning_curves
 
-    learning_curves(train_stats, output_feature_name='class')
+    learning_curves(train_stats, output_feature_name='account_type')
     ```
 
 | Losses                                                                | Metrics                                                    |
 | --------------------------------------------------------------------- | ---------------------------------------------------------- |
-| ![Loss: class](text_classification/images/train_loss_class.png)       | ![Accuracy](text_classification/images/train_accuracy.png) |
-| ![Loss: combined](text_classification/images/train_loss_combined.png) | ![Hits at K](text_classification/images/hits_at_k.png)     |
+| ![Loss: account_type](multimodal_classification/images/train_loss_account_type.png)       | ![Accuracy](multimodal_classification/images/train_accuracy.png) |

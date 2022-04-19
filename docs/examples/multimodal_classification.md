@@ -82,8 +82,9 @@ predict.
 
 !!! note
 
-    There are only a handful of background images (about 20), so we're treated `profile_background_image_path` as a
-    category instead of image. Image encoders perform best with a large number of unique images.
+    There are only 20 unique background images, so we've declared `profile_background_image_path` as a category instead
+    of an image. Image encoders need a large number of unique images to perform well and will quickly overfit given such
+    a small sample.
 
 === "cli"
 
@@ -197,7 +198,7 @@ predict.
       "output_features": [
         {
           "name": "account_type",
-          "type": "category",
+          "type": "binary",
         }
       ]
     }

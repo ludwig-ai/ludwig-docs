@@ -1,5 +1,12 @@
 This example shows how to build a multimodal classifier with Ludwig.
 
+If you'd like to run this example interactively in Colab, open one of these notebooks and try it out:
+
+- Ludwig CLI: [![Multimodal Classification with Ludwig CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/daniel/twitter_bots_example/docs/examples/multimodal_classification/Multimodal_Classification_with_Ludwig_CLI.ipynb)
+- Ludwig Python API: [![Multimodal Classification with Ludwig Python API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/daniel/twitter_bots_example/docs/examples/multimodal_classification/Multimodal_Classification_with_Ludwig_Python_API.ipynb)
+
+Note: you will need your [Kaggle API token](#kaggle-api-token-kagglejson)
+
 We'll be using the twitter human-bots dataset, originally uploaded to Kaggle by
 [David Martín Gutiérrez](https://www.kaggle.com/code/davidmartngutirrez/bots-accounts-eda/data). The dataset is composed
 of 37438 rows each corresponding to a Twitter user account. Each row contains 20 feature columns collected via the
@@ -12,26 +19,35 @@ This dataset contains 20 columns, but we'll only use these 16 (15 input + 1 targ
 
 | column      | type | description                                                                    |
 |-------------|------|--------------------------------------------------------------------------------|
-| default_profile | binary | Boolean indicating whether the account has a default profile             |
-| default_profile_image | binary | Boolean indicating whether the account has a default profile image |
+| default_profile | binary | Does the account have a default profile                                  |
+| default_profile_image | binary | Does the account have a default profile image                      |
 | description | text |  User account description                                                      |
 | favorites_count | number | Total number of favorited tweets                                         |
 | followers_count | number | Total number of followers                                                |
 | friends_count | number | Total number of friends                                                    |
-| geo_enabled | binary | Boolean indicating whether the account has the geographic location enabled   |
+| geo_enabled | binary | Does the account has the geographic location enabled                         |
 | lang | category | Language of the account                                                           |
 | location | category | Location of the account                                                       |
 | profile_background_image_path | image | Profile background image path                               |
 | profile_image_path | image | Profile image path                                                     |
 | statuses_count | number | Total number of tweets                                                    |
-| verified | binary | Boolean indicating whether the account has been verified                        |
+| verified | binary | Has the account been verified                                                   |
 | average_tweets_per_day | number | Average tweets posted per day                                     |
 | account_age_days | number | Account age measured in days                                            |
-| account_type   | binary | Account type, one of {bot, human}                                       |
+| account_type   | binary | "human" or "bot", true if the account is a bot                            |
 
 ## Kaggle API Token (kaggle.json)
 
-To download datasets using the Kaggle CLI, you'll need to get a Kaggle API Token.
+To download datasets using the Kaggle CLI, you'll need a [Kaggle API](https://github.com/Kaggle/kaggle-api) Token.
+
+If you already have one, it should be installed at `~/.kaggle/kaggle.json`. Run this command in a shell, and copy the
+output:
+
+```shell
+cat ~/.kaggle/kaggle.json
+```
+
+If you don't have a `kaggle.json` file:
 
 1. [Sign in to Kaggle](https://kaggle.com/account/login). If you don't already have an account, create one.
 2. Go to "Account", and click the "Create New API Token" button. This should start the download.
@@ -42,13 +58,8 @@ in your home directory.
 the clipboard. The kaggle.json file should look similar to:
 
 ```json
-{"username":"your_user_name","key":"5da776d74a77013ef56c93f9d559166"}
+{"username":"your_user_name","key":"_______________________________"}
 ```
-
-These interactive notebooks follow the steps of this example:
-
-- Ludwig CLI: [![Multimodal Classification with Ludwig CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/daniel/twitter_bots_example/docs/examples/multimodal_classification/Multimodal_Classification_with_Ludwig_CLI.ipynb)
-- Ludwig Python API: [![Multimodal Classification with Ludwig Python API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/daniel/twitter_bots_example/docs/examples/multimodal_classification/Multimodal_Classification_with_Ludwig_Python_API.ipynb)
 
 ## Download Dataset
 
@@ -68,6 +79,11 @@ unzip -q -o twitter-human-bots-dataset.zip
 
 The Ludwig config declares the machine learning task: which columns to use, their datatypes, and which columns to
 predict.
+
+!!! note
+
+    There are only a handful of background images (about 20), so we're treated `profile_background_image_path` as a
+    category instead of image. Image encoders perform best with a large number of unique images.
 
 === "cli"
 
@@ -94,7 +110,7 @@ predict.
       - name: location
         type: category
       - name: profile_background_image_path
-        type: image
+        type: category
       - name: profile_image_path
         type: image
       - name: statuses_count
@@ -155,7 +171,7 @@ predict.
         },
         {
           "name": "profile_background_image_path",
-          "type": "image",
+          "type": "category",
         },
         {
           "name": "profile_image_path",

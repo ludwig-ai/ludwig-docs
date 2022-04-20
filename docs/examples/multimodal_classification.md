@@ -276,7 +276,6 @@ Visualizes confusion matrix, which gives an overview of classifier performance f
       [test_stats],
       model.training_set_metadata,
       'account_type',
-      labels=['human', 'bot'],
       top_n_classes=[2],
       model_names=[''],
       normalize=True,

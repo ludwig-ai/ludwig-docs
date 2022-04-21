@@ -17,24 +17,24 @@ human accounts, the remaining 12425 are bots.
 
 This dataset contains 20 columns, but we'll only use these 16 (15 input + 1 target):
 
-| column      | type | description                                                                    |
-|-------------|------|--------------------------------------------------------------------------------|
-| default_profile | binary | Does the account have a default profile                                  |
-| default_profile_image | binary | Does the account have a default profile image                      |
-| description | text |  User account description                                                      |
-| favorites_count | number | Total number of favorited tweets                                         |
-| followers_count | number | Total number of followers                                                |
-| friends_count | number | Total number of friends                                                    |
-| geo_enabled | binary | Does the account has the geographic location enabled                         |
-| lang | category | Language of the account                                                           |
-| location | category | Location of the account                                                       |
-| profile_background_image_path | image | Profile background image path                               |
-| profile_image_path | image | Profile image path                                                     |
-| statuses_count | number | Total number of tweets                                                    |
-| verified | binary | Has the account been verified                                                   |
-| average_tweets_per_day | number | Average tweets posted per day                                     |
-| account_age_days | number | Account age measured in days                                            |
-| account_type   | binary | "human" or "bot", true if the account is a bot                            |
+| column                        | type     | description                                          |
+| ----------------------------- | -------- | ---------------------------------------------------- |
+| default_profile               | binary   | Does the account have a default profile              |
+| default_profile_image         | binary   | Does the account have a default profile image        |
+| description                   | text     | User account description                             |
+| favorites_count               | number   | Total number of favorited tweets                     |
+| followers_count               | number   | Total number of followers                            |
+| friends_count                 | number   | Total number of friends                              |
+| geo_enabled                   | binary   | Does the account has the geographic location enabled |
+| lang                          | category | Language of the account                              |
+| location                      | category | Location of the account                              |
+| profile_background_image_path | image    | Profile background image path                        |
+| profile_image_path            | image    | Profile image path                                   |
+| statuses_count                | number   | Total number of tweets                               |
+| verified                      | binary   | Has the account been verified                        |
+| average_tweets_per_day        | number   | Average tweets posted per day                        |
+| account_age_days              | number   | Account age measured in days                         |
+| account_type                  | binary   | "human" or "bot", true if the account is a bot       |
 
 ## Kaggle API Token (kaggle.json)
 
@@ -51,7 +51,7 @@ If you don't have a `kaggle.json` file:
 
 1. [Sign in to Kaggle](https://kaggle.com/account/login). If you don't already have an account, create one.
 2. Go to "Account", and click the "Create New API Token" button. This should start the download.
-![Create New API Token](../../images/kaggle_api_token.png)
+![Create New API Token](../images/kaggle_api_token.png)
 3. Following the Kaggle instructions, copy your `kaggle.json` from its download location to a directory called `.kaggle`
 in your home directory.
 4. If you want to run this example in either of the example Colab notebooks, open kaggle.json and copy its contents to
@@ -282,8 +282,8 @@ Visualizes confusion matrix, which gives an overview of classifier performance f
     )
     ```
 
-| Confusion Matrix                                                     | Class Entropy                                                                        |
-| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| Confusion Matrix                                                           | Class Entropy                                                                              |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | ![Confusion Matrix](multimodal_classification/images/confusion_matrix.png) | ![Confusion Matrix Entropy](multimodal_classification/images/confusion_matrix_entropy.png) |
 
 Visualizes learning curves, which show how performance metrics changed over time during training.
@@ -308,6 +308,6 @@ Visualizes learning curves, which show how performance metrics changed over time
     learning_curves(train_stats, output_feature_name='account_type')
     ```
 
-| Losses                                                                | Metrics                                                    |
-| --------------------------------------------------------------------- | ---------------------------------------------------------- |
-| ![Loss: account_type](multimodal_classification/images/train_loss_account_type.png)       | ![Accuracy](multimodal_classification/images/train_accuracy.png) |
+| Losses                                                                              | Metrics                                                          |
+| ----------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| ![Loss: account_type](multimodal_classification/images/train_loss_account_type.png) | ![Accuracy](multimodal_classification/images/train_accuracy.png) |

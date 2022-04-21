@@ -2,8 +2,8 @@ This example shows how to build a text classifier with Ludwig.
 
 These interactive notebooks follow the steps of this example:
 
-- Ludwig CLI: [![Text Classification with Ludwig CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/daniel/text_classification/docs/examples/text_classification/Text_Classification_with_Ludwig_CLI.ipynb)
-- Ludwig Python API: [![Text Classification with Ludwig Python API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/daniel/text_classification/docs/examples/text_classification/Text_Classification_with_Ludwig_Python_API.ipynb)
+- Ludwig CLI: [![Text Classification with Ludwig CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/ludwig05/docs/examples/text_classification/Text_Classification_with_Ludwig_CLI.ipynb)
+- Ludwig Python API: [![Text Classification with Ludwig Python API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/ludwig05/docs/examples/text_classification/Text_Classification_with_Ludwig_Python_API.ipynb)
 
 We'll be using AG's news topic classification dataset, a common benchmark dataset for text classification. This dataset
 is a subset of the full AG news dataset, constructed by choosing the four largest classes from the original corpus. Each

@@ -2,8 +2,8 @@ This example shows how to build a multimodal classifier with Ludwig.
 
 If you'd like to run this example interactively in Colab, open one of these notebooks and try it out:
 
-- Ludwig CLI: [![Multimodal Classification with Ludwig CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/daniel/twitter_bots_example/docs/examples/multimodal_classification/Multimodal_Classification_with_Ludwig_CLI.ipynb)
-- Ludwig Python API: [![Multimodal Classification with Ludwig Python API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/daniel/twitter_bots_example/docs/examples/multimodal_classification/Multimodal_Classification_with_Ludwig_Python_API.ipynb)
+- Ludwig CLI: [![Multimodal Classification with Ludwig CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/ludwig05/docs/examples/multimodal_classification/Multimodal_Classification_with_Ludwig_CLI.ipynb)
+- Ludwig Python API: [![Multimodal Classification with Ludwig Python API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/ludwig05/docs/examples/multimodal_classification/Multimodal_Classification_with_Ludwig_Python_API.ipynb)
 
 Note: you will need your [Kaggle API token](#kaggle-api-token-kagglejson)
 

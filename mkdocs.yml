@@ -74,6 +74,7 @@ nav:
         - "Text Classification": "examples/text_classification.md"
         - "Tabular Data Classification": "examples/adult_census_income.md"
         - "Image Classification": "examples/mnist.md"
+        - "Multimodal Classification": "examples/multimodal_classification.md"
       - "Example Use Cases":
         - "Named Entity Recognition Tagging": "examples/ner_tagging.md"
         - "Natural Language Understanding": "examples/nlu.md"

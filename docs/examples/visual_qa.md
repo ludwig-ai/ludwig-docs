@@ -7,7 +7,7 @@
 ```
 ludwig experiment \
 --dataset vqa.csv \
-  --config_file config.yaml
+  --config config.yaml
 ```
 
 With `config.yaml`:
@@ -21,14 +21,12 @@ input_features:
     -
         name: question
         type: text
-        level: word
         encoder: parallel_cnn
 
 output_features:
     -
         name: answer
         type: text
-        level: word
         decoder: generator
         cell_type: lstm
         loss:

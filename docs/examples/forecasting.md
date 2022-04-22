@@ -1,4 +1,4 @@
-While direct timeseries prediction is a work in progress Ludwig can ingest timeseries input feature data and make numerical predictions. Below is an example of a model trained to forecast timeseries at five different horizons.
+While direct timeseries prediction is a work in progress Ludwig can ingest timeseries input feature data and make number predictions. Below is an example of a model trained to forecast timeseries at five different horizons.
 
 | timeseries_data       | y1    | y2    | y3    | y4    | y5    |
 | --------------------- | ----- | ----- | ----- | ----- | ----- |
@@ -9,7 +9,7 @@ While direct timeseries prediction is a work in progress Ludwig can ingest times
 ```
 ludwig experiment \
 --dataset timeseries_data.csv \
-  --config_file config.yaml
+  --config config.yaml
 ```
 
 With `config.yaml`:
@@ -23,17 +23,17 @@ input_features:
 output_features:
     -
         name: y1
-        type: numerical
+        type: number
     -
         name: y2
-        type: numerical
+        type: number
     -
         name: y3
-        type: numerical
+        type: number
     -
         name: y4
-        type: numerical
+        type: number
     -
         name: y5
-        type: numerical
+        type: number
 ```

@@ -16,7 +16,7 @@ After downloading the data, to train a model on this dataset using Ludwig,
 ```
 ludwig experiment \
   --dataset <PATH_TO_TITANIC_CSV> \
-  --config_file config.yaml
+  --config config.yaml
 ```
 
 With `config.yaml`:
@@ -31,18 +31,18 @@ input_features:
         type: category
     -
         name: Age
-        type: numerical
+        type: number
         preprocessing:
           missing_value_strategy: fill_with_mean
     -
         name: SibSp
-        type: numerical
+        type: number
     -
         name: Parch
-        type: numerical
+        type: number
     -
         name: Fare
-        type: numerical
+        type: number
         preprocessing:
           missing_value_strategy: fill_with_mean
     -

@@ -1,4 +1,4 @@
-This example replicates the Keras example at https://www.tensorflow.org/tutorials/keras/basic_regression to predict the miles per gallon of a car given its characteristics in the [Auto MPG](https://archive.ics.uci.edu/ml/datasets/auto+mpg) dataset.
+This example replicates the Keras example at <https://www.tensorflow.org/tutorials/keras/basic_regression> to predict the miles per gallon of a car given its characteristics in the [Auto MPG](https://archive.ics.uci.edu/ml/datasets/auto+mpg) dataset.
 
 | MPG  | Cylinders | Displacement | Horsepower | Weight | Acceleration | ModelYear | Origin |
 | ---- | --------- | ------------ | ---------- | ------ | ------------ | --------- | ------ |
@@ -10,7 +10,7 @@ This example replicates the Keras example at https://www.tensorflow.org/tutorial
 ```
 ludwig experiment \
 --dataset auto_mpg.csv \
-  --config_file config.yaml
+  --config config.yaml
 ```
 
 With `config.yaml`:
@@ -26,32 +26,32 @@ training:
 input_features:
     -
         name: Cylinders
-        type: numerical
+        type: number
     -
         name: Displacement
-        type: numerical
+        type: number
     -
         name: Horsepower
-        type: numerical
+        type: number
     -
         name: Weight
-        type: numerical
+        type: number
     -
         name: Acceleration
-        type: numerical
+        type: number
     -
         name: ModelYear
-        type: numerical
+        type: number
     -
         name: Origin
         type: category
 output_features:
     -
         name: MPG
-        type: numerical
+        type: number
         optimizer:
             type: mean_squared_error
         num_fc_layers: 2
-        fc_size: 64
+        output_size: 64
 
 ```

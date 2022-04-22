@@ -7,7 +7,7 @@
 ```
 ludwig experiment \
   --dataset chitchat.csv \
-  --config_file config.yaml
+  --config config.yaml
 ```
 
 With `config.yaml`:
@@ -17,7 +17,6 @@ input_features:
     -
         name: user1
         type: text
-        level: word
         encoder: rnn
         cell_type: lstm
         reduce_output: null
@@ -26,7 +25,6 @@ output_features:
     -
         name: user2
         type: text
-        level: word
         decoder: generator
         cell_type: lstm
         attention: bahdanau

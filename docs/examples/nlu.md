@@ -7,7 +7,7 @@
 ```
 ludwig experiment \
   --dataset nlu.csv \
-  --config_file config.yaml
+  --config config.yaml
 ```
 
 With `config.yaml`:
@@ -17,14 +17,13 @@ input_features:
     -
         name: utterance
         type: text
-        level: word
         encoder: rnn
         cell_type: lstm
         bidirectional: true
         num_layers: 2
         reduce_output: null
         preprocessing:
-          word_tokenizer: space
+          tokenizer: space
 
 output_features:
     -
@@ -32,7 +31,7 @@ output_features:
         type: category
         reduce_input: sum
         num_fc_layers: 1
-        fc_size: 64
+        output_size: 64
     -
         name: slots
         type: sequence

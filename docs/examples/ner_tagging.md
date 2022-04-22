@@ -7,7 +7,7 @@
 ```
 ludwig experiment \
   --dataset sequence_tags.csv \
-  --config_file config.yaml
+  --config config.yaml
 ```
 
 With `config.yaml`:
@@ -17,12 +17,11 @@ input_features:
     -
         name: utterance
         type: text
-        level: word
         encoder: rnn
         cell_type: lstm
         reduce_output: null
         preprocessing:
-          word_tokenizer: space
+          tokenizer: space
 
 output_features:
     -

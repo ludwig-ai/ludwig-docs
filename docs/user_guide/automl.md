@@ -1,4 +1,5 @@
-Ludwig supports AutoML, which returns a tuned Deep Learning model, given a dataset, the target column, and a time budget.
+Ludwig AutoML takes a dataset, the target column, and a time budget, and returns
+a trained Ludwig model.
 
 Ludwig AutoML is currently experimental and is focused on tabular datasets.  A blog describing its development, evaluation,
 and use is [here](https://medium.com/ludwig-ai/ludwig-automl-for-deep-learning-cf64de9d49c8).
@@ -63,6 +64,8 @@ pprint.pprint(auto_config)
 
 The API is also useful for manual refinement of the AutoML-generated search; the output of this API can be edited and then
 directly used as the input configuration for a Ludwig hyperparameter search job.
+
+## Overriding auto configs with user_config
 
 The `user_config` parameter can be provided to the `auto_train` or `create_auto_config` APIs to override specified parts of the
 configuration produced.

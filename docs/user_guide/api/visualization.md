@@ -1,6 +1,6 @@
 # Module functions
 
-______________________________________________________________________
+---
 
 ## learning_curves
 
@@ -23,25 +23,25 @@ of the epochs of training on the training and validation sets.
 
 __Inputs__
 
-- __train_stats_per_model__ (List\[dict\]): list containing dictionary of
-  training statistics per model.
-- __output_feature_name__ (Union\[str, `None`\], default: `None`): name of the output feature
-  to use for the visualization.  If `None`, use all output features.
-- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
-  list of the model names to use as labels.
+- __train_stats_per_model__ (List[dict]): list containing dictionary of
+training statistics per model.
+- __output_feature_name__ (Union[str, `None`], default: `None`): name of the output feature
+to use for the visualization.  If `None`, use all output features.
+- __model_names__ (Union[str, List[str]], default: `None`): model name or
+list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-  plots. If not specified, plots will be displayed in a window
+plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-  `'pdf'` or `'png'`.
+`'pdf'` or `'png'`.
 - __callbacks__ (list, default: `None`): a list of
-  `ludwig.callbacks.Callback` objects that provide hooks into the
-  Ludwig pipeline.
+`ludwig.callbacks.Callback` objects that provide hooks into the
+Ludwig pipeline.
 
 __Return__
 
 - __return__ (None):
 
-______________________________________________________________________
+---
 
 ## compare_performance
 
@@ -63,16 +63,16 @@ in the test_statistics file for the specified output_feature_name.
 
 __Inputs__
 
-- __test_stats_per_model__ (List\[dict\]): dictionary containing evaluation
-  performance statistics.
-- __output_feature_name__ (Union\[str, `None`\], default: `None`): name of the output feature
-  to use for the visualization.  If `None`, use all output features.
-- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
-  list of the model names to use as labels.
+- __test_stats_per_model__ (List[dict]): dictionary containing evaluation
+performance statistics.
+- __output_feature_name__ (Union[str, `None`], default: `None`): name of the output feature
+to use for the visualization.  If `None`, use all output features.
+- __model_names__ (Union[str, List[str]], default: `None`): model name or
+list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-  plots. If not specified, plots will be displayed in a window
+plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-  `'pdf'` or `'png'`.
+`'pdf'` or `'png'`.
 
 __Return__
 
@@ -89,7 +89,7 @@ b_evaluation_stats, _, _ = model_b.evaluate(eval_set)
 compare_performance([a_evaluation_stats, b_evaluation_stats], model_names=["A", "B"])
 ```
 
-______________________________________________________________________
+---
 
 ## compare_classifiers_performance_from_prob
 
@@ -116,30 +116,30 @@ computed on the fly from the probabilities of predictions for the specified
 
 __Inputs__
 
-- __probabilities_per_model__ (List\[np.ndarray\]): path to experiment
-  probabilities file
+- __probabilities_per_model__ (List[np.ndarray]): path to experiment
+probabilities file
 - __ground_truth__ (pd.Series): ground truth values
 - __metadata__ (dict): feature metadata dictionary
 - __output_feature_name__ (str): output feature name
-- __top_n_classes__ (List\[int\]): list containing the number of classes
-  to plot.
+- __top_n_classes__ (List[int]): list containing the number of classes
+to plot.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
-  Encoded numeric label values in dataset that are higher than
-  `label_limit` are considered to be "rare" labels.
-- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
-  list of the model names to use as labels.
+Encoded numeric label values in dataset that are higher than
+`labels_limit` are considered to be "rare" labels.
+- __model_names__ (Union[str, List[str]], default: `None`): model name or
+list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-  plots. If not specified, plots will be displayed in a window
+plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-  `'pdf'` or `'png'`.
+`'pdf'` or `'png'`.
 - __ground_truth_apply_idx__ (bool, default: `True`): whether to use
-  metadata\['str2idx'\] in np.vectorize
+metadata['str2idx'] in np.vectorize
 
 __Return__
 
 - __return__ (None):
 
-______________________________________________________________________
+---
 
 ## compare_classifiers_performance_from_pred
 
@@ -165,27 +165,27 @@ computed on the fly from the predictions for the specified
 
 __Inputs__
 
-- __predictions_per_model__ (List\[str\]): path to experiment predictions file.
+- __predictions_per_model__ (List[str]): path to experiment predictions file.
 - __ground_truth__ (pd.Series): ground truth values
 - __metadata__ (dict): feature metadata dictionary.
 - __output_feature_name__ (str): name of the output feature to visualize.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
-  Encoded numeric label values in dataset that are higher than
-  `label_limit` are considered to be "rare" labels.
-- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
-  list of the model names to use as labels.
+Encoded numeric label values in dataset that are higher than
+`labels_limit` are considered to be "rare" labels.
+- __model_names__ (Union[str, List[str]], default: `None`): model name or
+list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-  plots. If not specified, plots will be displayed in a window
+plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-  `'pdf'` or `'png'`.
+`'pdf'` or `'png'`.
 - __ground_truth_apply_idx__ (bool, default: `True`): whether to use
-  metadata\['str2idx'\] in np.vectorize
+metadata['str2idx'] in np.vectorize
 
 __Return__
 
 - __return__ (None):
 
-______________________________________________________________________
+---
 
 ## compare_classifiers_performance_subset
 
@@ -215,32 +215,32 @@ The way the subset is obtained is using the `top_n_classes` and
 
 __Inputs__
 
-- __probabilities_per_model__ (List\[numpy.array\]): list of model
-  probabilities.
-- __ground_truth__ (Union\[pd.Series, np.ndarray\]): ground truth values
+- __probabilities_per_model__ (List[numpy.array]): list of model
+   probabilities.
+- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
 - __metadata__ (dict): feature metadata dictionary
 - __output_feature_name__ (str): output feature name
-- __top_n_classes__ (List\[int\]): list containing the number of classes
-  to plot.
+- __top_n_classes__ (List[int]): list containing the number of classes
+   to plot.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
-  Encoded numeric label values in dataset that are higher than
-  `label_limit` are considered to be "rare" labels.
+   Encoded numeric label values in dataset that are higher than
+   `labels_limit` are considered to be "rare" labels.
 - __subset__ (str): string specifying type of subset filtering.  Valid
-  values are `ground_truth` or `predictions`.
-- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
-  list of the model names to use as labels.
+   values are `ground_truth` or `predictions`.
+- __model_names__ (Union[str, List[str]], default: `None`): model name or
+   list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-  plots. If not specified, plots will be displayed in a window
+   plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-  `'pdf'` or `'png'`.
+   `'pdf'` or `'png'`.
 - __ground_truth_apply_idx__ (bool, default: `True`): whether to use
-  metadata\['str2idx'\] in np.vectorize
+   metadata['str2idx'] in np.vectorize
 
 __Return__
 
 - __return__ (None):
 
-______________________________________________________________________
+---
 
 ## compare_classifiers_performance_changing_k
 
@@ -268,29 +268,29 @@ first k) while changing k from 1 to top_k for the specified
 
 __Inputs__
 
-- __probabilities_per_model__ (List\[numpy.array\]): list of model
-  probabilities.
-- __ground_truth__ (Union\[pd.Series, np.ndarray\]): ground truth values
+- __probabilities_per_model__ (List[numpy.array]): list of model
+probabilities.
+- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
 - __metadata__ (dict): feature metadata dictionary
 - __output_feature_name__ (str): output feature name
 - __top_k__ (int): number of elements in the ranklist to consider.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
-  Encoded numeric label values in dataset that are higher than
-  `label_limit` are considered to be "rare" labels.
-- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
-  list of the model names to use as labels.
+Encoded numeric label values in dataset that are higher than
+`labels_limit` are considered to be "rare" labels.
+- __model_names__ (Union[str, List[str]], default: `None`): model name or
+list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-  plots. If not specified, plots will be displayed in a window
+plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-  `'pdf'` or `'png'`.
+`'pdf'` or `'png'`.
 - __ground_truth_apply_idx__ (bool, default: `True`): whether to use
-  metadata\['str2idx'\] in np.vectorize
+metadata['str2idx'] in np.vectorize
 
 __Return__
 
 - __return__ (None):
 
-______________________________________________________________________
+---
 
 ## compare_classifiers_multiclass_multimetric
 
@@ -313,26 +313,26 @@ recall and F1 of the model on several classes for the specified output_feature_n
 
 __Inputs__
 
-- __test_stats_per_model__ (List\[dict\]): list containing dictionary of
-  evaluation performance statistics
+- __test_stats_per_model__ (List[dict]): list containing dictionary of
+evaluation performance statistics
 - __metadata__ (dict): intermediate preprocess structure created during
-  training containing the mappings of the input dataset.
-- __output_feature_name__ (Union\[str, `None`\]): name of the output feature
-  to use for the visualization.  If `None`, use all output features.
-- __top_n_classes__ (List\[int\]): list containing the number of classes
-  to plot.
-- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
-  list of the model names to use as labels.
+training containing the mappings of the input dataset.
+- __output_feature_name__ (Union[str, `None`]): name of the output feature
+to use for the visualization.  If `None`, use all output features.
+- __top_n_classes__ (List[int]): list containing the number of classes
+to plot.
+- __model_names__ (Union[str, List[str]], default: `None`): model name or
+list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-  plots. If not specified, plots will be displayed in a window
+plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-  `'pdf'` or `'png'`.
+`'pdf'` or `'png'`.
 
 __Return__
 
 - __return__ (None):
 
-______________________________________________________________________
+---
 
 ## compare_classifiers_predictions
 
@@ -354,28 +354,28 @@ Show two models comparison of their output_feature_name predictions.
 
 __Inputs__
 
-- __predictions_per_model__ (List\[list\]): list containing the model
-  predictions for the specified output_feature_name.
-- __ground_truth__ (Union\[pd.Series, np.ndarray\]): ground truth values
+- __predictions_per_model__ (List[list]): list containing the model
+predictions for the specified output_feature_name.
+- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
 - __metadata__ (dict): feature metadata dictionary
 - __output_feature_name__ (str): output feature name
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
-  Encoded numeric label values in dataset that are higher than
-  `label_limit` are considered to be "rare" labels.
-- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
-  list of the model names to use as labels.
+Encoded numeric label values in dataset that are higher than
+`labels_limit` are considered to be "rare" labels.
+- __model_names__ (Union[str, List[str]], default: `None`): model name or
+list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-  plots. If not specified, plots will be displayed in a window
+plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-  `'pdf'` or `'png'`.
+`'pdf'` or `'png'`.
 - __ground_truth_apply_idx__ (bool, default: `True`): whether to use
-  metadata\['str2idx'\] in np.vectorize
+metadata['str2idx'] in np.vectorize
 
 __Return__
 
 - __return__ (None):
 
-______________________________________________________________________
+---
 
 ## confidence_thresholding_2thresholds_2d
 
@@ -404,28 +404,28 @@ coverage  surface projected onto the accuracy surface.
 
 __Inputs__
 
-- __probabilities_per_model__ (List\[numpy.array\]): list of model
-  probabilities.
-- __ground_truth__ (Union\[List\[np.array\], List\[pd.Series\]\]): containing
-  ground truth data
+- __probabilities_per_model__ (List[numpy.array]): list of model
+probabilities.
+- __ground_truth__ (Union[List[np.array], List[pd.Series]]): containing
+ground truth data
 - __metadata__ (dict): feature metadata dictionary
-- __threshold_output_feature_names__ (List\[str\]): List containing two output
-  feature names for visualization.
+- __threshold_output_feature_names__ (List[str]): List containing two output
+feature names for visualization.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
-  Encoded numeric label values in dataset that are higher than
-  `label_limit` are considered to be "rare" labels.
-- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
-  list of the model names to use as labels.
+Encoded numeric label values in dataset that are higher than
+`labels_limit` are considered to be "rare" labels.
+- __model_names__ (Union[str, List[str]], default: `None`): model name or
+list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-  plots. If not specified, plots will be displayed in a window
+plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-  `'pdf'` or `'png'`.
+`'pdf'` or `'png'`.
 
 __Return__
 
 - __return__ (None):
 
-______________________________________________________________________
+---
 
 ## confidence_thresholding_2thresholds_3d
 
@@ -451,26 +451,26 @@ as z axis.
 
 __Inputs__
 
-- __probabilities_per_model__ (List\[numpy.array\]): list of model
-  probabilities.
-- __ground_truth__ (Union\[List\[np.array\], List\[pd.Series\]\]): containing
-  ground truth data
+- __probabilities_per_model__ (List[numpy.array]): list of model
+probabilities.
+- __ground_truth__ (Union[List[np.array], List[pd.Series]]): containing
+ground truth data
 - __metadata__ (dict): feature metadata dictionary
-- __threshold_output_feature_names__ (List\[str\]): List containing two output
-  feature names for visualization.
+- __threshold_output_feature_names__ (List[str]): List containing two output
+feature names for visualization.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
-  Encoded numeric label values in dataset that are higher than
-  `label_limit` are considered to be "rare" labels.
+Encoded numeric label values in dataset that are higher than
+`labels_limit` are considered to be "rare" labels.
 - __output_directory__ (str, default: `None`): directory where to save
-  plots. If not specified, plots will be displayed in a window
+plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-  `'pdf'` or `'png'`.
+`'pdf'` or `'png'`.
 
 __Return__
 
 - __return__ (None):
 
-______________________________________________________________________
+---
 
 ## confidence_thresholding
 
@@ -496,28 +496,28 @@ the probabilities of predictions for the specified output_feature_name.
 
 __Inputs__
 
-- __probabilities_per_model__ (List\[numpy.array\]): list of model
-  probabilities.
-- __ground_truth__ (Union\[pd.Series, np.ndarray\]): ground truth values
+- __probabilities_per_model__ (List[numpy.array]): list of model
+probabilities.
+- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
 - __metadata__ (dict): feature metadata dictionary
 - __output_feature_name__ (str): output feature name
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
-  Encoded numeric label values in dataset that are higher than
-  `label_limit` are considered to be "rare" labels.
-- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
-  list of the model names to use as labels.
+Encoded numeric label values in dataset that are higher than
+`labels_limit` are considered to be "rare" labels.
+- __model_names__ (Union[str, List[str]], default: `None`): model name or
+list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-  plots. If not specified, plots will be displayed in a window
+plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-  `'pdf'` or `'png'`.
+`'pdf'` or `'png'`.
 - __ground_truth_apply_idx__ (bool, default: `True`): whether to use
-  metadata\['str2idx'\] in np.vectorize
+metadata['str2idx'] in np.vectorize
 
 __Return__
 
 - __return__ (None):
 
-______________________________________________________________________
+---
 
 ## confidence_thresholding_data_vs_acc
 
@@ -546,28 +546,28 @@ the threshold.
 
 __Inputs__
 
-- __probabilities_per_model__ (List\[numpy.array\]): list of model
-  probabilities.
-- __ground_truth__ (Union\[pd.Series, np.ndarray\]): ground truth values
+- __probabilities_per_model__ (List[numpy.array]): list of model
+probabilities.
+- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
 - __metadata__ (dict): feature metadata dictionary
 - __output_feature_name__ (str): output feature name
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
-  Encoded numeric label values in dataset that are higher than
-  `label_limit` are considered to be "rare" labels.
-- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
-  list of the model names to use as labels.
+Encoded numeric label values in dataset that are higher than
+`labels_limit` are considered to be "rare" labels.
+- __model_names__ (Union[str, List[str]], default: `None`): model name or
+list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-  plots. If not specified, plots will be displayed in a window
+plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-  `'pdf'` or `'png'`.
+`'pdf'` or `'png'`.
 - __ground_truth_apply_idx__ (bool, default: `True`): whether to use
-  metadata\['str2idx'\] in np.vectorize
+metadata['str2idx'] in np.vectorize
 
 __Return__
 
 - __return__ (None):
 
-______________________________________________________________________
+---
 
 ## confidence_thresholding_data_vs_acc_subset
 
@@ -609,32 +609,32 @@ will be displayed for each model.
 
 __Inputs__
 
-- __probabilities_per_model__ (List\[numpy.array\]): list of model
-  probabilities.
-- __ground_truth__ (Union\[pd.Series, np.ndarray\]): ground truth values
+- __probabilities_per_model__ (List[numpy.array]): list of model
+probabilities.
+- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
 - __metadata__ (dict): feature metadata dictionary
 - __output_feature_name__ (str): output feature name
-- __top_n_classes__ (List\[int\]): list containing the number of classes
-  to plot.
+- __top_n_classes__ (List[int]): list containing the number of classes
+to plot.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
-  Encoded numeric label values in dataset that are higher than
-  `label_limit` are considered to be "rare" labels.
+Encoded numeric label values in dataset that are higher than
+`labels_limit` are considered to be "rare" labels.
 - __subset__ (str): string specifying type of subset filtering.  Valid
-  values are `ground_truth` or `predictions`.
-- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
-  list of the model names to use as labels.
+values are `ground_truth` or `predictions`.
+- __model_names__ (Union[str, List[str]], default: `None`): model name or
+list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-  plots. If not specified, plots will be displayed in a window
+plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-  `'pdf'` or `'png'`.
+`'pdf'` or `'png'`.
 - __ground_truth_apply_idx__ (bool, default: `True`): whether to use
-  metadata\['str2idx'\] in np.vectorize
+metadata['str2idx'] in np.vectorize
 
 __Return__
 
 - __return__ (None):
 
-______________________________________________________________________
+---
 
 ## binary_threshold_vs_metric
 
@@ -667,29 +667,29 @@ ground_truth_metadata JSON file.
 
 __Inputs__
 
-- __probabilities_per_model__ (List\[numpy.array\]): list of model
-  probabilities.
-- __ground_truth__ (Union\[pd.Series, np.ndarray\]): ground truth values
+- __probabilities_per_model__ (List[numpy.array]): list of model
+probabilities.
+- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
 - __metadata__ (dict): feature metadata dictionary
 - __output_feature_name__ (str): output feature name
-- __metrics__ (List\[str\]): metrics to display (`'f1'`, `'precision'`,
-  `'recall'`, `'accuracy'`).
+- __metrics__ (List[str]): metrics to display (`'f1'`, `'precision'`,
+`'recall'`, `'accuracy'`).
 - __positive_label__ (int, default: `1`): numeric encoded value for the
-  positive class.
-- __model_names__ (List\[str\], default: `None`): list of the names of the
-  models to use as labels.
+positive class.
+- __model_names__ (List[str], default: `None`): list of the names of the
+models to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-  plots. If not specified, plots will be displayed in a window
+plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-  `'pdf'` or `'png'`.
+`'pdf'` or `'png'`.
 - __ground_truth_apply_idx__ (bool, default: `True`): whether to use
-  metadata\['str2idx'\] in np.vectorize
+metadata['str2idx'] in np.vectorize
 
 __Return__
 
 - __return__ (`None`):
 
-______________________________________________________________________
+---
 
 ## roc_curves
 
@@ -719,27 +719,27 @@ training metadata JSON file.
 
 __Inputs__
 
-- __probabilities_per_model__ (List\[numpy.array\]): list of model
-  probabilities.
-- __ground_truth__ (Union\[pd.Series, np.ndarray\]): ground truth values
+- __probabilities_per_model__ (List[numpy.array]): list of model
+probabilities.
+- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
 - __metadata__ (dict): feature metadata dictionary
 - __output_feature_name__ (str): output feature name
 - __positive_label__ (int, default: `1`): numeric encoded value for the
-  positive class.
-- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
-  list of the model names to use as labels.
+positive class.
+- __model_names__ (Union[str, List[str]], default: `None`): model name or
+list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-  plots. If not specified, plots will be displayed in a window
+plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-  `'pdf'` or `'png'`.
+`'pdf'` or `'png'`.
 - __ground_truth_apply_idx__ (bool, default: `True`): whether to use
-  metadata\['str2idx'\] in np.vectorize
+metadata['str2idx'] in np.vectorize
 
 __Return__
 
 - __return__ (None):
 
-______________________________________________________________________
+---
 
 ## roc_curves_from_test_statistics
 
@@ -762,22 +762,22 @@ specified `output_feature_name`.
 
 __Inputs__
 
-- __test_stats_per_model__ (List\[dict\]): dictionary containing evaluation
-  performance statistics.
+- __test_stats_per_model__ (List[dict]): dictionary containing evaluation
+performance statistics.
 - __output_feature_name__ (str): name of the output feature to use
-  for the visualization.
-- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
-  list of the model names to use as labels.
+for the visualization.
+- __model_names__ (Union[str, List[str]], default: `None`): model name or
+list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-  plots. If not specified, plots will be displayed in a window
+plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-  `'pdf'` or `'png'`.
+`'pdf'` or `'png'`.
 
 __Return__
 
 - __return__ (None):
 
-______________________________________________________________________
+---
 
 ## calibration_1_vs_all
 
@@ -814,29 +814,29 @@ probabilities and model_names).
 
 __Inputs__
 
-- __probabilities_per_model__ (List\[numpy.array\]): list of model
-  probabilities.
-- __ground_truth__ (Union\[pd.Series, np.ndarray\]): ground truth values
+- __probabilities_per_model__ (List[numpy.array]): list of model
+probabilities.
+- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
 - __metadata__ (dict): feature metadata dictionary
 - __output_feature_name__ (str): output feature name
 - __top_n_classes__ (list): List containing the number of classes to plot.
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
-  Encoded numeric label values in dataset that are higher than
-  `label_limit` are considered to be "rare" labels.
-- __model_names__ (List\[str\], default: `None`): list of the names of the
-  models to use as labels.
+Encoded numeric label values in dataset that are higher than
+`labels_limit` are considered to be "rare" labels.
+- __model_names__ (List[str], default: `None`): list of the names of the
+models to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-  plots. If not specified, plots will be displayed in a window
+plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-  `'pdf'` or `'png'`.
+`'pdf'` or `'png'`.
 - __ground_truth_apply_idx__ (bool, default: `True`): whether to use
-  metadata\['str2idx'\] in np.vectorize
+metadata['str2idx'] in np.vectorize
 
 __String__
 
 - __return__ (None):
 
-______________________________________________________________________
+---
 
 ## calibration_multiclass
 
@@ -858,28 +858,28 @@ Show models probability of predictions for each class of the specified output_fe
 
 __Inputs__
 
-- __probabilities_per_model__ (List\[numpy.array\]): list of model
-  probabilities.
-- __ground_truth__ (Union\[pd.Series, np.ndarray\]): ground truth values
+- __probabilities_per_model__ (List[numpy.array]): list of model
+probabilities.
+- __ground_truth__ (Union[pd.Series, np.ndarray]): ground truth values
 - __metadata__ (dict): feature metadata dictionary
 - __output_feature_name__ (str): output feature name
 - __labels_limit__ (int): upper limit on the numeric encoded label value.
-  Encoded numeric label values in dataset that are higher than
-  `label_limit` are considered to be "rare" labels.
-- __model_names__ (List\[str\], default: `None`): list of the names of the
-  models to use as labels.
+Encoded numeric label values in dataset that are higher than
+`labels_limit` are considered to be "rare" labels.
+- __model_names__ (List[str], default: `None`): list of the names of the
+models to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-  plots. If not specified, plots will be displayed in a window
+plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-  `'pdf'` or `'png'`.
+`'pdf'` or `'png'`.
 - __ground_truth_apply_idx__ (bool, default: `True`): whether to use
-  metadata\['str2idx'\] in np.vectorize
+metadata['str2idx'] in np.vectorize
 
 __Return__
 
 - __return__ (None):
 
-______________________________________________________________________
+---
 
 ## confusion_matrix
 
@@ -906,27 +906,27 @@ classes.
 
 __Inputs__
 
-- __test_stats_per_model__ (List\[dict\]): dictionary containing evaluation
+- __test_stats_per_model__ (List[dict]): dictionary containing evaluation
   performance statistics.
 - __metadata__ (dict): intermediate preprocess structure created during
-  training containing the mappings of the input dataset.
-- __output_feature_name__ (Union\[str, `None`\]): name of the output feature
-  to use for the visualization.  If `None`, use all output features.
-- __top_n_classes__ (List\[int\]): number of top classes or list
-  containing the number of top classes to plot.
+training containing the mappings of the input dataset.
+- __output_feature_name__ (Union[str, `None`]): name of the output feature
+to use for the visualization.  If `None`, use all output features.
+- __top_n_classes__ (List[int]): number of top classes or list
+containing the number of top classes to plot.
 - __normalize__ (bool): flag to normalize rows in confusion matrix.
-- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
-  list of the model names to use as labels.
+- __model_names__ (Union[str, List[str]], default: `None`): model name or
+list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-  plots. If not specified, plots will be displayed in a window
+plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-  `'pdf'` or `'png'`.
+`'pdf'` or `'png'`.
 
 __Return__
 
 - __return__ (None):
 
-______________________________________________________________________
+---
 
 ## frequency_vs_f1
 
@@ -961,26 +961,26 @@ frequency.
 
 __Inputs__
 
-- __test_stats_per_model__ (List\[dict\]): dictionary containing evaluation
-  performance statistics.
+- __test_stats_per_model__ (List[dict]): dictionary containing evaluation
+performance statistics.
 - __metadata__ (dict): intermediate preprocess structure created during
-  training containing the mappings of the input dataset.
-- __output_feature_name__ (Union\[str, `None`\]): name of the output feature
-  to use for the visualization.  If `None`, use all output features.
-- __top_n_classes__ (List\[int\]): number of top classes or list
-  containing the number of top classes to plot.
-- __model_names__ (Union\[str, List\[str\]\], default: `None`): model name or
-  list of the model names to use as labels.
+training containing the mappings of the input dataset.
+- __output_feature_name__ (Union[str, `None`]): name of the output feature
+to use for the visualization.  If `None`, use all output features.
+- __top_n_classes__ (List[int]): number of top classes or list
+containing the number of top classes to plot.
+- __model_names__ (Union[str, List[str]], default: `None`): model name or
+list of the model names to use as labels.
 - __output_directory__ (str, default: `None`): directory where to save
-  plots. If not specified, plots will be displayed in a window
+plots. If not specified, plots will be displayed in a window
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-  `'pdf'` or `'png'`.
+`'pdf'` or `'png'`.
 
 __Return__
 
 - __return__ (None):
 
-______________________________________________________________________
+---
 
 ## hyperopt_report
 
@@ -999,15 +999,15 @@ __Inputs__
 
 - __hyperopt_stats_path__ (str): path to the hyperopt results JSON file.
 - __output_directory__ (str, default: `None`): directory where to save
-  plots. If not specified, plots will be displayed in a window.
+plots. If not specified, plots will be displayed in a window.
 - __file_format__ (str, default: `'pdf'`): file format of output plots -
-  `'pdf'` or `'png'`.
+`'pdf'` or `'png'`.
 
 __Return__
 
 - __return__ (None):
 
-______________________________________________________________________
+---
 
 ## hyperopt_hiplot
 
@@ -1025,7 +1025,7 @@ __Inputs__
 
 - __hyperopt_stats_path__ (str): path to the hyperopt results JSON file.
 - __output_directory__ (str, default: `None`): directory where to save
-  plots. If not specified, plots will be displayed in a window.
+plots. If not specified, plots will be displayed in a window.
 
 __Return__
 

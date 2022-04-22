@@ -7,7 +7,7 @@
 ```
 ludwig experiment \
 --dataset transactions.csv \
-  --config_file config.yaml
+  --config config.yaml
 ```
 
 With `config.yaml`:
@@ -31,7 +31,7 @@ input_features:
     type: category
   -
     name: transaction_amount
-    type: numerical
+    type: number
   -
     name: authorization_response_code
     type: category
@@ -45,7 +45,7 @@ input_features:
 combiner:
     type: concat
     num_fc_layers: 1
-    fc_size: 48
+    output_size: 48
 
 output_features:
   -

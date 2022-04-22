@@ -7,7 +7,7 @@
 ```
 ludwig experiment \
 --dataset movie_ratings.csv \
-  --config_file config.yaml
+  --config config.yaml
 ```
 
 With `config.yaml`:
@@ -16,13 +16,13 @@ With `config.yaml`:
 input_features:
     -
         name: year
-        type: numerical
+        type: number
     -
         name: duration
-        type: numerical
+        type: number
     -
         name: nominations
-        type: numerical
+        type: number
     -
         name: categories
         type: set
@@ -30,5 +30,5 @@ input_features:
 output_features:
     -
         name: rating
-        type: numerical
+        type: number
 ```

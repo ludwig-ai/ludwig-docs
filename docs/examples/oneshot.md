@@ -11,7 +11,7 @@ The task is, given two images of two handwritten characters, recognize if they a
 ```
 ludwig experiment \
 --dataset balinese_characters.csv \
-  --config_file config.yaml
+  --config config.yaml
 ```
 
 With `config.yaml`:
@@ -34,12 +34,12 @@ input_features:
           width: 28
           height: 28
           resize_image: true
-        tied_weights: image_path_1
+        tied: image_path_1
 
 combiner:
     type: concat
     num_fc_layers: 2
-    fc_size: 256
+    output_size: 256
 
 output_features:
     -

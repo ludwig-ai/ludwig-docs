@@ -1,85 +1,116 @@
 # 1. Add a new encoder class
 
-Source code for encoders lives under `ludwig/encoders`.
-New encoder objects should be defined in the corresponding files, for example all new sequence encoders should be added to `ludwig/encoders/sequence_encoders.py`.
+Source code for encoders lives under `ludwig/encoders/`.
+Encoders are grouped into modules by their input feature type. For instance, all new sequence encoders should be added
+to `ludwig/encoders/sequence_encoders.py`.
 
-All the encoder parameters should be provided as arguments in the constructor with their default values set.
-For example the `StackedRNN` encoder takes the following list of arguments in its constructor:
+!!! note
+
+    An encoder may support multiple types, if so it should be defined in the module corresponding to its most generic
+    supported type. If an encoder is generic with respect to input type, add it to `ludwig/encoders/generic_encoders.py`.
+
+To create a new encoder:
+
+1. Define a new encoder class. Inherit from `ludwig.encoders.base.Encoder` or one of its subclasses.
+2. Create all layers and state in the `__init__` method, after calling `super().__init__()`.
+3. Implement your encoder's forward pass in `def forward(self, inputs, mask=None):`.
+4. Define `@property input_shape` and `@property output_shape`.
+
+Note: `Encoder` inherits from `LudwigModule`, which is itself a [torch.nn.Module](https://pytorch.org/docs/stable/generated/torch.nn.Module.html),
+so all the usual concerns of developing Torch modules apply.
+
+All encoder parameters should be provided as keyword arguments to the constructor, and must have a default value.
+For example the `StackedRNN` encoder takes the following list of parameters in its constructor:
 
 ```python
-def __init__(
-    self,
-    should_embed=True,
-    vocab=None,
-    representation='dense',
-    embedding_size=256,
-    embeddings_trainable=True,
-    pretrained_embeddings=None,
-    embeddings_on_cpu=False,
-    num_layers=1,
-    state_size=256,
-    cell_type='rnn',
-    bidirectional=False,
-    activation='tanh',
-    recurrent_activation='sigmoid',
-    unit_forget_bias=True,
-    recurrent_initializer='orthogonal',
-    recurrent_regularizer=None,
-    dropout=0.0,
-    recurrent_dropout=0.0,
-    fc_layers=None,
-    num_fc_layers=0,
-    fc_size=256,
-    use_bias=True,
-    weights_initializer='glorot_uniform',
-    bias_initializer='zeros',
-    weights_regularizer=None,
-    bias_regularizer=None,
-    activity_regularizer=None,
-    norm=None,
-    norm_params=None,
-    fc_activation='relu',
-    fc_dropout=0,
-    reduce_output='last',
-    **kwargs
-):
+from ludwig.constants import AUDIO, SEQUENCE, TEXT, TIMESERIES
+from ludwig.encoders.base import Encoder
+from ludwig.encoders.registry import register_encoder
+
+@register_encoder("rnn", [AUDIO, SEQUENCE, TEXT, TIMESERIES])
+class StackedRNN(Encoder):
+    def __init__(
+        self,
+        should_embed=True,
+        vocab=None,
+        representation="dense",
+        embedding_size=256,
+        embeddings_trainable=True,
+        pretrained_embeddings=None,
+        embeddings_on_cpu=False,
+        num_layers=1,
+        max_sequence_length=None,
+        state_size=256,
+        cell_type="rnn",
+        bidirectional=False,
+        activation="tanh",
+        recurrent_activation="sigmoid",
+        unit_forget_bias=True,
+        recurrent_initializer="orthogonal",
+        dropout=0.0,
+        recurrent_dropout=0.0,
+        fc_layers=None,
+        num_fc_layers=0,
+        output_size=256,
+        use_bias=True,
+        weights_initializer="xavier_uniform",
+        bias_initializer="zeros",
+        norm=None,
+        norm_params=None,
+        fc_activation="relu",
+        fc_dropout=0,
+        reduce_output="last",
+        **kwargs,
+    ):
+    super().__init__()
+    # Initialize any modules, layers, or variable state
 ```
 
-Typically all the modules the encoder relies upon are initialized in the encoder's constructor (in the case of the `StackedRNN` encoder these are `EmbedSequence` and `RecurrentStack` modules) so that at the end of the constructor call all the layers are fully described.
+# 2. Implement `forward`, `input_shape`, and `output_shape`
 
-Actual computation of activations takes place inside the `call` method of the encoder.
+Actual computation of activations takes place inside the `forward` method of the encoder.
 All encoders should have the following signature:
 
 ```python
-def call(self, inputs, training=None, mask=None):
+    def forward(self, inputs: torch.Tensor, mask: Optional[torch.Tensor] = None):
+        # perform forward pass
+        # ...
+        # output_tensor = result of forward pass
+        return {"encoder_output": output_tensor}
 ```
 
 __Inputs__
 
-- __inputs__ (tf.Tensor): input tensor.
-- __training__ (bool, default: `None`): boolean indicating whether we are currently training the model or performing inference for prediction.
-- __mask__ (tf.Tensor, default: `None`): binary tensor indicating which of the values in the inputs tensor should be masked out.
+- __inputs__ (torch.Tensor): input tensor.
+- __mask__ (torch.Tensor, default: `None`): binary tensor indicating which values in inputs should be masked out. Note:
+mask is not required, and is not implemented for most encoder types.
 
 __Return__
 
-- __hidden__ (tf.Tensor): feature encodings.
+- (dict): A dictionary containing the key `encoder_output` whose value is the encoder output tensor.
+`{"encoder_output": output_tensor}`
 
-The shape of the input tensor and the expected tape of the output tensor varies across feature types.
-
-Encoders are initialized as class member variables in input features object constructors and called inside their `call` methods.
-
-# 2. Add the new encoder class to the corresponding encoder registry
-
-Mapping between encoder names in the model definition and encoder classes in the codebase is done by encoder registries: for example sequence encoder registry is defined in `ludwig/features/sequence_feature.py` inside the `SequenceInputFeature` as:
+The `input_shape` and `output_shape` properties must return the fully-specified shape of the encoder's expected input
+and output, without batch dimension:
 
 ```python
-sequence_encoder_registry = {
-    'stacked_cnn': StackedCNN,
-    'parallel_cnn': ParallelCNN,
-    'stacked_parallel_cnn': StackedParallelCNN,
-    'rnn': StackedRNN,
-    ...
-}
+    @property
+    def input_shape(self) -> torch.Size:
+        return torch.Size([self.max_sequence_length])
+
+    @property
+    def output_shape(self) -> torch.Size:
+        return self.recurrent_stack.output_shape
 ```
 
-All you have to do to make you new encoder available as an option in the model definition is to add it to the appropriate registry.
+# 3. Add the new encoder class to the encoder registry
+
+Mapping between encoder names in the model definition and encoder classes is made by registering the class in an encoder
+registry. The encoder registry is defined in `ludwig/encoders/registry.py`. To register your class,
+add the `@register_encoder` decorator on the line above its class definition, specifying the name of the encoder and a
+list of supported input feature types:
+
+```python
+@register_encoder("rnn", [AUDIO, SEQUENCE, TEXT, TIMESERIES])
+class StackedRNN(Encoder):
+```

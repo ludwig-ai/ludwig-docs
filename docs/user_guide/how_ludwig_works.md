@@ -60,7 +60,7 @@ hyperopt:
       lower: 1
       upper: 5
     training.learning_rate:
-      values: [0.01, 0.003, 0,001]
+      values: [0.01, 0.003, 0.001]
 ```
 
 See [Ludwig configurations](../../configuration) for an in-depth reference.

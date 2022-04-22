@@ -22,17 +22,13 @@ For large or long-running workloads, Ludwig can be run remotely in the cloud or 
 pip install ludwig
 ```
 
-This will only install Ludwig's basic requirements for modeling with binary, category, and number features. Other
-[feature types](../../configuration/features/supported_data_types) require different dependencies.
-We divided them as different extras so that users could install only the ones they actually need:
+This will install Ludwig's basic requirements for modeling with binary, category, number, text, image, and audio features.
+The requirements for additional functionality are separated out so that users are able to install only the ones they actually need:
 
-- `ludwig[text]` for text dependencies.
-- `ludwig[image]` for image dependencies.
-- `ludwig[audio]` for audio and speech dependencies.
 - `ludwig[serve]` for serving dependencies.
 - `ludwig[viz]` for visualization dependencies.
 - `ludwig[hyperopt]` for hyperparameter optimization dependencies.
-- `ludwig[ray]` for distributed training on [Ray](https://www.ray.io/) using [Dask](https://dask.org/) and [Horovod](https://github.com/horovod/horovod).
+- `ludwig[distributed]` for distributed training on [Ray](https://www.ray.io/) using [Dask](https://dask.org/) and [Horovod](https://github.com/horovod/horovod).
 
  The full set of dependencies can be installed with:
 

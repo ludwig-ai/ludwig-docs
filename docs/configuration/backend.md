@@ -53,7 +53,7 @@ Increasing `parallelism` can reduce memory pressure during preprocessing for lar
 too much parallelism is that there is some overhead for each partition-level operation (serialization and deserialization), which can dominate the runtime
 if set too high.
 
-Setting `persist` to `false` can be useful if the dataset is too large for all the memory and disk of the entire Ray cluster. We suggest only 
+Setting `persist` to `false` can be useful if the dataset is too large for all the memory and disk of the entire Ray cluster. We suggest only
 setting this to `false` if you're seeing issues running out of memory or disk space. During prediction and evaluation, it may also be useful to
 set to `false` since these steps only require one pass over the data.
 

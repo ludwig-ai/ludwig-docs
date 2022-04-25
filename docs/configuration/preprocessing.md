@@ -33,12 +33,15 @@ Summary of parameters:
 - `stratify` (default `null`): if `null` the split is random, otherwise you can
     specify the name of a `category` feature and the split will be stratified on
     that feature.
+- `sample_ratio` (default: `1.0`): the fraction of input data prior to splitting
+    to randomly sample for training.
 
 ```yaml
 preprocessing:
     force_split: false
     split_probabilities: [0.7, 0.1, 0.2]
     stratify: null
+    sample_ratio: 1.0
     category: {...}
     sequence: {...}
     text: {...}

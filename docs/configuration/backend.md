@@ -9,18 +9,25 @@ section to the Ludwig config YAML:
 backend:
   type: ray
   cache_dir: s3://my_bucket/cache
+  cache_credentials: {}
   processor:
     type: dask
   trainer:
     type: horovod
+  loader: {}
 ```
 
 Parameters:
 
 - `type`: How the job will be distributed, one of `local`, `ray`, `horovod`.
 - `cache_dir`: Where the preprocessed data will be written on disk, defaults to the location of the input dataset.
+- `cache_credentials`: Optional dictionary of (or string path to JSON file containing) credentials used to read/write to the `cache_dir`.
 - `processor`: (Ray only) parameters to configure execution of distributed data processing.
 - `trainer`: (Ray only) parameters to configure execution of distributed training.
+- `loader`: (Ray only) parameters to configure loading from preprocessed data into batches.
+
+Note that `cache_credentials` are only needed if your environment does not contain credentials to access the `cache_dir` already. The format
+for credentials is described in [fsspec configuration](https://filesystem-spec.readthedocs.io/en/latest/features.html?highlight=credentials#configuration).
 
 # Processor
 
@@ -46,8 +53,9 @@ Increasing `parallelism` can reduce memory pressure during preprocessing for lar
 too much parallelism is that there is some overhead for each partition-level operation (serialization and deserialization), which can dominate the runtime
 if set too high.
 
-Setting `persist` to `false` can be useful if the dataset is too large for all the memory and disk of the entire Ray cluster. Only set this to `false` if you're
-seeing issues running out of memory or disk space.
+Setting `persist` to `false` can be useful if the dataset is too large for all the memory and disk of the entire Ray cluster. We suggest only
+setting this to `false` if you're seeing issues running out of memory or disk space. During prediction and evaluation, it may also be useful to
+set to `false` since these steps only require one pass over the data.
 
 Example:
 
@@ -117,3 +125,28 @@ backend:
         CPU: 2
         GPU: 1
 ```
+
+# Loader
+
+The `loader` section configures the "last-mile" data loading from preprocessed data into batches used during training.
+When using the Ray backend, [Ray Datasets](https://docs.ray.io/en/latest/data/dataset.html) is used in this role.
+
+The following parameters can be configured for data loading:
+
+- `fully_executed`: read the entire dataset into the cluster prior to loading (default: `true`).
+
+Example:
+
+```yaml
+backend:
+  type: ray
+  loader:
+    fully_executed: false
+```
+
+For training, it's recommended to leave `fully_executed` to `true` unless you have memory or disk limitations
+and very fast connectivity to the source dataset. When set to `false`, each epoch will re-read
+the source data over the network.
+
+During prediction or evaluation, setting this to `false` can provide some speed-up since the dataset only needs to be
+read and processed once.

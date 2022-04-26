@@ -1,12 +1,15 @@
-The `trainer` section of the configuration lets you specify parameters that configure the training process, like the
-number of epochs or the learning rate.
+The `trainer` section of the configuration lets you specify parameters that
+configure the training process, like the number of epochs or the learning rate.
 
 ```yaml
 trainer:
     epochs: 100
     early_stop: 5
     batch_size: 128
+    checkpoints_per_epoch: 0
+    steps_per_checkpoint: 0
     eval_batch_size: null
+    evaluate_training_set: True
     regularization_lambda: 0
     regularization_type: l2
     learning_rate: 0.001
@@ -60,6 +63,9 @@ trainer:
 - `validation_metric` (default `loss`): the metric to use to determine if there was an improvement. The metric is considered for the output feature specified in `validation_field`. Different data types have different available metrics, refer to the datatype-specific section for more details.
 - `bucketing_field` (default `null`): when not `null`, when creating batches, instead of shuffling randomly, the length along the last dimension of the matrix of the specified input feature is used for bucketing examples and then randomly shuffled examples from the same bin are sampled. Padding is trimmed to the longest example in the batch. The specified feature should be either a `sequence` or `text` feature and the encoder encoding it has to be `rnn`. When used, bucketing improves speed of `rnn` encoding up to 1.5x, depending on the length distribution of the inputs.
 - `learning_rate_warmup_epochs` (default `1`): Its the number or training epochs where learning rate warmup will be used. It is calculated as described in [Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour](https://arxiv.org/abs/1706.02677). In the paper the authors suggest `6` epochs of warmup, that parameter is suggested for large datasets and big batches.
+- `checkpoints_per_epoch`: Number of checkpoints per epoch. For example, 2 -> checkpoints are written every half of an epoch. Note that it is invalid to specify both non-zero `steps_per_checkpoint` and non-zero `checkpoints_per_epoch` (default: 0).
+- `steps_per_checkpoint`: How often the model is checkpointed. Also dictates maximum evaluation frequency. If 0 the model is checkpointed after every epoch. (default: 0).
+- `evaluate_training_set`: Whether to include the entire training set during evaluation (default: True).
 
 ## Optimizer parameters
 

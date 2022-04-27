@@ -47,27 +47,33 @@ preprocessing:
 
 ## Data Balancing
 
-If you are working with imbalanced classes, you can specify an oversampling or undersampling parameter which will balance the data in the specified manner. For example:
+Users working with imbalanced datasets can specify an oversampling or
+undersampling parameter which will balance the data during preprocessing.
 
-This example will trigger the preprocessing pipeline to oversample the minority class until it has a 50% representation relative to the majority class.
+In this example, Ludwig will oversample the minority class to achieve a 50%
+representation in the overall dataset.
 
 ```yaml
 preprocessing:
     oversample_minority: 0.5
 ```
 
-This example will trigger the preprocessing pipeline to undersample the majority class until the minority class has a 70% representation relative to the majority class.
+In this example, Ludwig will undersample the majority class to achieve a 70%
+representation in the overall dataset.
 
 ```yaml
 preprocessing:
     undersample_majority: 0.7
 ```
 
-Data balancing is only supported for binary output classes currently. Additionally, specifying both parameters at the same time is also not supported currently.
+Data balancing is only supported for binary output features. Additionally,
+specifying both oversampling and undersampling parameters simultaneously is not
+supported.
 
 ## Type-global Preprocessing
 
-Specify preprocessing policies that apply globally across all features of a certain data type. For example:
+Specify preprocessing policies that apply globally across all features of a
+certain data type. For example:
 
 ```yaml
 preprocessing:

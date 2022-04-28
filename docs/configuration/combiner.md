@@ -338,6 +338,104 @@ Resources to learn more about transformers:
 - [Attention is all you need - Attentional Neural Network Models Masterclass](https://www.youtube.com/watch?v=rBCqOTEfxvg&list=PLk4mwFjvagV3vp1JZ3lNohb1LalMp-VOY&index=2) (VIDEO)
 - [Illustrated: Self-Attention](https://colab.research.google.com/drive/1rPk3ohrmVclqhH7uQ7qys4oznDdAhpzF) (Colab notebook)
 
+## TabTransformer Combiner
+
+The `tabtransformer` combiner combines input features in the following sequence of operations. Except for binary and number features, the combiner projects features to an embedding size. These features are concatenated as if they were a sequence and passed through a transformer. After the transformer, the number and binary features are concatenated (which are of size 1) and then concatenated  with the output of the transformer and is passed to a stack of fully connected layers (from [TabTransformer: Tabular Data Modeling Using Contextual Embeddings](https://arxiv.org/abs/2012.06678)).
+It assumes all outputs from encoders are tensors of size `b x h` where `b` is the batch size and `h` is the hidden
+dimension, which can be different for each input.
+If the input tensors have a different shape, it automatically flattens them.
+It then projects each input tensor to the same hidden / embedding size and encodes them with a stack of Transformer layers.
+Finally, the transformer combiner applies a reduction to the outputs of the Transformer stack, followed by the above concatenation and optional fully connected layers.
+The output is a `b x h'` tensor where `h'` is the size of the last fully connected layer or the hidden / embedding
+size, or a `b x n x h'` where `n` is the number of input features and `h'` is the hidden / embedding size if no reduction
+is applied.
+
+```
++-----------+
+|Input      |
+|Feature 1  +-+
++-----------+ |
++-----------+ |  +-------------+  +--------------+    +------ +   +----------+  +----------+
+|           +--->| Categoricial+->|TabTransformer +-->|Reduce +-> | Combined +->|Fully     +->
+|           | |  | Embeddings  |  |Stack          |   +-------+   | Hidden   |  |Connected |
+|           | |  +-------------+  +---------------+               | Layers   |  |Layers    |
+|...        | |                                                   +----------+  +----------+
+|           | |                          +-----------+                 ^
+|           | |                          | Binary &  |                 |
++-----------+ |------------------------->| Numerical |------------------
++-----------+ |                          | Encodings |                          
+|Input      +-+                          +-----------+
+|Feature N  |
++-----------+
+```
+
+These are the available parameters of a `transformer` combiner:
+
+- `num_layers` (default `1`): number of layers in the stack of transformer blocks.
+- `hidden_size` (default `256`): hidden / embedding size of each transformer block.
+- `num_heads` (default `8`): number of attention heads of each transformer block.
+- `transformer_output_size` (default `256`): size of the fully connected layers inside each transformer block.
+- `dropout` (default `0`): dropout rate after the transformer.
+- `fc_layers` (default `null`): is a list of dictionaries containing the parameters of all the fully connected layers.
+The length of the list determines the number of stacked fully connected layers and the content of each dictionary
+determines the parameters for a specific layer. The available parameters for each layer are: `activation`, `dropout`,
+`norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of those values
+is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.
+- `num_fc_layers` (default 0): this is the number of stacked fully connected layers to apply after reduction of the
+transformer output sequence.
+- `output_size` (default `256`): if an `output_size` is not already specified in `fc_layers` this is the default
+`output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
+- `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
+- `weights_initializer` (default `'glorot_uniform'`): initializer for the weight matrix. Options are: `constant`,
+`identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`,
+`glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`,
+`lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of
+initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each
+initializer, please refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
+- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`,
+`zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
+`glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
+Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
+keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
+refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
+- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be
+used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
+- `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters
+used with `batch` see the [Torch documentation on batch normalization](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm1d.html)
+or for `layer` see the [Torch documentation on layer normalization](https://pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html).
+- `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default
+`activation` that will be used for each layer. It indicates the activation function applied to the output.
+- `fc_dropout` (default `0`): dropout rate for the fully connected layers.
+- `fc_residual` (default `false`): if `true` adds a residual connection to each fully connected layer block. It is
+required that all fully connected layers have the same size for this parameter to work correctly.
+- `reduce_output` (default `mean`): describes the strategy to use to aggregate the output of the transformer.
+Possible values include `last`, `sum`, `mean`, `concat`, or `none`.
+- `embed_input_feature_name` (default `null`) controls the size of the embeddings.  Valid values are `add` which uses the `hidden_size` value or an integer to set a specific value.  In the case of an integer value, it must be smaller than `hidden_size`.
+
+Example configuration of a `tabtransformer` combiner:
+
+```yaml
+type: tabtransformer
+num_layers: 1
+hidden_size: 256
+num_heads: 8
+transformer_output_size: 256
+dropout: 0.1
+fc_layers: null
+num_fc_layers: 0
+output_size: 256
+use_bias: True
+weights_initializer: glorot_uniform
+bias_initializer: zeros
+norm: null
+norm_params: null
+fc_activation: relu
+fc_dropout: 0
+fc_residual: null
+reduce_output: mean
+embed_input_fature_name: null
+```
+
 ## Comparator Combiner
 
 The `comparator` combiner compares the hidden representation of two entities defined by lists of features.

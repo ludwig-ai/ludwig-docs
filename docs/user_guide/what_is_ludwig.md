@@ -202,8 +202,6 @@ AutoML solution with the flexibility of writing your own PyTorch code. This is
 achieved by creating an extensible, declarative configuration with optional
 parameters for every aspect of the pipeline.
 
-Ludwig’s declarative programming model allows for key features such as:
-
 ## Multi-modal, multi-task learning out-of-the-box
 
 Mix and match tabular data, text, images, and even audio into complex model
@@ -225,6 +223,17 @@ distributed training for newly registered `torch.nn.Module` models come
 completely free.
 
 # Why Ludwig
+
+Ludwig’s declarative programming model allows for key features such as:
+
+## Highly configurable data preprocessing, modeling, and metrics
+
+Any and all aspects of the model architecture, training loop, hyperparameter
+search, and backend infrastructure can be modified as additional fields in the
+declarative configuration to customize the pipeline to meet your requirements.
+
+For details on what can be configured, check out
+[Ludwig Configuration](https://ludwig-ai.github.io/ludwig-docs/latest/configuration/) docs.
 
 ## Integration with any structured data source
 
@@ -256,15 +265,6 @@ Apply new models across the extensive set of tasks and datasets that Ludwig supp
 Ludwig includes a [full benchmarking toolkit](https://arxiv.org/abs/2111.04260)
 accessible to any user, for running experiments with multiple models across
 multiple datasets with just a simple configuration.
-
-## Highly configurable data preprocessing, modeling, and metrics
-
-Any and all aspects of the model architecture, training loop, hyperparameter
-search, and backend infrastructure can be modified as additional fields in the
-declarative configuration to customize the pipeline to meet your requirements.
-
-For details on what can be configured, check out
-[Ludwig Configuration](https://ludwig-ai.github.io/ludwig-docs/latest/configuration/) docs.
 
 ## Low-code interface for state-of-the-art models, including pre-trained Huggingface Transformers
 

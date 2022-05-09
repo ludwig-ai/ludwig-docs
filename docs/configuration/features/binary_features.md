@@ -32,7 +32,6 @@ transformed to outputs of size `b x 1` where `b` is the batch size.
 The `dense` encoder passes the raw binary values through a fully connected layer. Inputs of size `b` are transformed to
 size `b x h`.
 
-
 The available encoder parameters are:
 
 - `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of

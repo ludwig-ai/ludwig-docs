@@ -19,6 +19,11 @@ Preprocessing parameters:
 
 The vector feature supports two encoders: `dense` and `passthrough`.
 
+The available encoder parameters are:
+
+- `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of
+a feature of the same type and with the same encoder parameters.
+
 ### Passthrough Encoder
 
 There are no additional parameters for the `passthrough` encoder.
@@ -45,6 +50,7 @@ Example vector feature entry in the input features list using an dense encoder:
 ```yaml
 name: vector_column_name
 type: vector
+tied: null
 encoder: dense
 layers: null
 num_layers: 0

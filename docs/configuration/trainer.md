@@ -4,6 +4,7 @@ configure the training process, like the number of epochs or the learning rate.
 ```yaml
 trainer:
     epochs: 100
+    train_steps: None
     early_stop: 5
     batch_size: 128
     eval_batch_size: null
@@ -41,6 +42,7 @@ trainer:
 ## Trainer parameters
 
 - `epochs` (default `100`): number of epochs the training process will run for.
+- `train_steps` (default `None`): Maximum number of training steps the training process will run for. If unset, then `epochs` is used to determine training length.
 - `early_stop` (default `5`): if theres a validation set, number of epochs of patience without an improvement on the validation measure before the training is stopped.
 - `batch_size` (default `128`): size of the batch used for training the model.
 - `eval_batch_size` (default `null`): size of the batch used for evaluating the model. If it is `0`, the same value of `batch_size` is used. This is useful to speedup evaluation with a much bigger batch size than training, if enough memory is available.

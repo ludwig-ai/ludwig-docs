@@ -1,0 +1,3577 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Deep learning toolbox">
+      
+      
+        <meta name="author" content="Piero Molino">
+      
+      
+        <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/0.5/configuration/features/image_features/">
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.2.4, mkdocs-material-8.2.7">
+    
+    
+      
+        <title>↑ Image Features - Ludwig</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.9d5733d3.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/monokai.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/colorful.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="deep-orange">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#supported-image-formats" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        <aside class="md-banner md-banner--warning">
+          
+        </aside>
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Ludwig" class="md-header__button md-logo" aria-label="Ludwig" data-md-component="logo">
+      
+<img alt="logo" src="../../../images/ludwig_logo.svg"
+     style="height:1rem;width:4rem;">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Ludwig
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ↑ Image Features
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="deep-orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent="deep-orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ludwig-ai/ludwig/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ludwig-ai/ludwig
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../.." class="md-tabs__link">
+      About
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../getting_started/" class="md-tabs__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../user_guide/" class="md-tabs__link">
+        User Guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../" class="md-tabs__link md-tabs__link--active">
+        Configuration
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../examples/" class="md-tabs__link">
+        Examples
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../developer_guide/" class="md-tabs__link">
+        Developer Guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../community/" class="md-tabs__link">
+      Community
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../faq/" class="md-tabs__link">
+      FAQ
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Ludwig" class="md-nav__button md-logo" aria-label="Ludwig" data-md-component="logo">
+      
+<img alt="logo" src="../../../images/ludwig_logo.svg"
+     style="height:1rem;width:4rem;">
+
+    </a>
+    Ludwig
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ludwig-ai/ludwig/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ludwig-ai/ludwig
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        About
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../getting_started/">Getting Started</a>
+          
+            <label for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/installation/" class="md-nav__link">
+        Installation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/prepare_data/" class="md-nav__link">
+        Dataset preparation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/train/" class="md-nav__link">
+        Training
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/evaluate/" class="md-nav__link">
+        Prediction and Evaluation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/hyperopt/" class="md-nav__link">
+        Hyperopt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/serve/" class="md-nav__link">
+        Serving
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/ray/" class="md-nav__link">
+        Distributed training on Ray
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../user_guide/">User Guide</a>
+          
+            <label for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="User Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          User Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/what_is_ludwig/" class="md-nav__link">
+        What is Ludwig?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/how_ludwig_works/" class="md-nav__link">
+        How Ludwig Works
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/command_line_interface/" class="md-nav__link">
+        Command Line Interface
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5" type="checkbox" id="__nav_3_5" >
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_5">
+          Python API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python API" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_5">
+          <span class="md-nav__icon md-icon"></span>
+          Python API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/api/LudwigModel/" class="md-nav__link">
+        LudwigModel
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/api/visualization/" class="md-nav__link">
+        Visualization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6" type="checkbox" id="__nav_3_6" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_6">
+          Datasets
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Datasets" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_6">
+          <span class="md-nav__icon md-icon"></span>
+          Datasets
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/datasets/supported_formats/" class="md-nav__link">
+        Supported Formats
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/datasets/data_preprocessing/" class="md-nav__link">
+        Data Preprocessing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/datasets/data_postprocessing/" class="md-nav__link">
+        Data Postprocessing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/datasets/dataset_zoo/" class="md-nav__link">
+        Dataset Zoo
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/distributed_training/" class="md-nav__link">
+        Distributed Training
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/hyperopt/" class="md-nav__link">
+        Hyperparameter Optimization
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/automl/" class="md-nav__link">
+        AutoML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/visualizations/" class="md-nav__link">
+        Visualizations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/serving/" class="md-nav__link">
+        Serving
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/integrations/" class="md-nav__link">
+        Third-Party Integrations
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../">Configuration</a>
+          
+            <label for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Configuration" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Configuration
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../preprocessing/" class="md-nav__link">
+        Preprocessing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_3">
+          Features
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Features" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          Features
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supported_data_types/" class="md-nav__link">
+        Supported Data Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../input_features/" class="md-nav__link">
+        Input Features (↑)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../output_features/" class="md-nav__link">
+        Output Features (↓)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../binary_features/" class="md-nav__link">
+        ⇅ Binary Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../number_features/" class="md-nav__link">
+        ⇅ Number Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../category_features/" class="md-nav__link">
+        ⇅ Category Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bag_features/" class="md-nav__link">
+        ⇅ Bag Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../set_features/" class="md-nav__link">
+        ⇅ Set Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sequence_features/" class="md-nav__link">
+        ⇅ Sequence Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../text_features/" class="md-nav__link">
+        ⇅ Text Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vector_features/" class="md-nav__link">
+        ⇅ Vector Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../audio_features/" class="md-nav__link">
+        ↑ Audio Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../date_features/" class="md-nav__link">
+        ↑ Date Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../h3_features/" class="md-nav__link">
+        ↑ H3 Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          ↑ Image Features
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        ↑ Image Features
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#supported-image-formats" class="md-nav__link">
+    Supported Image Formats
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-features-preprocessing" class="md-nav__link">
+    Image Features Preprocessing
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Features Preprocessing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#height" class="md-nav__link">
+    height
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#width" class="md-nav__link">
+    width
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#num_channels" class="md-nav__link">
+    num_channels
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resize_method" class="md-nav__link">
+    resize_method
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infer_image_num_channels" class="md-nav__link">
+    infer_image_num_channels
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infer_image_dimensions" class="md-nav__link">
+    infer_image_dimensions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infer_image_max_height" class="md-nav__link">
+    infer_image_max_height
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infer_image_max_width" class="md-nav__link">
+    infer_image_max_width
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infer_image_sample_size" class="md-nav__link">
+    infer_image_sample_size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scaling" class="md-nav__link">
+    scaling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in_memory" class="md-nav__link">
+    in_memory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#num_processes" class="md-nav__link">
+    num_processes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-input-features-and-encoders" class="md-nav__link">
+    Image Input Features and Encoders
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Input Features and Encoders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#convolutional-stack-encoder-stacked_cnn" class="md-nav__link">
+    Convolutional Stack Encoder (stacked_cnn)
+  </a>
+  
+    <nav class="md-nav" aria-label="Convolutional Stack Encoder (stacked_cnn)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conv_layers" class="md-nav__link">
+    conv_layers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#num_conv_layers" class="md-nav__link">
+    num_conv_layers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out_channels" class="md-nav__link">
+    out_channels
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel_size" class="md-nav__link">
+    kernel_size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stride" class="md-nav__link">
+    stride
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#padding" class="md-nav__link">
+    padding
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dilation" class="md-nav__link">
+    dilation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#groups" class="md-nav__link">
+    groups
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conv_bias" class="md-nav__link">
+    conv_bias
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#padding_mode" class="md-nav__link">
+    padding_mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conv_norm" class="md-nav__link">
+    conv_norm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conv_norm_params" class="md-nav__link">
+    conv_norm_params
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conv_activation" class="md-nav__link">
+    conv_activation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conv_dropout" class="md-nav__link">
+    conv_dropout
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pool_function" class="md-nav__link">
+    pool_function
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pool_kernel_size" class="md-nav__link">
+    pool_kernel_size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pool_stride" class="md-nav__link">
+    pool_stride
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pool_padding" class="md-nav__link">
+    pool_padding
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pool_dilation" class="md-nav__link">
+    pool_dilation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fc_layers" class="md-nav__link">
+    fc_layers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#num_fc_layers" class="md-nav__link">
+    num_fc_layers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_size" class="md-nav__link">
+    output_size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fc_use_bias" class="md-nav__link">
+    fc_use_bias
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fc_weights_initializer" class="md-nav__link">
+    fc_weights_initializer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fc_bias_initializer" class="md-nav__link">
+    fc_bias_initializer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fc_norm" class="md-nav__link">
+    fc_norm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fc_norm_params" class="md-nav__link">
+    fc_norm_params
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fc_activation" class="md-nav__link">
+    fc_activation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fc_dropout" class="md-nav__link">
+    fc_dropout
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resnet-encoder" class="md-nav__link">
+    ResNet Encoder
+  </a>
+  
+    <nav class="md-nav" aria-label="ResNet Encoder">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mlp-mixer-encoder" class="md-nav__link">
+    MLP-Mixer Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vision-transformer-encoder" class="md-nav__link">
+    Vision Transformer Encoder
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-output-features-and-decoders" class="md-nav__link">
+    Image Output Features and Decoders
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-features-measures" class="md-nav__link">
+    Image Features Measures
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../time_series_features/" class="md-nav__link">
+        ↑ Time Series Features
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../combiner/" class="md-nav__link">
+        Combiner
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../preprocessing/" class="md-nav__link">
+        Preprocessing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../trainer/" class="md-nav__link">
+        Trainer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hyperparameter_optimization/" class="md-nav__link">
+        Hyperopt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend/" class="md-nav__link">
+        Backend
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../examples/">Examples</a>
+          
+            <label for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Examples" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_2" type="checkbox" id="__nav_5_2" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_2">
+          Tutorials
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tutorials" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_2">
+          <span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/text_classification/" class="md-nav__link">
+        Text Classification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/adult_census_income/" class="md-nav__link">
+        Tabular Data Classification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/mnist/" class="md-nav__link">
+        Image Classification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/multimodal_classification/" class="md-nav__link">
+        Multimodal Classification
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_3" type="checkbox" id="__nav_5_3" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_3">
+          Example Use Cases
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Example Use Cases" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_3">
+          <span class="md-nav__icon md-icon"></span>
+          Example Use Cases
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/ner_tagging/" class="md-nav__link">
+        Named Entity Recognition Tagging
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/nlu/" class="md-nav__link">
+        Natural Language Understanding
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/machine_translation/" class="md-nav__link">
+        Machine Translation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/seq2seq/" class="md-nav__link">
+        Chit-Chat Dialogue Modeling through Sequence2Sequence
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/sentiment_analysis/" class="md-nav__link">
+        Sentiment Analysis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/oneshot/" class="md-nav__link">
+        One-shot Learning with Siamese Networks
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/visual_qa/" class="md-nav__link">
+        Visual Question Answering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/speech_recognition/" class="md-nav__link">
+        Spoken Digit Speech Recognition
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/speaker_verification/" class="md-nav__link">
+        Speaker Verification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/titanic/" class="md-nav__link">
+        Binary Classification (Titanic)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/forecasting/" class="md-nav__link">
+        Timeseries forecasting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/weather/" class="md-nav__link">
+        Timeseries forecasting (Weather)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/movie_ratings/" class="md-nav__link">
+        Movie rating prediction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/multi_label/" class="md-nav__link">
+        Multi-label classification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/multi_task/" class="md-nav__link">
+        Multi-Task Learning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/fuel_efficiency/" class="md-nav__link">
+        Simple Regression: Fuel Efficiency Prediction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/fraud/" class="md-nav__link">
+        Fraud Detection
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../developer_guide/">Developer Guide</a>
+          
+            <label for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Developer Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Developer Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/codebase_structure/" class="md-nav__link">
+        Codebase Structure
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_an_encoder/" class="md-nav__link">
+        Add an Encoder
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_combiner/" class="md-nav__link">
+        Add a Combiner
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_decoder/" class="md-nav__link">
+        Add a Decoder
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_feature_type/" class="md-nav__link">
+        Add a Feature Type
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_metric/" class="md-nav__link">
+        Add a Metric
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_loss_function/" class="md-nav__link">
+        Add a Loss Function
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_tokenizer/" class="md-nav__link">
+        Add a Tokenizer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_hyperopt/" class="md-nav__link">
+        Add a Hyperopt Algorithm
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_pretrained_model/" class="md-nav__link">
+        Add a Pretrained Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_an_integration/" class="md-nav__link">
+        Add an Integration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_dataset/" class="md-nav__link">
+        Add a Dataset
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/style_guidelines_and_tests/" class="md-nav__link">
+        Style Guidelines and Tests
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/unit_test_design_guidelines/" class="md-nav__link">
+        Unit Test Design Guidelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/run_tests_on_gpu_using_ray/" class="md-nav__link">
+        Run Tests on GPU Using Ray
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/release_process/" class="md-nav__link">
+        Release Process
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../community/" class="md-nav__link">
+        Community
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../faq/" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#supported-image-formats" class="md-nav__link">
+    Supported Image Formats
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-features-preprocessing" class="md-nav__link">
+    Image Features Preprocessing
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Features Preprocessing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#height" class="md-nav__link">
+    height
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#width" class="md-nav__link">
+    width
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#num_channels" class="md-nav__link">
+    num_channels
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resize_method" class="md-nav__link">
+    resize_method
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infer_image_num_channels" class="md-nav__link">
+    infer_image_num_channels
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infer_image_dimensions" class="md-nav__link">
+    infer_image_dimensions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infer_image_max_height" class="md-nav__link">
+    infer_image_max_height
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infer_image_max_width" class="md-nav__link">
+    infer_image_max_width
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infer_image_sample_size" class="md-nav__link">
+    infer_image_sample_size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scaling" class="md-nav__link">
+    scaling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in_memory" class="md-nav__link">
+    in_memory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#num_processes" class="md-nav__link">
+    num_processes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-input-features-and-encoders" class="md-nav__link">
+    Image Input Features and Encoders
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Input Features and Encoders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#convolutional-stack-encoder-stacked_cnn" class="md-nav__link">
+    Convolutional Stack Encoder (stacked_cnn)
+  </a>
+  
+    <nav class="md-nav" aria-label="Convolutional Stack Encoder (stacked_cnn)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conv_layers" class="md-nav__link">
+    conv_layers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#num_conv_layers" class="md-nav__link">
+    num_conv_layers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out_channels" class="md-nav__link">
+    out_channels
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel_size" class="md-nav__link">
+    kernel_size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stride" class="md-nav__link">
+    stride
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#padding" class="md-nav__link">
+    padding
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dilation" class="md-nav__link">
+    dilation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#groups" class="md-nav__link">
+    groups
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conv_bias" class="md-nav__link">
+    conv_bias
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#padding_mode" class="md-nav__link">
+    padding_mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conv_norm" class="md-nav__link">
+    conv_norm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conv_norm_params" class="md-nav__link">
+    conv_norm_params
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conv_activation" class="md-nav__link">
+    conv_activation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conv_dropout" class="md-nav__link">
+    conv_dropout
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pool_function" class="md-nav__link">
+    pool_function
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pool_kernel_size" class="md-nav__link">
+    pool_kernel_size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pool_stride" class="md-nav__link">
+    pool_stride
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pool_padding" class="md-nav__link">
+    pool_padding
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pool_dilation" class="md-nav__link">
+    pool_dilation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fc_layers" class="md-nav__link">
+    fc_layers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#num_fc_layers" class="md-nav__link">
+    num_fc_layers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output_size" class="md-nav__link">
+    output_size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fc_use_bias" class="md-nav__link">
+    fc_use_bias
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fc_weights_initializer" class="md-nav__link">
+    fc_weights_initializer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fc_bias_initializer" class="md-nav__link">
+    fc_bias_initializer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fc_norm" class="md-nav__link">
+    fc_norm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fc_norm_params" class="md-nav__link">
+    fc_norm_params
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fc_activation" class="md-nav__link">
+    fc_activation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fc_dropout" class="md-nav__link">
+    fc_dropout
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resnet-encoder" class="md-nav__link">
+    ResNet Encoder
+  </a>
+  
+    <nav class="md-nav" aria-label="ResNet Encoder">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mlp-mixer-encoder" class="md-nav__link">
+    MLP-Mixer Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vision-transformer-encoder" class="md-nav__link">
+    Vision Transformer Encoder
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-output-features-and-decoders" class="md-nav__link">
+    Image Output Features and Decoders
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-features-measures" class="md-nav__link">
+    Image Features Measures
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/ludwig-ai/ludwig-docs/edit/master/src/docs/configuration/features/image_features.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+
+  <h1>↑ Image Features</h1>
+
+<p>Input image features are transformed into a float valued tensors of size <code>N x C x H x W</code> (where <code>N</code> is the size of the
+dataset, <code>C</code> is the number of channels, and <code>H x W</code> is the height and width of the image (can be specified by the user).
+These tensors are added to HDF5 with a key that reflects the name of column in the dataset.</p>
+<p>The column name is added to the JSON file, with an associated dictionary containing preprocessing information about the
+sizes of the resizing.</p>
+<h2 id="supported-image-formats">Supported Image Formats<a class="headerlink" href="#supported-image-formats" title="Permanent link">&para;</a></h2>
+<p>The number of channels in the image is determined by the image format. The following table lists the supported image
+formats and the number of channels.</p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Number of channels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Grayscale</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Grayscale with Alpha</td>
+<td>2</td>
+</tr>
+<tr>
+<td>RGB</td>
+<td>3</td>
+</tr>
+<tr>
+<td>RGB with Alpha</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<h2 id="image-features-preprocessing">Image Features Preprocessing<a class="headerlink" href="#image-features-preprocessing" title="Permanent link">&para;</a></h2>
+<p>During preprocessing, raw image files are transformed into numpy arrays and saved in the hdf5 format.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Images passed to an image encoder are expected to have the same size. If images are different sizes, by default they
+will be resized to the dimensions of the first image in the dataset. Optionally, a <code>resize_method</code> together with a
+target <code>width</code> and <code>height</code> can be specified in the feature preprocessing parameters, in which case all images will
+be resized to the specified target size.</p>
+</div>
+<h4 id="height"><code>height</code><a class="headerlink" href="#height" title="Permanent link">&para;</a></h4>
+<p>Image height in pixels. If set, images will be resized to the specified height using the <code>resize_method</code> parameter. If
+unspecified, images will be resized to the size of the first image in the dataset.</p>
+<ul>
+<li>Default: <code>null</code></li>
+</ul>
+<h4 id="width"><code>width</code><a class="headerlink" href="#width" title="Permanent link">&para;</a></h4>
+<p>Image width in pixels. If set, images will be resized to the specified width using the <code>resize_method</code> parameter. If
+unspecified, images will be resized to the size of the first image in the dataset.</p>
+<ul>
+<li>Default: <code>null</code></li>
+</ul>
+<h4 id="num_channels"><code>num_channels</code><a class="headerlink" href="#num_channels" title="Permanent link">&para;</a></h4>
+<p>Number of channels in the images. If specified, images will be read in the mode specified by the number of channels. If
+not specified, the number of channels will be inferred from the image format of the first valid image in the dataset.</p>
+<p>E.g., if <code>num_channels = 1</code>, any RGB images will be converted to Grayscale. If <code>num_channels = 3</code>, any images with 1
+channel will be converted to RGB by repeating the channel 3 times.</p>
+<ul>
+<li>Default: <code>null</code></li>
+</ul>
+<h4 id="resize_method"><code>resize_method</code><a class="headerlink" href="#resize_method" title="Permanent link">&para;</a></h4>
+<p>The method to use for resizing images.</p>
+<ul>
+<li>Default: <code>crop_or_pad</code></li>
+<li>Options:</li>
+<li><code>crop_or_pad</code>: If image is larger than the specified dimensions, crops images. If image is smaller, pads images
+using edge padding</li>
+<li><code>interpolate</code>: Uses interpolation to resize images to the specified <code>width</code> and <code>height</code></li>
+</ul>
+<h4 id="infer_image_num_channels"><code>infer_image_num_channels</code><a class="headerlink" href="#infer_image_num_channels" title="Permanent link">&para;</a></h4>
+<p>If true, then the number of channels in the dataset is inferred from a sample of the first image in the dataset.</p>
+<ul>
+<li>Default: <code>true</code></li>
+</ul>
+<h4 id="infer_image_dimensions"><code>infer_image_dimensions</code><a class="headerlink" href="#infer_image_dimensions" title="Permanent link">&para;</a></h4>
+<p>If true, then the height and width of images in the dataset will be inferred from a sample of the first image in the
+dataset. Each image that doesn't conform to these dimensions will be resized according to <code>resize_method</code>. If set to
+<code>false</code>, then the height and width of images in the dataset will be specified by the user.</p>
+<p>This parameter will have no effect if <code>width</code> and <code>height</code> are specified.</p>
+<ul>
+<li>Default: <code>true</code></li>
+</ul>
+<h4 id="infer_image_max_height"><code>infer_image_max_height</code><a class="headerlink" href="#infer_image_max_height" title="Permanent link">&para;</a></h4>
+<p>If <code>infer_image_dimensions</code> is set, this is used as the maximum height of the images in the dataset.</p>
+<ul>
+<li>Default: 256</li>
+</ul>
+<h4 id="infer_image_max_width"><code>infer_image_max_width</code><a class="headerlink" href="#infer_image_max_width" title="Permanent link">&para;</a></h4>
+<p>If <code>infer_image_dimensions</code> is set, this is used as the maximum width of the images in the dataset.</p>
+<ul>
+<li>Default: 256</li>
+</ul>
+<h4 id="infer_image_sample_size"><code>infer_image_sample_size</code><a class="headerlink" href="#infer_image_sample_size" title="Permanent link">&para;</a></h4>
+<p>The sample size used for inferring dimensions of images in <code>infer_image_dimensions</code>.</p>
+<ul>
+<li>Default: 100</li>
+</ul>
+<h4 id="scaling"><code>scaling</code><a class="headerlink" href="#scaling" title="Permanent link">&para;</a></h4>
+<p>The scaling strategy for pixel values in the image.</p>
+<ul>
+<li>Default: <code>pixel_normalization</code></li>
+<li>Options:</li>
+<li><code>pixel_normalization</code>: Normalizes pixel values to be between 0 and 1 by dividing each pixel value by 255.</li>
+<li><code>pixel_standardization</code>: Normalizes pixel values based on the mean and standard deviation of images in ImageNet.</li>
+</ul>
+<h4 id="in_memory"><code>in_memory</code><a class="headerlink" href="#in_memory" title="Permanent link">&para;</a></h4>
+<p>Defines whether image dataset will reside in memory during the training process or will be dynamically fetched from disk
+(useful for large datasets). In the latter case a training batch of input images will be fetched from disk each training
+iteration.</p>
+<ul>
+<li>Default: <code>true</code></li>
+</ul>
+<h4 id="num_processes"><code>num_processes</code><a class="headerlink" href="#num_processes" title="Permanent link">&para;</a></h4>
+<p>Specifies the number of processes to run for preprocessing images.</p>
+<ul>
+<li>Default: 1</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Depending on the application, it is preferable not to exceed a size of <code>256 x 256</code> as bigger sizes will seldom provide a
+significant performance advantage. Larger images will considerably slow down training and inference and consume more
+memory, leading to memory overflows on machines with limited amounts of RAM or OOM (out-of-memory) on GPUs.</p>
+</div>
+<p>Example of a preprocessing specification:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image_feature_name</span><span class="w"></span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image</span><span class="w"></span>
+<span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">missing_value_strategy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fill_with_const</span><span class="w"></span>
+<span class="w">  </span><span class="nt">fill_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span><span class="w"></span>
+<span class="w">  </span><span class="nt">height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span><span class="w"></span>
+<span class="w">  </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span><span class="w"></span>
+<span class="w">  </span><span class="nt">num_channels</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w"></span>
+<span class="w">  </span><span class="nt">resize_method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">interpolate</span><span class="w"></span>
+<span class="w">  </span><span class="nt">scaling</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pixel_normalization</span><span class="w"></span>
+<span class="w">  </span><span class="nt">in_memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">  </span><span class="nt">num_processes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"></span>
+</code></pre></div>
+<h2 id="image-input-features-and-encoders">Image Input Features and Encoders<a class="headerlink" href="#image-input-features-and-encoders" title="Permanent link">&para;</a></h2>
+<p>The default encoder is <code>stacked_cnn</code>.</p>
+<h3 id="convolutional-stack-encoder-stacked_cnn">Convolutional Stack Encoder (<code>stacked_cnn</code>)<a class="headerlink" href="#convolutional-stack-encoder-stacked_cnn" title="Permanent link">&para;</a></h3>
+<p>Stack of 2D convolutional layers with optional normalization, dropout, and downsampling pooling layers, followed by an
+optional stack of fully connected layers.</p>
+<p>Convolutional Stack Encoder takes the following optional parameters:</p>
+<h4 id="conv_layers"><code>conv_layers</code><a class="headerlink" href="#conv_layers" title="Permanent link">&para;</a></h4>
+<p>A list of dictionaries containing the parameters of all the convolutional layers. The length of the list determines the
+number of stacked convolutional layers and the content of each dictionary determines the parameters for a specific
+layer. If a parameter for a layer is not specified in the dictionary, then the default value for the stacked CNN encoder
+is used.</p>
+<ul>
+<li>Default: <code>null</code></li>
+<li>Parameters for each layer:</li>
+<li><code>out_channels</code>: The number of output channels.</li>
+<li><code>kernel_size</code>: The size of the convolutional kernel.</li>
+<li><code>stride</code>: The stride of the convolutional kernel.</li>
+<li><code>padding</code>: The padding of the convolutional kernel.</li>
+<li><code>dilation</code>: The dilation of the convolutional kernel.</li>
+<li><code>groups</code>: The number of groups for grouped convolution.</li>
+<li><code>bias</code>: Whether to add a bias term to the convolution.</li>
+<li><code>padding_mode</code>: The padding mode to use for the convolution.</li>
+<li><code>norm</code>: The type of normalization to use for the convolution.</li>
+<li><code>norm_params</code>: Optional parameters for the normalization.</li>
+<li><code>activation</code>: The type of activation to use for the convolution.</li>
+<li><code>dropout</code>: The dropout probability to use for the convolution.</li>
+<li><code>pool_function</code>: The type of pooling function to use for the convolution.</li>
+<li><code>pool_kernel_size</code>: The size of the pooling kernel.</li>
+<li><code>pool_stride</code>: The stride of the pooling kernel.</li>
+<li><code>pool_padding</code>: The padding of the pooling kernel.</li>
+<li><code>pool_dilation</code>: The dilation of the pooling kernel.</li>
+</ul>
+<h4 id="num_conv_layers"><code>num_conv_layers</code><a class="headerlink" href="#num_conv_layers" title="Permanent link">&para;</a></h4>
+<p>If <code>conv_layers</code> is <code>null</code>, this is the number of stacked convolutional layers. Each layer will use default parameters
+for the convolutional layer.</p>
+<ul>
+<li>Default: <code>null</code></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If both <code>conv_layers</code> and <code>num_conv_layers</code> are <code>null</code>, <code>conv_layers</code> is set to the following default value:</p>
+<div class="highlight"><pre><span></span><code><span class="n">conv_layers</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span>
+    <span class="n">kernel_size</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="n">out_channels</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
+    <span class="n">pool_kernel_size</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="n">kernel_size</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="n">out_channels</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span>
+    <span class="n">pool_kernel_size</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">]</span>
+</code></pre></div>
+</div>
+<h4 id="out_channels"><code>out_channels</code><a class="headerlink" href="#out_channels" title="Permanent link">&para;</a></h4>
+<p>Indicates the number of filters, and by consequence the output channels of the 2d convolution. If <code>out_channels</code> is not
+already specified in <code>conv_layers</code> this is the default <code>out_channels</code> that will be used for each layer.</p>
+<ul>
+<li>Default: <code>32</code></li>
+</ul>
+<h4 id="kernel_size"><code>kernel_size</code><a class="headerlink" href="#kernel_size" title="Permanent link">&para;</a></h4>
+<p>An integer or pair of integers specifying the kernel size. A single integer specifies a square kernel, while a pair of
+integers specifies the height and width of the kernel in that order (<code>[h, w]</code>). If a <code>kernel_size</code> is not specified in
+<code>conv_layers</code> this <code>kernel_size</code> that will be used for each layer.</p>
+<ul>
+<li>Default: <code>3</code></li>
+</ul>
+<h4 id="stride"><code>stride</code><a class="headerlink" href="#stride" title="Permanent link">&para;</a></h4>
+<p>An integer or pair of integers specifying the stride of the convolution along the height and
+width. If a <code>stride</code> is not already specified in <code>conv_layers</code>, specifies the default <code>stride</code> of the 2D convolutional
+kernel that will be used for each layer.</p>
+<ul>
+<li>Default: <code>1</code></li>
+</ul>
+<h4 id="padding"><code>padding</code><a class="headerlink" href="#padding" title="Permanent link">&para;</a></h4>
+<p>An int, pair of ints <code>[h, w]</code>, or one of <code>valid</code>, <code>same</code> specifying the padding used for convolution kernels.</p>
+<ul>
+<li>Default: <code>valid</code></li>
+</ul>
+<h4 id="dilation"><code>dilation</code><a class="headerlink" href="#dilation" title="Permanent link">&para;</a></h4>
+<p>An int or pair of ints specifying the dilation rate to use for dilated convolution. If <code>dilation</code> is not already
+specified in <code>conv_layers</code>, specifies the default <code>dilation</code> of the 2D convolutional kernel that will be used for each
+layer.</p>
+<ul>
+<li>Default: <code>1</code></li>
+</ul>
+<h4 id="groups"><code>groups</code><a class="headerlink" href="#groups" title="Permanent link">&para;</a></h4>
+<p>Groups controls the connectivity between convolution inputs and outputs. When <code>groups = 1</code>, each output channel depends
+on every input channel. When <code>groups &gt; 1</code>, input and output channels are divided into <code>groups</code> separate groups, where
+each output channel depends only on the inputs in its respective input channel group. <code>in_channels</code> and <code>out_channels</code>
+must both be divisible by <code>groups</code>.</p>
+<ul>
+<li>Default: <code>1</code></li>
+</ul>
+<h4 id="conv_bias"><code>conv_bias</code><a class="headerlink" href="#conv_bias" title="Permanent link">&para;</a></h4>
+<p>If <code>bias</code> not already specified in <code>conv_layers</code>, specifies if the 2D convolutional kernel should have a bias term.</p>
+<ul>
+<li>Default: <code>true</code></li>
+</ul>
+<h4 id="padding_mode"><code>padding_mode</code><a class="headerlink" href="#padding_mode" title="Permanent link">&para;</a></h4>
+<p>If <code>padding_mode</code> is not already specified in <code>conv_layers</code>, specifies the default <code>padding_mode</code> of the 2D
+convolutional kernel that will be used for each layer.</p>
+<ul>
+<li>Default: <code>zeros</code></li>
+<li>Choices: <code>zeros</code>, <code>reflect</code>, <code>replicate</code>, <code>circular</code></li>
+</ul>
+<h4 id="conv_norm"><code>conv_norm</code><a class="headerlink" href="#conv_norm" title="Permanent link">&para;</a></h4>
+<p>(default <code>null</code>): if a <code>norm</code> is not already specified in <code>conv_layers</code> this is the default <code>norm</code> that will
+be used for each layer. It indicates the normalization applied to the activations and can be <code>null</code>, <code>batch</code> or <code>layer</code>.</p>
+<h4 id="conv_norm_params"><code>conv_norm_params</code><a class="headerlink" href="#conv_norm_params" title="Permanent link">&para;</a></h4>
+<p>(default <code>null</code>): parameters used if <code>conv_norm</code> is either <code>batch</code> or <code>layer</code>. For information on parameters
+used with <code>batch</code> see <a href="https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm2d.html">Torch's documentation on batch normalization</a>
+or for <code>layer</code> see <a href="https://pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html">Torch's documentation on layer normalization</a>.</p>
+<h4 id="conv_activation"><code>conv_activation</code><a class="headerlink" href="#conv_activation" title="Permanent link">&para;</a></h4>
+<p>(default <code>relu</code>): if an <code>activation</code> is not already specified in <code>conv_layers</code> this is the default <code>activation</code> that
+will be used for each layer. It indicates the activation function applied to the output.</p>
+<h4 id="conv_dropout"><code>conv_dropout</code><a class="headerlink" href="#conv_dropout" title="Permanent link">&para;</a></h4>
+<p>(default <code>0</code>): dropout rate</p>
+<h4 id="pool_function"><code>pool_function</code><a class="headerlink" href="#pool_function" title="Permanent link">&para;</a></h4>
+<p>(default <code>max</code>): <code>max</code> will use max pooling. Any of <code>average</code>, <code>avg</code> or <code>mean</code> will use average pooling.</p>
+<h4 id="pool_kernel_size"><code>pool_kernel_size</code><a class="headerlink" href="#pool_kernel_size" title="Permanent link">&para;</a></h4>
+<p>(default <code>2</code>): An integer or pair of integers specifying the pooling size. If <code>pool_kernel_size</code> is not specified in
+<code>conv_layers</code> this is the default value that will be used for each layer.</p>
+<h4 id="pool_stride"><code>pool_stride</code><a class="headerlink" href="#pool_stride" title="Permanent link">&para;</a></h4>
+<p>(default <code>null</code>): An integer or pair of integers specifying the pooling stride, which is the factor by which the
+pooling layer downsamples the feature map. Defaults to <code>pool_kernel_size</code>.</p>
+<h4 id="pool_padding"><code>pool_padding</code><a class="headerlink" href="#pool_padding" title="Permanent link">&para;</a></h4>
+<p>(default <code>0</code>): An integer or pair of ints specifying pooling padding <code>(h, w)</code>.</p>
+<h4 id="pool_dilation"><code>pool_dilation</code><a class="headerlink" href="#pool_dilation" title="Permanent link">&para;</a></h4>
+<p>(default <code>1</code>): An integer or pair of ints specifying pooling dilation rate <code>(h, w)</code>.</p>
+<h4 id="fc_layers"><code>fc_layers</code><a class="headerlink" href="#fc_layers" title="Permanent link">&para;</a></h4>
+<p>(default <code>null</code>): a list of dictionaries containing the parameters of all the fully connected layers. The length of the
+list determines the number of stacked fully connected layers and the content of each dictionary determines the
+parameters for a specific layer. The available parameters for each layer are: <code>activation</code>, <code>dropout</code>, <code>norm</code>,
+<code>norm_params</code>, <code>output_size</code>, <code>use_bias</code>, <code>bias_initializer</code> and <code>weights_initializer</code>. If any of those values is
+missing from the dictionary, the default one specified as a parameter of the encoder will be used instead.</p>
+<h4 id="num_fc_layers"><code>num_fc_layers</code><a class="headerlink" href="#num_fc_layers" title="Permanent link">&para;</a></h4>
+<p>(default <code>1</code>): The number of stacked fully connected layers.</p>
+<h4 id="output_size"><code>output_size</code><a class="headerlink" href="#output_size" title="Permanent link">&para;</a></h4>
+<p>(default <code>256</code>): if <code>output_size</code> is not already specified in <code>fc_layers</code> this is the default <code>output_size</code> that will
+be used for each layer. It indicates the size of the output of a fully connected layer.</p>
+<h4 id="fc_use_bias"><code>fc_use_bias</code><a class="headerlink" href="#fc_use_bias" title="Permanent link">&para;</a></h4>
+<p>(default <code>true</code>): boolean, whether the layer uses a bias vector.</p>
+<h4 id="fc_weights_initializer"><code>fc_weights_initializer</code><a class="headerlink" href="#fc_weights_initializer" title="Permanent link">&para;</a></h4>
+<p>(default <code>xavier_uniform</code>): initializer for the weights matrix. Options are: <code>constant</code>, <code>identity</code>, <code>zeros</code>, <code>ones</code>,
+<code>orthogonal</code>, <code>normal</code>, <code>uniform</code>, <code>truncated_normal</code>, <code>variance_scaling</code>, <code>glorot_normal</code>, <code>glorot_uniform</code>,
+<code>xavier_normal</code>, <code>xavier_uniform</code>, <code>he_normal</code>, <code>he_uniform</code>, <code>lecun_normal</code>, <code>lecun_uniform</code>. Alternatively it is
+possible to specify a dictionary with a key <code>type</code> that identifies the type of initializer and other keys for its
+parameters, e.g. <code>{type: normal, mean: 0, stddev: 0}</code>. To know the parameters of each initializer, please refer to
+<a href="https://pytorch.org/docs/stable/nn.init.html">torch.nn.init</a>.</p>
+<h4 id="fc_bias_initializer"><code>fc_bias_initializer</code><a class="headerlink" href="#fc_bias_initializer" title="Permanent link">&para;</a></h4>
+<p>(default <code>'zeros'</code>): initializer for the bias vector. Options are: <code>constant</code>, <code>identity</code>, <code>zeros</code>, <code>ones</code>,
+<code>orthogonal</code>, <code>normal</code>, <code>uniform</code>, <code>truncated_normal</code>, <code>variance_scaling</code>, <code>glorot_normal</code>, <code>glorot_uniform</code>,
+<code>xavier_normal</code>, <code>xavier_uniform</code>, <code>he_normal</code>, <code>he_uniform</code>, <code>lecun_normal</code>, <code>lecun_uniform</code>. Alternatively it is
+possible to specify a dictionary with a key <code>type</code> that identifies the type of initializer and other keys for its
+parameters, e.g. <code>{type: normal, mean: 0, stddev: 0}</code>. To know the parameters of each initializer, please refer to
+<a href="https://pytorch.org/docs/stable/nn.init.html">torch.nn.init</a>.</p>
+<h4 id="fc_norm"><code>fc_norm</code><a class="headerlink" href="#fc_norm" title="Permanent link">&para;</a></h4>
+<p>(default <code>null</code>): if a <code>norm</code> is not already specified in <code>fc_layers</code> this is the default <code>norm</code> that will be used for
+each layer. It indicates the norm of the output and can be <code>null</code>, <code>batch</code> or <code>layer</code>.</p>
+<h4 id="fc_norm_params"><code>fc_norm_params</code><a class="headerlink" href="#fc_norm_params" title="Permanent link">&para;</a></h4>
+<p>(default <code>null</code>): parameters used if <code>norm</code> is either <code>batch</code> or <code>layer</code>.  For information on parameters used with
+<code>batch</code> see <a href="https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm1d.html">Torch's documentation on batch normalization</a>
+or for <code>layer</code> see <a href="https://pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html">Torch's documentation on layer normalization</a>.</p>
+<h4 id="fc_activation"><code>fc_activation</code><a class="headerlink" href="#fc_activation" title="Permanent link">&para;</a></h4>
+<p>(default <code>relu</code>): : if an <code>activation</code> is not already specified in <code>fc_layers</code> this is the default <code>activation</code> that
+will be used for each layer. It indicates the activation function applied to the output.</p>
+<h4 id="fc_dropout"><code>fc_dropout</code><a class="headerlink" href="#fc_dropout" title="Permanent link">&para;</a></h4>
+<p>(default <code>0</code>): dropout rate</p>
+<p>Example image feature config using a convolutional stack encoder:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image_column_name</span><span class="w"></span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image</span><span class="w"></span>
+<span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stacked_cnn</span><span class="w"></span>
+<span class="nt">conv_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">num_conv_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">kernel_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w"></span>
+<span class="nt">out_channels</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
+<span class="nt">padding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">valid</span><span class="w"></span>
+<span class="nt">conv_use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="nt">conv_norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">batch</span><span class="w"></span>
+<span class="nt">conv_activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span><span class="w"></span>
+<span class="nt">conv_dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
+<span class="nt">pool_function</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">max</span><span class="w"></span>
+<span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
+<span class="nt">fc_use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="nt">fc_weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xavier_uniform</span><span class="w"></span>
+<span class="nt">fc_bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span><span class="w"></span>
+<span class="nt">fc_norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">batch</span><span class="w"></span>
+<span class="nt">fc_activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span><span class="w"></span>
+<span class="nt">fc_dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
+<span class="nt">preprocessing</span><span class="p">:</span><span class="w">  </span><span class="c1"># example pre-processing</span><span class="w"></span>
+<span class="w">    </span><span class="nt">height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span><span class="w"></span>
+<span class="w">    </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span><span class="w"></span>
+<span class="w">    </span><span class="nt">num_channels</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+</code></pre></div>
+<h3 id="resnet-encoder">ResNet Encoder<a class="headerlink" href="#resnet-encoder" title="Permanent link">&para;</a></h3>
+<p>Implements ResNet V2 as described in <a href="https://arxiv.org/abs/1603.05027">Identity Mappings in Deep Residual Networks</a>.</p>
+<p>The ResNet encoder takes the following optional parameters:</p>
+<ul>
+<li><code>resnet_size</code> (default <code>50</code>): The ResNet size, one of: <code>8</code>, <code>14</code>, <code>18</code>, <code>34</code>, <code>50</code>, <code>101</code>, <code>152</code>, <code>200</code>.</li>
+<li><code>num_filters</code> (default <code>16</code>): The number of filters, and by consequence the output channels of the 2d convolution.</li>
+<li><code>kernel_size</code> (default <code>3</code>): An integer or pair of integers specifying the convolution kernel size. A single integer
+specifies a square kernel, a pair of integers specifies the height and width of the kernel in that order (<code>[h, w]</code>).</li>
+<li><code>conv_stride</code> (default <code>1</code>): An integer or pair of integers specifying the stride of the initial convolutional layer.</li>
+<li><code>first_pool_kernel_size</code> (default <code>null</code>): Pool size to be used for the first pooling layer. If none, the first
+pooling layer is skipped.</li>
+<li><code>first_pool_stride</code> (default <code>null</code>): Stride for first pooling layer. If <code>null</code>, defaults to <code>first_pool_kernel_size</code>.</li>
+<li><code>batch_norm_momentum</code> (default <code>0.9</code>): Momentum of the batch norm running statistics.</li>
+<li><code>batch_norm_epsilon</code> (default <code>0.001</code>): Epsilon of the batch norm.</li>
+<li><code>fc_layers</code> (default <code>null</code>): a list of dictionaries containing the parameters of all the fully connected
+layers. The length of the list determines the number of stacked fully connected layers and the content of each
+dictionary determines the parameters for a specific layer. The available parameters for each layer are: <code>activation</code>,
+<code>dropout</code>, <code>norm</code>, <code>norm_params</code>, <code>output_size</code>, <code>use_bias</code>, <code>bias_initializer</code> and <code>weights_initializer</code>. If any of
+those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used
+instead.</li>
+<li><code>num_fc_layers</code> (default <code>1</code>): The number of stacked fully connected layers.</li>
+<li><code>output_size</code> (default <code>256</code>): if <code>output_size</code> is not already specified in <code>fc_layers</code> this is the default
+<code>output_size</code> that will be used for each layer. It indicates the size of the output of a fully connected layer.</li>
+<li><code>weights_initializer</code> (default <code>xavier_uniform</code>): initializer for the weights matrix. Options are: <code>constant</code>,
+<code>identity</code>, <code>zeros</code>, <code>ones</code>, <code>orthogonal</code>, <code>normal</code>, <code>uniform</code>, <code>truncated_normal</code>, <code>variance_scaling</code>, <code>glorot_normal</code>,
+<code>glorot_uniform</code>, <code>xavier_normal</code>, <code>xavier_uniform</code>, <code>he_normal</code>, <code>he_uniform</code>, <code>lecun_normal</code>, <code>lecun_uniform</code>.
+Alternatively it is possible to specify a dictionary with a key <code>type</code> that identifies the type of initializer and other
+keys for its parameters, e.g. <code>{type: normal, mean: 0, stddev: 0}</code>. To know the parameters of each initializer, please
+refer to <a href="https://pytorch.org/docs/stable/nn.init.html">torch.nn.init</a>.</li>
+<li><code>bias_initializer</code> (default <code>zeros</code>):  initializer for the bias vector. Options are: <code>constant</code>, <code>identity</code>, <code>zeros</code>,
+<code>ones</code>, <code>orthogonal</code>, <code>normal</code>, <code>uniform</code>, <code>truncated_normal</code>, <code>variance_scaling</code>, <code>glorot_normal</code>, <code>glorot_uniform</code>,
+<code>xavier_normal</code>, <code>xavier_uniform</code>, <code>he_normal</code>, <code>he_uniform</code>, <code>lecun_normal</code>, <code>lecun_uniform</code>. Alternatively it is
+possible to specify a dictionary with a key <code>type</code> that identifies the type of initializer and other keys for its
+parameters, e.g. <code>{type: normal, mean: 0, stddev: 0}</code>. To know the parameters of each initializer, please refer to
+<a href="https://pytorch.org/docs/stable/nn.init.html">torch.nn.init</a>.</li>
+<li><code>norm</code> (default <code>null</code>): if a <code>norm</code> is not already specified in <code>fc_layers</code> this is the default <code>norm</code> that will be
+used for each layer. It indicates the norm of the output and it can be <code>null</code>, <code>batch</code> or <code>layer</code>.</li>
+<li><code>norm_params</code> (default <code>null</code>): parameters used if <code>norm</code> is either <code>batch</code> or <code>layer</code>.  For information on parameters
+used with <code>batch</code> see <a href="https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm1d.html">Torch's documentation on batch normalization</a>
+or for <code>layer</code> see <a href="https://pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html">Torch's documentation on layer normalization</a>.</li>
+<li><code>activation</code> (default <code>relu</code>): if an <code>activation</code> is not already specified in <code>fc_layers</code> this is the default
+<code>activation</code> that will be used for each layer. It indicates the activation function applied to the output.</li>
+<li><code>dropout</code> (default <code>0</code>): dropout rate</li>
+</ul>
+<p>Example image input feature config using a ResNet encoder:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image_column_name</span><span class="w"></span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image</span><span class="w"></span>
+<span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resnet</span><span class="w"></span>
+<span class="nt">resnet_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span><span class="w"></span>
+<span class="nt">num_filters</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span><span class="w"></span>
+<span class="nt">kernel_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w"></span>
+<span class="nt">conv_stride</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="nt">batch_norm_momentum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.9</span><span class="w"></span>
+<span class="nt">batch_norm_epsilon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span><span class="w"></span>
+<span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
+<span class="nt">use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="nt">weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glorot_uniform</span><span class="w"></span>
+<span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span><span class="w"></span>
+<span class="nt">norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">norm_params</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span><span class="w"></span>
+<span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
+<span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">224</span><span class="w"></span>
+<span class="w">    </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">224</span><span class="w"></span>
+<span class="w">    </span><span class="nt">num_channels</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w"></span>
+</code></pre></div>
+<h4 id="mlp-mixer-encoder">MLP-Mixer Encoder<a class="headerlink" href="#mlp-mixer-encoder" title="Permanent link">&para;</a></h4>
+<p>Encodes images using MLP-Mixer, as described in <a href="https://arxiv.org/abs/2105.01601">MLP-Mixer: An all-MLP Architecture for Vision</a>.
+MLP-Mixer divides the image into equal-sized patches, applying fully connected layers to each patch to compute per-patch
+representations (tokens) and combining the representations with fully-connected mixer layers.</p>
+<p>The MLP-Mixer Encoder takes the following optional parameters:</p>
+<ul>
+<li><code>patch_size</code> (default <code>16</code>): The image patch size. Each patch is <code>patch_size</code>² pixels. Must evenly divide
+the image width and height.</li>
+<li><code>embed_size</code> (default <code>512</code>): The patch embedding size, the output size of the mixer if <code>avg_pool</code> is true.</li>
+<li><code>token_size</code> (default <code>2048</code>): The per-patch embedding size.</li>
+<li><code>channel_dim</code> (default <code>256</code>): Number of channels in hidden layer.</li>
+<li><code>num_layers</code> (default <code>8</code>): The depth of the network (the number of Mixer blocks).</li>
+<li><code>dropout</code> (default <code>0</code>): Dropout rate.</li>
+<li><code>avg_pool</code> (default <code>true</code>): If true, pools output over patch dimension, outputs a vector of shape <code>(embed_size)</code>. If
+false, the output tensor is of shape <code>(n_patches, embed_size)</code>, where n_patches is
+<code>img_height</code> x <code>img_width</code> / <code>patch_size</code>².</li>
+</ul>
+<p>Example image feature config using an MLP-Mixer encoder:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image_column_name</span><span class="w"></span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image</span><span class="w"></span>
+<span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mlp_mixer</span><span class="w"></span>
+<span class="nt">patch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span><span class="w"></span>
+<span class="nt">embed_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512</span><span class="w"></span>
+<span class="nt">token_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2048</span><span class="w"></span>
+<span class="nt">channel_dim</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
+<span class="nt">num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span><span class="w"></span>
+<span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span><span class="w"></span>
+<span class="nt">avg_pool</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span><span class="w"></span>
+<span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span><span class="w"></span>
+<span class="w">    </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span><span class="w"></span>
+<span class="w">    </span><span class="nt">num_channels</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w"></span>
+</code></pre></div>
+<h4 id="vision-transformer-encoder">Vision Transformer Encoder<a class="headerlink" href="#vision-transformer-encoder" title="Permanent link">&para;</a></h4>
+<p>Encodes images using a Vision Transformer as described in
+<a href="https://arxiv.org/abs/2010.11929">An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale</a>.</p>
+<p>Vision Transformer divides the image into equal-sized patches, uses a linear transformation to encode each flattened
+patch, then applies a deep transformer architecture to the sequence of encoded patches.</p>
+<p>The Vision Transformer Encoder takes the following optional parameters:</p>
+<ul>
+<li><code>use_pretrained</code> (default <code>true</code>): Use pre-trained model weights from Hugging Face.</li>
+<li><code>pretrained_model</code> (default <code>google/vit-base-patch16-224</code>): The pre-trained model to use. See the
+<a href="https://huggingface.co/models?search=vit">model hub</a> for other pretrained vision transformer models.</li>
+<li><code>hidden_size</code> (default <code>768</code>): Dimensionality of the encoder layers and the pooling layer.</li>
+<li><code>num_hidden_layers</code> (default <code>12</code>): Number of hidden layers in the Transformer encoder.</li>
+<li><code>num_attention_heads</code> (default <code>12</code>): Number of attention heads in each attention layer.</li>
+<li><code>intermediate_size</code> (default <code>3072</code>): Dimensionality of the intermediate (i.e., feed-forward) layer in the Transformer
+encoder.</li>
+<li><code>hidden_act</code> (default <code>gelu</code>): Hidden layer activation, one of <code>gelu</code>, <code>relu</code>, <code>selu</code> or <code>gelu_new</code>.</li>
+<li><code>hidden_dropout_prob</code> (default <code>0.1</code>): The dropout rate for all fully connected layers in the embeddings, encoder, and
+pooling.</li>
+<li><code>attention_probs_dropout_prob</code> (default <code>0.1</code>): The dropout rate for the attention probabilities.</li>
+<li><code>initializer_range</code> (default <code>768</code>): The standard deviation of the truncated_normal_initializer for initializing all
+weight matrices.</li>
+<li><code>layer_norm_eps</code> (default <code>1e-12</code>): The epsilon used by the layer normalization layers.</li>
+<li><code>gradient_checkpointing</code> (default <code>false</code>):</li>
+<li><code>patch_size</code> (default <code>16</code>): The image patch size. Each patch is <code>patch_size</code>² pixels. Must evenly divide
+the image width and height.</li>
+<li><code>trainable</code> (default <code>true</code>): Is the encoder trainable.</li>
+</ul>
+<p>Example image feature config using an MLP-Mixer encoder:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image_column_name</span><span class="w"></span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image</span><span class="w"></span>
+<span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vit</span><span class="w"></span>
+<span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span><span class="w"></span>
+<span class="w">    </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span><span class="w"></span>
+<span class="w">    </span><span class="nt">num_channels</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w"></span>
+</code></pre></div>
+<h2 id="image-output-features-and-decoders">Image Output Features and Decoders<a class="headerlink" href="#image-output-features-and-decoders" title="Permanent link">&para;</a></h2>
+<p>There are no image decoders at the moment (WIP), so image cannot be used as output features.</p>
+<h2 id="image-features-measures">Image Features Measures<a class="headerlink" href="#image-features-measures" title="Permanent link">&para;</a></h2>
+<p>As no image decoders are available at the moment, there are also no image measures.</p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Footer -->
+<footer class="md-footer">
+
+    <!-- Link to previous and/or next page -->
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+
+        <!-- Link to previous page -->
+        
+        
+        <a href="../h3_features/" class="md-footer__link md-footer__link--prev"
+            aria-label="Previous: ↑ H3 Features" rel="prev">
+            <div class="md-footer__button md-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer__title">
+                <div class="md-ellipsis">
+                    <span class="md-footer__direction">
+                        Previous
+                    </span>
+                    ↑ H3 Features
+                </div>
+            </div>
+        </a>
+        
+
+        <!-- Link to next page -->
+        
+        
+        <a href="../time_series_features/" class="md-footer__link md-footer__link--next"
+            aria-label="Next: ↑ Time Series Features" rel="next">
+            <div class="md-footer__title">
+                <div class="md-ellipsis">
+                    <span class="md-footer__direction">
+                        Next
+                    </span>
+                    ↑ Time Series Features
+                </div>
+            </div>
+            <div class="md-footer__button md-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+        </a>
+        
+    </nav>
+    
+
+    <!-- Further information -->
+    <div class="md-footer-meta md-typeset">
+        <div class="md-footer-meta__inner md-grid">
+            <!--
+  Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Copyright and theme information -->
+<div class="md-copyright">
+    
+    <div class="md-copyright__highlight">
+        Copyright &copy; 2018 - 2020 Uber Technologies Inc., 2021 - 2022 Linux Foundation Data & AI
+    </div>
+    
+    
+
+    Website by <a href="http://w4nderlu.st">w4nderlust</a> powered by
+    <a href="https://www.mkdocs.org" target="_blank" rel="noopener">MkDocs</a>,
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">Material for MkDocs</a>,
+    <a href="http://www.styleshout.com/" target="_blank" rel="noopener">styleshout</a> and
+    <a href="http://cables.gl/" target="_blank" rel="noopener">cables</a>.
+    
+</div>
+
+            <!-- Social links -->
+            
+        </div>
+    </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.indexes"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.5e67fbfe.min.js", "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.e87a5f81.min.js"></script>
+      
+    
+  </body>
+</html>

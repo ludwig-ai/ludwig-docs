@@ -15,7 +15,7 @@ preprocessing:
     window_type: boxcar
 ```
 
-Ludwig supports reading audio files using Python's [SoundFile](https://pypi.org/project/SoundFile/) library. This library supports `WAV`, `FLAC`, `OGG` and `MAT` files.
+Ludwig supports reading audio files using PyTorch's [Torchaudio](https://pytorch.org/audio/stable/index.html) library. This library supports `WAV`, `AMB`, `MP3`, `FLAC`, `OGG/VORBIS`, `OPUS`, `SPHERE`, and `AMR-NB` formats.
 
 Preprocessing parameters:
 

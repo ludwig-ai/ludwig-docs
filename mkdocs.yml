@@ -71,28 +71,28 @@ nav:
   - Examples:
       - "Examples": "examples/index.md"
       - "Tutorials":
-        - "Text Classification": "examples/text_classification.md"
-        - "Tabular Data Classification": "examples/adult_census_income.md"
-        - "Image Classification": "examples/mnist.md"
-        - "Multimodal Classification": "examples/multimodal_classification.md"
+          - "Text Classification": "examples/text_classification.md"
+          - "Tabular Data Classification": "examples/adult_census_income.md"
+          - "Image Classification": "examples/mnist.md"
+          - "Multimodal Classification": "examples/multimodal_classification.md"
       - "Example Use Cases":
-        - "Named Entity Recognition Tagging": "examples/ner_tagging.md"
-        - "Natural Language Understanding": "examples/nlu.md"
-        - "Machine Translation": "examples/machine_translation.md"
-        - "Chit-Chat Dialogue Modeling through Sequence2Sequence": "examples/seq2seq.md"
-        - "Sentiment Analysis": "examples/sentiment_analysis.md"
-        - "One-shot Learning with Siamese Networks": "examples/oneshot.md"
-        - "Visual Question Answering": "examples/visual_qa.md"
-        - "Spoken Digit Speech Recognition": "examples/speech_recognition.md"
-        - "Speaker Verification": "examples/speaker_verification.md"
-        - "Binary Classification (Titanic)": "examples/titanic.md"
-        - "Timeseries forecasting": "examples/forecasting.md"
-        - "Timeseries forecasting (Weather)": "examples/weather.md"
-        - "Movie rating prediction": "examples/movie_ratings.md"
-        - "Multi-label classification": "examples/multi_label.md"
-        - "Multi-Task Learning": "examples/multi_task.md"
-        - "Simple Regression: Fuel Efficiency Prediction": "examples/fuel_efficiency.md"
-        - "Fraud Detection": "examples/fraud.md"
+          - "Named Entity Recognition Tagging": "examples/ner_tagging.md"
+          - "Natural Language Understanding": "examples/nlu.md"
+          - "Machine Translation": "examples/machine_translation.md"
+          - "Chit-Chat Dialogue Modeling through Sequence2Sequence": "examples/seq2seq.md"
+          - "Sentiment Analysis": "examples/sentiment_analysis.md"
+          - "One-shot Learning with Siamese Networks": "examples/oneshot.md"
+          - "Visual Question Answering": "examples/visual_qa.md"
+          - "Spoken Digit Speech Recognition": "examples/speech_recognition.md"
+          - "Speaker Verification": "examples/speaker_verification.md"
+          - "Binary Classification (Titanic)": "examples/titanic.md"
+          - "Timeseries forecasting": "examples/forecasting.md"
+          - "Timeseries forecasting (Weather)": "examples/weather.md"
+          - "Movie rating prediction": "examples/movie_ratings.md"
+          - "Multi-label classification": "examples/multi_label.md"
+          - "Multi-Task Learning": "examples/multi_task.md"
+          - "Simple Regression: Fuel Efficiency Prediction": "examples/fuel_efficiency.md"
+          - "Fraud Detection": "examples/fraud.md"
   - Developer Guide:
       - "Developer Guide": "developer_guide/index.md"
       - "Codebase Structure": "developer_guide/codebase_structure.md"
@@ -179,6 +179,9 @@ markdown_extensions:
 extra:
   version:
     provider: mike
+  analytics:
+    provider: google
+    property: G-H8VVJF9L6G
 
 plugins:
   - search

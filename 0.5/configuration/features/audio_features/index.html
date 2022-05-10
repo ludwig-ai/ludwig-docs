@@ -2266,7 +2266,7 @@
 <span class="w">    </span><span class="nt">num_fft_points</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">800</span><span class="w"></span>
 <span class="w">    </span><span class="nt">window_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">boxcar</span><span class="w"></span>
 </code></pre></div>
-<p>Ludwig supports reading audio files using Python's <a href="https://pypi.org/project/SoundFile/">SoundFile</a> library. This library supports <code>WAV</code>, <code>FLAC</code>, <code>OGG</code> and <code>MAT</code> files.</p>
+<p>Ludwig supports reading audio files using PyTorch's <a href="https://pytorch.org/audio/stable/index.html">Torchaudio</a> library. This library supports <code>WAV</code>, <code>AMB</code>, <code>MP3</code>, <code>FLAC</code>, <code>OGG/VORBIS</code>, <code>OPUS</code>, <code>SPHERE</code>, and <code>AMR-NB</code> formats.</p>
 <p>Preprocessing parameters:</p>
 <ul>
 <li><code>audio_file_length_limit_in_s</code>: (default <code>7.5</code>): float value that defines the maximum limit of the audio file in seconds. All files longer than this limit are cut off. All files shorter than this limit are padded with <code>padding_value</code></li>

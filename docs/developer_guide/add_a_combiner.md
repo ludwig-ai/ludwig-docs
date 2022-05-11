@@ -32,25 +32,30 @@ New combiners should make it clear in their doc strings if they support sequence
 sequence length, type, or dimension, and validate their input features.
 
 In this guide we'll outline how to extend Ludwig by adding a new combiner, using the `transformer` combiner as a
-template. At a high level, to add a new combiner:
+template. At a high level, a combiner melds two concepts: a "schema" (which declares the parameters of your new
+combiner's configuration) and a class that operates on instances of this schema. To add a new combiner:
 
-1. Define a dataclass to represent the combiner configuration.
+1. Define a dataclass to represent the combiner schema.
 2. Create a new combiner class inheriting from `ludwig.combiners.Combiner` or one of its subclasses.
 3. Allocate all layers and state in the `__init__` method.
 4. Implement your combiner's forward pass in `def forward(self, inputs: Dict):`.
 5. Add tests.
 6. Add the new combiner to the combiner registry.
 
-## 1. Define combiner configuration
+## 1. Define the combiner's schema.
 
-The combiner configuration is a `dataclass` (that must extend `BaseCombinerConfig`) whose properties are the configuration
-parameters of the combiner. All fields should have a type and a default value. The `ludwig.utils.schema_utils.py` module
-provides convenience methods for specifying the valid types and ranges of a combiner config. For example, the
-`TransformerCombiner` has the following config schema:
+The combiner schema is a `dataclass` (overloaded by the `marshmallow_dataclass` modue) that must extend
+`BaseCombinerConfig`. Its attributes are the configuration parameters of the combiner. All fields should have a type
+and a default value. The `ludwig.schema.utils.py` module provides convenient methods for specifying the valid types and
+ranges of a combiner config. For example, the `TransformerCombiner` has the following schema:
 
 ```python
-import ludwig.marshmallow.marshmallow_schema_utils as schema
-from ludwig.combiners.combiners import BaseCombinerConfig
+from typing import Optional, List, Dict, Any
+
+# Main imports:
+from marshmallow_dataclass import dataclass
+from ludwig.schema import utils as schema_utils
+from ludwig.schema.combiners.base import BaseCombinerConfig
 
 @dataclass
 class TransformerCombinerConfig(BaseCombinerConfig):
@@ -73,6 +78,13 @@ class TransformerCombinerConfig(BaseCombinerConfig):
     fc_dropout: float = schema.FloatRange(default=0.0, min=0, max=1)
     fc_residual: bool = False
     reduce_output: Optional[str] = schema.ReductionOptions(default="mean")
+```
+
+This schema should live in its own file inside `ludwig/schema/combiners/`. So that it is more convenient to import
+elsewhere in Ludwig, you may also add it as an import to `ludwig/schema/combiners/__init__.py` like so:
+
+```python
+from ludwig.schema.combiners.transformer import TransformerCombinerConfig  # noqa: F401
 ```
 
 # 2. Add a new combiner class
@@ -205,7 +217,7 @@ output tensor, and any other optional output key/value pairs.
 # 5. Add new class to the registry
 
 Mapping between combiner names in the model config and combiner classes is made by registering the class in the combiner
-registry. The combiner registry is defined in `ludwig/combiners/combiners.py`. To register your class, add the
+registry. The combiner registry is defined in `ludwig/schema/combiners/utils.py`. To register your class, add the
 `@register_combiner` decorator on the line above its class definition, specifying the name of the combiner:
 
 ```python
@@ -213,16 +225,7 @@ registry. The combiner registry is defined in `ludwig/combiners/combiners.py`. T
 class TransformerCombiner(Combiner):
 ```
 
-# 6. Run schema extraction script
-
-Behind the scenes, the `BaseCombinerConfig` is a `marshmallow` object that generates a schema which functions as
-intermediary for converting (and validating) a dict into the relevant combiner config. Other Ludwig functionality
-requires this schema to be committed as well, so after creating your combiner class finally run the extraction
-script found (from the context of the root directory) in `scripts/extract_schema.py`. Afterwards, you should see
-a new file named `YourNewCombinerConfig.json` under `ludwig/marshmallow/generated` in your git environment. Track
-and commit this file as well.
-
-# 7. Add tests
+# 6. Add tests
 
 Add a corresponding unit test module to `tests/ludwig/combiners`, using the name of your combiner module prefixed by
 `test_` i.e. `test_transformer_combiner.py`.

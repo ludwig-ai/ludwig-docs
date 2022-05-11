@@ -179,6 +179,9 @@ markdown_extensions:
 extra:
   version:
     provider: mike
+  analytics:
+    provider: google
+    property: G-H8VVJF9L6G
 
 plugins:
   - search

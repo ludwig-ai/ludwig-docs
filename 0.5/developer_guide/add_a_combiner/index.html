@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#1-define-combiner-configuration" class="md-skip">
+        <a href="#1-define-the-combiners-schema" class="md-skip">
           Skip to content
         </a>
       
@@ -1949,8 +1949,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-define-combiner-configuration" class="md-nav__link">
-    1. Define combiner configuration
+  <a href="#1-define-the-combiners-schema" class="md-nav__link">
+    1. Define the combiner's schema
   </a>
   
 </li>
@@ -1984,15 +1984,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#6-run-schema-extraction-script" class="md-nav__link">
-    6. Run schema extraction script
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-add-tests" class="md-nav__link">
-    7. Add tests
+  <a href="#6-add-tests" class="md-nav__link">
+    6. Add tests
   </a>
   
 </li>
@@ -2249,8 +2242,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-define-combiner-configuration" class="md-nav__link">
-    1. Define combiner configuration
+  <a href="#1-define-the-combiners-schema" class="md-nav__link">
+    1. Define the combiner's schema
   </a>
   
 </li>
@@ -2284,15 +2277,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#6-run-schema-extraction-script" class="md-nav__link">
-    6. Run schema extraction script
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-add-tests" class="md-nav__link">
-    7. Add tests
+  <a href="#6-add-tests" class="md-nav__link">
+    6. Add tests
   </a>
   
 </li>
@@ -2344,22 +2330,26 @@ length before concatenation, processing all input features as sequences of the s
 <p>New combiners should make it clear in their doc strings if they support sequence inputs, declare any requirements on
 sequence length, type, or dimension, and validate their input features.</p>
 <p>In this guide we'll outline how to extend Ludwig by adding a new combiner, using the <code>transformer</code> combiner as a
-template. At a high level, to add a new combiner:</p>
+template. To add a new combiner:</p>
 <ol>
-<li>Define a dataclass to represent the combiner configuration.</li>
+<li>Define a dataclass to represent the combiner schema.</li>
 <li>Create a new combiner class inheriting from <code>ludwig.combiners.Combiner</code> or one of its subclasses.</li>
 <li>Allocate all layers and state in the <code>__init__</code> method.</li>
 <li>Implement your combiner's forward pass in <code>def forward(self, inputs: Dict):</code>.</li>
 <li>Add tests.</li>
 <li>Add the new combiner to the combiner registry.</li>
 </ol>
-<h3 id="1-define-combiner-configuration">1. Define combiner configuration<a class="headerlink" href="#1-define-combiner-configuration" title="Permanent link">&para;</a></h3>
-<p>The combiner configuration is a <code>dataclass</code> (that must extend <code>BaseCombinerConfig</code>) whose properties are the configuration
-parameters of the combiner. All fields should have a type and a default value. The <code>ludwig.utils.schema_utils.py</code> module
-provides convenience methods for specifying the valid types and ranges of a combiner config. For example, the
-<code>TransformerCombiner</code> has the following config schema:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">ludwig.marshmallow.marshmallow_schema_utils</span> <span class="k">as</span> <span class="nn">schema</span>
-<span class="kn">from</span> <span class="nn">ludwig.combiners.combiners</span> <span class="kn">import</span> <span class="n">BaseCombinerConfig</span>
+<h3 id="1-define-the-combiners-schema">1. Define the combiner's schema<a class="headerlink" href="#1-define-the-combiners-schema" title="Permanent link">&para;</a></h3>
+<p>The combiner schema is a <code>dataclass</code> (overloaded by the <code>marshmallow_dataclass</code> modue) that must extend
+<code>BaseCombinerConfig</code>. Its attributes are the configuration parameters of the combiner. All fields should have a type
+and a default value. The <code>ludwig.schema.utils.py</code> module provides convenient methods for specifying the valid types and
+ranges of a combiner config. For example, the <code>TransformerCombiner</code> has the following schema:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
+
+<span class="c1"># Main imports:</span>
+<span class="kn">from</span> <span class="nn">marshmallow_dataclass</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">ludwig.schema</span> <span class="kn">import</span> <span class="n">utils</span> <span class="k">as</span> <span class="n">schema_utils</span>
+<span class="kn">from</span> <span class="nn">ludwig.schema.combiners.base</span> <span class="kn">import</span> <span class="n">BaseCombinerConfig</span>
 
 <span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">TransformerCombinerConfig</span><span class="p">(</span><span class="n">BaseCombinerConfig</span><span class="p">):</span>
@@ -2382,6 +2372,10 @@ provides convenience methods for specifying the valid types and ranges of a comb
     <span class="n">fc_dropout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">schema</span><span class="o">.</span><span class="n">FloatRange</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">fc_residual</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">reduce_output</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">schema</span><span class="o">.</span><span class="n">ReductionOptions</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;mean&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>This schema should live in its own file inside <code>ludwig/schema/combiners/</code>. So that it is more convenient to import
+elsewhere in Ludwig, you may also add it as an import to <code>ludwig/schema/combiners/__init__.py</code> like so:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">ludwig.schema.combiners.transformer</span> <span class="kn">import</span> <span class="n">TransformerCombinerConfig</span>  <span class="c1"># noqa: F401</span>
 </code></pre></div>
 <h2 id="2-add-a-new-combiner-class">2. Add a new combiner class<a class="headerlink" href="#2-add-a-new-combiner-class" title="Permanent link">&para;</a></h2>
 <p>Source code for combiners lives in <code>ludwig/combiners/</code>. Add a new python module which declares a new combiner class. For
@@ -2495,19 +2489,12 @@ output tensor, and any other optional output key/value pairs.</li>
 </ul>
 <h2 id="5-add-new-class-to-the-registry">5. Add new class to the registry<a class="headerlink" href="#5-add-new-class-to-the-registry" title="Permanent link">&para;</a></h2>
 <p>Mapping between combiner names in the model config and combiner classes is made by registering the class in the combiner
-registry. The combiner registry is defined in <code>ludwig/combiners/combiners.py</code>. To register your class, add the
+registry. The combiner registry is defined in <code>ludwig/schema/combiners/utils.py</code>. To register your class, add the
 <code>@register_combiner</code> decorator on the line above its class definition, specifying the name of the combiner:</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@register_combiner</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;transformer&quot;</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">TransformerCombiner</span><span class="p">(</span><span class="n">Combiner</span><span class="p">):</span>
 </code></pre></div>
-<h2 id="6-run-schema-extraction-script">6. Run schema extraction script<a class="headerlink" href="#6-run-schema-extraction-script" title="Permanent link">&para;</a></h2>
-<p>Behind the scenes, the <code>BaseCombinerConfig</code> is a <code>marshmallow</code> object that generates a schema which functions as
-intermediary for converting (and validating) a dict into the relevant combiner config. Other Ludwig functionality
-requires this schema to be committed as well, so after creating your combiner class finally run the extraction
-script found (from the context of the root directory) in <code>scripts/extract_schema.py</code>. Afterwards, you should see
-a new file named <code>YourNewCombinerConfig.json</code> under <code>ludwig/marshmallow/generated</code> in your git environment. Track
-and commit this file as well.</p>
-<h2 id="7-add-tests">7. Add tests<a class="headerlink" href="#7-add-tests" title="Permanent link">&para;</a></h2>
+<h2 id="6-add-tests">6. Add tests<a class="headerlink" href="#6-add-tests" title="Permanent link">&para;</a></h2>
 <p>Add a corresponding unit test module to <code>tests/ludwig/combiners</code>, using the name of your combiner module prefixed by
 <code>test_</code> i.e. <code>test_transformer_combiner.py</code>.</p>
 <p>At a minimum, the unit test should ensure that:</p>

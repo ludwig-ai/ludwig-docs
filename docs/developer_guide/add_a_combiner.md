@@ -32,8 +32,7 @@ New combiners should make it clear in their doc strings if they support sequence
 sequence length, type, or dimension, and validate their input features.
 
 In this guide we'll outline how to extend Ludwig by adding a new combiner, using the `transformer` combiner as a
-template. At a high level, a combiner melds two concepts: a "schema" (which declares the parameters of your new
-combiner's configuration) and a class that operates on instances of this schema. To add a new combiner:
+template. To add a new combiner:
 
 1. Define a dataclass to represent the combiner schema.
 2. Create a new combiner class inheriting from `ludwig.combiners.Combiner` or one of its subclasses.

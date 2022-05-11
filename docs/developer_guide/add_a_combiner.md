@@ -42,7 +42,7 @@ combiner's configuration) and a class that operates on instances of this schema.
 5. Add tests.
 6. Add the new combiner to the combiner registry.
 
-## 1. Define the combiner's schema.
+## 1. Define the combiner's schema
 
 The combiner schema is a `dataclass` (overloaded by the `marshmallow_dataclass` modue) that must extend
 `BaseCombinerConfig`. Its attributes are the configuration parameters of the combiner. All fields should have a type

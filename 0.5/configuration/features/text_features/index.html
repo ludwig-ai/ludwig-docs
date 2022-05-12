@@ -2304,22 +2304,18 @@
   <h1>⇅ Text Features</h1>
 
 <h3 id="text-features-preprocessing">Text Features Preprocessing<a class="headerlink" href="#text-features-preprocessing" title="Permanent link">&para;</a></h3>
-<p>Text features are treated the same as sequence features, with one main difference that two different tokenizations
-happen, one that splits at every character and one that splits with a tokenizer (default: space). This results in two
-matrices: one containing a list of all occurring characters and another containing a list of all occurring symbols. The
-JSON file contains both of these mappings as well as their inverse.</p>
+<p>Text features are treated the same as sequence features. Text features are
+processed by a tokenizer, which defines how to map from the raw string content
+of the dataset column to a sequence of symbols. The metadata includes a list of
+all occurring symbols as well as their mapping to symbol indices.</p>
 <p>The parameters for text preprocessing are as follows:</p>
 <ul>
-<li><code>char_tokenizer</code> (default <code>characters</code>): defines how to map from the raw string content of the dataset column to a sequence of characters. The default value and only available option is <code>characters</code> and the behavior is to split the string at each character.</li>
-<li><code>char_vocab_file</code> (default <code>null</code>):</li>
-<li><code>char_sequence_length_limit</code> (default <code>1024</code>): the maximum length of the text in characters. Texts that are longer than this value will be truncated, while sequences that are shorter will be padded.</li>
-<li><code>char_most_common</code> (default <code>70</code>): the maximum number of most common characters to be considered. if the data contains more than this amount, the most infrequent characters will be treated as unknown.</li>
-<li><code>word_tokenizer</code> (default <code>space_punct</code>): defines how to map from the raw string content of the dataset column to a sequence of elements. For all
+<li><code>tokenizer</code> (default <code>space_punct</code>): defines how to map from the raw string content of the dataset column to a sequence of elements. For all
 available options see <a href="../../preprocessing#tokenizers">Tokenizers</a>.</li>
 <li><code>pretrained_model_name_or_path</code> (default <code>null</code>):</li>
-<li><code>word_vocab_file</code> (default <code>null</code>):</li>
-<li><code>word_sequence_length_limit</code> (default <code>256</code>): the maximum length of the text in words. Texts that are longer than this value will be truncated, while texts that are shorter will be padded.</li>
-<li><code>word_most_common</code> (default <code>20000</code>): the maximum number of most common words to be considered. If the data contains more than this amount, the most infrequent words will be treated as unknown.</li>
+<li><code>vocab_file</code> (default <code>null</code>):</li>
+<li><code>max_sequence_length</code> (default <code>256</code>): the maximum length of the text. Texts that are longer than this value will be truncated, while texts that are shorter will be padded.</li>
+<li><code>most_common</code> (default <code>20000</code>): the maximum number of most common symbols to be considered. If the data contains more than this amount, the most infrequent symbols will be treated as unknown.</li>
 <li><code>padding_symbol</code> (default <code>&lt;PAD&gt;</code>): the string used as a padding symbol. Is is mapped to the integer ID 0 in the vocabulary.</li>
 <li><code>unknown_symbol</code> (default <code>&lt;UNK&gt;</code>): the string used as a unknown symbol. Is is mapped to the integer ID 1 in the vocabulary.</li>
 <li><code>padding</code> (default <code>right</code>): the direction of the padding. <code>right</code> and <code>left</code> are available options.</li>
@@ -2354,7 +2350,6 @@ automatically.</p>
 used for <a href="../sequence_features#sequence-input-features-and-encoders">Sequence Features</a> as well as encoders from the huggingface
 transformers library: <code>bert</code>, <code>gpt</code>, <code>gpt2</code>, <code>xlnet</code>, <code>xlm</code>, <code>roberta</code>, <code>distilbert</code>, <code>ctrl</code>, <code>camembert</code>, <code>albert</code>,
 <code>t5</code>, <code>xlmroberta</code>, <code>flaubert</code>, <code>electra</code>, <code>longformer</code> and <code>auto-transformer</code>.</li>
-<li><code>level</code> (default <code>word</code>): <code>word</code> specifies using text words/symbols, <code>char</code> use individual characters.</li>
 <li><code>tied</code> (default <code>null</code>): name of the input feature to tie the weights of the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.</li>
 </ul>
 <p>Example:</p>

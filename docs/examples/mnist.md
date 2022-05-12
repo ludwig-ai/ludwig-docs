@@ -3,8 +3,6 @@ dataset.
 
 These interactive notebooks follow the steps of this example:
 
-**TODO: point notebook URL to correct repo branch before PR merge**
-
 - Ludwig CLI: [![MNIST Image Classification with Ludwig CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/master/docs/examples/mnist_colab_notebooks/MNIST_Image_Classification_with_Ludwig_CLI.ipynb)
 - Ludwig Python API: [![MNIST Image Classification with Ludwig API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/master/docs/examples/mnist_colab_notebooks/MNIST_Image_Classification_with_Ludwig_Python_API.ipynb)
 
@@ -22,11 +20,11 @@ These interactive notebooks follow the steps of this example:
 
     The columns in the dataset are
 
-    |column| description |
-    |------|-------------|
-    |image_path|file path string for the image|
-    |label|single digit 0 to 9 indicating what digit is shown in the image|
-    |split|integer value indicating a training example (0) or test example (2)|
+    | column     | description                                                         |
+    | ---------- | ------------------------------------------------------------------- |
+    | image_path | file path string for the image                                      |
+    | label      | single digit 0 to 9 indicating what digit is shown in the image     |
+    | split      | integer value indicating a training example (0) or test example (2) |
 
 === "python"
 
@@ -38,10 +36,10 @@ These interactive notebooks follow the steps of this example:
     ```
     This will create two pandas DataFrames.  `train_df` contains file path information to the 60K training images.  `test_df` has same information for the 10K test images.
 
-    |column| description |
-    |------|-------------|
-    |image_path|file path string for the image|
-    |label|single digit 0 to 9 indicating what digit is shown in the image|
+    | column     | description                                                     |
+    | ---------- | --------------------------------------------------------------- |
+    | image_path | file path string for the image                                  |
+    | label      | single digit 0 to 9 indicating what digit is shown in the image |
 
 Sample of images with `label`.
 ![mnist sample images](mnist_colab_notebooks/images/mnist_sample_digits.png)

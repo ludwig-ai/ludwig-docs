@@ -1,22 +1,18 @@
 ## Text Features Preprocessing
 
-Text features are treated the same as sequence features, with one main difference that two different tokenizations
-happen, one that splits at every character and one that splits with a tokenizer (default: space). This results in two
-matrices: one containing a list of all occurring characters and another containing a list of all occurring symbols. The
-JSON file contains both of these mappings as well as their inverse.
+Text features are treated the same as sequence features. Text features are
+processed by a tokenizer, which defines how to map from the raw string content
+of the dataset column to a sequence of symbols. The metadata includes a list of
+all occurring symbols as well as their mapping to symbol indices.
 
 The parameters for text preprocessing are as follows:
 
-- `char_tokenizer` (default `characters`): defines how to map from the raw string content of the dataset column to a sequence of characters. The default value and only available option is `characters` and the behavior is to split the string at each character.
-- `char_vocab_file` (default `null`):
-- `char_sequence_length_limit` (default `1024`): the maximum length of the text in characters. Texts that are longer than this value will be truncated, while sequences that are shorter will be padded.
-- `char_most_common` (default `70`): the maximum number of most common characters to be considered. if the data contains more than this amount, the most infrequent characters will be treated as unknown.
-- `word_tokenizer` (default `space_punct`): defines how to map from the raw string content of the dataset column to a sequence of elements. For all
+- `tokenizer` (default `space_punct`): defines how to map from the raw string content of the dataset column to a sequence of elements. For all
 available options see [Tokenizers](../../preprocessing#tokenizers).
 - `pretrained_model_name_or_path` (default `null`):
-- `word_vocab_file` (default `null`):
-- `word_sequence_length_limit` (default `256`): the maximum length of the text in words. Texts that are longer than this value will be truncated, while texts that are shorter will be padded.
-- `word_most_common` (default `20000`): the maximum number of most common words to be considered. If the data contains more than this amount, the most infrequent words will be treated as unknown.
+- `vocab_file` (default `null`):
+- `max_sequence_length` (default `256`): the maximum length of the text. Texts that are longer than this value will be truncated, while texts that are shorter will be padded.
+- `most_common` (default `20000`): the maximum number of most common symbols to be considered. If the data contains more than this amount, the most infrequent symbols will be treated as unknown.
 - `padding_symbol` (default `<PAD>`): the string used as a padding symbol. Is is mapped to the integer ID 0 in the vocabulary.
 - `unknown_symbol` (default `<UNK>`): the string used as a unknown symbol. Is is mapped to the integer ID 1 in the vocabulary.
 - `padding` (default `right`): the direction of the padding. `right` and `left` are available options.
@@ -54,7 +50,6 @@ Text input feature parameters are
 used for [Sequence Features](../sequence_features#sequence-input-features-and-encoders) as well as encoders from the huggingface
 transformers library: `bert`, `gpt`, `gpt2`, `xlnet`, `xlm`, `roberta`, `distilbert`, `ctrl`, `camembert`, `albert`,
 `t5`, `xlmroberta`, `flaubert`, `electra`, `longformer` and `auto-transformer`.
-- `level` (default `word`): `word` specifies using text words/symbols, `char` use individual characters.
 - `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of a feature of the same type and with the same encoder parameters.
 
 Example:

@@ -16,12 +16,15 @@ hyperopt:
     trainer.learning_rate: ...
     trainer.optimizer.type: ...
     ...
-  sampler:
-    type: grid  # random, ...
-    # sampler parameters...
+  search_alg:
+    type: variant_generator  # random, hyperopt, bohb, ...
+    # search_alg parameters...
   executor:
-    type: serial  # parallel, ...
-    # executor parameters...
+    type: ray
+    num_samples: ...
+    scheduler:
+      type: fifo  # hb_bohb, asynchyperband, ...
+      # scheduler parameters...
 ```
 
 # Hyperopt configuration parameters
@@ -30,9 +33,9 @@ hyperopt:
 - `output_feature` is a `str` containing the name of the output feature that we want to optimize the metric or loss of. Available values are `combined` (default) or the name of any output feature provided in the configuration. `combined` is a special output feature that allows to optimize for the aggregated loss and metrics of all output features.
 - `metric` is the metric that we want to optimize for. The default one is `loss`, but depending on the type of the feature defined in `output_feature`, different metrics and losses are available. Check the metrics section of the specific output feature type to figure out what metrics are available to use.
 - `split` is the split of data that we want to compute our metric on. By default it is the `validation` split, but you have the flexibility to specify also `train` or `test` splits.
-- `parameters` section consists of a set of hyperparameters to optimize. They are provided as keys (the names of the parameters) and values associated with them (that define the search space). The values vary depending on the type of the hyperparameter. Types can be `float`, `int` and `category`.
-- `sampler` section contains the sampler type to be used for sampling hyper-paramters values and its configuration. Currently available sampler types are `grid` and `random`. The sampler configuration parameters modify the sampler behavior, for instance for `random` you can set how many random samples to draw.
-- `executor` section specifies how to execute the hyperparameter optimization. The execution could happen locally in a serial manner or in parallel across multiple workers and with GPUs as well if available.
+- `parameters` section consists of a set of hyperparameters to optimize. They are provided as keys (the names of the parameters) and values associated with them (that define the search space). The values vary depending on the type of the hyperparameter. Syntax for this section is based on [Ray Tune's Search Space parameters](https://docs.ray.io/en/latest/tune/api_docs/search_space.html).
+- `search_alg` section specifies the algorittm to sample the defined `parameters` space. Candidate algorithms are those found in [Ray Tune's Search Algorithms](https://docs.ray.io/en/latest/tune/api_docs/suggestion.html).  
+- `executor` section specifies how to execute the hyperparameter optimization. The execution could happen locally in a serial manner or in parallel across multiple workers and with GPUs as well if available.  The `executor` section includes spefication for work scheduling and the number of samples to generate.
 
 # Defining hyperparameter search spaces
 
@@ -43,40 +46,48 @@ For instance, for referencing the `cell_type` of the `text` feature, use the nam
 
 ## Number ranges
 
-- `space`: Use `linear` or `log`.
-- `range.low`: the minimum value the parameter can have
-- `range.high`: the maximum value the parameter can have
-- `steps`: (optional) number of steps to break down a range.
+- `space`: Use [Ray Tune's Search Space](https://docs.ray.io/en/latest/tune/api_docs/search_space.html) types, e.g., `uniform`, `quniform`, `loguniform`, `choice`, etc.  Refer the cited page for details.
 
-For instance `range: (0.0, 1.0), steps: 3` would yield `[0.0, 0.5, 1.0]` as potential values to sample from, while if
-`steps` is not specified, the full range between `0.0` and `1.0` will be used.
+For numeric `spaces`, these define the space
+- `lower`: the minimum value the parameter can have
+- `upper`: the maximum value the parameter can have
+- `q`: quantization number, used in `spaces` such as `quniform`, `qloguniform`, `qrandn`, `qrandint`, `qlograndint`
+- `base`: defines the base of the log for `loguniform`, `qloguniform`, `lograndint` and `qlograndint`
 
 Float example:
 
 ```yaml
 trainer.learning_rate:
-  space: linear
-  range:
-    low: 0.001
-    high: 0.1
-  steps: 4
+  space: loguniform
+  lower: 0.001
+  uppper: 0.1
 ```
 
 Integer example:
 
 ```yaml
 combiner.num_fc_layers:
-  space: linear
-  range:
-    low: 1
-    high: 4
+  space: randint
+  lower: 1
+  upper: 4
 ```
+
+Quantized Example:
+
+```yaml
+my_output_feature.dropout:
+  space: quniform
+  lower: 0
+  upper: 1
+  q: 0.1
+```
+
 
 ## Categorical selection
 
 - `space`: Use `choice`.
 - `categories`: a list of possible values. The type of each value of the list is not important (they could be strings,
-integers, floats and anything else, even entire dictionaries).
+integers, floats and anything else, even entire dictionaries).  The values will be a uniform random selection.
 
 Example:
 
@@ -86,55 +97,18 @@ text.cell_type:
   space: choice
 ```
 
-# Sampler
 
-## Grid sampler
+## Grid Space
 
-The `grid` sampler creates a search space by exhaustively selecting all elements from the outer product of all possible
-combinations of hyperparameter values provided in the `parameters` section.
-
-To use `grid` sampling with `float` parameters, it is required to specify the number of `steps`.
+For `grid_search` space
+- `values`: is a list of values to use in creating a grid search space.
 
 Example:
 
 ```yaml
-sampler:
-  type: grid
-```
-
-## Random sampler
-
-The `random` sampler samples hyperparameter values randomly from the parameters search space.
-`num_samples` (default: `10`) can be specified in the `sampler` section.
-
-Example:
-
-```yaml
-sampler:
-  type: random
-  num_samples: 10
-```
-
-## PySOT sampler
-
-The `pysot` sampler uses the [pySOT](https://arxiv.org/pdf/1908.00420.pdf) package for asynchronous surrogate
-optimization. This package implements many popular methods from Bayesian optimization and surrogate optimization.[^1]
-
-[^1]:
-    By default, pySOT uses the Stochastic RBF (SRBF) method by [Regis and Shoemaker](https://pubsonline.informs.org/doi/10.1287/ijoc.1060.0182).
-    SRBF starts by evaluating a symmetric Latin hypercube design of size `2 * d + 1`, where d is the number of
-    hyperparameters that are optimized. When these points have been evaluated, SRBF fits a radial basis function surrogate and uses this surrogate together with an acquisition function to select the next sample(s). More details are available on the GitHub page: <https://github.com/dme65/pySOT>.
-
-!!! tip
-
-    We recommend using at least `10 * d` total samples to allow the algorithm to converge.
-
-Example:
-
-```yaml
-sampler:
-  type: pysot
-  num_samples: 10
+text.cell_type:
+  space: grid_search
+  values: [rnn, gru, lstm]
 ```
 
 ## Ray Tune sampler

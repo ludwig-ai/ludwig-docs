@@ -42,3 +42,14 @@ jobs:
 
       - name: Publish docs
         run: mike deploy --push --update-aliases ${{ env.ludwig_version }} latest
+
+      - name: Copy sitemap to latest folder
+        run: |
+          git checkout gh-pages
+          cp ${{ env.ludwig_version }}/sitemap.xml latest/sitemap.xml
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Copying sitemap from version to make it easy for search engines to find our documentation.
+          branch: gh-pages
+          push_options: --force

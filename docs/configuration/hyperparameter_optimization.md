@@ -101,7 +101,7 @@ text.cell_type:
 ## Grid Space
 
 For `grid_search` space
-- `values`: is a list of values to use in creating a grid search space.
+- `values`: is a list of values to use in creating the grid search space.  The type of each value of the list is not important (they could be strings, integers, floats and anything else, even entire dictionaries).
 
 Example:
 
@@ -111,38 +111,7 @@ text.cell_type:
   values: [rnn, gru, lstm]
 ```
 
-## Ray Tune sampler
-
-The `ray` sampler is used in conjunction with the `ray` executor to enable [Ray Tune](https://docs.ray.io/en/master/tune/index.html) for distributed hyperopt across a cluster of machines.
-
-Ray Tune supports its own collection of [search algorithms](https://docs.ray.io/en/master/tune/api_docs/suggestion.html), specified by the `search_alg` section of the sampler config:
-
-```yaml
-sampler:
-  type: ray
-  search_alg:
-    type: ax
-```
-
-You can find the full list of supported search algorithm names in Ray Tune's [create_searcher](https://github.com/ray-project/ray/blob/master/python/ray/tune/suggest/__init__.py) function.
-
-Ray Tune also allows you to specify a [scheduler](https://docs.ray.io/en/master/tune/api_docs/schedulers.html) to support features like early stopping and other population-based strategies that may pause and resume trials during trainer. Ludwig exposes the complete scheduler API in the `scheduler` section of the config:
-
-```yaml
-sampler:
-  type: ray
-  search_alg:
-    random_state_seed: 42
-    type: hyperopt
-  scheduler:
-    type: async_hyperband
-    time_attr: training_iteration
-    reduction_factor: 4
-```
-
-You can find the full list of supported schedulers in Ray Tune's [create_scheduler](https://github.com/ray-project/ray/blob/master/python/ray/tune/schedulers/__init__.py) function.
-
-Other config options, including `parameters`, `num_samples`, and `goal` work the same for Ray Tune as they do for other sampling strategies in Ludwig. The `parameters` will be converted from the Ludwig format into a Ray Tune [search space](https://docs.ray.io/en/master/tune/api_docs/search_space.html). However, note that the `space` field of the Ludwig config should conform to the Ray Tune [distribution names](https://docs.ray.io/en/master/tune/api_docs/search_space.html#random-distributions-api). For example:
+More comprehensive example
 
 ```yaml
 hyperopt:
@@ -167,22 +136,24 @@ hyperopt:
         - [{"output_size": 512}, {"output_size": 256}]
         - [{"output_size": 512}]
         - [{"output_size": 256}]
-  goal: minimize
 ```
 
-# Executor
 
-## Serial Executor
+# Search Algorithm
 
-The `serial` executor performs hyperparameter optimization locally in a serial manner, executing the elements in the set
-of sampled parameters obtained by the selected sampler one at a time.
-
-Example:
+Ray Tune supports its own collection of [search algorithms](https://docs.ray.io/en/master/tune/api_docs/suggestion.html), specified by the `search_alg` section of the hyperopt config:
 
 ```yaml
-executor:
-  type: serial
+search_alg:
+  type: ax
 ```
+
+You can find the full list of supported search algorithm names in Ray Tune's [create_searcher](https://github.com/ray-project/ray/blob/master/python/ray/tune/suggest/__init__.py) function.
+
+Other config options, including `parameters`, `num_samples`, and `goal` work the same for Ray Tune as they do for other sampling strategies in Ludwig. The `parameters` will be converted from the Ludwig format into a Ray Tune [search space](https://docs.ray.io/en/master/tune/api_docs/search_space.html). However, note that the `space` field of the Ludwig config should conform to the Ray Tune [distribution names](https://docs.ray.io/en/master/tune/api_docs/search_space.html#random-distributions-api). For example:
+
+
+# Executor
 
 ## Ray Tune Executor
 
@@ -195,6 +166,12 @@ The `ray` executor is used in conjunction with the `ray` sampler to enable [Ray 
 - `kubernetes_namespace`: When running on Kubernetes, provide the namespace of the Ray cluster to sync results between pods. See the [Ray docs](https://docs.ray.io/en/master/_modules/ray/tune/integration/kubernetes.html) for more info.
 - `time_budget_s`: The number of seconds for the entire hyperopt run.
 
+## Scheduler
+
+Ray Tune also allows you to specify a [scheduler](https://docs.ray.io/en/master/tune/api_docs/schedulers.html) to support features like early stopping and other population-based strategies that may pause and resume trials during trainer. Ludwig exposes the complete scheduler API in the `scheduler` section of the `executor` config.
+
+You can find the full list of supported schedulers in Ray Tune's [create_scheduler](https://github.com/ray-project/ray/blob/master/python/ray/tune/schedulers/__init__.py) function.
+
 Example:
 
 ```yaml
@@ -204,6 +181,10 @@ executor:
   gpu_resources_per_trial: 1
   kubernetes_namespace: ray
   time_budget_s: 7200
+  scheduler:
+    type: async_hyperband
+    time_attr: training_iteration
+    reduction_factor: 4
 ```
 
 **Running Ray Executor:**
@@ -244,32 +225,29 @@ hyperopt:
   split: validation
   parameters:
     trainer.learning_rate:
-      type: float
-      low: 0.0001
-      high: 0.1
-      steps: 4
-      scale: log
+      space: loguniform
+      lower: 0.0001
+      upper: 0.1
     trainer.optimizer.type:
-      type: category
-      values: [sgd, adam, adagrad]
+      space: choice
+      caegories: [sgd, adam, adagrad]
     preprocessing.text.word_vocab_size:
-      type: int
-      low: 700
-      high: 1200
-      steps: 5
+      space: qrandint
+      lower: 700
+      upper: 1200
+      q: 5
     combiner.num_fc_layers:
-      type: int
-      low: 1
-      high: 5
+      space: randint
+      lower: 1
+      upper: 5
     text.cell_type:
-      type: category
+      space: choice
       values: [rnn, gru, lstm]
-  sampler:
+  search_alg:
     type: random
-    num_samples: 12
   executor:
-    type: parallel
-    num_workers: 4
+    type: ray
+    num_samples: 12
 ```
 
 Example CLI command:

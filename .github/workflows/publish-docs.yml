@@ -29,6 +29,9 @@ jobs:
         run: |
           echo "ludwig_version=$(python -c "import ludwig; print('.'.join(ludwig.__version__.split('.')[:2]))")" >> $GITHUB_ENV
 
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
       - name: Setup doc deploy
         run: |
           git config --global user.name ci-bot

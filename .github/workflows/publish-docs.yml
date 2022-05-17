@@ -35,6 +35,12 @@ jobs:
       - name: Generate API Docs
         run: python code_doc_autogen.py
 
+      - name: Install Pre-commit
+        run: pip install pre-commit
+
+      - name: Run pre-commit
+        run: pre-commit run --all-files
+
       - name: Verify all changes have been committed
         run: |
           if [[ `git status --porcelain` ]]; then

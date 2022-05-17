@@ -518,7 +518,7 @@ if __name__ == "__main__":
                     for m in _methods:
                         yield render_function(m, _method=True)
 
-                subblocks.append("\n---\n".join(generate_render_functions(methods)))
+                subblocks.append("\n\n---\n".join(generate_render_functions(methods)))
             blocks.append("\n".join(subblocks))
 
         methods = read_page_data(page_data, "methods")

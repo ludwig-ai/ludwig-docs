@@ -616,6 +616,18 @@ __Return__
 
 ---
 
+## save_torchscript
+
+```python
+save_torchscript(
+  save_path
+)
+```
+
+Saves the Torchscript model to disk.
+
+---
+
 ## set_logging_level
 
 ```python

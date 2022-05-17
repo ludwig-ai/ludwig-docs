@@ -179,6 +179,7 @@ markdown_extensions:
 extra:
   version:
     provider: mike
+    default: latest
   analytics:
     provider: google
     property: G-H8VVJF9L6G
@@ -191,5 +192,5 @@ plugins:
       css_dir: css # the directory to put the version selector's CSS
       javascript_dir: js # the directory to put the version selector's JS
       canonical_version:
-        null # the version for <link rel="canonical">; `null`
+        "latest" # the version for <link rel="canonical">; `null`
         # uses the version specified via `mike deploy`

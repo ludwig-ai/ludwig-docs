@@ -17,6 +17,7 @@ Class that allows access to high level Ludwig functionalities.
 
 __Inputs__
 
+
 - __config__ (Union[str, dict]): in-memory representation of
     config or string path to a YAML config file.
 - __logging_level__ (int): Log level that will be sent to stderr.
@@ -31,6 +32,7 @@ to use multithreading parallelism to improve performance at the
 cost of determinism.
 
 __Example usage:__
+
 
 ```python
 from ludwig.api import LudwigModel
@@ -80,11 +82,12 @@ or
 eval_stats, _, _ = ludwig_model.evaluate(dataset=dataframe)
 ```
 
----
 
+---
 # LudwigModel methods
 
 ## collect_activations
+
 
 ```python
 collect_activations(
@@ -96,6 +99,7 @@ collect_activations(
   debug=False
 )
 ```
+
 
 Loads a pre-trained model model and input data to collect the values of the activations contained in the
 tensors.
@@ -122,16 +126,18 @@ predictions.
 __Return__
 
 - __return__ (list): list of collected tensors.
+ 
 
 ---
-
 ## collect_weights
+
 
 ```python
 collect_weights(
   tensor_names=None
 )
 ```
+
 
 Load a pre-trained model and collect the tensors with a specific name.
 
@@ -143,10 +149,11 @@ weights
 __Return__
 
 - __return__ (list): List of tensors
+ 
 
 ---
-
 ## create_model
+
 
 ```python
 create_model(
@@ -154,6 +161,7 @@ create_model(
   random_seed=42
 )
 ```
+
 
 Instantiates Encoder-Combiner-Decoder (ECD) object.
 
@@ -167,10 +175,11 @@ splits and any other random function.
 __Return__
 
 - __return__ (ludwig.models.ECD): Instance of the Ludwig model object.
+ 
 
 ---
-
 ## evaluate
+
 
 ```python
 ludwig.evaluate(
@@ -187,6 +196,7 @@ ludwig.evaluate(
   return_type=<class 'pandas.core.frame.DataFrame'>
 )
 ```
+
 
 This function is used to predict the output variables given the input variables using the trained model
 and compute test statistics like performance measures, confusion matrices and the like.
@@ -234,10 +244,11 @@ __Return__
     statistics,
 `postprocess_predictions` contains predicted values,
 `output_directory` is location where results are stored.
+ 
 
 ---
-
 ## experiment
+
 
 ```python
 experiment(
@@ -267,6 +278,7 @@ experiment(
   random_seed=42
 )
 ```
+
 
 Trains a model on a dataset's training and validation splits and uses it to predict on the test split.
 It saves the trained model and the statistics of training and testing.
@@ -370,10 +382,11 @@ __Return__
 `preprocessed_data` tuple containing preprocessed
 `(training_set, validation_set, test_set)`, `output_directory`
 filepath string to where results are stored.
+ 
 
 ---
-
 ## load
+
 
 ```python
 load(
@@ -387,9 +400,11 @@ load(
 )
 ```
 
+
 This function allows for loading pretrained models.
 
 __Inputs__
+
 
 - __model_dir__ (str): path to the directory containing the model.
    If the model was trained by the `train` or `experiment` command,
@@ -412,23 +427,28 @@ Ludwig pipeline.
 
 __Return__
 
+
 - __return__ (LudwigModel): a LudwigModel object
 
+
 __Example usage__
+
 
 ```python
 ludwig_model = LudwigModel.load(model_dir)
 ```
+ 
 
 ---
-
 ## load_weights
+
 
 ```python
 load_weights(
   model_dir
 )
 ```
+
 
 Loads weights from a pre-trained model.
 
@@ -439,17 +459,19 @@ model
 
 __Return__
 
-- __return__ ( `Non):`None`
+- __return__ ( `Non): `None`
 
 __Example usage__
+
 
 ```python
 ludwig_model.load_weights(model_dir)
 ```
+ 
 
 ---
-
 ## predict
+
 
 ```python
 ludwig.predict(
@@ -464,6 +486,7 @@ ludwig.predict(
   callbacks=None
 )
 ```
+
 
 Using a trained model, make predictions from the provided dataset.
 
@@ -502,13 +525,15 @@ already registered to the model will be preserved.
 
 __Return__
 
+
 - __return__ (Tuple[Union[dict, pd.DataFrame], str]) `(predictions, output_directory):`
 `predictions` predictions from the provided dataset,
 `output_directory` filepath string to where data was stored.
+ 
 
 ---
-
 ## preprocess
+
 
 ```python
 preprocess(
@@ -523,9 +548,11 @@ preprocess(
 )
 ```
 
+
 This function is used to preprocess data.
 
 __Inputs__
+
 
 - __dataset__ (Union[str, dict, pandas.DataFrame], default: `None`):
 source containing the entire dataset to be used in the experiment.
@@ -565,12 +592,14 @@ model and the training progress files.
 
 __Return__
 
+
 - __return__ (Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, Dict]): tuple containing
 `(proc_training_set, proc_validation_set, proc_test_set, training_set_metadata)`.
+ 
 
 ---
-
 ## save
+
 
 ```python
 save(
@@ -578,28 +607,33 @@ save(
 )
 ```
 
+
 This function allows to save models on disk.
 
 __Inputs__
 
-- __save_path__ (str): path to the directory where the model is
+
+- __ save_path__ (str): path to the directory where the model is
     going to be saved. Both a JSON file containing the model
     architecture hyperparameters and checkpoints files containing
     model weights will be saved.
 
 __Return__
 
+
 - __return__ (None): `None`
 
 __Example usage__
 
+
 ```python
 ludwig_model.save(save_path)
 ```
+ 
 
 ---
-
 ## save_config
+
 
 ```python
 save_config(
@@ -607,20 +641,23 @@ save_config(
 )
 ```
 
+
 Save config to specified location.
 
 __Inputs__
+
 
 - __save_path__ (str): filepath string to save config as a
 JSON file.
 
 __Return__
 
-- __return__ ( `None):`None`
+- __return__ ( `None): `None`
+ 
 
 ---
-
 ## save_torchscript
+
 
 ```python
 save_torchscript(
@@ -628,11 +665,12 @@ save_torchscript(
 )
 ```
 
+
 Saves the Torchscript model to disk.
 
 ---
-
 ## set_logging_level
+
 
 ```python
 set_logging_level(
@@ -640,25 +678,30 @@ set_logging_level(
 )
 ```
 
+
 Sets level for log messages.
 
 __Inputs__
+
 
 - __logging_level__ (int): Set/Update the logging level. Use logging
 constants like `logging.DEBUG` , `logging.INFO` and `logging.ERROR`.
 
 __Return__
 
-- __return__ ( `None):`None`
+
+- __return__ ( `None): `None`
+ 
 
 ---
-
 ## to_torchscript
+
 
 ```python
 to_torchscript(
 )
 ```
+
 
 Converts the trained LudwigModule, including preprocessing and postprocessing, to Torchscript.
 
@@ -673,9 +716,10 @@ Similarly, the output will be a dictionary of dictionaries, where each feature h
 outputs. The outputs will be a list of strings for predictions with string types, while other outputs will be
 tensors of varying dimensions for probabilities, logits, etc.
 
----
 
+---
 ## train
+
 
 ```python
 train(
@@ -699,6 +743,7 @@ train(
 )
 ```
 
+
 This function is used to perform a full training of the model on the specified dataset.
 
 During training if the skip parameters are False
@@ -708,6 +753,7 @@ resolved to user specified ones and `n` is an increasing number
 starting from 0 used to differentiate among repeated runs.
 
 __Inputs__
+
 
 - __dataset__ (Union[str, dict, pandas.DataFrame], default: `None`):
 source containing the entire dataset to be used in the experiment.
@@ -781,6 +827,7 @@ model and the training progress files.
 
 __Return__
 
+
 - __return__ (Tuple[Dict, Union[Dict, pd.DataFrame], str]): tuple containing
 `(training_statistics, preprocessed_data, output_directory)`.
 `training_statistics` is a nested dictionary of dataset -> feature_name -> metric_name -> List of metrics.
@@ -788,10 +835,11 @@ __Return__
 `preprocessed_data` is the tuple containing these three data sets
 `(training_set, validation_set, test_set)`.
 `output_directory` filepath to where training results are stored.
+ 
 
 ---
-
 ## train_online
+
 
 ```python
 train_online(
@@ -802,9 +850,11 @@ train_online(
 )
 ```
 
+
 Performs one epoch of training of the model on `dataset`.
 
 __Inputs__
+
 
 - __dataset__ (Union[str, dict, pandas.DataFrame], default: `None`):
 source containing the entire dataset to be used in the experiment.
@@ -829,8 +879,9 @@ formats are `'auto'`, `'csv'`, `'df'`, `'dict'`, `'excel'`, `'feather'`,
 
 __Return__
 
-- __return__ (None): `None`
 
+- __return__ (None): `None`
+ 
 ---
 
 # Module functions
@@ -838,6 +889,7 @@ __Return__
 ---
 
 ## kfold_cross_validate
+
 
 ```python
 ludwig.api.kfold_cross_validate(
@@ -865,9 +917,11 @@ ludwig.api.kfold_cross_validate(
 )
 ```
 
+
 Performs k-fold cross validation and returns result data structures.
 
 __Inputs__
+
 
 - __num_folds__ (int): number of folds to create for the cross-validation
 - __config__ (Union[dict, str]): model specification
@@ -938,16 +992,19 @@ model and the training progress files.
     of backend to use to execute preprocessing / training steps.
 - __logging_level__ (int, default: INFO): log level to send to stderr.
 
+
 __Return__
+
 
 - __return__ (tuple(kfold_cv_statistics, kfold_split_indices), dict): a tuple of
     dictionaries `kfold_cv_statistics`: contains metrics from cv run.
      `kfold_split_indices`: indices to split training data into
      training fold and test fold.
-
+ 
 ---
 
 ## hyperopt
+
 
 ```python
 ludwig.hyperopt.run.hyperopt(
@@ -980,9 +1037,11 @@ ludwig.hyperopt.run.hyperopt(
 )
 ```
 
+
 This method performs an hyperparameter optimization.
 
 __Inputs__
+
 
 - __config__ (Union[str, dict]): config which defines
 the different parameters of the model, features, preprocessing and
@@ -1073,5 +1132,7 @@ initialization, splits and any other random function.
 
 __Return__
 
+
 - __return__ (List[dict]): List of results for each trial, ordered by
 descending performance on the target metric.
+ 

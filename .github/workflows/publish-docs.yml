@@ -35,6 +35,13 @@ jobs:
       - name: Generate API Docs
         run: python code_doc_autogen.py
 
+      - name: Verify all changes have been committed
+        run: |
+          if [[ `git status --porcelain` ]]; then
+            echo "Please commit all changes after running code_doc_autogen.py"
+            exit 1
+          fi
+
       - name: Setup doc deploy
         run: |
           git config --global user.name ci-bot

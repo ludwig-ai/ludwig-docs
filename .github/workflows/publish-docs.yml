@@ -29,25 +29,6 @@ jobs:
         run: |
           echo "ludwig_version=$(python -c "import ludwig; print('.'.join(ludwig.__version__.split('.')[:2]))")" >> $GITHUB_ENV
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: Generate API Docs
-        run: python code_doc_autogen.py
-
-      - name: Install Pre-commit
-        run: pip install pre-commit
-
-      - name: Run pre-commit
-        run: pre-commit run --all-files
-
-      - name: Verify all changes have been committed
-        run: |
-          if [[ `git status --porcelain` ]]; then
-            echo "Please commit all changes after running code_doc_autogen.py"
-            exit 1
-          fi
-
       - name: Setup doc deploy
         run: |
           git config --global user.name ci-bot

@@ -24,6 +24,7 @@ nav:
       - "Hyperopt": "getting_started/hyperopt.md"
       - "Serving": "getting_started/serve.md"
       - "Distributed training on Ray": "getting_started/ray.md"
+      - "Ludwig with Docker": "getting_started/docker.md"
   - User Guide:
       - "User Guide": "user_guide/index.md"
       - "What is Ludwig?": "user_guide/what_is_ludwig.md"

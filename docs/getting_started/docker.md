@@ -1,4 +1,4 @@
-You can also run Ludwig using the docker images available on [dockerhub](https://hub.docker.com/search?q=ludwigai). 
+You can also run Ludwig using the docker images available on [dockerhub](https://hub.docker.com/search?q=ludwigai).
 These images come with a full set of pre-requiste packages to support the capabilities of Ludwig
 
 ### Repositories

@@ -1,5 +1,5 @@
-The `hyperopt` section of the Ludwig configuration contains what metrics to optimize for, which parameters to optimize,
-sampler, and execution strategy.
+The `hyperopt` section of the Ludwig configuration defines what metrics to optimize for, which parameters to optimize,
+search strategy and execution strategy.
 
 ```yaml
 hyperopt:
@@ -39,23 +39,23 @@ hyperopt:
 
 # Defining hyperparameter search spaces
 
-In the `parameters` section, `.` is used to reference an parameter nested inside a section of the configuration.
-For instance, to reference the `learning_rate`, one would have to use the name `trainer.learning_rate`.
+In the `parameters` section, hyperparameters are dot( `.`) separate names. The parts of the hyperparameter names separated by `.` are references to nested sections in the Ludwig configuration.
+For instance, to reference the `learning_rate`, in the `trainer` section one would use the name `trainer.learning_rate`.
 If the parameter to reference is inside an input or output feature, the name of that feature will be be used as starting point.
 For instance, for referencing the `cell_type` of the `text` feature, use the name `text.cell_type`.
 
-## Number ranges
+## Numeric Hyperparameters
 
 - `space`: Use [Ray Tune's Search Space](https://docs.ray.io/en/latest/tune/api_docs/search_space.html) types, e.g., `uniform`, `quniform`, `loguniform`, `choice`, etc.  Refer the cited page for details.
 
-For numeric `spaces`, these define the space
+For numeric `spaces`, these define the range where the value is generated
+
 - `lower`: the minimum value the parameter can have
 - `upper`: the maximum value the parameter can have
 - `q`: quantization number, used in `spaces` such as `quniform`, `qloguniform`, `qrandn`, `qrandint`, `qlograndint`
 - `base`: defines the base of the log for `loguniform`, `qloguniform`, `lograndint` and `qlograndint`
 
-Float example:
-
+**Float example**: Uniform floating point random values (in log space) between 0.001 and 0.1 
 ```yaml
 trainer.learning_rate:
   space: loguniform
@@ -63,8 +63,7 @@ trainer.learning_rate:
   uppper: 0.1
 ```
 
-Integer example:
-
+**Integer example**: Uniform random integer values 1, 2, 3
 ```yaml
 combiner.num_fc_layers:
   space: randint
@@ -72,8 +71,7 @@ combiner.num_fc_layers:
   upper: 4
 ```
 
-Quantized Example:
-
+**Quantized Example**: Uniform random floating point values such a 0, 0.1, 0.2, ..., 0.9
 ```yaml
 my_output_feature.dropout:
   space: quniform
@@ -83,11 +81,11 @@ my_output_feature.dropout:
 ```
 
 
-## Categorical selection
+## Categorical Hyperparameters
 
 - `space`: Use `choice`.
-- `categories`: a list of possible values. The type of each value of the list is not important (they could be strings,
-integers, floats and anything else, even entire dictionaries).  The values will be a uniform random selection.
+- `categories`: a list of possible values. The type of each value of the list is general, i.e., they could be strings,
+integers, floats and anything else, even entire dictionaries.  The values will be a uniform random selection.
 
 Example:
 
@@ -98,10 +96,12 @@ text.cell_type:
 ```
 
 
-## Grid Space
+## Hyperparameters in a Grid
 
-For `grid_search` space
-- `values`: is a list of values to use in creating the grid search space.  The type of each value of the list is not important (they could be strings, integers, floats and anything else, even entire dictionaries).
+For `space`: `grid_search`
+
+- `values`: is a list of values to use in creating the grid search space.  The type of each value of the list is general, i.e., they could be strings,
+integers, floats and anything else, even entire dictionaries.
 
 Example:
 
@@ -111,7 +111,7 @@ text.cell_type:
   values: [rnn, gru, lstm]
 ```
 
-More comprehensive example
+## More comprehensive example
 
 ```yaml
 hyperopt:
@@ -145,19 +145,17 @@ Ray Tune supports its own collection of [search algorithms](https://docs.ray.io/
 
 ```yaml
 search_alg:
-  type: ax
+  type: variant_generator
 ```
 
-You can find the full list of supported search algorithm names in Ray Tune's [create_searcher](https://github.com/ray-project/ray/blob/master/python/ray/tune/suggest/__init__.py) function.
-
-Other config options, including `parameters`, `num_samples`, and `goal` work the same for Ray Tune as they do for other sampling strategies in Ludwig. The `parameters` will be converted from the Ludwig format into a Ray Tune [search space](https://docs.ray.io/en/master/tune/api_docs/search_space.html). However, note that the `space` field of the Ludwig config should conform to the Ray Tune [distribution names](https://docs.ray.io/en/master/tune/api_docs/search_space.html#random-distributions-api). For example:
+You can find the full list of supported search algorithm names in Ray Tune's [create_searcher](https://github.com/ray-project/ray/blob/master/python/ray/tune/suggest/__init__.py) function. Please note these algorithms require installation of additional packages.  As of this version of Ludwig, Ludwig installs the packages for the search algorithm `hyperopt`.  For all other search algorithms, the user is expected to install the required packages.
 
 
 # Executor
 
 ## Ray Tune Executor
 
-The `ray` executor is used in conjunction with the `ray` sampler to enable [Ray Tune](https://docs.ray.io/en/master/tune/index.html) for distributed hyperopt across a cluster of machines.
+The `ray` executor is used to enable [Ray Tune](https://docs.ray.io/en/master/tune/index.html) for both local and distributed hyperopt across a cluster of machines.
 
 **Parameters:**
 
@@ -193,6 +191,8 @@ See the section on [Running Ludwig with Ray](../../user_guide/distributed_traini
 Ray cluster.
 
 # Full hyperparameter optimization example
+
+Following is a full example of a Ludwig configuration with hyperparameter optimization.
 
 Example YAML:
 
@@ -253,5 +253,5 @@ hyperopt:
 Example CLI command:
 
 ```
-ludwig hyperopt --dataset reuters-allcats.csv --config_str "{input_features: [{name: text, type: text, encoder: rnn, cell_type: lstm, num_layers: 2}], output_features: [{name: class, type: category}], training: {learning_rate: 0.001}, hyperopt: {goal: maximize, output_feature: class, metric: accuracy, split: validation, parameters: {trainer.learning_rate: {type: float, low: 0.0001, high: 0.1, steps: 4, scale: log}, text.cell_type: {type: category, values: [rnn, gru, lstm]}}, sampler: {type: grid}, executor: {type: serial}}}"
+ludwig hyperopt --dataset reuters-allcats.csv --config_str "{input_features: [{name: text, type: text, encoder: rnn, cell_type: lstm, num_layers: 2}], output_features: [{name: class, type: category}], training: {learning_rate: 0.001}, hyperopt: {goal: maximize, output_feature: class, metric: accuracy, split: validation, parameters: {trainer.learning_rate: {space: loguniform, lower: 0.0001, upper: 0.1}, text.cell_type: {space: choice, categories: [rnn, gru, lstm]}}, search_alg: {type: variant_generator},executor: {type: ray, num_samples: 10}}}"
 ```

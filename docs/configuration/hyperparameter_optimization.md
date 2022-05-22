@@ -34,7 +34,7 @@ hyperopt:
 - `metric` is the metric that we want to optimize for. The default one is `loss`, but depending on the type of the feature defined in `output_feature`, different metrics and losses are available. Check the metrics section of the specific output feature type to figure out what metrics are available to use.
 - `split` is the split of data that we want to compute our metric on. By default it is the `validation` split, but you have the flexibility to specify also `train` or `test` splits.
 - `parameters` section consists of a set of hyperparameters to optimize. They are provided as keys (the names of the parameters) and values associated with them (that define the search space). The values vary depending on the type of the hyperparameter. Syntax for this section is based on [Ray Tune's Search Space parameters](https://docs.ray.io/en/latest/tune/api_docs/search_space.html).
-- `search_alg` section specifies the algorittm to sample the defined `parameters` space. Candidate algorithms are those found in [Ray Tune's Search Algorithms](https://docs.ray.io/en/latest/tune/api_docs/suggestion.html).  
+- `search_alg` section specifies the algorittm to sample the defined `parameters` space. Candidate algorithms are those found in [Ray Tune's Search Algorithms](https://docs.ray.io/en/latest/tune/api_docs/suggestion.html).
 - `executor` section specifies how to execute the hyperparameter optimization. The execution could happen locally in a serial manner or in parallel across multiple workers and with GPUs as well if available.  The `executor` section includes spefication for work scheduling and the number of samples to generate.
 
 # Defining hyperparameter search spaces
@@ -55,7 +55,8 @@ For numeric `spaces`, these define the range where the value is generated
 - `q`: quantization number, used in `spaces` such as `quniform`, `qloguniform`, `qrandn`, `qrandint`, `qlograndint`
 - `base`: defines the base of the log for `loguniform`, `qloguniform`, `lograndint` and `qlograndint`
 
-**Float example**: Uniform floating point random values (in log space) between 0.001 and 0.1 
+**Float example**: Uniform floating point random values (in log space) between 0.001 and 0.1
+
 ```yaml
 trainer.learning_rate:
   space: loguniform
@@ -64,6 +65,7 @@ trainer.learning_rate:
 ```
 
 **Integer example**: Uniform random integer values 1, 2, 3
+
 ```yaml
 combiner.num_fc_layers:
   space: randint
@@ -72,6 +74,7 @@ combiner.num_fc_layers:
 ```
 
 **Quantized Example**: Uniform random floating point values such a 0, 0.1, 0.2, ..., 0.9
+
 ```yaml
 my_output_feature.dropout:
   space: quniform
@@ -79,7 +82,6 @@ my_output_feature.dropout:
   upper: 1
   q: 0.1
 ```
-
 
 ## Categorical Hyperparameters
 
@@ -94,7 +96,6 @@ text.cell_type:
   categories: [rnn, gru, lstm]
   space: choice
 ```
-
 
 ## Hyperparameters in a Grid
 
@@ -138,7 +139,6 @@ hyperopt:
         - [{"output_size": 256}]
 ```
 
-
 # Search Algorithm
 
 Ray Tune supports its own collection of [search algorithms](https://docs.ray.io/en/master/tune/api_docs/suggestion.html), specified by the `search_alg` section of the hyperopt config:
@@ -149,7 +149,6 @@ search_alg:
 ```
 
 You can find the full list of supported search algorithm names in Ray Tune's [create_searcher](https://github.com/ray-project/ray/blob/master/python/ray/tune/suggest/__init__.py) function. Please note these algorithms require installation of additional packages.  As of this version of Ludwig, Ludwig installs the packages for the search algorithm `hyperopt`.  For all other search algorithms, the user is expected to install the required packages.
-
 
 # Executor
 

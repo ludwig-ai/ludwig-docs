@@ -161,10 +161,10 @@ The `ray` executor is used to enable [Ray Tune](https://docs.ray.io/en/master/tu
 
 **Parameters:**
 
-- `num_samples`: This parameter, along with the `space` specifications in the `parameters` section, controls how many trials are generated (default: 1). 
-  
+- `num_samples`: This parameter, along with the `space` specifications in the `parameters` section, controls how many trials are generated (default: 1).
+
 !!! note
-     * If all the hyperparameters in the `parameters` section have non-`grid_search` specifications (e.g., `uniform`, `randn`, `choice`, etc.), then the number of trials will be `num_samples`.
+     *If all the hyperparameters in the `parameters` section have non-`grid_search` specifications (e.g., `uniform`, `randn`, `choice`, etc.), then the number of trials will be `num_samples`.
      * If all the hyperparameters have `grid_search`, then the number of trials will be the product of the number of values specified for each hyperparameter.  In this case, `num_samples` should be set to 1.  For example, if there are three `grid_search` hyperparameters, with 2, 4 and 4 values, respectively.  The number of trials will be 2 X 4 X 4 = 32, where each trial is a unique combination of the three `grid_search` hyperparameter values.
      * If there is a mixture of `grid_search` and non-`grid_search` spaces, the number of trials will be product of the number of values specified for each `grid_search` hyperpameter multiplied by the value of `num_samples`.  To illustrate this point, we take the three `grid_search` hyperparameters described in the preceding bullet item and add 2 hyperparameters with `uniform` and `randint` spaces.  With `num_samples = 10`, for each unique combination of values from the `grid_search` hyperparameters, 10 trials will be generated with random values selected for the `uniform` and `randint` hyperparameters.  This will lead to a total of 32 X 10 = 320 trials.
 

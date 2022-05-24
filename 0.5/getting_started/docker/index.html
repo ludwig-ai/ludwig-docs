@@ -12,21 +12,21 @@
         <meta name="author" content="Piero Molino">
       
       
-        <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/latest/configuration/features/input_features/">
+        <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/latest/getting_started/docker/">
       
-      <link rel="icon" href="../../../favicon.ico">
+      <link rel="icon" href="../../favicon.ico">
       <meta name="generator" content="mkdocs-1.2.4, mkdocs-material-8.2.7">
     
     
       
-        <title>Input Features (↑) - Ludwig</title>
+        <title>Ludwig with Docker - Ludwig</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.9d5733d3.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.9d5733d3.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.e6a45f82.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
         
       
     
@@ -41,13 +41,13 @@
       
     
     
-      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-      <link rel="stylesheet" href="../../../stylesheets/monokai.css">
+      <link rel="stylesheet" href="../../stylesheets/monokai.css">
     
-      <link rel="stylesheet" href="../../../stylesheets/colorful.css">
+      <link rel="stylesheet" href="../../stylesheets/colorful.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#preprocessing" class="md-skip">
+        <a href="#repositories" class="md-skip">
           Skip to content
         </a>
       
@@ -105,9 +105,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="Ludwig" class="md-header__button md-logo" aria-label="Ludwig" data-md-component="logo">
+    <a href="../.." title="Ludwig" class="md-header__button md-logo" aria-label="Ludwig" data-md-component="logo">
       
-<img alt="logo" src="../../../images/ludwig_logo.svg"
+<img alt="logo" src="../../images/ludwig_logo.svg"
      style="height:1rem;width:4rem;">
 
     </a>
@@ -124,7 +124,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Input Features (↑)
+              Ludwig with Docker
             
           </span>
         </div>
@@ -221,7 +221,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../../.." class="md-tabs__link">
+    <a href="../.." class="md-tabs__link">
       About
     </a>
   </li>
@@ -230,13 +230,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../../../getting_started/" class="md-tabs__link">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
         Getting Started
       </a>
     </li>
@@ -252,7 +254,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../user_guide/" class="md-tabs__link">
+      <a href="../../user_guide/" class="md-tabs__link">
         User Guide
       </a>
     </li>
@@ -262,15 +264,13 @@
         
   
   
-    
-  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../../" class="md-tabs__link md-tabs__link--active">
+      <a href="../../configuration/" class="md-tabs__link">
         Configuration
       </a>
     </li>
@@ -286,7 +286,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../examples/" class="md-tabs__link">
+      <a href="../../examples/" class="md-tabs__link">
         Examples
       </a>
     </li>
@@ -302,7 +302,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../developer_guide/" class="md-tabs__link">
+      <a href="../../developer_guide/" class="md-tabs__link">
         Developer Guide
       </a>
     </li>
@@ -315,7 +315,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../../../community/" class="md-tabs__link">
+    <a href="../../community/" class="md-tabs__link">
       Community
     </a>
   </li>
@@ -327,7 +327,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../../../faq/" class="md-tabs__link">
+    <a href="../../faq/" class="md-tabs__link">
       FAQ
     </a>
   </li>
@@ -354,9 +354,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="Ludwig" class="md-nav__button md-logo" aria-label="Ludwig" data-md-component="logo">
+    <a href="../.." title="Ludwig" class="md-nav__button md-logo" aria-label="Ludwig" data-md-component="logo">
       
-<img alt="logo" src="../../../images/ludwig_logo.svg"
+<img alt="logo" src="../../images/ludwig_logo.svg"
      style="height:1rem;width:4rem;">
 
     </a>
@@ -385,7 +385,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         About
       </a>
     </li>
@@ -398,12 +398,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
       
       
       
@@ -433,7 +435,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../../getting_started/">Getting Started</a>
+          <a href="../">Getting Started</a>
           
             <label for="__nav_2">
               <span class="md-nav__icon md-icon"></span>
@@ -456,7 +458,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting_started/installation/" class="md-nav__link">
+      <a href="../installation/" class="md-nav__link">
         Installation
       </a>
     </li>
@@ -470,7 +472,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting_started/prepare_data/" class="md-nav__link">
+      <a href="../prepare_data/" class="md-nav__link">
         Dataset preparation
       </a>
     </li>
@@ -484,7 +486,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting_started/train/" class="md-nav__link">
+      <a href="../train/" class="md-nav__link">
         Training
       </a>
     </li>
@@ -498,7 +500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting_started/evaluate/" class="md-nav__link">
+      <a href="../evaluate/" class="md-nav__link">
         Prediction and Evaluation
       </a>
     </li>
@@ -512,7 +514,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting_started/hyperopt/" class="md-nav__link">
+      <a href="../hyperopt/" class="md-nav__link">
         Hyperopt
       </a>
     </li>
@@ -526,7 +528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting_started/serve/" class="md-nav__link">
+      <a href="../serve/" class="md-nav__link">
         Serving
       </a>
     </li>
@@ -540,7 +542,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting_started/ray/" class="md-nav__link">
+      <a href="../ray/" class="md-nav__link">
         Distributed training on Ray
       </a>
     </li>
@@ -552,11 +554,82 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../../getting_started/docker/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Ludwig with Docker
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Ludwig with Docker
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#repositories" class="md-nav__link">
+    Repositories
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-tags" class="md-nav__link">
+    Image Tags
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-containers" class="md-nav__link">
+    Running Containers
+  </a>
+  
+    <nav class="md-nav" aria-label="Running Containers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run-ludwig-cli" class="md-nav__link">
+    Run Ludwig CLI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-python-program-using-ludwig-apis" class="md-nav__link">
+    Run Python program using Ludwig APIs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -615,7 +688,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../../user_guide/">User Guide</a>
+          <a href="../../user_guide/">User Guide</a>
           
             <label for="__nav_3">
               <span class="md-nav__icon md-icon"></span>
@@ -638,7 +711,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/what_is_ludwig/" class="md-nav__link">
+      <a href="../../user_guide/what_is_ludwig/" class="md-nav__link">
         What is Ludwig?
       </a>
     </li>
@@ -652,7 +725,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/how_ludwig_works/" class="md-nav__link">
+      <a href="../../user_guide/how_ludwig_works/" class="md-nav__link">
         How Ludwig Works
       </a>
     </li>
@@ -666,7 +739,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/command_line_interface/" class="md-nav__link">
+      <a href="../../user_guide/command_line_interface/" class="md-nav__link">
         Command Line Interface
       </a>
     </li>
@@ -712,7 +785,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/api/LudwigModel/" class="md-nav__link">
+      <a href="../../user_guide/api/LudwigModel/" class="md-nav__link">
         LudwigModel
       </a>
     </li>
@@ -726,7 +799,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/api/visualization/" class="md-nav__link">
+      <a href="../../user_guide/api/visualization/" class="md-nav__link">
         Visualization
       </a>
     </li>
@@ -783,7 +856,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/datasets/supported_formats/" class="md-nav__link">
+      <a href="../../user_guide/datasets/supported_formats/" class="md-nav__link">
         Supported Formats
       </a>
     </li>
@@ -797,7 +870,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/datasets/data_preprocessing/" class="md-nav__link">
+      <a href="../../user_guide/datasets/data_preprocessing/" class="md-nav__link">
         Data Preprocessing
       </a>
     </li>
@@ -811,7 +884,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/datasets/data_postprocessing/" class="md-nav__link">
+      <a href="../../user_guide/datasets/data_postprocessing/" class="md-nav__link">
         Data Postprocessing
       </a>
     </li>
@@ -825,7 +898,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/datasets/dataset_zoo/" class="md-nav__link">
+      <a href="../../user_guide/datasets/dataset_zoo/" class="md-nav__link">
         Dataset Zoo
       </a>
     </li>
@@ -846,7 +919,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/distributed_training/" class="md-nav__link">
+      <a href="../../user_guide/distributed_training/" class="md-nav__link">
         Distributed Training
       </a>
     </li>
@@ -860,7 +933,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/hyperopt/" class="md-nav__link">
+      <a href="../../user_guide/hyperopt/" class="md-nav__link">
         Hyperparameter Optimization
       </a>
     </li>
@@ -874,7 +947,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/automl/" class="md-nav__link">
+      <a href="../../user_guide/automl/" class="md-nav__link">
         AutoML
       </a>
     </li>
@@ -888,7 +961,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/visualizations/" class="md-nav__link">
+      <a href="../../user_guide/visualizations/" class="md-nav__link">
         Visualizations
       </a>
     </li>
@@ -902,7 +975,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/serving/" class="md-nav__link">
+      <a href="../../user_guide/serving/" class="md-nav__link">
         Serving
       </a>
     </li>
@@ -916,7 +989,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/integrations/" class="md-nav__link">
+      <a href="../../user_guide/integrations/" class="md-nav__link">
         Third-Party Integrations
       </a>
     </li>
@@ -936,14 +1009,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
       
       
@@ -971,7 +1042,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../">Configuration</a>
+          <a href="../../configuration/">Configuration</a>
           
             <label for="__nav_4">
               <span class="md-nav__icon md-icon"></span>
@@ -994,7 +1065,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../preprocessing/" class="md-nav__link">
+      <a href="../../configuration/preprocessing/" class="md-nav__link">
         Preprocessing
       </a>
     </li>
@@ -1006,14 +1077,12 @@
               
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" >
       
       
       
@@ -1070,7 +1139,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../supported_data_types/" class="md-nav__link">
+      <a href="../../configuration/features/supported_data_types/" class="md-nav__link">
         Supported Data Types
       </a>
     </li>
@@ -1082,62 +1151,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Input Features (↑)
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../configuration/features/input_features/" class="md-nav__link">
         Input Features (↑)
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#preprocessing" class="md-nav__link">
-    Preprocessing
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#encoders" class="md-nav__link">
-    Encoders
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tying-encoder-weights" class="md-nav__link">
-    Tying encoder weights
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1149,7 +1167,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../output_features/" class="md-nav__link">
+      <a href="../../configuration/features/output_features/" class="md-nav__link">
         Output Features (↓)
       </a>
     </li>
@@ -1163,7 +1181,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../binary_features/" class="md-nav__link">
+      <a href="../../configuration/features/binary_features/" class="md-nav__link">
         ⇅ Binary Features
       </a>
     </li>
@@ -1177,7 +1195,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../number_features/" class="md-nav__link">
+      <a href="../../configuration/features/number_features/" class="md-nav__link">
         ⇅ Number Features
       </a>
     </li>
@@ -1191,7 +1209,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../category_features/" class="md-nav__link">
+      <a href="../../configuration/features/category_features/" class="md-nav__link">
         ⇅ Category Features
       </a>
     </li>
@@ -1205,7 +1223,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../bag_features/" class="md-nav__link">
+      <a href="../../configuration/features/bag_features/" class="md-nav__link">
         ⇅ Bag Features
       </a>
     </li>
@@ -1219,7 +1237,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../set_features/" class="md-nav__link">
+      <a href="../../configuration/features/set_features/" class="md-nav__link">
         ⇅ Set Features
       </a>
     </li>
@@ -1233,7 +1251,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../sequence_features/" class="md-nav__link">
+      <a href="../../configuration/features/sequence_features/" class="md-nav__link">
         ⇅ Sequence Features
       </a>
     </li>
@@ -1247,7 +1265,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../text_features/" class="md-nav__link">
+      <a href="../../configuration/features/text_features/" class="md-nav__link">
         ⇅ Text Features
       </a>
     </li>
@@ -1261,7 +1279,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vector_features/" class="md-nav__link">
+      <a href="../../configuration/features/vector_features/" class="md-nav__link">
         ⇅ Vector Features
       </a>
     </li>
@@ -1275,7 +1293,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../audio_features/" class="md-nav__link">
+      <a href="../../configuration/features/audio_features/" class="md-nav__link">
         ↑ Audio Features
       </a>
     </li>
@@ -1289,7 +1307,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../date_features/" class="md-nav__link">
+      <a href="../../configuration/features/date_features/" class="md-nav__link">
         ↑ Date Features
       </a>
     </li>
@@ -1303,7 +1321,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../h3_features/" class="md-nav__link">
+      <a href="../../configuration/features/h3_features/" class="md-nav__link">
         ↑ H3 Features
       </a>
     </li>
@@ -1317,7 +1335,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../image_features/" class="md-nav__link">
+      <a href="../../configuration/features/image_features/" class="md-nav__link">
         ↑ Image Features
       </a>
     </li>
@@ -1331,7 +1349,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../time_series_features/" class="md-nav__link">
+      <a href="../../configuration/features/time_series_features/" class="md-nav__link">
         ↑ Time Series Features
       </a>
     </li>
@@ -1352,7 +1370,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../combiner/" class="md-nav__link">
+      <a href="../../configuration/combiner/" class="md-nav__link">
         Combiner
       </a>
     </li>
@@ -1366,7 +1384,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../preprocessing/" class="md-nav__link">
+      <a href="../../configuration/preprocessing/" class="md-nav__link">
         Preprocessing
       </a>
     </li>
@@ -1380,7 +1398,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../trainer/" class="md-nav__link">
+      <a href="../../configuration/trainer/" class="md-nav__link">
         Trainer
       </a>
     </li>
@@ -1394,7 +1412,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../hyperparameter_optimization/" class="md-nav__link">
+      <a href="../../configuration/hyperparameter_optimization/" class="md-nav__link">
         Hyperopt
       </a>
     </li>
@@ -1408,7 +1426,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../backend/" class="md-nav__link">
+      <a href="../../configuration/backend/" class="md-nav__link">
         Backend
       </a>
     </li>
@@ -1451,7 +1469,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../../examples/">Examples</a>
+          <a href="../../examples/">Examples</a>
           
             <label for="__nav_5">
               <span class="md-nav__icon md-icon"></span>
@@ -1510,7 +1528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/text_classification/" class="md-nav__link">
+      <a href="../../examples/text_classification/" class="md-nav__link">
         Text Classification
       </a>
     </li>
@@ -1524,7 +1542,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/adult_census_income/" class="md-nav__link">
+      <a href="../../examples/adult_census_income/" class="md-nav__link">
         Tabular Data Classification
       </a>
     </li>
@@ -1538,7 +1556,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/mnist/" class="md-nav__link">
+      <a href="../../examples/mnist/" class="md-nav__link">
         Image Classification
       </a>
     </li>
@@ -1552,7 +1570,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/multimodal_classification/" class="md-nav__link">
+      <a href="../../examples/multimodal_classification/" class="md-nav__link">
         Multimodal Classification
       </a>
     </li>
@@ -1635,7 +1653,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/ner_tagging/" class="md-nav__link">
+      <a href="../../examples/ner_tagging/" class="md-nav__link">
         Named Entity Recognition Tagging
       </a>
     </li>
@@ -1649,7 +1667,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/nlu/" class="md-nav__link">
+      <a href="../../examples/nlu/" class="md-nav__link">
         Natural Language Understanding
       </a>
     </li>
@@ -1663,7 +1681,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/machine_translation/" class="md-nav__link">
+      <a href="../../examples/machine_translation/" class="md-nav__link">
         Machine Translation
       </a>
     </li>
@@ -1677,7 +1695,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/seq2seq/" class="md-nav__link">
+      <a href="../../examples/seq2seq/" class="md-nav__link">
         Chit-Chat Dialogue Modeling through Sequence2Sequence
       </a>
     </li>
@@ -1691,7 +1709,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/sentiment_analysis/" class="md-nav__link">
+      <a href="../../examples/sentiment_analysis/" class="md-nav__link">
         Sentiment Analysis
       </a>
     </li>
@@ -1705,7 +1723,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/oneshot/" class="md-nav__link">
+      <a href="../../examples/oneshot/" class="md-nav__link">
         One-shot Learning with Siamese Networks
       </a>
     </li>
@@ -1719,7 +1737,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/visual_qa/" class="md-nav__link">
+      <a href="../../examples/visual_qa/" class="md-nav__link">
         Visual Question Answering
       </a>
     </li>
@@ -1733,7 +1751,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/speech_recognition/" class="md-nav__link">
+      <a href="../../examples/speech_recognition/" class="md-nav__link">
         Spoken Digit Speech Recognition
       </a>
     </li>
@@ -1747,7 +1765,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/speaker_verification/" class="md-nav__link">
+      <a href="../../examples/speaker_verification/" class="md-nav__link">
         Speaker Verification
       </a>
     </li>
@@ -1761,7 +1779,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/titanic/" class="md-nav__link">
+      <a href="../../examples/titanic/" class="md-nav__link">
         Binary Classification (Titanic)
       </a>
     </li>
@@ -1775,7 +1793,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/forecasting/" class="md-nav__link">
+      <a href="../../examples/forecasting/" class="md-nav__link">
         Timeseries forecasting
       </a>
     </li>
@@ -1789,7 +1807,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/weather/" class="md-nav__link">
+      <a href="../../examples/weather/" class="md-nav__link">
         Timeseries forecasting (Weather)
       </a>
     </li>
@@ -1803,7 +1821,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/movie_ratings/" class="md-nav__link">
+      <a href="../../examples/movie_ratings/" class="md-nav__link">
         Movie rating prediction
       </a>
     </li>
@@ -1817,7 +1835,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/multi_label/" class="md-nav__link">
+      <a href="../../examples/multi_label/" class="md-nav__link">
         Multi-label classification
       </a>
     </li>
@@ -1831,7 +1849,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/multi_task/" class="md-nav__link">
+      <a href="../../examples/multi_task/" class="md-nav__link">
         Multi-Task Learning
       </a>
     </li>
@@ -1845,7 +1863,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/fuel_efficiency/" class="md-nav__link">
+      <a href="../../examples/fuel_efficiency/" class="md-nav__link">
         Simple Regression: Fuel Efficiency Prediction
       </a>
     </li>
@@ -1859,7 +1877,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/fraud/" class="md-nav__link">
+      <a href="../../examples/fraud/" class="md-nav__link">
         Fraud Detection
       </a>
     </li>
@@ -1937,7 +1955,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../../developer_guide/">Developer Guide</a>
+          <a href="../../developer_guide/">Developer Guide</a>
           
             <label for="__nav_6">
               <span class="md-nav__icon md-icon"></span>
@@ -1960,7 +1978,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/codebase_structure/" class="md-nav__link">
+      <a href="../../developer_guide/codebase_structure/" class="md-nav__link">
         Codebase Structure
       </a>
     </li>
@@ -1974,7 +1992,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/add_an_encoder/" class="md-nav__link">
+      <a href="../../developer_guide/add_an_encoder/" class="md-nav__link">
         Add an Encoder
       </a>
     </li>
@@ -1988,7 +2006,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/add_a_combiner/" class="md-nav__link">
+      <a href="../../developer_guide/add_a_combiner/" class="md-nav__link">
         Add a Combiner
       </a>
     </li>
@@ -2002,7 +2020,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/add_a_decoder/" class="md-nav__link">
+      <a href="../../developer_guide/add_a_decoder/" class="md-nav__link">
         Add a Decoder
       </a>
     </li>
@@ -2016,7 +2034,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/add_a_feature_type/" class="md-nav__link">
+      <a href="../../developer_guide/add_a_feature_type/" class="md-nav__link">
         Add a Feature Type
       </a>
     </li>
@@ -2030,7 +2048,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/add_a_metric/" class="md-nav__link">
+      <a href="../../developer_guide/add_a_metric/" class="md-nav__link">
         Add a Metric
       </a>
     </li>
@@ -2044,7 +2062,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/add_a_loss_function/" class="md-nav__link">
+      <a href="../../developer_guide/add_a_loss_function/" class="md-nav__link">
         Add a Loss Function
       </a>
     </li>
@@ -2058,7 +2076,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/add_a_tokenizer/" class="md-nav__link">
+      <a href="../../developer_guide/add_a_tokenizer/" class="md-nav__link">
         Add a Tokenizer
       </a>
     </li>
@@ -2072,7 +2090,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/add_a_hyperopt/" class="md-nav__link">
+      <a href="../../developer_guide/add_a_hyperopt/" class="md-nav__link">
         Add a Hyperopt Algorithm
       </a>
     </li>
@@ -2086,7 +2104,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/add_a_pretrained_model/" class="md-nav__link">
+      <a href="../../developer_guide/add_a_pretrained_model/" class="md-nav__link">
         Add a Pretrained Model
       </a>
     </li>
@@ -2100,7 +2118,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/add_an_integration/" class="md-nav__link">
+      <a href="../../developer_guide/add_an_integration/" class="md-nav__link">
         Add an Integration
       </a>
     </li>
@@ -2114,7 +2132,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/add_a_dataset/" class="md-nav__link">
+      <a href="../../developer_guide/add_a_dataset/" class="md-nav__link">
         Add a Dataset
       </a>
     </li>
@@ -2128,7 +2146,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/style_guidelines_and_tests/" class="md-nav__link">
+      <a href="../../developer_guide/style_guidelines_and_tests/" class="md-nav__link">
         Style Guidelines and Tests
       </a>
     </li>
@@ -2142,7 +2160,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/unit_test_design_guidelines/" class="md-nav__link">
+      <a href="../../developer_guide/unit_test_design_guidelines/" class="md-nav__link">
         Unit Test Design Guidelines
       </a>
     </li>
@@ -2156,7 +2174,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/run_tests_on_gpu_using_ray/" class="md-nav__link">
+      <a href="../../developer_guide/run_tests_on_gpu_using_ray/" class="md-nav__link">
         Run Tests on GPU Using Ray
       </a>
     </li>
@@ -2170,7 +2188,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/release_process/" class="md-nav__link">
+      <a href="../../developer_guide/release_process/" class="md-nav__link">
         Release Process
       </a>
     </li>
@@ -2192,7 +2210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../community/" class="md-nav__link">
+      <a href="../../community/" class="md-nav__link">
         Community
       </a>
     </li>
@@ -2207,7 +2225,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../faq/" class="md-nav__link">
+      <a href="../../faq/" class="md-nav__link">
         FAQ
       </a>
     </li>
@@ -2239,23 +2257,43 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#preprocessing" class="md-nav__link">
-    Preprocessing
+  <a href="#repositories" class="md-nav__link">
+    Repositories
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#encoders" class="md-nav__link">
-    Encoders
+  <a href="#image-tags" class="md-nav__link">
+    Image Tags
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#tying-encoder-weights" class="md-nav__link">
-    Tying encoder weights
+  <a href="#running-containers" class="md-nav__link">
+    Running Containers
   </a>
+  
+    <nav class="md-nav" aria-label="Running Containers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run-ludwig-cli" class="md-nav__link">
+    Run Ludwig CLI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-python-program-using-ludwig-apis" class="md-nav__link">
+    Run Python program using Ludwig APIs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2271,158 +2309,83 @@
             <article class="md-content__inner md-typeset">
               
                 
-<a href="https://github.com/ludwig-ai/ludwig-docs/edit/master/src/docs/configuration/features/input_features.md" title="Edit this page" class="md-content__button md-icon">
+<a href="https://github.com/ludwig-ai/ludwig-docs/edit/master/src/docs/getting_started/docker.md" title="Edit this page" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
 </a>
 
 
 
-  <h1>Input Features (↑)</h1>
+  <h1>Ludwig with Docker</h1>
 
-<p>The <code>input_features</code> section is list of feature definitions. Each feature definition contains two required fields:
-<code>name</code> and <code>type</code>.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">YAML</label><label for="__tabbed_1_2">Python Dict</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pclass</span><span class="w"></span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
+<p>You can also run Ludwig using the docker images available on <a href="https://hub.docker.com/search?q=ludwigai">dockerhub</a>.
+These images come with a full set of pre-requiste packages to support the capabilities of Ludwig</p>
+<h4 id="repositories">Repositories<a class="headerlink" href="#repositories" title="Permanent link">&para;</a></h4>
+<p>The following repositories each contain a version of Ludwig with full features built
+from the <code>master</code> branch.</p>
+<ul>
+<li><code>ludwigai/ludwig</code> Ludwig packaged with PyTorch</li>
+<li><code>ludwigai/ludwig-gpu</code> Ludwig packaged with gpu-enabled version of PyTorch</li>
+<li><code>ludwigai/ludwig-ray</code> Ludwig packaged with PyTorch
+  and <a href="https://github.com/ray-project/ray">nightly build of ray-project/ray</a></li>
+<li><code>ludwigai/ludwig-ray-gpu</code> Ludwig packaged with gpu-enabled versions of PyTorch
+  and <a href="https://github.com/ray-project/ray">nightly build of ray-project/ray</a></li>
+</ul>
+<h4 id="image-tags">Image Tags<a class="headerlink" href="#image-tags" title="Permanent link">&para;</a></h4>
+<p>The following are the image tags that can be used when pulling and running the docker images.</p>
+<ul>
+<li><code>master</code> - built from Ludwig's <code>master</code> branch</li>
+<li><code>nightly</code> - nightly build of Ludwig's software.</li>
+<li><code>sha-&lt;commit point&gt;</code> - version of Ludwig software at designated git sha1
+  7-character commit point.</li>
+</ul>
+<h3 id="running-containers">Running Containers<a class="headerlink" href="#running-containers" title="Permanent link">&para;</a></h3>
+<p>Here are some examples of using the <code>ludwigai/ludwig:master</code> image to:</p>
+<ul>
+<li>run the <code>ludwig cli</code> command or</li>
+<li>run Python program containing Ludwig api or</li>
+<li>view Ludwig results with Tensorboard</li>
+</ul>
+<p>For purposes of the examples assume this host directory structure</p>
+<div class="highlight"><pre><span></span><code>/top/level/directory/path/
+    data/
+        train.csv
+    src/
+        config.yaml
+        ludwig_api_program.py
 </code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="s2">&quot;input_features&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Pclass&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;category&quot;</span><span class="p">}]</span>
-<span class="p">}</span>
+<h4 id="run-ludwig-cli">Run Ludwig CLI<a class="headerlink" href="#run-ludwig-cli" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># set shell variable to parent directory</span>
+<span class="nv">parent_path</span><span class="o">=</span>/top/level/directory/path
+
+<span class="c1"># invoke docker run command to execute the ludwig cli</span>
+<span class="c1"># map host directory ${parent_path}/data to container /data directory</span>
+<span class="c1"># map host directory ${parent_path}/src to container /src directory</span>
+docker run -v <span class="si">${</span><span class="nv">parent_path</span><span class="si">}</span>/data:/data  <span class="se">\</span>
+    -v <span class="si">${</span><span class="nv">parent_path</span><span class="si">}</span>/src:/src <span class="se">\</span>
+    ludwigai/ludwig:master <span class="se">\</span>
+    experiment --config /src/config.yaml <span class="se">\</span>
+        --dataset /data/train.csv <span class="se">\</span>
+        --output_directory /src/results
 </code></pre></div>
-</div>
-</div>
-</div>
-<p><code>name</code> is the name of the feature in the dataset. <code>type</code> is one of the <a href="../supported_data_types">supported data types</a>.</p>
-<h2 id="preprocessing">Preprocessing<a class="headerlink" href="#preprocessing" title="Permanent link">&para;</a></h2>
-<p>Recall Ludwig's butterfly framework.</p>
-<p><img alt="img" src="../../../images/butterfly.png" /></p>
-<p>Each input feature can specify its own preprocessing via the <code>preprocessing</code> sub-section.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">YAML</label><label for="__tabbed_2_2">Python Dict</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Fare</span><span class="w"></span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span><span class="w"></span>
-<span class="w">        </span><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">missing_value_strategy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fill_with_mean</span><span class="w"></span>
+<p>Experiment results can be found in host
+directory <code>/top/level/directory/path/src/results</code></p>
+<h4 id="run-python-program-using-ludwig-apis">Run Python program using Ludwig APIs<a class="headerlink" href="#run-python-program-using-ludwig-apis" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># set shell variable to parent directory</span>
+<span class="nv">parent_path</span><span class="o">=</span>/top/level/directory/path
+
+<span class="c1"># invoke docker run command to execute Python interpreter</span>
+<span class="c1"># map host directory ${parent_path}/data to container /data directory</span>
+<span class="c1"># map host directory ${parent_path}/src to container /src directory</span>
+<span class="c1"># set current working directory to container /src directory</span>
+<span class="c1"># change default entrypoint from ludwig to python</span>
+docker run  -v <span class="si">${</span><span class="nv">parent_path</span><span class="si">}</span>/data:/data  <span class="se">\</span>
+    -v <span class="si">${</span><span class="nv">parent_path</span><span class="si">}</span>/src:/src <span class="se">\</span>
+    -w /src <span class="se">\</span>
+    --entrypoint python <span class="se">\</span>
+    ludwigai/ludwig:master /src/ludwig_api_program.py
 </code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="s2">&quot;input_features&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Fare&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;number&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;preprocessing&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;missing_value_strategy&quot;</span><span class="p">:</span> <span class="s2">&quot;fill_with_mean&quot;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">]</span>
-<span class="p">}</span>
-</code></pre></div>
-</div>
-</div>
-</div>
-<p>It's also possible to specify preprocessing rules for all features of a certain type. See
-<a href="../../preprocessing/">type-global preprocessing</a>.</p>
-<h2 id="encoders">Encoders<a class="headerlink" href="#encoders" title="Permanent link">&para;</a></h2>
-<p>Each input feature can configure a specific <code>encoder</code> to map input feature values into tensors. For instance, a user
-might want to encode a <code>sequence</code> feature using a <code>transformer</code> or an <code>image</code> feature using a <code>stacked_cnn</code>. Different
-data types support different encoders. Check the documentation for specific feature types to see what encoders are
-supported for that type.</p>
-<p>All the other parameters besides <code>name</code>, <code>type</code>, and <code>preprocessing</code>, will be passed as parameters to the function that
-build the input feature's encoder, and each encoder can have different parameters. Extensive documentation for all of
-the encoders that can be used for a certain data type can also be found in each data type's documentation.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">YAML</label><label for="__tabbed_3_2">Python Dict</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w"></span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w"></span>
-<span class="w">        </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bert</span><span class="w"></span>
-<span class="w">        </span><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">tokenizer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">space</span><span class="w"></span>
-<span class="w">        </span><span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="w">        </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-</code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="s2">&quot;input_features&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="s2">&quot;bert&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;word&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;preprocessing&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;word_tokenizer&quot;</span><span class="p">:</span> <span class="s2">&quot;space&quot;</span>
-            <span class="p">},</span>
-            <span class="s2">&quot;reduce_output&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="s2">&quot;trainable&quot;</span><span class="p">:</span> <span class="kc">True</span>
-        <span class="p">}</span>
-    <span class="p">]</span>
-<span class="p">}</span>
-</code></pre></div>
-</div>
-</div>
-</div>
-<p>Encoders map raw feature values into tensors. These are usually vectors in the case of data types without a temporal /
-sequential aspect, matrices for when there is a temporal / sequential aspect, or higher rank tensors for when there is a
-spatial or a spatiotemporal aspect to the input data.</p>
-<p>Different configurations of the same encoder may return a tensor with different rank, for instance a sequential encoder
-may return a vector of size <code>h</code> that is either the final vector of a sequence or the result of pooling over the sequence
-length, or it can return a matrix of size <code>l x h</code> where <code>l</code> is the length of the sequence and <code>h</code> is the hidden
-dimension if you specify the pooling reduce operation (<code>reduce_output</code>) to be <code>None</code>.  For the sake of simplicity you
-can imagine the output to be a vector in most of the cases, but there is a <code>reduce_output</code> parameter one can specify to
-change the default behavior.</p>
-<p>For first-time users, we recommend starting with the defaults.</p>
-<h2 id="tying-encoder-weights">Tying encoder weights<a class="headerlink" href="#tying-encoder-weights" title="Permanent link">&para;</a></h2>
-<p>An additional feature that Ludwig provides is the option to have <strong>tied weights</strong> between different encoders.
-For instance, if my model takes two sentences as input and return the probability of their entailment, I may want to
-encode both sentences with the same encoder.</p>
-<p>This is done by specifying the <code>tied</code> parameter of one feature to be the name of another output feature. For
-example:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">YAML</label><label for="__tabbed_4_2">Python Dict</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sentence1</span><span class="w"></span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sentence2</span><span class="w"></span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w"></span>
-<span class="w">        </span><span class="nt">tied</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sentence1</span><span class="w"></span>
-</code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="s2">&quot;input_features&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;sentence1&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;sentence2&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;tied&quot;</span><span class="p">:</span> <span class="s2">&quot;sentence1&quot;</span>
-        <span class="p">}</span>
-    <span class="p">]</span>
-<span class="p">}</span>
-</code></pre></div>
-</div>
-</div>
-</div>
-<p>Specifying a name of a non-existent input feature will result in an error. Also, in order to be able to have tied
-weights, all encoder parameters have to be identical between the two input features.</p>
+<p>Ludwig results can be found in host
+directory <code>/top/level/directory/path/src/results</code></p>
 
               
             </article>
@@ -2463,8 +2426,8 @@ weights, all encoder parameters have to be identical between the two input featu
         <!-- Link to previous page -->
         
         
-        <a href="../supported_data_types/" class="md-footer__link md-footer__link--prev"
-            aria-label="Previous: Supported Data Types" rel="prev">
+        <a href="../ray/" class="md-footer__link md-footer__link--prev"
+            aria-label="Previous: Distributed training on Ray" rel="prev">
             <div class="md-footer__button md-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -2473,7 +2436,7 @@ weights, all encoder parameters have to be identical between the two input featu
                     <span class="md-footer__direction">
                         Previous
                     </span>
-                    Supported Data Types
+                    Distributed training on Ray
                 </div>
             </div>
         </a>
@@ -2482,14 +2445,14 @@ weights, all encoder parameters have to be identical between the two input featu
         <!-- Link to next page -->
         
         
-        <a href="../output_features/" class="md-footer__link md-footer__link--next"
-            aria-label="Next: Output Features (↓)" rel="next">
+        <a href="../../user_guide/" class="md-footer__link md-footer__link--next"
+            aria-label="Next: User Guide" rel="next">
             <div class="md-footer__title">
                 <div class="md-ellipsis">
                     <span class="md-footer__direction">
                         Next
                     </span>
-                    Output Features (↓)
+                    User Guide
                 </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -2552,10 +2515,10 @@ weights, all encoder parameters have to be identical between the two input featu
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.indexes"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.5e67fbfe.min.js", "version": {"provider": "mike", "default": "latest"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.indexes"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.5e67fbfe.min.js", "version": {"provider": "mike", "default": "latest"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.e87a5f81.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e87a5f81.min.js"></script>
       
     
   </body>

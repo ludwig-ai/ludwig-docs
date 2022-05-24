@@ -1,6 +1,5 @@
 name: Pull Request Verification
 
-on: [push, pull_request]
 on:
   pull_request:
     types: [opened, synchronize, reopened]

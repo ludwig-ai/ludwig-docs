@@ -77,7 +77,7 @@ If you want to output the full `b x s x h` tensor, you can specify `reduce_outpu
 |12|   +------+
 |7 |   |Emb 43|   +-----------+
 |43|   +------+   |Aggregation|
-|65+--->Emb 65+--->Reduce     +->
+|65+--->Emb 65+--->Reduce     +-->
 |23|   +------+   |Operation  |
 |4 |   |Emb 23|   +-----------+
 |1 |   +------+
@@ -150,25 +150,25 @@ fully connected layers and returned as a `b x h` tensor where `h` is the output 
 If you want to output the full `b x s x h` tensor, you can specify `reduce_output: null`.
 
 ```
-                   +-------+   +----+
-                +-->1D Conv+--->Pool+-+
-       +------+ |  |Width 2|   +----+ |
-       |Emb 12| |  +-------+          |
-       +------+ |                     |
-+--+   |Emb 7 | |  +-------+   +----+ |
-|12|   +------+ +-->1D Conv+--->Pool+-+
-|7 |   |Emb 43| |  |Width 3|   +----+ |           +---------+
-|43|   +------+ |  +-------+          | +------+  |Fully    |
-|65+--->Emb 65+-+                     +->Concat+-->Connected+->
-|23|   +------+ |  +-------+   +----+ | +------+  |Layers   |
-|4 |   |Emb 23| +-->1D Conv+--->Pool+-+           +---------+
-|1 |   +------+ |  |Width 4|   +----+ |
-+--+   |Emb 4 | |  +-------+          |
-       +------+ |                     |
-       |Emb 1 | |  +-------+   +----+ |
-       +------+ +-->1D Conv+--->Pool+-+
-                   |Width 5|   +----+
-                   +-------+
+                    +-------+   +----+
+                 +-->1D Conv+--->Pool+--+
+       +------+  |  |Width 2|   +----+  |
+       |Emb 12|  |  +-------+           |
+       +------+  |                      |
++--+   |Emb 7 |  |  +-------+   +----+  |
+|12|   +------+  +-->1D Conv+--->Pool+--+
+|7 |   |Emb 43|  |  |Width 3|   +----+  |            +---------+
+|43|   +------+  |  +-------+           |  +------+  |Fully    |
+|65+-->Emb 65 +--+                      +-->Concat+-->Connected+-->
+|23|   +------+  |  +-------+   +----+  |  +------+  |Layers   |
+|4 |   |Emb 23|  +-->1D Conv+--->Pool+--+            +---------+
+|1 |   +------+  |  |Width 4|   +----+  |
++--+   |Emb 4 |  |  +-------+           |
+       +------+  |                      |
+       |Emb 1 |  |  +-------+   +----+  |
+       +------+  +-->1D Conv+--->Pool+--+
+                    |Width 5|   +----+
+                    +-------+
 ```
 
 These are the available parameters for a parallel cnn encoder:
@@ -298,11 +298,11 @@ returned tensor will be of shape `b x s' x h`, where `s'` is width of the output
        +------+
 +--+   |Emb 7 |
 |12|   +------+
-|7 |   |Emb 43|   +----------------+  +---------+
-|43|   +------+   |1D Conv         |  |Fully    |
-|65+--->Emb 65+--->Layers          +-->Connected+->
-|23|   +------+   |Different Widths|  |Layers   |
-|4 |   |Emb 23|   +----------------+  +---------+
+|7 |   |Emb 43|   +----------------+   +---------+
+|43|   +------+   |1D Conv         |   |Fully    |
+|65+--->Emb 65+--->Layers          +--->Connected+-->
+|23|   +------+   |Different Widths|   |Layers   |
+|4 |   |Emb 23|   +----------------+   +---------+
 |1 |   +------+
 +--+   |Emb 4 |
        +------+
@@ -439,25 +439,25 @@ where `h` is the output size of the last fully connected layer.
 If you want to output the full `b x s x h` tensor, you can specify `reduce_output: null`.
 
 ```
-                   +-------+                      +-------+
-                +-->1D Conv+-+                 +-->1D Conv+-+
-       +------+ |  |Width 2| |                 |  |Width 2| |
-       |Emb 12| |  +-------+ |                 |  +-------+ |
-       +------+ |            |                 |            |
-+--+   |Emb 7 | |  +-------+ |                 |  +-------+ |
-|12|   +------+ +-->1D Conv+-+                 +-->1D Conv+-+
-|7 |   |Emb 43| |  |Width 3| |                 |  |Width 3| |                   +---------+
-|43|   +------+ |  +-------+ | +------+  +---+ |  +-------+ | +------+  +----+  |Fully    |
-|65+--->Emb 65+-+            +->Concat+-->...+-+            +->Concat+-->Pool+-->Connected+->
-|23|   +------+ |  +-------+ | +------+  +---+ |  +-------+ | +------+  +----+  |Layers   |
-|4 |   |Emb 23| +-->1D Conv+-+                 +-->1D Conv+-+                   +---------+
-|1 |   +------+ |  |Width 4| |                 |  |Width 4| |
-+--+   |Emb 4 | |  +-------+ |                 |  +-------+ |
-       +------+ |            |                 |            |
-       |Emb 1 | |  +-------+ |                 |  +-------+ |
-       +------+ +-->1D Conv+-+                 +-->1D Conv+-+
-                   |Width 5|                      |Width 5|
-                   +-------+                      +-------+
+                  +-------+                     +-------+
+                +->1D Conv+-+                 +->1D Conv+-+
+      +------+  | |Width 2| |                 | |Width 2| |
+      |Emb 12|  | +-------+ |                 | +-------+ |
+      +------+  |           |                 |           |
++--+  |Emb 7 |  | +-------+ |                 | +-------+ |
+|12|  +------+  +->1D Conv+-+                 +->1D Conv+-+
+|7 |  |Emb 43|  | |Width 3| |                 | |Width 3| |                 +---------+
+|43|  +------+  | +-------+ | +------+  +---+ | +-------+ | +------+ +----+ |Fully    |
+|65+->Emb 65 +--+           +->Concat+-->...+-+           +->Concat+->Pool+->Connected+-->
+|23|  +------+  | +-------+ | +------+  +---+ | +-------+ | +------+ +----+ |Layers   |
+|4 |  |Emb 23|  +->1D Conv+-+                 +->1D Conv+-+                 +---------+
+|1 |  +------+  | |Width 4| |                 | |Width 4| |
++--+  |Emb 4 |  | +-------+ |                 | +-------+ |
+      +------+  |           |                 |           |
+      |Emb 1 |  | +-------+ |                 | +-------+ |
+      +------+  +->1D Conv+-+                 +->1D Conv+-+
+                  |Width 5|                     |Width 5|
+                  +-------+                     +-------+
 ```
 
 These are the available parameters for the stack parallel cnn encoder:
@@ -587,7 +587,7 @@ If you want to output the full `b x s x h` where `h` is the size of the output o
 |12|   +------+
 |7 |   |Emb 43|                 +---------+
 |43|   +------+   +----------+  |Fully    |
-|65+--->Emb 65+--->RNN Layers+-->Connected+->
+|65+--->Emb 65+--->RNN Layers+-->Connected+-->
 |23|   +------+   +----------+  |Layers   |
 |4 |   |Emb 23|                 +---------+
 |1 |   +------+
@@ -595,8 +595,6 @@ If you want to output the full `b x s x h` where `h` is the size of the output o
        +------+
        |Emb 1 |
        +------+
-
-
 ```
 
 These are the available parameters for the rnn encoder:
@@ -720,11 +718,11 @@ If you want to output the full `b x s x h` where `h` is the size of the output o
        +------+
 +--+   |Emb 7 |
 |12|   +------+
-|7 |   |Emb 43|                                +---------+
-|43|   +------+   +----------+   +----------+  |Fully    |
-|65+--->Emb 65+--->CNN Layers+--->RNN Layers+-->Connected+->
-|23|   +------+   +----------+   +----------+  |Layers   |
-|4 |   |Emb 23|                                +---------+
+|7 |   |Emb 43|                              +---------+
+|43|   +------+  +----------+  +----------+  |Fully    |
+|65+--->Emb 65+-->CNN Layers+-->RNN Layers+-->Connected+-->
+|23|   +------+  +----------+  +----------+  |Layers   |
+|4 |   |Emb 23|                              +---------+
 |1 |   +------+
 +--+   |Emb 4 |
        +------+
@@ -891,7 +889,7 @@ layers at the end.
 |12|   +------+
 |7 |   |Emb 43|   +-------------+   +---------+
 |43|   +------+   |             |   |Fully    |
-|65+---+Emb 65+---> Transformer +--->Connected+->
+|65+---+Emb 65+---> Transformer +--->Connected+-->
 |23|   +------+   | Blocks      |   |Layers   |
 |4 |   |Emb 23|   +-------------+   +---------+
 |1 |   +------+
@@ -1010,7 +1008,7 @@ allows for using them without any processing in later stages of the model, like 
 |12|
 |7 |                    +-----------+
 |43|   +------------+   |Aggregation|
-|65+--->Cast float32+--->Reduce     +->
+|65+--->Cast float32+--->Reduce     +-->
 |23|   +------------+   |Operation  |
 |4 |                    +-----------+
 |1 |
@@ -1273,12 +1271,14 @@ max_sequence_length: 0
 
 ## Sequence Features Metrics
 
-The metrics that are calculated every epoch and are available for sequence features are `sequence_accuracy` (counts the
-number of datapoints where all the elements of the predicted sequence are correct over the number of all datapoints),
-`token_accuracy` (computes the number of elements in all the sequences that are correctly predicted over the number of
-all the elements in all the sequences), `last_accuracy` (accuracy considering only the last element of the sequence, it
-is useful for being sure special end-of-sequence tokens are generated or tagged), `edit_distance` (the levenshtein
-distance between the predicted and ground truth sequence), `perplexity` (the perplexity of the ground truth sequence
-according to the model) and the `loss` itself.
-You can set either of them as `validation_metric` in the `training` section of the configuration if you set the
-`validation_field` to be the name of a sequence feature.
+The metrics that are calculated every epoch and are available for sequence features are:
+
+- `sequence_accuracy` The rate at which the model predicted the correct sequence.
+- `token_accuracy` The number of tokens correctly predicted divided by the total number of tokens in all sequences.
+- `last_accuracy` Accuracy considering only the last element of the sequence. Useful to ensure special end-of-sequence tokens are generated or tagged.
+- `edit_distance` Levenshtein distance: the minimum number of single-token edits (insertions, deletions or substitutions) required to change predicted sequence to ground truth.
+- `perplexity` Perplexity is the inverse of the predicted probability of the ground truth sequence, normalized by the number of tokens. The lower the perplexity, the higher the probability of predicting the true sequence.
+- `loss` The value of the loss function.
+
+You can set any of the above as `validation_metric` in the `training` section of the configuration if `validation_field`
+names a sequence feature.

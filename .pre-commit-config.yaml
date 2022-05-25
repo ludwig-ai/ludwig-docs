@@ -23,7 +23,6 @@ repos:
       - id: check-yaml
       - id: debug-statements
       - id: detect-private-key
-      - id: trailing-whitespace
       - id: mixed-line-ending
   - repo: https://github.com/pycqa/flake8
     rev: "4.0.1"
@@ -38,6 +37,11 @@ repos:
     rev: v0.31.1
     hooks:
       - id: markdownlint-fix
+        # args: [
+        #     # Auto-generated files.
+        #     --ignore=docs/user_guide/api/visualization.md,
+        #     --ignore=docs/user_guide/api/LudwigModel.md,
+        #   ]
 #   NOTE: mdformat is incompatible with mkdocs content tabs.
 #   - repo: https://github.com/executablebooks/mdformat
 #     rev: 0.7.13

@@ -977,10 +977,11 @@ reduce_output: null
 
 ## Sequence Output Features and Decoders
 
-Sequential features can be used when sequence tagging (classifying each element of an input sequence) or sequence
-generation needs to be performed.  There are two decoders available for those to tasks named `tagger` and `generator`.
+Sequence output features can be used for either tagging (classifying each element of an input sequence) or
+generation (generating a sequence by sampling from the model). Ludwig provides two sequence decoders named `tagger` and
+`generator` respectively.
 
-These are the available parameters of a sequence output feature
+The following are the available parameters of a sequence output feature:
 
 - `reduce_input` (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order
 tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`,
@@ -1026,7 +1027,7 @@ layers. The length of the list determines the number of stacked fully connected 
 dictionary determines the parameters for a specific layer. The available parameters for each layer are: `activation`,
 `dropout`, `norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of
 those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.
-- `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes
+- `num_fc_layers` (default 0): the number of stacked fully connected layers that the input to the feature passes
 through. Their output is projected in the feature's output space.
 - `output_size` (default `256`): if an `output_size` is not already specified in `fc_layers` this is the default
 `output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
@@ -1155,11 +1156,9 @@ or for `layer` see [Torch documentation on layer normalization](https://pytorch.
 reference about the differences between the cells please refer to
 [torch.nn Recurrent Layers](https://pytorch.org/docs/stable/nn.html#recurrent-layers).
 - `state_size` (default `256`): the size of the state of the rnn.
-- `embedding_size` (default `256`): if `tied_target_embeddings` is `false`, the input embeddings and the weights of the
-softmax_cross_entropy weights before the softmax_cross_entropy are not tied together and can have different sizes, this
-parameter describes the size of the embeddings of the inputs of the generator.
-- `beam_width` (default `1`): sampling from the rnn generator is performed using beam search. By default, with a beam of
-one, only a greedy sequence using always the most probably next token is generated, but the beam size can be increased.
+- `embedding_size` (default `256`): The size of the embeddings of the inputs of the generator.
+- `beam_width` (default `1`): sampling from the RNN generator is performed using beam search. By default, with a beam of
+one, only a greedy sequence using always the most probable next token is generated, but the beam size can be increased.
 This usually leads to better performance at the expense of more computation and slower generation.
 - `tied` (default `null`): if `null` the embeddings of the targets are initialized randomly. If `tied` names an input
 feature, the embeddings of that input feature will be used as embeddings of the target.
@@ -1167,9 +1166,9 @@ The `vocabulary_size` of that input feature has to be the same as the output fea
 matrix (binary and number features will not have one, for instance). In this case the `embedding_size` will be the same
 as the `state_size`. This is useful for implementing autoencoders where the encoding and decoding part of the model
 share parameters.
-- `max_sequence_length` (default `0`):
+- `max_sequence_length` (default `null`): The maximum sequence length. Will be determined from data if not specified.
 
-Example sequence feature entry using a generator decoder (with default parameters) in the output features list:
+Example sequence feature entry using a generator decoder in the output features list:
 
 ```yaml
 name: sequence_column_name
@@ -1199,7 +1198,7 @@ cell_type: rnn
 state_size: 256
 embedding_size: 256
 beam_width: 1
-max_sequence_length: 0
+max_sequence_length: 256
 ```
 
 ## Sequence Features Metrics

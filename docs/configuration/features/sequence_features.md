@@ -1207,9 +1207,12 @@ The metrics that are calculated every epoch and are available for sequence featu
 
 - `sequence_accuracy` The rate at which the model predicted the correct sequence.
 - `token_accuracy` The number of tokens correctly predicted divided by the total number of tokens in all sequences.
-- `last_accuracy` Accuracy considering only the last element of the sequence. Useful to ensure special end-of-sequence tokens are generated or tagged.
-- `edit_distance` Levenshtein distance: the minimum number of single-token edits (insertions, deletions or substitutions) required to change predicted sequence to ground truth.
-- `perplexity` Perplexity is the inverse of the predicted probability of the ground truth sequence, normalized by the number of tokens. The lower the perplexity, the higher the probability of predicting the true sequence.
+- `last_accuracy` Accuracy considering only the last element of the sequence. Useful to ensure special end-of-sequence
+tokens are generated or tagged.
+- `edit_distance` Levenshtein distance: the minimum number of single-token edits (insertions, deletions or substitutions)
+required to change predicted sequence to ground truth.
+- `perplexity` Perplexity is the inverse of the predicted probability of the ground truth sequence, normalized by the
+number of tokens. The lower the perplexity, the higher the probability of predicting the true sequence.
 - `loss` The value of the loss function.
 
 You can set any of the above as `validation_metric` in the `training` section of the configuration if `validation_field`

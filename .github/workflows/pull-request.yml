@@ -35,12 +35,6 @@ jobs:
       - name: Generate API Docs
         run: python code_doc_autogen.py
 
-      - name: Run Linting
-        run: |
-          pip install pre-commit
-          pre-commit run --all-files
-        continue-on-error: true
-
       - name: Validate branch clean
         run: |
           if [[ `git status --porcelain` ]]; then

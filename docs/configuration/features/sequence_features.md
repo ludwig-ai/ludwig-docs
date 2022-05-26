@@ -1166,7 +1166,7 @@ The `vocabulary_size` of that input feature has to be the same as the output fea
 matrix (binary and number features will not have one, for instance). In this case the `embedding_size` will be the same
 as the `state_size`. This is useful for implementing autoencoders where the encoding and decoding part of the model
 share parameters.
-- `max_sequence_length` (default `null`): The maximum sequence length. Will be determined from data if not specified.
+- `max_sequence_length` (default `256`): The maximum sequence length.
 
 Example sequence feature entry using a generator decoder in the output features list:
 

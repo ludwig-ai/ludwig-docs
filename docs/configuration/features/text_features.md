@@ -58,9 +58,10 @@ preprocessing:
 Text input feature parameters are
 
 - `encoder` (default `parallel_cnn`): encoder to use for the input text feature. The available encoders include encoders
-used for [Sequence Features](../sequence_features#sequence-input-features-and-encoders) as well as encoders from the
-huggingface transformers library: `bert`, `gpt`, `gpt2`, `xlnet`, `xlm`, `roberta`, `transformer_xl`, `distilbert`,
-`ctrl`, `camembert`, `albert`, `t5`, `mt5`, `xlmroberta`, `flaubert`, `electra`, and `longformer`.
+used for [Sequence Features](../sequence_features#sequence-input-features-and-encoders) as well as pre-trained text
+encoders from the huggingface transformers library: `albert`, `auto_transformer`, `bert`, `camembert`, `ctrl`,
+`distilbert`, `electra`, `flaubert`, `gpt`, `gpt2`, `longformer`, `roberta`, `t5`, `mt5`, `transformer_xl`, `xlm`,
+`xlmroberta`, `xlnet`.
 - `tied` (default `null`): name of the input feature to tie the weights of the encoder with. Tied must name a feature of
 the same type with the same encoder parameters.
 

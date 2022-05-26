@@ -1,24 +1,35 @@
 ## Text Features Preprocessing
 
-Text features are treated the same as sequence features. Text features are
-processed by a tokenizer, which defines how to map from the raw string content
-of the dataset column to a sequence of symbols. The metadata includes a list of
-all occurring symbols as well as their mapping to symbol indices.
+Text features are an extension of [sequence features](../sequence_features). Text inputs are processed by a tokenizer
+which maps the raw text input into a sequence of tokens. An integer id is assigned to each unique token. Using this
+mapping, each text string is converted first to a sequence of tokens, and next to a sequence of integers.
+
+The list of tokens and their integer representations (vocabulary) is stored in the metadata of the model. In the case of
+a text output feature, this same mapping is used to post-process predictions to text.
 
 The parameters for text preprocessing are as follows:
 
-- `tokenizer` (default `space_punct`): defines how to map from the raw string content of the dataset column to a sequence of elements. For all
-available options see [Tokenizers](../../preprocessing#tokenizers).
-- `pretrained_model_name_or_path` (default `null`):
-- `vocab_file` (default `null`):
-- `max_sequence_length` (default `256`): the maximum length of the text. Texts that are longer than this value will be truncated, while texts that are shorter will be padded.
-- `most_common` (default `20000`): the maximum number of most common symbols to be considered. If the data contains more than this amount, the most infrequent symbols will be treated as unknown.
-- `padding_symbol` (default `<PAD>`): the string used as a padding symbol. Is is mapped to the integer ID 0 in the vocabulary.
-- `unknown_symbol` (default `<UNK>`): the string used as a unknown symbol. Is is mapped to the integer ID 1 in the vocabulary.
+- `tokenizer` (default `space_punct`): defines how to map from the raw string content of the dataset column to a
+sequence of elements. For all available options see [Tokenizers](../../preprocessing#tokenizers).
+- `vocab_file` (default `null`): filepath string to a UTF-8 encoded file containing the sequence's vocabulary. On each
+line the first string until `\t` or `\n` is considered a word.
+- `max_sequence_length` (default `256`): the maximum length (number of tokens) of the text. Texts that are longer than
+this value will be truncated, while texts that are shorter will be padded.
+- `most_common` (default `20000`): the maximum number of most common tokens in the vocabulary. If the data contains more
+than this amount, the most infrequent symbols will be treated as unknown.
+- `padding_symbol` (default `<PAD>`): the string used as a padding symbol. This special token is mapped to the integer
+ID 0 in the vocabulary.
+- `unknown_symbol` (default `<UNK>`): the string used as an unknown placeholder. This special token is mapped to the
+integer ID 1 in the vocabulary.
 - `padding` (default `right`): the direction of the padding. `right` and `left` are available options.
-- `lowercase` (default `false`): if the string has to be lowercased before being handled by the tokenizer.
-- `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
-- `fill_value` (default `""`): the value to replace the missing values with in case the `missing_value_strategy` is `fill-value`.
+- `lowercase` (default `false`): If true, converts the string to lowercase before tokenizing.
+- `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in the
+dataset. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with
+the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column),
+`fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the
+missing values with the next valid value).
+- `fill_value` (default `""`): the value to replace the missing values with in case the `missing_value_strategy` is
+`fill_value`.
 
 Configuration example:
 
@@ -117,8 +128,8 @@ keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the 
 refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
 - `reduce_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if
 the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates
-along the sequence dimension), `last` (selects the last vector of the sequence dimension) and  `null` (which does not reduce
-and returns the full tensor).
+along the sequence dimension), `last` (selects the last vector of the sequence dimension) and  `null` (which does not
+reduce and returns the full tensor).
 
 Example text feature entry in the input features list using an embed encoder:
 

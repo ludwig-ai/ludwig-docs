@@ -1,9 +1,9 @@
 ## Sequence Features Preprocessing
 
 Sequence features are transformed into an integer valued matrix of size `n x l` (where `n` is the number of rows and `l`
-is the minimum of the length of the longest sequence and a `sequence_length_limit` parameter) and added to HDF5 with a
+is the minimum of the length of the longest sequence and a `max_sequence_length` parameter) and added to HDF5 with a
 key that reflects the name of column in the dataset.
-The way sequences are mapped into integers consists of first using a tokenizer to map text to sequences of tokens
+Each sequence in mapped to a list of integers internally. First, a tokenizer converts each sequence to a list of tokens
 (default tokenization is done by splitting on spaces).
 Next, a dictionary is constructed which maps each unique token to its frequency in the dataset column. Tokens are ranked
 by frequency and a sequential integer ID is assigned from the most frequent to the most rare. Ludwig uses `<PAD>`,
@@ -14,12 +14,16 @@ The column name is added to the JSON file, with an associated dictionary contain
 1. the mapping from integer to string (`idx2str`)
 1. the mapping from string to id (`str2idx`)
 1. the mapping from string to frequency (`str2freq`)
-1. the maximum length of all sequences (`sequence_length_limit`)
+1. the maximum length of all sequences (`max_sequence_length`)
 1. additional preprocessing information (how to fill missing values and what token to use to fill missing values)
 
 The parameters available for preprocessing are
 
-- `sequence_length_limit` (default `256`): the maximum length of the sequence. Sequences that are longer than this value
+- `tokenizer` (default `space`): defines how to map from the raw string content of the dataset column to a sequence of
+elements. For the available options refer to the [Tokenizers](../../preprocessing#tokenizers) section.
+- `vocab_file` (default `null`)  filepath string to a UTF-8 encoded file containing the sequence's vocabulary. On each
+line the first string until `\t` or `\n` is considered a word.
+- `max_sequence_length` (default `256`): the maximum length of the sequence. Sequences that are longer than this value
 will be truncated, while sequences that are shorter will be padded.
 - `most_common` (default `20000`): the maximum number of most common tokens to be considered. if the data contains more
 than this amount, the most infrequent tokens will be treated as unknown.
@@ -27,11 +31,7 @@ than this amount, the most infrequent tokens will be treated as unknown.
 - `unknown_symbol` (default `<UNK>`): the string used as the unknown placeholder, mapped to the integer ID 1 in the
 vocabulary.
 - `padding` (default `right`): the direction of the padding. `right` and `left` are available options.
-- `tokenizer` (default `space`): defines how to map from the raw string content of the dataset column to a sequence of
-elements. For the available options refer to the [Tokenizers](../../preprocessing#tokenizers) section.
-- `lowercase` (default `false`): if the string has to be lowercase before being handled by the tokenizer.
-- `vocab_file` (default `null`)  filepath string to a UTF-8 encoded file containing the sequence's vocabulary. On each
-line the first string until `\t` or `\n` is considered a word.
+- `lowercase` (default `false`): If true, converts the string to lowercase before tokenizing.
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in the
 column. The value should be one of `fill_with_const` (replaces the missing value with the value specified by the
 `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column),

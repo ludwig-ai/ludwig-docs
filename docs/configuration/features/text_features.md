@@ -974,6 +974,13 @@ The `albert` encoder loads a pretrained [ALBERT](https://arxiv.org/abs/1909.1194
 using the Hugging Face transformers package. Albert is similar to BERT, with significantly lower memory usage and
 somewhat faster training time.
 
+#### AutoTransformer
+
+The `auto_transformer` encoder automatically instantiates the model architecture for the specified
+`pretrained_model_name_or_path`. Unlike the other HF encoders, `auto_transformer` does not provide a default value for
+`pretrained_model_name_or_path`, this is its only mandatory parameter. See the Hugging Face
+[AutoModels documentation](https://huggingface.co/transformers/v3.0.2/model_doc/auto.html) for more details.
+
 #### BERT Encoder
 
 The `bert` encoder loads a pretrained [BERT](https://arxiv.org/abs/1810.04805) (default `bert-base-uncased`) model using

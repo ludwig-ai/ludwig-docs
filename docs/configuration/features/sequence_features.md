@@ -1,9 +1,9 @@
 ## Sequence Features Preprocessing
 
 Sequence features are transformed into an integer valued matrix of size `n x l` (where `n` is the number of rows and `l`
-is the minimum of the length of the longest sequence and a `sequence_length_limit` parameter) and added to HDF5 with a
+is the minimum of the length of the longest sequence and a `max_sequence_length` parameter) and added to HDF5 with a
 key that reflects the name of column in the dataset.
-The way sequences are mapped into integers consists of first using a tokenizer to map text to sequences of tokens
+Each sequence in mapped to a list of integers internally. First, a tokenizer converts each sequence to a list of tokens
 (default tokenization is done by splitting on spaces).
 Next, a dictionary is constructed which maps each unique token to its frequency in the dataset column. Tokens are ranked
 by frequency and a sequential integer ID is assigned from the most frequent to the most rare. Ludwig uses `<PAD>`,
@@ -14,12 +14,16 @@ The column name is added to the JSON file, with an associated dictionary contain
 1. the mapping from integer to string (`idx2str`)
 1. the mapping from string to id (`str2idx`)
 1. the mapping from string to frequency (`str2freq`)
-1. the maximum length of all sequences (`sequence_length_limit`)
+1. the maximum length of all sequences (`max_sequence_length`)
 1. additional preprocessing information (how to fill missing values and what token to use to fill missing values)
 
 The parameters available for preprocessing are
 
-- `sequence_length_limit` (default `256`): the maximum length of the sequence. Sequences that are longer than this value
+- `tokenizer` (default `space`): defines how to map from the raw string content of the dataset column to a sequence of
+elements. For the available options refer to the [Tokenizers](../../preprocessing#tokenizers) section.
+- `vocab_file` (default `null`)  filepath string to a UTF-8 encoded file containing the sequence's vocabulary. On each
+line the first string until `\t` or `\n` is considered a word.
+- `max_sequence_length` (default `256`): the maximum length of the sequence. Sequences that are longer than this value
 will be truncated, while sequences that are shorter will be padded.
 - `most_common` (default `20000`): the maximum number of most common tokens to be considered. if the data contains more
 than this amount, the most infrequent tokens will be treated as unknown.
@@ -27,11 +31,7 @@ than this amount, the most infrequent tokens will be treated as unknown.
 - `unknown_symbol` (default `<UNK>`): the string used as the unknown placeholder, mapped to the integer ID 1 in the
 vocabulary.
 - `padding` (default `right`): the direction of the padding. `right` and `left` are available options.
-- `tokenizer` (default `space`): defines how to map from the raw string content of the dataset column to a sequence of
-elements. For the available options refer to the [Tokenizers](../../preprocessing#tokenizers) section.
-- `lowercase` (default `false`): if the string has to be lowercase before being handled by the tokenizer.
-- `vocab_file` (default `null`)  filepath string to a UTF-8 encoded file containing the sequence's vocabulary. On each
-line the first string until `\t` or `\n` is considered a word.
+- `lowercase` (default `false`): If true, converts the string to lowercase before tokenizing.
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in the
 column. The value should be one of `fill_with_const` (replaces the missing value with the value specified by the
 `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column),
@@ -77,7 +77,7 @@ If you want to output the full `b x s x h` tensor, you can specify `reduce_outpu
 |12|   +------+
 |7 |   |Emb 43|   +-----------+
 |43|   +------+   |Aggregation|
-|65+--->Emb 65+--->Reduce     +->
+|65+--->Emb 65+--->Reduce     +-->
 |23|   +------+   |Operation  |
 |4 |   |Emb 23|   +-----------+
 |1 |   +------+
@@ -126,14 +126,11 @@ Example sequence feature entry in the input features list using an embed encoder
 name: sequence_column_name
 type: sequence
 encoder: embed
-tied: null
 representation: dense
 embedding_size: 256
 embeddings_trainable: true
-pretrained_embeddings: null
 embeddings_on_cpu: false
 dropout: 0
-weights_initializer: null
 reduce_output: sum
 ```
 
@@ -150,25 +147,25 @@ fully connected layers and returned as a `b x h` tensor where `h` is the output 
 If you want to output the full `b x s x h` tensor, you can specify `reduce_output: null`.
 
 ```
-                   +-------+   +----+
-                +-->1D Conv+--->Pool+-+
-       +------+ |  |Width 2|   +----+ |
-       |Emb 12| |  +-------+          |
-       +------+ |                     |
-+--+   |Emb 7 | |  +-------+   +----+ |
-|12|   +------+ +-->1D Conv+--->Pool+-+
-|7 |   |Emb 43| |  |Width 3|   +----+ |           +---------+
-|43|   +------+ |  +-------+          | +------+  |Fully    |
-|65+--->Emb 65+-+                     +->Concat+-->Connected+->
-|23|   +------+ |  +-------+   +----+ | +------+  |Layers   |
-|4 |   |Emb 23| +-->1D Conv+--->Pool+-+           +---------+
-|1 |   +------+ |  |Width 4|   +----+ |
-+--+   |Emb 4 | |  +-------+          |
-       +------+ |                     |
-       |Emb 1 | |  +-------+   +----+ |
-       +------+ +-->1D Conv+--->Pool+-+
-                   |Width 5|   +----+
-                   +-------+
+                    +-------+   +----+
+                 +-->1D Conv+--->Pool+--+
+       +------+  |  |Width 2|   +----+  |
+       |Emb 12|  |  +-------+           |
+       +------+  |                      |
++--+   |Emb 7 |  |  +-------+   +----+  |
+|12|   +------+  +-->1D Conv+--->Pool+--+
+|7 |   |Emb 43|  |  |Width 3|   +----+  |            +---------+
+|43|   +------+  |  +-------+           |  +------+  |Fully    |
+|65+-->Emb 65 +--+                      +-->Concat+-->Connected+-->
+|23|   +------+  |  +-------+   +----+  |  +------+  |Layers   |
+|4 |   |Emb 23|  +-->1D Conv+--->Pool+--+            +---------+
+|1 |   +------+  |  |Width 4|   +----+  |
++--+   |Emb 4 |  |  +-------+           |
+       +------+  |                      |
+       |Emb 1 |  |  +-------+   +----+  |
+       +------+  +-->1D Conv+--->Pool+--+
+                    |Width 5|   +----+
+                    +-------+
 ```
 
 These are the available parameters for a parallel cnn encoder:
@@ -254,26 +251,16 @@ Example sequence feature entry in the input features list using a parallel cnn e
 name: sequence_column_name
 type: sequence
 encoder: parallel_cnn
-tied: null
 representation: dense
 embedding_size: 256
-embeddings_on_cpu: false
-pretrained_embeddings: null
 embeddings_trainable: true
-conv_layers: null
-num_conv_layers: null
 filter_size: 3
 num_filters: 256
 pool_function: max
-pool_size: null
-fc_layers: null
-num_fc_layers: null
 output_size: 256
 use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-norm: null
-norm_params: null
 activation: relu
 dropout: 0.0
 reduce_output: sum
@@ -298,11 +285,11 @@ returned tensor will be of shape `b x s' x h`, where `s'` is width of the output
        +------+
 +--+   |Emb 7 |
 |12|   +------+
-|7 |   |Emb 43|   +----------------+  +---------+
-|43|   +------+   |1D Conv         |  |Fully    |
-|65+--->Emb 65+--->Layers          +-->Connected+->
-|23|   +------+   |Different Widths|  |Layers   |
-|4 |   |Emb 23|   +----------------+  +---------+
+|7 |   |Emb 43|   +----------------+   +---------+
+|43|   +------+   |1D Conv         |   |Fully    |
+|65+--->Emb 65+--->Layers          +--->Connected+-->
+|23|   +------+   |Different Widths|   |Layers   |
+|4 |   |Emb 23|   +----------------+   +---------+
 |1 |   +------+
 +--+   |Emb 4 |
        +------+
@@ -397,31 +384,20 @@ Example sequence feature entry in the input features list using a parallel cnn e
 name: sequence_column_name
 type: sequence
 encoder: stacked_cnn
-tied: null
 representation: dense
 embedding_size: 256
 embeddings_trainable: true
-pretrained_embeddings: null
-embeddings_on_cpu: false
-conv_layers: null
-num_conv_layers: null
 filter_size: 3
 num_filters: 256
 strides: 1
 padding: same
 dilation_rate: 1
 pool_function: max
-pool_size: null
-pool_strides: null
 pool_padding: same
-fc_layers: null
-num_fc_layers: null
 output_size: 256
 use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-norm: null
-norm_params: null
 activation: relu
 dropout: 0
 reduce_output: max
@@ -439,25 +415,25 @@ where `h` is the output size of the last fully connected layer.
 If you want to output the full `b x s x h` tensor, you can specify `reduce_output: null`.
 
 ```
-                   +-------+                      +-------+
-                +-->1D Conv+-+                 +-->1D Conv+-+
-       +------+ |  |Width 2| |                 |  |Width 2| |
-       |Emb 12| |  +-------+ |                 |  +-------+ |
-       +------+ |            |                 |            |
-+--+   |Emb 7 | |  +-------+ |                 |  +-------+ |
-|12|   +------+ +-->1D Conv+-+                 +-->1D Conv+-+
-|7 |   |Emb 43| |  |Width 3| |                 |  |Width 3| |                   +---------+
-|43|   +------+ |  +-------+ | +------+  +---+ |  +-------+ | +------+  +----+  |Fully    |
-|65+--->Emb 65+-+            +->Concat+-->...+-+            +->Concat+-->Pool+-->Connected+->
-|23|   +------+ |  +-------+ | +------+  +---+ |  +-------+ | +------+  +----+  |Layers   |
-|4 |   |Emb 23| +-->1D Conv+-+                 +-->1D Conv+-+                   +---------+
-|1 |   +------+ |  |Width 4| |                 |  |Width 4| |
-+--+   |Emb 4 | |  +-------+ |                 |  +-------+ |
-       +------+ |            |                 |            |
-       |Emb 1 | |  +-------+ |                 |  +-------+ |
-       +------+ +-->1D Conv+-+                 +-->1D Conv+-+
-                   |Width 5|                      |Width 5|
-                   +-------+                      +-------+
+                  +-------+                     +-------+
+                +->1D Conv+-+                 +->1D Conv+-+
+      +------+  | |Width 2| |                 | |Width 2| |
+      |Emb 12|  | +-------+ |                 | +-------+ |
+      +------+  |           |                 |           |
++--+  |Emb 7 |  | +-------+ |                 | +-------+ |
+|12|  +------+  +->1D Conv+-+                 +->1D Conv+-+
+|7 |  |Emb 43|  | |Width 3| |                 | |Width 3| |                 +---------+
+|43|  +------+  | +-------+ | +------+  +---+ | +-------+ | +------+ +----+ |Fully    |
+|65+->Emb 65 +--+           +->Concat+-->...+-+           +->Concat+->Pool+->Connected+-->
+|23|  +------+  | +-------+ | +------+  +---+ | +-------+ | +------+ +----+ |Layers   |
+|4 |  |Emb 23|  +->1D Conv+-+                 +->1D Conv+-+                 +---------+
+|1 |  +------+  | |Width 4| |                 | |Width 4| |
++--+  |Emb 4 |  | +-------+ |                 | +-------+ |
+      +------+  |           |                 |           |
+      |Emb 1 |  | +-------+ |                 | +-------+ |
+      +------+  +->1D Conv+-+                 +->1D Conv+-+
+                  |Width 5|                     |Width 5|
+                  +-------+                     +-------+
 ```
 
 These are the available parameters for the stack parallel cnn encoder:
@@ -545,26 +521,16 @@ Example sequence feature entry in the input features list using a parallel cnn e
 name: sequence_column_name
 type: sequence
 encoder: stacked_parallel_cnn
-tied: null
 representation: dense
 embedding_size: 256
 embeddings_trainable: true
-pretrained_embeddings: null
-embeddings_on_cpu: false
-stacked_layers: null
-num_stacked_layers: null
 filter_size: 3
 num_filters: 256
 pool_function: max
-pool_size: null
-fc_layers: null
-num_fc_layers: null
 output_size: 256
 use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-norm: null
-norm_params: null
 activation: relu
 dropout: 0
 reduce_output: max
@@ -587,7 +553,7 @@ If you want to output the full `b x s x h` where `h` is the size of the output o
 |12|   +------+
 |7 |   |Emb 43|                 +---------+
 |43|   +------+   +----------+  |Fully    |
-|65+--->Emb 65+--->RNN Layers+-->Connected+->
+|65+--->Emb 65+--->RNN Layers+-->Connected+-->
 |23|   +------+   +----------+  |Layers   |
 |4 |   |Emb 23|                 +---------+
 |1 |   +------+
@@ -595,8 +561,6 @@ If you want to output the full `b x s x h` where `h` is the size of the output o
        +------+
        |Emb 1 |
        +------+
-
-
 ```
 
 These are the available parameters for the rnn encoder:
@@ -676,12 +640,9 @@ Example sequence feature entry in the input features list using a parallel cnn e
 name: sequence_column_name
 type: sequence
 encoder: rnn
-tied: null
 representation': dense
 embedding_size: 256
 embeddings_trainable: true
-pretrained_embeddings: null
-embeddings_on_cpu: false
 num_layers: 1
 state_size: 256
 cell_type: rnn
@@ -692,14 +653,10 @@ unit_forget_bias: true
 recurrent_initializer: orthogonal
 dropout: 0.0
 recurrent_dropout: 0.0
-fc_layers: null
-num_fc_layers: null
 output_size: 256
 use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-norm: null
-norm_params: null
 fc_activation: relu
 fc_dropout: 0
 reduce_output: last
@@ -720,11 +677,11 @@ If you want to output the full `b x s x h` where `h` is the size of the output o
        +------+
 +--+   |Emb 7 |
 |12|   +------+
-|7 |   |Emb 43|                                +---------+
-|43|   +------+   +----------+   +----------+  |Fully    |
-|65+--->Emb 65+--->CNN Layers+--->RNN Layers+-->Connected+->
-|23|   +------+   +----------+   +----------+  |Layers   |
-|4 |   |Emb 23|                                +---------+
+|7 |   |Emb 43|                              +---------+
+|43|   +------+  +----------+  +----------+  |Fully    |
+|65+--->Emb 65+-->CNN Layers+-->RNN Layers+-->Connected+-->
+|23|   +------+  +----------+  +----------+  |Layers   |
+|4 |   |Emb 23|                              +---------+
 |1 |   +------+
 +--+   |Emb 4 |
        +------+
@@ -835,13 +792,9 @@ Example sequence feature entry in the inputs features list using a cnn rnn encod
 name: sequence_column_name
 type: sequence
 encoder: cnnrnn
-tied: null
 representation: dense
 embedding_size: 256
 embeddings_trainable: true
-pretrained_embeddings: null
-embeddings_on_cpu: false
-conv_layers: null
 num_conv_layers: 1
 num_filters: 256
 filter_size: 5
@@ -852,7 +805,6 @@ conv_activation: relu
 conv_dropout: 0.0
 pool_function: max
 pool_size: 2
-pool_strides: null
 pool_padding: same
 num_rec_layers: 1
 state_size: 256
@@ -864,14 +816,10 @@ unit_forget_bias: true
 recurrent_initializer: orthogonal
 dropout: 0.0
 recurrent_dropout: 0.0
-fc_layers: null
-num_fc_layers: null
 output_size: 256
 use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-norm: null
-norm_params: null
 fc_activation: relu
 fc_dropout: 0
 reduce_output: last
@@ -891,7 +839,7 @@ layers at the end.
 |12|   +------+
 |7 |   |Emb 43|   +-------------+   +---------+
 |43|   +------+   |             |   |Fully    |
-|65+---+Emb 65+---> Transformer +--->Connected+->
+|65+---+Emb 65+---> Transformer +--->Connected+-->
 |23|   +------+   | Blocks      |   |Layers   |
 |4 |   |Emb 23|   +-------------+   +---------+
 |1 |   +------+
@@ -972,25 +920,19 @@ Example sequence feature entry in the inputs features list using a Transformer e
 name: sequence_column_name
 type: sequence
 encoder: transformer
-tied: null
 representation: dense
 embedding_size: 256
 embeddings_trainable: true
-pretrained_embeddings: null
-embeddings_on_cpu: false
 num_layers: 1
 hidden_size: 256
 num_heads: 8
 transformer_output_size: 256
 dropout: 0.1
-fc_layers: null
 num_fc_layers: 0
 output_size: 256
 use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-norm: null
-norm_params: null
 fc_activation: relu
 fc_dropout: 0
 reduce_output: last
@@ -1010,7 +952,7 @@ allows for using them without any processing in later stages of the model, like 
 |12|
 |7 |                    +-----------+
 |43|   +------------+   |Aggregation|
-|65+--->Cast float32+--->Reduce     +->
+|65+--->Cast float32+--->Reduce     +-->
 |23|   +------------+   |Operation  |
 |4 |                    +-----------+
 |1 |
@@ -1035,10 +977,11 @@ reduce_output: null
 
 ## Sequence Output Features and Decoders
 
-Sequential features can be used when sequence tagging (classifying each element of an input sequence) or sequence
-generation needs to be performed.  There are two decoders available for those to tasks named `tagger` and `generator`.
+Sequence output features can be used for either tagging (classifying each element of an input sequence) or
+generation (generating a sequence by sampling from the model). Ludwig provides two sequence decoders named `tagger` and
+`generator` respectively.
 
-These are the available parameters of a sequence output feature
+The following are the available parameters of a sequence output feature:
 
 - `reduce_input` (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order
 tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`,
@@ -1084,7 +1027,7 @@ layers. The length of the list determines the number of stacked fully connected 
 dictionary determines the parameters for a specific layer. The available parameters for each layer are: `activation`,
 `dropout`, `norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of
 those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.
-- `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes
+- `num_fc_layers` (default 0): the number of stacked fully connected layers that the input to the feature passes
 through. Their output is projected in the feature's output space.
 - `output_size` (default `256`): if an `output_size` is not already specified in `fc_layers` this is the default
 `output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
@@ -1127,21 +1070,16 @@ loss:
     confidence_penalty: 0
     robust_lambda: 0
     class_weights: 1
-    class_similarities: null
     class_similarities_temperature: 0
     labels_smoothing: 0
     negative_samples: 0
-    sampler: null
     distortion: 1
     unique: false
-fc_layers: null
 num_fc_layers: 0
 output_size: 256
 use_bias: true
 weights_initializer: glorot_uniform
 bias_initializer: zeros
-norm: null
-norm_params: null
 activation: relu
 dropout: 0
 attention: false
@@ -1218,11 +1156,9 @@ or for `layer` see [Torch documentation on layer normalization](https://pytorch.
 reference about the differences between the cells please refer to
 [torch.nn Recurrent Layers](https://pytorch.org/docs/stable/nn.html#recurrent-layers).
 - `state_size` (default `256`): the size of the state of the rnn.
-- `embedding_size` (default `256`): if `tied_target_embeddings` is `false`, the input embeddings and the weights of the
-softmax_cross_entropy weights before the softmax_cross_entropy are not tied together and can have different sizes, this
-parameter describes the size of the embeddings of the inputs of the generator.
-- `beam_width` (default `1`): sampling from the rnn generator is performed using beam search. By default, with a beam of
-one, only a greedy sequence using always the most probably next token is generated, but the beam size can be increased.
+- `embedding_size` (default `256`): The size of the embeddings of the inputs of the generator.
+- `beam_width` (default `1`): sampling from the RNN generator is performed using beam search. By default, with a beam of
+one, only a greedy sequence using always the most probable next token is generated, but the beam size can be increased.
 This usually leads to better performance at the expense of more computation and slower generation.
 - `tied` (default `null`): if `null` the embeddings of the targets are initialized randomly. If `tied` names an input
 feature, the embeddings of that input feature will be used as embeddings of the target.
@@ -1230,9 +1166,9 @@ The `vocabulary_size` of that input feature has to be the same as the output fea
 matrix (binary and number features will not have one, for instance). In this case the `embedding_size` will be the same
 as the `state_size`. This is useful for implementing autoencoders where the encoding and decoding part of the model
 share parameters.
-- `max_sequence_length` (default `0`):
+- `max_sequence_length` (default `256`): The maximum sequence length.
 
-Example sequence feature entry using a generator decoder (with default parameters) in the output features list:
+Example sequence feature entry using a generator decoder in the output features list:
 
 ```yaml
 name: sequence_column_name
@@ -1246,39 +1182,38 @@ loss:
     confidence_penalty: 0
     robust_lambda: 0
     class_weights: 1
-    class_similarities: null
     class_similarities_temperature: 0
     labels_smoothing: 0
     negative_samples: 0
-    sampler: null
     distortion: 1
     unique: false
-fc_layers: null
 num_fc_layers: 0
 output_size: 256
 use_bias: true
 bias_initializer: zeros
 weights_initializer: glorot_uniform
-norm: null
-norm_params: null
 activation: relu
 dropout: 0
 cell_type: rnn
 state_size: 256
 embedding_size: 256
 beam_width: 1
-tied: null
-max_sequence_length: 0
+max_sequence_length: 256
 ```
 
 ## Sequence Features Metrics
 
-The metrics that are calculated every epoch and are available for sequence features are `sequence_accuracy` (counts the
-number of datapoints where all the elements of the predicted sequence are correct over the number of all datapoints),
-`token_accuracy` (computes the number of elements in all the sequences that are correctly predicted over the number of
-all the elements in all the sequences), `last_accuracy` (accuracy considering only the last element of the sequence, it
-is useful for being sure special end-of-sequence tokens are generated or tagged), `edit_distance` (the levenshtein
-distance between the predicted and ground truth sequence), `perplexity` (the perplexity of the ground truth sequence
-according to the model) and the `loss` itself.
-You can set either of them as `validation_metric` in the `training` section of the configuration if you set the
-`validation_field` to be the name of a sequence feature.
+The metrics that are calculated every epoch and are available for sequence features are:
+
+- `sequence_accuracy` The rate at which the model predicted the correct sequence.
+- `token_accuracy` The number of tokens correctly predicted divided by the total number of tokens in all sequences.
+- `last_accuracy` Accuracy considering only the last element of the sequence. Useful to ensure special end-of-sequence
+tokens are generated or tagged.
+- `edit_distance` Levenshtein distance: the minimum number of single-token edits (insertions, deletions or substitutions)
+required to change predicted sequence to ground truth.
+- `perplexity` Perplexity is the inverse of the predicted probability of the ground truth sequence, normalized by the
+number of tokens. The lower the perplexity, the higher the probability of predicting the true sequence.
+- `loss` The value of the loss function.
+
+You can set any of the above as `validation_metric` in the `training` section of the configuration if `validation_field`
+names a sequence feature.

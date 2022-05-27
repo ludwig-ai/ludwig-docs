@@ -151,7 +151,7 @@ The computed metadata includes:
 1. the mapping from integer to string (`idx2str`)
 1. the mapping from string to id (`str2idx`)
 1. the mapping from string to frequency (`str2freq`)
-1. the maximum length of all sequences (`sequence_length_limit`)
+1. the maximum length of all sequences (`max_sequence_length`)
 1. additional preprocessing information (by default how to fill missing values
    and what token to use to fill missing values)
 

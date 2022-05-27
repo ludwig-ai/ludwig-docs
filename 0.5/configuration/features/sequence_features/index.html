@@ -2459,9 +2459,9 @@
 
 <h3 id="sequence-features-preprocessing">Sequence Features Preprocessing<a class="headerlink" href="#sequence-features-preprocessing" title="Permanent link">&para;</a></h3>
 <p>Sequence features are transformed into an integer valued matrix of size <code>n x l</code> (where <code>n</code> is the number of rows and <code>l</code>
-is the minimum of the length of the longest sequence and a <code>sequence_length_limit</code> parameter) and added to HDF5 with a
+is the minimum of the length of the longest sequence and a <code>max_sequence_length</code> parameter) and added to HDF5 with a
 key that reflects the name of column in the dataset.
-The way sequences are mapped into integers consists of first using a tokenizer to map text to sequences of tokens
+Each sequence in mapped to a list of integers internally. First, a tokenizer converts each sequence to a list of tokens
 (default tokenization is done by splitting on spaces).
 Next, a dictionary is constructed which maps each unique token to its frequency in the dataset column. Tokens are ranked
 by frequency and a sequential integer ID is assigned from the most frequent to the most rare. Ludwig uses <code>&lt;PAD&gt;</code>,
@@ -2472,12 +2472,16 @@ The column name is added to the JSON file, with an associated dictionary contain
 <li>the mapping from integer to string (<code>idx2str</code>)</li>
 <li>the mapping from string to id (<code>str2idx</code>)</li>
 <li>the mapping from string to frequency (<code>str2freq</code>)</li>
-<li>the maximum length of all sequences (<code>sequence_length_limit</code>)</li>
+<li>the maximum length of all sequences (<code>max_sequence_length</code>)</li>
 <li>additional preprocessing information (how to fill missing values and what token to use to fill missing values)</li>
 </ol>
 <p>The parameters available for preprocessing are</p>
 <ul>
-<li><code>sequence_length_limit</code> (default <code>256</code>): the maximum length of the sequence. Sequences that are longer than this value
+<li><code>tokenizer</code> (default <code>space</code>): defines how to map from the raw string content of the dataset column to a sequence of
+elements. For the available options refer to the <a href="../../preprocessing#tokenizers">Tokenizers</a> section.</li>
+<li><code>vocab_file</code> (default <code>null</code>)  filepath string to a UTF-8 encoded file containing the sequence's vocabulary. On each
+line the first string until <code>\t</code> or <code>\n</code> is considered a word.</li>
+<li><code>max_sequence_length</code> (default <code>256</code>): the maximum length of the sequence. Sequences that are longer than this value
 will be truncated, while sequences that are shorter will be padded.</li>
 <li><code>most_common</code> (default <code>20000</code>): the maximum number of most common tokens to be considered. if the data contains more
 than this amount, the most infrequent tokens will be treated as unknown.</li>
@@ -2485,11 +2489,7 @@ than this amount, the most infrequent tokens will be treated as unknown.</li>
 <li><code>unknown_symbol</code> (default <code>&lt;UNK&gt;</code>): the string used as the unknown placeholder, mapped to the integer ID 1 in the
 vocabulary.</li>
 <li><code>padding</code> (default <code>right</code>): the direction of the padding. <code>right</code> and <code>left</code> are available options.</li>
-<li><code>tokenizer</code> (default <code>space</code>): defines how to map from the raw string content of the dataset column to a sequence of
-elements. For the available options refer to the <a href="../../preprocessing#tokenizers">Tokenizers</a> section.</li>
-<li><code>lowercase</code> (default <code>false</code>): if the string has to be lowercase before being handled by the tokenizer.</li>
-<li><code>vocab_file</code> (default <code>null</code>)  filepath string to a UTF-8 encoded file containing the sequence's vocabulary. On each
-line the first string until <code>\t</code> or <code>\n</code> is considered a word.</li>
+<li><code>lowercase</code> (default <code>false</code>): If true, converts the string to lowercase before tokenizing.</li>
 <li><code>missing_value_strategy</code> (default <code>fill_with_const</code>): what strategy to follow when there's a missing value in the
 column. The value should be one of <code>fill_with_const</code> (replaces the missing value with the value specified by the
 <code>fill_value</code> parameter), <code>fill_with_mode</code> (replaces the missing values with the most frequent value in the column),
@@ -2530,7 +2530,7 @@ If you want to output the full <code>b x s x h</code> tensor, you can specify <c
 |12|   +------+
 |7 |   |Emb 43|   +-----------+
 |43|   +------+   |Aggregation|
-|65+---&gt;Emb 65+---&gt;Reduce     +-&gt;
+|65+---&gt;Emb 65+---&gt;Reduce     +--&gt;
 |23|   +------+   |Operation  |
 |4 |   |Emb 23|   +-----------+
 |1 |   +------+
@@ -2576,14 +2576,11 @@ and returns the full tensor).</li>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sequence_column_name</span><span class="w"></span>
 <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sequence</span><span class="w"></span>
 <span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">embed</span><span class="w"></span>
-<span class="nt">tied</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">representation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dense</span><span class="w"></span>
 <span class="nt">embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 <span class="nt">embeddings_trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="nt">pretrained_embeddings</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">embeddings_on_cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
 <span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
-<span class="nt">weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sum</span><span class="w"></span>
 </code></pre></div>
 <h4 id="parallel-cnn-encoder">Parallel CNN Encoder<a class="headerlink" href="#parallel-cnn-encoder" title="Permanent link">&para;</a></h4>
@@ -2596,25 +2593,25 @@ concatenation.
 This single vector concatenating the outputs of the parallel convolutional layers is then passed through a stack of
 fully connected layers and returned as a <code>b x h</code> tensor where <code>h</code> is the output size of the last fully connected layer.
 If you want to output the full <code>b x s x h</code> tensor, you can specify <code>reduce_output: null</code>.</p>
-<div class="highlight"><pre><span></span><code>                   +-------+   +----+
-                +--&gt;1D Conv+---&gt;Pool+-+
-       +------+ |  |Width 2|   +----+ |
-       |Emb 12| |  +-------+          |
-       +------+ |                     |
-+--+   |Emb 7 | |  +-------+   +----+ |
-|12|   +------+ +--&gt;1D Conv+---&gt;Pool+-+
-|7 |   |Emb 43| |  |Width 3|   +----+ |           +---------+
-|43|   +------+ |  +-------+          | +------+  |Fully    |
-|65+---&gt;Emb 65+-+                     +-&gt;Concat+--&gt;Connected+-&gt;
-|23|   +------+ |  +-------+   +----+ | +------+  |Layers   |
-|4 |   |Emb 23| +--&gt;1D Conv+---&gt;Pool+-+           +---------+
-|1 |   +------+ |  |Width 4|   +----+ |
-+--+   |Emb 4 | |  +-------+          |
-       +------+ |                     |
-       |Emb 1 | |  +-------+   +----+ |
-       +------+ +--&gt;1D Conv+---&gt;Pool+-+
-                   |Width 5|   +----+
-                   +-------+
+<div class="highlight"><pre><span></span><code>                    +-------+   +----+
+                 +--&gt;1D Conv+---&gt;Pool+--+
+       +------+  |  |Width 2|   +----+  |
+       |Emb 12|  |  +-------+           |
+       +------+  |                      |
++--+   |Emb 7 |  |  +-------+   +----+  |
+|12|   +------+  +--&gt;1D Conv+---&gt;Pool+--+
+|7 |   |Emb 43|  |  |Width 3|   +----+  |            +---------+
+|43|   +------+  |  +-------+           |  +------+  |Fully    |
+|65+--&gt;Emb 65 +--+                      +--&gt;Concat+--&gt;Connected+--&gt;
+|23|   +------+  |  +-------+   +----+  |  +------+  |Layers   |
+|4 |   |Emb 23|  +--&gt;1D Conv+---&gt;Pool+--+            +---------+
+|1 |   +------+  |  |Width 4|   +----+  |
++--+   |Emb 4 |  |  +-------+           |
+       +------+  |                      |
+       |Emb 1 |  |  +-------+   +----+  |
+       +------+  +--&gt;1D Conv+---&gt;Pool+--+
+                    |Width 5|   +----+
+                    +-------+
 </code></pre></div>
 <p>These are the available parameters for a parallel cnn encoder:</p>
 <ul>
@@ -2697,26 +2694,16 @@ reduce and returns the full tensor).</li>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sequence_column_name</span><span class="w"></span>
 <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sequence</span><span class="w"></span>
 <span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">parallel_cnn</span><span class="w"></span>
-<span class="nt">tied</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">representation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dense</span><span class="w"></span>
 <span class="nt">embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
-<span class="nt">embeddings_on_cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="nt">pretrained_embeddings</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">embeddings_trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="nt">conv_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">num_conv_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">filter_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w"></span>
 <span class="nt">num_filters</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 <span class="nt">pool_function</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">max</span><span class="w"></span>
-<span class="nt">pool_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 <span class="nt">use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 <span class="nt">weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glorot_uniform</span><span class="w"></span>
 <span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span><span class="w"></span>
-<span class="nt">norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">norm_params</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span><span class="w"></span>
 <span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span><span class="w"></span>
 <span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sum</span><span class="w"></span>
@@ -2737,11 +2724,11 @@ returned tensor will be of shape <code>b x s' x h</code>, where <code>s'</code> 
        +------+
 +--+   |Emb 7 |
 |12|   +------+
-|7 |   |Emb 43|   +----------------+  +---------+
-|43|   +------+   |1D Conv         |  |Fully    |
-|65+---&gt;Emb 65+---&gt;Layers          +--&gt;Connected+-&gt;
-|23|   +------+   |Different Widths|  |Layers   |
-|4 |   |Emb 23|   +----------------+  +---------+
+|7 |   |Emb 43|   +----------------+   +---------+
+|43|   +------+   |1D Conv         |   |Fully    |
+|65+---&gt;Emb 65+---&gt;Layers          +---&gt;Connected+--&gt;
+|23|   +------+   |Different Widths|   |Layers   |
+|4 |   |Emb 23|   +----------------+   +---------+
 |1 |   +------+
 +--+   |Emb 4 |
        +------+
@@ -2833,31 +2820,20 @@ and <code>null</code> (which does not reduce and returns the full tensor).</li>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sequence_column_name</span><span class="w"></span>
 <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sequence</span><span class="w"></span>
 <span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stacked_cnn</span><span class="w"></span>
-<span class="nt">tied</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">representation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dense</span><span class="w"></span>
 <span class="nt">embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 <span class="nt">embeddings_trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="nt">pretrained_embeddings</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">embeddings_on_cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="nt">conv_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">num_conv_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">filter_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w"></span>
 <span class="nt">num_filters</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 <span class="nt">strides</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
 <span class="nt">padding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">same</span><span class="w"></span>
 <span class="nt">dilation_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
 <span class="nt">pool_function</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">max</span><span class="w"></span>
-<span class="nt">pool_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">pool_strides</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">pool_padding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">same</span><span class="w"></span>
-<span class="nt">fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 <span class="nt">use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 <span class="nt">weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glorot_uniform</span><span class="w"></span>
 <span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span><span class="w"></span>
-<span class="nt">norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">norm_params</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span><span class="w"></span>
 <span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
 <span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">max</span><span class="w"></span>
@@ -2871,25 +2847,25 @@ convolutional layers with different filter size, followed by an optional final p
 This single flattened vector is then passed through a stack of fully connected layers and returned as a <code>b x h</code> tensor
 where <code>h</code> is the output size of the last fully connected layer.
 If you want to output the full <code>b x s x h</code> tensor, you can specify <code>reduce_output: null</code>.</p>
-<div class="highlight"><pre><span></span><code>                   +-------+                      +-------+
-                +--&gt;1D Conv+-+                 +--&gt;1D Conv+-+
-       +------+ |  |Width 2| |                 |  |Width 2| |
-       |Emb 12| |  +-------+ |                 |  +-------+ |
-       +------+ |            |                 |            |
-+--+   |Emb 7 | |  +-------+ |                 |  +-------+ |
-|12|   +------+ +--&gt;1D Conv+-+                 +--&gt;1D Conv+-+
-|7 |   |Emb 43| |  |Width 3| |                 |  |Width 3| |                   +---------+
-|43|   +------+ |  +-------+ | +------+  +---+ |  +-------+ | +------+  +----+  |Fully    |
-|65+---&gt;Emb 65+-+            +-&gt;Concat+--&gt;...+-+            +-&gt;Concat+--&gt;Pool+--&gt;Connected+-&gt;
-|23|   +------+ |  +-------+ | +------+  +---+ |  +-------+ | +------+  +----+  |Layers   |
-|4 |   |Emb 23| +--&gt;1D Conv+-+                 +--&gt;1D Conv+-+                   +---------+
-|1 |   +------+ |  |Width 4| |                 |  |Width 4| |
-+--+   |Emb 4 | |  +-------+ |                 |  +-------+ |
-       +------+ |            |                 |            |
-       |Emb 1 | |  +-------+ |                 |  +-------+ |
-       +------+ +--&gt;1D Conv+-+                 +--&gt;1D Conv+-+
-                   |Width 5|                      |Width 5|
-                   +-------+                      +-------+
+<div class="highlight"><pre><span></span><code>                  +-------+                     +-------+
+                +-&gt;1D Conv+-+                 +-&gt;1D Conv+-+
+      +------+  | |Width 2| |                 | |Width 2| |
+      |Emb 12|  | +-------+ |                 | +-------+ |
+      +------+  |           |                 |           |
++--+  |Emb 7 |  | +-------+ |                 | +-------+ |
+|12|  +------+  +-&gt;1D Conv+-+                 +-&gt;1D Conv+-+
+|7 |  |Emb 43|  | |Width 3| |                 | |Width 3| |                 +---------+
+|43|  +------+  | +-------+ | +------+  +---+ | +-------+ | +------+ +----+ |Fully    |
+|65+-&gt;Emb 65 +--+           +-&gt;Concat+--&gt;...+-+           +-&gt;Concat+-&gt;Pool+-&gt;Connected+--&gt;
+|23|  +------+  | +-------+ | +------+  +---+ | +-------+ | +------+ +----+ |Layers   |
+|4 |  |Emb 23|  +-&gt;1D Conv+-+                 +-&gt;1D Conv+-+                 +---------+
+|1 |  +------+  | |Width 4| |                 | |Width 4| |
++--+  |Emb 4 |  | +-------+ |                 | +-------+ |
+      +------+  |           |                 |           |
+      |Emb 1 |  | +-------+ |                 | +-------+ |
+      +------+  +-&gt;1D Conv+-+                 +-&gt;1D Conv+-+
+                  |Width 5|                     |Width 5|
+                  +-------+                     +-------+
 </code></pre></div>
 <p>These are the available parameters for the stack parallel cnn encoder:</p>
 <ul>
@@ -2974,26 +2950,16 @@ and returns the full tensor).</li>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sequence_column_name</span><span class="w"></span>
 <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sequence</span><span class="w"></span>
 <span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stacked_parallel_cnn</span><span class="w"></span>
-<span class="nt">tied</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">representation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dense</span><span class="w"></span>
 <span class="nt">embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 <span class="nt">embeddings_trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="nt">pretrained_embeddings</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">embeddings_on_cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="nt">stacked_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">num_stacked_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">filter_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w"></span>
 <span class="nt">num_filters</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 <span class="nt">pool_function</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">max</span><span class="w"></span>
-<span class="nt">pool_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 <span class="nt">use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 <span class="nt">weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glorot_uniform</span><span class="w"></span>
 <span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span><span class="w"></span>
-<span class="nt">norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">norm_params</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span><span class="w"></span>
 <span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
 <span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">max</span><span class="w"></span>
@@ -3012,7 +2978,7 @@ If you want to output the full <code>b x s x h</code> where <code>h</code> is th
 |12|   +------+
 |7 |   |Emb 43|                 +---------+
 |43|   +------+   +----------+  |Fully    |
-|65+---&gt;Emb 65+---&gt;RNN Layers+--&gt;Connected+-&gt;
+|65+---&gt;Emb 65+---&gt;RNN Layers+--&gt;Connected+--&gt;
 |23|   +------+   +----------+  |Layers   |
 |4 |   |Emb 23|                 +---------+
 |1 |   +------+
@@ -3096,12 +3062,9 @@ reduce and returns the full tensor).</li>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sequence_column_name</span><span class="w"></span>
 <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sequence</span><span class="w"></span>
 <span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rnn</span><span class="w"></span>
-<span class="nt">tied</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="l l-Scalar l-Scalar-Plain">representation&#39;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dense</span><span class="w"></span>
 <span class="nt">embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 <span class="nt">embeddings_trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="nt">pretrained_embeddings</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">embeddings_on_cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
 <span class="nt">num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
 <span class="nt">state_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 <span class="nt">cell_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rnn</span><span class="w"></span>
@@ -3112,14 +3075,10 @@ reduce and returns the full tensor).</li>
 <span class="nt">recurrent_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">orthogonal</span><span class="w"></span>
 <span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span><span class="w"></span>
 <span class="nt">recurrent_dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span><span class="w"></span>
-<span class="nt">fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 <span class="nt">use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 <span class="nt">weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glorot_uniform</span><span class="w"></span>
 <span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span><span class="w"></span>
-<span class="nt">norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">norm_params</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">fc_activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span><span class="w"></span>
 <span class="nt">fc_dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
 <span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">last</span><span class="w"></span>
@@ -3136,11 +3095,11 @@ If you want to output the full <code>b x s x h</code> where <code>h</code> is th
        +------+
 +--+   |Emb 7 |
 |12|   +------+
-|7 |   |Emb 43|                                +---------+
-|43|   +------+   +----------+   +----------+  |Fully    |
-|65+---&gt;Emb 65+---&gt;CNN Layers+---&gt;RNN Layers+--&gt;Connected+-&gt;
-|23|   +------+   +----------+   +----------+  |Layers   |
-|4 |   |Emb 23|                                +---------+
+|7 |   |Emb 43|                              +---------+
+|43|   +------+  +----------+  +----------+  |Fully    |
+|65+---&gt;Emb 65+--&gt;CNN Layers+--&gt;RNN Layers+--&gt;Connected+--&gt;
+|23|   +------+  +----------+  +----------+  |Layers   |
+|4 |   |Emb 23|                              +---------+
 |1 |   +------+
 +--+   |Emb 4 |
        +------+
@@ -3248,13 +3207,9 @@ reduce and returns the full tensor).</li>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sequence_column_name</span><span class="w"></span>
 <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sequence</span><span class="w"></span>
 <span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cnnrnn</span><span class="w"></span>
-<span class="nt">tied</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">representation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dense</span><span class="w"></span>
 <span class="nt">embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 <span class="nt">embeddings_trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="nt">pretrained_embeddings</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">embeddings_on_cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="nt">conv_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">num_conv_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
 <span class="nt">num_filters</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 <span class="nt">filter_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span><span class="w"></span>
@@ -3265,7 +3220,6 @@ reduce and returns the full tensor).</li>
 <span class="nt">conv_dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span><span class="w"></span>
 <span class="nt">pool_function</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">max</span><span class="w"></span>
 <span class="nt">pool_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
-<span class="nt">pool_strides</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">pool_padding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">same</span><span class="w"></span>
 <span class="nt">num_rec_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
 <span class="nt">state_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
@@ -3277,14 +3231,10 @@ reduce and returns the full tensor).</li>
 <span class="nt">recurrent_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">orthogonal</span><span class="w"></span>
 <span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span><span class="w"></span>
 <span class="nt">recurrent_dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span><span class="w"></span>
-<span class="nt">fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 <span class="nt">use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 <span class="nt">weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glorot_uniform</span><span class="w"></span>
 <span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span><span class="w"></span>
-<span class="nt">norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">norm_params</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">fc_activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span><span class="w"></span>
 <span class="nt">fc_dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
 <span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">last</span><span class="w"></span>
@@ -3300,7 +3250,7 @@ layers at the end.</p>
 |12|   +------+
 |7 |   |Emb 43|   +-------------+   +---------+
 |43|   +------+   |             |   |Fully    |
-|65+---+Emb 65+---&gt; Transformer +---&gt;Connected+-&gt;
+|65+---+Emb 65+---&gt; Transformer +---&gt;Connected+--&gt;
 |23|   +------+   | Blocks      |   |Layers   |
 |4 |   |Emb 23|   +-------------+   +---------+
 |1 |   +------+
@@ -3378,25 +3328,19 @@ reduce and returns the full tensor).</li>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sequence_column_name</span><span class="w"></span>
 <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sequence</span><span class="w"></span>
 <span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">transformer</span><span class="w"></span>
-<span class="nt">tied</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">representation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dense</span><span class="w"></span>
 <span class="nt">embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 <span class="nt">embeddings_trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="nt">pretrained_embeddings</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">embeddings_on_cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
 <span class="nt">num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
 <span class="nt">hidden_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 <span class="nt">num_heads</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span><span class="w"></span>
 <span class="nt">transformer_output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 <span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span><span class="w"></span>
-<span class="nt">fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
 <span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 <span class="nt">use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 <span class="nt">weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glorot_uniform</span><span class="w"></span>
 <span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span><span class="w"></span>
-<span class="nt">norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">norm_params</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">fc_activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span><span class="w"></span>
 <span class="nt">fc_dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
 <span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">last</span><span class="w"></span>
@@ -3412,7 +3356,7 @@ allows for using them without any processing in later stages of the model, like 
 |12|
 |7 |                    +-----------+
 |43|   +------------+   |Aggregation|
-|65+---&gt;Cast float32+---&gt;Reduce     +-&gt;
+|65+---&gt;Cast float32+---&gt;Reduce     +--&gt;
 |23|   +------------+   |Operation  |
 |4 |                    +-----------+
 |1 |
@@ -3432,9 +3376,10 @@ reduce and returns the full tensor).</li>
 <span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 </code></pre></div>
 <h3 id="sequence-output-features-and-decoders">Sequence Output Features and Decoders<a class="headerlink" href="#sequence-output-features-and-decoders" title="Permanent link">&para;</a></h3>
-<p>Sequential features can be used when sequence tagging (classifying each element of an input sequence) or sequence
-generation needs to be performed.  There are two decoders available for those to tasks named <code>tagger</code> and <code>generator</code>.</p>
-<p>These are the available parameters of a sequence output feature</p>
+<p>Sequence output features can be used for either tagging (classifying each element of an input sequence) or
+generation (generating a sequence by sampling from the model). Ludwig provides two sequence decoders named <code>tagger</code> and
+<code>generator</code> respectively.</p>
+<p>The following are the available parameters of a sequence output feature:</p>
 <ul>
 <li><code>reduce_input</code> (default <code>sum</code>): defines how to reduce an input that is not a vector, but a matrix or a higher order
 tensor, on the first dimension (second if you count the batch dimension). Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>,
@@ -3476,7 +3421,7 @@ layers. The length of the list determines the number of stacked fully connected 
 dictionary determines the parameters for a specific layer. The available parameters for each layer are: <code>activation</code>,
 <code>dropout</code>, <code>norm</code>, <code>norm_params</code>, <code>output_size</code>, <code>use_bias</code>, <code>bias_initializer</code> and <code>weights_initializer</code>. If any of
 those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.</li>
-<li><code>num_fc_layers</code> (default 0): this is the number of stacked fully connected layers that the input to the feature passes
+<li><code>num_fc_layers</code> (default 0): the number of stacked fully connected layers that the input to the feature passes
 through. Their output is projected in the feature's output space.</li>
 <li><code>output_size</code> (default <code>256</code>): if an <code>output_size</code> is not already specified in <code>fc_layers</code> this is the default
 <code>output_size</code> that will be used for each layer. It indicates the size of the output of a fully connected layer.</li>
@@ -3517,21 +3462,16 @@ or for <code>layer</code> see the <a href="https://pytorch.org/docs/stable/gener
 <span class="w">    </span><span class="nt">confidence_penalty</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
 <span class="w">    </span><span class="nt">robust_lambda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
 <span class="w">    </span><span class="nt">class_weights</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="w">    </span><span class="nt">class_similarities</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="w">    </span><span class="nt">class_similarities_temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
 <span class="w">    </span><span class="nt">labels_smoothing</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
 <span class="w">    </span><span class="nt">negative_samples</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
-<span class="w">    </span><span class="nt">sampler</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="w">    </span><span class="nt">distortion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
 <span class="w">    </span><span class="nt">unique</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="nt">fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
 <span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 <span class="nt">use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 <span class="nt">weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glorot_uniform</span><span class="w"></span>
 <span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span><span class="w"></span>
-<span class="nt">norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">norm_params</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span><span class="w"></span>
 <span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
 <span class="nt">attention</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
@@ -3604,11 +3544,9 @@ or for <code>layer</code> see <a href="https://pytorch.org/docs/stable/generated
 reference about the differences between the cells please refer to
 <a href="https://pytorch.org/docs/stable/nn.html#recurrent-layers">torch.nn Recurrent Layers</a>.</li>
 <li><code>state_size</code> (default <code>256</code>): the size of the state of the rnn.</li>
-<li><code>embedding_size</code> (default <code>256</code>): if <code>tied_target_embeddings</code> is <code>false</code>, the input embeddings and the weights of the
-softmax_cross_entropy weights before the softmax_cross_entropy are not tied together and can have different sizes, this
-parameter describes the size of the embeddings of the inputs of the generator.</li>
-<li><code>beam_width</code> (default <code>1</code>): sampling from the rnn generator is performed using beam search. By default, with a beam of
-one, only a greedy sequence using always the most probably next token is generated, but the beam size can be increased.
+<li><code>embedding_size</code> (default <code>256</code>): The size of the embeddings of the inputs of the generator.</li>
+<li><code>beam_width</code> (default <code>1</code>): sampling from the RNN generator is performed using beam search. By default, with a beam of
+one, only a greedy sequence using always the most probable next token is generated, but the beam size can be increased.
 This usually leads to better performance at the expense of more computation and slower generation.</li>
 <li><code>tied</code> (default <code>null</code>): if <code>null</code> the embeddings of the targets are initialized randomly. If <code>tied</code> names an input
 feature, the embeddings of that input feature will be used as embeddings of the target.
@@ -3616,9 +3554,9 @@ The <code>vocabulary_size</code> of that input feature has to be the same as the
 matrix (binary and number features will not have one, for instance). In this case the <code>embedding_size</code> will be the same
 as the <code>state_size</code>. This is useful for implementing autoencoders where the encoding and decoding part of the model
 share parameters.</li>
-<li><code>max_sequence_length</code> (default <code>0</code>):</li>
+<li><code>max_sequence_length</code> (default <code>256</code>): The maximum sequence length.</li>
 </ul>
-<p>Example sequence feature entry using a generator decoder (with default parameters) in the output features list:</p>
+<p>Example sequence feature entry using a generator decoder in the output features list:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sequence_column_name</span><span class="w"></span>
 <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sequence</span><span class="w"></span>
 <span class="nt">decoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">generator</span><span class="w"></span>
@@ -3630,40 +3568,39 @@ share parameters.</li>
 <span class="w">    </span><span class="nt">confidence_penalty</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
 <span class="w">    </span><span class="nt">robust_lambda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
 <span class="w">    </span><span class="nt">class_weights</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="w">    </span><span class="nt">class_similarities</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="w">    </span><span class="nt">class_similarities_temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
 <span class="w">    </span><span class="nt">labels_smoothing</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
 <span class="w">    </span><span class="nt">negative_samples</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
-<span class="w">    </span><span class="nt">sampler</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="w">    </span><span class="nt">distortion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
 <span class="w">    </span><span class="nt">unique</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="nt">fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
 <span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 <span class="nt">use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 <span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span><span class="w"></span>
 <span class="nt">weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glorot_uniform</span><span class="w"></span>
-<span class="nt">norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">norm_params</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="nt">activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span><span class="w"></span>
 <span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
 <span class="nt">cell_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rnn</span><span class="w"></span>
 <span class="nt">state_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 <span class="nt">embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 <span class="nt">beam_width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="nt">tied</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">max_sequence_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
+<span class="nt">max_sequence_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 </code></pre></div>
 <h3 id="sequence-features-metrics">Sequence Features Metrics<a class="headerlink" href="#sequence-features-metrics" title="Permanent link">&para;</a></h3>
-<p>The metrics that are calculated every epoch and are available for sequence features are <code>sequence_accuracy</code> (counts the
-number of datapoints where all the elements of the predicted sequence are correct over the number of all datapoints),
-<code>token_accuracy</code> (computes the number of elements in all the sequences that are correctly predicted over the number of
-all the elements in all the sequences), <code>last_accuracy</code> (accuracy considering only the last element of the sequence, it
-is useful for being sure special end-of-sequence tokens are generated or tagged), <code>edit_distance</code> (the levenshtein
-distance between the predicted and ground truth sequence), <code>perplexity</code> (the perplexity of the ground truth sequence
-according to the model) and the <code>loss</code> itself.
-You can set either of them as <code>validation_metric</code> in the <code>training</code> section of the configuration if you set the
-<code>validation_field</code> to be the name of a sequence feature.</p>
+<p>The metrics that are calculated every epoch and are available for sequence features are:</p>
+<ul>
+<li><code>sequence_accuracy</code> The rate at which the model predicted the correct sequence.</li>
+<li><code>token_accuracy</code> The number of tokens correctly predicted divided by the total number of tokens in all sequences.</li>
+<li><code>last_accuracy</code> Accuracy considering only the last element of the sequence. Useful to ensure special end-of-sequence
+tokens are generated or tagged.</li>
+<li><code>edit_distance</code> Levenshtein distance: the minimum number of single-token edits (insertions, deletions or substitutions)
+required to change predicted sequence to ground truth.</li>
+<li><code>perplexity</code> Perplexity is the inverse of the predicted probability of the ground truth sequence, normalized by the
+number of tokens. The lower the perplexity, the higher the probability of predicting the true sequence.</li>
+<li><code>loss</code> The value of the loss function.</li>
+</ul>
+<p>You can set any of the above as <code>validation_metric</code> in the <code>training</code> section of the configuration if <code>validation_field</code>
+names a sequence feature.</p>
 
               
             </article>

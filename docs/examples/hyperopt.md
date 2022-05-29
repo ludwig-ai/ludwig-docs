@@ -39,7 +39,8 @@ The columns in the dataset are
 
 ## Setup for hyperparameter optimization run
 
-TO BE WRITTEN
+Hyperparameter optimization is defined with the `hyperopt` section of the Ludwig configuration specification.  
+
 
 === "cli"
 
@@ -51,12 +52,53 @@ TO BE WRITTEN
 
 === "python"
 
-    [LudwigModel](../../user_guide/api/LudwigModel/)
+    [Hyperopt Configuration](../../configuration/hyperparameter_optimization/)
 
     ```python
-
-
+    # define model configuration
+    config = {'combiner': {'dropout': 0.2,
+                  'num_fc_layers': 3,
+                  'output_size': 128,
+                  'type': 'concat'},
+     'input_features': [{'name': 'age', 'type': 'number'},
+                        {'name': 'workclass', 'type': 'category'},
+                        {'name': 'fnlwgt', 'type': 'number'},
+                        {'name': 'education', 'type': 'category'},
+                        {'name': 'education-num', 'type': 'number'},
+                        {'name': 'marital-status', 'type': 'category'},
+                        {'name': 'occupation', 'type': 'category'},
+                        {'name': 'relationship', 'type': 'category'},
+                        {'name': 'race', 'type': 'category'},
+                        {'name': 'sex', 'type': 'category'},
+                        {'name': 'capital-gain', 'type': 'number'},
+                        {'name': 'capital-loss', 'type': 'number'},
+                        {'name': 'hours-per-week', 'type': 'number'},
+                        {'name': 'native-country', 'type': 'category'}],
+     'output_features': [{'name': 'income',
+                          'num_fc_layers': 4,
+                          'output_size': 32,
+                          'preprocessing': {'fallback_true_label': ' >50K'},
+                          'loss': {'type': 'binary_weighted_cross_entropy'},
+                          'type': 'binary'}],
+     'preprocessing': {'number': {'missing_value_strategy': 'fill_with_mean',
+                                  'normalization': 'zscore'}},
+     'trainer': {'epochs': 5, 'optimizer': {'type': 'adam'}},
+    
+      # hyperopt specification template
+      'hyperopt':  {
+        # specify Ray Tune to executor to run the hyperparameter optimization
+        'executor': {'type': 'ray', },
+        # specify Ray Tune's basic search algorithm and set random seed for reproducibility
+        'search_alg': {'type': 'variant_generator', 'random_state': 1919, },
+        # maximize the metric score
+        'goal': 'maximize',
+        # metric score
+        'metric': 'roc_auc',
+        # name of output featue to optimize on
+        'output_feature': 'income',
+      }
     ```
+    
 
 ## Random Search
 

@@ -43,7 +43,7 @@ TO BE WRITTEN
 
 === "cli"
 
-    [ludwig hyperopt](../../user_guide/hyperopt.md)
+    [ludwig hyperopt](../../user_guide/)
 
     ```yaml
 
@@ -58,7 +58,9 @@ TO BE WRITTEN
 
     ```
 
-Train the model.
+## Random Search
+
+EXPLAIN RANDOM SEARCH
 
 === "cli"
 
@@ -79,9 +81,9 @@ Train the model.
     train_stats, preprocessed_data, output_directory = model.train(dataset=train_df)
     ```
 
-## Evaluate
+## Grid Search
 
-Evaluate the trained model.
+EXPLAIN GRID SEARCH
 
 === "cli"
 
@@ -107,9 +109,9 @@ Evaluate the trained model.
     )
     ```
 
-## Visualize Metrics
+## Visualize Hyperparameter Optimization Results
 
-Display Confusion Matrix and Class Entropy plots.
+TO BE  UPDATED
 
 === "cli"
 

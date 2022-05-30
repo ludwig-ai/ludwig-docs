@@ -202,12 +202,17 @@ For this example, we want to determine the effect of Ludwig's Trainer's `learnin
 
 ## Run Hyperparameter Optimization
 
+Here are example commands/function call to run Ludwig's hyperparameter optimization capability.
+
 === "cli"
 
     [`ludwig hyperopt` command](../../user_guide/command_line_interface/#hyperopt)
 
     ```shell
-    ludwig hyperopt ...
+    ludwig hyperopt --dataset adult_census_income.csv \
+      --config config.yaml \
+      --output_directory results \
+      --hyperopt_log_verbosity 1
     ```
 
 === "python"
@@ -215,98 +220,59 @@ For this example, we want to determine the effect of Ludwig's Trainer's `learnin
     [hyperopt() method](../../user_guide/api/LudwigModel/#hyperopt)
 
     ```python
-    model.hyperopt()
+    hyperopt_results = hyperopt(
+        config, 
+        dataset=adult_census_df, 
+        output_directory="results", 
+        hyperopt_log_verbosity=1
+    )
     ```
 
 
 
 ## Visualize Hyperparameter Optimization Results
 
-TO BE  UPDATED
-
 === "cli"
 
-    [`ludwig visualize confusion_matrix` command](../../user_guide/visualizations/#confusion-matrix)
+    [`ludwig visualize hyperopt_report` command](../../user_guide/visualizations/#hyperopt_report)
+
+    [`ludwig visualize hyperopt_hiplot` command](../../user_guide/visualizations/#hyperopt_hiplot)
 
     ```shell
-    ludwig visualize --visualization confusion_matrix \
-                      --ground_truth_metadata results/experiment_run/model/training_set_metadata.json \
-                      --test_statistics test_results/test_statistics.json \
-                      --output_directory visualizations \
-                      --file_format png
-    ```
+    # generate visualizations on hyperparameter effects on the metric
+    ludwig visualize --visualization hyperopt_report \
+                  --hyperopt_stats_path results/hyperopt_statistics.json \
+                  --output_directory visualizations \
+                  --file_format png
 
-=== "python"
-
-    [`visualize.confusion_matrix()` function](../../user_guide/api/visualization/#confusion_matrix)
-
-    ```python
-    # Visualizes confusion matrix, which gives an overview of classifier performance
-    # for each class.
-    from ludwig.visualize import confusion_matrix
-
-    confusion_matrix(
-      [test_stats],
-      model.training_set_metadata,
-      'label',
-      top_n_classes=[5],
-      model_names=[''],
-      normalize=True,
-    )
-    ```
-
-![confusion matrix and entropy](mnist_colab_notebooks/images/mnist_confusion_matrix_and_entropy.png)
-
-Display Learning Curves plots.
-
-=== "cli"
-
-    [`ludwig visualize learning_curves` command](../../user_guide/visualizations/#learning-curves)
-
-    ```shell
-    ludwig visualize --visualization learning_curves \
-                      --ground_truth_metadata results/experiment_run/model/training_set_metadata.json \
-                      --training_statistics results/experiment_run/training_statistics.json \
-                      --file_format png \
+    # generate hyperopt hiplot parallel coordinate visualization
+    ludwig visualize --visualization hyperopt_hiplot \
+                      --hyperopt_stats_path results/hyperopt_statistics.json \
                       --output_directory visualizations
     ```
 
 === "python"
 
-    [`visualize.learning_curves()` function](../../ser_guide/api/visualization/#learning_curves)
+    [`visualize.hyperopt_report()` function](../../user_guide/api/visualization/#hyperopt_report)
+
+    [`visualize.hyperopt_hiplot()` function](../../user_guide/api/visualization/#hyperopt_hiplot)
 
     ```python
-    # Visualizes learning curves, which show how performance metrics changed over
-    # time during training.
-    from ludwig.visualize import learning_curves
 
-    learning_curves(train_stats, output_feature_name='label')
+    hyperopt_report("./rs_output/hyperopt_statistics.json")
+
+    hyperopt_hiplot("./rs_output/hyperopt_statistics.json", output_directory="visualizations")
     ```
 
-![confusion learning curves](mnist_colab_notebooks/images/mnist_learning_curves.png)
+## hyperopt_report
 
-## Predictions
+![hyperopt_report pair plot](hyperopt_notebooks/images/hyperopt_pair_plot.png)
 
-Generate predictions from test dataset.
+![hyperopt_report trainer.learning_rate](hyperopt_notebooks/images/hyperopt_trainer.learning_rate.png)
 
-=== "cli"
+![hyperopt_report income.num_fc_layers](hyperopt_notebooks/images/hyperopt_income.num_fc_layers.png)
 
-    [`ludwig predict` command](../../user_guide/command_line_interface/#predict)
+## hyperopt_hiplot
 
-    ```shell
-    ludwig predict --model_path results/experiment_run/model \
-                    --dataset mnist_dataset.csv \
-                    --split test \
-                    --output_directory predictions
-    ```
+![hyperopt_hiplot](hyperopt_notebooks/images/hyperopt_hiplot.png)
 
-=== "python"
-
-    [`predict()` method](../../user_guide/api/LudwigModel/#predict)
-
-    ```python
-    predictions, output_directory = model.predict(test_df)
-    ```
-
-Sample test images displaying true("label") and predicted("pred") labels.
-![mnist sample predictions](mnist_colab_notebooks/images/mnist_sample_predictions.png)

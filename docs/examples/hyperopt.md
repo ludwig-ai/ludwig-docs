@@ -166,7 +166,23 @@ For this example, we want to determine the effect of Ludwig's Trainer's `learnin
 === "cli"
 
     ```yaml
-    
+    hyperopt:
+        executor: 
+            type: ray
+            num_samples: 16
+        goal: maximize
+        metric: roc_auc
+        output_feature: income
+        parameters: 
+            income.num_fc_layers: 
+                space: grid_search
+                values: [2, 4, 6, 8]
+            trainer.learning_rate:
+                space: grid_search
+                values: [0.001, 0.003, 0.007, 0.01]
+        search_alg:
+            type: variant_generator
+            random_state: 1919
     ```
 
 === "python"

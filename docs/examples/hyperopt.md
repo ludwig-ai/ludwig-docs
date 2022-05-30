@@ -47,7 +47,34 @@ Hyperparameter optimization is defined with the [`hyperopt` section of the Ludwi
     [ludwig hyperopt](../../user_guide/)
 
     ```yaml
+    preprocessing:
+        ...
+    input_features:
+        ...
+    combiner:
+        ...
+    output_features:
+        ...
+    trainer:
+        ...
 
+    # hyperopt specification 
+    hyperopt:
+        # specify parameters for the Ray Tune to executor to run the hyperparameter optimization
+        executor:
+            ...
+        # specify Ray Tune search algorithm to use
+        search_alg:
+            ...
+        # hyperparameter search space for the optimization
+        parameters:
+            ...
+        # minimize or maximize the metric score
+        goal: ...
+        # metric score to optimize
+        metric: ...
+        # name of the output feature
+        output_feature: ...
     ```
 
 === "python"
@@ -87,9 +114,26 @@ For this example, we want to determine the effect of Ludwig's Trainer's `learnin
 
 === "cli"
 
-
     ```yaml
-    ludwig hyperopt ...
+    hyperopt:
+        executor: 
+            type: ray
+            num_samples: 16
+        goal: maximize
+        metric: roc_auc
+        output_feature: income
+        parameters: 
+            income.num_fc_layers: 
+                space: randint
+                lower: 2
+                upper: 9
+            trainer.learning_rate:
+                space: loguniform
+                lower: 0.001
+                upper: 0.1
+        search_alg:
+            type: variant_generator
+            random_state: 1919
     ```
 
 === "python"

@@ -2,7 +2,7 @@ This is a complete example of Ludwig's hyperparameter optimization capability.
 
 These interactive notebooks follow the steps of this example:
 
-- Ludwig CLI: [![Hyperparameter Optimization CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/hyperopt-tutorial/docs/examples/hyperopt_notebooks/hyperopt_notebook_clie.ipynb)
+- Ludwig CLI: [![Hyperparameter Optimization CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/hyperopt-tutorial/docs/examples/hyperopt_notebooks/hyperopt_notebook_cli.ipynb)
 - Ludwig Python API: [![Hyperparameter Optimization API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/hyperopt-tutorial/docs/examples/hyperopt_notebooks/hyperopt_notebook_api.ipynb)
 
 ## Download the Adult Census Income dataset
@@ -39,7 +39,7 @@ The columns in the dataset are
 
 ## Setup for hyperparameter optimization run
 
-Hyperparameter optimization is defined with the `hyperopt` section of the Ludwig configuration specification.  
+Hyperparameter optimization is defined with the [`hyperopt` section of the Ludwig configuration specification](../../configuration/hyperparameter_optimization/).  
 
 
 === "cli"
@@ -52,104 +52,113 @@ Hyperparameter optimization is defined with the `hyperopt` section of the Ludwig
 
 === "python"
 
-    [Hyperopt Configuration](../../configuration/hyperparameter_optimization/)
-
     ```python
     # define model configuration
-    config = {'combiner': {'dropout': 0.2,
-                  'num_fc_layers': 3,
-                  'output_size': 128,
-                  'type': 'concat'},
-     'input_features': [{'name': 'age', 'type': 'number'},
-                        {'name': 'workclass', 'type': 'category'},
-                        {'name': 'fnlwgt', 'type': 'number'},
-                        {'name': 'education', 'type': 'category'},
-                        {'name': 'education-num', 'type': 'number'},
-                        {'name': 'marital-status', 'type': 'category'},
-                        {'name': 'occupation', 'type': 'category'},
-                        {'name': 'relationship', 'type': 'category'},
-                        {'name': 'race', 'type': 'category'},
-                        {'name': 'sex', 'type': 'category'},
-                        {'name': 'capital-gain', 'type': 'number'},
-                        {'name': 'capital-loss', 'type': 'number'},
-                        {'name': 'hours-per-week', 'type': 'number'},
-                        {'name': 'native-country', 'type': 'category'}],
-     'output_features': [{'name': 'income',
-                          'num_fc_layers': 4,
-                          'output_size': 32,
-                          'preprocessing': {'fallback_true_label': ' >50K'},
-                          'loss': {'type': 'binary_weighted_cross_entropy'},
-                          'type': 'binary'}],
-     'preprocessing': {'number': {'missing_value_strategy': 'fill_with_mean',
-                                  'normalization': 'zscore'}},
-     'trainer': {'epochs': 5, 'optimizer': {'type': 'adam'}},
+    config = {
+        'combiner': ... ,
+        'input_features': ... ,
+        'output_features': ... ,
+        'preprocessing': ...,
+        'trainer':... ,
     
-      # hyperopt specification template
-      'hyperopt':  {
-        # specify Ray Tune to executor to run the hyperparameter optimization
-        'executor': {'type': 'ray', },
-        # specify Ray Tune's basic search algorithm and set random seed for reproducibility
-        'search_alg': {'type': 'variant_generator', 'random_state': 1919, },
-        # maximize the metric score
+        # hyperopt specification 
+        'hyperopt':  {
+            # specify parameters for the Ray Tune to executor to run the hyperparameter optimization
+            'executor': {'type': 'ray', ... },
+            # specify Ray Tune search algorithm to use
+            'search_alg': {... },
+            # hyperparameter search space for the optimization
+            'parameters': {...},
+            # minimize or maximize the metric score
+            'goal': ...,
+            # metric score to optimize
+            'metric': ...,
+            # name of the output feature
+            'output_feature': ...,
+        }
+    }
+    ```
+
+## Hyperparameter Search Space Specification
+
+For this example, we want to determine the effect of Ludwig's Trainer's `learning_rate` and `num_fc_layers` of the `income` output feature on model's `roc_auc` metric.  To do this we will use two different hyperparameter optimization approaches: Random Search and Grid Search.
+
+### Random Search
+
+=== "cli"
+
+
+    ```yaml
+    ludwig hyperopt ...
+    ```
+
+=== "python"
+
+
+    ```python
+     'hyperopt': {
+        'executor': {'type': 'ray', 'num_samples': 16, },
         'goal': 'maximize',
-        # metric score
         'metric': 'roc_auc',
-        # name of output featue to optimize on
         'output_feature': 'income',
-      }
+        'parameters': {
+            'income.num_fc_layers': {
+                'space': 'randint',
+                'lower': 2,
+                'upper': 9
+            },
+            'trainer.learning_rate': {
+                'space': 'loguniform',
+                'lower': 0.001,
+                'upper': 0.1}
+            },
+        'search_alg': {'type': 'variant_generator', 'random_state': 1919, }
+    },
     ```
+
+### Grid Search
+
+
+=== "cli"
+
+    ```yaml
     
-
-## Random Search
-
-EXPLAIN RANDOM SEARCH
-
-=== "cli"
-
-    [`ludwig train` command](../../user_guide/command_line_interface/#train)
-
-    ```shell
-    ludwig train \
-      --dataset mnist_dataset.csv \
-      --config config.yaml
     ```
 
 === "python"
 
-    [train() method](../../user_guide/api/LudwigModel/#train)
-
     ```python
-    # Trains the model. This cell might take a few minutes.
-    train_stats, preprocessed_data, output_directory = model.train(dataset=train_df)
+    'hyperopt': {
+        'executor': {'num_samples': 1, 'type': 'ray'},
+        'goal': 'maximize',
+        'metric': 'roc_auc',
+        'output_feature': 'income',
+        'parameters': {
+            'income.num_fc_layers': {'space': 'grid_search', 'values': [2, 4, 6, 8]},
+            'trainer.learning_rate': {'space': 'grid_search', 'values': [0.001, 0.003, 0.007, 0.01]}},
+        'search_alg': {'type': 'variant_generator', 'random_state': 1919, }
+    },
     ```
 
-## Grid Search
-
-EXPLAIN GRID SEARCH
+## Run Hyperparameter Optimization
 
 === "cli"
 
-    [`ludwig evaluate` command](../../user_guide/command_line_interface/#evaluate)
+    [`ludwig hyperopt` command](../../user_guide/command_line_interface/#hyperopt)
 
     ```shell
-    ludwig evaluate --model_path results/experiment_run/model \
-                     --dataset mnist_dataset.csv \
-                     --split test \
-                     --output_directory test_results
+    ludwig hyperopt ...
     ```
 
 === "python"
 
-    [evaluate() method](../../user_guide/api/LudwigModel/#evaluate)
+    [hyperopt() method](../../user_guide/api/LudwigModel/#hyperopt)
 
     ```python
-    # Generates predictions and performance statistics for the test set.
-    test_stats, predictions, output_directory = model.evaluate(
-      test_df,
-      collect_predictions=True,
-      collect_overall_stats=True
-    )
+    model.hyperopt()
     ```
+
+
 
 ## Visualize Hyperparameter Optimization Results
 

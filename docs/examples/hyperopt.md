@@ -36,11 +36,9 @@ The columns in the dataset are
 | income         | binary variable, " <=50K" or " >50K"                         |
 | split          | numeric variable, indicating data split training(0), test(2) |
 
-
 ## Setup for hyperparameter optimization run
 
 Hyperparameter optimization is defined with the [`hyperopt` section of the Ludwig configuration specification](../../configuration/hyperparameter_optimization/).  
-
 
 === "cli"
 
@@ -138,7 +136,6 @@ For this example, we want to determine the effect of Ludwig's Trainer's `learnin
 
 === "python"
 
-
     ```python
      'hyperopt': {
         'executor': {'type': 'ray', 'num_samples': 16, },
@@ -161,7 +158,6 @@ For this example, we want to determine the effect of Ludwig's Trainer's `learnin
     ```
 
 ### Grid Search
-
 
 === "cli"
 
@@ -228,8 +224,6 @@ Here are example commands/function call to run Ludwig's hyperparameter optimizat
     )
     ```
 
-
-
 ## Visualize Hyperparameter Optimization Results
 
 === "cli"
@@ -275,4 +269,3 @@ Here are example commands/function call to run Ludwig's hyperparameter optimizat
 ## hyperopt_hiplot
 
 ![hyperopt_hiplot](hyperopt_notebooks/images/hyperopt_hiplot.png)
-

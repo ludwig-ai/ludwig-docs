@@ -82,7 +82,7 @@ preprocessing:
         fill_value: <UNK>
 ```
 
-The preprocessing parameters that each data type accepts can be found in [datatype-specific documentation](../../features/supported_data_types).
+The preprocessing parameters that each data type accepts can be found in [datatype-specific documentation](./features/supported_data_types.md).
 
 Note that different features with the same datatype may require different preprocessing. Type-global preprocessing works
 in tandem with feature-specific preprocessing configuration parameters, which override the global settings.

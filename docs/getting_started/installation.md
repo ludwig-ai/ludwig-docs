@@ -5,7 +5,7 @@ Being declarative means you only need to tell Ludwig *what* columns in your data
 and output features, and Ludwig will figure out *how* to train the best model.
 
 For users familiar with Python, we recommend installing with [`pip`][pip] within an isolated
-[virtual environment](venv). If not, you can use our
+[virtual environment](https://docs.python-guide.org/dev/virtualenvs/). If not, you can use our
 pre-built [`docker`][docker] images. Advanced users can also install Ludwig from [`git`][git].
 
 For large or long-running workloads, Ludwig can be run remotely in the cloud or on a private compute cluster using [`Ray`][ray].

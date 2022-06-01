@@ -112,7 +112,7 @@ input_features:
 
 ## Feature-specific preprocessing
 
-To configure feature-specific preprocessing, please check [datatype-specific documentation](../../features/supported_data_types).
+To configure feature-specific preprocessing, please check [datatype-specific documentation](../features/supported_data_types).
 
 ## Tokenizers
 

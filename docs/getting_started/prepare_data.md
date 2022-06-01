@@ -2,7 +2,7 @@ Ludwig can train on any *table-like* dataset, meaning that every feature has its
 
 In this example, we'll use this [Rotten Tomatoes](https://www.kaggle.com/stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset) dataset, a CSV file with variety of feature types and a binary target.
 
-Download the data locally [here](https://github.com/ludwig-ai/ludwig-docs/raw/getting-started/docs/data/rotten_tomatoes.csv).
+Download the data locally [here](./../data/rotten_tomatoes.csv).
 
 Let's take a look at the first 5 rows to see how the data is arranged:
 

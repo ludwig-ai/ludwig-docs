@@ -1,4 +1,4 @@
-To train a model with Ludwig, we first need to create a [Ludwig configuration](../../configuration). The config specifies input features, output features, preprocessing, model architecture, training loop, hyperparameter search, and backend infrastructure -- everything that's needed to build, train, and evaluate a model.
+To train a model with Ludwig, we first need to create a [Ludwig configuration](./../configuration/index.md). The config specifies input features, output features, preprocessing, model architecture, training loop, hyperparameter search, and backend infrastructure -- everything that's needed to build, train, and evaluate a model.
 
 At a minimum, the config must specify the model's input and output features.
 
@@ -89,4 +89,4 @@ Once you've created the `rotten_tomatoes.yaml` file with the contents above, you
           type: binary
     ```
 
-Ludwig is very flexible. Users can configure just about any parameter in their models including training parameters, preprocessing parameters, and more, directly from the configuration. Check out the [config documentation](/ludwig-docs/user_guide/configuration) for the full list of parameters available in the configuration.
+Ludwig is very flexible. Users can configure just about any parameter in their models including training parameters, preprocessing parameters, and more, directly from the configuration. Check out the [config documentation](./../configuration/index.md) for the full list of parameters available in the configuration.

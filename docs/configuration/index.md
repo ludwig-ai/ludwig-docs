@@ -17,7 +17,7 @@ control over the parameters of your model. Only `input_features` and `output_fea
 fields use reasonable defaults, but can be optionally set or modified manually.
 
 The config can be expressed as a python dictionary (`--config_str` for
-[Ludwig's CLI](../../docs/user_guide/command_line_interface)), or as a YAML file (`--config`).
+[Ludwig's CLI](./../user_guide/command_line_interface)), or as a YAML file (`--config`).
 
 === "YAML"
 

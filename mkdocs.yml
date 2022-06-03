@@ -65,7 +65,6 @@ nav:
           - "↑ Image Features": "configuration/features/image_features.md"
           - "↑ Time Series Features": "configuration/features/time_series_features.md"
       - "Combiner": "configuration/combiner.md"
-      - "Preprocessing": "configuration/preprocessing.md"
       - "Trainer": "configuration/trainer.md"
       - "Hyperopt": "configuration/hyperparameter_optimization.md"
       - "Backend": "configuration/backend.md"

@@ -23,7 +23,7 @@ trainer:
     increase_batch_size_on_plateau_max: 512
     decay: false
     decay_steps: 10000
-    decay_rate: 96
+    decay_rate: 0.96
     staircase: false
     validation_field: combined
     validation_metric: loss

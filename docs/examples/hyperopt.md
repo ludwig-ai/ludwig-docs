@@ -114,8 +114,7 @@ For this example, we want to determine the effect of Ludwig's Trainer's `learnin
 
     ```yaml
     hyperopt:
-        executor: 
-            type: ray
+        executor:
             num_samples: 16
         goal: maximize
         metric: roc_auc
@@ -138,7 +137,7 @@ For this example, we want to determine the effect of Ludwig's Trainer's `learnin
 
     ```python
      'hyperopt': {
-        'executor': {'type': 'ray', 'num_samples': 16, },
+        'executor': {'num_samples': 16, },
         'goal': 'maximize',
         'metric': 'roc_auc',
         'output_feature': 'income',
@@ -163,9 +162,8 @@ For this example, we want to determine the effect of Ludwig's Trainer's `learnin
 
     ```yaml
     hyperopt:
-        executor: 
-            type: ray
-            num_samples: 16
+        executor:
+            num_samples: 1
         goal: maximize
         metric: roc_auc
         output_feature: income
@@ -185,7 +183,7 @@ For this example, we want to determine the effect of Ludwig's Trainer's `learnin
 
     ```python
     'hyperopt': {
-        'executor': {'num_samples': 1, 'type': 'ray'},
+        'executor': {'num_samples': 1,},
         'goal': 'maximize',
         'metric': 'roc_auc',
         'output_feature': 'income',

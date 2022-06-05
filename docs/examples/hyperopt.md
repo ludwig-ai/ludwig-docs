@@ -2,8 +2,8 @@ This is a complete example of Ludwig's hyperparameter optimization capability.
 
 These interactive notebooks follow the steps of this example:
 
-- Ludwig CLI: [![Hyperparameter Optimization CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/hyperopt-tutorial/docs/examples/hyperopt_notebooks/hyperopt_notebook_cli.ipynb)
-- Ludwig Python API: [![Hyperparameter Optimization API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/hyperopt-tutorial/docs/examples/hyperopt_notebooks/hyperopt_notebook_api.ipynb)
+- Ludwig CLI: [![Hyperparameter Optimization CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/master/docs/examples/hyperopt_notebooks/hyperopt_notebook_cli.ipynb)
+- Ludwig Python API: [![Hyperparameter Optimization API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/master/docs/examples/hyperopt_notebooks/hyperopt_notebook_api.ipynb)
 
 ## Download the Adult Census Income dataset
 

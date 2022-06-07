@@ -2209,32 +2209,29 @@ better?</p>
 <span class="w">  </span><span class="nt">split</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">validation</span><span class="w"></span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="nt">training.learning_rate</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">float</span><span class="w"></span>
-<span class="w">      </span><span class="nt">low</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0001</span><span class="w"></span>
-<span class="w">      </span><span class="nt">high</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span><span class="w"></span>
-<span class="w">      </span><span class="nt">steps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"></span>
-<span class="w">      </span><span class="nt">scale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">log</span><span class="w"></span>
+<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loguniform</span><span class="w"></span>
+<span class="w">      </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0001</span><span class="w"></span>
+<span class="w">      </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span><span class="w"></span>
 <span class="w">    </span><span class="nt">training.optimizer.type</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
-<span class="w">      </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">sgd</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">adam</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">adagrad</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span><span class="w"></span>
+<span class="w">      </span><span class="nt">categories</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">sgd</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">adam</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">adagrad</span><span class="p p-Indicator">]</span><span class="w"></span>
 <span class="w">    </span><span class="nt">review_content.embedding_size</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
-<span class="w">      </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">128</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">256</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="w">  </span><span class="nt">sampler</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random</span><span class="w"></span>
+<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span><span class="w"></span>
+<span class="w">      </span><span class="nt">categories</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">128</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">256</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">  </span><span class="nt">search_alg</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">variant_generator</span><span class="w"></span>
 <span class="w">  </span><span class="nt">executor</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">serial</span><span class="w"></span>
+<span class="w">    </span><span class="nt">num_samples</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span><span class="w"></span>
 </code></pre></div>
 <p>In this example we have specified a basic hyperopt config with the following specifications:</p>
 <ul>
 <li>We have set the <code>goal</code> to maximize the <strong>accuracy</strong> metric on the <strong>validation</strong> split</li>
-<li>The parameters we are optimizing are the <strong>learning rate</strong>, the <strong>optimizer type</strong>, and the <strong>level</strong> of text representation to use.</li>
-<li>When optimizing <strong>learning rate</strong> we are testing <em>four</em> values on a <em>log</em> scale between 0.0001 and 0.1 ([0.0001, 0.001, 0.01, 0.1]).</li>
-<li>When optimizing the <strong>optimizer type</strong>, we are testing the <em>sgd</em>, <em>adam</em>, and <em>adagrad</em> optimizers</li>
-<li>When optimizing the <strong>level</strong> of text representation to use, we are testing representations at the <em>word</em> level and the <em>char</em> level</li>
-<li>We set the hyperopt <code>sampler</code> to use the random sampler. This selects 10 random hyperparameter combinations from the search space by default.</li>
-<li>Ludwig supports advanced hyperparameter sampling algorithms like Bayesian optimization and genetical algorithms. See <a href="../../configuration/hyperparameter_optimization#sampler">this guide</a> for details.</li>
-<li>We set the hyperopt <code>executor</code> to use the serial executor which performs the optimization locally in a serial manner.</li>
+<li>The parameters we are optimizing are the <strong>learning rate</strong>, the <strong>optimizer type</strong>, and the <strong>embedding_size</strong> of text representation to use.</li>
+<li>When optimizing <strong>learning rate</strong> we are randomly selecting values on a <em>log</em> scale between 0.0001 and 0.1.</li>
+<li>When optimizing the <strong>optimizer type</strong>, we randomly select the optimizer from <em>sgd</em>, <em>adam</em>, and <em>adagrad</em> optimizers.</li>
+<li>When optimizing the <strong>embedding_size</strong> of text representation we randomly chose between 128 or 256.</li>
+<li>We set hyperopt <code>executor</code> to use Ray Tune's <code>variant_generator</code> search algorithm and generates 10 random hyperparameter combinations from the search space we defined.  The execution will locally run trials in parallel.</li>
+<li>Ludwig supports advanced hyperparameter sampling algorithms like Bayesian optimization and genetical algorithms. See <a href="../../configuration/hyperparameter_optimization/#hyperopt-configuration-parameters">this guide</a> for details.</li>
 </ul>
 <p>The hyperparameter optimization strategy is run using the ludwig hyperopt command:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">CLI</label><label for="__tabbed_1_2">Python</label><label for="__tabbed_1_3">Docker CLI</label></div>

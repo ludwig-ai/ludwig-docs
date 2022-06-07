@@ -26,33 +26,30 @@ hyperopt:
   split: validation
   parameters:
     training.learning_rate:
-      type: float
-      low: 0.0001
-      high: 0.1
-      steps: 4
-      scale: log
+      space: loguniform
+      lower: 0.0001
+      upper: 0.1
     training.optimizer.type:
-      type: category
-      values: [sgd, adam, adagrad]
+      space: choice
+      categories: [sgd, adam, adagrad]
     review_content.embedding_size:
-      type: category
-      values: [128, 256]
-  sampler:
-    type: random
+      space: choice
+      categories: [128, 256]
+  search_alg:
+    type: variant_generator
   executor:
-    type: serial
+    num_samples: 10
 ```
 
 In this example we have specified a basic hyperopt config with the following specifications:
 
 * We have set the `goal` to maximize the **accuracy** metric on the **validation** split
-* The parameters we are optimizing are the **learning rate**, the **optimizer type**, and the **level** of text representation to use.
-  * When optimizing **learning rate** we are testing *four* values on a *log* scale between 0.0001 and 0.1 ([0.0001, 0.001, 0.01, 0.1]).
-  * When optimizing the **optimizer type**, we are testing the *sgd*, *adam*, and *adagrad* optimizers
-  * When optimizing the **level** of text representation to use, we are testing representations at the *word* level and the *char* level
-* We set the hyperopt `sampler` to use the random sampler. This selects 10 random hyperparameter combinations from the search space by default.
-  * Ludwig supports advanced hyperparameter sampling algorithms like Bayesian optimization and genetical algorithms. See [this guide](../../configuration/hyperparameter_optimization#sampler) for details.
-* We set the hyperopt `executor` to use the serial executor which performs the optimization locally in a serial manner.
+* The parameters we are optimizing are the **learning rate**, the **optimizer type**, and the **embedding_size** of text representation to use.
+  * When optimizing **learning rate** we are randomly selecting values on a *log* scale between 0.0001 and 0.1.
+  * When optimizing the **optimizer type**, we randomly select the optimizer from *sgd*, *adam*, and *adagrad* optimizers.
+  * When optimizing the **embedding_size** of text representation we randomly chose between 128 or 256.
+* We set hyperopt `executor` to use Ray Tune's `variant_generator` search algorithm and generates 10 random hyperparameter combinations from the search space we defined.  The execution will locally run trials in parallel.
+  * Ludwig supports advanced hyperparameter sampling algorithms like Bayesian optimization and genetical algorithms. See [this guide](../../configuration/hyperparameter_optimization/#hyperopt-configuration-parameters) for details.
 
 The hyperparameter optimization strategy is run using the ludwig hyperopt command:
 

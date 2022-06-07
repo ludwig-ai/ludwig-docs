@@ -241,7 +241,7 @@ hyperopt:
       upper: 0.1
     trainer.optimizer.type:
       space: choice
-      caegories: [sgd, adam, adagrad]
+      categories: [sgd, adam, adagrad]
     preprocessing.text.word_vocab_size:
       space: qrandint
       lower: 700

@@ -65,7 +65,7 @@ For numeric `spaces`, these define the range where the value is generated
 trainer.learning_rate:
   space: loguniform
   lower: 0.001
-  uppper: 0.1
+  upper: 0.1
 ```
 
 **Integer example**: Uniform random integer values 1, 2, 3

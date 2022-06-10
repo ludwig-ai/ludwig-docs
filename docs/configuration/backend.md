@@ -9,18 +9,22 @@ section to the Ludwig config YAML:
 backend:
   type: ray
   cache_dir: s3://my_bucket/cache
+  cache_credentials: /home/user/.credentials.json
   processor:
     type: dask
   trainer:
     type: horovod
+  loader: {}
 ```
 
 Parameters:
 
 - `type`: How the job will be distributed, one of `local`, `ray`, `horovod`.
 - `cache_dir`: Where the preprocessed data will be written on disk, defaults to the location of the input dataset.
+- `cache_credentials`: Optional dictionary of credentials (or path to credential JSON file) used to write to the cache.
 - `processor`: (Ray only) parameters to configure execution of distributed data processing.
 - `trainer`: (Ray only) parameters to configure execution of distributed training.
+- `loader`: (Ray only) parameters to configure data loading from processed data to training batches.
 
 # Processor
 
@@ -116,4 +120,28 @@ backend:
     resources_per_worker:
         CPU: 2
         GPU: 1
+```
+
+# Loader
+
+The `loader` section configures the "last mile" data ingest from processed data (typically cached in the Parquet
+format) to tensor batches used for training the model. 
+
+When training a deep learning model at scale, the chain is only as strong as its weakest link -- in other words, the data loading pipeline needs to be at least as fast as the GPU forward / backward passes, otherwise the whole process will be bottlenecked by the data loader.
+
+In most cases, Ludwig's defaults will be sufficient to get good data loading performance, but if you notice GPU utilization dropping even after
+scaling the batch size, or going long periods at 0% utilization before spiking up again, you may need to tune the `loader` parameters below to
+improve throughput:
+
+- `fully_executed`: Force full evaluation of the preprocessed dataset by loading all blocks into cluster memory / storage (defaults to `true`). Disable this if the dataset is much larger than the total amount of cluster memory allocated to the Ray object store and you notice that object spilling is occurring frequently during training.
+- `window_size_bytes`: Load and shuffle the preprocessed dataset in discrete windows of this size (defaults to `null`, meaning data will not be windowed). Try configuring this is if shuffling is taking a very long time, indicated by every epoch of training taking many minutes to start. In general, larger window sizes result in more uniform shuffling (which can lead to better model performance in some cases), while smaller window sizes will be faster to load. This setting is particularly useful when running hyperopt over a large dataset.
+
+Example:
+
+```yaml
+backend:
+  type: ray
+  loader:
+    fully_executed: false
+    window_size_bytes: 500000000
 ```

@@ -103,7 +103,7 @@ The last section in this configuration file describes options for how the the [`
         output_size: 32
 
     trainer:
-      epochs:10
+      epochs: 10
       optimizer:
         type: adam
     ```

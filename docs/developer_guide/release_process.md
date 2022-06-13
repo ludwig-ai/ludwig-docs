@@ -72,9 +72,33 @@ For release candidates, check "pre-release".
 
 When the release notes are ready, click `Publish release` on Github. Ludwig's CI will automatically update PyPI.
 
-# 6. Spread the word
+# 6. Update Ludwig docs
 
-Consider sharing the release on LinkedIn/Twitter.
+Check that the [Ludwig PyPi](https://pypi.org/project/ludwig/) has been updated with the newest version.
+
+Go to the ludwig-docs repo and update the auto-generated docs there.
+
+```
+> cd ludwig-docs
+> git pull
+> git checkout -b update_docs
+> pip install ludwig --upgrade
+> python code_doc_autogen.py
+```
+
+If there are any changes, commit them.
+
+```
+> git commit -m "Update auto-generated docs."
+> git push --set-upstream origin update_docs
+```
+
+ Create a PR.
+
+# 7. Spread the word
+
+Announce the release on Slack. If it's a major version release, consider sharing
+the release on other social media.
 
 # Appendix
 

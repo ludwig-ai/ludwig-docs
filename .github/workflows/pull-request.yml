@@ -38,6 +38,6 @@ jobs:
       - name: Validate branch clean
         run: |
           if [[ `git status --porcelain` ]]; then
-            echo "Branch not clean! Run pre-commit hooks before pushing."
+            echo "Branch not clean! Auto-generated docs are out of sync with latest Ludwig release. Please run `python code_doc_autogen.py` and include those changes in a separate PR."
             exit 1
           fi

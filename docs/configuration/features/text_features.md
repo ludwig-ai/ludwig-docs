@@ -1094,9 +1094,8 @@ but a matrix or a higher order tensor, on the first dimension (second if you cou
 values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the sequence dimension), `last` (returns the
 last vector of the sequence dimension).
 - `loss` (default `{type: softmax_cross_entropy, class_similarities_temperature: 0, class_weights: 1,
-confidence_penalty: 0, distortion: 1, labels_smoothing: 0, negative_samples: 0, robust_lambda: 0, sampler: null, unique:
-false}`): is a dictionary containing a loss `type`. The available losses `type` are `softmax_cross_entropy` and
-`sampled_softmax_cross_entropy`. For details on both losses, please refer to
+confidence_penalty: 0, robust_lambda: 0}`): is a dictionary containing a loss `type`. The only available loss `type` for
+text features is `softmax_cross_entropy`. For more details on losses and their options, see also
 [Category Output Features and Decoders](../category_features#category-output-features-and-decoders).
 
 ### Tagger Decoder
@@ -1172,10 +1171,6 @@ loss:
     robust_lambda: 0
     class_weights: 1
     class_similarities_temperature: 0
-    labels_smoothing: 0
-    negative_samples: 0
-    distortion: 1
-    unique: false
 num_fc_layers: 0
 output_size: 256
 use_bias: true
@@ -1284,10 +1279,6 @@ loss:
     robust_lambda: 0
     class_weights: 1
     class_similarities_temperature: 0
-    labels_smoothing: 0
-    negative_samples: 0
-    distortion: 1
-    unique: false
 num_fc_layers: 0
 output_size: 256
 use_bias: true

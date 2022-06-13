@@ -29,7 +29,7 @@ output_features:
         cell_type: lstm
         attention: bahdanau
         loss:
-            type: sampled_softmax_cross_entropy
+            type: softmax_cross_entropy
 
 training:
     batch_size: 96

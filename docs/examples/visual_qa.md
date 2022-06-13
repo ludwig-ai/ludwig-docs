@@ -30,5 +30,5 @@ output_features:
         decoder: generator
         cell_type: lstm
         loss:
-            type: sampled_softmax_cross_entropy
+            type: softmax_cross_entropy
 ```

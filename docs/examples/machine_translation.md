@@ -32,7 +32,7 @@ output_features:
         attention: bahdanau
         reduce_input: null
         loss:
-            type: sampled_softmax_cross_entropy
+            type: softmax_cross_entropy
         preprocessing:
           tokenizer: italian_tokenize
 

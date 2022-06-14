@@ -8,6 +8,7 @@ Examples of version names:
 
 ```python
 "vX.Y"      # Release major version X (starts at 0), minor version Y (starts at 1).
+"vX.Y.Z"    # Release major version X (starts at 0), minor version Y (starts at 1), patch Z (starts at 1).
 "vX.YrcZ"   # Release candidate Z, without a period. (starts at 1)
 "vX.Y.dev"  # Developer version, with a period.
 ```
@@ -72,9 +73,39 @@ For release candidates, check "pre-release".
 
 When the release notes are ready, click `Publish release` on Github. Ludwig's CI will automatically update PyPI.
 
-# 6. Spread the word
+# 6. Update Ludwig docs
 
-Consider sharing the release on LinkedIn/Twitter.
+Check that the [Ludwig PyPi](https://pypi.org/project/ludwig/) has been updated with the newest version.
+
+Go to the ludwig-docs repo and update the auto-generated docs there.
+
+```
+> cd ludwig-docs
+> git pull
+> git checkout -b update_docs
+> pip install ludwig --upgrade
+> python code_doc_autogen.py
+```
+
+If there are any changes, commit them.
+
+```
+> git commit -m "Update auto-generated docs."
+> git push --set-upstream origin update_docs
+```
+
+ Create a PR.
+
+# 7. Spread the word
+
+Announce the release on Slack.
+
+    Ludwig X.Y.Z Released
+    Features: Improvements to <CONTENT>. See <LINK>release notes<LINK> for complete details.
+    Docs: https://ludwig-ai.github.io/ludwig-docs/latest/
+
+If it's a major version release, consider other forms of publicization like
+coordinating sharing the release on other social media, or writing a blog post.
 
 # Appendix
 

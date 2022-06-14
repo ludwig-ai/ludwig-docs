@@ -97,8 +97,14 @@ If there are any changes, commit them.
 
 # 7. Spread the word
 
-Announce the release on Slack. If it's a major version release, consider sharing
-the release on other social media.
+Announce the release on Slack.
+
+    Ludwig 0.5.2 Released
+    Features: Improvements to HyperOpt, Schemas, and pinned library dependencies. See release notes for complete details.
+    Docs: https://ludwig-ai.github.io/ludwig-docs/latest/
+
+If it's a major version release, consider other forms of publicization like
+coordinating sharing the release on other social media, or writing a blog post.
 
 # Appendix
 

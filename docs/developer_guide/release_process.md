@@ -8,6 +8,7 @@ Examples of version names:
 
 ```python
 "vX.Y"      # Release major version X (starts at 0), minor version Y (starts at 1).
+"vX.Y.Z"    # Release major version X (starts at 0), minor version Y (starts at 1), patch Z (starts at 1).
 "vX.YrcZ"   # Release candidate Z, without a period. (starts at 1)
 "vX.Y.dev"  # Developer version, with a period.
 ```
@@ -99,8 +100,8 @@ If there are any changes, commit them.
 
 Announce the release on Slack.
 
-    Ludwig 0.5.2 Released
-    Features: Improvements to HyperOpt, Schemas, and pinned library dependencies. See release notes for complete details.
+    Ludwig X.Y.Z Released
+    Features: Improvements to <CONTENT>. See <LINK>release notes<LINK> for complete details.
     Docs: https://ludwig-ai.github.io/ludwig-docs/latest/
 
 If it's a major version release, consider other forms of publicization like

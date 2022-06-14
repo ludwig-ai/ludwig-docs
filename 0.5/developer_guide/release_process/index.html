@@ -2182,8 +2182,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#6-spread-the-word" class="md-nav__link">
-    6. Spread the word
+  <a href="#6-update-ludwig-docs" class="md-nav__link">
+    6. Update Ludwig docs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-spread-the-word" class="md-nav__link">
+    7. Spread the word
   </a>
   
 </li>
@@ -2320,8 +2327,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#6-spread-the-word" class="md-nav__link">
-    6. Spread the word
+  <a href="#6-update-ludwig-docs" class="md-nav__link">
+    6. Update Ludwig docs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-spread-the-word" class="md-nav__link">
+    7. Spread the word
   </a>
   
 </li>
@@ -2380,6 +2394,7 @@
 </div>
 <p>Examples of version names:</p>
 <div class="highlight"><pre><span></span><code><span class="s2">&quot;vX.Y&quot;</span>      <span class="c1"># Release major version X (starts at 0), minor version Y (starts at 1).</span>
+<span class="s2">&quot;vX.Y.Z&quot;</span>    <span class="c1"># Release major version X (starts at 0), minor version Y (starts at 1), patch Z (starts at 1).</span>
 <span class="s2">&quot;vX.YrcZ&quot;</span>   <span class="c1"># Release candidate Z, without a period. (starts at 1)</span>
 <span class="s2">&quot;vX.Y.dev&quot;</span>  <span class="c1"># Developer version, with a period.</span>
 </code></pre></div>
@@ -2418,8 +2433,28 @@ Ludwig (<a href="https://github.com/ludwig-ai/ludwig/releases/tag/v0.4.1">exampl
 <p>For release candidates, check "pre-release".</p>
 <h2 id="5-click-publish">5. Click publish<a class="headerlink" href="#5-click-publish" title="Permanent link">&para;</a></h2>
 <p>When the release notes are ready, click <code>Publish release</code> on Github. Ludwig's CI will automatically update PyPI.</p>
-<h2 id="6-spread-the-word">6. Spread the word<a class="headerlink" href="#6-spread-the-word" title="Permanent link">&para;</a></h2>
-<p>Consider sharing the release on LinkedIn/Twitter.</p>
+<h2 id="6-update-ludwig-docs">6. Update Ludwig docs<a class="headerlink" href="#6-update-ludwig-docs" title="Permanent link">&para;</a></h2>
+<p>Check that the <a href="https://pypi.org/project/ludwig/">Ludwig PyPi</a> has been updated with the newest version.</p>
+<p>Go to the ludwig-docs repo and update the auto-generated docs there.</p>
+<div class="highlight"><pre><span></span><code>&gt; cd ludwig-docs
+&gt; git pull
+&gt; git checkout -b update_docs
+&gt; pip install ludwig --upgrade
+&gt; python code_doc_autogen.py
+</code></pre></div>
+<p>If there are any changes, commit them.</p>
+<div class="highlight"><pre><span></span><code>&gt; git commit -m &quot;Update auto-generated docs.&quot;
+&gt; git push --set-upstream origin update_docs
+</code></pre></div>
+<p>Create a PR.</p>
+<h2 id="7-spread-the-word">7. Spread the word<a class="headerlink" href="#7-spread-the-word" title="Permanent link">&para;</a></h2>
+<p>Announce the release on Slack.</p>
+<div class="highlight"><pre><span></span><code>Ludwig X.Y.Z Released
+Features: Improvements to &lt;CONTENT&gt;. See &lt;LINK&gt;release notes&lt;LINK&gt; for complete details.
+Docs: https://ludwig-ai.github.io/ludwig-docs/latest/
+</code></pre></div>
+<p>If it's a major version release, consider other forms of publicization like
+coordinating sharing the release on other social media, or writing a blog post.</p>
 <h2 id="appendix">Appendix<a class="headerlink" href="#appendix" title="Permanent link">&para;</a></h2>
 <h3 id="oops-more-prs-were-merged-after-the-version-bump">Oops, more PRs were merged after the version bump<a class="headerlink" href="#oops-more-prs-were-merged-after-the-version-bump" title="Permanent link">&para;</a></h3>
 <p>If there were some last minute PRs merged after the version bump, reorder the commits to make the version bump be the last commit that gets tagged before the release.</p>

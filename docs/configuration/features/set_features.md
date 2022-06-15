@@ -27,7 +27,7 @@ column. The value should be one of `fill_with_const` (replaces the missing value
 the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column),
 `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the
 missing values with the next valid value).
-- `fill_value` (default `0`): the value to replace the missing values with in case the `missing_value_strategy` is
+- `fill_value` (default `<UNK>`): the value to replace the missing values with in case the `missing_value_strategy` is
 `fill_with_const`.
 - `lowercase` (default `false`): if the string has to be lowercased before being handled by the tokenizer.
 - `most_common` (default `10000`): the maximum number of most common tokens to be considered. if the data contains more

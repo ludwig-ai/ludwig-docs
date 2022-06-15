@@ -5,7 +5,7 @@ Ludwig data preprocessing performs a few different operations on the incoming da
 1. **Computing metadata** like vocabulary, vocabulary size, and sequence lengths. This allows Ludwig to create
    dictionaries like `idx2str` or `str2idx` to map between raw data values to tensor values.
 1. **Handling missing values** any rows/examples that have missing feature values are filled in with constants or other
-   example-derived values (see [Preprocessing Configuration](../../configuration/preprocessing)).
+   example-derived values (see [Preprocessing Configuration](../../../configuration/preprocessing)).
 1. (optional) **Splitting dataset** into train, validation, and test based on splitting percentages, or using explicitly
    specified splits.
 1. (optional) **Balancing data** which can be useful for datasets with heavily underrepresented or overrepresented
@@ -16,7 +16,7 @@ The HDF5 and JSON files are saved in the same directory as the input dataset, un
 used. The two files will serve as a cache to help avoid performing the same preprocessing again, which can be time
 consuming.
 
-The preprocessing process is highly customizable via the [Preprocessing section](../../configuration/preprocessing) of
+The preprocessing process is highly customizable via the [Preprocessing section](../../../configuration/preprocessing) of
 the Ludwig config. The basic assumption is always that all data is UTF-8 encoded and contains one row for each
 example and one column for each feature.
 
@@ -28,7 +28,7 @@ assign types automatically.
 
 Each datatype is preprocessed in a different way, using different parameters and different tokenizers.
 Details on how to set those parameters for each feature type and for each specific feature is described in the
-[Configuration - Preprocessing](../../configuration/preprocessing) section.
+[Configuration - Preprocessing](../../../configuration/preprocessing) section.
 
 ## Binary features
 

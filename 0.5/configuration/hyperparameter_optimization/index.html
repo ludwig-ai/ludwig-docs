@@ -2421,8 +2421,8 @@ search strategy and execution strategy.</p>
 <span class="w">  </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loss</span><span class="w"></span>
 <span class="w">  </span><span class="nt">split</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">validation</span><span class="w"></span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">text.cell_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">    </span><span class="nt">text.num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
+<span class="w">    </span><span class="nt">title.cell_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"> </span><span class="c1"># title is a text feature type</span><span class="w"></span>
+<span class="w">    </span><span class="nt">title.num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"> </span>
 <span class="w">    </span><span class="nt">combiner.num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
 <span class="w">    </span><span class="nt">section.embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
 <span class="w">    </span><span class="nt">preprocessing.text.vocab_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
@@ -2446,14 +2446,14 @@ search strategy and execution strategy.</p>
 <li><code>metric</code> is the metric that we want to optimize for. The default one is <code>loss</code>, but depending on the type of the feature defined in <code>output_feature</code>, different metrics and losses are available. Check the metrics section of the specific output feature type to figure out what metrics are available to use.</li>
 <li><code>split</code> is the split of data that we want to compute our metric on. By default it is the <code>validation</code> split, but you have the flexibility to specify also <code>train</code> or <code>test</code> splits.</li>
 <li><code>parameters</code> section consists of a set of hyperparameters to optimize. They are provided as keys (the names of the parameters) and values associated with them (that define the search space). The values vary depending on the type of the hyperparameter. Syntax for this section is based on <a href="https://docs.ray.io/en/latest/tune/api_docs/search_space.html">Ray Tune's Search Space parameters</a>.</li>
-<li><code>search_alg</code> section specifies the algorittm to sample the defined <code>parameters</code> space. Candidate algorithms are those found in <a href="https://docs.ray.io/en/latest/tune/api_docs/suggestion.html">Ray Tune's Search Algorithms</a>.</li>
-<li><code>executor</code> section specifies how to execute the hyperparameter optimization. The execution could happen locally in a serial manner or in parallel across multiple workers and with GPUs as well if available.  The <code>executor</code> section includes spefication for work scheduling and the number of samples to generate.</li>
+<li><code>search_alg</code> section specifies the algorithm to sample the defined <code>parameters</code> space. Candidate algorithms are those found in <a href="https://docs.ray.io/en/latest/tune/api_docs/suggestion.html">Ray Tune's Search Algorithms</a>.</li>
+<li><code>executor</code> section specifies how to execute the hyperparameter optimization. The execution could happen locally in a serial manner or in parallel across multiple workers and with GPUs as well if available.  The <code>executor</code> section includes specification for work scheduling and the number of samples to generate.</li>
 </ul>
 <h2 id="defining-hyperparameter-search-spaces">Defining hyperparameter search spaces<a class="headerlink" href="#defining-hyperparameter-search-spaces" title="Permanent link">&para;</a></h2>
 <p>In the <code>parameters</code> section, hyperparameters are dot( <code>.</code>) separate names. The parts of the hyperparameter names separated by <code>.</code> are references to nested sections in the Ludwig configuration.
 For instance, to reference the <code>learning_rate</code>, in the <code>trainer</code> section one would use the name <code>trainer.learning_rate</code>.
 If the parameter to reference is inside an input or output feature, the name of that feature will be be used as starting point.
-For instance, for referencing the <code>cell_type</code> of the <code>text</code> feature, use the name <code>text.cell_type</code>.</p>
+For instance, for referencing the <code>cell_type</code> of the <code>title</code> feature, use the name <code>title.cell_type</code>.</p>
 <h3 id="numeric-hyperparameters">Numeric Hyperparameters<a class="headerlink" href="#numeric-hyperparameters" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>space</code>: Use <a href="https://docs.ray.io/en/latest/tune/api_docs/search_space.html">Ray Tune's Search Space</a> types, e.g., <code>uniform</code>, <code>quniform</code>, <code>loguniform</code>, <code>choice</code>, etc.  Refer the cited page for details.</li>
@@ -2495,7 +2495,7 @@ For instance, for referencing the <code>cell_type</code> of the <code>text</code
 integers, floats and anything else, even entire dictionaries.  The values will be a uniform random selection.</li>
 </ul>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">text.cell_type</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">title.cell_type</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span><span class="w"></span>
 <span class="w">  </span><span class="nt">categories</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">rnn</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">gru</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">lstm</span><span class="p p-Indicator">]</span><span class="w"></span>
 </code></pre></div>
@@ -2506,7 +2506,7 @@ integers, floats and anything else, even entire dictionaries.  The values will b
 integers, floats and anything else, even entire dictionaries.</li>
 </ul>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">text.cell_type</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">title.cell_type</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grid_search</span><span class="w"></span>
 <span class="w">  </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">rnn</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">gru</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">lstm</span><span class="p p-Indicator">]</span><span class="w"></span>
 </code></pre></div>
@@ -2521,13 +2521,13 @@ integers, floats and anything else, even entire dictionaries.</li>
 <span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">randint</span><span class="w"></span>
 <span class="w">      </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
 <span class="w">      </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span><span class="w"></span>
-<span class="w">    </span><span class="nt">text.cell_type</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">title.cell_type</span><span class="p">:</span><span class="w"></span>
 <span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grid_search</span><span class="w"></span>
 <span class="w">      </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;rnn&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;gru&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="w">    </span><span class="nt">text.bidirectional</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">title.bidirectional</span><span class="p">:</span><span class="w"></span>
 <span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span><span class="w"></span>
 <span class="w">      </span><span class="nt">categories</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">True</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">False</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="w">    </span><span class="nt">text.fc_layers</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">title.fc_layers</span><span class="p">:</span><span class="w"></span>
 <span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span><span class="w"></span>
 <span class="w">      </span><span class="nt">categories</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="s">&quot;output_size&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">512</span><span class="p p-Indicator">},</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;output_size&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">256</span><span class="p p-Indicator">}]</span><span class="w"></span>
@@ -2584,7 +2584,7 @@ Ray cluster.</p>
 <p>Example YAML:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">title</span><span class="w"></span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w"></span>
 <span class="w">    </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rnn</span><span class="w"></span>
 <span class="w">    </span><span class="nt">cell_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lstm</span><span class="w"></span>
@@ -2625,7 +2625,7 @@ Ray cluster.</p>
 <span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">randint</span><span class="w"></span>
 <span class="w">      </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
 <span class="w">      </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span><span class="w"></span>
-<span class="w">    </span><span class="nt">text.cell_type</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">title.cell_type</span><span class="p">:</span><span class="w"></span>
 <span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span><span class="w"></span>
 <span class="w">      </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">rnn</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">gru</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">lstm</span><span class="p p-Indicator">]</span><span class="w"></span>
 <span class="w">  </span><span class="nt">search_alg</span><span class="p">:</span><span class="w"></span>
@@ -2635,7 +2635,7 @@ Ray cluster.</p>
 <span class="w">    </span><span class="nt">num_samples</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12</span><span class="w"></span>
 </code></pre></div>
 <p>Example CLI command:</p>
-<div class="highlight"><pre><span></span><code>ludwig hyperopt --dataset reuters-allcats.csv --config_str &quot;{input_features: [{name: text, type: text, encoder: rnn, cell_type: lstm, num_layers: 2}], output_features: [{name: class, type: category}], training: {learning_rate: 0.001}, hyperopt: {goal: maximize, output_feature: class, metric: accuracy, split: validation, parameters: {trainer.learning_rate: {space: loguniform, lower: 0.0001, upper: 0.1}, text.cell_type: {space: choice, categories: [rnn, gru, lstm]}}, search_alg: {type: variant_generator},executor: {type: ray, num_samples: 10}}}&quot;
+<div class="highlight"><pre><span></span><code>ludwig hyperopt --dataset reuters-allcats.csv --config_str &quot;{input_features: [{name: title, type: text, encoder: rnn, cell_type: lstm, num_layers: 2}], output_features: [{name: class, type: category}], training: {learning_rate: 0.001}, hyperopt: {goal: maximize, output_feature: class, metric: accuracy, split: validation, parameters: {trainer.learning_rate: {space: loguniform, lower: 0.0001, upper: 0.1}, title.cell_type: {space: choice, categories: [rnn, gru, lstm]}}, search_alg: {type: variant_generator},executor: {type: ray, num_samples: 10}}}&quot;
 </code></pre></div>
 
               

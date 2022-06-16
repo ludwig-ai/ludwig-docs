@@ -8,8 +8,8 @@ hyperopt:
   metric: loss
   split: validation
   parameters:
-    text.cell_type: ...
-    text.num_layers: ...
+    title.cell_type: ... # title is a text feature type
+    title.num_layers: ... 
     combiner.num_fc_layers: ...
     section.embedding_size: ...
     preprocessing.text.vocab_size: ...
@@ -34,15 +34,15 @@ hyperopt:
 - `metric` is the metric that we want to optimize for. The default one is `loss`, but depending on the type of the feature defined in `output_feature`, different metrics and losses are available. Check the metrics section of the specific output feature type to figure out what metrics are available to use.
 - `split` is the split of data that we want to compute our metric on. By default it is the `validation` split, but you have the flexibility to specify also `train` or `test` splits.
 - `parameters` section consists of a set of hyperparameters to optimize. They are provided as keys (the names of the parameters) and values associated with them (that define the search space). The values vary depending on the type of the hyperparameter. Syntax for this section is based on [Ray Tune's Search Space parameters](https://docs.ray.io/en/latest/tune/api_docs/search_space.html).
-- `search_alg` section specifies the algorittm to sample the defined `parameters` space. Candidate algorithms are those found in [Ray Tune's Search Algorithms](https://docs.ray.io/en/latest/tune/api_docs/suggestion.html).
-- `executor` section specifies how to execute the hyperparameter optimization. The execution could happen locally in a serial manner or in parallel across multiple workers and with GPUs as well if available.  The `executor` section includes spefication for work scheduling and the number of samples to generate.
+- `search_alg` section specifies the algorithm to sample the defined `parameters` space. Candidate algorithms are those found in [Ray Tune's Search Algorithms](https://docs.ray.io/en/latest/tune/api_docs/suggestion.html).
+- `executor` section specifies how to execute the hyperparameter optimization. The execution could happen locally in a serial manner or in parallel across multiple workers and with GPUs as well if available.  The `executor` section includes specification for work scheduling and the number of samples to generate.
 
 # Defining hyperparameter search spaces
 
 In the `parameters` section, hyperparameters are dot( `.`) separate names. The parts of the hyperparameter names separated by `.` are references to nested sections in the Ludwig configuration.
 For instance, to reference the `learning_rate`, in the `trainer` section one would use the name `trainer.learning_rate`.
 If the parameter to reference is inside an input or output feature, the name of that feature will be be used as starting point.
-For instance, for referencing the `cell_type` of the `text` feature, use the name `text.cell_type`.
+For instance, for referencing the `cell_type` of the `title` feature, use the name `title.cell_type`.
 
 ## Numeric Hyperparameters
 
@@ -96,7 +96,7 @@ integers, floats and anything else, even entire dictionaries.  The values will b
 Example:
 
 ```yaml
-text.cell_type:
+title.cell_type:
   space: choice
   categories: [rnn, gru, lstm]
 ```
@@ -111,7 +111,7 @@ integers, floats and anything else, even entire dictionaries.
 Example:
 
 ```yaml
-text.cell_type:
+title.cell_type:
   space: grid_search
   values: [rnn, gru, lstm]
 ```
@@ -129,13 +129,13 @@ hyperopt:
       space: randint
       lower: 2
       upper: 6
-    text.cell_type:
+    title.cell_type:
       space: grid_search
       values: ["rnn", "gru"]
-    text.bidirectional:
+    title.bidirectional:
       space: choice
       categories: [True, False]
-    text.fc_layers:
+    title.fc_layers:
       space: choice
       categories:
         - [{"output_size": 512}, {"output_size": 256}]
@@ -210,7 +210,7 @@ Example YAML:
 ```yaml
 input_features:
   -
-    name: text
+    name: title
     type: text
     encoder: rnn
     cell_type: lstm
@@ -251,7 +251,7 @@ hyperopt:
       space: randint
       lower: 1
       upper: 5
-    text.cell_type:
+    title.cell_type:
       space: choice
       values: [rnn, gru, lstm]
   search_alg:
@@ -264,5 +264,5 @@ hyperopt:
 Example CLI command:
 
 ```
-ludwig hyperopt --dataset reuters-allcats.csv --config_str "{input_features: [{name: text, type: text, encoder: rnn, cell_type: lstm, num_layers: 2}], output_features: [{name: class, type: category}], training: {learning_rate: 0.001}, hyperopt: {goal: maximize, output_feature: class, metric: accuracy, split: validation, parameters: {trainer.learning_rate: {space: loguniform, lower: 0.0001, upper: 0.1}, text.cell_type: {space: choice, categories: [rnn, gru, lstm]}}, search_alg: {type: variant_generator},executor: {type: ray, num_samples: 10}}}"
+ludwig hyperopt --dataset reuters-allcats.csv --config_str "{input_features: [{name: title, type: text, encoder: rnn, cell_type: lstm, num_layers: 2}], output_features: [{name: class, type: category}], training: {learning_rate: 0.001}, hyperopt: {goal: maximize, output_feature: class, metric: accuracy, split: validation, parameters: {trainer.learning_rate: {space: loguniform, lower: 0.0001, upper: 0.1}, title.cell_type: {space: choice, categories: [rnn, gru, lstm]}}, search_alg: {type: variant_generator},executor: {type: ray, num_samples: 10}}}"
 ```

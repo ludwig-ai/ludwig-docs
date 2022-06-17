@@ -1415,6 +1415,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#loader" class="md-nav__link">
+    Loader
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2309,6 +2316,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#loader" class="md-nav__link">
+    Loader
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2337,17 +2351,21 @@ section to the Ludwig config YAML:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span><span class="w"></span>
 <span class="w">  </span><span class="nt">cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3://my_bucket/cache</span><span class="w"></span>
+<span class="w">  </span><span class="nt">cache_credentials</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/home/user/.credentials.json</span><span class="w"></span>
 <span class="w">  </span><span class="nt">processor</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dask</span><span class="w"></span>
 <span class="w">  </span><span class="nt">trainer</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">horovod</span><span class="w"></span>
+<span class="w">  </span><span class="nt">loader</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w"></span>
 </code></pre></div>
 <p>Parameters:</p>
 <ul>
 <li><code>type</code>: How the job will be distributed, one of <code>local</code>, <code>ray</code>, <code>horovod</code>.</li>
 <li><code>cache_dir</code>: Where the preprocessed data will be written on disk, defaults to the location of the input dataset.</li>
+<li><code>cache_credentials</code>: Optional dictionary of credentials (or path to credential JSON file) used to write to the cache.</li>
 <li><code>processor</code>: (Ray only) parameters to configure execution of distributed data processing.</li>
 <li><code>trainer</code>: (Ray only) parameters to configure execution of distributed training.</li>
+<li><code>loader</code>: (Ray only) parameters to configure data loading from processed data to training batches.</li>
 </ul>
 <h2 id="processor">Processor<a class="headerlink" href="#processor" title="Permanent link">&para;</a></h2>
 <p>The <code>processor</code> section configures distributed data processing. The <code>local</code> backend uses the Pandas dataframe library, which runs in a single
@@ -2422,6 +2440,24 @@ default number of workers during CPU training to the number of nodes in the clus
 <span class="w">    </span><span class="nt">resources_per_worker</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="nt">CPU</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
 <span class="w">        </span><span class="nt">GPU</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+</code></pre></div>
+<h2 id="loader">Loader<a class="headerlink" href="#loader" title="Permanent link">&para;</a></h2>
+<p>The <code>loader</code> section configures the "last mile" data ingest from processed data (typically cached in the Parquet
+format) to tensor batches used for training the model.</p>
+<p>When training a deep learning model at scale, the chain is only as strong as its weakest link -- in other words, the data loading pipeline needs to be at least as fast as the GPU forward / backward passes, otherwise the whole process will be bottlenecked by the data loader.</p>
+<p>In most cases, Ludwig's defaults will be sufficient to get good data loading performance, but if you notice GPU utilization dropping even after
+scaling the batch size, or going long periods at 0% utilization before spiking up again, you may need to tune the <code>loader</code> parameters below to
+improve throughput:</p>
+<ul>
+<li><code>fully_executed</code>: Force full evaluation of the preprocessed dataset by loading all blocks into cluster memory / storage (defaults to <code>true</code>). Disable this if the dataset is much larger than the total amount of cluster memory allocated to the Ray object store and you notice that object spilling is occurring frequently during training.</li>
+<li><code>window_size_bytes</code>: Load and shuffle the preprocessed dataset in discrete windows of this size (defaults to <code>null</code>, meaning data will not be windowed). Try configuring this is if shuffling is taking a very long time, indicated by every epoch of training taking many minutes to start. In general, larger window sizes result in more uniform shuffling (which can lead to better model performance in some cases), while smaller window sizes will be faster to load. This setting is particularly useful when running hyperopt over a large dataset.</li>
+</ul>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span><span class="w"></span>
+<span class="w">  </span><span class="nt">loader</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">fully_executed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<span class="w">    </span><span class="nt">window_size_bytes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500000000</span><span class="w"></span>
 </code></pre></div>
 
               

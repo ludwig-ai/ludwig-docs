@@ -125,7 +125,7 @@ backend:
 # Loader
 
 The `loader` section configures the "last mile" data ingest from processed data (typically cached in the Parquet
-format) to tensor batches used for training the model. 
+format) to tensor batches used for training the model.
 
 When training a deep learning model at scale, the chain is only as strong as its weakest link -- in other words, the data loading pipeline needs to be at least as fast as the GPU forward / backward passes, otherwise the whole process will be bottlenecked by the data loader.
 

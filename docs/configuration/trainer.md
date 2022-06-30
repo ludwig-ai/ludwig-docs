@@ -99,6 +99,7 @@ configure the training process, like the number of epochs or the learning rate.
 
 === "ECD"
 
+    - `type` (default `trainer`): Trainer to use for training the model. Must be one of ['trainer', 'ray_legacy_trainer'] - corresponds to name in `ludwig.trainers.registry.(ray_)trainers_registry` (default: 'trainer')
     - `epochs` (default `100`): number of epochs the training process will run for.
     - `train_steps` (default `None`): Maximum number of training steps the training process will run for. If unset, then `epochs` is used to determine training length.
     - `early_stop` (default `5`): if theres a validation set, number of epochs of patience without an improvement on the validation measure before the training is stopped.

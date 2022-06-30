@@ -171,9 +171,6 @@ markdown_extensions:
       linenums_style: pymdownx-inline
   - pymdownx.tabbed:
       alternate_style: true
-  - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
   - footnotes
   - meta
 #  - pymdownx.superfences:

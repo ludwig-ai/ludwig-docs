@@ -129,50 +129,52 @@ configure the training process, like the number of epochs or the learning rate.
 
 === "GBM"
 
-    - `type` (default `lightgbm_trainer`): Trainer to use for training the model. Must be one of ['lightgbm_trainer'] - corresponds to name in `ludwig.trainers.registry.(ray_)trainers_registry` (default: 'lightgbm_trainer')
-    - `boosting_type` (default `gbdt`): Type of boosting algorithm to use with GBM trainer.
-    - `num_boost_round` (default `100`): Number of boosting rounds to perform with GBM trainer.
-    - `learning_rate` (default `0.001`): Learning rate specified in configuration, represents how much to scale the gradients by. If 'auto', `tune_learning_rate` must be called before training to estimate the optimal learning rate.
-    - `max_cat_to_onehot` (default `4`): Maximum categorical cardinality required before one-hot encoding in the GBM trainer.
-    - `max_delta_step` (default `0.0`): Used to limit the max output of tree leaves in the GBM trainer. A negative value means no constraint.
+    See the [LightGBM documentation](https://lightgbm.readthedocs.io/en/latest/Parameters.html) for more details about the available parameters.
+
+    - `type` (default `lightgbm_trainer`): Trainer to use for training the model. Must be one of ['lightgbm_trainer'] - corresponds to name in `ludwig.trainers.registry.(ray_)trainers_registry`.
+    - `boosting_type` (default `gbdt`): Type of boosting algorithm to use.
+    - `num_boost_round` (default `100`): Number of boosting rounds to perform.
+    - `learning_rate` (default `0.001`): Boosting learning rate.
+    - `max_cat_to_onehot` (default `4`): Maximum categorical cardinality required before one-hot encoding.
+    - `max_delta_step` (default `0.0`): Used to limit the max output of tree leaves. A negative value means no constraint.
     - `lambda_l1` (default `0.0`): L1 regularization factor for the GBM trainer.
-    - `linear_lambda` (default `0.0`): Linear tree regularization in the GBM trainer.
-    - `cat_l2` (default `10.0`): L2 regularization factor for categorical split in the GBM trainer.
-    - `neg_bagging_fraction` (default `1.0`): Fraction of negative data to use for bagging with GBM trainer.
+    - `linear_lambda` (default `0.0`): Linear tree regularization.
+    - `cat_l2` (default `10.0`): L2 regularization factor for categorical split.
+    - `neg_bagging_fraction` (default `1.0`): Fraction of negative data to use for bagging.
     - `skip_drop` (default `0.5`): Probability of skipping the dropout during one boosting iteration. Used only with boosting_type 'dart'.
-    - `tree_learner` (default `serial`): Type of tree learner to use with GBM trainer.
-    - `extra_trees` (default `False`): Whether to use extremely randomized trees in the GBM trainer.
+    - `tree_learner` (default `serial`): Type of tree learner to use.
+    - `extra_trees` (default `False`): Whether to use extremely randomized trees.
     - `lambda_l2` (default `0.0`): L2 regularization factor for the GBM trainer.
     - `min_data_per_group` (default `100`): Minimum number of data points per categorical group for the GBM trainer.
-    - `min_gain_to_split` (default `0.0`): Minimum gain to split a leaf in the GBM trainer.
+    - `min_gain_to_split` (default `0.0`): Minimum gain to split a leaf.
     - `validation_metric` (default `loss`): Metric used on `validation_field`, set by default to accuracy.
     - `max_cat_threshold` (default `32`): Number of split points considered for categorical features for the GBM trainer.
-    - `max_bin` (default `255`): Maximum number of bins to use for discretizing features with GBM trainer.
+    - `max_bin` (default `255`): Maximum number of bins to use for discretizing features.
     - `early_stop` (default `5`): Number of consecutive rounds of evaluation without any improvement on the `validation_metric` that triggers training to stop. Can be set to -1, which disables early stopping entirely.
-    - `cegb_penalty_split` (default `0.0`): Cost-effective gradient boosting penalty for splitting a node in the GBM trainer.
-    - `cegb_tradeoff` (default `1.0`): Cost-effective gradient boosting multiplier for all penalties in the GBM trainer.
-    - `other_rate` (default `0.1`): The retain ratio of small gradient data in the GBM trainer. Used only with boosting_type 'goss'.
-    - `path_smooth` (default `0.0`): Smoothing factor applied to tree nodes in the GBM trainer.
+    - `cegb_penalty_split` (default `0.0`): Cost-effective gradient boosting penalty for splitting a node.
+    - `cegb_tradeoff` (default `1.0`): Cost-effective gradient boosting multiplier for all penalties.
+    - `other_rate` (default `0.1`): The retain ratio of small gradient data. Used only with boosting_type 'goss'.
+    - `path_smooth` (default `0.0`): Smoothing factor applied to tree nodes.
     - `evaluate_training_set` (default `True`): Whether to include the entire training set during evaluation.
-    - `num_leaves` (default `31`): Number of leaves to use in the tree with GBM trainer.
-    - `cat_smooth` (default `10.0`): Smoothing factor for categorical split in the GBM trainer.
-    - `extra_seed` (default `6`): Random seed for extremely randomized trees in the GBM trainer.
-    - `bagging_seed` (default `3`): Random seed for bagging with GBM trainer.
-    - `min_sum_hessian_in_leaf` (default `0.001`): Minimum sum of hessians in a leaf with GBM trainer.
-    - `min_data_in_leaf` (default `20`): Minimum number of data points in a leaf with GBM trainer.
-    - `top_rate` (default `0.2`): The retain ratio of large gradient data in the GBM trainer. Used only with boosting_type 'goss'.
-    - `feature_fraction_seed` (default `2`): Random seed for feature fraction with GBM trainer.
+    - `num_leaves` (default `31`): Number of leaves to use in the tree.
+    - `cat_smooth` (default `10.0`): Smoothing factor for categorical split.
+    - `extra_seed` (default `6`): Random seed for extremely randomized trees.
+    - `bagging_seed` (default `3`): Random seed for bagging.
+    - `min_sum_hessian_in_leaf` (default `0.001`): Minimum sum of hessians in a leaf.
+    - `min_data_in_leaf` (default `20`): Minimum number of data points in a leaf.
+    - `top_rate` (default `0.2`): The retain ratio of large gradient data. Used only with boosting_type 'goss'.
+    - `feature_fraction_seed` (default `2`): Random seed for feature fraction.
     - `drop_rate` (default `0.1`): Dropout rate for the GBM trainer. Used only with boosting_type 'dart'.
-    - `xgboost_dart_mode` (default `False`): Whether to use xgboost dart mode in the GBM trainer. Used only with boosting_type 'dart'.
-    - `drop_seed` (default `4`): Random seed to choose dropping models in the GBM trainer. Used only with boosting_type 'dart'.
-    - `max_depth` (default `-1`): Maximum depth of a tree in the GBM trainer. A negative value means no limit.
-    - `feature_fraction_bynode` (default `1.0`): Fraction of features to use for each tree node with GBM trainer.
-    - `bagging_freq` (default `0`): Frequency of bagging with GBM trainer.
-    - `pos_bagging_fraction` (default `1.0`): Fraction of positive data to use for bagging with GBM trainer.
-    - `feature_fraction` (default `1.0`): Fraction of features to use in the GBM trainer.
+    - `xgboost_dart_mode` (default `False`): Whether to use xgboost dart mode. Used only with boosting_type 'dart'.
+    - `drop_seed` (default `4`): Random seed to choose dropping models. Used only with boosting_type 'dart'.
+    - `max_depth` (default `-1`): Maximum depth of a tree. A negative value means no limit.
+    - `feature_fraction_bynode` (default `1.0`): Fraction of features to use for each tree node.
+    - `bagging_freq` (default `0`): Frequency of bagging.
+    - `pos_bagging_fraction` (default `1.0`): Fraction of positive data to use for bagging.
+    - `feature_fraction` (default `1.0`): Fraction of features to use.
     - `eval_batch_size` (default `128`): Size of batch to pass to the model for evaluation.
-    - `bagging_fraction` (default `1.0`): Fraction of data to use for bagging with GBM trainer.
-    - `uniform_drop` (default `False`): Whether to use uniform dropout in the GBM trainer. Used only with boosting_type 'dart'.
+    - `bagging_fraction` (default `1.0`): Fraction of data to use for bagging.
+    - `uniform_drop` (default `False`): Whether to use uniform dropout. Used only with boosting_type 'dart'.
     - `validation_field` (default `combined`): First output feature, by default it is set as the same field of the first output feature.
     - `max_drop` (default `50`): Maximum number of dropped trees during one boosting iteration. Used only with boosting_type 'dart'. A negative value means no limit.
     - `verbose` (default `0`): Verbosity level for GBM trainer.

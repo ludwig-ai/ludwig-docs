@@ -46,6 +46,7 @@ nav:
       - "Third-Party Integrations": "user_guide/integrations.md"
   - Configuration:
       - "Configuration": "configuration/index.md"
+      - "Model Types": "configuration/model_type.md"
       - "Preprocessing": "configuration/preprocessing.md"
       - "Features":
           - "Supported Data Types": "configuration/features/supported_data_types.md"
@@ -138,6 +139,7 @@ theme:
         icon: material/toggle-switch
         name: Switch to light mode
   features:
+    - content.tabs.link
     - navigation.tabs
     - navigation.indexes
 
@@ -169,6 +171,9 @@ markdown_extensions:
       linenums_style: pymdownx-inline
   - pymdownx.tabbed:
       alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
   - footnotes
   - meta
 #  - pymdownx.superfences:

@@ -175,7 +175,7 @@ splits and any other random function.
 
 __Return__
 
-- __return__ (ludwig.models.ECD): Instance of the Ludwig model object.
+- __return__ (ludwig.models.BaseModel): Instance of the Ludwig model object.
  
 
 ---

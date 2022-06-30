@@ -16,7 +16,7 @@ Every model type has trainers associated with it. See the [Trainer](../trainer) 
 See the [ECD documentation](../../user_guide/how_ludwig_works/#ecd-architecture) for details about the Encoder-Combiner-Decoder deep learning architecture.
 
 !!! check
-    
+
     The full breadth of Ludwig functionality is available for the `ecd` model type.
 
 ## Model Type: GBM

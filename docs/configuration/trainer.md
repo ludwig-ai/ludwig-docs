@@ -137,18 +137,18 @@ configure the training process, like the number of epochs or the learning rate.
     - `learning_rate` (default `0.001`): Boosting learning rate.
     - `max_cat_to_onehot` (default `4`): Maximum categorical cardinality required before one-hot encoding.
     - `max_delta_step` (default `0.0`): Used to limit the max output of tree leaves. A negative value means no constraint.
-    - `lambda_l1` (default `0.0`): L1 regularization factor for the GBM trainer.
+    - `lambda_l1` (default `0.0`): L1 regularization factor.
     - `linear_lambda` (default `0.0`): Linear tree regularization.
     - `cat_l2` (default `10.0`): L2 regularization factor for categorical split.
     - `neg_bagging_fraction` (default `1.0`): Fraction of negative data to use for bagging.
     - `skip_drop` (default `0.5`): Probability of skipping the dropout during one boosting iteration. Used only with boosting_type 'dart'.
     - `tree_learner` (default `serial`): Type of tree learner to use.
     - `extra_trees` (default `False`): Whether to use extremely randomized trees.
-    - `lambda_l2` (default `0.0`): L2 regularization factor for the GBM trainer.
-    - `min_data_per_group` (default `100`): Minimum number of data points per categorical group for the GBM trainer.
+    - `lambda_l2` (default `0.0`): L2 regularization factor.
+    - `min_data_per_group` (default `100`): Minimum number of data points per categorical group.
     - `min_gain_to_split` (default `0.0`): Minimum gain to split a leaf.
     - `validation_metric` (default `loss`): Metric used on `validation_field`, set by default to accuracy.
-    - `max_cat_threshold` (default `32`): Number of split points considered for categorical features for the GBM trainer.
+    - `max_cat_threshold` (default `32`): Number of split points considered for categorical features.
     - `max_bin` (default `255`): Maximum number of bins to use for discretizing features.
     - `early_stop` (default `5`): Number of consecutive rounds of evaluation without any improvement on the `validation_metric` that triggers training to stop. Can be set to -1, which disables early stopping entirely.
     - `cegb_penalty_split` (default `0.0`): Cost-effective gradient boosting penalty for splitting a node.
@@ -164,7 +164,7 @@ configure the training process, like the number of epochs or the learning rate.
     - `min_data_in_leaf` (default `20`): Minimum number of data points in a leaf.
     - `top_rate` (default `0.2`): The retain ratio of large gradient data. Used only with boosting_type 'goss'.
     - `feature_fraction_seed` (default `2`): Random seed for feature fraction.
-    - `drop_rate` (default `0.1`): Dropout rate for the GBM trainer. Used only with boosting_type 'dart'.
+    - `drop_rate` (default `0.1`): Dropout rate. Used only with boosting_type 'dart'.
     - `xgboost_dart_mode` (default `False`): Whether to use xgboost dart mode. Used only with boosting_type 'dart'.
     - `drop_seed` (default `4`): Random seed to choose dropping models. Used only with boosting_type 'dart'.
     - `max_depth` (default `-1`): Maximum depth of a tree. A negative value means no limit.

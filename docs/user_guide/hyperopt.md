@@ -32,13 +32,13 @@ hyperopt:
 
 ## Feature Level Parameters
 
-In addition to defining hyperopt parameters for individual input or output features (like the `title` feature 
-in the example above), feature level parameters can be specified for entire feature types. This is particularly 
+In addition to defining hyperopt parameters for individual input or output features (like the `title` feature
+in the example above), feature level parameters can be specified for entire feature types. This is particularly
 helpful in cases where a dataset has a large number of features.
 
-For each hyperopt trial, a value will be sampled from the feature level parameter space and applied to all input and 
-output features of that feature type as long as they use the default encoder (for input features) or default decoder 
-(for output features). Additionally, parameters defined for individual features (like `title.num_filters`) will take 
+For each hyperopt trial, a value will be sampled from the feature level parameter space and applied to all input and
+output features of that feature type as long as they use the default encoder (for input features) or default decoder
+(for output features). Additionally, parameters defined for individual features (like `title.num_filters`) will take
 precedence over feature level parameters (like `defaults.text.num_filters`) if they share the same type and parameter.
 
 Feature level parameters are defined using the `default` keyword, followed by the `feature_type` and `parameter`.
@@ -62,10 +62,10 @@ hyperopt:
 In this example, there are two feature level parameters defined:
 
 - `defaults.text.num_filters`: This will apply the sampled `num_filters` value and apply it to all text features
-using either the default text encoder (for input features) or text decoder (for output features) for a trial. 
+using either the default text encoder (for input features) or text decoder (for output features) for a trial.
 - `defaults.category.embedding_size`: This will apply the sampled `embedding_size` value and apply it to all category
 features using either the default category encoder (for input features) or category decoder (for output features)
-for a trial. 
+for a trial.
 
 # Running Hyperparameter Optimization
 

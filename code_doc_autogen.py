@@ -214,10 +214,7 @@ def class_to_source_link(_cls):
     module_name = clean_module_name(_cls.__module__)
     _path = module_name.replace(".", "/")
     _path += ".py"
-    line = inspect.getsourcelines(_cls)[-1]
-    link = "https://github.com/ludwig-ai/" "ludwig/blob/master/" + _path + "#L" + str(
-        line
-    )
+    link = "https://github.com/ludwig-ai/" "ludwig/blob/master/" + _path
     return "[[source]](" + link + ")"
 
 

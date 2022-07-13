@@ -20,16 +20,19 @@ The basic API for Ludwig AutoML is `auto_train`.  A simple example of its invoca
 import logging
 import pprint
 
-from load_util import load_mushroom_edibility
 from ludwig.automl import auto_train
+from ludwig.datasets import mushroom_edibility
+from ludwig.utils.dataset_utils import get_repeatable_train_val_test_split
 
-mushroom_edibility_df = load_mushroom_edibility()
+mushroom_df = mushroom_edibility.load()
+mushroom_edibility_df = get_repeatable_train_val_test_split(mushroom_df, 'class', random_seed=42)
 
 auto_train_results = auto_train(
     dataset=mushroom_edibility_df,
     target='class',
     time_limit_s=7200,
-    tune_for_memory=False
+    tune_for_memory=False,
+    user_config={'preprocessing': {'split': {'column': 'split', 'type': 'fixed'}}},
 )
 
 pprint.pprint(auto_train_results)
@@ -45,16 +48,19 @@ A simple example of its invocation:
 import logging
 import pprint
 
-from ludwig.datasets import mushroom_edibility
 from ludwig.automl import create_auto_config
+from ludwig.datasets import mushroom_edibility
+from ludwig.utils.dataset_utils import get_repeatable_train_val_test_split
 
-mushroom_edibility_df = mushroom_edibility.load()
+mushroom_df = mushroom_edibility.load()
+mushroom_edibility_df = get_repeatable_train_val_test_split(mushroom_df, 'class', random_seed=42)
 
 auto_config = create_auto_config(
     dataset=mushroom_edibility_df,
     target='class',
     time_limit_s=7200,
-    tune_for_memory=False
+    tune_for_memory=False,
+    user_config={'preprocessing': {'split': {'column': 'split', 'type': 'fixed'}}},
 )
 
 pprint.pprint(auto_config)
@@ -77,17 +83,20 @@ type `category`, to override the Ludwig AutoML type detection system’s charact
 import logging
 import pprint
 
-from load_util import load_walmart_recruiting
 from ludwig.automl import auto_train
+from ludwig.datasets import walmart_recruiting
+from ludwig.utils.dataset_utils import get_repeatable_train_val_test_split
 
-walmart_recruiting_df = load_walmart_recruiting()
+walmart_df = walmart_recruiting.load()
+walmart_recruiting_df = get_repeatable_train_val_test_split(walmart_df, 'TripType', random_seed=42)
 
 auto_train_results = auto_train(
     dataset=walmart_recruiting_df,
     target='TripType',
     time_limit_s=3600,
     tune_for_memory=False,
-    user_config={'output_features': [{'column': 'TripType', 'name': 'TripType', 'type': 'category'}]}
+    user_config={'output_features': [{'column': 'TripType', 'name': 'TripType', 'type': 'category'}],
+        'preprocessing': {'split': {'column': 'split', 'type': 'fixed'}}},
 )
 
 pprint.pprint(auto_train_results)
@@ -102,17 +111,20 @@ rather than minimal loss of all combined output features, which is the default.
 import logging
 import pprint
 
-from load_util import load_mushroom_edibility
 from ludwig.automl import auto_train
+from ludwig.datasets import mushroom_edibility
+from ludwig.utils.dataset_utils import get_repeatable_train_val_test_split
 
-mushroom_edibility_df = load_mushroom_edibility()
+mushroom_df = mushroom_edibility.load()
+mushroom_edibility_df = get_repeatable_train_val_test_split(mushroom_df, 'class', random_seed=42)
 
 auto_train_results = auto_train(
     dataset=mushroom_edibility_df,
     target='class',
     time_limit_s=3600,
     tune_for_memory=False,
-    user_config={'hyperopt': {'goal': 'maximize', 'metric': 'accuracy', 'output_feature': 'class'}},
+    user_config={'hyperopt': {'goal': 'maximize', 'metric': 'accuracy', 'output_feature': 'class'},
+        'preprocessing': {'split': {'column': 'split', 'type': 'fixed'}}},
 )
 
 pprint.pprint(auto_train_results)

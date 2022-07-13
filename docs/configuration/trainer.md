@@ -47,7 +47,7 @@ trainer:
 * `train_steps` (default `None`): Maximum number of training steps the training process will run for. If unset, then `epochs` is used to determine training length.
 * `early_stop` (default `5`): Number of consecutive rounds of evaluation without any improvement on the `validation_metric` that triggers training to stop. Can be set to -1, which disables early stopping entirely.
 * `batch_size` (default `128`): size of the batch used for training the model.
-* `eval_batch_size` (default `null`): size of the batch used for evaluating the model. If it is `0`, the same value of `batch_size` is used. This is useful to speedup evaluation with a much bigger batch size than training, if enough memory is available.
+* `eval_batch_size` (default `null`): size of the batch used for evaluating the model. If it is `0` or `null`, the same value of `batch_size` is used. This is useful to speedup evaluation with a much bigger batch size than training, if enough memory is available.
 * `evaluate_training_set`: Whether to include the entire training set during evaluation (default: True).
 * `checkpoints_per_epoch`: Number of checkpoints per epoch. For example, 2 -> checkpoints are written every half of an epoch. Note that it is invalid to specify both non-zero `steps_per_checkpoint` and non-zero `checkpoints_per_epoch` (default: 0).
 * `steps_per_checkpoint`: How often the model is checkpointed. Also dictates maximum evaluation frequency. If 0 the model is checkpointed after every epoch. (default: 0).
@@ -186,10 +186,10 @@ The frequency of checkpoint-evaluation can be configured using:
 
 !!! tip
 
-    Running evaluation once per epoch is an appropriate fit for tabular
-    datasets, which are small, fit in memory, and train quickly. However, this 
-    can be a poor fit for unstructured datasets, which tend to be much larger, 
-    and train more slowly due to larger models.
+    Running evaluation once per epoch is an appropriate fit for small datasets 
+    that fit in memory and train quickly. However, this can be a poor fit for
+    unstructured datasets, which tend to be much larger, and train more slowly
+    due to larger models.
 
     Running evaluation too frequently can be wasteful while running evaluation
     not frequently enough can be uninformative. In large-scale training runs,

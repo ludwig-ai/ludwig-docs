@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#trainer-parameters" class="md-skip">
+        <a href="#overview" class="md-skip">
           Skip to content
         </a>
       
@@ -1341,6 +1341,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#trainer-parameters" class="md-nav__link">
     Trainer parameters
   </a>
@@ -1351,6 +1358,47 @@
   <a href="#optimizer-parameters" class="md-nav__link">
     Optimizer parameters
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-training-length" class="md-nav__link">
+    Configuring training length
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-checkpoint-and-evaluation-frequency" class="md-nav__link">
+    Configuring checkpoint and evaluation frequency
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#increasing-throughput" class="md-nav__link">
+    Increasing throughput
+  </a>
+  
+    <nav class="md-nav" aria-label="Increasing throughput">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#skip-evaluation-on-the-training-set" class="md-nav__link">
+    Skip evaluation on the training set
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#increase-batch-size" class="md-nav__link">
+    Increase batch size
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2230,6 +2278,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#trainer-parameters" class="md-nav__link">
     Trainer parameters
   </a>
@@ -2240,6 +2295,47 @@
   <a href="#optimizer-parameters" class="md-nav__link">
     Optimizer parameters
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-training-length" class="md-nav__link">
+    Configuring training length
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-checkpoint-and-evaluation-frequency" class="md-nav__link">
+    Configuring checkpoint and evaluation frequency
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#increasing-throughput" class="md-nav__link">
+    Increasing throughput
+  </a>
+  
+    <nav class="md-nav" aria-label="Increasing throughput">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#skip-evaluation-on-the-training-set" class="md-nav__link">
+    Skip evaluation on the training set
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#increase-batch-size" class="md-nav__link">
+    Increase batch size
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2263,6 +2359,7 @@
 
   <h1>Trainer</h1>
 
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>The <code>trainer</code> section of the configuration lets you specify parameters that
 configure the training process, like the number of epochs or the learning rate.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">trainer</span><span class="p">:</span><span class="w"></span>
@@ -2301,13 +2398,13 @@ configure the training process, like the number of epochs or the learning rate.<
 <span class="w">        </span><span class="nt">clipnorm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="w">        </span><span class="nt">clip_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 </code></pre></div>
-<h3 id="trainer-parameters">Trainer parameters<a class="headerlink" href="#trainer-parameters" title="Permanent link">&para;</a></h3>
+<h2 id="trainer-parameters">Trainer parameters<a class="headerlink" href="#trainer-parameters" title="Permanent link">&para;</a></h2>
 <ul>
 <li><code>epochs</code> (default <code>100</code>): number of epochs the training process will run for.</li>
 <li><code>train_steps</code> (default <code>None</code>): Maximum number of training steps the training process will run for. If unset, then <code>epochs</code> is used to determine training length.</li>
-<li><code>early_stop</code> (default <code>5</code>): if theres a validation set, number of epochs of patience without an improvement on the validation measure before the training is stopped.</li>
+<li><code>early_stop</code> (default <code>5</code>): Number of consecutive rounds of evaluation without any improvement on the <code>validation_metric</code> that triggers training to stop. Can be set to -1, which disables early stopping entirely.</li>
 <li><code>batch_size</code> (default <code>128</code>): size of the batch used for training the model.</li>
-<li><code>eval_batch_size</code> (default <code>null</code>): size of the batch used for evaluating the model. If it is <code>0</code>, the same value of <code>batch_size</code> is used. This is useful to speedup evaluation with a much bigger batch size than training, if enough memory is available.</li>
+<li><code>eval_batch_size</code> (default <code>null</code>): size of the batch used for evaluating the model. If it is <code>0</code> or <code>null</code>, the same value of <code>batch_size</code> is used. This is useful to speedup evaluation with a much bigger batch size than training, if enough memory is available.</li>
 <li><code>evaluate_training_set</code>: Whether to include the entire training set during evaluation (default: True).</li>
 <li><code>checkpoints_per_epoch</code>: Number of checkpoints per epoch. For example, 2 -&gt; checkpoints are written every half of an epoch. Note that it is invalid to specify both non-zero <code>steps_per_checkpoint</code> and non-zero <code>checkpoints_per_epoch</code> (default: 0).</li>
 <li><code>steps_per_checkpoint</code>: How often the model is checkpointed. Also dictates maximum evaluation frequency. If 0 the model is checkpointed after every epoch. (default: 0).</li>
@@ -2331,7 +2428,7 @@ configure the training process, like the number of epochs or the learning rate.<
 <li><code>learning_rate_warmup_epochs</code> (default <code>1</code>): Its the number or training epochs where learning rate warmup will be used. It is calculated as described in <a href="https://arxiv.org/abs/1706.02677">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a>. In the paper the authors suggest <code>6</code> epochs of warmup, that parameter is suggested for large datasets and big batches.</li>
 <li><code>optimizer</code> (default <code>{type: adam, beta1: 0.9, beta2: 0.999, epsilon: 1e-08}</code>): which optimizer to use with the relative parameters. The available optimizers are: <code>sgd</code> (or <code>stochastic_gradient_descent</code>, <code>gd</code>, <code>gradient_descent</code>, they are all the same), <code>adam</code>, <code>adadelta</code>, <code>adagrad</code>, <code>adamax</code>, <code>ftrl</code>, <code>nadam</code>, <code>rmsprop</code>. Check <a href="https://pytorch.org/docs/stable/optim.html">PyTorch optimizer documentation</a> for a full list of parameters for each optimizer. The optimizer definition can also specify gradient clipping using <code>clipglobalnorm</code>, <code>clipnorm</code>, and <code>clipvalue</code>.</li>
 </ul>
-<h3 id="optimizer-parameters">Optimizer parameters<a class="headerlink" href="#optimizer-parameters" title="Permanent link">&para;</a></h3>
+<h2 id="optimizer-parameters">Optimizer parameters<a class="headerlink" href="#optimizer-parameters" title="Permanent link">&para;</a></h2>
 <p>The available optimizers wrap the ones available in PyTorch.
 For details about the parameters that can be used to configure different optimizers, please refer to the <a href="https://pytorch.org/docs/stable/optim.html">PyTorch documentation</a>.</p>
 <p>The <code>learning_rate</code> parameter the optimizer will use come from the <code>trainer</code> section.
@@ -2399,6 +2496,67 @@ Other optimizer specific parameters, shown with their Ludwig default settings, f
 <span class="nt">clip_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 </code></pre></div>
 </div>
+<h2 id="configuring-training-length">Configuring training length<a class="headerlink" href="#configuring-training-length" title="Permanent link">&para;</a></h2>
+<p>The length of the training process is configured by:</p>
+<ul>
+<li><code>epochs</code> (default: 100): One epoch is one pass through the entire dataset. By
+    default, <code>epochs</code> is 100 which means that the training process will run for
+    a maximum of 100 epochs before terminating.</li>
+<li><code>train_steps</code> (default: <code>None</code>): The maximum number of steps to train for,
+    using one mini-batch per step. By default this is unset, and <code>epochs</code> will
+    be used to determine training length.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>In general, it's a good idea to set up a long training runway, relying on
+early stopping criteria (<code>early_stop</code>) to stop training when there
+hasn't been any improvement for a long time.</p>
+</div>
+<h2 id="configuring-checkpoint-and-evaluation-frequency">Configuring checkpoint and evaluation frequency<a class="headerlink" href="#configuring-checkpoint-and-evaluation-frequency" title="Permanent link">&para;</a></h2>
+<p>Evaluation is run every time the model is checkpointed.</p>
+<p>By default, checkpoint-evaluation will occur once every epoch.</p>
+<p>The frequency of checkpoint-evaluation can be configured using:</p>
+<ul>
+<li><code>steps_per_checkpoint</code> (default: 0): every <code>n</code> training steps</li>
+<li><code>checkpoints_per_epoch</code> (default: 0): <code>n</code> times per epoch</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is invalid to specify both non-zero <code>steps_per_checkpoint</code> and non-zero
+<code>checkpoints_per_epoch</code>.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Running evaluation once per epoch is an appropriate fit for small datasets 
+that fit in memory and train quickly. However, this can be a poor fit for
+unstructured datasets, which tend to be much larger, and train more slowly
+due to larger models.</p>
+<p>Running evaluation too frequently can be wasteful while running evaluation
+not frequently enough can be uninformative. In large-scale training runs,
+it's common for evaluation to be configured to run on a sub-epoch time
+scale, or every few thousand steps.</p>
+<p>We recommend configuring evaluation such that new evaluation results are
+available at least several times an hour. In general, it is not necessary
+for models to train over the entirety of a dataset, nor evaluate over the
+entirety of a test set, to produce useful monitoring metrics and signals to
+indicate model performance.</p>
+</div>
+<h2 id="increasing-throughput">Increasing throughput<a class="headerlink" href="#increasing-throughput" title="Permanent link">&para;</a></h2>
+<h3 id="skip-evaluation-on-the-training-set">Skip evaluation on the training set<a class="headerlink" href="#skip-evaluation-on-the-training-set" title="Permanent link">&para;</a></h3>
+<p>Consider setting <code>evaluate_training_set=False</code>, which skips evaluation on the
+training set.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sometimes it can be useful to monitor evaluation metrics on the training
+set, as a secondary validation set. However, running evaluation on the full
+training set, when your training set is large, can be a huge computational
+cost. Turning off training set evaluation will lead to significant gains in
+training throughput and efficiency.</p>
+</div>
+<h3 id="increase-batch-size">Increase batch size<a class="headerlink" href="#increase-batch-size" title="Permanent link">&para;</a></h3>
+<p>Users training on GPUs can often increase training throughput by increasing
+the <code>batch_size</code> so that more examples are computed every training step. Set
+<code>batch_size</code> to <code>auto</code> to use the largest batch size that can fit in memory.</p>
 
               
             </article>

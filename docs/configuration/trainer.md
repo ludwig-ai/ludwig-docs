@@ -187,7 +187,7 @@ configure the training process, like the number of epochs or the learning rate.
     The available optimizers wrap the ones available in PyTorch.
     For details about the parameters that can be used to configure different optimizers, please refer to the [PyTorch documentation](https://pytorch.org/docs/stable/optim.html).
 
-    The `learning_rate` parameter the optimizer will use come from the `trainer` section.
+    The `learning_rate` parameter used by the optimizer comes from the `trainer` section.
     Other optimizer specific parameters, shown with their Ludwig default settings, follow:
 
     - `sgd` (or `stochastic_gradient_descent`, `gd`, `gradient_descent`)

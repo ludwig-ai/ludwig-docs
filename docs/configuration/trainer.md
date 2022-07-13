@@ -1,5 +1,6 @@
 The `trainer` section of the configuration lets you specify parameters that
 configure the training process, like the number of epochs or the learning rate.
+By default, the ECD trainer is used.
 
 === "ECD"
 

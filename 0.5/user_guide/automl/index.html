@@ -2292,16 +2292,19 @@ which can be inspected manually or post-processed by various Ludwig visualizatio
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">pprint</span>
 
-<span class="kn">from</span> <span class="nn">load_util</span> <span class="kn">import</span> <span class="n">load_mushroom_edibility</span>
 <span class="kn">from</span> <span class="nn">ludwig.automl</span> <span class="kn">import</span> <span class="n">auto_train</span>
+<span class="kn">from</span> <span class="nn">ludwig.datasets</span> <span class="kn">import</span> <span class="n">mushroom_edibility</span>
+<span class="kn">from</span> <span class="nn">ludwig.utils.dataset_utils</span> <span class="kn">import</span> <span class="n">get_repeatable_train_val_test_split</span>
 
-<span class="n">mushroom_edibility_df</span> <span class="o">=</span> <span class="n">load_mushroom_edibility</span><span class="p">()</span>
+<span class="n">mushroom_df</span> <span class="o">=</span> <span class="n">mushroom_edibility</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="n">mushroom_edibility_df</span> <span class="o">=</span> <span class="n">get_repeatable_train_val_test_split</span><span class="p">(</span><span class="n">mushroom_df</span><span class="p">,</span> <span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
 <span class="n">auto_train_results</span> <span class="o">=</span> <span class="n">auto_train</span><span class="p">(</span>
     <span class="n">dataset</span><span class="o">=</span><span class="n">mushroom_edibility_df</span><span class="p">,</span>
     <span class="n">target</span><span class="o">=</span><span class="s1">&#39;class&#39;</span><span class="p">,</span>
     <span class="n">time_limit_s</span><span class="o">=</span><span class="mi">7200</span><span class="p">,</span>
-    <span class="n">tune_for_memory</span><span class="o">=</span><span class="kc">False</span>
+    <span class="n">tune_for_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">user_config</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;preprocessing&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;split&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="s1">&#39;split&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;fixed&#39;</span><span class="p">}}},</span>
 <span class="p">)</span>
 
 <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">auto_train_results</span><span class="p">)</span>
@@ -2313,16 +2316,19 @@ A simple example of its invocation:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">pprint</span>
 
-<span class="kn">from</span> <span class="nn">ludwig.datasets</span> <span class="kn">import</span> <span class="n">mushroom_edibility</span>
 <span class="kn">from</span> <span class="nn">ludwig.automl</span> <span class="kn">import</span> <span class="n">create_auto_config</span>
+<span class="kn">from</span> <span class="nn">ludwig.datasets</span> <span class="kn">import</span> <span class="n">mushroom_edibility</span>
+<span class="kn">from</span> <span class="nn">ludwig.utils.dataset_utils</span> <span class="kn">import</span> <span class="n">get_repeatable_train_val_test_split</span>
 
-<span class="n">mushroom_edibility_df</span> <span class="o">=</span> <span class="n">mushroom_edibility</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="n">mushroom_df</span> <span class="o">=</span> <span class="n">mushroom_edibility</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="n">mushroom_edibility_df</span> <span class="o">=</span> <span class="n">get_repeatable_train_val_test_split</span><span class="p">(</span><span class="n">mushroom_df</span><span class="p">,</span> <span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
 <span class="n">auto_config</span> <span class="o">=</span> <span class="n">create_auto_config</span><span class="p">(</span>
     <span class="n">dataset</span><span class="o">=</span><span class="n">mushroom_edibility_df</span><span class="p">,</span>
     <span class="n">target</span><span class="o">=</span><span class="s1">&#39;class&#39;</span><span class="p">,</span>
     <span class="n">time_limit_s</span><span class="o">=</span><span class="mi">7200</span><span class="p">,</span>
-    <span class="n">tune_for_memory</span><span class="o">=</span><span class="kc">False</span>
+    <span class="n">tune_for_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">user_config</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;preprocessing&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;split&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="s1">&#39;split&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;fixed&#39;</span><span class="p">}}},</span>
 <span class="p">)</span>
 
 <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">auto_config</span><span class="p">)</span>
@@ -2338,17 +2344,20 @@ type <code>category</code>, to override the Ludwig AutoML type detection systemâ
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">pprint</span>
 
-<span class="kn">from</span> <span class="nn">load_util</span> <span class="kn">import</span> <span class="n">load_walmart_recruiting</span>
 <span class="kn">from</span> <span class="nn">ludwig.automl</span> <span class="kn">import</span> <span class="n">auto_train</span>
+<span class="kn">from</span> <span class="nn">ludwig.datasets</span> <span class="kn">import</span> <span class="n">walmart_recruiting</span>
+<span class="kn">from</span> <span class="nn">ludwig.utils.dataset_utils</span> <span class="kn">import</span> <span class="n">get_repeatable_train_val_test_split</span>
 
-<span class="n">walmart_recruiting_df</span> <span class="o">=</span> <span class="n">load_walmart_recruiting</span><span class="p">()</span>
+<span class="n">walmart_df</span> <span class="o">=</span> <span class="n">walmart_recruiting</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="n">walmart_recruiting_df</span> <span class="o">=</span> <span class="n">get_repeatable_train_val_test_split</span><span class="p">(</span><span class="n">walmart_df</span><span class="p">,</span> <span class="s1">&#39;TripType&#39;</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
 <span class="n">auto_train_results</span> <span class="o">=</span> <span class="n">auto_train</span><span class="p">(</span>
     <span class="n">dataset</span><span class="o">=</span><span class="n">walmart_recruiting_df</span><span class="p">,</span>
     <span class="n">target</span><span class="o">=</span><span class="s1">&#39;TripType&#39;</span><span class="p">,</span>
     <span class="n">time_limit_s</span><span class="o">=</span><span class="mi">3600</span><span class="p">,</span>
     <span class="n">tune_for_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">user_config</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;output_features&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="s1">&#39;TripType&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;TripType&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;category&#39;</span><span class="p">}]}</span>
+    <span class="n">user_config</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;output_features&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="s1">&#39;TripType&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;TripType&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;category&#39;</span><span class="p">}],</span>
+        <span class="s1">&#39;preprocessing&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;split&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="s1">&#39;split&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;fixed&#39;</span><span class="p">}}},</span>
 <span class="p">)</span>
 
 <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">auto_train_results</span><span class="p">)</span>
@@ -2359,17 +2368,20 @@ rather than minimal loss of all combined output features, which is the default.<
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">pprint</span>
 
-<span class="kn">from</span> <span class="nn">load_util</span> <span class="kn">import</span> <span class="n">load_mushroom_edibility</span>
 <span class="kn">from</span> <span class="nn">ludwig.automl</span> <span class="kn">import</span> <span class="n">auto_train</span>
+<span class="kn">from</span> <span class="nn">ludwig.datasets</span> <span class="kn">import</span> <span class="n">mushroom_edibility</span>
+<span class="kn">from</span> <span class="nn">ludwig.utils.dataset_utils</span> <span class="kn">import</span> <span class="n">get_repeatable_train_val_test_split</span>
 
-<span class="n">mushroom_edibility_df</span> <span class="o">=</span> <span class="n">load_mushroom_edibility</span><span class="p">()</span>
+<span class="n">mushroom_df</span> <span class="o">=</span> <span class="n">mushroom_edibility</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="n">mushroom_edibility_df</span> <span class="o">=</span> <span class="n">get_repeatable_train_val_test_split</span><span class="p">(</span><span class="n">mushroom_df</span><span class="p">,</span> <span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
 <span class="n">auto_train_results</span> <span class="o">=</span> <span class="n">auto_train</span><span class="p">(</span>
     <span class="n">dataset</span><span class="o">=</span><span class="n">mushroom_edibility_df</span><span class="p">,</span>
     <span class="n">target</span><span class="o">=</span><span class="s1">&#39;class&#39;</span><span class="p">,</span>
     <span class="n">time_limit_s</span><span class="o">=</span><span class="mi">3600</span><span class="p">,</span>
     <span class="n">tune_for_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">user_config</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;hyperopt&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="s1">&#39;maximize&#39;</span><span class="p">,</span> <span class="s1">&#39;metric&#39;</span><span class="p">:</span> <span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;output_feature&#39;</span><span class="p">:</span> <span class="s1">&#39;class&#39;</span><span class="p">}},</span>
+    <span class="n">user_config</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;hyperopt&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="s1">&#39;maximize&#39;</span><span class="p">,</span> <span class="s1">&#39;metric&#39;</span><span class="p">:</span> <span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;output_feature&#39;</span><span class="p">:</span> <span class="s1">&#39;class&#39;</span><span class="p">},</span>
+        <span class="s1">&#39;preprocessing&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;split&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;column&#39;</span><span class="p">:</span> <span class="s1">&#39;split&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;fixed&#39;</span><span class="p">}}},</span>
 <span class="p">)</span>
 
 <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">auto_train_results</span><span class="p">)</span>

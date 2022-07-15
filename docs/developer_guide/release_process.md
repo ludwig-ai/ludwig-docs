@@ -22,7 +22,7 @@ Inspiration:
 
 ## 2. Update Ludwig versions in code
 
-Create a new branch off of a target_release_branch, e.g. `master` or `X.Y-stable`.
+Create a new branch off of a target_release_branch, e.g. `master` or `release-X.Y`.
 
 ```bash
 git checkout <TARGET_RELEASE_BRANCH>
@@ -108,12 +108,12 @@ If there are any changes, commit them.
 
 Create a PR.
 
-## 7. For major releases, create an X.Y-stable branch
+## 7. For major releases, create an release-X.Y branch
 
 ```bash
 > git checkout master
-> git checkout -b X.Y-stable
-> git push --set-upstream origin X.Y-stable
+> git checkout -b release-X.Y
+> git push --set-upstream origin release-X.Y
 ```
 
 All subsequent minor releases on top of this major version will be based from
@@ -139,11 +139,11 @@ Github PR UI, i.e.
 
 ![img](../images/commit_hash.png)
 
-## 2. Cherry pick each commit in a X.Y-cherrypick branch
+## 2. Cherry pick each commit in a cherrypick-X.Y branch
 
 ```bash
-git checkout X.Y-stable
-git checkout -b X.Y-cherrypick
+git checkout release-X.Y
+git checkout -b cherrypick-X.Y
 git cherry-pick <commit_1>  # One commit at a time.
 git cherry-pick <commit_2> <commit_3> <commit_4> ...  # Or multiple commits all at once.
 ```
@@ -154,15 +154,15 @@ Ensure that all cherry-picks have been correctly applied.
 
     Empty cherry-picks could mean that that commit already exists.
 
-## 3. Create a PR with the cherry-pick changes, merging into `X.Y-stable`
+## 3. Create a PR with the cherry-pick changes, merging into `release-X.Y`
 
 Push the cherrypick branch.
 
 ```
-git push --set-upstream origin X.Y-cherrypick
+git push --set-upstream origin cherrypick-X.Y
 ```
 
-Create a PR with the change requesting a merge from `X.Y-cherrypick` to `X.Y-stable`.
+Create a PR with the change requesting a merge from `cherrypick-X.Y` to `release-X.Y`.
 
 Get approval from a [Ludwig maintainer](https://github.com/orgs/ludwig-ai/teams/ludwig-maintainers).
 

@@ -11,6 +11,12 @@ simply insert its flag into the command line. Each integration may have specific
 [Comet.ML](https://comet.ml). Requires a free account. For more details, see Comet's
 [Running Ludwig with Comet](https://www.comet.ml/docs/python-sdk/ludwig/#running-ludwig-with-comet).
 
+## Aim
+
+`--aim` - complete experimentation trackings with configuration, metadata, hyperparametrs, losses and terminal logs.
+In order to see and end to end Aim-Ludwig training and tracking example please refer to our [demo](https://github.com/aimhubio/aim-ludwig-demo).
+For more details about [Aim](https://aimstack.io/) refer to the [documentation](https://aimstack.readthedocs.io/en/latest/).
+
 ## Weights & Biases
 
 `--wandb` - logs training metrics, configuration parameters, environment details, and trained model to

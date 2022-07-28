@@ -51,17 +51,18 @@ Example vector feature entry in the input features list using an dense encoder:
 name: vector_column_name
 type: vector
 tied: null
-encoder: dense
-layers: null
-num_layers: 0
-output_size: 256
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-norm: null
-norm_params: null
-activation: relu
-dropout: 0
+encoder: 
+    type: dense
+    layers: null
+    num_layers: 0
+    output_size: 256
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    norm: null
+    norm_params: null
+    activation: relu
+    dropout: 0
 ```
 
 ## Vector Feature Decoders
@@ -74,14 +75,15 @@ dependencies: []
 reduce_dependencies: sum
 loss:
     type: sigmoid_cross_entropy
-fc_layers: null
-num_fc_layers: 0
-output_size: 256
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-activation: relu
-clip: null
+decoder:
+    fc_layers: null
+    num_fc_layers: 0
+    output_size: 256
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    activation: relu
+    clip: null
 ```
 
 Vector features can be used when multi-class classification needs to be performed with a noise-aware loss or when the task is multivariate regression.

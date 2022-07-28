@@ -26,7 +26,7 @@ Recall Ludwig's butterfly framework.
 
 ![img](../../images/butterfly.png)
 
-Each input feature can specify its own preprocessing via the `preprocessing` sub-section.
+Each input feature can specify its own preprocessing via the `preprocessing` subsection.
 
 === "YAML"
 
@@ -65,9 +65,10 @@ might want to encode a `sequence` feature using a `transformer` or an `image` fe
 data types support different encoders. Check the documentation for specific feature types to see what encoders are
 supported for that type.
 
-All the other parameters besides `name`, `type`, and `preprocessing`, will be passed as parameters to the function that
-build the input feature's encoder, and each encoder can have different parameters. Extensive documentation for all of
-the encoders that can be used for a certain data type can also be found in each data type's documentation.
+All the other parameters besides `name`, `type`, and `preprocessing`, will be passed as parameters to the encoder 
+subsection. Note that each encoder can have different parameters, so extensive documentation for each of the encoders
+that can be used for a certain data type can be found in each data type's documentation. Here is an example of how to 
+specify a specific encoder config for an input feature:
 
 === "YAML"
 
@@ -76,11 +77,12 @@ the encoders that can be used for a certain data type can also be found in each 
         -
             name: text
             type: text
-            encoder: bert
             preprocessing:
                 tokenizer: space
-            reduce_output: null
-            trainable: true
+            encoder: 
+                type: bert
+                reduce_output: null
+                trainable: true
     ```
 
 === "Python Dict"
@@ -91,13 +93,15 @@ the encoders that can be used for a certain data type can also be found in each 
             {
                 "name": "text",
                 "type": "text",
-                "encoder": "bert",
                 "level": "word",
                 "preprocessing": {
                     "word_tokenizer": "space"
                 },
-                "reduce_output": None,
-                "trainable": True
+                "encoder": {
+                    "type": "bert",
+                    "reduce_output": None,
+                    "trainable": True,
+                }
             }
         ]
     }

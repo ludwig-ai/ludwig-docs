@@ -14,7 +14,7 @@ preprocessing:
 Ludwig will parse the H3 64bit encoded format automatically.
 The parameters for preprocessing are:
 
-- `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
+- `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in an H3 column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
 - `fill_value` (default `576495936675512319`): the value to replace the missing values with in case the `missing_value_strategy` is `fill_with_const`. This is a 64bit integer compatible with the H3 bit layout. The default value encodes mode 1, edge 0, resolution 0, base_cell 0.
 
 ## H3 Input Features and Encoders
@@ -27,7 +27,8 @@ Currently there are three encoders supported for H3: `H3Embed` (default), `H3Wei
 ```yaml
 name: h3_feature_name
 type: h3
-encoder: embed
+encoder: 
+    type: embed
 ```
 
 ### Embed Encoder
@@ -35,19 +36,20 @@ encoder: embed
 ```yaml
 name: h3_column_name
 type: h3
-encoder: embed
-embedding_size: 10
-embeddings_on_cpu: false
-fc_layers: null
-num_fc_layers: 0
-output_size: 10
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-norm: null
-norm_params: null
-activation: relu
-dropout: 0
+encoder: 
+    type: embed
+    embedding_size: 10
+    embeddings_on_cpu: false
+    fc_layers: null
+    num_fc_layers: 0
+    output_size: 10
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    norm: null
+    norm_params: null
+    activation: relu
+    dropout: 0
 ```
 
 This encoder encodes each components of the H3 representation (mode, edge, resolution, base cell and children cells) with embeddings.
@@ -80,20 +82,21 @@ instead.
 ```yaml
 name: h3_column_name
 type: h3
-encoder: weighted_sum
-embedding_size: 10
-embeddings_on_cpu: false
-should_softmax: false
-fc_layers: null
-num_fc_layers: 0
-output_size: 10
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-norm: null
-norm_params: null
-activation: relu
-dropout: 0
+encoder: 
+    type: weighted_sum
+    embedding_size: 10
+    embeddings_on_cpu: false
+    should_softmax: false
+    fc_layers: null
+    num_fc_layers: 0
+    output_size: 10
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    norm: null
+    norm_params: null
+    activation: relu
+    dropout: 0
 ```
 
 This encoder encodes each components of the H3 representation (mode, edge, resolution, base cell and children cells) with embeddings.
@@ -128,25 +131,26 @@ instead.
 ```yaml
 name: h3_column_name
 type: h3
-encoder: rnn
-embedding_size: 10
-embeddings_on_cpu: false
-num_layers: 1
-cell_type: rnn
-state_size: 10
-bidirectional: false
-activation: tanh
-recurrent_activation: sigmoid
-use_bias: true
-unit_forget_bias: true
-weights_initializer: glorot_uniform
-recurrent_initializer: orthogonal
-bias_initializer: zeros
-dropout: 0.0
-recurrent_dropout: 0.0
-initializer: null
-regularize: true
-reduce_output: last
+encoder: 
+    type: rnn
+    embedding_size: 10
+    embeddings_on_cpu: false
+    num_layers: 1
+    cell_type: rnn
+    state_size: 10
+    bidirectional: false
+    activation: tanh
+    recurrent_activation: sigmoid
+    use_bias: true
+    unit_forget_bias: true
+    weights_initializer: glorot_uniform
+    recurrent_initializer: orthogonal
+    bias_initializer: zeros
+    dropout: 0.0
+    recurrent_dropout: 0.0
+    initializer: null
+    regularize: true
+    reduce_output: last
 ```
 
 This encoder encodes each components of the H3 representation (mode, edge, resolution, base cell and children cells) with embeddings.

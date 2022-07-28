@@ -56,8 +56,7 @@ through. Their output is projected in the feature's output space.
 - `weights_initializer` (default `glorot_uniform`): initializer for the weight matrix. Options are: `constant`,
 `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
-Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
-keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
+To see the parameters of each initializer, please
 refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
 - `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`,
 `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
@@ -81,14 +80,15 @@ name: number_column_name
 type: number
 norm: null
 tied: null
-encoder: dense
-num_layers: 1
-output_size: 256
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-activation: relu
-dropout: 0
+encoder: 
+    type: dense
+    num_layers: 1
+    output_size: 256
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    activation: relu
+    dropout: 0
 ```
 
 ## Number Output Features and Decoders
@@ -132,12 +132,10 @@ used with `batch` see the [Torch documentation on batch normalization](https://p
 or for `layer` see the [Torch documentation on layer normalization](https://pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html).
 - `dropout` (default `0`): dropout rate
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
-- `weights_initializer` (default `glorot_uniform`): initializer for the weight matrix. Options are: `constant`,
+- `weights_initializer` (default `xavier_uniform`): initializer for the weight matrix. Options are: `constant`,
 `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
-Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
-keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
-refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
+To see the parameters of each initializer, please refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
 - `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`,
 `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
@@ -158,17 +156,18 @@ dependencies: []
 reduce_dependencies: sum
 loss:
     type: mean_squared_error
-fc_layers: null
-num_fc_layers: 0
-output_size: 256
-activation: relu
-norm: null
-norm_params: null
-dropout: 0
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-clip: null
+decoder:
+    fc_layers: null
+    num_fc_layers: 0
+    output_size: 256
+    activation: relu
+    norm: null
+    norm_params: null
+    dropout: 0
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    clip: null
 ```
 
 ## Number Features Metrics

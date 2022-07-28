@@ -51,7 +51,8 @@ specifying `embed` or `wave` in the feature's `encoder` parameter in the input f
 ```yaml
 name: date_feature_name
 type: date
-encoder: embed
+encoder: 
+    type: embed
 ```
 
 ### Embed Encoder
@@ -59,19 +60,20 @@ encoder: embed
 ```yaml
 name: date_column_name
 type: date
-encoder: embed
-embedding_size: 10
-embeddings_on_cpu: false
-fc_layers: null
-num_fc_layers: 0
-output_size: 10
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-norm: null
-norm_params: null
-activation: relu
-dropout: 0
+encoder: 
+    type: embed
+    embedding_size: 10
+    embeddings_on_cpu: false
+    fc_layers: null
+    num_fc_layers: 0
+    output_size: 10
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    norm: null
+    norm_params: null
+    activation: relu
+    dropout: 0
 ```
 
 This encoder passes the year through a fully connected layer of one neuron and embeds all other elements for the date,
@@ -115,17 +117,18 @@ or for `layer` see [Torch's documentation on layer normalization](https://pytorc
 ```yaml
 name: date_column_name
 type: date
-encoder: wave
-fc_layers: null
-num_fc_layers: 0
-output_size: 10
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-norm: null
-norm_params: null
-activation: relu
-dropout: 0
+encoder: 
+    type: wave
+    fc_layers: null
+    num_fc_layers: 0
+    output_size: 10
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    norm: null
+    norm_params: null
+    activation: relu
+    dropout: 0
 ```
 
 This encoder passes the year through a fully connected layer of one neuron and represents all other elements for the

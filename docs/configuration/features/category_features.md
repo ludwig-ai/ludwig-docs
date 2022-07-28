@@ -46,7 +46,8 @@ Example category feature entry in the input features list:
 name: category_column_name
 type: category
 tied: null
-encoder: dense
+encoder: 
+    type: dense
 ```
 
 The available encoder parameters:
@@ -106,14 +107,15 @@ Example category feature entry in the input features list:
 ```yaml
 name: category_column_name
 type: category
-encoder: sparse
 tied: null
-embedding_size: 256
-embeddings_on_cpu: false
-pretrained_embeddings: null
-embeddings_trainable: true
-dropout: 0
-embedding_initializer: null
+encoder: 
+    type: sparse
+    embedding_size: 256
+    embeddings_on_cpu: false
+    pretrained_embeddings: null
+    embeddings_trainable: true
+    dropout: 0
+    embedding_initializer: null
 ```
 
 ## Category Output Features and Decoders
@@ -191,9 +193,7 @@ or for `layer` see [Torch's documentation on layer normalization](https://pytorc
 - `weights_initializer` (default `glorot_uniform`): initializer for the fully connected weight matrix. Options are:
 `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`,
 `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`,
-`lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of
-initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each
-initializer, please refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
+`lecun_uniform`. To see the parameters of each initializer, please refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
 - `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`,
 `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`,
 `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is
@@ -216,17 +216,18 @@ loss:
     class_weights: 1
     class_similarities: null
     class_similarities_temperature: 0
-fc_layers: null
-num_fc_layers: 0
-output_size: 256
-activation: relu
-norm: null
-norm_params: null
-dropout: 0
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-top_k: 3
+decoder: 
+    fc_layers: null
+    num_fc_layers: 0
+    output_size: 256
+    activation: relu
+    norm: null
+    norm_params: null
+    dropout: 0
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    top_k: 3
 ```
 
 ## Category Features Metrics

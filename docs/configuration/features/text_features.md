@@ -55,25 +55,29 @@ preprocessing:
 
 ## Text Input Features and Encoders
 
-Text input feature parameters are
+The encoder parameters specified at the feature level are:
 
-- `encoder` (default `parallel_cnn`): encoder to use for the input text feature. The available encoders include encoders
-used for [Sequence Features](../sequence_features#sequence-input-features-and-encoders) as well as pre-trained text
-encoders from the huggingface transformers library: `albert`, `auto_transformer`, `bert`, `camembert`, `ctrl`,
-`distilbert`, `electra`, `flaubert`, `gpt`, `gpt2`, `longformer`, `roberta`, `t5`, `mt5`, `transformer_xl`, `xlm`,
-`xlmroberta`, `xlnet`.
-- `tied` (default `null`): name of the input feature to tie the weights of the encoder with. Tied must name a feature of
-the same type with the same encoder parameters.
+- `tied` (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
+a feature of the same type and with the same encoder parameters.
 
-Example:
+Example text feature entry in the input features list:
 
 ```yaml
 name: text_column_name
 type: text
+tied: null
 encoder: 
     type: bert
     trainable: true
 ```
+
+The available encoder parameters:
+
+- `type` (default `parallel_cnn`): encoder to use for the input text feature. The available encoders include encoders
+used for [Sequence Features](../sequence_features#sequence-input-features-and-encoders) as well as pre-trained text
+encoders from the huggingface transformers library: `albert`, `auto_transformer`, `bert`, `camembert`, `ctrl`,
+`distilbert`, `electra`, `flaubert`, `gpt`, `gpt2`, `longformer`, `roberta`, `t5`, `mt5`, `transformer_xl`, `xlm`,
+`xlmroberta`, `xlnet`.
 
 ### Embed Encoder
 

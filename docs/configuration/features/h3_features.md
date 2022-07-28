@@ -22,14 +22,24 @@ The parameters for preprocessing are:
 Input H3 features are transformed into a int valued tensors of size `N x 19` (where `N` is the size of the dataset and the 19 dimensions
 represent 4 H3 resolution parameters (4) - mode, edge, resolution, base cell - and 15 cell coordinate values.
 
-Currently there are three encoders supported for H3: `H3Embed` (default), `H3WeightedSum`,  and `H3RNN`. The encoder can be set by specifying `embed`, `weighted_sum`, or `rnn` in the input feature's configuration.
+The encoder parameters specified at the feature level are:
+
+- `tied` (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
+a feature of the same type and with the same encoder parameters.
+
+Example H3 feature entry in the input features list:
 
 ```yaml
 name: h3_feature_name
 type: h3
+tied: null
 encoder: 
     type: embed
 ```
+
+The available encoder parameters are: 
+
+- `type` (default ``H3Embed``): the possible values are `H3Embed`, `H3WeightedSum`,  and `H3RNN`. 
 
 ### Embed Encoder
 
@@ -52,7 +62,7 @@ encoder:
     dropout: 0
 ```
 
-This encoder encodes each components of the H3 representation (mode, edge, resolution, base cell and children cells) with embeddings.
+This encoder encodes each component of the H3 representation (mode, edge, resolution, base cell and children cells) with embeddings.
 Children cells with value `0` will be masked out.
 
 After the embedding, all embeddings are summed and optionally passed through a stack of fully connected layers.
@@ -99,7 +109,7 @@ encoder:
     dropout: 0
 ```
 
-This encoder encodes each components of the H3 representation (mode, edge, resolution, base cell and children cells) with embeddings.
+This encoder encodes each component of the H3 representation (mode, edge, resolution, base cell and children cells) with embeddings.
 Children cells with value `0` will be masked out.
 
 After the embedding, all embeddings are summed with a weighted sum (with learned weights) and optionally passed through a stack of fully connected layers.
@@ -153,7 +163,7 @@ encoder:
     reduce_output: last
 ```
 
-This encoder encodes each components of the H3 representation (mode, edge, resolution, base cell and children cells) with embeddings.
+This encoder encodes each component of the H3 representation (mode, edge, resolution, base cell and children cells) with embeddings.
 Children cells with value `0` will be masked out.
 
 After the embedding, all embeddings are passed through an RNN encoder.

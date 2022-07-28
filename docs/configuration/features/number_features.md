@@ -28,11 +28,25 @@ Inputs are of size `b` while outputs are of size `b x 1` where `b` is the batch 
 The other encoder (`dense`) passes the raw numerical values through fully connected layers.
 In this case the inputs of size `b` are transformed to size `b x h`.
 
-The available encoder parameters are:
+The encoder parameters specified at the feature level are:
 
-- `norm` (default `null`): norm to apply after the single neuron. It can be `null`, `batch` or `layer`.
 - `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of
 a feature of the same type and with the same encoder parameters.
+
+Example number feature entry in the input features list:
+
+```yaml
+name: number_column_name
+type: number
+tied: null
+encoder: 
+    type: dense
+```
+
+The available encoder parameters:
+
+- `type` (default `passthrough`): the possible values are `passthrough`, `dense` and `sparse`. `passthrough` outputs the
+raw integer values unaltered. `dense` randomly initializes a trainable embedding matrix, `sparse` uses one-hot encoding.
 
 ### Passthrough Encoder
 

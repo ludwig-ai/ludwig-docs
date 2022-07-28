@@ -45,8 +45,15 @@ For example, the date `2022-06-25 09:30:59` would be deconstructed into:
 ]
 ```
 
+The encoder parameters specified at the feature level are:
+
+- `tied` (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
+a feature of the same type and with the same encoder parameters.
+
 Currently there are two encoders supported for dates: `DateEmbed` (default) and `DateWave`. The encoder can be set by
 specifying `embed` or `wave` in the feature's `encoder` parameter in the input feature's configuration.
+
+Example date feature entry in the input features list:
 
 ```yaml
 name: date_feature_name

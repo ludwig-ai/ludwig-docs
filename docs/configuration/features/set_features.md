@@ -53,7 +53,12 @@ the embeddings.
 +-+
 ```
 
-The available encoder parameters are
+The encoder parameters specified at the feature level are:
+
+- `tied` (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
+a feature of the same type and with the same encoder parameters.
+
+The available encoder parameters are:
 
 - `representation` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
 initialized randomly, `sparse` means they are initialized to be one-hot encodings.
@@ -102,8 +107,6 @@ or for `layer` see the [Torch documentation on layer normalization](https://pyto
 - `dropout` (default `0`): dropout rate
 - `reduce_output` (default `sum`): describes the strategy to use to aggregate the embeddings of the items of the set.
 Available values are: `sum`, `mean` or `avg`, `max`, `concat` and  `null` (which does not reduce and returns the full tensor).
-- `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of
-a feature of the same type and with the same encoder parameters.
 
 Example set feature entry in the input features list:
 

@@ -142,11 +142,28 @@ preprocessing:
 
 # Image Input Features and Encoders
 
-The default encoder is `stacked_cnn`.
+The encoder parameters specified at the feature level are:
+
+- `tied` (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
+a feature of the same type and with the same encoder parameters.
+
+Example image feature entry in the input features list:
+
+```yaml
+name: category_column_name
+type: category
+tied: null
+encoder: 
+    type: dense
+```
+
+The available encoder parameters are:
+
+- `type` (default `stacked_cnn`): the possible values are `stacked_cnn`, `resnet`, `mlp_mixer`, and `vit`. 
 
 ## Convolutional Stack Encoder (`stacked_cnn`)
 
-Stack of 2D convolutional layers with optional normalization, dropout, and downsampling pooling layers, followed by an
+Stack of 2D convolutional layers with optional normalization, dropout, and down-sampling pooling layers, followed by an
 optional stack of fully connected layers.
 
 Convolutional Stack Encoder takes the following optional parameters:

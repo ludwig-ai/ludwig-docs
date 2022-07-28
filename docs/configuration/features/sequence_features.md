@@ -54,13 +54,26 @@ For instance the `parallel_cnn` encoder by default pools and flattens the sequen
 flattened vector through fully connected layers, so in order to obtain the full sequence tensor one has to specify
 `reduce_output: null`.
 
-Sequence input feature parameters are
+The encoder parameters specified at the feature level are:
 
-- `encoder` (default `parallel_cnn`): the name of the encoder to use to encode the sequence, one of `embed`,
+- `tied` (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
+a feature of the same type and with the same encoder parameters.
+
+Example sequence feature entry in the input features list:
+
+```yaml
+name: sequence_column_name
+type: sequence
+tied: null
+encoder: 
+    type: stacked_cnn
+```
+
+The available encoder parameters:
+
+- `type` (default `parallel_cnn`): the name of the encoder to use to encode the sequence, one of `embed`,
 `parallel_cnn`, `stacked_cnn`, `stacked_parallel_cnn`, `rnn`, `cnnrnn`, `transformer` and `passthrough` (equivalent to
 `null` or `None`).
-- `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of
-a feature of the same type and with the same encoder parameters.
 
 ### Embed Encoder
 

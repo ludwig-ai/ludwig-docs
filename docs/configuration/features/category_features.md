@@ -33,11 +33,9 @@ The `passthrough` encoder passes the raw integer values coming from the input pl
 The other two encoders map to either `dense` or `sparse` embeddings (one-hot encodings) and returned as outputs of size
 `b x h`, where `b` is the batch size and `h` is the dimensionality of the embeddings.
 
-Input feature parameters.
+The encoder parameters specified at the feature level are:
 
-- `encoder` (default `dense`): the possible values are `passthrough`, `dense` and `sparse`. `passthrough` outputs the
-raw integer values unaltered. `dense` randomly initializes a trainable embedding matrix, `sparse` uses one-hot encoding.
-- `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of
+- `tied` (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
 a feature of the same type and with the same encoder parameters.
 
 Example category feature entry in the input features list:
@@ -50,7 +48,10 @@ encoder:
     type: dense
 ```
 
-The available encoder parameters:
+The available encoder parameters are:
+
+- `type` (default `dense`): the possible values are `passthrough`, `dense` and `sparse`. `passthrough` outputs the
+raw integer values unaltered. `dense` randomly initializes a trainable embedding matrix, `sparse` uses one-hot encoding.
 
 ### Dense Encoder
 

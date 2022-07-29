@@ -37,9 +37,9 @@ encoder:
     type: embed
 ```
 
-The available encoder parameters are: 
+The available encoder parameters are:
 
-- `type` (default ``H3Embed``): the possible values are `H3Embed`, `H3WeightedSum`,  and `H3RNN`. 
+- `type` (default ``H3Embed``): the possible values are `H3Embed`, `H3WeightedSum`,  and `H3RNN`.
 
 ### Embed Encoder
 

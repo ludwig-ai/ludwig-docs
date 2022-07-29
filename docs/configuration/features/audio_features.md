@@ -44,7 +44,8 @@ The encoder parameters specified at the feature level are:
 
 - `tied` (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
 a feature of the same type and with the same encoder parameters.
-- 
+-
+
 Example audio feature entry in the input features list:
 
 ```yaml

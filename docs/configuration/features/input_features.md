@@ -65,9 +65,9 @@ might want to encode a `sequence` feature using a `transformer` or an `image` fe
 data types support different encoders. Check the documentation for specific feature types to see what encoders are
 supported for that type.
 
-All the other parameters besides `name`, `type`, and `preprocessing`, will be passed as parameters to the encoder 
+All the other parameters besides `name`, `type`, and `preprocessing`, will be passed as parameters to the encoder
 subsection. Note that each encoder can have different parameters, so extensive documentation for each of the encoders
-that can be used for a certain data type can be found in each data type's documentation. Here is an example of how to 
+that can be used for a certain data type can be found in each data type's documentation. Here is an example of how to
 specify a specific encoder config for an input feature:
 
 === "YAML"

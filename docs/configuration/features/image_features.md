@@ -159,7 +159,7 @@ encoder:
 
 The available encoder parameters are:
 
-- `type` (default `stacked_cnn`): the possible values are `stacked_cnn`, `resnet`, `mlp_mixer`, and `vit`. 
+- `type` (default `stacked_cnn`): the possible values are `stacked_cnn`, `resnet`, `mlp_mixer`, and `vit`.
 
 ## Convolutional Stack Encoder (`stacked_cnn`)
 

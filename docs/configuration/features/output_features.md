@@ -31,8 +31,8 @@ Recall Ludwig's butterfly framework:
 ![img](../../images/butterfly.png)
 
 Instead of having `encoders`, output features have `decoders`. All the other parameters besides `name` and `type` will
-be passed as parameters to the decoder subsection which dictates how to build the output feature's decoder. Like 
-encoders, each decoder can also have different parameters, so we have extensive documentation for each decoder that can 
+be passed as parameters to the decoder subsection which dictates how to build the output feature's decoder. Like
+encoders, each decoder can also have different parameters, so we have extensive documentation for each decoder that can
 be used for a certain data type. This can be found in [each data type's documentation](../features/supported_data_types.md).
 
 === "YAML"

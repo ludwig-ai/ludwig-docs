@@ -29,7 +29,8 @@ input_features:
                 type: stft
                 window_length_in_s: 0.04
                 window_shift_in_s: 0.02
-        encoder: cnnrnn
+        encoder: 
+            type: cnnrnn
 
 output_features:
     -

@@ -99,8 +99,9 @@ The last section in this configuration file describes options for how the the [`
         type: binary
         preprocessing:
           fallback_true_label: " >50K"
-        num_fc_layers: 4
-        output_size: 32
+        decoder:
+            num_fc_layers: 4
+            output_size: 32
 
     trainer:
       epochs: 10
@@ -134,8 +135,10 @@ The last section in this configuration file describes options for how the the [`
                         {'name': 'hours-per-week', 'type': 'number'},
                         {'name': 'native-country', 'type': 'category'}],
      'output_features': [{'name': 'income',
-                          'num_fc_layers': 4,
-                          'output_size': 32,
+                          'decoder': {
+                                'num_fc_layers': 4,
+                                'output_size': 32
+                          },
                           'preprocessing': {'fallback_true_label': ' >50K'},
                           'loss': {'type': 'binary_weighted_cross_entropy'},
                           'type': 'binary'}],

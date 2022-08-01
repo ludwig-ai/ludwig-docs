@@ -51,7 +51,8 @@ output_features:
         type: number
         optimizer:
             type: mean_squared_error
-        num_fc_layers: 2
-        output_size: 64
+        decoder:
+            num_fc_layers: 2
+            output_size: 64
 
 ```

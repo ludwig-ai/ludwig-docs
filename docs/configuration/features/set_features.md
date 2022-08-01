@@ -53,7 +53,12 @@ the embeddings.
 +-+
 ```
 
-The available encoder parameters are
+The encoder parameters specified at the feature level are:
+
+- `tied` (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
+a feature of the same type and with the same encoder parameters.
+
+The available encoder parameters are:
 
 - `representation` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
 initialized randomly, `sparse` means they are initialized to be one-hot encodings.
@@ -102,31 +107,30 @@ or for `layer` see the [Torch documentation on layer normalization](https://pyto
 - `dropout` (default `0`): dropout rate
 - `reduce_output` (default `sum`): describes the strategy to use to aggregate the embeddings of the items of the set.
 Available values are: `sum`, `mean` or `avg`, `max`, `concat` and  `null` (which does not reduce and returns the full tensor).
-- `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of
-a feature of the same type and with the same encoder parameters.
 
 Example set feature entry in the input features list:
 
 ```yaml
 name: set_column_name
 type: set
-representation: dense
-embedding_size: 50
-embeddings_trainable: true
-pretrained_embeddings: null
-embeddings_on_cpu: false
-fc_layers: null
-num_fc_layers: 0
-output_size: 10
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-norm: null
-norm_params: null
-activation: relu
-dropout: 0.0
-reduce_output: sum
-tied: null
+encoder:
+    representation: dense
+    embedding_size: 50
+    embeddings_trainable: true
+    pretrained_embeddings: null
+    embeddings_on_cpu: false
+    fc_layers: null
+    num_fc_layers: 0
+    output_size: 10
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    norm: null
+    norm_params: null
+    activation: relu
+    dropout: 0.0
+    reduce_output: sum
+    tied: null
 ```
 
 ## Set Output Features and Decoders
@@ -199,17 +203,18 @@ dependencies: []
 reduce_dependencies: sum
 loss:
     type: sigmoid_cross_entropy
-fc_layers: null
-num_fc_layers: 0
-output_size: 256
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-norm: null
-norm_params: null
-activation: relu
-dropout: 0.0
-threshold: 0.5
+decoder:
+    fc_layers: null
+    num_fc_layers: 0
+    output_size: 256
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    norm: null
+    norm_params: null
+    activation: relu
+    dropout: 0.0
+    threshold: 0.5
 ```
 
 ## Set Features Metrics

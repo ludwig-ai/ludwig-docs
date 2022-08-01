@@ -8,10 +8,10 @@ hyperopt:
   metric: loss
   split: validation
   parameters:
-    title.cell_type: ... # title is a text feature type
-    title.num_layers: ... 
+    title.encoder.cell_type: ... # title is a text feature type
+    title.encoder.num_layers: ... 
     combiner.num_fc_layers: ...
-    section.embedding_size: ...
+    section.encoder.embedding_size: ...
     preprocessing.text.vocab_size: ...
     trainer.learning_rate: ...
     trainer.optimizer.type: ...
@@ -41,8 +41,8 @@ hyperopt:
 
 In the `parameters` section, hyperparameters are dot( `.`) separate names. The parts of the hyperparameter names separated by `.` are references to nested sections in the Ludwig configuration.
 For instance, to reference the `learning_rate`, in the `trainer` section one would use the name `trainer.learning_rate`.
-If the parameter to reference is inside an input or output feature, the name of that feature will be be used as starting point.
-For instance, for referencing the `cell_type` of the `title` feature, use the name `title.cell_type`.
+If the parameter to reference is inside an input or output feature, the name of that feature will be used as starting point.
+For instance, for referencing the `cell_type` of the `encoder` for the `title` feature, use the name `title.encoder.cell_type`.
 
 ## Numeric Hyperparameters
 
@@ -80,7 +80,7 @@ combiner.num_fc_layers:
 **Quantized Example**: Uniform random floating point values such a 0, 0.1, 0.2, ..., 0.9
 
 ```yaml
-my_output_feature.dropout:
+my_output_feature.decoder.dropout:
   space: quniform
   lower: 0
   upper: 1
@@ -96,7 +96,7 @@ integers, floats and anything else, even entire dictionaries.  The values will b
 Example:
 
 ```yaml
-title.cell_type:
+title.encoder.cell_type:
   space: choice
   categories: [rnn, gru, lstm]
 ```
@@ -111,7 +111,7 @@ integers, floats and anything else, even entire dictionaries.
 Example:
 
 ```yaml
-title.cell_type:
+title.encoder.cell_type:
   space: grid_search
   values: [rnn, gru, lstm]
 ```
@@ -129,13 +129,13 @@ hyperopt:
       space: randint
       lower: 2
       upper: 6
-    title.cell_type:
+    title.encoder.cell_type:
       space: grid_search
       values: ["rnn", "gru"]
-    title.bidirectional:
+    title.encoder.bidirectional:
       space: choice
       categories: [True, False]
-    title.fc_layers:
+    title.encoder.fc_layers:
       space: choice
       categories:
         - [{"output_size": 512}, {"output_size": 256}]
@@ -212,9 +212,10 @@ input_features:
   -
     name: title
     type: text
-    encoder: rnn
-    cell_type: lstm
-    num_layers: 2
+    encoder: 
+        type: rnn
+        cell_type: lstm
+        num_layers: 2
 combiner:
   type: concat
   num_fc_layers: 1
@@ -251,7 +252,7 @@ hyperopt:
       space: randint
       lower: 1
       upper: 5
-    title.cell_type:
+    title.encoder.cell_type:
       space: choice
       values: [rnn, gru, lstm]
   search_alg:
@@ -264,5 +265,5 @@ hyperopt:
 Example CLI command:
 
 ```
-ludwig hyperopt --dataset reuters-allcats.csv --config_str "{input_features: [{name: title, type: text, encoder: rnn, cell_type: lstm, num_layers: 2}], output_features: [{name: class, type: category}], training: {learning_rate: 0.001}, hyperopt: {goal: maximize, output_feature: class, metric: accuracy, split: validation, parameters: {trainer.learning_rate: {space: loguniform, lower: 0.0001, upper: 0.1}, title.cell_type: {space: choice, categories: [rnn, gru, lstm]}}, search_alg: {type: variant_generator},executor: {type: ray, num_samples: 10}}}"
+ludwig hyperopt --dataset reuters-allcats.csv --config_str "{input_features: [{name: title, type: text, encoder: {type: rnn, cell_type: lstm, num_layers: 2}}], output_features: [{name: class, type: category}], training: {learning_rate: 0.001}, hyperopt: {goal: maximize, output_feature: class, metric: accuracy, split: validation, parameters: {trainer.learning_rate: {space: loguniform, lower: 0.0001, upper: 0.1}, title.encoder.cell_type: {space: choice, categories: [rnn, gru, lstm]}}, search_alg: {type: variant_generator},executor: {type: ray, num_samples: 10}}}"
 ```

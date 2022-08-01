@@ -19,10 +19,25 @@ Preprocessing parameters:
 
 The vector feature supports two encoders: `dense` and `passthrough`.
 
-The available encoder parameters are:
+The encoder parameters specified at the feature level are:
 
 - `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of
 a feature of the same type and with the same encoder parameters.
+
+Example vector feature entry in the input features list:
+
+```yaml
+name: vector_column_name
+type: vector
+tied: null
+encoder: 
+    type: dense
+```
+
+The available encoder parameters are:
+
+- `type` (default `dense`): the possible values are `passthrough` and `dense`. `passthrough` outputs the
+raw vector values unaltered. `dense` uses a stack of fully connected layers to create an embedding matrix.
 
 ### Passthrough Encoder
 
@@ -45,23 +60,24 @@ following parameters:
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `dropout` (default `0`): dropout rate
 
-Example vector feature entry in the input features list using an dense encoder:
+Example vector feature entry in the input features list using a dense encoder:
 
 ```yaml
 name: vector_column_name
 type: vector
 tied: null
-encoder: dense
-layers: null
-num_layers: 0
-output_size: 256
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-norm: null
-norm_params: null
-activation: relu
-dropout: 0
+encoder: 
+    type: dense
+    layers: null
+    num_layers: 0
+    output_size: 256
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    norm: null
+    norm_params: null
+    activation: relu
+    dropout: 0
 ```
 
 ## Vector Feature Decoders
@@ -74,14 +90,15 @@ dependencies: []
 reduce_dependencies: sum
 loss:
     type: sigmoid_cross_entropy
-fc_layers: null
-num_fc_layers: 0
-output_size: 256
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-activation: relu
-clip: null
+decoder:
+    fc_layers: null
+    num_fc_layers: 0
+    output_size: 256
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    activation: relu
+    clip: null
 ```
 
 Vector features can be used when multi-class classification needs to be performed with a noise-aware loss or when the task is multivariate regression.

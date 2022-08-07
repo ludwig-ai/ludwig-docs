@@ -256,8 +256,8 @@ that were not updated.
 
 In the ideal case, `upc` == `tpc`, i.e, all of the trainable parameters were updated.  However, there may be 
 situations where `upc` < `tpc`.  This may occur in situations where dropout is used or with batch normalization 
-with a single training example or conditional processing in the `forward()` method.  The developer should confirm that 
-the counts are correct in this situation.
+with a single training example or conditional processing in the `forward()` method.  The preceding is not an 
+exhaustive list.  Whenever `upc` < `tpc`, the developer should confirm that the counts are correct for the situation.
 
 **Step 2**:
 

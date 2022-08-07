@@ -242,7 +242,7 @@ parameters, e.g.,
     print(fpc, tpc, upc, not_updated)
 ```
 
-`target` is a tensor with synthetic data that is used to in computing the loss during the forward pass.  
+`target` is a tensor with synthetic data that is used to in computing the loss after the forward pass.  
 
 `fpc` is the count of frozen parameters.  `tpc` is the count of trainable parameters.  `upc` is the updated parameter
 count, i.e., the number of parameters that were updated during the cycle of forward pass-backward pass-optimize step.
@@ -252,13 +252,13 @@ Inspect the values for correctness, such as
 - `fpc` should be zero except for pre-trained modules like the Huggingface text encoders.
 - `upc` <= `tpc`
 
-In the case that some parameters are not updated, `not_updated` is a Python list containing names of the parameter
+In the case that some parameters are not updated, `not_updated` is a Python list containing parameter names
 that were not updated.
 
-In the ideal case, `upc` == `tpc`, i.e, all of the trainable parameters were updated.  However, there may be 
-situations where `upc` < `tpc`.  This may occur in situations where dropout is used or with batch normalization 
-with a single training example or conditional processing in the `forward()` method.  The preceding is not an 
-exhaustive list.  Whenever `upc` < `tpc`, the developer should confirm that the counts are correct for the situation.
+In the ideal case, `upc` == `tpc`, i.e, count of trainable parameters is equal to the count of updated parameters.
+However, there may be situations where `upc` < `tpc`.  This may occur when dropout is used or with batch normalization
+with a single training example or conditional processing in the `forward()` method.  The preceding is not an exhaustive
+list.  Whenever `upc` < `tpc`, the developer should confirm that the counts are correct for the situation.
 
 **Step 2**:
 
@@ -287,7 +287,7 @@ appropriate set of `assert` statements.  Here are some examples:
         )
 ```
 
-Here is an example of a full test
+**Example of a full test with parameter update checking**:
 
 ```python
 @pytest.mark.parametrize("cell_type", ["rnn", "gru"])
@@ -314,5 +314,4 @@ def test_sequence_rnn_decoder(cell_type, num_layers, batch_size):
     target = torch.randn(output.shape)
     fpc, tpc, upc, not_updated = check_module_parameters_updated(sequence_rnn_decoder, (combiner_outputs, None), target)
     assert upc == tpc, f"Failed to update parameters.  Parameters not update: {not_updated}"
-
 ```

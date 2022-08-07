@@ -211,20 +211,20 @@ input_tensor = torch.randn([BATCH_SIZE, input_size], dtype=torch.float32)
 
 ## Test for parameter updates
 
-The utility function `check_module_parameters_updated()` in the `tests.integration_tests.parameter_utils` module 
-is available to test whether Ludwig modules, e.,g encoders, combiners, decoders and related sub-components are updating 
+The utility function `check_module_parameters_updated()` in the `tests.integration_tests.parameter_utils` module
+is available to test whether Ludwig modules, e.,g encoders, combiners, decoders and related sub-components are updating
 parameters during the sequence of forward pass-backward pass-optimize step.
 
 Guidelines for implementing parameter updating test:
 
-* Not required for very simple modules, like the fully-connected layer or for well-known pre-trained modules, like the Huggingface text encoders.
-* Before implementing the parameter update test ensure that the test does not generate run-time exceptions, the generated output conforms to the expected data structure and the shape of the output is correct.
+- Not required for very simple modules, like the fully-connected layer or for well-known pre-trained modules, like the Huggingface text encoders.
+- Before implementing the parameter update test ensure that the test does not generate run-time exceptions, the generated output conforms to the expected data structure and the shape of the output is correct.
 
 `check_module_parameters_updated(module, input, target)` function requires three positional arguments:
 
-* `module` is the Ludwig component to be tested, i.e., encoder, combiner or decoder
-* `input` is tuple that is the input the Ludwig component's forward method
-* `target` is a synthetic tensor representing the target values for computing loss at the end of the forward pass.
+- `module` is the Ludwig component to be tested, i.e., encoder, combiner or decoder
+- `input` is tuple that is the input the Ludwig component's forward method
+- `target` is a synthetic tensor representing the target values for computing loss at the end of the forward pass.
 
 The `module` and `input` arguments can be the same as those used in the early part of the test to ensure no run-time exceptions and correct output.
 
@@ -232,8 +232,9 @@ A two-step process is recommended steps for implementing the test:
 
 **Step 1**:
 
-Set the random seed for repeatability.  Partially implement the parameter update test to print the counts of 
+Set the random seed for repeatability.  Partially implement the parameter update test to print the counts of
 parameters, e.g.,
+
 ```python
     # check for parameter updating
     target = torch.randn(output.shape)
@@ -243,15 +244,15 @@ parameters, e.g.,
 
 `target` is a tensor with synthetic data that is used to in computing the loss during the forward pass.  
 
-`fpc` is the count of frozen parameters.  `tpc` is the count of trainable parameters.  `upc` is the updated parameter 
-count, i.e., the number of parameters that were updated during the cycle of forward pass-backward pass-optimize step. 
+`fpc` is the count of frozen parameters.  `tpc` is the count of trainable parameters.  `upc` is the updated parameter
+count, i.e., the number of parameters that were updated during the cycle of forward pass-backward pass-optimize step.
 Inspect the values for correctness, such as
 
-* `fpc` + `tpc` should equal the total number of parameters in the module
-* `fpc` should be zero except for pre-trained modules like the Huggingface text encoders.
-* `upc` <= `tpc`
+- `fpc` + `tpc` should equal the total number of parameters in the module
+- `fpc` should be zero except for pre-trained modules like the Huggingface text encoders.
+- `upc` <= `tpc`
 
-In the case that some parameters are not updated, `not_updated` is a Python list containing names of the parameter 
+In the case that some parameters are not updated, `not_updated` is a Python list containing names of the parameter
 that were not updated.
 
 In the ideal case, `upc` == `tpc`, i.e, all of the trainable parameters were updated.  However, there may be 
@@ -261,7 +262,7 @@ exhaustive list.  Whenever `upc` < `tpc`, the developer should confirm that the 
 
 **Step 2**:
 
-Once all the differences between `tpc` and `upc` are accounted for then replace the `print()` statement with the 
+Once all the differences between `tpc` and `upc` are accounted for then replace the `print()` statement with the
 appropriate set of `assert` statements.  Here are some examples:
 
 ```python

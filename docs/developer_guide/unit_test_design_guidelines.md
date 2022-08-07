@@ -260,6 +260,74 @@ However, there may be situations where `upc` < `tpc`.  This may occur when dropo
 with a single training example or conditional processing in the `forward()` method.  The preceding is not an exhaustive
 list.  Whenever `upc` < `tpc`, the developer should confirm that the counts are correct for the situation.
 
+??? note "Tips and Tricks to Understand Ludwig Module Parameter Structure"
+
+    While working in **Step 1**, these code fragments may be temporarily used to gain insight into the structure 
+    and parameters in a Ludwig module.
+
+    The `print()` will display the layers that make up a Ludwig module.  From the output the developer can confirm
+    the correct structure and configuration values.
+
+    ```python
+    encoder = create_encoder(
+        Stacked2DCNN, num_channels=image_size[0], height=image_size[1], width=image_size[2], **encoder_kwargs
+    )
+    print(encoder)
+
+    # output
+    Stacked2DCNN(
+      (conv_stack_2d): Conv2DStack(
+        (stack): ModuleList(
+          (0): Conv2DLayer(
+            (layers): ModuleList(
+              (0): Conv2d(3, 32, kernel_size=(3, 3), stride=(1, 1), padding=valid)
+              (1): ReLU()
+              (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+            )
+          )
+          (1): Conv2DLayer(
+            (layers): ModuleList(
+              (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=valid)
+              (1): ReLU()
+              (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+            )
+          )
+        )
+      )
+      (flatten): Flatten(start_dim=1, end_dim=-1)
+      (fc_stack): FCStack(
+        (stack): ModuleList(
+          (0): FCLayer(
+            (layers): ModuleList(
+              (0): Linear(in_features=32, out_features=28, bias=True)
+              (1): ReLU()
+            )
+          )
+        )
+      )
+    )
+    ```
+
+    Use the `named_parameters()` method to understand the parameters contained in a Ludwig module. This method returns
+    a list of tuples.  The first element in the tuple is the parameter's name.  The second element is the instance
+    of the PyTorch `Parameter` object.  In the following example there are 6 parameters, all of them are trainable.
+
+    ```python
+    encoder = create_encoder(
+        Stacked2DCNN, num_channels=image_size[0], height=image_size[1], width=image_size[2], **encoder_kwargs
+    )
+    for p in encoder.named_parameters():
+        print(f"name: {p[0]}, shape: {p[1].shape}, trainable: {p[1].requires_grad}")
+
+    # output
+    name: conv_stack_2d.stack.0.layers.0.weight, shape: torch.Size([32, 3, 3, 3]), trainable: True
+    name: conv_stack_2d.stack.0.layers.0.bias, shape: torch.Size([32]), trainable: True
+    name: conv_stack_2d.stack.1.layers.0.weight, shape: torch.Size([32, 32, 3, 3]), trainable: True
+    name: conv_stack_2d.stack.1.layers.0.bias, shape: torch.Size([32]), trainable: True
+    name: fc_stack.stack.0.layers.0.weight, shape: torch.Size([28, 32]), trainable: True
+    name: fc_stack.stack.0.layers.0.bias, shape: torch.Size([28]), trainable: True
+    ```
+
 **Step 2**:
 
 Once all the differences between `tpc` and `upc` are accounted for then replace the `print()` statement with the

@@ -1,7 +1,7 @@
 # Using Integrations
 
 Ludwig provides an extendable interface to integrate with third-party systems. To activate a particular integration,
-simply insert its flag into the command line. Each integration may have specific requirements and use case.
+simply insert its flag into the command line. Each integration may have specific requirements and use cases.
 
 # Available integrations
 
@@ -13,7 +13,7 @@ simply insert its flag into the command line. Each integration may have specific
 
 ## Aim
 
-`--aim` - complete experimentation trackings with configuration, metadata, hyperparametrs, losses and terminal logs.
+`--aim` - complete experimentation trackings with configuration, metadata, hyperparameters, losses and terminal logs.
 In order to see and end to end Aim-Ludwig training and tracking example please refer to our [demo](https://github.com/aimhubio/aim-ludwig-demo).
 For more details about [Aim](https://aimstack.io/) refer to the [documentation](https://aimstack.readthedocs.io/en/latest/).
 

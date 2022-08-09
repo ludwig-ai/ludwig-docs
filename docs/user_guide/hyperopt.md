@@ -42,13 +42,13 @@ Feature level parameters are defined using the following keywords in order separ
 - `defaults`: The defaults keyword used to indicate a feature-level parameter.
 - `feature_type`: Any input or output feature type in the current Ludwig config.
 - `subsection`: One of `preprocessing`, `encoder`, `decoder` or `loss`.
-- `parameter`: A valid parameter belonging to the `subsection`. For e.g., `most_common` is a valid parameter for the 
+- `parameter`: A valid parameter belonging to the `subsection`. For e.g., `most_common` is a valid parameter for the
 `preprocessing` section for `text` feature type.
 
 For each hyperopt trial, a value will be sampled from the feature level parameter space and applied to either input features
-(`preprocessing` or `encoder` related parameters) or output features (`decoder` or `loss` related parameters) of that feature type 
-as long as they use the default encoder (for input features) or default decoder (for output features). Additionally, parameters 
-defined for individual features (like `title.num_filters`) will take precedence over feature level parameters 
+(`preprocessing` or `encoder` related parameters) or output features (`decoder` or `loss` related parameters) of that feature type
+as long as they use the default encoder (for input features) or default decoder (for output features). Additionally, parameters
+defined for individual features (like `title.num_filters`) will take precedence over feature level parameters
 (like `defaults.text.encoder.num_filters`) if they share the same type and parameter.
 
 ```yaml title="config.yaml"
@@ -70,7 +70,7 @@ hyperopt:
 In this example, there are two feature level parameters defined:
 
 - `defaults.text.encoder.num_filters`: This will apply the sampled `num_filters` value to all input text features
-using the default text encoder for that particular trial. 
+using the default text encoder for that particular trial.
 - `defaults.category.decoder.reduce_input`: This will apply the sampled `reduce_input` value to all output category
 features using the default category decoder for that particular trial.
 

@@ -7,12 +7,12 @@ the `ludwig hyperopt` command. Every parameter within the config can be tuned us
 # Hyperopt Configuration
 
 Most parameters or nested parameters of a Ludwig configuration may be optimized, including `input_features`,
-`output_features`, `combiner`, `preprocessing`, and `trainer`.  Supported types are `float`, `int` and `category`.
+`output_features`, `combiner`, `preprocessing`, `trainer` and `defaults`.  Supported types are `float`, `int` and `category`.
 
 To enable hyperparameter optimization, add the `hyperopt` dictionary at the top level of your config.yaml. The
 `hyperopt` section declares which parameters to optimize, the search strategy, and the optimization goal.
 
-```yaml
+```yaml title="config.yaml"
 hyperopt:
   parameters:
     title.num_filters:
@@ -30,18 +30,26 @@ hyperopt:
   metric: loss
 ```
 
-## Feature Level Parameters
+## Default Feature - Level Parameters
 
-In addition to defining hyperopt parameters for individual input or output features (like the `title` feature 
-in the example above), feature level parameters can be specified for entire feature types. This is particularly 
-helpful in cases where a dataset has a large number of features.
+In addition to defining hyperopt parameters for individual input or output features (like the `title` feature
+in the example above), feature level parameters can be specified for entire feature types. These parameters will
+follow the same convention as the `defaults` section of the Ludwig config. This is particularly helpful in cases
+where a dataset has a large number of features and you don't want to define parameters for each feature individually.
 
-For each hyperopt trial, a value will be sampled from the feature level parameter space and applied to all input and 
-output features of that feature type as long as they use the default encoder (for input features) or default decoder 
-(for output features). Additionally, parameters defined for individual features (like `title.num_filters`) will take 
-precedence over feature level parameters (like `defaults.text.num_filters`) if they share the same type and parameter.
+Feature level parameters are defined using the following keywords in order separated by the `.` delimiter:
 
-Feature level parameters are defined using the `default` keyword, followed by the `feature_type` and `parameter`.
+- `defaults`: The defaults keyword used to indicate a feature-level parameter.
+- `feature_type`: Any input or output feature type in the current Ludwig config.
+- `subsection`: One of `preprocessing`, `encoder`, `decoder` or `loss`.
+- `parameter`: A valid parameter belonging to the `subsection`. For e.g., `most_common` is a valid parameter for the 
+`preprocessing` section for `text` feature type.
+
+For each hyperopt trial, a value will be sampled from the feature level parameter space and applied to either input features
+(`preprocessing` or `encoder` related parameters) or output features (`decoder` or `loss` related parameters) of that feature type 
+as long as they use the default encoder (for input features) or default decoder (for output features). Additionally, parameters 
+defined for individual features (like `title.num_filters`) will take precedence over feature level parameters 
+(like `defaults.text.encoder.num_filters`) if they share the same type and parameter.
 
 ```yaml title="config.yaml"
 hyperopt:
@@ -49,23 +57,22 @@ hyperopt:
     title.num_filters:
       space: choice
       categories: [128, 256, 512]
-    defaults.text.num_filters:
+    defaults.text.encoder.num_filters:
       space: choice
       categories: [128, 256, 512]
-    defaults.category.embedding_size:
+    defaults.category.decoder.reduce_input:
       space: choice
-      categories: [64, 128, 256]
+      categories: ['mean', 'sum', 'max']
   goal: minimize
   metric: loss
 ```
 
 In this example, there are two feature level parameters defined:
 
-- `defaults.text.num_filters`: This will apply the sampled `num_filters` value and apply it to all text features
-using either the default text encoder (for input features) or text decoder (for output features) for a trial. 
-- `defaults.category.embedding_size`: This will apply the sampled `embedding_size` value and apply it to all category
-features using either the default category encoder (for input features) or category decoder (for output features)
-for a trial. 
+- `defaults.text.encoder.num_filters`: This will apply the sampled `num_filters` value to all input text features
+using the default text encoder for that particular trial. 
+- `defaults.category.decoder.reduce_input`: This will apply the sampled `reduce_input` value to all output category
+features using the default category decoder for that particular trial.
 
 # Running Hyperparameter Optimization
 

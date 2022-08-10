@@ -212,7 +212,7 @@ input_tensor = torch.randn([BATCH_SIZE, input_size], dtype=torch.float32)
 ## Test for parameter updates
 
 The utility function `check_module_parameters_updated()` in the `tests.integration_tests.parameter_utils` module
-is available to test whether Ludwig modules, e.,g encoders, combiners, decoders and related sub-components are updating
+is available to test whether Ludwig modules, e.g., encoders, combiners, decoders and related sub-components are updating
 parameters during the sequence of forward pass-backward pass-optimize step.
 
 Guidelines for implementing parameter updating test:

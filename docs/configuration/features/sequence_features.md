@@ -40,6 +40,26 @@ missing values with the next valid value).
 - `fill_value` (default `<UNK>`): the value to replace the missing values with in case the `missing_value_strategy` is
 `fill_value`.
 
+Configuration example:
+
+```yaml
+name: sequence_column_name
+type: sequence
+preprocessing:
+       tokenizer: space
+       vocab_file: null
+       max_sequence_length: 256
+       most_common: 20000
+       padding_symbol: <PAD>
+       unknown_symbol: <UNK>
+       padding: right
+       lowercase: false
+       missing_value_strategy: fill_with_const
+       fill_value: <UNK>
+```
+
+Preprocessing parameters can also be defined once and applied to all sequence input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
+
 ## Sequence Input Features and Encoders
 
 Sequence features have several encoders and each of them has its own parameters.
@@ -61,6 +81,8 @@ Sequence input feature parameters are
 `null` or `None`).
 - `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of
 a feature of the same type and with the same encoder parameters.
+
+Encoder type and encoder parameters can also be defined once and applied to all sequence input features using the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
 ### Embed Encoder
 
@@ -996,6 +1018,8 @@ last vector of the sequence dimension).
 confidence_penalty: 0, robust_lambda: 0}`): is a dictionary containing a loss `type`. The only available
 loss `type` for sequences is `softmax_cross_entropy`. For more details on losses and their options, see also
 [Category Output Features and Decoders](../category_features#category-output-features-and-decoders).
+
+Decoder type and decoder parameters can also be defined once and applied to all sequence output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section. Loss and loss related parameters can also be defined once in the same way.
 
 ### Tagger Decoder
 

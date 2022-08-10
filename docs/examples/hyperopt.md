@@ -55,6 +55,8 @@ Hyperparameter optimization is defined with the [`hyperopt` section of the Ludwi
         ...
     trainer:
         ...
+    defaults:
+        ...
 
     # hyperopt specification 
     hyperopt:
@@ -84,7 +86,8 @@ Hyperparameter optimization is defined with the [`hyperopt` section of the Ludwi
         'input_features': ... ,
         'output_features': ... ,
         'preprocessing': ...,
-        'trainer':... ,
+        'trainer': ... ,
+        'defaults': ... ,
     
         # hyperopt specification 
         'hyperopt':  {

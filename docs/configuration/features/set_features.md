@@ -33,6 +33,21 @@ missing values with the next valid value).
 - `most_common` (default `10000`): the maximum number of most common tokens to be considered. if the data contains more
 than this amount, the most infrequent tokens will be treated as unknown.
 
+Configuration example:
+
+```yaml
+name: items_purchased
+type: set
+preprocessing:
+    tokenizer: space
+    missing_value_strategy: fill_with_const
+    fill_value: <UNK>
+    lowercase: false
+    most_common: 10000
+```
+
+Preprocessing parameters can also be defined once and applied to all set input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
+
 ## Set Input Features and Encoders
 
 Set features have one encoder, the raw binary values coming from the input placeholders are first transformed to sparse
@@ -105,6 +120,8 @@ Available values are: `sum`, `mean` or `avg`, `max`, `concat` and  `null` (which
 - `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of
 a feature of the same type and with the same encoder parameters.
 
+Encoder type and encoder parameters can also be defined once and applied to all set input features using the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
+
 Example set feature entry in the input features list:
 
 ```yaml
@@ -157,6 +174,8 @@ vector of the first dimension).
 - `loss` (default `{type: sigmoid_cross_entropy}`): is a dictionary containing a loss `type`. The only supported loss
 `type` for set features is `sigmoid_cross_entropy`.
 
+Loss type and loss related parameters can also be defined once and applied to all set output features using the [Type-Global Loss](../defaults.md#type-global-loss) section.
+
 These are the available parameters of a set output feature decoder
 
 - `fc_layers` (default `null`): a list of dictionaries containing the parameters of all the fully connected
@@ -188,6 +207,8 @@ or for `layer` see the [Torch documentation on layer normalization](https://pyto
 - `dropout` (default `0`): dropout rate
 - `threshold` (default `0.5`): The threshold above (greater or equal) which the predicted output of the sigmoid will be
 mapped to 1.
+
+Decoder type and decoder parameters can also be defined once and applied to all set output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
 
 Example set feature entry (with default parameters) in the output features list:
 

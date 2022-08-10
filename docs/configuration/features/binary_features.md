@@ -15,6 +15,18 @@ missing values with the next valid value), or `fill_with_false` (default, replac
 - `fallback_true_label`: In case the binary feature doesn't have conventional boolean values, we will interpret the
 `fallback_true_label` as 1 (true) and the other values as 0 (False).
 
+Configuration example:
+
+```yaml
+name: binary_column_name
+type: binary
+preprocessing:
+    missing_value_strategy: fill_with_false
+    fill_value: 0
+```
+
+Preprocessing parameters can also be defined once and applied to all binary input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
+
 ## Binary Input Features and Encoders
 
 ```yaml
@@ -36,6 +48,8 @@ The available encoder parameters are:
 
 - `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of
 a feature of the same type and with the same encoder parameters.
+
+Encoder type and encoder parameters can also be defined once and applied to all binary input features using the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
 ### Passthrough Encoder
 
@@ -91,6 +105,9 @@ threshold: 0.5
 Binary output features can be used when a binary classification needs to be performed or when the output is a single
 probability. There is only one decoder available for binary features and it is a (potentially empty) stack of fully
 connected layers, followed by a projection into a single number followed by a sigmoid function.
+
+Decoder type and decoder parameters can also be defined once and applied to all binary output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section. Loss and loss related parameters can
+also be defined once in the same way.
 
 These are the available parameters of a binary output feature.
 

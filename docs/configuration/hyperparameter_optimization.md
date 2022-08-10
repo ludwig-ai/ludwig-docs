@@ -222,9 +222,10 @@ output_features:
   -
     name: class
     type: category
-preprocessing:
+defaults:
   text:
-    word_vocab_size: 10000
+    preprocessing:
+      word_vocab_size: 10000
 training:
   learning_rate: 0.001
   optimizer:

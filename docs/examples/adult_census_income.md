@@ -5,7 +5,7 @@ These interactive notebooks follow the steps of this example:
 - Ludwig CLI: [![Adult Census Income Classification with Ludwig CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/master/docs/examples/adult_census_income_colab_notebooks/Adult_Census_Income_Classification_with_Ludwig_CLI.ipynb)
 - Ludwig Python API: [![Adult Census Income Classification with Ludwig API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/master/docs/examples/adult_census_income_colab_notebooks/Adult_Census_Income_Classification_with_Ludwig_API.ipynb)
 
-## Download the Adult Census Income dataset
+## Download The Adult Census Income dataset
 
 [Adult Census Income](https://archive.ics.uci.edu/ml/datasets/adult) is an extract of 1994 Census data for predicting whether a person's income exceeds $50K per year.  The data set consists of over 49K records with 14 attributes with missing data.
 
@@ -40,7 +40,7 @@ The columns in the dataset are
 
 The Ludwig configuration file describes the machine learning task.  There is a vast array of options to control the learning process.  This example only covers a small fraction of the options.  Only the options used in this example are described.  Please refer to the [Configuration Section](../../configuration) for all the details.
 
-First ['preprocessing' section](../../configuration/preprocessing) defines the gloabl preprocessing options.  All [numeric features](../../configuration/features/number_features) are z-scored normalized, i.e., mean centered and scaled by the standard deviation.  Numeric missing values are filled in with the mean of non-missing values.
+First, the [defaults section](../../configuration/defaults) defines the [global preprocessing options](../../configuration/defaults#type-global-preprocessing). All [numeric features](../../configuration/features/number_features) are z-scored normalized, i.e., mean centered and scaled by the standard deviation.  Numeric missing values are filled in with the mean of non-missing values.
 
 The `input_features` section describes each of the predictor variables, i.e., the column name and type of input variable: [number](../../configuration/features/number_features) or [category](../../configuration/features/category_features/)
 
@@ -53,10 +53,11 @@ The last section in this configuration file describes options for how the the [`
 === "cli"
 
     ```yaml
-    preprocessing:
+    defaults:
       number:
-        normalization: zscore
-        missing_value_strategy: fill_with_mean
+        preprocessing:
+          normalization: zscore
+          missing_value_strategy: fill_with_mean
 
     input_features:
       - name: age
@@ -139,8 +140,14 @@ The last section in this configuration file describes options for how the the [`
                           'preprocessing': {'fallback_true_label': ' >50K'},
                           'loss': {'type': 'binary_weighted_cross_entropy'},
                           'type': 'binary'}],
-     'preprocessing': {'number': {'missing_value_strategy': 'fill_with_mean',
-                                  'normalization': 'zscore'}},
+     'defaults': {
+        'number': {
+          'preprocessing': {
+            'missing_value_strategy': 'fill_with_mean',
+            'normalization': 'zscore'
+          }
+        }
+     }
      'trainer': {'epochs': 10, 'optimizer': {'type': 'adam'}}}
 
     # instantiate Ludwig model object

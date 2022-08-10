@@ -159,5 +159,5 @@ example:
 Specifying a name of a non-existent input feature will result in an error. Also, in order to be able to have tied
 weights, all encoder parameters have to be identical between the two input features.
 
-It's also possible to specify encoder type and encoder related parameters for all features of a 
+It's also possible to specify encoder type and encoder related parameters for all features of a
 certain type. See [Type-Global Encoder](../defaults.md#type-global-encoder).

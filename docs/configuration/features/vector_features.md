@@ -120,7 +120,7 @@ These are the available parameters of the vector output feature.
 - `softmax` (default `false`): determines if to apply a softmax at the end of the decoder. It is useful for predicting a vector of values that sum up to 1 and can be interpreted as probabilities.
 - `loss` (default `{type: mean_squared_error}`): is a dictionary containing a loss `type`. The available loss `type` are `mean_squared_error`, `mean_absolute_error` and `softmax_cross_entropy` (use it only if `softmax` is `true`).
 
-Loss type and loss related parameters can also be defined once and applied to all vector output features using the [Type-Global Loss](../defaults.md#type-global-loss) section. 
+Loss type and loss related parameters can also be defined once and applied to all vector output features using the [Type-Global Loss](../defaults.md#type-global-loss) section.
 
 These are the available parameters of a vector output feature decoder.
 
@@ -134,7 +134,7 @@ These are the available parameters of a vector output feature decoder.
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `clip` (default `null`): If not `null` it specifies a minimum and maximum value the predictions will be clipped to. The value can be either a list or a tuple of length 2, with the first value representing the minimum and the second the maximum. For instance `(-5,5)` will make it so that all predictions will be clipped in the `[-5,5]` interval.
 
-Decoder type and decoder related parameters can also be defined once and applied to all vector output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section. 
+Decoder type and decoder related parameters can also be defined once and applied to all vector output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
 
 ## Vector Features Measures
 

@@ -6,9 +6,9 @@ The top-level `defaults` section specifies type-global:
 4. Loss
 
 Any configurations set in the `defaults` section apply to all features of that particular feature type.
-Any feature-specific `preprocessing` and `encoder` configurations will be applied to all input features 
+Any feature-specific `preprocessing` and `encoder` configurations will be applied to all input features
 of that feature type, while `decoder` and `loss` configurations will be applied to all output features
-of that feature type. 
+of that feature type.
 
 These parameters can be set for specific features through the [input feature configuration](../features/input_features#preprocessing) or [output feature configuration](../features/output_features#decoders).
 
@@ -65,7 +65,7 @@ defaults:
 
 The preprocessing parameters that each data type accepts can be found in [datatype-specific documentation](../features/supported_data_types).
 
-Note that different features with the same datatype may require different preprocessing. Type-global preprocessing works 
+Note that different features with the same datatype may require different preprocessing. Type-global preprocessing works
 in tandem with feature-specific preprocessing configuration parameters, which override the global settings.
 
 For example, a document classification model may have two text input features, one for the title of the document and one for the body.

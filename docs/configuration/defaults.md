@@ -6,9 +6,9 @@ The top-level `defaults` section specifies type-global:
 4. Loss
 
 Any configurations set in the `defaults` section apply to all features of that particular feature type.
-Any feature-specific `preprocessing` and `encoder` configurations will be applied to all input features 
+Any feature-specific `preprocessing` and `encoder` configurations will be applied to all input features
 of that feature type, while `decoder` and `loss` configurations will be applied to all output features
-of that feature type. 
+of that feature type.
 
 These parameters can be set for specific features through the [input feature configuration](../features/input_features#preprocessing) or [output feature configuration](../features/output_features#decoders).
 
@@ -50,7 +50,7 @@ defaults:
 Each of the sections `preprocessing`, `encoder`, `decoder` and `loss` are optional so you can
 define one or more as you need.
 
-## Type-Global Preprocessing
+### Type-Global Preprocessing
 
 Specify preprocessing policies that apply globally across all input features of a
 certain data type. For example:
@@ -65,7 +65,7 @@ defaults:
 
 The preprocessing parameters that each data type accepts can be found in [datatype-specific documentation](../features/supported_data_types).
 
-Note that different features with the same datatype may require different preprocessing. Type-global preprocessing works 
+Note that different features with the same datatype may require different preprocessing. Type-global preprocessing works
 in tandem with feature-specific preprocessing configuration parameters, which override the global settings.
 
 For example, a document classification model may have two text input features, one for the title of the document and one for the body.
@@ -94,7 +94,7 @@ defaults:
             most_common_word: 10000
 ```
 
-### Tokenizers
+#### Tokenizers
 
 Sequence, text, and set features tokenize features as part of preprocessing. There are several tokenization options that can be specified:
 
@@ -129,7 +129,7 @@ python -m spacy download <language_code>
 and provide `<language>_<function>` as `tokenizer` like: `english_tokenizer`, `italian_lemmatize_filter`, `multi_tokenize_filter` and so on.
 More details on the models can be found in the [spaCy documentation](https://spacy.io/models).
 
-## Type-Global Encoder
+### Type-Global Encoder
 
 Specify the encoder type and encoder related parameters across all input features of a
 certain data type. For example:
@@ -145,7 +145,7 @@ defaults:
 
 The encoder types and parameters that each data type accepts can be found in [datatype-specific documentation](../features/supported_data_types).
 
-## Type-Global Decoder
+### Type-Global Decoder
 
 Specify the decoder type and decoder related parameters across all output features of a
 certain data type. For example:
@@ -161,7 +161,7 @@ defaults:
 
 The decoder types and parameters that each data type accepts can be found in [datatype-specific documentation](../features/supported_data_types).
 
-## Type-Global Loss
+### Type-Global Loss
 
 Specify the loss type and loss related parameters across all output features of a
 certain data type. For example:
@@ -176,7 +176,7 @@ defaults:
 
 The loss types and parameters that each data type accepts can be found in [datatype-specific documentation](../features/supported_data_types).
 
-## Full Defaults Example
+## Defaults Example
 
 Following is a full example of a Ludwig configuration with type-global defaults.
 

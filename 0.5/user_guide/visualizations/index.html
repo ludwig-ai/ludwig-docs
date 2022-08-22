@@ -2862,7 +2862,7 @@
   <h1>Visualizations</h1>
 
 <h2 id="visualize-command">Visualize Command<a class="headerlink" href="#visualize-command" title="Permanent link">&para;</a></h2>
-<p>Several visualization can be obtained from the result files from both <code>train</code>, <code>predict</code> and <code>experiment</code> by using the
+<p>Several visualizations can be obtained from the result files from both <code>train</code>, <code>predict</code> and <code>experiment</code> by using the
 <code>ludwig visualize</code> command.
 The command has several parameters, but not all the visualizations use all of them.
 Let's first present the parameters of the general script, and then, for each available visualization, we will discuss about the specific parameters needed and what visualization they produce.</p>
@@ -3530,7 +3530,7 @@ others to be a false one, drawing the distribution for each model (in the aligne
 </ul>
 <p><code>output_feature_name</code> must name a category feature.
 For each class, produces two plots computed from the probabilities of predictions for the specified <code>output_feature_name</code>.</p>
-<p>The first plot is a calibration curve that shows the calibration of the predictions considering al classes, drawing one
+<p>The first plot is a calibration curve that shows the calibration of the predictions considering all classes, drawing one
 line for each model (in the aligned lists of <code>probabilities</code> and <code>model_names</code>).</p>
 <p><img alt="Calibration Multiclass Curve" src="../../images/calibration_multiclass_curve.png" title="Calibration Multiclass Curve" /></p>
 <p>The second plot shows a bar plot of the Brier score (which calculates how calibrated are the probabilities of the
@@ -3557,7 +3557,7 @@ The orange one is the frequency of the class and an orange line is plotted to sh
 The blue one is the F1 score for that class and a blue line is plotted to show the trend.
 The classes on the x axis are sorted by F1 score.</p>
 <p><img alt="Frequency vs F1 sorted by F1" src="../../images/freq_vs_f1_sorted_f1.png" title="Frequency vs F1 sorted by F1" /></p>
-<p>The second plot has the same structure of the first one, but the axes are flipped and the classes on the x axis are sorted by frequency.</p>
+<p>The second plot has the same structure as the first one, but the axes are flipped and the classes on the x axis are sorted by frequency.</p>
 <p><img alt="Frequency vs F1 sorted by Frequency" src="../../images/freq_vs_f1_sorted_freq.png" title="Frequency vs F1 sorted by Frequency" /></p>
 <h3 id="hyperparameter-optimization-visualization">Hyperparameter optimization visualization<a class="headerlink" href="#hyperparameter-optimization-visualization" title="Permanent link">&para;</a></h3>
 <p>The examples of the hyperparameter visualizations shown here are obtained by running a random search with 100 samples

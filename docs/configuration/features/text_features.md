@@ -1060,7 +1060,7 @@ Hugging Face transformers package. MT5 is a multilingual variant of T5 trained o
 #### XLM Encoder
 
 The `xlm` encoder loads a pretrained [XLM](https://arxiv.org/abs/1901.07291) (default `xlm-mlm-en-2048`) model using the
-Hugging Face transformers package. Pre-trained by cross-langauge modeling.
+Hugging Face transformers package. Pre-trained by cross-language modeling.
 
 #### XLM-RoBERTa Encoder
 

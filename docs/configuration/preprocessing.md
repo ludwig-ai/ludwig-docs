@@ -112,7 +112,7 @@ preprocessing:
 ```
 
 *Note: Dataset balancing is only supported for binary output features currently, we are working to add category support 
-in future releases.* <br/>
+in future releases.*\
 *Note: Specifying both oversampling and undersampling parameters simultaneously is not supported.*
 
 ### Sample Ratio

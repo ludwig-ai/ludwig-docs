@@ -110,7 +110,7 @@ preprocessing:
     undersample_majority: 0.7
 ```
 
-*Note: Dataset balancing is only supported for binary output features currently, we are working to add category support 
+*Note: Dataset balancing is only supported for binary output features currently, we are working to add category support
 in future releases.*\
 *Note: Specifying both oversampling and undersampling parameters simultaneously is not supported.*
 

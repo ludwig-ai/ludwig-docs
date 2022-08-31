@@ -2456,6 +2456,9 @@ followed by a projection into a vector of size of the number of available classe
 <li><code>reduce_input</code> (default <code>sum</code>): defines how to reduce an input that is not a vector, but a matrix or a higher order
 tensor, on the first dimension (second if you count the batch dimension). Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>,
 <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension).</li>
+<li><code>calibration</code> (default <code>false</code>): if true, performs calibration by temperature scaling after training is complete.
+Calibration uses the validation set to find a scale factor (temperature) which is multiplied with the logits to shift
+output probabilities closer to true likelihoods.</li>
 <li><code>dependencies</code> (default <code>[]</code>): the output features this one is dependent on. For a detailed explanation refer to
 <a href="../output_features#output-feature-dependencies">Output Features Dependencies</a>.</li>
 <li><code>reduce_dependencies</code> (default <code>sum</code>): defines how to reduce the output of a dependent feature that is not a vector,

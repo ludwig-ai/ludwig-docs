@@ -56,13 +56,13 @@ Here is the list of the currently available datasets:
 | ----------------------------------------- | --------------------- | ------------------------------------------------------------------------------------------------ |
 | adult_census_income                       | archive.ics.uci.edu   | <https://archive.ics.uci.edu/ml/datasets/adult>. Whether a person makes over $50K a year or not. |
 | allstate_claims_severity                  | Kaggle                | <https://www.kaggle.com/c/allstate-claims-severity>                                              |
-| amazon_employee_access_challenge                  | Kaggle                | <https://www.kaggle.com/c/amazon-employee-access-challenge>                                              |
+| amazon_employee_access_challenge          | Kaggle                | <https://www.kaggle.com/c/amazon-employee-access-challenge>                                              |
 | agnews                                    | Github                | <https://search.r-project.org/CRAN/refmans/textdata/html/dataset_ag_news.html>                   |
 | amazon_review_polarity                    | S3                    | <https://paperswithcode.com/sota/sentiment-analysis-on-amazon-review-polarity>                   |
 | amazon_reviews                            | S3                    | <https://s3.amazonaws.com/amazon-reviews-pds/readme.html>                                        |
 | ames_housing                              | Kaggle                | <https://www.kaggle.com/c/ames-housing-data>                                                     |
 | connect4                                  | Kaggle                | <https://www.kaggle.com/c/connectx/discussion/124397>                                            |
-| creditcard_fraud                                  | Kaggle                | <https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud>                                            |
+| creditcard_fraud                          | Kaggle                | <https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud>                                            |
 | dbpedia                                   | S3                    | <https://paperswithcode.com/dataset/dbpedia>                                                     |
 | electricity                               | S3                    | Predict electricity demand from day of week and outside temperature.                             |
 | ethos_binary                              | Github                | <https://github.com/huggingface/datasets/blob/master/datasets/ethos/README.md>                   |
@@ -81,7 +81,7 @@ Here is the list of the currently available datasets:
 | mnist                                     | yann.lecun.com        | <http://yann.lecun.com/exdb/mnist/>                                                              |
 | mushroom_edibility                        | archive.ics.uci.edu   | <https://archive.ics.uci.edu/ml/datasets/mushroom>                                               |
 | naval                                     | archive.ics.uci.edu   | <https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/24098>                 |
-| noshow_appointments                                     | Kaggle   | <https://www.kaggle.com/datasets/joniarroba/noshowappointments>                 |
+| noshow_appointments                       | Kaggle                | <https://www.kaggle.com/datasets/joniarroba/noshowappointments>                     |
 | numerai28pt6                              | Kaggle                | <https://www.kaggle.com/numerai/encrypted-stock-market-data-from-numerai>                        |
 | ohsumed                                   | boston.lti.cs.cmu.edu | <https://paperswithcode.com/dataset/ohsumed>                                                     |
 | otto_group_product                        | Kaggle                | <https://www.kaggle.com/c/otto-group-product-classification-challenge>                           |

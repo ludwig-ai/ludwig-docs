@@ -6,11 +6,39 @@ The top-level `defaults` section specifies type-global:
 4. Loss
 
 Any configurations set in the `defaults` section apply to all features of that particular feature type.
-Any feature-specific `preprocessing` and `encoder` configurations will be applied to all input features
+Any default `preprocessing` and `encoder` configurations will be applied to all input features
 of that feature type, while `decoder` and `loss` configurations will be applied to all output features
 of that feature type.
 
-These parameters can be set for specific features through the [input feature configuration](../features/input_features#preprocessing) or [output feature configuration](../features/output_features#decoders).
+These parameters can be set for individual features through the
+[input feature configuration](../features/input_features#preprocessing) or
+[output feature configuration](../features/output_features#decoders).
+
+!!! Note
+    **Feature-specific configurations override global defaults**: When a parameter is defined for a
+    specific feature and also modified via defaults, the feature specific configuration overrides
+    the value set in the defaults section for that particular parameter.
+
+```yaml
+input_features:
+  - 
+    name: title
+    type: text
+    preprocessing:
+        most_common: 10
+  - 
+    name: summary
+    type: text
+....
+defaults:
+    text:
+        preprocessing:
+            most_common: 100
+```
+
+In the example config above, the `most_common` preprocessing value for `title` will be
+set to 10 instead of taking on the default value of 100, while `summary` will now have its
+`most_common` preprocessing value set to 100.
 
 ## Defining Defaults
 
@@ -66,7 +94,7 @@ defaults:
 The preprocessing parameters that each data type accepts can be found in [datatype-specific documentation](../features/supported_data_types).
 
 Note that different features with the same datatype may require different preprocessing. Type-global preprocessing works
-in tandem with feature-specific preprocessing configuration parameters, which override the global settings.
+in tandem with feature-specific preprocessing configuration parameters, however, feature-specific configurations override the global settings.
 
 For example, a document classification model may have two text input features, one for the title of the document and one for the body.
 
@@ -78,16 +106,16 @@ dictionary containing the desired parameter and value.
 
 ```yaml
 input_features:
-    -   
-        name: title
-        type: text
-        preprocessing:
-            word_length_limit: 20
-    -   
-        name: body
-        type: text
-        preprocessing:
-            word_length_limit: 2000
+  -   
+    name: title
+    type: text
+    preprocessing:
+        word_length_limit: 20
+  -   
+    name: body
+    type: text
+    preprocessing:
+        word_length_limit: 2000
 defaults:
     text:
         preprocessing:
@@ -132,7 +160,8 @@ More details on the models can be found in the [spaCy documentation](https://spa
 ### Type-Global Encoder
 
 Specify the encoder type and encoder related parameters across all input features of a
-certain data type. For example:
+certain data type. This encoder will be shared across all features of this particular
+feature type. For example:
 
 ```yaml
 defaults:
@@ -143,7 +172,13 @@ defaults:
             num_filters: 512
 ```
 
-The encoder types and parameters that each data type accepts can be found in [datatype-specific documentation](../features/supported_data_types).
+!!! Note
+    The encoder `type` is a required parameter when defining a default encoder for a feature type or
+    changing the default value for a parameter for the encoder, since the parameters are tied to
+    specific encoders. Only one default encoder can be defined for all features of that particular type.
+
+The encoder types and parameters that each data type accepts can be found in
+[datatype-specific documentation](../features/supported_data_types).
 
 ### Type-Global Decoder
 
@@ -158,6 +193,11 @@ defaults:
             output_size: 128
             bias_initializer: he_normal
 ```
+
+!!! Note
+    The decoder `type` is a required parameter when defining a default decoder for a feature type or
+    changing the default value for a parameter for the decoder, since the parameters are tied to
+    specific decoders. Only one default decoder can be defined for all features of that particular type.
 
 The decoder types and parameters that each data type accepts can be found in [datatype-specific documentation](../features/supported_data_types).
 

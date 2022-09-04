@@ -46,13 +46,13 @@ etc. See the full list of support feature types [here](../configuration/features
 - `subsection`: One of `preprocessing`, `encoder`, `decoder` or `loss`, the 4 sections that can be modified via the
 Ludwig defaults section
 - `parameter`: A valid parameter belonging to the `subsection`. For e.g., `most_common` is a valid parameter for the
-`preprocessing` section for `text` feature type
+`preprocessing` sub-section for `text` feature types
 
 For each hyperopt trial, a value will be sampled from the parameter space and applied to either input features
 (`preprocessing` or `encoder` related parameters) or output features (`decoder` or `loss` related parameters) of
 that feature type. Additionally, parameters defined for individual features (like `title.preprocessing.most_common`)
 will take precedence over default parameters (like `defaults.text.preprocessing.most_common`) if they share the
-same type and parameter and both parameters are defined in the Ludwig hyperopt config.
+same feature type and parameter and both parameters are defined in the Ludwig hyperopt config.
 
 ```yaml title="config.yaml"
 ...

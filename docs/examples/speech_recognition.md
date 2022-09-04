@@ -49,7 +49,26 @@ input_features:
     -
         name: audio_path
         type: audio
-        encoder: stacked_cnn
+        encoder: 
+            type: stacked_cnn
+            reduce_output: concat
+            conv_layers:
+                -
+                    num_filters: 16
+                    filter_size: 6
+                    pool_size: 4
+                    pool_stride: 4
+                    dropout: 0.4
+                -
+                    num_filters: 32
+                    filter_size: 3
+                    pool_size: 2
+                    pool_stride: 2
+                    dropout: 0.4
+            fc_layers:
+                -
+                    output_size: 64
+                    dropout: 0.4
         preprocessing:
             audio_feature:
                 type: fbank
@@ -58,24 +77,6 @@ input_features:
                 num_filter_bands: 80
             audio_file_length_limit_in_s: 1.0
             norm: per_file
-        reduce_output: concat
-        conv_layers:
-            -
-                num_filters: 16
-                filter_size: 6
-                pool_size: 4
-                pool_stride: 4
-                dropout: 0.4
-            -
-                num_filters: 32
-                filter_size: 3
-                pool_size: 2
-                pool_stride: 2
-                dropout: 0.4
-        fc_layers:
-            -
-                output_size: 64
-                dropout: 0.4
 
 output_features:
     -

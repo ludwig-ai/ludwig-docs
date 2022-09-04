@@ -31,9 +31,9 @@ Recall Ludwig's butterfly framework:
 ![img](../../images/butterfly.png)
 
 Instead of having `encoders`, output features have `decoders`. All the other parameters besides `name` and `type` will
-be passed as parameters to the function that builds the output feature's decoder, and each decoder can have different
-parameters. Extensive documentation for all of the decoders that can be used for a certain data type can be found in
-[each data type's documentation](../features/supported_data_types.md).
+be passed as parameters to the decoder subsection which dictates how to build the output feature's decoder. Like
+encoders, each decoder can also have different parameters, so we have extensive documentation for each decoder that can
+be used for a certain data type. This can be found in [each data type's documentation](../features/supported_data_types.md).
 
 === "YAML"
 
@@ -42,10 +42,11 @@ parameters. Extensive documentation for all of the decoders that can be used for
         -
             name: french
             type: text
-            decoder: generator
-            cell_type: lstm
-            num_layers: 2
-            max_sequence_length: 256
+            decoder: 
+                type: generator
+                cell_type: lstm
+                num_layers: 2
+                max_sequence_length: 256
     ```
 
 === "Python Dict"
@@ -56,10 +57,12 @@ parameters. Extensive documentation for all of the decoders that can be used for
             {
                 "name": "french",
                 "type": "text",
-                "decoder": "generator",
-                "cell_type": "lstm",
-                "num_layers": 2,
-                "max_sequence_length": 256
+                "decoder": {
+                    "type": "generator",
+                    "cell_type": "lstm",
+                    "num_layers": 2,
+                    "max_sequence_length": 256
+                }
             }
         ]
     }
@@ -150,15 +153,17 @@ Output feature dependencies are declared in the feature definition. For example:
         -
             name: coarse_class
             type: category
-            num_fc_layers: 2
-            output_size: 64
+            decoder:
+                num_fc_layers: 2
+                output_size: 64
         -
             name: fine_class
             type: category
             dependencies:
                 - coarse_class
-            num_fc_layers: 1
-            output_size: 64
+            decoder:
+                num_fc_layers: 1
+                output_size: 64
     ```
 
 === "Python Dict"
@@ -169,8 +174,10 @@ Output feature dependencies are declared in the feature definition. For example:
             {
                 "name": "coarse_class",
                 "type": "category",
-                "num_fc_layers": 2,
-                "output_size": 64
+                "decoder": {
+                    "num_fc_layers": 2,
+                    "output_size": 64
+                }
             },
             {
                 "name": "fine_class",
@@ -178,8 +185,10 @@ Output feature dependencies are declared in the feature definition. For example:
                 "dependencies": [
                     "coarse_class"
                 ],
-                "num_fc_layers": 1,
-                "output_size": 64
+                "decoder": {
+                    "num_fc_layers": 1,
+                    "output_size": 64
+                }
             }
         ]
     }

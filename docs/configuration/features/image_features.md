@@ -144,13 +144,30 @@ Preprocessing parameters can also be defined once and applied to all image input
 
 # Image Input Features and Encoders
 
-The default encoder is `stacked_cnn`.
+The encoder parameters specified at the feature level are:
+
+- `tied` (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
+a feature of the same type and with the same encoder parameters.
+
+Example image feature entry in the input features list:
+
+```yaml
+name: category_column_name
+type: category
+tied: null
+encoder: 
+    type: dense
+```
+
+The available encoder parameters are:
+
+- `type` (default `stacked_cnn`): the possible values are `stacked_cnn`, `resnet`, `mlp_mixer`, and `vit`.
 
 Encoder type and encoder parameters can also be defined once and applied to all image input features using the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
 ## Convolutional Stack Encoder (`stacked_cnn`)
 
-Stack of 2D convolutional layers with optional normalization, dropout, and downsampling pooling layers, followed by an
+Stack of 2D convolutional layers with optional normalization, dropout, and down-sampling pooling layers, followed by an
 optional stack of fully connected layers.
 
 Convolutional Stack Encoder takes the following optional parameters:
@@ -373,29 +390,30 @@ Example image feature config using a convolutional stack encoder:
 ```yaml
 name: image_column_name
 type: image
-encoder: stacked_cnn
-conv_layers: null
-num_conv_layers: null
-kernel_size: 3
-out_channels: 256
-padding: valid
-conv_use_bias: true
-conv_norm: batch
-conv_activation: relu
-conv_dropout: 0
-pool_function: max
-num_fc_layers: 1
-output_size: 256
-fc_use_bias: true
-fc_weights_initializer: xavier_uniform
-fc_bias_initializer: zeros
-fc_norm: batch
-fc_activation: relu
-fc_dropout: 0
 preprocessing:  # example pre-processing
     height: 32
     width: 32
     num_channels: 1
+encoder: 
+    type: stacked_cnn
+    conv_layers: null
+    num_conv_layers: null
+    kernel_size: 3
+    out_channels: 256
+    padding: valid
+    conv_use_bias: true
+    conv_norm: batch
+    conv_activation: relu
+    conv_dropout: 0
+    pool_function: max
+    num_fc_layers: 1
+    output_size: 256
+    fc_use_bias: true
+    fc_weights_initializer: xavier_uniform
+    fc_bias_initializer: zeros
+    fc_norm: batch
+    fc_activation: relu
+    fc_dropout: 0
 ```
 
 ## ResNet Encoder
@@ -426,8 +444,7 @@ instead.
 - `weights_initializer` (default `xavier_uniform`): initializer for the weights matrix. Options are: `constant`,
 `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
 `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
-Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
-keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
+To see the parameters of each initializer, please
 refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
 - `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`,
 `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`,
@@ -449,26 +466,27 @@ Example image input feature config using a ResNet encoder:
 ```yaml
 name: image_column_name
 type: image
-encoder: resnet
-resnet_size: 50
-num_filters: 16
-kernel_size: 3
-conv_stride: 1
-batch_norm_momentum: 0.9
-batch_norm_epsilon: 0.001
-num_fc_layers: 1
-output_size: 256
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-norm: null
-norm_params: null
-activation: relu
-dropout: 0
 preprocessing:
     height: 224
     width: 224
     num_channels: 3
+encoder: 
+    type: resnet
+    resnet_size: 50
+    num_filters: 16
+    kernel_size: 3
+    conv_stride: 1
+    batch_norm_momentum: 0.9
+    batch_norm_epsilon: 0.001
+    num_fc_layers: 1
+    output_size: 256
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    norm: null
+    norm_params: null
+    activation: relu
+    dropout: 0
 ```
 
 ### MLP-Mixer Encoder
@@ -495,18 +513,19 @@ Example image feature config using an MLP-Mixer encoder:
 ```yaml
 name: image_column_name
 type: image
-encoder: mlp_mixer
-patch_size: 16
-embed_size: 512
-token_size: 2048
-channel_dim: 256
-num_layers: 8
-dropout: 0.0
-avg_pool: True
 preprocessing:
     height: 64
     width: 64
     num_channels: 3
+encoder:
+    type: mlp_mixer
+    patch_size: 16
+    embed_size: 512
+    token_size: 2048
+    channel_dim: 256
+    num_layers: 8
+    dropout: 0.0
+    avg_pool: True
 ```
 
 ### Vision Transformer Encoder
@@ -531,7 +550,7 @@ encoder.
 - `hidden_dropout_prob` (default `0.1`): The dropout rate for all fully connected layers in the embeddings, encoder, and
 pooling.
 - `attention_probs_dropout_prob` (default `0.1`): The dropout rate for the attention probabilities.
-- `initializer_range` (default `768`): The standard deviation of the truncated_normal_initializer for initializing all
+- `initializer_range` (default `0.02`): The standard deviation of the truncated_normal_initializer for initializing all
 weight matrices.
 - `layer_norm_eps` (default `1e-12`): The epsilon used by the layer normalization layers.
 - `gradient_checkpointing` (default `false`):
@@ -544,12 +563,13 @@ Example image feature config using an MLP-Mixer encoder:
 ```yaml
 name: image_column_name
 type: image
-encoder: vit
-use_pretrained: true
 preprocessing:
     height: 128
     width: 128
     num_channels: 3
+encoder: 
+    type: vit
+    use_pretrained: true
 ```
 
 # Image Output Features and Decoders

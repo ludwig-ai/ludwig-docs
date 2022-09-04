@@ -13,6 +13,21 @@ Time series features don't have an embedding layer at the beginning, so the `b x
 size and `s` is the sequence length) are directly mapped to a `b x s x 1` tensor and then passed to the different
 sequential encoders.
 
+The encoder parameters specified at the feature level are:
+
+- `tied` (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
+a feature of the same type and with the same encoder parameters.
+
+Example category feature entry in the input features list:
+
+```yaml
+name: timeseries_column_name
+type: timeseries
+tied: null
+encoder: 
+    type: parallel_cnn
+```
+
 ## Time Series Output Features and Decoders
 
 There are no time series decoders at the moment.

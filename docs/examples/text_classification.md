@@ -78,7 +78,8 @@ Here, for simplicity, we'll try to predict **class** from **title**.
         -
             name: title
             type: text
-            encoder: parallel_cnn
+            encoder: 
+                type: parallel_cnn
     output_features:
         -
             name: class
@@ -97,8 +98,9 @@ Here, for simplicity, we'll try to predict **class** from **title**.
         {
           "name": "title",            # The name of the input column
           "type": "text",             # Data type of the input column
-          "encoder": "parallel_cnn",  # The model architecture we should use for
-                                      # encoding this column
+          "encoder": {
+                "type": "parallel_cnn"
+           }                          # The model architecture we should use for encoding this column
         }
       ],
       "output_features": [

@@ -47,13 +47,21 @@ For example, the date `2022-06-25 09:30:59` would be deconstructed into:
 ]
 ```
 
+The encoder parameters specified at the feature level are:
+
+- `tied` (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
+a feature of the same type and with the same encoder parameters.
+
 Currently there are two encoders supported for dates: `DateEmbed` (default) and `DateWave`. The encoder can be set by
 specifying `embed` or `wave` in the feature's `encoder` parameter in the input feature's configuration.
+
+Example date feature entry in the input features list:
 
 ```yaml
 name: date_feature_name
 type: date
-encoder: embed
+encoder: 
+    type: embed
 ```
 
 Encoder type and encoder parameters can also be defined once and applied to all date input features using the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
@@ -63,19 +71,20 @@ Encoder type and encoder parameters can also be defined once and applied to all 
 ```yaml
 name: date_column_name
 type: date
-encoder: embed
-embedding_size: 10
-embeddings_on_cpu: false
-fc_layers: null
-num_fc_layers: 0
-output_size: 10
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-norm: null
-norm_params: null
-activation: relu
-dropout: 0
+encoder: 
+    type: embed
+    embedding_size: 10
+    embeddings_on_cpu: false
+    fc_layers: null
+    num_fc_layers: 0
+    output_size: 10
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    norm: null
+    norm_params: null
+    activation: relu
+    dropout: 0
 ```
 
 This encoder passes the year through a fully connected layer of one neuron and embeds all other elements for the date,
@@ -119,17 +128,18 @@ or for `layer` see [Torch's documentation on layer normalization](https://pytorc
 ```yaml
 name: date_column_name
 type: date
-encoder: wave
-fc_layers: null
-num_fc_layers: 0
-output_size: 10
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-norm: null
-norm_params: null
-activation: relu
-dropout: 0
+encoder: 
+    type: wave
+    fc_layers: null
+    num_fc_layers: 0
+    output_size: 10
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    norm: null
+    norm_params: null
+    activation: relu
+    dropout: 0
 ```
 
 This encoder passes the year through a fully connected layer of one neuron and represents all other elements for the

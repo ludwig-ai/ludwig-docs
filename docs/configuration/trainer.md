@@ -273,21 +273,28 @@ By default, the ECD trainer is used.
 
 The length of the training process is configured by:
 
-* `epochs` (default: 100): One epoch is one pass through the entire dataset. By
-    default, `epochs` is 100 which means that the training process will run for
-    a maximum of 100 epochs before terminating.
-* `train_steps` (default: `None`): The maximum number of steps to train for,
-    using one mini-batch per step. By default this is unset, and `epochs` will
-    be used to determine training length.
+=== "ECD"
+    - `epochs` (default: 100): One epoch is one pass through the entire dataset. By
+        default, `epochs` is 100 which means that the training process will run for
+        a maximum of 100 epochs before terminating.
+    - `train_steps` (default: `None`): The maximum number of steps to train for,
+        using one mini-batch per step. By default this is unset, and `epochs` will
+        be used to determine training length.
 
-!!! tip
+    !!! tip
 
-    In general, it's a good idea to set up a long training runway, relying on
-    early stopping criteria (`early_stop`) to stop training when there
-    hasn't been any improvement for a long time.
+        In general, it's a good idea to set up a long training runway, relying on
+        early stopping criteria (`early_stop`) to stop training when there
+        hasn't been any improvement for a long time.
+
+=== "GBM"
+    - `num_boost_round` (default: 100): The number of boosting iterations. By default,
+        `num_boost_round` is 100 which means that the training process will run for
+        a maximum of 100 boosting iterations before terminating.
 
 # Configuring checkpoint and evaluation frequency
 
+=== "ECD"
 Evaluation is run every time the model is checkpointed.
 
 By default, checkpoint-evaluation will occur once every epoch.
@@ -336,6 +343,8 @@ training set.
     training throughput and efficiency.
 
 ## Increase batch size
+
+=== "ECD"
 
 Users training on GPUs can often increase training throughput by increasing
 the `batch_size` so that more examples are computed every training step. Set

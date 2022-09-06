@@ -5,8 +5,9 @@ model_type: ecd
 input_features: []
 combiner: {}
 output_features: []
-trainer: {}
 preprocessing: {}
+defaults: {}
+trainer: {}
 hyperopt: {}
 ```
 

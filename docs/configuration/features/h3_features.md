@@ -17,6 +17,8 @@ The parameters for preprocessing are:
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in an H3 column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
 - `fill_value` (default `576495936675512319`): the value to replace the missing values with in case the `missing_value_strategy` is `fill_with_const`. This is a 64bit integer compatible with the H3 bit layout. The default value encodes mode 1, edge 0, resolution 0, base_cell 0.
 
+Preprocessing parameters can also be defined once and applied to all H3 input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
+
 ## H3 Input Features and Encoders
 
 Input H3 features are transformed into a int valued tensors of size `N x 19` (where `N` is the size of the dataset and the 19 dimensions
@@ -40,6 +42,9 @@ encoder:
 The available encoder parameters are:
 
 - `type` (default ``H3Embed``): the possible values are `H3Embed`, `H3WeightedSum`,  and `H3RNN`.
+
+Encoder type and encoder parameters can also be defined once and applied to all H3 input features using
+the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
 ### Embed Encoder
 

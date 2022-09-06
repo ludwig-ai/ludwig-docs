@@ -8,10 +8,10 @@ most rare (with 0 assigned to the special unknown placeholder token `<UNK>`).
 The column name is added to the JSON file, with an associated dictionary containing
 
 1. the mapping from integer to string (`idx2str`)
-1. the mapping from string to id (`str2idx`)
-1. the mapping from string to frequency (`str2freq`)
-1. the size of the set of all tokens (`vocab_size`)
-1. additional preprocessing information (by default how to fill missing values and what token to use to fill missing values)
+2. the mapping from string to id (`str2idx`)
+3. the mapping from string to frequency (`str2freq`)
+4. the size of the set of all tokens (`vocab_size`)
+5. additional preprocessing information (by default how to fill missing values and what token to use to fill missing values)
 
 The parameters available for preprocessing are
 
@@ -23,8 +23,22 @@ in the column), `fill_with_mean` (replaces the missing values with the mean of t
 - `fill_value` (default `<UNK>`): the value to replace missing values with when `missing_value_strategy` is
 `fill_with_const`.
 - `lowercase` (default `false`): if the string has to be lowercased before being handled by the tokenizer.
-- `most_common` (default `10000`): the maximum number of most common tokens to be considered. if the data contains more
+- `most_common` (default `10000`): the maximum number of most common tokens to be considered. If the data contains more
 than this amount, the most infrequent tokens will be treated as unknown.
+
+Configuration example:
+
+```yaml
+name: color
+type: category
+preprocessing:
+    missing_value_strategy: fill_with_const
+    fill_value: <UNK>
+    lowercase: false
+    most_common: 10000
+```
+
+Preprocessing parameters can also be defined once and applied to all category input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 
 ## Category Input Features and Encoders
 
@@ -52,6 +66,9 @@ The available encoder parameters are:
 
 - `type` (default `dense`): the possible values are `passthrough`, `dense` and `sparse`. `passthrough` outputs the
 raw integer values unaltered. `dense` randomly initializes a trainable embedding matrix, `sparse` uses one-hot encoding.
+
+Encoder type and encoder parameters can also be defined once and applied to all category input features using
+the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
 ### Dense Encoder
 
@@ -150,6 +167,8 @@ the only supported loss type for category output features.
 measure. It computes accuracy but considering as a match if the true category appears in the first `k` predicted
 categories ranked by decoder's confidence.
 
+Decoder type and decoder parameters can also be defined once and applied to all category output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
+
 These are the `loss` parameters
 
 - `confidence_penalty` (default `0`): penalizes overconfident predictions (low entropy) by adding an additional term
@@ -170,6 +189,8 @@ be included too).
 row of `class_similarities`. The output of that softmax is used to determine the supervision vector to provide instead
 of the one hot vector that would be provided otherwise for each datapoint. The intuition behind it is that errors
 between similar classes are more tolerable than errors between really different classes.
+
+Loss and loss related parameters can also be defined once and applied to all category output features using the [Type-Global Loss](../defaults.md#type-global-loss) section.
 
 These are the available parameters of a category output feature decoder
 

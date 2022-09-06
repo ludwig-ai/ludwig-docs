@@ -78,6 +78,9 @@ losses.
 Details about the available decoders and losses alongside with the description of all parameters is provided in
 datatype-specific documentation.
 
+It's also possible to specify decoder type and decoder related parameters for all features of a
+certain type. See [Type-Global Decoder](../defaults.md#type-global-decoder).
+
 # Multi-task Learning
 
 In most machine learning tasks you want to predict only one target variable, but in Ludwig users are empowered to

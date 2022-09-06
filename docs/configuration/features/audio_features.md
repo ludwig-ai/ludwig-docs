@@ -30,6 +30,8 @@ Preprocessing parameters:
 - `window_type`: (default `hamming`): Defines the type window the signal is weighted before the short time Fourier transformation. Current supported options are: (`bartlett`, `blackman`, `hamming`, and `hann`). For more information on these window types, check out [scipy’s window function](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.get_window.html) (only needed if `type != raw`).
 - `num_filter_bands`: Defines the number of filters used in the filterbank (only needed if `type == fbank`).
 
+Preprocessing parameters can also be defined once and applied to all audio input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
+
 ## Audio Input Features and Encoders
 
 Audio files are transformed into one of the following types according to `type` under the `preprocessing` configuration.
@@ -57,6 +59,8 @@ encoder:
 ```
 
 Audio feature encoders are the same as for [Sequence Features](../sequence_features#sequence-input-features-and-encoders).
+
+Encoder type and encoder parameters can also be defined once and applied to all audio input features using the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
 ## Audio Output Features and Decoders
 

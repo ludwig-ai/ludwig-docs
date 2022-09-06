@@ -24,6 +24,8 @@ parameter). The special value `backfill` replaces the missing values with the ne
 - `datetime_format` (default `null`): this parameter can either be a datetime format string, or `null`, in which case
 the datetime format will be inferred automatically.
 
+Preprocessing parameters can also be defined once and applied to all date input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
+
 ## Date Input Features and Encoders
 
 Input date features are transformed into a int tensors of size `N x 9` (where `N` is the size of the dataset and the 9
@@ -61,6 +63,8 @@ type: date
 encoder: 
     type: embed
 ```
+
+Encoder type and encoder parameters can also be defined once and applied to all date input features using the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
 ### Embed Encoder
 

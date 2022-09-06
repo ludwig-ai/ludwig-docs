@@ -151,8 +151,8 @@ preprocessing:
 ```
 
 !!! warning
-    Dataset balancing is only supported for binary output features currently, we
-    are working to add category support in a future release.
+    Dataset balancing is **only supported for binary output features** currently.
+    We are working to add category support in a future release.
 
 !!! note
     Specifying both oversampling and undersampling parameters simultaneously is
@@ -173,3 +173,8 @@ you could specify a config like this:
 preprocessing:
     sample_ratio: 0.3
 ```
+
+## Feature-specific preprocessing
+
+To configure feature-specific preprocessing, please check
+[datatype-specific documentation](../features/supported_data_types).

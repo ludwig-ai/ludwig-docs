@@ -49,6 +49,8 @@ preprocessing:
     fill_value: ""
 ```
 
+Preprocessing parameters can also be defined once and applied to all text input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
+
 !!! note
     If a text feature's encoder specifies a huggingface model, then the tokenizer for that model will be used
     automatically.
@@ -78,6 +80,9 @@ used for [Sequence Features](../sequence_features#sequence-input-features-and-en
 encoders from the huggingface transformers library: `albert`, `auto_transformer`, `bert`, `camembert`, `ctrl`,
 `distilbert`, `electra`, `flaubert`, `gpt`, `gpt2`, `longformer`, `roberta`, `t5`, `mt5`, `transformer_xl`, `xlm`,
 `xlmroberta`, `xlnet`.
+
+Encoder type and encoder parameters can also be defined once and applied to all text input features using
+the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
 ### Embed Encoder
 
@@ -1109,6 +1114,10 @@ last vector of the sequence dimension).
 confidence_penalty: 0, robust_lambda: 0}`): is a dictionary containing a loss `type`. The only available loss `type` for
 text features is `softmax_cross_entropy`. For more details on losses and their options, see also
 [Category Output Features and Decoders](../category_features#category-output-features-and-decoders).
+
+Decoder type and decoder parameters can also be defined once and applied to all text output features using
+the [Type-Global Decoder](../defaults.md#type-global-decoder) section. Loss and loss related parameters can
+also be defined once in the same way.
 
 ### Tagger Decoder
 

@@ -20,6 +20,20 @@ deviation. If the value is `minmax`, the minimum is subtracted from values and t
 between maximum and minimum. If `normalization` is `log1p` the value returned is the natural log of 1 plus the original
 value. Note: `log1p` is defined only for positive values.
 
+Configuration example:
+
+```yaml
+name: click_count
+type: number
+preprocessing:
+    missing_value_strategy: fill_with_const
+    fill_value: 0
+    normalization: null
+```
+
+Preprocessing parameters can also be defined once and applied to all number input features using
+the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
+
 ## Number Input Features and Encoders
 
 Number features have two encoders.
@@ -47,6 +61,9 @@ The available encoder parameters:
 
 - `type` (default `passthrough`): the possible values are `passthrough`, `dense` and `sparse`. `passthrough` outputs the
 raw integer values unaltered. `dense` randomly initializes a trainable embedding matrix, `sparse` uses one-hot encoding.
+
+Encoder type and encoder parameters can also be defined once and applied to all number input features using
+the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
 ### Passthrough Encoder
 
@@ -125,6 +142,8 @@ vector of the first dimension).
 - `loss` (default `{type: mean_squared_error}`): is a dictionary containing a loss `type`. The available loss types are
 `mean_squared_error` and `mean_absolute_error`.
 
+Loss type and loss related parameters can also be defined once and applied to all number output features using the [Type-Global Loss](../defaults.md#type-global-loss) section.
+
 These are the available parameters of a number output feature decoder
 
 - `fc_layers` (default `null`): a list of dictionaries containing the parameters of all the fully connected
@@ -159,6 +178,8 @@ refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
 - `clip` (default `null`): If not `null` it specifies a minimum and maximum value the predictions will be clipped to.
 The value can be either a list or a tuple of length 2, with the first value representing the minimum and the second the
 maximum. For instance `(-5,5)` will make it so that all predictions will be clipped to the `[-5,5]` interval.
+
+Decoder type and decoder parameters can also be defined once and applied to all number output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
 
 Example number feature entry (with default parameters) in the output features list:
 

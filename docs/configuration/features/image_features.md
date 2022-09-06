@@ -140,6 +140,8 @@ preprocessing:
   num_processes: 4
 ```
 
+Preprocessing parameters can also be defined once and applied to all image input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
+
 # Image Input Features and Encoders
 
 The encoder parameters specified at the feature level are:
@@ -160,6 +162,8 @@ encoder:
 The available encoder parameters are:
 
 - `type` (default `stacked_cnn`): the possible values are `stacked_cnn`, `resnet`, `mlp_mixer`, and `vit`.
+
+Encoder type and encoder parameters can also be defined once and applied to all image input features using the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
 ## Convolutional Stack Encoder (`stacked_cnn`)
 

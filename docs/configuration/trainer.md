@@ -134,7 +134,7 @@ By default, the ECD trainer is used.
     See the [LightGBM documentation](https://lightgbm.readthedocs.io/en/latest/Parameters.html) for more details about the available parameters.
 
     - `type` (default `lightgbm_trainer`): Trainer to use for training the model. Must be one of ['lightgbm_trainer'] - corresponds to name in `ludwig.trainers.registry.(ray_)trainers_registry`.
-    - `boosting_type` (default `gbdt`): Type of boosting algorithm to use.
+    - `boosting_type` (default `gbdt`): Type of boosting algorithm to use. Options: `gbdt` (traditional Gradient Boosting Decision Tree), `rf` (random forest), `dart`, `goss`.
     - `num_boost_round` (default `100`): Number of boosting rounds to perform.
     - `learning_rate` (default `0.001`): Boosting learning rate.
     - `max_cat_to_onehot` (default `4`): Maximum categorical cardinality required before one-hot encoding.

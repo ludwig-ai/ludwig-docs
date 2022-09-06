@@ -54,13 +54,26 @@ For instance the `parallel_cnn` encoder by default pools and flattens the sequen
 flattened vector through fully connected layers, so in order to obtain the full sequence tensor one has to specify
 `reduce_output: null`.
 
-Sequence input feature parameters are
+The encoder parameters specified at the feature level are:
 
-- `encoder` (default `parallel_cnn`): the name of the encoder to use to encode the sequence, one of `embed`,
+- `tied` (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
+a feature of the same type and with the same encoder parameters.
+
+Example sequence feature entry in the input features list:
+
+```yaml
+name: sequence_column_name
+type: sequence
+tied: null
+encoder: 
+    type: stacked_cnn
+```
+
+The available encoder parameters:
+
+- `type` (default `parallel_cnn`): the name of the encoder to use to encode the sequence, one of `embed`,
 `parallel_cnn`, `stacked_cnn`, `stacked_parallel_cnn`, `rnn`, `cnnrnn`, `transformer` and `passthrough` (equivalent to
 `null` or `None`).
-- `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of
-a feature of the same type and with the same encoder parameters.
 
 ### Embed Encoder
 
@@ -125,13 +138,14 @@ Example sequence feature entry in the input features list using an embed encoder
 ```yaml
 name: sequence_column_name
 type: sequence
-encoder: embed
-representation: dense
-embedding_size: 256
-embeddings_trainable: true
-embeddings_on_cpu: false
-dropout: 0
-reduce_output: sum
+encoder: 
+    type: embed
+    representation: dense
+    embedding_size: 256
+    embeddings_trainable: true
+    embeddings_on_cpu: false
+    dropout: 0
+    reduce_output: sum
 ```
 
 ### Parallel CNN Encoder
@@ -250,20 +264,21 @@ Example sequence feature entry in the input features list using a parallel cnn e
 ```yaml
 name: sequence_column_name
 type: sequence
-encoder: parallel_cnn
-representation: dense
-embedding_size: 256
-embeddings_trainable: true
-filter_size: 3
-num_filters: 256
-pool_function: max
-output_size: 256
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-activation: relu
-dropout: 0.0
-reduce_output: sum
+encoder: 
+    type: parallel_cnn
+    representation: dense
+    embedding_size: 256
+    embeddings_trainable: true
+    filter_size: 3
+    num_filters: 256
+    pool_function: max
+    output_size: 256
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    activation: relu
+    dropout: 0.0
+    reduce_output: sum
 ```
 
 ### Stacked CNN Encoder
@@ -383,24 +398,25 @@ Example sequence feature entry in the input features list using a parallel cnn e
 ```yaml
 name: sequence_column_name
 type: sequence
-encoder: stacked_cnn
-representation: dense
-embedding_size: 256
-embeddings_trainable: true
-filter_size: 3
-num_filters: 256
-strides: 1
-padding: same
-dilation_rate: 1
-pool_function: max
-pool_padding: same
-output_size: 256
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-activation: relu
-dropout: 0
-reduce_output: max
+encoder: 
+    type: stacked_cnn
+    representation: dense
+    embedding_size: 256
+    embeddings_trainable: true
+    filter_size: 3
+    num_filters: 256
+    strides: 1
+    padding: same
+    dilation_rate: 1
+    pool_function: max
+    pool_padding: same
+    output_size: 256
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    activation: relu
+    dropout: 0
+    reduce_output: max
 ```
 
 ### Stacked Parallel CNN Encoder
@@ -520,20 +536,21 @@ Example sequence feature entry in the input features list using a parallel cnn e
 ```yaml
 name: sequence_column_name
 type: sequence
-encoder: stacked_parallel_cnn
-representation: dense
-embedding_size: 256
-embeddings_trainable: true
-filter_size: 3
-num_filters: 256
-pool_function: max
-output_size: 256
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-activation: relu
-dropout: 0
-reduce_output: max
+encoder: 
+    type: stacked_parallel_cnn
+    representation: dense
+    embedding_size: 256
+    embeddings_trainable: true
+    filter_size: 3
+    num_filters: 256
+    pool_function: max
+    output_size: 256
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    activation: relu
+    dropout: 0
+    reduce_output: max
 ```
 
 ### RNN Encoder
@@ -639,27 +656,28 @@ Example sequence feature entry in the input features list using a parallel cnn e
 ```yaml
 name: sequence_column_name
 type: sequence
-encoder: rnn
-representation': dense
-embedding_size: 256
-embeddings_trainable: true
-num_layers: 1
-state_size: 256
-cell_type: rnn
-bidirectional: false
-activation: tanh
-recurrent_activation: sigmoid
-unit_forget_bias: true
-recurrent_initializer: orthogonal
-dropout: 0.0
-recurrent_dropout: 0.0
-output_size: 256
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-fc_activation: relu
-fc_dropout: 0
-reduce_output: last
+encoder: 
+    type: rnn
+    representation': dense
+    embedding_size: 256
+    embeddings_trainable: true
+    num_layers: 1
+    state_size: 256
+    cell_type: rnn
+    bidirectional: false
+    activation: tanh
+    recurrent_activation: sigmoid
+    unit_forget_bias: true
+    recurrent_initializer: orthogonal
+    dropout: 0.0
+    recurrent_dropout: 0.0
+    output_size: 256
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    fc_activation: relu
+    fc_dropout: 0
+    reduce_output: last
 ```
 
 ### CNN RNN Encoder
@@ -791,38 +809,39 @@ Example sequence feature entry in the inputs features list using a cnn rnn encod
 ```yaml
 name: sequence_column_name
 type: sequence
-encoder: cnnrnn
-representation: dense
-embedding_size: 256
-embeddings_trainable: true
-num_conv_layers: 1
-num_filters: 256
-filter_size: 5
-strides: 1
-padding: same
-dilation_rate: 1
-conv_activation: relu
-conv_dropout: 0.0
-pool_function: max
-pool_size: 2
-pool_padding: same
-num_rec_layers: 1
-state_size: 256
-cell_type: rnn
-bidirectional: false
-activation: tanh
-recurrent_activation: sigmoid
-unit_forget_bias: true
-recurrent_initializer: orthogonal
-dropout: 0.0
-recurrent_dropout: 0.0
-output_size: 256
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-fc_activation: relu
-fc_dropout: 0
-reduce_output: last
+encoder: 
+    type: cnnrnn
+    representation: dense
+    embedding_size: 256
+    embeddings_trainable: true
+    num_conv_layers: 1
+    num_filters: 256
+    filter_size: 5
+    strides: 1
+    padding: same
+    dilation_rate: 1
+    conv_activation: relu
+    conv_dropout: 0.0
+    pool_function: max
+    pool_size: 2
+    pool_padding: same
+    num_rec_layers: 1
+    state_size: 256
+    cell_type: rnn
+    bidirectional: false
+    activation: tanh
+    recurrent_activation: sigmoid
+    unit_forget_bias: true
+    recurrent_initializer: orthogonal
+    dropout: 0.0
+    recurrent_dropout: 0.0
+    output_size: 256
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    fc_activation: relu
+    fc_dropout: 0
+    reduce_output: last
 ```
 
 ### Transformer Encoder
@@ -919,23 +938,24 @@ Example sequence feature entry in the inputs features list using a Transformer e
 ```yaml
 name: sequence_column_name
 type: sequence
-encoder: transformer
-representation: dense
-embedding_size: 256
-embeddings_trainable: true
-num_layers: 1
-hidden_size: 256
-num_heads: 8
-transformer_output_size: 256
-dropout: 0.1
-num_fc_layers: 0
-output_size: 256
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-fc_activation: relu
-fc_dropout: 0
-reduce_output: last
+encoder: 
+    type: transformer
+    representation: dense
+    embedding_size: 256
+    embeddings_trainable: true
+    num_layers: 1
+    hidden_size: 256
+    num_heads: 8
+    transformer_output_size: 256
+    dropout: 0.1
+    num_fc_layers: 0
+    output_size: 256
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    fc_activation: relu
+    fc_dropout: 0
+    reduce_output: last
 ```
 
 ### Passthrough Encoder
@@ -971,8 +991,9 @@ Example sequence feature entry in the input features list using a passthrough en
 ```yaml
 name: sequence_column_name
 type: sequence
-encoder: passthrough
-reduce_output: null
+encoder: 
+    type: passthrough
+    reduce_output: null
 ```
 
 ## Sequence Output Features and Decoders
@@ -1060,7 +1081,6 @@ Example sequence feature entry using a tagger decoder (with default parameters) 
 ```yaml
 name: sequence_column_name
 type: sequence
-decoder: tagger
 reduce_input: null
 dependencies: []
 reduce_dependencies: sum
@@ -1070,16 +1090,18 @@ loss:
     robust_lambda: 0
     class_weights: 1
     class_similarities_temperature: 0
-num_fc_layers: 0
-output_size: 256
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-activation: relu
-dropout: 0
-attention: false
-attention_embedding_size: 256
-attention_num_heads: 8
+decoder: 
+    type: tagger
+    num_fc_layers: 0
+    output_size: 256
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    activation: relu
+    dropout: 0
+    attention: false
+    attention_embedding_size: 256
+    attention_num_heads: 8
 ```
 
 ### Generator Decoder
@@ -1168,7 +1190,6 @@ Example sequence feature entry using a generator decoder in the output features 
 ```yaml
 name: sequence_column_name
 type: sequence
-decoder: generator
 reduce_input: sum
 dependencies: []
 reduce_dependencies: sum
@@ -1178,18 +1199,20 @@ loss:
     robust_lambda: 0
     class_weights: 1
     class_similarities_temperature: 0
-num_fc_layers: 0
-output_size: 256
-use_bias: true
-bias_initializer: zeros
-weights_initializer: glorot_uniform
-activation: relu
-dropout: 0
-cell_type: rnn
-state_size: 256
-embedding_size: 256
-beam_width: 1
-max_sequence_length: 256
+decoder: 
+    type: generator
+    num_fc_layers: 0
+    output_size: 256
+    use_bias: true
+    bias_initializer: zeros
+    weights_initializer: glorot_uniform
+    activation: relu
+    dropout: 0
+    cell_type: rnn
+    state_size: 256
+    embedding_size: 256
+    beam_width: 1
+    max_sequence_length: 256
 ```
 
 ## Sequence Features Metrics

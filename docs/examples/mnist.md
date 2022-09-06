@@ -61,20 +61,21 @@ The last section in this configuration file describes options for how the the [`
     input_features:
     - name: image_path
       type: image
-      encoder: stacked_cnn
-      conv_layers:
-        - num_filters: 32
-          filter_size: 3
-          pool_size: 2
-          pool_stride: 2
-        - num_filters: 64
-          filter_size: 3
-          pool_size: 2
-          pool_stride: 2
-          dropout: 0.4
-      fc_layers:
-        - output_size: 128
-          dropout: 0.4
+      encoder: 
+          type: stacked_cnn
+          conv_layers:
+            - num_filters: 32
+              filter_size: 3
+              pool_size: 2
+              pool_stride: 2
+            - num_filters: 64
+              filter_size: 3
+              pool_size: 2
+              pool_stride: 2
+              dropout: 0.4
+          fc_layers:
+            - output_size: 128
+              dropout: 0.4
 
     output_features:
      - name: label
@@ -96,12 +97,14 @@ The last section in this configuration file describes options for how the the [`
           'name': 'image_path',
           'type': 'image',
           'preprocessing': {'num_processes': 4},
-          'encoder': 'stacked_cnn',
-          'conv_layers': [
-            {'num_filters': 32, 'filter_size': 3, 'pool_size': 2, 'pool_stride': 2},
-            {'num_filters': 64, 'filter_size': 3, 'pool_size': 2, 'pool_stride': 2, 'dropout': 0.4}
-          ],
-         'fc_layers': [{'output_size': 128, 'dropout': 0.4}]
+          'encoder': {
+              'stacked_cnn',
+              'conv_layers': [
+                {'num_filters': 32, 'filter_size': 3, 'pool_size': 2, 'pool_stride': 2},
+                {'num_filters': 64, 'filter_size': 3, 'pool_size': 2, 'pool_stride': 2, 'dropout': 0.4}
+              ],
+             'fc_layers': [{'output_size': 128, 'dropout': 0.4}]
+            }
         }
       ],
       'output_features': [{'name': 'label', 'type': 'category'}],

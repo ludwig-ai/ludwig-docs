@@ -18,10 +18,11 @@ missing values with the next valid value), or `fill_with_false` (default, replac
 ## Binary Input Features and Encoders
 
 ```yaml
-name: binary_column_name
-type: binary
-tied: null
-encoder: passthrough
+    name: binary_column_name
+    type: binary
+    tied: null
+    encoder: 
+      type: passthrough
 ```
 
 Binary features have two encoders, `passthrough` and `dense`.
@@ -32,10 +33,25 @@ transformed to outputs of size `b x 1` where `b` is the batch size.
 The `dense` encoder passes the raw binary values through a fully connected layer. Inputs of size `b` are transformed to
 size `b x h`.
 
-The available encoder parameters are:
+The encoder parameters specified at the feature level are:
 
-- `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of
+- `tied` (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
 a feature of the same type and with the same encoder parameters.
+
+Example binary feature entry in the input features list:
+
+```yaml
+name: binary_column_name
+type: binary
+tied: null
+encoder: 
+    type: dense
+```
+
+The available encoder parameters:
+
+- `type` (default `passthrough`): the possible values are `passthrough`, `dense` and `sparse`. `passthrough` outputs the
+raw integer values unaltered. `dense` randomly initializes a trainable embedding matrix, `sparse` uses one-hot encoding.
 
 ### Passthrough Encoder
 
@@ -78,14 +94,15 @@ loss:
     confidence_penalty: 0
     robust_lambda: 0
     positive_class_weight: 1
-fc_layers: null
-num_fc_layers: 0
-activation: relu
-norm: null
-dropout: 0.2
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-threshold: 0.5
+decoder:
+    fc_layers: null
+    num_fc_layers: 0
+    activation: relu
+    norm: null
+    dropout: 0.2
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    threshold: 0.5
 ```
 
 Binary output features can be used when a binary classification needs to be performed or when the output is a single

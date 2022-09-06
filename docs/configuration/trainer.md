@@ -1,3 +1,5 @@
+# Overview
+
 The `trainer` section of the configuration lets you specify parameters that
 configure the training process, like the number of epochs or the learning rate.
 By default, the ECD trainer is used.
@@ -266,3 +268,75 @@ By default, the ECD trainer is used.
 === "GBM"
 
     No optimizer parameters are available for the LightGBM trainer.
+
+# Configuring training length
+
+The length of the training process is configured by:
+
+* `epochs` (default: 100): One epoch is one pass through the entire dataset. By
+    default, `epochs` is 100 which means that the training process will run for
+    a maximum of 100 epochs before terminating.
+* `train_steps` (default: `None`): The maximum number of steps to train for,
+    using one mini-batch per step. By default this is unset, and `epochs` will
+    be used to determine training length.
+
+!!! tip
+
+    In general, it's a good idea to set up a long training runway, relying on
+    early stopping criteria (`early_stop`) to stop training when there
+    hasn't been any improvement for a long time.
+
+# Configuring checkpoint and evaluation frequency
+
+Evaluation is run every time the model is checkpointed.
+
+By default, checkpoint-evaluation will occur once every epoch.
+
+The frequency of checkpoint-evaluation can be configured using:
+
+* `steps_per_checkpoint` (default: 0): every `n` training steps
+* `checkpoints_per_epoch` (default: 0): `n` times per epoch
+
+!!! note
+
+    It is invalid to specify both non-zero `steps_per_checkpoint` and non-zero
+    `checkpoints_per_epoch`.
+
+!!! tip
+
+    Running evaluation once per epoch is an appropriate fit for small datasets 
+    that fit in memory and train quickly. However, this can be a poor fit for
+    unstructured datasets, which tend to be much larger, and train more slowly
+    due to larger models.
+
+    Running evaluation too frequently can be wasteful while running evaluation
+    not frequently enough can be uninformative. In large-scale training runs,
+    it's common for evaluation to be configured to run on a sub-epoch time
+    scale, or every few thousand steps.
+    
+    We recommend configuring evaluation such that new evaluation results are
+    available at least several times an hour. In general, it is not necessary
+    for models to train over the entirety of a dataset, nor evaluate over the
+    entirety of a test set, to produce useful monitoring metrics and signals to
+    indicate model performance.
+
+# Increasing throughput
+
+## Skip evaluation on the training set
+
+Consider setting `evaluate_training_set=False`, which skips evaluation on the
+training set.
+
+!!! note
+
+    Sometimes it can be useful to monitor evaluation metrics on the training
+    set, as a secondary validation set. However, running evaluation on the full
+    training set, when your training set is large, can be a huge computational
+    cost. Turning off training set evaluation will lead to significant gains in
+    training throughput and efficiency.
+
+## Increase batch size
+
+Users training on GPUs can often increase training throughput by increasing
+the `batch_size` so that more examples are computed every training step. Set
+`batch_size` to `auto` to use the largest batch size that can fit in memory.

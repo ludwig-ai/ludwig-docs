@@ -46,6 +46,8 @@ nav:
       - "Third-Party Integrations": "user_guide/integrations.md"
   - Configuration:
       - "Configuration": "configuration/index.md"
+      - "Model Types": "configuration/model_type.md"
+      - "Preprocessing": "configuration/preprocessing.md"
       - "Features":
           - "Supported Data Types": "configuration/features/supported_data_types.md"
           - "Input Features (↑)": "configuration/features/input_features.md"
@@ -139,6 +141,7 @@ theme:
         icon: material/toggle-switch
         name: Switch to light mode
   features:
+    - content.tabs.link
     - navigation.tabs
     - navigation.indexes
 

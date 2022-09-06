@@ -1,6 +1,7 @@
 Ludwig models are configured by a single config with the following keys:
 
 ```yaml
+model_type: ecd
 input_features: []
 combiner: {}
 output_features: []

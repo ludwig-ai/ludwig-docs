@@ -161,8 +161,8 @@ MD032: true
 
 # MD033/no-inline-html - Inline HTML
 MD033:
-    # Allowed elements
-    allowed_elements: ["small"]
+    # Allowed elements, mainly for use in index.md.
+    allowed_elements: ["small", "p", "img", "a", "br"]
 
 # MD034/no-bare-urls - Bare URL used
 MD034: true

@@ -14,7 +14,7 @@ copyright: "Copyright &copy; 2018 - 2020 Uber Technologies Inc., 2021 - 2022 Lin
 
 # Navigation
 nav:
-  - About: "index.md"
+  - Ludwig: "index.md"
   - Getting Started:
       - "Getting Started": "getting_started/index.md"
       - "Installation": "getting_started/installation.md"

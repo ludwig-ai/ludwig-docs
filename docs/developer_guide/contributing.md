@@ -4,7 +4,7 @@ Everybody is welcome to contribute, and we value everybody’s contribution. Cod
 way to help the community. Answering questions, helping others, reaching out and improving the
 documentation are immensely valuable contributions as well.
 
-It also helps us if you spread the word: reference the library from blog posts on the awesome
+It also helps us if you spread the word: reference the library in blog posts on the awesome
 projects it made possible, shout out on Twitter every time it has helped you, or simply star the
 repo to say "thank you".
 
@@ -27,7 +27,7 @@ Work on your self-assigned issue and eventually create a Pull Request.
 1. Fork the [repository](https://github.com/ludwig-ai/ludwig) by clicking on the "Fork" button on
    the repository's page. This creates a copy of the code under your GitHub user account.
 
-1. Clone your fork to your local disk, and add the base repository as a remote:
+2. Clone your fork to your local disk, and add the base repository as a remote:
 
    ```bash
    git clone git@github.com:<your Github handle>/ludwig.git
@@ -35,7 +35,7 @@ Work on your self-assigned issue and eventually create a Pull Request.
    git remote add upstream https://github.com/ludwig-ai/ludwig.git
    ```
 
-1. Create a new branch to hold your development changes:
+3. Create a new branch to hold your development changes:
 
    ```bash
    git checkout -b a-descriptive-name-for-my-changes
@@ -43,7 +43,7 @@ Work on your self-assigned issue and eventually create a Pull Request.
 
    *Do not*\* work on the `master` branch.
 
-1. Set up a development environment by running the following command in a virtual environment:
+4. Set up a development environment by running the following command in a virtual environment:
 
    ```bash
    pip install -e .
@@ -51,9 +51,9 @@ Work on your self-assigned issue and eventually create a Pull Request.
    pre-commit install
    ```
 
-1. Develop features on your branch.
+5. Develop features on your branch.
 
-1. Format your code by running pre-commits so that your newly added files look nice:
+6. Format your code by running pre-commits so that your newly added files look nice:
 
    ```bash
    pre-commit run
@@ -61,7 +61,7 @@ Work on your self-assigned issue and eventually create a Pull Request.
 
    Pre-commits also run automatically when committing.
 
-1. Once you're happy with your changes, make a commit to record your changes locally:
+7. Once you're happy with your changes, make a commit to record your changes locally:
 
    ```bash
    git add .
@@ -82,7 +82,7 @@ Work on your self-assigned issue and eventually create a Pull Request.
    git push -u origin a-descriptive-name-for-my-changes
    ```
 
-1. Once you are satisfied, go the webpage of your fork on GitHub. Click on "Pull request" to send
+8. Once you are satisfied, go the webpage of your fork on GitHub. Click on "Pull request" to send
    your contribution to the project maintainers for review.
 
 ## Other tips

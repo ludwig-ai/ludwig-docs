@@ -17,11 +17,12 @@ input_features:
     -
         name: utterance
         type: text
-        encoder: rnn
-        cell_type: lstm
-        bidirectional: true
-        num_layers: 2
-        reduce_output: null
+        encoder: 
+            type: rnn
+            cell_type: lstm
+            bidirectional: true
+            num_layers: 2
+            reduce_output: null
         preprocessing:
           tokenizer: space
 
@@ -30,10 +31,12 @@ output_features:
         name: intent
         type: category
         reduce_input: sum
-        num_fc_layers: 1
-        output_size: 64
+        decoder:
+            num_fc_layers: 1
+            output_size: 64
     -
         name: slots
         type: sequence
-        decoder: tagger
+        decoder: 
+            type: tagger
 ```

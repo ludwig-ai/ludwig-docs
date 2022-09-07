@@ -1,6 +1,6 @@
 # Visualize Command
 
-Several visualization can be obtained from the result files from both `train`, `predict` and `experiment` by using the
+Several visualizations can be obtained from the result files from both `train`, `predict` and `experiment` by using the
 `ludwig visualize` command.
 The command has several parameters, but not all the visualizations use all of them.
 Let's first present the parameters of the general script, and then, for each available visualization, we will discuss about the specific parameters needed and what visualization they produce.
@@ -801,7 +801,7 @@ Parameters for this visualization:
 `output_feature_name` must name a category feature.
 For each class, produces two plots computed from the probabilities of predictions for the specified `output_feature_name`.
 
-The first plot is a calibration curve that shows the calibration of the predictions considering al classes, drawing one
+The first plot is a calibration curve that shows the calibration of the predictions considering all classes, drawing one
 line for each model (in the aligned lists of `probabilities` and `model_names`).
 
 ![Calibration Multiclass Curve](../images/calibration_multiclass_curve.png "Calibration Multiclass Curve")
@@ -837,7 +837,7 @@ The classes on the x axis are sorted by F1 score.
 
 ![Frequency vs F1 sorted by F1](../images/freq_vs_f1_sorted_f1.png "Frequency vs F1 sorted by F1")
 
-The second plot has the same structure of the first one, but the axes are flipped and the classes on the x axis are sorted by frequency.
+The second plot has the same structure as the first one, but the axes are flipped and the classes on the x axis are sorted by frequency.
 
 ![Frequency vs F1 sorted by Frequency](../images/freq_vs_f1_sorted_freq.png "Frequency vs F1 sorted by Frequency")
 

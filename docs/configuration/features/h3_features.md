@@ -14,43 +14,60 @@ preprocessing:
 Ludwig will parse the H3 64bit encoded format automatically.
 The parameters for preprocessing are:
 
-- `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a binary column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
+- `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in an H3 column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
 - `fill_value` (default `576495936675512319`): the value to replace the missing values with in case the `missing_value_strategy` is `fill_with_const`. This is a 64bit integer compatible with the H3 bit layout. The default value encodes mode 1, edge 0, resolution 0, base_cell 0.
+
+Preprocessing parameters can also be defined once and applied to all H3 input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 
 ## H3 Input Features and Encoders
 
 Input H3 features are transformed into a int valued tensors of size `N x 19` (where `N` is the size of the dataset and the 19 dimensions
 represent 4 H3 resolution parameters (4) - mode, edge, resolution, base cell - and 15 cell coordinate values.
 
-Currently there are three encoders supported for H3: `H3Embed` (default), `H3WeightedSum`,  and `H3RNN`. The encoder can be set by specifying `embed`, `weighted_sum`, or `rnn` in the input feature's configuration.
+The encoder parameters specified at the feature level are:
+
+- `tied` (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
+a feature of the same type and with the same encoder parameters.
+
+Example H3 feature entry in the input features list:
 
 ```yaml
 name: h3_feature_name
 type: h3
-encoder: embed
+tied: null
+encoder: 
+    type: embed
 ```
+
+The available encoder parameters are:
+
+- `type` (default ``H3Embed``): the possible values are `H3Embed`, `H3WeightedSum`,  and `H3RNN`.
+
+Encoder type and encoder parameters can also be defined once and applied to all H3 input features using
+the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
 ### Embed Encoder
 
 ```yaml
 name: h3_column_name
 type: h3
-encoder: embed
-embedding_size: 10
-embeddings_on_cpu: false
-fc_layers: null
-num_fc_layers: 0
-output_size: 10
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-norm: null
-norm_params: null
-activation: relu
-dropout: 0
+encoder: 
+    type: embed
+    embedding_size: 10
+    embeddings_on_cpu: false
+    fc_layers: null
+    num_fc_layers: 0
+    output_size: 10
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    norm: null
+    norm_params: null
+    activation: relu
+    dropout: 0
 ```
 
-This encoder encodes each components of the H3 representation (mode, edge, resolution, base cell and children cells) with embeddings.
+This encoder encodes each component of the H3 representation (mode, edge, resolution, base cell and children cells) with embeddings.
 Children cells with value `0` will be masked out.
 
 After the embedding, all embeddings are summed and optionally passed through a stack of fully connected layers.
@@ -80,23 +97,24 @@ instead.
 ```yaml
 name: h3_column_name
 type: h3
-encoder: weighted_sum
-embedding_size: 10
-embeddings_on_cpu: false
-should_softmax: false
-fc_layers: null
-num_fc_layers: 0
-output_size: 10
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-norm: null
-norm_params: null
-activation: relu
-dropout: 0
+encoder: 
+    type: weighted_sum
+    embedding_size: 10
+    embeddings_on_cpu: false
+    should_softmax: false
+    fc_layers: null
+    num_fc_layers: 0
+    output_size: 10
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    norm: null
+    norm_params: null
+    activation: relu
+    dropout: 0
 ```
 
-This encoder encodes each components of the H3 representation (mode, edge, resolution, base cell and children cells) with embeddings.
+This encoder encodes each component of the H3 representation (mode, edge, resolution, base cell and children cells) with embeddings.
 Children cells with value `0` will be masked out.
 
 After the embedding, all embeddings are summed with a weighted sum (with learned weights) and optionally passed through a stack of fully connected layers.
@@ -128,28 +146,29 @@ instead.
 ```yaml
 name: h3_column_name
 type: h3
-encoder: rnn
-embedding_size: 10
-embeddings_on_cpu: false
-num_layers: 1
-cell_type: rnn
-state_size: 10
-bidirectional: false
-activation: tanh
-recurrent_activation: sigmoid
-use_bias: true
-unit_forget_bias: true
-weights_initializer: glorot_uniform
-recurrent_initializer: orthogonal
-bias_initializer: zeros
-dropout: 0.0
-recurrent_dropout: 0.0
-initializer: null
-regularize: true
-reduce_output: last
+encoder: 
+    type: rnn
+    embedding_size: 10
+    embeddings_on_cpu: false
+    num_layers: 1
+    cell_type: rnn
+    state_size: 10
+    bidirectional: false
+    activation: tanh
+    recurrent_activation: sigmoid
+    use_bias: true
+    unit_forget_bias: true
+    weights_initializer: glorot_uniform
+    recurrent_initializer: orthogonal
+    bias_initializer: zeros
+    dropout: 0.0
+    recurrent_dropout: 0.0
+    initializer: null
+    regularize: true
+    reduce_output: last
 ```
 
-This encoder encodes each components of the H3 representation (mode, edge, resolution, base cell and children cells) with embeddings.
+This encoder encodes each component of the H3 representation (mode, edge, resolution, base cell and children cells) with embeddings.
 Children cells with value `0` will be masked out.
 
 After the embedding, all embeddings are passed through an RNN encoder.

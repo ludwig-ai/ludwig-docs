@@ -15,14 +15,45 @@ Preprocessing parameters:
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the missing values with the next valid value).
 - `fill_value` (default `""`): the value to replace the missing values with in case the `missing_value_strategy` is `fill_with_const`.
 
+Configuration example:
+
+```yaml
+name: vector_feature_name
+type: vector
+preprocessing:
+    vector_size: null
+    missing_value_strategy: fill_with_const
+    fill_value: ""
+```
+
+Preprocessing parameters can also be defined once and applied to all vector input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
+
 ## Vector Feature Encoders
 
 The vector feature supports two encoders: `dense` and `passthrough`.
 
-The available encoder parameters are:
+The encoder parameters specified at the feature level are:
 
 - `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of
 a feature of the same type and with the same encoder parameters.
+
+Example vector feature entry in the input features list:
+
+```yaml
+name: vector_column_name
+type: vector
+tied: null
+encoder: 
+    type: dense
+```
+
+The available encoder parameters are:
+
+- `type` (default `dense`): the possible values are `passthrough` and `dense`. `passthrough` outputs the
+raw vector values unaltered. `dense` uses a stack of fully connected layers to create an embedding matrix.
+
+Encoder type and encoder parameters can also be defined once and applied to all vector input features using the
+[Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
 ### Passthrough Encoder
 
@@ -45,23 +76,24 @@ following parameters:
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `dropout` (default `0`): dropout rate
 
-Example vector feature entry in the input features list using an dense encoder:
+Example vector feature entry in the input features list using a dense encoder:
 
 ```yaml
 name: vector_column_name
 type: vector
 tied: null
-encoder: dense
-layers: null
-num_layers: 0
-output_size: 256
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-norm: null
-norm_params: null
-activation: relu
-dropout: 0
+encoder: 
+    type: dense
+    layers: null
+    num_layers: 0
+    output_size: 256
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    norm: null
+    norm_params: null
+    activation: relu
+    dropout: 0
 ```
 
 ## Vector Feature Decoders
@@ -74,14 +106,15 @@ dependencies: []
 reduce_dependencies: sum
 loss:
     type: sigmoid_cross_entropy
-fc_layers: null
-num_fc_layers: 0
-output_size: 256
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-activation: relu
-clip: null
+decoder:
+    fc_layers: null
+    num_fc_layers: 0
+    output_size: 256
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    activation: relu
+    clip: null
 ```
 
 Vector features can be used when multi-class classification needs to be performed with a noise-aware loss or when the task is multivariate regression.
@@ -105,6 +138,8 @@ These are the available parameters of the vector output feature.
 - `softmax` (default `false`): determines if to apply a softmax at the end of the decoder. It is useful for predicting a vector of values that sum up to 1 and can be interpreted as probabilities.
 - `loss` (default `{type: mean_squared_error}`): is a dictionary containing a loss `type`. The available loss `type` are `mean_squared_error`, `mean_absolute_error` and `softmax_cross_entropy` (use it only if `softmax` is `true`).
 
+Loss type and loss related parameters can also be defined once and applied to all vector output features using the [Type-Global Loss](../defaults.md#type-global-loss) section.
+
 These are the available parameters of a vector output feature decoder.
 
 - `fc_layers` (default `null`): a list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: `activation`,
@@ -116,6 +151,8 @@ These are the available parameters of a vector output feature decoder.
 - `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default `activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `clip` (default `null`): If not `null` it specifies a minimum and maximum value the predictions will be clipped to. The value can be either a list or a tuple of length 2, with the first value representing the minimum and the second the maximum. For instance `(-5,5)` will make it so that all predictions will be clipped in the `[-5,5]` interval.
+
+Decoder type and decoder related parameters can also be defined once and applied to all vector output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
 
 ## Vector Features Measures
 

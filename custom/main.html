@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block site_meta %}
+
+{{ super() }}
+
+<meta content="http://raw.githubusercontent.com/ludwig-ai/ludwig-docs/master/docs/images/og-image.jpg"
+  property="og:image">
+<meta content="https://raw.githubusercontent.com/ludwig-ai/ludwig-docs/master/docs/images/og-image.jpg"
+  property="og:image:secure_url">
+
+{% endblock %}

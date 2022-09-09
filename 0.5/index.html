@@ -1,450 +1,2842 @@
-<!DOCTYPE html>
-<!--[if lt IE 9 ]>
-<html class="no-js oldie" lang="en"> <![endif]-->
-<!--[if IE 9 ]>
-<html class="no-js oldie ie9" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!-->
-<html class="no-js" lang="en">
-<!--<![endif]-->
 
-<head>
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+  
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Declarative machine learning: End-to-end machine learning pipelines using data-driven configurations.">
+      
+      
+        <meta name="author" content="Piero Molino">
+      
+      
+        <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/latest/">
+      
+      <link rel="icon" href="favicon.ico">
+      <meta name="generator" content="mkdocs-1.2.4, mkdocs-material-8.2.7">
+    
+  <meta content="http://raw.githubusercontent.com/ludwig-ai/ludwig-docs/master/docs/images/og-image.jpg"
+    property="og:image">
+  <meta content="https://raw.githubusercontent.com/ludwig-ai/ludwig-docs/master/docs/images/og-image.jpg"
+    property="og:image:secure_url">
 
-    <!--- basic page needs
-   ================================================== -->
-    <meta charset="utf-8">
-    <title>Ludwig</title>
-    <meta content="" name="description">
-    <meta content="" name="author">
-
-    <!-- mobile specific metas
-   ================================================== -->
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-
-    <!-- CSS
-   ================================================== -->
-    <link href="stylesheets/extra.css" rel="stylesheet">
-    <link href="stylesheets/monokai.css" rel="stylesheet">
-    <link href="stylesheets/colorful.css" rel="stylesheet">
-
-
-    <link href="stylesheets/landing_base.css" rel="stylesheet">
-    <link href="stylesheets/landing_vendor.css" rel="stylesheet">
-    <link href="stylesheets/landing_main.css" rel="stylesheet">
-
-    <!-- script
-   ================================================== -->
-    <script src="js/modernizr.js"></script>
-    <script src="js/pace.min.js"></script>
-
-    <!-- favicons
-	================================================== -->
-    <link href="apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
-    <link href="favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
-    <link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
-    <link href="site.webmanifest" rel="manifest">
-    <link color="#5bbad5" href="safari-pinned-tab.svg" rel="mask-icon">
-    <meta content="#ffffff" name="msapplication-TileColor">
-    <meta content="#ffffff" name="theme-color">
-
-    <!-- open graph
-	================================================== -->
-    <meta content="446" property="og:image:height">
-    <meta content="852" property="og:image:width">
-    <meta content="Ludwig is a toolbox for training and testing deep learning models without writing code"
-        property="og:description">
-    <meta content="Ludwig - code-free deep learning toolbox" property="og:title">
-    <meta content="http://ludwig.ai" property="og:url">
-    <meta content="http://raw.githubusercontent.com/ludwig-ai/ludwig-docs/master/docs/images/og-image.jpg"
-        property="og:image">
-    <meta content="https://raw.githubusercontent.com/ludwig-ai/ludwig-docs/master/docs/images/og-image.jpg"
-        property="og:image:secure_url">
-    <meta content="website" property="og:type">
-
-    <script async src="https://www.googletagmanager.com/gtag/js? id=G-H8VVJF9L6G"></script>
-    <script> window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-H8VVJF9L6G'); </script>
-</head>
-
-<body id="top">
-
-    <!-- header
-================================================== -->
-    <header id="header">
-
-        <div class="header-logo">
-            <a href="index.html">Ludwig</a>
-        </div>
+    
+      
+        <title>Ludwig</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.9d5733d3.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="stylesheets/monokai.css">
+    
+      <link rel="stylesheet" href="stylesheets/colorful.css">
+    
+    <script>__md_scope=new URL(".",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
 
 
-        <nav id="header-nav-wrap">
-            <ul class="header-main-nav">
-                <li><a class="nav-entry" href="getting_started/installation/" title="getting-started">Getting
-                        Started</a></li>
-                <li><a href="user_guide/" title="user-guide">User Guide</a></li>
-                <li><a href="configuration/" title="configuration">Configuration</a></li>
-                <li><a href="examples/" title="examples">Examples</a></li>
-                <li><a href="developer_guide/" title="developer-guide">Developer Guide</a></li>
-                <li><a href="community/" title="community">Community</a></li>
-                <li><a href="faq/" title="faq">FAQ</a></li>
-            </ul>
-
-            <a class="button button-primary cta" href="http://github.com/ludwig-ai/ludwig" title="repo"><i
-                    class="fa fa-github"></i> Repo</a>
-        </nav>
-
-        <a class="header-menu-toggle" href="#"><span>Menu</span></a>
-
-    </header> <!-- /header -->
+  
+  
 
 
-    <!-- home
-================================================== -->
-    <section id="home">
+  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-H8VVJF9L6G"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","G-H8VVJF9L6G",{page_path:e.pathname})})})</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H8VVJF9L6G"></script>
 
-        <!--
-    <div class="canvas-container">
-        <div class="alternative-background"></div>
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="deep-orange">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#what-is-ludwig" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
-    -->
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        <aside class="md-banner md-banner--warning">
+          
+        </aside>
+      </div>
+    
+    
+      
 
-        <div class="canvas-container">
-            <video id="waves-video" playsinline autoplay muted loop>
-                <source src="videos/ludwig_waves.mp4" type="video/mp4">
-            </video>
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="Ludwig" class="md-header__button md-logo" aria-label="Ludwig" data-md-component="logo">
+      
+<img alt="logo" src="images/ludwig_logo.svg"
+     style="height:1rem;width:4rem;">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Ludwig
+          </span>
         </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ludwig
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="deep-orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="deep-orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ludwig-ai/ludwig/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ludwig-ai/ludwig
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
 
-        <div class="overlay"></div>
-        <div class="home-content">
 
-            <div class="row contents">
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Ludwig" class="md-nav__button md-logo" aria-label="Ludwig" data-md-component="logo">
+      
+<img alt="logo" src="images/ludwig_logo.svg"
+     style="height:1rem;width:4rem;">
 
-                <div class="home-content-left">
+    </a>
+    Ludwig
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ludwig-ai/ludwig/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ludwig-ai/ludwig
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
 
-                    <img src="images/ludwig_logo.svg">
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Ludwig
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        Ludwig
+      </a>
+      
+        
 
-                    <div class="buttons" data-aos="fade-up">
-                        <a class="button stroke" href="getting_started/installation">
-                            Getting Started
-                        </a>
-                        <a class="button stroke" data-lity href="https://youtu.be/OGweVw57kus">
-                            <i aria-hidden="true" class="fa fa-play"></i>
-                            Play intro video
-                        </a>
-                    </div>
-
-                </div>
-
-
-            </div>
-
-        </div> <!-- end home-content -->
-
-        <!--
-    <ul class="home-social-list">
-        <li>
-            <a href="http://github.com/ludwig-ai/ludwig"><i class="fa fa-github"></i></a>
-        </li>
-        <li>
-            <a href="#"><i class="fa fa-facebook-square"></i></a>
-        </li>
-        <li>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-        </li>
-        <li>
-            <a href="#"><i class="fa fa-instagram"></i></a>
-        </li>
-        <li>
-            <a href="#"><i class="fa fa-youtube-play"></i></a>
-        </li>
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-ludwig" class="md-nav__link">
+    What is Ludwig?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#declarative-machine-learning" class="md-nav__link">
+    Declarative Machine Learning
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#main-features" class="md-nav__link">
+    Main Features
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    Quick Start
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-install" class="md-nav__link">
+    Step 1: Install
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-define-a-configuration" class="md-nav__link">
+    Step 2: Define a configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-train-a-model" class="md-nav__link">
+    Step 3: Train a model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-predict-and-evaluate" class="md-nav__link">
+    Step 4: Predict and evaluate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-visualize" class="md-nav__link">
+    Step 5: Visualize
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-happy-modeling" class="md-nav__link">
+    Step 6: Happy modeling
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advantages" class="md-nav__link">
+    Advantages
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tutorials" class="md-nav__link">
+    Tutorials
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-use-cases" class="md-nav__link">
+    Example Use Cases
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#more-information" class="md-nav__link">
+    More Information
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-involved" class="md-nav__link">
+    Getting Involved
+  </a>
+  
+</li>
+      
     </ul>
-    -->
-        <!-- end home-social-list -->
+  
+</nav>
+      
+    </li>
+  
 
-        <div class="home-scrolldown">
-            <a class="scroll-icon smoothscroll" href="#about">
-                <span>Scroll Down</span>
-                <i aria-hidden="true" class="mi mi-ChevronRight"></i>
-            </a>
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="getting_started/">Getting Started</a>
+          
+            <label for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
         </div>
+      
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started/installation/" class="md-nav__link">
+        Installation
+      </a>
+    </li>
+  
 
-    </section> <!-- end home -->
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started/prepare_data/" class="md-nav__link">
+        Dataset preparation
+      </a>
+    </li>
+  
 
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started/train/" class="md-nav__link">
+        Training
+      </a>
+    </li>
+  
 
-    <!-- about
-================================================== -->
-    <section id="about">
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started/evaluate/" class="md-nav__link">
+        Prediction and Evaluation
+      </a>
+    </li>
+  
 
-        <div class="row about-intro">
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started/hyperopt/" class="md-nav__link">
+        Hyperopt
+      </a>
+    </li>
+  
 
-            <div class="col-four">
-                <h1 class="intro-header" data-aos="fade-up">About Ludwig</h1>
-            </div>
-            <div class="col-eight">
-                <p class="lead" data-aos="fade-up">
-                    Ludwig is a toolbox that allows users to train and test deep learning models with minimal code.
-                </p>
-            </div>
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started/serve/" class="md-nav__link">
+        Serving
+      </a>
+    </li>
+  
 
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started/ray/" class="md-nav__link">
+        Distributed training on Ray
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started/docker/" class="md-nav__link">
+        Ludwig with Docker
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="user_guide/">User Guide</a>
+          
+            <label for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
         </div>
+      
+      <nav class="md-nav" aria-label="User Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          User Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/what_is_ludwig/" class="md-nav__link">
+        What is Ludwig?
+      </a>
+    </li>
+  
 
-        <div class="row about-features">
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/how_ludwig_works/" class="md-nav__link">
+        How Ludwig Works
+      </a>
+    </li>
+  
 
-            <div class="features-list block-1-3 block-m-1-2 block-mob-full group">
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/command_line_interface/" class="md-nav__link">
+        Command Line Interface
+      </a>
+    </li>
+  
 
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5" type="checkbox" id="__nav_3_5" >
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_5">
+          Python API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python API" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_5">
+          <span class="md-nav__icon md-icon"></span>
+          Python API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/api/LudwigModel/" class="md-nav__link">
+        LudwigModel
+      </a>
+    </li>
+  
 
-                <div class="bgrid feature" data-aos="fade-up">
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/api/visualization/" class="md-nav__link">
+        Visualization
+      </a>
+    </li>
+  
 
-                    <span class="icon"><i class="mi mi-Design"></i></span>
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
 
-                    <div class="service-content">
-                        <h3>General</h3>
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6" type="checkbox" id="__nav_3_6" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_6">
+          Datasets
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Datasets" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_6">
+          <span class="md-nav__icon md-icon"></span>
+          Datasets
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/datasets/supported_formats/" class="md-nav__link">
+        Supported Formats
+      </a>
+    </li>
+  
 
-                        <p>A new data type-based approach to deep learning model design that makes the tool suited for
-                            many
-                            different applications.
-                        </p>
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/datasets/data_preprocessing/" class="md-nav__link">
+        Data Preprocessing
+      </a>
+    </li>
+  
 
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/datasets/data_postprocessing/" class="md-nav__link">
+        Data Postprocessing
+      </a>
+    </li>
+  
 
-                    </div>
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/datasets/dataset_zoo/" class="md-nav__link">
+        Dataset Zoo
+      </a>
+    </li>
+  
 
-                </div> <!-- /bgrid -->
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
 
-                <div class="bgrid feature" data-aos="fade-up">
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/distributed_training/" class="md-nav__link">
+        Distributed Training
+      </a>
+    </li>
+  
 
-                    <span class="icon"><i class="mi mi-Size"></i></span>
-                    <!--<span class="icon"><i class="icon-paint-size"></i></span>-->
-                    <div class="service-content">
-                        <h3>Flexible</h3>
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/hyperopt/" class="md-nav__link">
+        Hyperparameter Optimization
+      </a>
+    </li>
+  
 
-                        <p>Experienced users have deep control over model building and training, while newcomers will
-                            find
-                            it easy to use.
-                        </p>
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/automl/" class="md-nav__link">
+        AutoML
+      </a>
+    </li>
+  
 
-                    </div>
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/visualizations/" class="md-nav__link">
+        Visualizations
+      </a>
+    </li>
+  
 
-                </div> <!-- /bgrid -->
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/serving/" class="md-nav__link">
+        Serving
+      </a>
+    </li>
+  
 
-                <div class="bgrid feature" data-aos="fade-up">
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/integrations/" class="md-nav__link">
+        Third-Party Integrations
+      </a>
+    </li>
+  
 
-                    <span class="icon"><i class="mi mi-DeveloperTools"></i></span>
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
 
-                    <div class="service-content">
-                        <h3>Extensible</h3>
+    
+      
+      
+      
 
-                        <p>Easy to add new model architecture and new feature data-types.
-                        </p>
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="configuration/">Configuration</a>
+          
+            <label for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Configuration" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Configuration
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/preprocessing/" class="md-nav__link">
+        Preprocessing
+      </a>
+    </li>
+  
 
-                    </div>
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_3">
+          Features
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Features" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          Features
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/supported_data_types/" class="md-nav__link">
+        Supported Data Types
+      </a>
+    </li>
+  
 
-                </div> <!-- /bgrid -->
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/input_features/" class="md-nav__link">
+        Input Features (↑)
+      </a>
+    </li>
+  
 
-                <div class="bgrid feature" data-aos="fade-up">
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/output_features/" class="md-nav__link">
+        Output Features (↓)
+      </a>
+    </li>
+  
 
-                    <span class="icon"><i class="mi mi-AreaChart"></i></span>
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/binary_features/" class="md-nav__link">
+        ⇅ Binary Features
+      </a>
+    </li>
+  
 
-                    <div class="service-content">
-                        <h3>Understandable</h3>
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/number_features/" class="md-nav__link">
+        ⇅ Number Features
+      </a>
+    </li>
+  
 
-                        <p>Deep learning models internals are often considered black boxes, but we provide standard
-                            visualizations to understand their performances and compare their predictions.
-                        </p>
-                    </div>
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/category_features/" class="md-nav__link">
+        ⇅ Category Features
+      </a>
+    </li>
+  
 
-                </div> <!-- /bgrid -->
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/bag_features/" class="md-nav__link">
+        ⇅ Bag Features
+      </a>
+    </li>
+  
 
-                <div class="bgrid feature" data-aos="fade-up">
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/set_features/" class="md-nav__link">
+        ⇅ Set Features
+      </a>
+    </li>
+  
 
-                    <span class="icon"><i class="mi mi-Cafe"></i></span>
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/sequence_features/" class="md-nav__link">
+        ⇅ Sequence Features
+      </a>
+    </li>
+  
 
-                    <div class="service-content">
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/text_features/" class="md-nav__link">
+        ⇅ Text Features
+      </a>
+    </li>
+  
 
-                        <h3>Easy</h3>
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/vector_features/" class="md-nav__link">
+        ⇅ Vector Features
+      </a>
+    </li>
+  
 
-                        <p>No coding skills are required to train a model and use it for obtaining predictions.
-                        </p>
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/audio_features/" class="md-nav__link">
+        ↑ Audio Features
+      </a>
+    </li>
+  
 
-                    </div>
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/date_features/" class="md-nav__link">
+        ↑ Date Features
+      </a>
+    </li>
+  
 
-                </div> <!-- /bgrid -->
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/h3_features/" class="md-nav__link">
+        ↑ H3 Features
+      </a>
+    </li>
+  
 
-                <div class="bgrid feature" data-aos="fade-up">
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/image_features/" class="md-nav__link">
+        ↑ Image Features
+      </a>
+    </li>
+  
 
-                    <span class="icon"><i class="mi mi-Unlock"></i></span>
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/time_series_features/" class="md-nav__link">
+        ↑ Time Series Features
+      </a>
+    </li>
+  
 
-                    <div class="service-content">
-                        <h3>Open</h3>
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
 
-                        <p>Ludwig is release under the open source Apache License 2.0.
-                        </p>
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/combiner/" class="md-nav__link">
+        Combiner
+      </a>
+    </li>
+  
 
-                    </div>
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/trainer/" class="md-nav__link">
+        Trainer
+      </a>
+    </li>
+  
 
-                </div> <!-- /bgrid -->
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/hyperparameter_optimization/" class="md-nav__link">
+        Hyperopt
+      </a>
+    </li>
+  
 
-            </div> <!-- end features-list -->
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/backend/" class="md-nav__link">
+        Backend
+      </a>
+    </li>
+  
 
-        </div> <!-- end about-features -->
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
 
-        <div class="row about-how">
+    
+      
+      
+      
 
-            <h1 class="intro-header" data-aos="fade-up">How does it work?</h1>
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="examples/">Examples</a>
+          
+            <label for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Examples" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_2" type="checkbox" id="__nav_5_2" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_2">
+          Tutorials
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tutorials" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_2">
+          <span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/text_classification/" class="md-nav__link">
+        Text Classification
+      </a>
+    </li>
+  
 
-            <div class="about-how-content" data-aos="fade-up">
-                <div class="about-how-steps block-1-2 block-tab-full group">
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/adult_census_income/" class="md-nav__link">
+        Tabular Data Classification
+      </a>
+    </li>
+  
 
-                    <div class="bgrid step" data-item="1">
-                        <h3>Install</h3>
-                        <p>Just run <code>pip install ludwig</code> and it will be ready to use. Some features may
-                            require
-                            further steps, read <a href="getting_started">Getting Started</a>.
-                        </p>
-                    </div>
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/mnist/" class="md-nav__link">
+        Image Classification
+      </a>
+    </li>
+  
 
-                    <div class="bgrid step" data-item="2">
-                        <h3>Train</h3>
-                        <p>Provide a dataset file, define input and output feature in a model definition YAML file
-                            and run:
-                        <pre><code>ludwig train
---dataset path_to_dataset
---config definition.yaml</code></pre>
-                        </p>
-                    </div>
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/multimodal_classification/" class="md-nav__link">
+        Multimodal Classification
+      </a>
+    </li>
+  
 
-                    <div class="bgrid step" data-item="3">
-                        <h3>Predict</h3>
-                        <p>Provide a dataset file and use a pre-trained model to predict the output targets:
-                        <pre><code>ludwig predict
---dataset path_to_dataset
---model path_to_model</code></pre>
-                        </p>
-                    </div>
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/hyperopt/" class="md-nav__link">
+        Hyperparameter Optimization
+      </a>
+    </li>
+  
 
-                    <div class="bgrid step" data-item="4">
-                        <h3>Visualize</h3>
-                        <p>Ludwig comes with many visualization options. If you want to look at the learning curves of
-                            your
-                            model for instance, run:
-                        <pre><code>ludwig visualize
---visualization learning_curves
---training_statistics train_statistics.json</code></pre>
-                        </p>
-                    </div>
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
 
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_3" type="checkbox" id="__nav_5_3" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_3">
+          Example Use Cases
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Example Use Cases" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_3">
+          <span class="md-nav__icon md-icon"></span>
+          Example Use Cases
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/ner_tagging/" class="md-nav__link">
+        Named Entity Recognition Tagging
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/nlu/" class="md-nav__link">
+        Natural Language Understanding
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/machine_translation/" class="md-nav__link">
+        Machine Translation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/seq2seq/" class="md-nav__link">
+        Chit-Chat Dialogue Modeling through Sequence2Sequence
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/sentiment_analysis/" class="md-nav__link">
+        Sentiment Analysis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/oneshot/" class="md-nav__link">
+        One-shot Learning with Siamese Networks
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/visual_qa/" class="md-nav__link">
+        Visual Question Answering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/speech_recognition/" class="md-nav__link">
+        Spoken Digit Speech Recognition
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/speaker_verification/" class="md-nav__link">
+        Speaker Verification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/titanic/" class="md-nav__link">
+        Binary Classification (Titanic)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/forecasting/" class="md-nav__link">
+        Timeseries forecasting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/weather/" class="md-nav__link">
+        Timeseries forecasting (Weather)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/movie_ratings/" class="md-nav__link">
+        Movie rating prediction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/multi_label/" class="md-nav__link">
+        Multi-label classification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/multi_task/" class="md-nav__link">
+        Multi-Task Learning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/fuel_efficiency/" class="md-nav__link">
+        Simple Regression - Fuel Efficiency Prediction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/fraud/" class="md-nav__link">
+        Fraud Detection
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="developer_guide/">Developer Guide</a>
+          
+            <label for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Developer Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Developer Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/codebase_structure/" class="md-nav__link">
+        Codebase Structure
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/add_an_encoder/" class="md-nav__link">
+        Add an Encoder
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/add_a_combiner/" class="md-nav__link">
+        Add a Combiner
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/add_a_decoder/" class="md-nav__link">
+        Add a Decoder
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/add_a_feature_type/" class="md-nav__link">
+        Add a Feature Type
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/add_a_metric/" class="md-nav__link">
+        Add a Metric
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/add_a_loss_function/" class="md-nav__link">
+        Add a Loss Function
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/add_a_tokenizer/" class="md-nav__link">
+        Add a Tokenizer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/add_a_hyperopt/" class="md-nav__link">
+        Add a Hyperopt Algorithm
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/add_a_pretrained_model/" class="md-nav__link">
+        Add a Pretrained Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/add_an_integration/" class="md-nav__link">
+        Add an Integration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/add_a_dataset/" class="md-nav__link">
+        Add a Dataset
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/style_guidelines_and_tests/" class="md-nav__link">
+        Style Guidelines and Tests
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/unit_test_design_guidelines/" class="md-nav__link">
+        Unit Test Design Guidelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/run_tests_on_gpu_using_ray/" class="md-nav__link">
+        Run Tests on GPU Using Ray
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/release_process/" class="md-nav__link">
+        Release Process
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="community/" class="md-nav__link">
+        Community
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="faq/" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
                 </div>
-            </div> <!-- end about-how-content -->
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
 
-        </div> <!-- end about-how -->
-
-        <div class="row about-bottom-image">
-
-            <img alt="Ludwig Screenshots" class="centered-image" data-aos="fade-up"
-                sizes="(max-width: 2800px) 100vw, 2800px" src="images/screens-1200.png" srcset="images/screens-600.png 600w,
-                     images/screens-1200.png 1200w,
-                     images/screens-2800.png 2800w">
-
-        </div> <!-- end about-bottom-image -->
-
-    </section> <!-- end about -->
-
-
-    <!-- cite
-================================================== -->
-    <section id="download">
-
-        <div class="row">
-            <div class="col-full">
-                <h1 class="intro-header" data-aos="fade-up">Programmatic API</h1>
-
-                <p class="lead" data-aos="fade-up">
-                    Train models and use them to predict directly from Python
-                </p>
-
-                <pre data-aos="fade-up"><code>from ludwig.api import LudwigModel
-
-# train a model
-config = {...}
-model = LudwigModel(config)
-train_stats = model.train(training_data)
-# or load a model
-model = LudwigModel.load(model_path)
-
-# obtain predictions
-predictions = model.predict(test_data)</code></pre>
-                <!--
-            <ul class="download-badges">
-                <li><a href="#" title="" class="badge-appstore"  data-aos="fade-up">App Store</a></li>
-                <li><a href="#" title="" class="badge-googleplay" data-aos="fade-up">Play Store</a></li>
-            </ul>
-            -->
-            </div>
-        </div>
-
-    </section> <!-- end download -->
-
-
-    <section id="download">
-
-        <div class="row">
-            <div class="col-full">
-                <h1 class="intro-header" data-aos="fade-up">Cite Ludwig</h1>
-
-                <pre data-aos="fade-up"><code>@misc{Molino2019,
-  author = {Piero Molino and Yaroslav Dudin and Sai Sumanth Miryala},
-  title = {Ludwig: a type-based declarative deep learning toolbox},
-  year = {2019},
-  eprint = {arXiv:1909.07930},
-}
-            </code></pre>
-                <!--
-            <ul class="download-badges">
-                <li><a href="#" title="" class="badge-appstore"  data-aos="fade-up">App Store</a></li>
-                <li><a href="#" title="" class="badge-googleplay" data-aos="fade-up">Play Store</a></li>
-            </ul>
-            -->
-            </div>
-        </div>
-
-    </section> <!-- end download -->
-
-    <!-- footer
-================================================== -->
-    <footer class="md-footer">
-
-        <!-- Further information -->
-        <div class="md-footer-meta md-typeset">
-            <div class="md-footer-meta__inner md-grid">
-
-                <!-- Copyright and theme information -->
-                <div class="md-footer-copyright md-footer-copyright-wrapper">
-                    <div class="md-footer-copyright__highlight md-footer-copyright__highlight-wrapper">
-                        Copyright © 2018 - 2020 Uber Technologies Inc., 2021 - 2022 Linux Foundation Data & AI
-                    </div>
-
-                    Website by <a href="http://w4nderlu.st">w4nderlust</a> powered by
-                    <a href="https://www.mkdocs.org">MkDocs</a>,
-                    <a href="https://squidfunk.github.io/mkdocs-material/">Material for MkDocs</a>,
-                    <a href="http://www.styleshout.com/">styleshout</a> and
-                    <a href="http://cables.gl/">cables</a>.
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-ludwig" class="md-nav__link">
+    What is Ludwig?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#declarative-machine-learning" class="md-nav__link">
+    Declarative Machine Learning
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#main-features" class="md-nav__link">
+    Main Features
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    Quick Start
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-install" class="md-nav__link">
+    Step 1: Install
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-define-a-configuration" class="md-nav__link">
+    Step 2: Define a configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-train-a-model" class="md-nav__link">
+    Step 3: Train a model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-predict-and-evaluate" class="md-nav__link">
+    Step 4: Predict and evaluate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-visualize" class="md-nav__link">
+    Step 5: Visualize
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-happy-modeling" class="md-nav__link">
+    Step 6: Happy modeling
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advantages" class="md-nav__link">
+    Advantages
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tutorials" class="md-nav__link">
+    Tutorials
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-use-cases" class="md-nav__link">
+    Example Use Cases
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#more-information" class="md-nav__link">
+    More Information
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-involved" class="md-nav__link">
+    Getting Involved
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
                 </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/ludwig-ai/ludwig-docs/edit/master/src/docs/index.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
 
-                <!-- Social links -->
 
 
+  <h1>Ludwig</h1>
 
-            </div>
+<p><img alt="Ludwig logo" src="images/ludwig_hero_transparent.png#only-light" />
+<img alt="Ludwig logo" src="images/ludwig_hero_transparent_dark.png#only-dark" /></p>
+<p align="center">
+
+    <em>Declarative machine learning: End-to-end machine learning pipelines using simple and flexible data-driven configurations.</em>
+</p>
+<p align="center">
+
+<a href="https://badge.fury.io/py/ludwig" target="_blank">
+    <img src="https://badge.fury.io/py/ludwig.svg" alt="pypi package">
+</a>
+<a href="https://github.com/ludwig-ai/ludwig/actions/workflows/pytest.yml" target="_blank">
+    <img src="https://github.com/ludwig-ai/ludwig/actions/workflows/pytest.yml/badge.svg" alt="Test">
+</a>
+<a href="https://pepy.tech/project/ludwig" target="_blank">
+    <img src="https://pepy.tech/badge/ludwig" alt="downloads">
+</a>
+<a href="https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ" target="_blank">
+    <img src="https://img.shields.io/badge/slack-chat-green.svg?logo=slack" alt="slack">
+</a>
+<a href="https://github.com/ludwig-ai/ludwig/blob/master/LICENSE" target="_blank">
+    <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="license">
+</a>
+</p>
+
+<hr />
+<h2 id="what-is-ludwig">What is Ludwig?<a class="headerlink" href="#what-is-ludwig" title="Permanent link">&para;</a></h2>
+<p>Ludwig is a <a href="https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/what_is_ludwig/#why-declarative-machine-learning-systems">declarative machine learning framework</a>
+that makes it easy to define machine learning pipelines using a simple and
+flexible data-driven configuration system. Ludwig is suitable for a wide variety
+of AI tasks, and is hosted by the
+<a href="https://lfaidata.foundation/">Linux Foundation AI &amp; Data</a>.</p>
+<p>The configuration declares the input and output features, with their respective
+data types. Users can also specify additional parameters to preprocess, encode,
+and decode features, load from pre-trained models, compose the internal model
+architecture, set training parameters, or run hyperparameter optimization.</p>
+<p><img alt="img" src="https://raw.githubusercontent.com/ludwig-ai/ludwig-docs/master/docs/images/ludwig_legos.gif" /></p>
+<p>Ludwig will build an end-to-end machine learning pipeline automatically, using
+whatever is explicitly specified in the configuration, while falling back to
+smart defaults for any parameters that are not.</p>
+<h2 id="declarative-machine-learning">Declarative Machine Learning<a class="headerlink" href="#declarative-machine-learning" title="Permanent link">&para;</a></h2>
+<p>Ludwig’s declarative approach to machine learning empowers you to have full
+control of the components of the machine learning pipeline that you care about,
+while leaving it up to Ludwig to make reasonable decisions for the rest.</p>
+<p><img alt="img" src="images/why_declarative.png" /></p>
+<p>Analysts, scientists, engineers, and researchers use Ludwig to explore
+state-of-the-art model architectures, run hyperparameter search, scale up to
+larger than available memory datasets and multi-node clusters, and finally
+serve the best model in production.</p>
+<p>Finally, the use of abstract interfaces throughout the codebase makes it easy
+for users to extend Ludwig by adding new models, metrics, losses, and
+preprocessing functions that can be registered to make them immediately useable
+in the same unified configuration system.</p>
+<h2 id="main-features">Main Features<a class="headerlink" href="#main-features" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong><a href="https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/how_ludwig_works">Data-Driven configuration system</a></strong></p>
+<p>A config YAML file that describes the schema of your data (input features,
+output features, and their types) is all you need to start training deep
+learning models. Ludwig uses declared features to compose a deep learning
+model accordingly.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data_column_1</span><span class="w"></span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data_column_2</span><span class="w"></span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data_column_3</span><span class="w"></span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data_column_4</span><span class="w"></span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
+
+<span class="nt">output_features</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data_column_5</span><span class="w"></span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data_column_6</span><span class="w"></span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
+</code></pre></div>
+</li>
+<li>
+<p><strong><a href="https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/command_line_interface">Training, prediction, and evaluation from the command line</a></strong></p>
+<p>Simple commands can be used to train models and predict new data.</p>
+<div class="highlight"><pre><span></span><code>ludwig train --config config.yaml --dataset data.csv
+ludwig predict --model_path results/experiment_run/model --dataset test.csv
+ludwig <span class="nb">eval</span> --model_path results/experiment_run/model --dataset test.csv
+</code></pre></div>
+</li>
+<li>
+<p><strong><a href="https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/api/LudwigModel">Programmatic API</a></strong></p>
+<p>Ludwig also provides a simple programmatic API for all of the functionality
+described above and more.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">ludwig.api</span> <span class="kn">import</span> <span class="n">LudwigModel</span>
+
+<span class="c1"># train a model</span>
+<span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;input_features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span>
+    <span class="s2">&quot;output_features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span>
+<span class="p">}</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LudwigModel</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data.csv&quot;</span><span class="p">)</span>
+<span class="n">train_stats</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">model_dir</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># or load a model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LudwigModel</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span><span class="p">)</span>
+
+<span class="c1"># obtain predictions</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong><a href="https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/distributed_training">Distributed training</a></strong></p>
+<p>Train models in a distributed setting using <a href="https://github.com/horovod/horovod">Horovod</a>,
+which allows training on a single machine with multiple GPUs or multiple
+machines with multiple GPUs.</p>
+</li>
+<li>
+<p><strong><a href="https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/serving">Serving</a></strong></p>
+<p>Serve models using FastAPI.</p>
+<div class="highlight"><pre><span></span><code>ludwig serve --model_path ./results/experiment_run/model
+curl http://0.0.0.0:8000/predict -X POST -F <span class="s2">&quot;movie_title=Friends With Money&quot;</span> -F <span class="s2">&quot;content_rating=R&quot;</span> -F <span class="s2">&quot;genres=Art House &amp; International, Comedy, Drama&quot;</span> -F <span class="s2">&quot;runtime=88.0&quot;</span> -F <span class="s2">&quot;top_critic=TRUE&quot;</span> -F <span class="s2">&quot;review_content=The cast is terrific, the movie isn&#39;t.&quot;</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong><a href="https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/hyperopt">Hyperparameter optimization</a></strong></p>
+<p>Run hyperparameter optimization locally or using <a href="https://docs.ray.io/en/latest/tune/index.html">Ray Tune</a>.</p>
+<div class="highlight"><pre><span></span><code>ludwig hyperopt --config config.yaml --dataset data.csv
+</code></pre></div>
+</li>
+<li>
+<p><strong><a href="https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/automl">AutoML</a></strong></p>
+<p>Ludwig AutoML takes a dataset, the target column, and a time budget, and
+returns a trained Ludwig model.</p>
+</li>
+<li>
+<p><strong><a href="https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/integrations">Third-Party integrations</a></strong></p>
+<p>Ludwig provides an extendable interface to integrate with third-party
+systems for tracking experiments. Third-party integrations exist for Comet
+ML, Weights &amp; Biases, WhyLabs, and MLFlow.</p>
+</li>
+<li>
+<p><strong><a href="https://ludwig-ai.github.io/ludwig-docs/latest/developer_guide">Extensibility</a></strong></p>
+<p>Ludwig is built from the ground up with extensibility in mind. It is easy to
+add new data types by implementing clear, well-documented abstract classes
+that define functions to preprocess, encode, and decode data.</p>
+<p>Furthermore, new <code>torch nn.Module</code> models can be easily added by them to a
+registry. This encourages reuse and sharing new models with the community.
+Refer to the <a href="https://ludwig-ai.github.io/ludwig-docs/latest/developer_guide">Developer Guide</a>
+for further details.</p>
+</li>
+</ul>
+<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<p>For a full tutorial, check out the official <a href="https://ludwig-ai.github.io/ludwig-docs/latest/getting_started/">getting started guide</a>,
+or take a look at end-to-end <a href="https://ludwig-ai.github.io/ludwig-docs/latest/examples">Examples</a>.</p>
+<h3 id="step-1-install">Step 1: Install<a class="headerlink" href="#step-1-install" title="Permanent link">&para;</a></h3>
+<p>Install from PyPi. Be aware that Ludwig requires Python 3.7+.</p>
+<div class="highlight"><pre><span></span><code>pip install ludwig
+</code></pre></div>
+<h3 id="step-2-define-a-configuration">Step 2: Define a configuration<a class="headerlink" href="#step-2-define-a-configuration" title="Permanent link">&para;</a></h3>
+<p>Create a config that describes the schema of your data.</p>
+<p>Assume we have a text classification task, with data containing a sentence and class column like the following.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">sentence</th>
+<th style="text-align: center;">class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Former president Barack Obama ...</td>
+<td style="text-align: center;">politics</td>
+</tr>
+<tr>
+<td style="text-align: center;">Juventus hired Cristiano Ronaldo ...</td>
+<td style="text-align: center;">sport</td>
+</tr>
+<tr>
+<td style="text-align: center;">LeBron James joins the Lakers ...</td>
+<td style="text-align: center;">sport</td>
+</tr>
+<tr>
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+</tr>
+</tbody>
+</table>
+<p>A configuration will look like this.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sentence</span><span class="w"></span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w"></span>
+
+<span class="nt">output_features</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">class</span><span class="w"></span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
+</code></pre></div>
+<p>Starting from a simple config like the one above, any and all aspects of the model architecture, training loop,
+hyperparameter search, and backend infrastructure can be modified as additional fields in the declarative configuration
+to customize the pipeline to meet your requirements.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sentence</span><span class="w"></span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w"></span>
+<span class="w">  </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">transformer</span><span class="w"></span>
+<span class="w">  </span><span class="nt">layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span><span class="w"></span>
+<span class="w">  </span><span class="nt">embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512</span><span class="w"></span>
+
+<span class="nt">output_features</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">class</span><span class="w"></span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
+<span class="w">  </span><span class="nt">loss</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cross_entropy</span><span class="w"></span>
+
+<span class="nt">trainer</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">epochs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span><span class="w"></span>
+<span class="w">  </span><span class="nt">batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span><span class="w"></span>
+<span class="w">  </span><span class="nt">optimizer</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adamw</span><span class="w"></span>
+<span class="w">    </span><span class="nt">beat1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.9</span><span class="w"></span>
+<span class="w">  </span><span class="nt">learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span><span class="w"></span>
+
+<span class="nt">backend</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span><span class="w"></span>
+<span class="w">  </span><span class="nt">cache_format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">parquet</span><span class="w"></span>
+<span class="w">  </span><span class="nt">processor</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dask</span><span class="w"></span>
+<span class="w">  </span><span class="nt">trainer</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">use_gpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">    </span><span class="nt">num_workers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"></span>
+<span class="w">    </span><span class="nt">resources_per_worker</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">CPU</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"></span>
+<span class="w">      </span><span class="nt">GPU</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+
+<span class="nt">hyperopt</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">f1</span><span class="w"></span>
+<span class="w">  </span><span class="nt">sampler</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random</span><span class="w"></span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">title.num_layers</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">      </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span><span class="w"></span>
+<span class="w">    </span><span class="nt">trainer.learning_rate</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.01</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.003</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.001</span><span class="p p-Indicator">]</span><span class="w"></span>
+</code></pre></div>
+<p>For details on what can be configured, check out <a href="https://ludwig-ai.github.io/ludwig-docs/latest/configuration/">Ludwig Configuration</a>
+docs.</p>
+<h3 id="step-3-train-a-model">Step 3: Train a model<a class="headerlink" href="#step-3-train-a-model" title="Permanent link">&para;</a></h3>
+<p>Simple commands can be used to train models and predict new data.</p>
+<div class="highlight"><pre><span></span><code>ludwig train --config config.yaml --dataset data.csv
+</code></pre></div>
+<h3 id="step-4-predict-and-evaluate">Step 4: Predict and evaluate<a class="headerlink" href="#step-4-predict-and-evaluate" title="Permanent link">&para;</a></h3>
+<p>The training process will produce a model that can be used for evaluating on and obtaining predictions for new data.</p>
+<div class="highlight"><pre><span></span><code>ludwig predict --model path/to/trained/model --dataset heldout.csv
+ludwig evaluate --model path/to/trained/model --dataset heldout.csv
+</code></pre></div>
+<h3 id="step-5-visualize">Step 5: Visualize<a class="headerlink" href="#step-5-visualize" title="Permanent link">&para;</a></h3>
+<p>Ludwig provides a suite of visualization tools allows you to analyze models' training and test performance and to
+compare them.</p>
+<div class="highlight"><pre><span></span><code>ludwig visualize --visualization compare_performance --test_statistics path/to/test_statistics_model_1.json path/to/test_statistics_model_2.json
+</code></pre></div>
+<p>For the full set of visualization see the <a href="https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/visualizations">Visualization Guide</a>.</p>
+<h3 id="step-6-happy-modeling">Step 6: Happy modeling<a class="headerlink" href="#step-6-happy-modeling" title="Permanent link">&para;</a></h3>
+<p>Try applying Ludwig to your data. <a href="https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ">Reach out</a>
+if you have any questions.</p>
+<h2 id="advantages">Advantages<a class="headerlink" href="#advantages" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>Minimal machine learning boilerplate</strong></p>
+<p>Ludwig takes care of the engineering complexity of machine learning out of
+the box, enabling research scientists to focus on building models at the
+highest level of abstraction. Data preprocessing, hyperparameter
+optimization, device management, and distributed training for
+<code>torch.nn.Module</code> models come completely free.</p>
+</li>
+<li>
+<p><strong>Easily build your benchmarks</strong></p>
+<p>Creating a state-of-the-art baseline and comparing it with a new model is a
+simple config change.</p>
+</li>
+<li>
+<p><strong>Easily apply new architectures to multiple problems and datasets</strong></p>
+<p>Apply new models across the extensive set of tasks and datasets that Ludwig
+supports. Ludwig includes a
+<a href="https://arxiv.org/abs/2111.04260">full benchmarking toolkit</a> accessible to
+any user, for running experiments with multiple models across multiple
+datasets with just a simple configuration.</p>
+</li>
+<li>
+<p><strong>Highly configurable data preprocessing, modeling, and metrics</strong></p>
+<p>Any and all aspects of the model architecture, training loop, hyperparameter
+search, and backend infrastructure can be modified as additional fields in
+the declarative configuration to customize the pipeline to meet your
+requirements. For details on what can be configured, check out
+<a href="https://ludwig-ai.github.io/ludwig-docs/latest/configuration/">Ludwig Configuration</a>
+docs.</p>
+</li>
+<li>
+<p><strong>Multi-modal, multi-task learning out-of-the-box</strong></p>
+<p>Mix and match tabular data, text, images, and even audio into complex model
+configurations without writing code.</p>
+</li>
+<li>
+<p><strong>Rich model exporting and tracking</strong></p>
+<p>Automatically track all trials and metrics with tools like Tensorboard,
+Comet ML, Weights &amp; Biases, MLFlow, and Aim Stack.</p>
+</li>
+<li>
+<p><strong>Automatically scale training to multi-GPU, multi-node clusters</strong></p>
+<p>Go from training on your local machine to the cloud without code changes.</p>
+</li>
+<li>
+<p><strong>Low-code interface for state-of-the-art models, including pre-trained Huggingface Transformers</strong></p>
+<p>Ludwig also natively integrates with pre-trained models, such as the ones
+available in <a href="https://huggingface.co/docs/transformers/index">Huggingface Transformers</a>.
+Users can choose from a vast collection of state-of-the-art pre-trained
+PyTorch models to use without needing to write any code at all. For example,
+training a BERT-based sentiment analysis model with Ludwig is as simple as:</p>
+<div class="highlight"><pre><span></span><code>ludwig train --dataset sst5 --config_str “<span class="o">{</span>input_features: <span class="o">[{</span>name: sentence, type: text, encoder: bert<span class="o">}]</span>, output_features: <span class="o">[{</span>name: label, type: category<span class="o">}]}</span>”
+</code></pre></div>
+</li>
+<li>
+<p><strong>Low-code interface for AutoML</strong></p>
+<p><a href="https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/automl/">Ludwig AutoML</a>
+allows users to obtain trained models by providing just a dataset, the
+target column, and a time budget.</p>
+<div class="highlight"><pre><span></span><code><span class="n">auto_train_results</span> <span class="o">=</span> <span class="n">ludwig</span><span class="o">.</span><span class="n">automl</span><span class="o">.</span><span class="n">auto_train</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">my_dataset_df</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target_column_name</span><span class="p">,</span> <span class="n">time_limit_s</span><span class="o">=</span><span class="mi">7200</span><span class="p">)</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>Easy productionisation</strong></p>
+<p>Ludwig makes it easy to serve deep learning models, including on GPUs.
+Launch a REST API for your trained Ludwig model.</p>
+<div class="highlight"><pre><span></span><code>ludwig serve --model_path<span class="o">=</span>/path/to/model
+</code></pre></div>
+<p>Ludwig supports exporting models to efficient Torschscript bundles.</p>
+<div class="highlight"><pre><span></span><code>ludwig export_torchscript -–model_path<span class="o">=</span>/path/to/model
+</code></pre></div>
+</li>
+</ul>
+<h2 id="tutorials">Tutorials<a class="headerlink" href="#tutorials" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://ludwig-ai.github.io/ludwig-docs/latest/examples/text_classification">Text Classification</a></li>
+<li><a href="https://ludwig-ai.github.io/ludwig-docs/latest/examples/adult_census_income">Tabular Data Classification</a></li>
+<li><a href="https://ludwig-ai.github.io/ludwig-docs/latest/examples/mnist">Image Classification</a></li>
+<li><a href="https://ludwig-ai.github.io/ludwig-docs/latest/examples/multimodal_classification">Multimodal Classification</a></li>
+</ul>
+<h2 id="example-use-cases">Example Use Cases<a class="headerlink" href="#example-use-cases" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://ludwig-ai.github.io/ludwig-docs/latest/examples/ner_tagging">Named Entity Recognition Tagging</a></li>
+<li><a href="https://ludwig-ai.github.io/ludwig-docs/latest/examples/nlu">Natural Language Understanding</a></li>
+<li><a href="https://ludwig-ai.github.io/ludwig-docs/latest/examples/machine_translation">Machine Translation</a></li>
+<li><a href="https://ludwig-ai.github.io/ludwig-docs/latest/examples/seq2seq">Chit-Chat Dialogue Modeling through seq2seq</a></li>
+<li><a href="https://ludwig-ai.github.io/ludwig-docs/latest/examples/sentiment_analysis">Sentiment Analysis</a></li>
+<li><a href="https://ludwig-ai.github.io/ludwig-docs/latest/examples/oneshot">One-shot Learning with Siamese Networks</a></li>
+<li><a href="https://ludwig-ai.github.io/ludwig-docs/latest/examples/visual_qa">Visual Question Answering</a></li>
+<li><a href="https://ludwig-ai.github.io/ludwig-docs/latest/examples/speech_recognition">Spoken Digit Speech Recognition</a></li>
+<li><a href="https://ludwig-ai.github.io/ludwig-docs/latest/examples/speaker_verification">Speaker Verification</a></li>
+<li><a href="https://ludwig-ai.github.io/ludwig-docs/latest/examples/titanic">Binary Classification (Titanic)</a></li>
+<li><a href="https://ludwig-ai.github.io/ludwig-docs/latest/examples/forecasting">Timeseries forecasting</a></li>
+<li><a href="https://ludwig-ai.github.io/ludwig-docs/latest/examples/weather">Timeseries forecasting (Weather)</a></li>
+<li><a href="https://ludwig-ai.github.io/ludwig-docs/latest/examples/movie_ratings">Movie rating prediction</a></li>
+<li><a href="https://ludwig-ai.github.io/ludwig-docs/latest/examples/multi_label">Multi-label classification</a></li>
+<li><a href="https://ludwig-ai.github.io/ludwig-docs/latest/examples/multi_task">Multi-Task Learning</a></li>
+<li><a href="https://ludwig-ai.github.io/ludwig-docs/latest/examples/fuel_efficiency">Simple Regression: Fuel Efficiency Prediction</a></li>
+<li><a href="https://ludwig-ai.github.io/ludwig-docs/latest/examples/fraud">Fraud Detection</a></li>
+</ul>
+<h2 id="more-information">More Information<a class="headerlink" href="#more-information" title="Permanent link">&para;</a></h2>
+<p>Read our publications on <a href="https://arxiv.org/pdf/1909.07930.pdf">Ludwig</a>, <a href="https://arxiv.org/pdf/2107.08148.pdf">declarative ML</a>, and <a href="https://openreview.net/pdf?id=hwjnu6qW7E4">Ludwig’s SoTA benchmarks</a>.</p>
+<p>Learn more about <a href="https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/how_ludwig_works/">how Ludwig works</a>, <a href="https://ludwig-ai.github.io/ludwig-docs/latest/getting_started/">how to get started</a>, and work through more <a href="https://ludwig-ai.github.io/ludwig-docs/latest/examples">examples</a>.</p>
+<p>If you are interested in contributing, have questions, comments, or thoughts to share, or if you just want to be in the
+know, please consider <a href="https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ">joining the Ludwig Slack</a> and follow us on <a href="https://twitter.com/ludwig_ai">Twitter</a>!</p>
+<h2 id="getting-involved">Getting Involved<a class="headerlink" href="#getting-involved" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ">Slack</a></li>
+<li><a href="https://twitter.com/ludwig_ai">Twitter</a></li>
+<li><a href="https://medium.com/ludwig-ai">Medium</a></li>
+<li><a href="https://github.com/ludwig-ai/ludwig/issues">GitHub Issues</a></li>
+</ul>
+
+              
+            </article>
+          </div>
         </div>
-    </footer>
+        
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
 
-    <div id="preloader">
-        <div id="loader"></div>
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Footer -->
+<footer class="md-footer">
+
+    <!-- Link to previous and/or next page -->
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+
+        <!-- Link to previous page -->
+        
+
+        <!-- Link to next page -->
+        
+        
+        <a href="getting_started/" class="md-footer__link md-footer__link--next"
+            aria-label="Next: Getting Started" rel="next">
+            <div class="md-footer__title">
+                <div class="md-ellipsis">
+                    <span class="md-footer__direction">
+                        Next
+                    </span>
+                    Getting Started
+                </div>
+            </div>
+            <div class="md-footer__button md-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+        </a>
+        
+    </nav>
+    
+
+    <!-- Further information -->
+    <div class="md-footer-meta md-typeset">
+        <div class="md-footer-meta__inner md-grid">
+            <!--
+  Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Copyright and theme information -->
+<div class="md-copyright">
+    
+    <div class="md-copyright__highlight">
+        Copyright &copy; 2018 - 2020 Uber Technologies Inc., 2021 - 2022 Linux Foundation Data & AI
     </div>
+    
+    
 
-    <!-- Java Script
-================================================== -->
-    <script src="js/jquery-2.1.3.min.js"></script>
-    <script src="js/plugins.js"></script>
-    <script src="js/main.js"></script>
+    Website by <a href="http://w4nderlu.st">w4nderlust</a> powered by
+    <a href="https://www.mkdocs.org" target="_blank" rel="noopener">MkDocs</a>,
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">Material for MkDocs</a>,
+    <a href="http://www.styleshout.com/" target="_blank" rel="noopener">styleshout</a> and
+    <a href="http://cables.gl/" target="_blank" rel="noopener">cables</a>.
+    
+</div>
 
-</body>
-
+            <!-- Social links -->
+            
+        </div>
+    </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.indexes", "navigation.tabs.sticky", "navigation.sections"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.5e67fbfe.min.js", "version": {"provider": "mike", "default": "latest"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.e87a5f81.min.js"></script>
+      
+    
+  </body>
 </html>

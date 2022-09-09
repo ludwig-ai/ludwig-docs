@@ -1,5 +1,3 @@
-<!-- ![Ludwig logo](https://github.com/ludwig-ai/ludwig-docs/raw/master/docs/images/ludwig_hero_transparent_dark.png#only-dark)
-![Ludwig logo](images/ludwig_hero_transparent.png#only-light) -->
 ![Ludwig logo](images/ludwig_hero_transparent.png#only-light)
 ![Ludwig logo](images/ludwig_hero_transparent_dark.png#only-dark)
 
@@ -14,13 +12,6 @@
 </a>
 <a href="https://github.com/ludwig-ai/ludwig/actions/workflows/pytest.yml" target="_blank">
     <img src="https://github.com/ludwig-ai/ludwig/actions/workflows/pytest.yml/badge.svg" alt="Test">
-</a>
-<a href="https://github.com/ludwig-ai/ludwig/actions/workflows/pytest.yml" target="_blank">
-    <img src="https://bestpractices.coreinfrastructure.org/projects/4210/badge" alt="openssf best practices">
-</a>
-<br>
-<a href="https://hub.docker.com/r/ludwigai" target="_blank">
-    <img src="https://img.shields.io/docker/pulls/ludwigai/ludwig.svg" alt="docker pulls">
 </a>
 <a href="https://pepy.tech/project/ludwig" target="_blank">
     <img src="https://pepy.tech/badge/ludwig" alt="downloads">
@@ -43,22 +34,24 @@ flexible data-driven configuration system. Ludwig is suitable for a wide variety
 of AI tasks, and is hosted by the
 [Linux Foundation AI & Data](https://lfaidata.foundation/).
 
-A minimal configuration declares the inputs and outputs, with their respective
-data types. Users can also specify any additional parameters to configure
-preprocessing, feature encoding, feature decoding, pre-trained models, model
-architecture, training, hyperparameter optimization, or backend.
-
-Ludwig will build a machine learning pipeline automatically, determining how
-inputs and outputs are preprocessed, encoded, decoded, postprocessed, and which
-metrics and loss criterion to use, using whatever is explicitly specified in the
-configuration, while falling back to smart defaults for any parameters that are
-not.
+The configuration declares the input and output features, with their respective
+data types. Users can also specify additional parameters to preprocess, encode,
+and decode features, load from pre-trained models, compose the internal model
+architecture, set training parameters, or run hyperparameter optimization.
 
 ![img](https://raw.githubusercontent.com/ludwig-ai/ludwig-docs/master/docs/images/ludwig_legos.gif)
 
-This makes the Ludwig configuration extremely flexible, allowing for full
-control of the finest-grain details of the overall pipeline, while filling in
-any blank parameters with reasonable values.
+Ludwig will build an end-to-end machine learning pipeline automatically, using
+whatever is explicitly specified in the configuration, while falling back to
+smart defaults for any parameters that are not.
+
+# Declarative Machine Learning
+
+Ludwig’s declarative approach to machine learning empowers you to have full
+control of the components of the machine learning pipeline that you care about,
+while leaving it up to Ludwig to make reasonable decisions for the rest.
+
+![img](images/why_declarative.png)
 
 Analysts, scientists, engineers, and researchers use Ludwig to explore
 state-of-the-art model architectures, run hyperparameter search, scale up to
@@ -66,13 +59,13 @@ larger than available memory datasets and multi-node clusters, and finally
 serve the best model in production.
 
 Finally, the use of abstract interfaces throughout the codebase makes it easy
-for users to extend Ludwig by adding new models, metrics, losses, preprocessing
-functions that can be registered to make them immediately useable in the same
-unified configuration system.
+for users to extend Ludwig by adding new models, metrics, losses, and
+preprocessing functions that can be registered to make them immediately useable
+in the same unified configuration system.
 
 # Main Features
 
-- [Data-Driven configuration system](https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/how_ludwig_works)
+- **[Data-Driven configuration system](https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/how_ludwig_works)**
 
     A config YAML file that describes the schema of your data (input features,
     output features, and their types) is all you need to start training deep
@@ -99,7 +92,7 @@ unified configuration system.
         ...
     ```
 
-- [Training, prediction, and evaluation from the command line](https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/command_line_interface)
+- **[Training, prediction, and evaluation from the command line](https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/command_line_interface)**
 
     Simple commands can be used to train models and predict new data.
 
@@ -109,7 +102,7 @@ unified configuration system.
     ludwig eval --model_path results/experiment_run/model --dataset test.csv
     ```
 
-- [Programmatic API](https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/api/LudwigModel)
+- **[Programmatic API](https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/api/LudwigModel)**
 
     Ludwig also provides a simple programmatic API for all of the functionality
     described above and more.
@@ -133,13 +126,13 @@ unified configuration system.
     predictions = model.predict(data)
     ```
 
-- [Distributed training](https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/distributed_training)
+- **[Distributed training](https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/distributed_training)**
 
     Train models in a distributed setting using [Horovod](https://github.com/horovod/horovod),
     which allows training on a single machine with multiple GPUs or multiple
     machines with multiple GPUs.
 
-- [Serving](https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/serving)
+- **[Serving](https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/serving)**
 
     Serve models using FastAPI.
 
@@ -148,7 +141,7 @@ unified configuration system.
     curl http://0.0.0.0:8000/predict -X POST -F "movie_title=Friends With Money" -F "content_rating=R" -F "genres=Art House & International, Comedy, Drama" -F "runtime=88.0" -F "top_critic=TRUE" -F "review_content=The cast is terrific, the movie isn't."
     ```
 
-- [Hyperparameter optimization](https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/hyperopt)
+- **[Hyperparameter optimization](https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/hyperopt)**
 
     Run hyperparameter optimization locally or using [Ray Tune](https://docs.ray.io/en/latest/tune/index.html).
 
@@ -156,18 +149,18 @@ unified configuration system.
     ludwig hyperopt --config config.yaml --dataset data.csv
     ```
 
-- [AutoML](https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/automl)
+- **[AutoML](https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/automl)**
 
     Ludwig AutoML takes a dataset, the target column, and a time budget, and
     returns a trained Ludwig model.
 
-- [Third-Party integrations](https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/integrations)
+- **[Third-Party integrations](https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/integrations)**
 
     Ludwig provides an extendable interface to integrate with third-party
     systems for tracking experiments. Third-party integrations exist for Comet
     ML, Weights & Biases, WhyLabs, and MLFlow.
 
-- [Extensibility](https://ludwig-ai.github.io/ludwig-docs/latest/developer_guide)
+- **[Extensibility](https://ludwig-ai.github.io/ludwig-docs/latest/developer_guide)**
 
     Ludwig is built from the ground up with extensibility in mind. It is easy to
     add new data types by implementing clear, well-documented abstract classes

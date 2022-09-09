@@ -1,154 +1,154 @@
 # Project information
-site_name: "Ludwig"
-site_description: "Data-centric declarative machine learning framework"
-site_author: "Piero Molino"
-site_url: "https://ludwig-ai.github.io/ludwig-docs/"
+site_name: Ludwig
+site_description: "Declarative machine learning: End-to-end machine learning pipelines using data-driven configurations."
+site_author: Piero Molino
+site_url: https://ludwig-ai.github.io/ludwig-docs/
 
 # Repository
-repo_name: "ludwig-ai/ludwig"
-repo_url: "https://github.com/ludwig-ai/ludwig"
-edit_uri: "https://github.com/ludwig-ai/ludwig-docs/edit/master/src/docs/"
+repo_name: ludwig-ai/ludwig
+repo_url: https://github.com/ludwig-ai/ludwig
+edit_uri: https://github.com/ludwig-ai/ludwig-docs/edit/master/src/docs/
 
 # Copyright
-copyright: "Copyright &copy; 2018 - 2020 Uber Technologies Inc., 2021 - 2022 Linux Foundation Data & AI"
+copyright: Copyright &copy; 2018 - 2020 Uber Technologies Inc., 2021 - 2022 Linux Foundation Data & AI
 
 # Navigation
 nav:
-  - About: "index.md"
+  - Ludwig: index.md
   - Getting Started:
-      - "Getting Started": "getting_started/index.md"
-      - "Installation": "getting_started/installation.md"
-      - "Dataset preparation": "getting_started/prepare_data.md"
-      - "Training": "getting_started/train.md"
-      - "Prediction and Evaluation": "getting_started/evaluate.md"
-      - "Hyperopt": "getting_started/hyperopt.md"
-      - "Serving": "getting_started/serve.md"
-      - "Distributed training on Ray": "getting_started/ray.md"
-      - "Ludwig with Docker": "getting_started/docker.md"
+      - Getting Started: getting_started/index.md
+      - Installation: getting_started/installation.md
+      - Dataset preparation: getting_started/prepare_data.md
+      - Training: getting_started/train.md
+      - Prediction and Evaluation: getting_started/evaluate.md
+      - Hyperopt: getting_started/hyperopt.md
+      - Serving: getting_started/serve.md
+      - Distributed training on Ray: getting_started/ray.md
+      - Ludwig with Docker: getting_started/docker.md
   - User Guide:
-      - "User Guide": "user_guide/index.md"
-      - "What is Ludwig?": "user_guide/what_is_ludwig.md"
-      - "How Ludwig Works": "user_guide/how_ludwig_works.md"
-      - "Command Line Interface": "user_guide/command_line_interface.md"
-      - "Python API":
-          - "LudwigModel": "user_guide/api/LudwigModel.md"
-          - "Visualization": "user_guide/api/visualization.md"
-      - "Datasets":
-          - "Supported Formats": "user_guide/datasets/supported_formats.md"
-          - "Data Preprocessing": "user_guide/datasets/data_preprocessing.md"
-          - "Data Postprocessing": "user_guide/datasets/data_postprocessing.md"
-          - "Dataset Zoo": "user_guide/datasets/dataset_zoo.md"
-      - "Distributed Training": "user_guide/distributed_training.md"
-      - "Hyperparameter Optimization": "user_guide/hyperopt.md"
-      - "AutoML": "user_guide/automl.md"
-      - "Visualizations": "user_guide/visualizations.md"
-      - "Serving": "user_guide/serving.md"
-      - "Third-Party Integrations": "user_guide/integrations.md"
+      - User Guide: user_guide/index.md
+      - What is Ludwig?: user_guide/what_is_ludwig.md
+      - How Ludwig Works: user_guide/how_ludwig_works.md
+      - Command Line Interface: user_guide/command_line_interface.md
+      - Python API:
+          - LudwigModel: user_guide/api/LudwigModel.md
+          - Visualization: user_guide/api/visualization.md
+      - Datasets:
+          - Supported Formats: user_guide/datasets/supported_formats.md
+          - Data Preprocessing: user_guide/datasets/data_preprocessing.md
+          - Data Postprocessing: user_guide/datasets/data_postprocessing.md
+          - Dataset Zoo: user_guide/datasets/dataset_zoo.md
+      - Distributed Training: user_guide/distributed_training.md
+      - Hyperparameter Optimization: user_guide/hyperopt.md
+      - AutoML: user_guide/automl.md
+      - Visualizations: user_guide/visualizations.md
+      - Serving: user_guide/serving.md
+      - Third-Party Integrations: user_guide/integrations.md
   - Configuration:
-      - "Configuration": "configuration/index.md"
-      - "Preprocessing": "configuration/preprocessing.md"
-      - "Features":
-          - "Supported Data Types": "configuration/features/supported_data_types.md"
-          - "Input Features (↑)": "configuration/features/input_features.md"
-          - "Output Features (↓)": "configuration/features/output_features.md"
-          - "⇅ Binary Features": "configuration/features/binary_features.md"
-          - "⇅ Number Features": "configuration/features/number_features.md"
-          - "⇅ Category Features": "configuration/features/category_features.md"
-          - "⇅ Bag Features": "configuration/features/bag_features.md"
-          - "⇅ Set Features": "configuration/features/set_features.md"
-          - "⇅ Sequence Features": "configuration/features/sequence_features.md"
-          - "⇅ Text Features": "configuration/features/text_features.md"
-          - "⇅ Vector Features": "configuration/features/vector_features.md"
-          - "↑ Audio Features": "configuration/features/audio_features.md"
-          - "↑ Date Features": "configuration/features/date_features.md"
-          - "↑ H3 Features": "configuration/features/h3_features.md"
-          - "↑ Image Features": "configuration/features/image_features.md"
-          - "↑ Time Series Features": "configuration/features/time_series_features.md"
-      - "Combiner": "configuration/combiner.md"
-      - "Trainer": "configuration/trainer.md"
-      - "Hyperopt": "configuration/hyperparameter_optimization.md"
-      - "Backend": "configuration/backend.md"
+      - Configuration: configuration/index.md
+      - Preprocessing: configuration/preprocessing.md
+      - Features:
+          - Supported Data Types: configuration/features/supported_data_types.md
+          - Input Features (↑): configuration/features/input_features.md
+          - Output Features (↓): configuration/features/output_features.md
+          - ⇅ Binary Features: configuration/features/binary_features.md
+          - ⇅ Number Features: configuration/features/number_features.md
+          - ⇅ Category Features: configuration/features/category_features.md
+          - ⇅ Bag Features: configuration/features/bag_features.md
+          - ⇅ Set Features: configuration/features/set_features.md
+          - ⇅ Sequence Features: configuration/features/sequence_features.md
+          - ⇅ Text Features: configuration/features/text_features.md
+          - ⇅ Vector Features: configuration/features/vector_features.md
+          - ↑ Audio Features: configuration/features/audio_features.md
+          - ↑ Date Features: configuration/features/date_features.md
+          - ↑ H3 Features: configuration/features/h3_features.md
+          - ↑ Image Features: configuration/features/image_features.md
+          - ↑ Time Series Features: configuration/features/time_series_features.md
+      - Combiner: configuration/combiner.md
+      - Trainer: configuration/trainer.md
+      - Hyperopt: configuration/hyperparameter_optimization.md
+      - Backend: configuration/backend.md
   - Examples:
-      - "Examples": "examples/index.md"
-      - "Tutorials":
-          - "Text Classification": "examples/text_classification.md"
-          - "Tabular Data Classification": "examples/adult_census_income.md"
-          - "Image Classification": "examples/mnist.md"
-          - "Multimodal Classification": "examples/multimodal_classification.md"
-          - "Hyperparameter Optimization": "examples/hyperopt.md"
-      - "Example Use Cases":
-          - "Named Entity Recognition Tagging": "examples/ner_tagging.md"
-          - "Natural Language Understanding": "examples/nlu.md"
-          - "Machine Translation": "examples/machine_translation.md"
-          - "Chit-Chat Dialogue Modeling through Sequence2Sequence": "examples/seq2seq.md"
-          - "Sentiment Analysis": "examples/sentiment_analysis.md"
-          - "One-shot Learning with Siamese Networks": "examples/oneshot.md"
-          - "Visual Question Answering": "examples/visual_qa.md"
-          - "Spoken Digit Speech Recognition": "examples/speech_recognition.md"
-          - "Speaker Verification": "examples/speaker_verification.md"
-          - "Binary Classification (Titanic)": "examples/titanic.md"
-          - "Timeseries forecasting": "examples/forecasting.md"
-          - "Timeseries forecasting (Weather)": "examples/weather.md"
-          - "Movie rating prediction": "examples/movie_ratings.md"
-          - "Multi-label classification": "examples/multi_label.md"
-          - "Multi-Task Learning": "examples/multi_task.md"
-          - "Simple Regression: Fuel Efficiency Prediction": "examples/fuel_efficiency.md"
-          - "Fraud Detection": "examples/fraud.md"
+      - Examples: examples/index.md
+      - Tutorials:
+          - Text Classification: examples/text_classification.md
+          - Tabular Data Classification: examples/adult_census_income.md
+          - Image Classification: examples/mnist.md
+          - Multimodal Classification: examples/multimodal_classification.md
+          - Hyperparameter Optimization: examples/hyperopt.md
+      - Example Use Cases:
+          - Named Entity Recognition Tagging: examples/ner_tagging.md
+          - Natural Language Understanding: examples/nlu.md
+          - Machine Translation: examples/machine_translation.md
+          - Chit-Chat Dialogue Modeling through Sequence2Sequence: examples/seq2seq.md
+          - Sentiment Analysis: examples/sentiment_analysis.md
+          - One-shot Learning with Siamese Networks: examples/oneshot.md
+          - Visual Question Answering: examples/visual_qa.md
+          - Spoken Digit Speech Recognition: examples/speech_recognition.md
+          - Speaker Verification: examples/speaker_verification.md
+          - Binary Classification (Titanic): examples/titanic.md
+          - Timeseries forecasting: examples/forecasting.md
+          - Timeseries forecasting (Weather): examples/weather.md
+          - Movie rating prediction: examples/movie_ratings.md
+          - Multi-label classification: examples/multi_label.md
+          - Multi-Task Learning: examples/multi_task.md
+          - Simple Regression - Fuel Efficiency Prediction: examples/fuel_efficiency.md
+          - Fraud Detection: examples/fraud.md
   - Developer Guide:
-      - "Developer Guide": "developer_guide/index.md"
-      - "Codebase Structure": "developer_guide/codebase_structure.md"
-      - "Add an Encoder": "developer_guide/add_an_encoder.md"
-      - "Add a Combiner": "developer_guide/add_a_combiner.md"
-      - "Add a Decoder": "developer_guide/add_a_decoder.md"
-      - "Add a Feature Type": "developer_guide/add_a_feature_type.md"
-      - "Add a Metric": "developer_guide/add_a_metric.md"
-      - "Add a Loss Function": "developer_guide/add_a_loss_function.md"
-      - "Add a Tokenizer": "developer_guide/add_a_tokenizer.md"
-      - "Add a Hyperopt Algorithm": "developer_guide/add_a_hyperopt.md"
-      - "Add a Pretrained Model": "developer_guide/add_a_pretrained_model.md"
-      - "Add an Integration": "developer_guide/add_an_integration.md"
-      - "Add a Dataset": "developer_guide/add_a_dataset.md"
-      - "Style Guidelines and Tests": "developer_guide/style_guidelines_and_tests.md"
-      - "Unit Test Design Guidelines": "developer_guide/unit_test_design_guidelines.md"
-      - "Run Tests on GPU Using Ray": "developer_guide/run_tests_on_gpu_using_ray.md"
-      - "Release Process": "developer_guide/release_process.md"
-  - Community: "community.md"
-  - FAQ: "faq.md"
+      - Developer Guide: developer_guide/index.md
+      - Codebase Structure: developer_guide/codebase_structure.md
+      - Add an Encoder: developer_guide/add_an_encoder.md
+      - Add a Combiner: developer_guide/add_a_combiner.md
+      - Add a Decoder: developer_guide/add_a_decoder.md
+      - Add a Feature Type: developer_guide/add_a_feature_type.md
+      - Add a Metric: developer_guide/add_a_metric.md
+      - Add a Loss Function: developer_guide/add_a_loss_function.md
+      - Add a Tokenizer: developer_guide/add_a_tokenizer.md
+      - Add a Hyperopt Algorithm: developer_guide/add_a_hyperopt.md
+      - Add a Pretrained Model: developer_guide/add_a_pretrained_model.md
+      - Add an Integration: developer_guide/add_an_integration.md
+      - Add a Dataset: developer_guide/add_a_dataset.md
+      - Style Guidelines and Tests: developer_guide/style_guidelines_and_tests.md
+      - Unit Test Design Guidelines: developer_guide/unit_test_design_guidelines.md
+      - Run Tests on GPU Using Ray: developer_guide/run_tests_on_gpu_using_ray.md
+      - Release Process: developer_guide/release_process.md
+  - Community: community.md
+  - FAQ: faq.md
 
 # Configuration
-site_dir: "../docs/"
+site_dir: ../docs/
 theme:
-  name: "material"
-  language: "en"
-  logo: "images/ludwig_logo.svg"
-  favicon: "favicon.ico"
-  custom_dir: "custom/"
-  primary: "grey"
+  name: material
+  language: en
+  logo: images/ludwig_logo.svg
+  favicon: favicon.ico
+  custom_dir: custom/
   palette:
     - media: "(prefers-color-scheme: light)" # (1)!
       scheme: default
       accent: deep orange
+      primary: grey
       toggle:
         icon: material/toggle-switch-off-outline
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)" # (2)!
       scheme: slate
       accent: deep orange
+      primary: grey
       toggle:
         icon: material/toggle-switch
         name: Switch to light mode
   features:
-    - navigation.tabs
     - navigation.indexes
+    # - navigation.tabs  # Moves side bar to a top navigation.
+    - navigation.tabs.sticky
+    - navigation.sections
 
 # Customization
 extra_css:
   - "stylesheets/extra.css"
   - "stylesheets/monokai.css"
   - "stylesheets/colorful.css"
-
-#extra_javascript:
-#  - https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js
 
 # Extensions
 markdown_extensions:
@@ -193,5 +193,5 @@ plugins:
       css_dir: css # the directory to put the version selector's CSS
       javascript_dir: js # the directory to put the version selector's JS
       canonical_version:
-        "latest" # the version for <link rel="canonical">; `null`
+        latest # the version for <link rel="canonical">; `null`
         # uses the version specified via `mike deploy`

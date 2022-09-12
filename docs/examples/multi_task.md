@@ -19,22 +19,26 @@ input_features:
     -
         name: sentence
         type: sequence
-        encoder: rnn
-        cell: lstm
-        bidirectional: true
-        reduce_output: null
+        encoder: 
+            type: rnn
+            cell: lstm
+            bidirectional: true
+            reduce_output: null
 
 output_features:
     -
         name: chunks
         type: sequence
-        decoder: tagger
+        decoder: 
+            type: tagger
     -
         name: part_of_speech
         type: sequence
-        decoder: tagger
+        decoder: 
+            type: tagger
     -
         name: named_entities
         type: sequence
-        decoder: tagger
+        decoder: 
+            type: tagger
 ```

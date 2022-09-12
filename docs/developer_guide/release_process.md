@@ -1,4 +1,6 @@
-# 1. Determine the version name
+# Standard release process
+
+## 1. Determine the version name
 
 !!! note
 
@@ -18,11 +20,12 @@ Inspiration:
 - [Python pre-releases](https://packaging.python.org/en/latest/guides/distributing-packages-using-setuptools/#pre-release-versioning).
 - [PEP0440 pre-releases](https://www.python.org/dev/peps/pep-0440/#pre-releases).
 
-# 2. Update Ludwig versions in code
+## 2. Update Ludwig versions in code
 
-Create a new branch.
+Create a new branch off of a target_release_branch, e.g. `master` or `release-X.Y`.
 
 ```bash
+git checkout <TARGET_RELEASE_BRANCH>
 git checkout -b ludwig_release
 git push --set-upstream origin ludwig_release
 ```
@@ -34,20 +37,21 @@ git commit -m "Update ludwig version to vX.YrcZ."
 git push
 ```
 
-Create a PR with the change (merge ludwig_release -> master).
+Create a PR with the change requesting a merge from `ludwig_release` to the target branch.
 
 Get approval from a [Ludwig maintainer](https://github.com/orgs/ludwig-ai/teams/ludwig-maintainers).
 
 Merge PR (with squashing).
 
-# 3. Tag the latest commit, and push the tag
+## 3. Tag the latest commit, and push the tag
 
-After merging the PR from step 2, the latest commit on master should be the PR that upgrades ludwig versions in code.
+After merging the PR from step 2, the latest commit on the target_release_branch
+should be the PR that upgrades ludwig versions in code.
 
-In master:
+Pull the change from head.
 
 ```bash
-git checkout master
+git checkout <TARGET_RELEASE_BRANCH>
 git pull
 ```
 
@@ -55,27 +59,35 @@ Add a tag to the commit locally:
 
 ```bash
 git tag -a vX.YrcZ -m "Ludwig vX.YrcZ"
+```
+
+Push tags to the repo.
+
+```
 git push --follow-tags
 ```
 
-# 4. In Github, go to releases and "Draft a new release"
+## 4. In Github, go to releases and "Draft a new release"
 
 Loom [walk-through](https://www.loom.com/share/78eb7f9134404a80bde9359cfa7af2b7).
 
-Release candidates don't need release notes. Full releases should have detailed release notes. Refer to past releases of
-Ludwig ([example](https://github.com/ludwig-ai/ludwig/releases/tag/v0.4.1)) for a good structure to use.
+Release candidates don't need release notes. Full releases should have detailed
+release notes. All releases should include a full list of changes (Github
+supports generating this automatically).
 
 Do not upload assets manually. These will be created automatically by Github.
 
 For release candidates, check "pre-release".
 
-# 5. Click publish
+## 5. Click publish
 
-When the release notes are ready, click `Publish release` on Github. Ludwig's CI will automatically update PyPI.
+When the release notes are ready, click `Publish release` on Github. Ludwig's
+CI will automatically update PyPI.
 
-# 6. Update Ludwig docs
+## 6. Update Ludwig docs
 
-Check that the [Ludwig PyPi](https://pypi.org/project/ludwig/) has been updated with the newest version.
+Check that the [Ludwig PyPi](https://pypi.org/project/ludwig/) has been updated
+with the newest version.
 
 Go to the ludwig-docs repo and update the auto-generated docs there.
 
@@ -94,9 +106,20 @@ If there are any changes, commit them.
 > git push --set-upstream origin update_docs
 ```
 
- Create a PR.
+Create a PR.
 
-# 7. Spread the word
+## 7. For major releases, create an release-X.Y branch
+
+```bash
+> git checkout master
+> git checkout -b release-X.Y
+> git push --set-upstream origin release-X.Y
+```
+
+All subsequent minor releases on top of this major version will be based from
+this branch.
+
+## 8. Spread the word
 
 Announce the release on Slack.
 
@@ -106,6 +129,46 @@ Announce the release on Slack.
 
 If it's a major version release, consider other forms of publicization like
 coordinating sharing the release on other social media, or writing a blog post.
+
+# Cherrypicking bugfix commits from master to stable release branches
+
+## 1. Gather a list of commit hashes that should be cherrypicked
+
+You can use either the full hashes from `git log` or partial hashes from the
+Github PR UI, i.e.
+
+![img](../images/commit_hash.png)
+
+## 2. Cherry pick each commit in a cherrypick-X.Y branch
+
+```bash
+git checkout release-X.Y
+git checkout -b cherrypick-X.Y
+git cherry-pick <commit_1>  # One commit at a time.
+git cherry-pick <commit_2> <commit_3> <commit_4> ...  # Or multiple commits all at once.
+```
+
+Ensure that all cherry-picks have been correctly applied.
+
+!!! note
+
+    Empty cherry-picks could mean that that commit already exists.
+
+## 3. Create a PR with the cherry-pick changes, merging into `release-X.Y`
+
+Push the cherrypick branch.
+
+```
+git push --set-upstream origin cherrypick-X.Y
+```
+
+Create a PR with the change requesting a merge from `cherrypick-X.Y` to `release-X.Y`.
+
+Get approval from a [Ludwig maintainer](https://github.com/orgs/ludwig-ai/teams/ludwig-maintainers).
+
+Merge PR **without** squashing.
+
+Continue with the [standard release process](#standard-release-process).
 
 # Appendix
 

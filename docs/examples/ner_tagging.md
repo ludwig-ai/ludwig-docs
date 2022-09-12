@@ -17,9 +17,10 @@ input_features:
     -
         name: utterance
         type: text
-        encoder: rnn
-        cell_type: lstm
-        reduce_output: null
+        encoder: 
+            type: rnn
+            cell_type: lstm
+            reduce_output: null
         preprocessing:
           tokenizer: space
 
@@ -27,5 +28,6 @@ output_features:
     -
         name: tag
         type: sequence
-        decoder: tagger
+        decoder: 
+            type: tagger
 ```

@@ -17,17 +17,19 @@ input_features:
     -
         name: user1
         type: text
-        encoder: rnn
-        cell_type: lstm
-        reduce_output: null
+        encoder: 
+            type: rnn
+            cell_type: lstm
+            reduce_output: null
 
 output_features:
     -
         name: user2
         type: text
-        decoder: generator
-        cell_type: lstm
-        attention: bahdanau
+        decoder: 
+            type: generator
+            cell_type: lstm
+            attention: bahdanau
         loss:
             type: softmax_cross_entropy
 

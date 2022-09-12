@@ -17,18 +17,21 @@ input_features:
     -
         name: image_path
         type: image
-        encoder: stacked_cnn
+        encoder: 
+            type: stacked_cnn
     -
         name: question
         type: text
-        encoder: parallel_cnn
+        encoder: 
+            type: parallel_cnn
 
 output_features:
     -
         name: answer
         type: text
-        decoder: generator
-        cell_type: lstm
+        decoder: 
+            type: generator
+            cell_type: lstm
         loss:
             type: softmax_cross_entropy
 ```

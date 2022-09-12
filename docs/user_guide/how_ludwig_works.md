@@ -8,27 +8,31 @@ input_features:
 -
   name: title
   type: text
-  encoder: rnn
-  cell: lstm
-  num_layers: 2
-  state_size: 128
+  encoder: 
+      type: rnn
+      cell: lstm
+      num_layers: 2
+      state_size: 128
   preprocessing:
     tokenizer: space_punct
 -
   name: author
   type: category
-  embedding_size: 128
+  encoder: 
+      embedding_size: 128
   preprocessing:
     most_common: 10000
 -
   name: description
   type: text
-  encoder: bert
+  encoder: 
+      type: bert
 -
   name: cover
   type: image
-  encoder: resnet
-  num_layers: 18
+  encoder: 
+      type: resnet
+      num_layers: 18
 
 output_features:
 -
@@ -56,7 +60,7 @@ hyperopt:
   metric: f1
   sampler: random
   parameters:
-    title.num_layers:
+    title.encoder.num_layers:
       lower: 1
       upper: 5
     training.learning_rate:

@@ -81,13 +81,18 @@ Examples of unit tests:
 - [Titanic unit test](https://github.com/ludwig-ai/ludwig/tree/master/tests/ludwig/datasets/titanic/test_titanic_workflow.py)
 - [MNIST unit test](https://github.com/ludwig-ai/ludwig/blob/master/tests/ludwig/datasets/mnist/test_mnist_workflow.py)
 
-!!! note
+---
 
-    In order to test downloading datasets hosted on Kaggle, please follow
-    [these instructions](https://github.com/Kaggle/kaggle-api#api-credentials) to obtain the necessary API credentials.
-    You may also need to "join" the competition from the Kaggle web UI.
-    For testing, the Titanic example also illustrates how to mock the kaggle client to unit test Kaggle datasets without
-    logging in to Kaggle on the test machine.
+**Note for Kaggle Datasets**
+
+In order to test downloading datasets hosted on Kaggle, please follow
+[these instructions](https://github.com/Kaggle/kaggle-api#api-credentials) to obtain the necessary API credentials.
+If the dataset is part of a competition, you will also need to accept the competition terms in the Kaggle web UI.
+
+For testing, the Titanic example also illustrates how to use a mock kaggle client in tests. Unit tests should be
+runnable without credentials or internet connectivity.
+
+---
 
 # 4. Add a modeling example
 

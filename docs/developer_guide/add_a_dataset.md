@@ -1,135 +1,100 @@
 The [Ludwig Dataset Zoo](../../user_guide/datasets/dataset_zoo) is a corpus of various datasets from the web
 conveniently built into Ludwig.
 
-Ludwig datasets come with several conveniences including: managing credentials for downloading data from sites like
-Kaggle, merging multiple files into a single dataset, sharing data parsing code, and loading datasets directly into data
-frames that can also be plugged into Ludwig models.
+Ludwig datasets automate managing credentials for downloading data from sites like Kaggle, merging multiple files into
+a single dataset, sharing data parsing code, and loading datasets directly into data frames which can be used to train
+Ludwig models.
 
-Ludwig datasets are defined under `ludwig/datasets/`.
-Dataset mixins are defined under `ludwig/datasets/mixins/`.
-For an example of a dataset, see `ludwig/datasets/wmt15/`.
+- The Ludwig Datasets API is contained in `ludwig/datasets/`.
+- Dataset configs are defined under `ludwig/datasets/configs/`.
+- Custom loaders for specific datasets are in `ludwig/datasets/loaders/`.
 
-# 1. Create a new directory for your dataset
+Datasets are made available in Ludwig by providing a dataset config .yaml file.  For many datasets, creating this YAML
+file is the only necessary step.
 
-Create a new directory under `ludwig/datasets/<dataset_name>`, and create two files:
+# 1. Create a new dataset config
 
-- `__init__.py`
-- `config.yaml`
+Create a new `.yaml` file under `ludwig/datasets/configs/` with a name matching the name of the dataset. The config file
+must have the following required keys:
 
-For an example, see `ludwig/datasets/wmt15`.
+- `version`: The version of the dataset
+- `name`: The name of the dataset. This is the name which will be imported or passed into `get_datasets(datset_name)`.
+- `description`: Human-readable description of the dataset. May contain multi-line text with links.
+- One of `download_urls`, `kaggle_competition`, or `kaggle_dataset_id`.
 
-# 2. Define a class that inherits from `ludwig.datasets.base_dataset.BaseDataset`
+Supported compressed archive and data file types will be inferred automatically from the file extension.
 
-We'll want to implement a class that inherits from `ludwig.datasets.base_dataset.BaseDataset` and implement the
-following methods:
+For the full set of options, see `ludwig.datasets.dataset_config.DatasetConfig`. If the options provided by
+`DatasetConfig` are sufficient to integrate your dataset, skip ahead to step 3. Test your Dataset.
 
-```python
-@abc.abstractmethod
-def download_raw_dataset(self):
-    """Download the file from config.download_urls and save the file(s) at
-    self.raw_dataset_path."""
-    raise NotImplementedError()
+If, however, the dataset requires other processing not provided by the default dataset loader, continue to step 2.
 
-@abc.abstractmethod
-def process_downloaded_dataset(self):
-    """Process the dataset into a dataframe and save it at
-    self.processed_dataset_path."""
-    raise NotImplementedError()
+# 2. Define a dataset loader if needed
 
-@abc.abstractmethod
-def load_processed_dataset(self, split: bool):
-    """Loads the processed data from self.processed_dataset_path into a Pandas
-    DataFrame in memory.
+If the options provided by `DatasetConfig` do not cover the format of your dataset, or if the dataset requires unique
+processing before training, you can add python code in a dataset loader.
 
-    Note: This method is also responsible for splitting the data, returning a
-    single dataframe if split=False, and a 3-tuple of train, val, test if
-    split=True.
+The loader class should inherit from `ludwig.datasets.loaders.dataset_loader.DatasetLoader`, and its module name should
+match the name of the dataset.  For example, AG News has a dataset loader `agnews.AGNewsLoader` in
+`ludwig/datasets/loaders/agnews.py`.
 
-    :param split: (bool) splits dataset along 'split' column if present. The
-    split column should always have values 0: train, 1: validation, 2: test.
-    """
-    raise NotImplementedError()
+To instruct Ludwig to use your loader, add the `loader` property to your dataset config:
+
+```yaml
+loader: agnews.AGNewsLoader
 ```
 
+Datasets are processed in four phases:
+
+1. Download       - The dataset files are downloaded to the cache.
+2. Verify         - Hashes of downloaded files are verified.
+3. Extract        - The dataset files are extracted from an archive (may be a no-op if data is not archived).
+4. Transform      - The dataset is transformed into a format usable for training and is ready to load.
+    1. Transform Files      (Files -> Files)
+    2. Load Dataframe       (Files -> DataFrame)
+    3. Transform Dataframe  (DataFrame -> DataFrame)
+    4. Save Processed       (DataFrame -> File)
+
+For each of these phases, there is a corresponding method in `ludwig.datasets.loaders.DatasetLoader` which may be
+overridden to provide custom processing.
+
+# 3. Test your dataset
+
+Create a simple training script and ludwig config to ensure that the Ludwig training API runs with the new dataset.
 For example:
 
 ```python
-@register_dataset(name="wmt15")
-class WMT15(BaseDataset):
-    """French/English parallel texts for training translation models.
+from ludwig.api import LudwigModel
+from ludwig.datasets import titanic
 
-    Over 22.5 million sentences in French and English.
-
-    Additional details:
-    https://www.kaggle.com/dhruvildave/en-fr-translation-dataset
-    """
-    pass
+training_set, test_set, _, = titanic.load(split=True)
+model = LudwigModel(config="model_config.yaml", logging_level=logging.INFO)
+train_stats, _, _ = model.train(training_set=training_set, test_set=test_set, model_name="titanic_model")
 ```
 
-# 3. Leverage mixins to minimize boilerplate
-
-Ludwig has a set of class mixins that take care of common dataset loading tasks, e.g., extracting zip files, downloading
-from Kaggle, etc.).
-
-Plase use Mixins graciously as leveraging mixins could save your dataset subclass from implementing anything.
-
-```python
-@register_dataset(name="wmt15")
-class WMT15(CSVLoadMixin, IdentityProcessMixin,
-            KaggleDownloadMixin, BaseDataset):
-    """French/English parallel texts for training translation models.
-
-    Over 22.5 million sentences in French and English.
-
-    Additional details:
-    https://www.kaggle.com/dhruvildave/en-fr-translation-dataset
-    """
-
-    def __init__(self, cache_dir=DEFAULT_CACHE_LOCATION,
-                 kaggle_username=None, kaggle_key=None):
-        self.kaggle_username = kaggle_username
-        self.kaggle_key = kaggle_key
-        self.is_kaggle_competition = False
-        super().__init__(dataset_name="wmt15", cache_dir=cache_dir)
-```
-
-Check out similar datasets to see which mixins they use, or see `ludwig/datasets/mixins/` for a full list of mixins.
-
-Mixin properites for a specific dataset are configurable within the `config.yaml` file in the new dataset module.
-These mixins cover most common functionalities that are available in the subclass you are creating, but new mixins can
-also be added.
-
-Before adding a new mixin or writing code for downloading, processing and loading a new dataset, please check if you can
-reuse one of the curent mixins.
-
-If not, please consider adding a new mixin if the functionality you need is common among multiple datasets or implement
-bespoke code in the implementation of the abstract methods of the `BaseDataset` subclass.
-
-# 4. Test your dataset
-
-Consider adding a unit test in to test that loading data works properly.
+If you have added a custom loader, please also a unit test to ensure that your loader works with future versions.
+Following the examples below, provide a small sample of the data to the unit test so the test will not need to download
+the dataset.
 
 Examples of unit tests:
 
 - [Titanic unit test](https://github.com/ludwig-ai/ludwig/tree/master/tests/ludwig/datasets/titanic/test_titanic_workflow.py)
 - [MNIST unit test](https://github.com/ludwig-ai/ludwig/blob/master/tests/ludwig/datasets/mnist/test_mnist_workflow.py)
 
-Consider creating and running a simple training script to ensure that the Ludwig training API runs fine with the new
-dataset.
+---
 
-```python
-from ludwig.api import LudwigModel
-from ludwig.datasets import titanic
+**Note for Kaggle Datasets**
 
-training_set, test_set, _ = titanic.load(split=True)
-model = LudwigModel(config="model_config.yaml", logging_level=logging.INFO)
-```
+In order to test downloading datasets hosted on Kaggle, please follow
+[these instructions](https://github.com/Kaggle/kaggle-api#api-credentials) to obtain the necessary API credentials.
+If the dataset is part of a competition, you will also need to accept the competition terms in the Kaggle web UI.
 
-!!! note
+For testing, the Titanic example also illustrates how to use a mock kaggle client in tests. Unit tests should be
+runnable without credentials or internet connectivity.
 
-    In order to test downloading datasets hosted on Kaggle, please follow [these instructions](https://github.com/Kaggle/kaggle-api#api-credentials) to obtain the necessary API credentials. You may also need to "join" the competition from the Kaggle web UI.
+---
 
-# 5. Add a modeling example
+# 4. Add a modeling example
 
 Consider sharing an example for how users can train models using your dataset, for example:
 

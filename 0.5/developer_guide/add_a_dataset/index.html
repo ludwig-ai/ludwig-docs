@@ -91,7 +91,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#1-create-a-new-directory-for-your-dataset" class="md-skip">
+        <a href="#1-create-a-new-dataset-config" class="md-skip">
           Skip to content
         </a>
       
@@ -1980,36 +1980,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-create-a-new-directory-for-your-dataset" class="md-nav__link">
-    1. Create a new directory for your dataset
+  <a href="#1-create-a-new-dataset-config" class="md-nav__link">
+    1. Create a new dataset config
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-define-a-class-that-inherits-from-ludwigdatasetsbase_datasetbasedataset" class="md-nav__link">
-    2. Define a class that inherits from ludwig.datasets.base_dataset.BaseDataset
+  <a href="#2-define-a-dataset-loader-if-needed" class="md-nav__link">
+    2. Define a dataset loader if needed
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-leverage-mixins-to-minimize-boilerplate" class="md-nav__link">
-    3. Leverage mixins to minimize boilerplate
+  <a href="#3-test-your-dataset" class="md-nav__link">
+    3. Test your dataset
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-test-your-dataset" class="md-nav__link">
-    4. Test your dataset
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-add-a-modeling-example" class="md-nav__link">
-    5. Add a modeling example
+  <a href="#4-add-a-modeling-example" class="md-nav__link">
+    4. Add a modeling example
   </a>
   
 </li>
@@ -2140,36 +2133,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-create-a-new-directory-for-your-dataset" class="md-nav__link">
-    1. Create a new directory for your dataset
+  <a href="#1-create-a-new-dataset-config" class="md-nav__link">
+    1. Create a new dataset config
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-define-a-class-that-inherits-from-ludwigdatasetsbase_datasetbasedataset" class="md-nav__link">
-    2. Define a class that inherits from ludwig.datasets.base_dataset.BaseDataset
+  <a href="#2-define-a-dataset-loader-if-needed" class="md-nav__link">
+    2. Define a dataset loader if needed
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-leverage-mixins-to-minimize-boilerplate" class="md-nav__link">
-    3. Leverage mixins to minimize boilerplate
+  <a href="#3-test-your-dataset" class="md-nav__link">
+    3. Test your dataset
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-test-your-dataset" class="md-nav__link">
-    4. Test your dataset
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-add-a-modeling-example" class="md-nav__link">
-    5. Add a modeling example
+  <a href="#4-add-a-modeling-example" class="md-nav__link">
+    4. Add a modeling example
   </a>
   
 </li>
@@ -2196,110 +2182,80 @@
 
 <p>The <a href="../../user_guide/datasets/dataset_zoo">Ludwig Dataset Zoo</a> is a corpus of various datasets from the web
 conveniently built into Ludwig.</p>
-<p>Ludwig datasets come with several conveniences including: managing credentials for downloading data from sites like
-Kaggle, merging multiple files into a single dataset, sharing data parsing code, and loading datasets directly into data
-frames that can also be plugged into Ludwig models.</p>
-<p>Ludwig datasets are defined under <code>ludwig/datasets/</code>.
-Dataset mixins are defined under <code>ludwig/datasets/mixins/</code>.
-For an example of a dataset, see <code>ludwig/datasets/wmt15/</code>.</p>
-<h2 id="1-create-a-new-directory-for-your-dataset">1. Create a new directory for your dataset<a class="headerlink" href="#1-create-a-new-directory-for-your-dataset" title="Permanent link">&para;</a></h2>
-<p>Create a new directory under <code>ludwig/datasets/&lt;dataset_name&gt;</code>, and create two files:</p>
+<p>Ludwig datasets automate managing credentials for downloading data from sites like Kaggle, merging multiple files into
+a single dataset, sharing data parsing code, and loading datasets directly into data frames which can be used to train
+Ludwig models.</p>
 <ul>
-<li><code>__init__.py</code></li>
-<li><code>config.yaml</code></li>
+<li>The Ludwig Datasets API is contained in <code>ludwig/datasets/</code>.</li>
+<li>Dataset configs are defined under <code>ludwig/datasets/configs/</code>.</li>
+<li>Custom loaders for specific datasets are in <code>ludwig/datasets/loaders/</code>.</li>
 </ul>
-<p>For an example, see <code>ludwig/datasets/wmt15</code>.</p>
-<h2 id="2-define-a-class-that-inherits-from-ludwigdatasetsbase_datasetbasedataset">2. Define a class that inherits from <code>ludwig.datasets.base_dataset.BaseDataset</code><a class="headerlink" href="#2-define-a-class-that-inherits-from-ludwigdatasetsbase_datasetbasedataset" title="Permanent link">&para;</a></h2>
-<p>We'll want to implement a class that inherits from <code>ludwig.datasets.base_dataset.BaseDataset</code> and implement the
-following methods:</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-<span class="k">def</span> <span class="nf">download_raw_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Download the file from config.download_urls and save the file(s) at</span>
-<span class="sd">    self.raw_dataset_path.&quot;&quot;&quot;</span>
-    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
-
-<span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-<span class="k">def</span> <span class="nf">process_downloaded_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Process the dataset into a dataframe and save it at</span>
-<span class="sd">    self.processed_dataset_path.&quot;&quot;&quot;</span>
-    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
-
-<span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-<span class="k">def</span> <span class="nf">load_processed_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">split</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Loads the processed data from self.processed_dataset_path into a Pandas</span>
-<span class="sd">    DataFrame in memory.</span>
-
-<span class="sd">    Note: This method is also responsible for splitting the data, returning a</span>
-<span class="sd">    single dataframe if split=False, and a 3-tuple of train, val, test if</span>
-<span class="sd">    split=True.</span>
-
-<span class="sd">    :param split: (bool) splits dataset along &#39;split&#39; column if present. The</span>
-<span class="sd">    split column should always have values 0: train, 1: validation, 2: test.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+<p>Datasets are made available in Ludwig by providing a dataset config .yaml file.  For many datasets, creating this YAML
+file is the only necessary step.</p>
+<h2 id="1-create-a-new-dataset-config">1. Create a new dataset config<a class="headerlink" href="#1-create-a-new-dataset-config" title="Permanent link">&para;</a></h2>
+<p>Create a new <code>.yaml</code> file under <code>ludwig/datasets/configs/</code> with a name matching the name of the dataset. The config file
+must have the following required keys:</p>
+<ul>
+<li><code>version</code>: The version of the dataset</li>
+<li><code>name</code>: The name of the dataset. This is the name which will be imported or passed into <code>get_datasets(datset_name)</code>.</li>
+<li><code>description</code>: Human-readable description of the dataset. May contain multi-line text with links.</li>
+<li>One of <code>download_urls</code>, <code>kaggle_competition</code>, or <code>kaggle_dataset_id</code>.</li>
+</ul>
+<p>Supported compressed archive and data file types will be inferred automatically from the file extension.</p>
+<p>For the full set of options, see <code>ludwig.datasets.dataset_config.DatasetConfig</code>. If the options provided by
+<code>DatasetConfig</code> are sufficient to integrate your dataset, skip ahead to step 3. Test your Dataset.</p>
+<p>If, however, the dataset requires other processing not provided by the default dataset loader, continue to step 2.</p>
+<h2 id="2-define-a-dataset-loader-if-needed">2. Define a dataset loader if needed<a class="headerlink" href="#2-define-a-dataset-loader-if-needed" title="Permanent link">&para;</a></h2>
+<p>If the options provided by <code>DatasetConfig</code> do not cover the format of your dataset, or if the dataset requires unique
+processing before training, you can add python code in a dataset loader.</p>
+<p>The loader class should inherit from <code>ludwig.datasets.loaders.dataset_loader.DatasetLoader</code>, and its module name should
+match the name of the dataset.  For example, AG News has a dataset loader <code>agnews.AGNewsLoader</code> in
+<code>ludwig/datasets/loaders/agnews.py</code>.</p>
+<p>To instruct Ludwig to use your loader, add the <code>loader</code> property to your dataset config:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">loader</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agnews.AGNewsLoader</span><span class="w"></span>
 </code></pre></div>
-<p>For example:</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@register_dataset</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;wmt15&quot;</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">WMT15</span><span class="p">(</span><span class="n">BaseDataset</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;French/English parallel texts for training translation models.</span>
+<p>Datasets are processed in four phases:</p>
+<ol>
+<li>Download       - The dataset files are downloaded to the cache.</li>
+<li>Verify         - Hashes of downloaded files are verified.</li>
+<li>Extract        - The dataset files are extracted from an archive (may be a no-op if data is not archived).</li>
+<li>Transform      - The dataset is transformed into a format usable for training and is ready to load.<ol>
+<li>Transform Files      (Files -&gt; Files)</li>
+<li>Load Dataframe       (Files -&gt; DataFrame)</li>
+<li>Transform Dataframe  (DataFrame -&gt; DataFrame)</li>
+<li>Save Processed       (DataFrame -&gt; File)</li>
+</ol>
+</li>
+</ol>
+<p>For each of these phases, there is a corresponding method in <code>ludwig.datasets.loaders.DatasetLoader</code> which may be
+overridden to provide custom processing.</p>
+<h2 id="3-test-your-dataset">3. Test your dataset<a class="headerlink" href="#3-test-your-dataset" title="Permanent link">&para;</a></h2>
+<p>Create a simple training script and ludwig config to ensure that the Ludwig training API runs with the new dataset.
+For example:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">ludwig.api</span> <span class="kn">import</span> <span class="n">LudwigModel</span>
+<span class="kn">from</span> <span class="nn">ludwig.datasets</span> <span class="kn">import</span> <span class="n">titanic</span>
 
-<span class="sd">    Over 22.5 million sentences in French and English.</span>
-
-<span class="sd">    Additional details:</span>
-<span class="sd">    https://www.kaggle.com/dhruvildave/en-fr-translation-dataset</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span>
+<span class="n">training_set</span><span class="p">,</span> <span class="n">test_set</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="o">=</span> <span class="n">titanic</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">split</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LudwigModel</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="s2">&quot;model_config.yaml&quot;</span><span class="p">,</span> <span class="n">logging_level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+<span class="n">train_stats</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">training_set</span><span class="o">=</span><span class="n">training_set</span><span class="p">,</span> <span class="n">test_set</span><span class="o">=</span><span class="n">test_set</span><span class="p">,</span> <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;titanic_model&quot;</span><span class="p">)</span>
 </code></pre></div>
-<h2 id="3-leverage-mixins-to-minimize-boilerplate">3. Leverage mixins to minimize boilerplate<a class="headerlink" href="#3-leverage-mixins-to-minimize-boilerplate" title="Permanent link">&para;</a></h2>
-<p>Ludwig has a set of class mixins that take care of common dataset loading tasks, e.g., extracting zip files, downloading
-from Kaggle, etc.).</p>
-<p>Plase use Mixins graciously as leveraging mixins could save your dataset subclass from implementing anything.</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@register_dataset</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;wmt15&quot;</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">WMT15</span><span class="p">(</span><span class="n">CSVLoadMixin</span><span class="p">,</span> <span class="n">IdentityProcessMixin</span><span class="p">,</span>
-            <span class="n">KaggleDownloadMixin</span><span class="p">,</span> <span class="n">BaseDataset</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;French/English parallel texts for training translation models.</span>
-
-<span class="sd">    Over 22.5 million sentences in French and English.</span>
-
-<span class="sd">    Additional details:</span>
-<span class="sd">    https://www.kaggle.com/dhruvildave/en-fr-translation-dataset</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cache_dir</span><span class="o">=</span><span class="n">DEFAULT_CACHE_LOCATION</span><span class="p">,</span>
-                 <span class="n">kaggle_username</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kaggle_key</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kaggle_username</span> <span class="o">=</span> <span class="n">kaggle_username</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kaggle_key</span> <span class="o">=</span> <span class="n">kaggle_key</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">is_kaggle_competition</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">dataset_name</span><span class="o">=</span><span class="s2">&quot;wmt15&quot;</span><span class="p">,</span> <span class="n">cache_dir</span><span class="o">=</span><span class="n">cache_dir</span><span class="p">)</span>
-</code></pre></div>
-<p>Check out similar datasets to see which mixins they use, or see <code>ludwig/datasets/mixins/</code> for a full list of mixins.</p>
-<p>Mixin properites for a specific dataset are configurable within the <code>config.yaml</code> file in the new dataset module.
-These mixins cover most common functionalities that are available in the subclass you are creating, but new mixins can
-also be added.</p>
-<p>Before adding a new mixin or writing code for downloading, processing and loading a new dataset, please check if you can
-reuse one of the curent mixins.</p>
-<p>If not, please consider adding a new mixin if the functionality you need is common among multiple datasets or implement
-bespoke code in the implementation of the abstract methods of the <code>BaseDataset</code> subclass.</p>
-<h2 id="4-test-your-dataset">4. Test your dataset<a class="headerlink" href="#4-test-your-dataset" title="Permanent link">&para;</a></h2>
-<p>Consider adding a unit test in to test that loading data works properly.</p>
+<p>If you have added a custom loader, please also a unit test to ensure that your loader works with future versions.
+Following the examples below, provide a small sample of the data to the unit test so the test will not need to download
+the dataset.</p>
 <p>Examples of unit tests:</p>
 <ul>
 <li><a href="https://github.com/ludwig-ai/ludwig/tree/master/tests/ludwig/datasets/titanic/test_titanic_workflow.py">Titanic unit test</a></li>
 <li><a href="https://github.com/ludwig-ai/ludwig/blob/master/tests/ludwig/datasets/mnist/test_mnist_workflow.py">MNIST unit test</a></li>
 </ul>
-<p>Consider creating and running a simple training script to ensure that the Ludwig training API runs fine with the new
-dataset.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">ludwig.api</span> <span class="kn">import</span> <span class="n">LudwigModel</span>
-<span class="kn">from</span> <span class="nn">ludwig.datasets</span> <span class="kn">import</span> <span class="n">titanic</span>
-
-<span class="n">training_set</span><span class="p">,</span> <span class="n">test_set</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">titanic</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">split</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">LudwigModel</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="s2">&quot;model_config.yaml&quot;</span><span class="p">,</span> <span class="n">logging_level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
-</code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In order to test downloading datasets hosted on Kaggle, please follow <a href="https://github.com/Kaggle/kaggle-api#api-credentials">these instructions</a> to obtain the necessary API credentials. You may also need to "join" the competition from the Kaggle web UI.</p>
-</div>
-<h2 id="5-add-a-modeling-example">5. Add a modeling example<a class="headerlink" href="#5-add-a-modeling-example" title="Permanent link">&para;</a></h2>
+<hr />
+<p><strong>Note for Kaggle Datasets</strong></p>
+<p>In order to test downloading datasets hosted on Kaggle, please follow
+<a href="https://github.com/Kaggle/kaggle-api#api-credentials">these instructions</a> to obtain the necessary API credentials.
+If the dataset is part of a competition, you will also need to accept the competition terms in the Kaggle web UI.</p>
+<p>For testing, the Titanic example also illustrates how to use a mock kaggle client in tests. Unit tests should be
+runnable without credentials or internet connectivity.</p>
+<hr />
+<h2 id="4-add-a-modeling-example">4. Add a modeling example<a class="headerlink" href="#4-add-a-modeling-example" title="Permanent link">&para;</a></h2>
 <p>Consider sharing an example for how users can train models using your dataset, for example:</p>
 <ul>
 <li><a href="https://github.com/ludwig-ai/ludwig/tree/master/examples/titanic/simple_model_training.py">Titanic training script</a></li>

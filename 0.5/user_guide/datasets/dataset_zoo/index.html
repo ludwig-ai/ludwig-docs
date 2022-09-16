@@ -91,7 +91,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#zoo-datasets" class="md-skip">
+        <a href="#kaggle-datasets" class="md-skip">
           Skip to content
         </a>
       
@@ -742,15 +742,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#zoo-datasets" class="md-nav__link">
-    Zoo Datasets
+  <a href="#kaggle-datasets" class="md-nav__link">
+    Kaggle Datasets
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#kaggle" class="md-nav__link">
-    Kaggle
+  <a href="#downloading-processing-and-exporting" class="md-nav__link">
+    Downloading, Processing, and Exporting
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#end-to-end-example" class="md-nav__link">
+    End-to-end Example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zoo-datasets" class="md-nav__link">
+    Zoo Datasets
   </a>
   
 </li>
@@ -2128,15 +2142,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#zoo-datasets" class="md-nav__link">
-    Zoo Datasets
+  <a href="#kaggle-datasets" class="md-nav__link">
+    Kaggle Datasets
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#kaggle" class="md-nav__link">
-    Kaggle
+  <a href="#downloading-processing-and-exporting" class="md-nav__link">
+    Downloading, Processing, and Exporting
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#end-to-end-example" class="md-nav__link">
+    End-to-end Example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zoo-datasets" class="md-nav__link">
+    Zoo Datasets
   </a>
   
 </li>
@@ -2169,41 +2197,68 @@
   <h1>Dataset Zoo</h1>
 
 <p>The Ludwig Dataset Zoo provides datasets that can be directly plugged into a Ludwig model.</p>
-<p>Each dataset module has <code>download</code>, <code>process</code> and <code>load</code> functions, which
-handles downloading, preprocessing, and loading the dataset into a Pandas
-DataFrame that Ludwig can use for training.</p>
+<p>The simplest way to use a dataset is to import and load it. The <code>.load()</code> method will return a Pandas DataFrame.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">ludwig.datasets</span> <span class="kn">import</span> <span class="n">reuters</span>
 
-<span class="n">dataset</span> <span class="o">=</span> <span class="n">reuters</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
-</code></pre></div>
-<p>This is equivalent to performing the steps manually:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">ludwig.datasets.reuters</span> <span class="kn">import</span> <span class="n">Reuters</span>
+<span class="c1"># Loads into single dataframe with a &#39;split&#39; column:</span>
+<span class="n">dataset_df</span> <span class="o">=</span> <span class="n">reuters</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
 
-<span class="n">dataset</span> <span class="o">=</span> <span class="n">Reuters</span><span class="p">()</span>
-<span class="n">dataset</span><span class="o">.</span><span class="n">download</span><span class="p">()</span>
-<span class="n">dataset</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
-<span class="n">dataset_df</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="c1"># Loads into split dataframes:</span>
+<span class="n">train_df</span><span class="p">,</span> <span class="n">test_df</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">reuters</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">split</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
-<p>A <code>cache_dir</code> parameter can be used to provide a directory where to download the
-files (by default it is <code>~/.ludwig_cache</code>), and each dataset can have additional
-parameters specific to the way they are structured (i.e. a <code>split</code> parameter to
-return multiple DataFrames for the different splits of the data, if applicable).</p>
-<p>When <code>load()</code> is called, the existence of a raw dataset directory is determined
-and if the data has not yet been downloaded, <code>download()</code> is called, then the
-existence of a processed dataset directory is determined and if data has not yet
-been processed <code>process()</code> is called and finally the processed data is loaded in
-memory.</p>
+<p>The <code>ludwig.datasets</code> API also provides functions to list, describe, and get datasets.  For example:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">ludwig.datasets</span>
+
+<span class="c1"># Gets a list of all available dataset names.</span>
+<span class="n">dataset_names</span> <span class="o">=</span> <span class="n">ludwig</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">list_datasets</span><span class="p">()</span>
+
+<span class="c1"># Prints the description of the titanic dataset.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ludwig</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">describe_dataset</span><span class="p">(</span><span class="s2">&quot;titanic&quot;</span><span class="p">))</span>
+
+<span class="n">titanic</span> <span class="o">=</span> <span class="n">ludwig</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;titanic&quot;</span><span class="p">)</span>
+
+<span class="c1"># Loads into single dataframe with a &#39;split&#39; column:</span>
+<span class="n">dataset_df</span> <span class="o">=</span> <span class="n">titanic</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+
+<span class="c1"># Loads into split dataframes:</span>
+<span class="n">train_df</span><span class="p">,</span> <span class="n">test_df</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">titanic</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">split</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="kaggle-datasets">Kaggle Datasets<a class="headerlink" href="#kaggle-datasets" title="Permanent link">&para;</a></h3>
+<p>Some datasets are hosted on <a href="https://www.kaggle.com">Kaggle</a> and require a kaggle account. To use these, you'll need to
+<a href="https://www.kaggle.com/docs/api">set up Kaggle credentials</a> in your environment. If the dataset is part of a Kaggle
+competition, you'll need to accept the terms on the competition page.</p>
+<p>To check programmatically, datasets have an <code>.is_kaggle_dataset</code> property.</p>
+<h3 id="downloading-processing-and-exporting">Downloading, Processing, and Exporting<a class="headerlink" href="#downloading-processing-and-exporting" title="Permanent link">&para;</a></h3>
+<p>Datasets are first downloaded into <code>LUDWIG_CACHE</code>, which may be set as an environment variable and defaults to
+<code>$HOME/.ludwig_cache</code>.</p>
+<p>Datasets are automatically loaded, processed, and re-saved as parquet files in the cache.</p>
+<p>To export the processed dataset, including any files it depends on, use the <code>.export(output_directory)</code> method. This
+is recommended if the dataset contains media files like images or audio files. File paths are relative to the working
+directory of the training process.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">ludwig.datasets</span> <span class="kn">import</span> <span class="n">twitter_bots</span>
+
+<span class="c1"># Exports twitter bots dataset and image files to the current working directory.</span>
+<span class="n">twitter_bots</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="end-to-end-example">End-to-end Example<a class="headerlink" href="#end-to-end-example" title="Permanent link">&para;</a></h3>
 <p>Here's an end-to-end example of training a model using the MNIST dataset:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">ludwig.api</span> <span class="kn">import</span> <span class="n">LudwigModel</span>
 <span class="kn">from</span> <span class="nn">ludwig.datasets</span> <span class="kn">import</span> <span class="n">mnist</span>
 
-<span class="c1"># Initialize a Ludwig model</span>
+<span class="c1"># Initializes a Ludwig model</span>
+<span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;input_features&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;image_path&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;image&quot;</span><span class="p">}],</span>
+    <span class="s2">&quot;output_features&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;category&quot;</span><span class="p">}],</span>
+<span class="p">}</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">LudwigModel</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
 
-<span class="c1"># Load and split MNIST dataset</span>
+<span class="c1"># Loads and splits MNIST dataset</span>
 <span class="n">training_set</span><span class="p">,</span> <span class="n">test_set</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">mnist</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">split</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="c1"># Run model training</span>
+<span class="c1"># Exports the mnist image files to the current working directory.</span>
+<span class="n">mnist</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+
+<span class="c1"># Runs model training</span>
 <span class="n">train_stats</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">training_set</span><span class="o">=</span><span class="n">training_set</span><span class="p">,</span> <span class="n">test_set</span><span class="o">=</span><span class="n">test_set</span><span class="p">,</span> <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;mnist_model&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="zoo-datasets">Zoo Datasets<a class="headerlink" href="#zoo-datasets" title="Permanent link">&para;</a></h3>
@@ -2223,14 +2278,19 @@ memory.</p>
 <td><a href="https://archive.ics.uci.edu/ml/datasets/adult">https://archive.ics.uci.edu/ml/datasets/adult</a>. Whether a person makes over $50K a year or not.</td>
 </tr>
 <tr>
+<td>agnews</td>
+<td>Github</td>
+<td><a href="https://search.r-project.org/CRAN/refmans/textdata/html/dataset_ag_news.html">https://search.r-project.org/CRAN/refmans/textdata/html/dataset_ag_news.html</a></td>
+</tr>
+<tr>
 <td>allstate_claims_severity</td>
 <td>Kaggle</td>
 <td><a href="https://www.kaggle.com/c/allstate-claims-severity">https://www.kaggle.com/c/allstate-claims-severity</a></td>
 </tr>
 <tr>
-<td>agnews</td>
-<td>Github</td>
-<td><a href="https://search.r-project.org/CRAN/refmans/textdata/html/dataset_ag_news.html">https://search.r-project.org/CRAN/refmans/textdata/html/dataset_ag_news.html</a></td>
+<td>amazon_employee_access_challenge</td>
+<td>Kaggle</td>
+<td><a href="https://www.kaggle.com/c/amazon-employee-access-challenge">https://www.kaggle.com/c/amazon-employee-access-challenge</a></td>
 </tr>
 <tr>
 <td>amazon_review_polarity</td>
@@ -2248,9 +2308,24 @@ memory.</p>
 <td><a href="https://www.kaggle.com/c/ames-housing-data">https://www.kaggle.com/c/ames-housing-data</a></td>
 </tr>
 <tr>
+<td>bbc_news</td>
+<td>Kaggle</td>
+<td><a href="https://www.kaggle.com/c/learn-ai-bbc">https://www.kaggle.com/c/learn-ai-bbc</a></td>
+</tr>
+<tr>
+<td>bnp_claims_management</td>
+<td>Kaggle</td>
+<td><a href="https://www.kaggle.com/c/bnp-paribas-cardif-claims-management">https://www.kaggle.com/c/bnp-paribas-cardif-claims-management</a></td>
+</tr>
+<tr>
 <td>connect4</td>
 <td>Kaggle</td>
 <td><a href="https://www.kaggle.com/c/connectx/discussion/124397">https://www.kaggle.com/c/connectx/discussion/124397</a></td>
+</tr>
+<tr>
+<td>creditcard_fraud</td>
+<td>Kaggle</td>
+<td><a href="https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud">https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud</a></td>
 </tr>
 <tr>
 <td>dbpedia</td>
@@ -2298,6 +2373,16 @@ memory.</p>
 <td><a href="https://www.kaggle.com/c/ieee-fraud-detection">https://www.kaggle.com/c/ieee-fraud-detection</a></td>
 </tr>
 <tr>
+<td>imbalanced_insurance</td>
+<td>Kaggle</td>
+<td><a href="https://www.kaggle.com/datasets/arashnic/imbalanced-data-practice">https://www.kaggle.com/datasets/arashnic/imbalanced-data-practice</a></td>
+</tr>
+<tr>
+<td>imdb</td>
+<td>Kaggle</td>
+<td><a href="https://www.kaggle.com/datasets/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews">https://www.kaggle.com/datasets/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews</a></td>
+</tr>
+<tr>
 <td>insurance_lite</td>
 <td>Kaggle</td>
 <td><a href="https://www.kaggle.com/infernape/fast-furious-and-insured">https://www.kaggle.com/infernape/fast-furious-and-insured</a></td>
@@ -2343,14 +2428,24 @@ memory.</p>
 <td><a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/24098">https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/24098</a></td>
 </tr>
 <tr>
+<td>noshow_appointments</td>
+<td>Kaggle</td>
+<td><a href="https://www.kaggle.com/datasets/joniarroba/noshowappointments">https://www.kaggle.com/datasets/joniarroba/noshowappointments</a></td>
+</tr>
+<tr>
 <td>numerai28pt6</td>
 <td>Kaggle</td>
 <td><a href="https://www.kaggle.com/numerai/encrypted-stock-market-data-from-numerai">https://www.kaggle.com/numerai/encrypted-stock-market-data-from-numerai</a></td>
 </tr>
 <tr>
-<td>ohsumed</td>
+<td>ohsumed_7400</td>
+<td>Kaggle</td>
+<td><a href="https://www.kaggle.com/datasets/weipengfei/ohr8r52">https://www.kaggle.com/datasets/weipengfei/ohr8r52</a></td>
+</tr>
+<tr>
+<td>ohsumed_cmu</td>
 <td>boston.lti.cs.cmu.edu</td>
-<td><a href="https://paperswithcode.com/dataset/ohsumed">https://paperswithcode.com/dataset/ohsumed</a></td>
+<td><a href="http://boston.lti.cs.cmu.edu/classes/95-865-K/HW/HW2/">http://boston.lti.cs.cmu.edu/classes/95-865-K/HW/HW2/</a></td>
 </tr>
 <tr>
 <td>otto_group_product</td>
@@ -2373,9 +2468,14 @@ memory.</p>
 <td><a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-019-2932-0">https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-019-2932-0</a></td>
 </tr>
 <tr>
-<td>reuters</td>
+<td>reuters_cmu</td>
 <td>boston.lti.cs.cmu.edu</td>
-<td><a href="https://archive.ics.uci.edu/ml/datasets/reuters-21578+text+categorization+collection">https://archive.ics.uci.edu/ml/datasets/reuters-21578+text+categorization+collection</a></td>
+<td><a href="http://boston.lti.cs.cmu.edu/classes/95-865-K/HW/HW2/">http://boston.lti.cs.cmu.edu/classes/95-865-K/HW/HW2/</a></td>
+</tr>
+<tr>
+<td>reuters_r8</td>
+<td>Kaggle</td>
+<td>Reuters R8 subset of Reuters 21578 dataset from Kaggle.</td>
 </tr>
 <tr>
 <td>rossmann_store_sales</td>
@@ -2393,7 +2493,7 @@ memory.</p>
 <td><a href="https://www.kaggle.com/c/santander-customer-transaction-prediction">https://www.kaggle.com/c/santander-customer-transaction-prediction</a></td>
 </tr>
 <tr>
-<td>santander-value-prediction-challenge</td>
+<td>santander_value_prediction</td>
 <td>Kaggle</td>
 <td><a href="https://www.kaggle.com/c/santander-value-prediction-challenge">https://www.kaggle.com/c/santander-value-prediction-challenge</a></td>
 </tr>
@@ -2460,18 +2560,12 @@ memory.</p>
 <tr>
 <td>yosemite</td>
 <td>Github</td>
-<td><a href="https://www.kaggle.com/balraj98/summer2winter-yosemite">https://www.kaggle.com/balraj98/summer2winter-yosemite</a></td>
+<td><a href="https://github.com/ourownstory/neural_prophet">https://github.com/ourownstory/neural_prophet</a> Yosemite temperatures dataset.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="kaggle">Kaggle<a class="headerlink" href="#kaggle" title="Permanent link">&para;</a></h3>
-<p>In order to download datasets hosted on Kaggle, please follow <a href="https://github.com/Kaggle/kaggle-api#api-credentials">these
-instructions</a> to obtain
-the necessary API credentials. You will also need to "join" the competition from
-the Kaggle web UI.</p>
 <h3 id="adding-datasets">Adding datasets<a class="headerlink" href="#adding-datasets" title="Permanent link">&para;</a></h3>
-<p>To add a dataset to the Ludwig Dataset Zoo, please refer to <a href="../../../developer_guide/add_a_dataset">this
-documentation</a>.</p>
+<p>To add a dataset to the Ludwig Dataset Zoo, see <a href="../../../developer_guide/add_a_dataset">Add a Dataset</a>.</p>
 
               
             </article>

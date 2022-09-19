@@ -14,7 +14,7 @@ df = pd.read_csv(
     usecols=['Los Angeles']
 ).rename(
     columns={"Los Angeles": "temperature"}
-).fillna(method='backfill').fillna(method='ffill')
+).fillna(method='bfill').fillna(method='ffill')
 
 # normalize
 df.temperature = ((df.temperature-df.temperature.mean()) /

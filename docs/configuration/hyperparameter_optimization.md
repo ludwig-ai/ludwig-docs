@@ -143,6 +143,17 @@ hyperopt:
         - [{"output_size": 256}]
 ```
 
+### Default Hyperopt Parameters
+
+In addition to defining hyperopt parameters for individual input or output features (like the `title` feature
+in the example above), default parameters can be specified for entire feature types (for example, the encoder
+to use for all text features in your dataset). Read more about default hyperopt parameters [here](../user_guide/hyperopt.md#default-hyperopt-parameters).
+
+### Nested Ludwig Config Parameters
+
+Ludwig also allows partial or full Ludwig configs to be sampled from the hyperopt search space.
+Read more about nested Ludwig config parameters [here](../user_guide/hyperopt.md#nested-ludwig-config-parameters).
+
 # Search Algorithm
 
 Ray Tune supports its own collection of [search algorithms](https://docs.ray.io/en/master/tune/api_docs/suggestion.html), specified by the `search_alg` section of the hyperopt config:

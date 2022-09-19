@@ -18,7 +18,7 @@ Here are some preprocessing parameters.
 
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value. The value
 should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value`
-parameter). The special value `backfill` replaces the missing values with the next valid value.
+parameter). The special value `bfill` replaces the missing values with the next valid value, while `ffill` replaces the missing values with the previous valid value.
 - `fill_value` (default `""`): the value to replace missing values with when `missing_value_strategy` is
 `fill_with_const`. This can be a datetime string. If empty, the current datetime will be used.
 - `datetime_format` (default `null`): this parameter can either be a datetime format string, or `null`, in which case

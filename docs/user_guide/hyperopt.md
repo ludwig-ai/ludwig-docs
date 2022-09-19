@@ -80,8 +80,8 @@ this parameter will modify preprocessing for all text input features
 ## Nested Ludwig Config Parameters
 
 Ludwig also extends the range of hyperopt parameters to support parameter choices that consist of partial or
-complete blocks of nested Ludwig config sections. This allows users to search over a set of Ludwig configs, as
-opposed to needing to specify config params individually and search over all combinations.
+complete blocks of Ludwig config sections. This allows users to search over a set of Ludwig configs, as
+opposed to needing to specify config params individually and search over all combinations of parameters.
 
 To provide a parameter that represents a subsection of the Ludwig config, the `.` key name can be used.
 

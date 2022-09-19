@@ -92,12 +92,12 @@ hyperopt:
     parameters:
         .:  space: choice
             categories: 
-                -   combiner:
+                -   combiner: # Ludwig config subsection 1
                         type: tabnet
                     trainer:
                         learning_rate: 0.001
                         batch_size: 64
-                -   combiner:
+                -   combiner: # Ludwig config subsection 2
                         type: concat
                     trainer:
                         batch_size: 256
@@ -108,7 +108,7 @@ hyperopt:
 ```
 
 The `.` parameter defines the nested hyperopt parameter with two choices. These will be sampled and
-used to update the Ludwig config for each trial based on which of the two choices are sampled.
+used to update the Ludwig config for each trial based on which of the two choices is picked.
 
 This config above will create hyperopt samples that look like the following:
 

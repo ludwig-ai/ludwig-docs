@@ -63,7 +63,7 @@
 }
 
 [data-md-color-scheme="slate"] {
-    --md-primary-fg-color:        #2B2C2F;
+    --md-primary-fg-color: #2B2C2F;
     --md-default-bg-color: #1E1F20;
     --md-typeset-a-color: var(--md-default-fg-color);
 }
@@ -73,13 +73,11 @@
 }
 
 [data-md-color-scheme="slate"] .md-typeset a {
-    font-weight: bold;
     color: #eb8b76;
     text-decoration: underline;
 }
 
 [data-md-color-scheme="default"] .md-typeset a {
-    font-weight: bold;
     color: #E25637;
     text-decoration: underline;
 }
@@ -138,5 +136,5 @@
 
 .md-button {
     /* padding: 10px */
-    margin-bottom:5px;
+    margin-bottom: 5px;
 }

@@ -77,6 +77,66 @@ In this example, `defaults.text.preprocessing.most_common` is a default paramete
 this parameter will modify preprocessing for all text input features
 - `most_common` is the parameter within `preprocessing` that we want to modify for all text input features
 
+## Nested Ludwig Config Parameters
+
+Ludwig also extends the range of hyperopt parameters to support parameter choices that consist of partial or
+complete blocks of Ludwig config sections. This allows users to search over a set of Ludwig configs, as
+opposed to needing to specify config params individually and search over all combinations of parameters.
+
+To provide a parameter that represents a subsection of the Ludwig config, the `.` key name can be used.
+
+For example, one can define a hyperopt search space like the one below and sample partial Ludwig configs:
+
+```yaml
+hyperopt:
+    parameters:
+        .:  space: choice
+            categories: 
+                -   combiner: # Ludwig config subsection 1
+                        type: tabnet
+                    trainer:
+                        learning_rate: 0.001
+                        batch_size: 64
+                -   combiner: # Ludwig config subsection 2
+                        type: concat
+                    trainer:
+                        batch_size: 256
+        trainer.decay_rate:
+            space: loguniform
+            lower: 0.001
+            upper: 0.1
+```
+
+The `.` parameter defines the nested hyperopt parameter with two choices. These will be sampled and
+used to update the Ludwig config for each trial based on which of the two choices is picked.
+
+This config above will create hyperopt samples that look like the following:
+
+```yaml
+# Trial 1
+  combiner:
+    type: tabnet
+  trainer: 
+  learning_rate: 0.001
+  batch_size: 64
+  decay_rate: 0.02
+
+# Trial 2
+  combiner:
+    type: tabnet
+  trainer: 
+    learning_rate: 0.001
+    batch_size: 64
+    decay_rate: 0.001
+
+# Trial 3
+  combiner:
+    type: concat
+  trainer: 
+    batch_size: 64
+    decay_rate: 0.001
+```
+
 # Running Hyperparameter Optimization
 
 Use the `ludwig hyperopt` command to run hyperparameter optimization.

@@ -154,6 +154,9 @@ These are the available parameters of a category output feature
 - `reduce_input` (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order
 tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`,
 `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension).
+- `calibration` (default `false`): if true, performs calibration by temperature scaling after training is complete.
+Calibration uses the validation set to find a scale factor (temperature) which is multiplied with the logits to shift
+output probabilities closer to true likelihoods.
 - `dependencies` (default `[]`): the output features this one is dependent on. For a detailed explanation refer to
 [Output Features Dependencies](../output_features#output-feature-dependencies).
 - `reduce_dependencies` (default `sum`): defines how to reduce the output of a dependent feature that is not a vector,

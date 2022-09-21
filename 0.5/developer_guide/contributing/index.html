@@ -13,7 +13,7 @@
         <meta name="author" content="Piero Molino">
       
       
-        <link rel="canonical" href="https://ludwig-ai.github.io/ludwig-docs/latest/developer_guide/contributing/">
+        <link rel="canonical" href="https://ludwig.ai/latest/developer_guide/contributing/">
       
       <link rel="icon" href="../../favicon.ico">
       <meta name="generator" content="mkdocs-1.2.4, mkdocs-material-8.2.7">
@@ -2243,7 +2243,7 @@ documentation are immensely valuable contributions as well.</p>
 <p>It also helps us if you spread the word: reference the library in blog posts on the awesome
 projects it made possible, shout out on Twitter every time it has helped you, or simply star the
 repo to say "thank you".</p>
-<p>Check out the official <a href="https://ludwig-ai.github.io/ludwig-docs/">ludwig docs</a> to get oriented
+<p>Check out the official <a href="https://ludwig.ai/">ludwig docs</a> to get oriented
 around the codebase, and join the community!</p>
 <h3 id="open-issues">Open Issues<a class="headerlink" href="#open-issues" title="Permanent link">&para;</a></h3>
 <p>Issues are listed at: <a href="https://github.com/ludwig-ai/ludwig/issues">https://github.com/ludwig-ai/ludwig/issues</a></p>
@@ -2259,56 +2259,58 @@ around the codebase, and join the community!</p>
 </li>
 <li>
 <p>Clone your fork to your local disk, and add the base repository as a remote:</p>
+</li>
+</ol>
 <div class="highlight"><pre><span></span><code>git clone git@github.com:&lt;your Github handle&gt;/ludwig.git
 <span class="nb">cd</span> ludwig
 git remote add upstream https://github.com/ludwig-ai/ludwig.git
 </code></pre></div>
-</li>
-<li>
-<p>Create a new branch to hold your development changes:</p>
+<ol>
+<li>Create a new branch to hold your development changes:</li>
+</ol>
 <div class="highlight"><pre><span></span><code>git checkout -b a-descriptive-name-for-my-changes
 </code></pre></div>
 <p><strong>Do not</strong> work on the <code>master</code> branch.</p>
-</li>
-<li>
-<p>Set up a development environment by running the following command in a virtual environment:</p>
+<ol>
+<li>Set up a development environment by running the following command in a virtual environment:</li>
+</ol>
 <div class="highlight"><pre><span></span><code>pip install -e .
 pip install pre-commit
 pre-commit install
 </code></pre></div>
-</li>
+<ol>
 <li>
 <p>Develop features on your branch.</p>
 </li>
 <li>
 <p>Format your code by running pre-commits so that your newly added files look nice:</p>
+</li>
+</ol>
 <div class="highlight"><pre><span></span><code>pre-commit run
 </code></pre></div>
 <p>Pre-commits also run automatically when committing.</p>
-</li>
-<li>
-<p>Once you're happy with your changes, make a commit to record your changes locally:</p>
+<ol>
+<li>Once you're happy with your changes, make a commit to record your changes locally:</li>
+</ol>
 <div class="highlight"><pre><span></span><code>git add .
 git commit
 </code></pre></div>
 <p>It is a good idea to sync your copy of the code with the original repository regularly. This
-way you can quickly account for changes:</p>
+   way you can quickly account for changes:</p>
 <div class="highlight"><pre><span></span><code>git fetch upstream
 git rebase upstream/master
 </code></pre></div>
 <p>Push the changes to your account using:</p>
 <div class="highlight"><pre><span></span><code>git push -u origin a-descriptive-name-for-my-changes
 </code></pre></div>
-</li>
-<li>
-<p>Once you are satisfied, go the webpage of your fork on GitHub. Click on "Pull request" to send
-   your contribution to the project maintainers for review.</p>
-</li>
+<ol>
+<li>Once you are satisfied, go the webpage of your fork on GitHub. Click on "Pull request" to send
+   your contribution to the project maintainers for review.</li>
 </ol>
 <h3 id="other-tips">Other tips<a class="headerlink" href="#other-tips" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Add unit tests for any new code you write.</li>
-<li>Make sure tests pass. See the <a href="https://ludwig-ai.github.io/ludwig-docs/latest/developer_guide/style_guidelines_and_tests/">Developer Guide</a> for more details.</li>
+<li>Make sure tests pass. See the <a href="https://ludwig.ai/latest/developer_guide/style_guidelines_and_tests/">Developer Guide</a> for more details.</li>
 </ul>
 <h3 id="attribution">Attribution<a class="headerlink" href="#attribution" title="Permanent link">&para;</a></h3>
 <p>This contributing guideline is adapted from <code>huggingface</code>, available at <a href="https://github.com/huggingface/datasets/blob/master/CONTRIBUTING.md">https://github.com/huggingface/datasets/blob/master/CONTRIBUTING.md</a>.</p>

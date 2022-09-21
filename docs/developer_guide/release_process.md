@@ -125,7 +125,7 @@ Announce the release on Slack.
 
     Ludwig X.Y.Z Released
     Features: Improvements to <CONTENT>. See <LINK>release notes<LINK> for complete details.
-    Docs: https://ludwig-ai.github.io/ludwig-docs/latest/
+    Docs: https://ludwig.ai/latest/
 
 If it's a major version release, consider other forms of publicization like
 coordinating sharing the release on other social media, or writing a blog post.

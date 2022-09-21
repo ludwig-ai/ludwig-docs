@@ -2,7 +2,7 @@
 site_name: Ludwig
 site_description: "Declarative machine learning: End-to-end machine learning pipelines using data-driven configurations."
 site_author: Piero Molino
-site_url: https://ludwig-ai.github.io/ludwig-docs/
+site_url: https://ludwig.ai/
 
 # Repository
 repo_name: ludwig-ai/ludwig

@@ -8,7 +8,7 @@ It also helps us if you spread the word: reference the library in blog posts on 
 projects it made possible, shout out on Twitter every time it has helped you, or simply star the
 repo to say "thank you".
 
-Check out the official [ludwig docs](https://ludwig-ai.github.io/ludwig-docs/) to get oriented
+Check out the official [ludwig docs](https://ludwig.ai/) to get oriented
 around the codebase, and join the community!
 
 ## Open Issues
@@ -29,58 +29,58 @@ Work on your self-assigned issue and eventually create a Pull Request.
 
 2. Clone your fork to your local disk, and add the base repository as a remote:
 
-    ```bash
-    git clone git@github.com:<your Github handle>/ludwig.git
-    cd ludwig
-    git remote add upstream https://github.com/ludwig-ai/ludwig.git
-    ```
+   ```bash
+   git clone git@github.com:<your Github handle>/ludwig.git
+   cd ludwig
+   git remote add upstream https://github.com/ludwig-ai/ludwig.git
+   ```
 
 3. Create a new branch to hold your development changes:
 
-    ```bash
-    git checkout -b a-descriptive-name-for-my-changes
-    ```
+   ```bash
+   git checkout -b a-descriptive-name-for-my-changes
+   ```
 
-    **Do not** work on the `master` branch.
+   **Do not** work on the `master` branch.
 
 4. Set up a development environment by running the following command in a virtual environment:
 
-    ```bash
-    pip install -e .
-    pip install pre-commit
-    pre-commit install
-    ```
+   ```bash
+   pip install -e .
+   pip install pre-commit
+   pre-commit install
+   ```
 
 5. Develop features on your branch.
 
 6. Format your code by running pre-commits so that your newly added files look nice:
 
-    ```bash
-    pre-commit run
-    ```
+   ```bash
+   pre-commit run
+   ```
 
-    Pre-commits also run automatically when committing.
+   Pre-commits also run automatically when committing.
 
 7. Once you're happy with your changes, make a commit to record your changes locally:
 
-    ```bash
-    git add .
-    git commit
-    ```
+   ```bash
+   git add .
+   git commit
+   ```
 
-    It is a good idea to sync your copy of the code with the original repository regularly. This
-    way you can quickly account for changes:
+   It is a good idea to sync your copy of the code with the original repository regularly. This
+   way you can quickly account for changes:
 
-    ```bash
-    git fetch upstream
-    git rebase upstream/master
-    ```
+   ```bash
+   git fetch upstream
+   git rebase upstream/master
+   ```
 
-    Push the changes to your account using:
+   Push the changes to your account using:
 
-    ```bash
-    git push -u origin a-descriptive-name-for-my-changes
-    ```
+   ```bash
+   git push -u origin a-descriptive-name-for-my-changes
+   ```
 
 8. Once you are satisfied, go the webpage of your fork on GitHub. Click on "Pull request" to send
    your contribution to the project maintainers for review.
@@ -88,7 +88,7 @@ Work on your self-assigned issue and eventually create a Pull Request.
 ## Other tips
 
 - Add unit tests for any new code you write.
-- Make sure tests pass. See the [Developer Guide](https://ludwig-ai.github.io/ludwig-docs/latest/developer_guide/style_guidelines_and_tests/) for more details.
+- Make sure tests pass. See the [Developer Guide](https://ludwig.ai/latest/developer_guide/style_guidelines_and_tests/) for more details.
 
 ## Attribution
 

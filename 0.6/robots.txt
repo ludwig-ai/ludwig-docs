@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://ludwig.ai/latest/sitemap.xml
+Host: https://ludwig-ai.github.io/ludwig-docs

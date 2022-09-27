@@ -100,26 +100,20 @@ configuration:
 
 ```yaml
 input_features:
--
-  name: title
-  type: text
--
-  name: author
-  type: category
--
-  name: description
-  type: text
--
-  name: cover
-  type: image
+  - name: title
+    type: text
+  - name: author
+    type: category
+  - name: description
+    type: text
+  - name: cover
+    type: image
 
 output_features:
--
-  name: genre
-  type: set
--
-  name: price
-  type: number
+  - name: genre
+    type: set
+  - name: price
+    type: number
 ```
 
 Starting from a simple config like the one above, any and all aspects of the
@@ -129,40 +123,34 @@ configuration to customize the pipeline to meet your requirements:
 
 ```yaml
 input_features:
--
-  name: title
-  type: text
-  encoder: rnn
-  cell: lstm
-  num_layers: 2
-  state_size: 128
-  preprocessing:
-    tokenizer: space_punct
--
-  name: author
-  type: category
-  embedding_size: 128
-  preprocessing:
-    most_common: 10000
--
-  name: description
-  type: text
-  encoder: bert
--
-  name: cover
-  type: image
-  encoder: resnet
-  num_layers: 18
+  - name: title
+    type: text
+    encoder: rnn
+    cell: lstm
+    num_layers: 2
+    state_size: 128
+    preprocessing:
+      tokenizer: space_punct
+  - name: author
+    type: category
+    embedding_size: 128
+    preprocessing:
+      most_common: 10000
+  - name: description
+    type: text
+    encoder: bert
+  - name: cover
+    type: image
+    encoder: resnet
+    num_layers: 18
 
 output_features:
--
-  name: genre
-  type: set
--
-  name: price
-  type: number
-  preprocessing:
-    normalization: zscore
+  - name: genre
+    type: set
+  - name: price
+    type: number
+    preprocessing:
+      normalization: zscore
 
 trainer:
   epochs: 50
@@ -233,7 +221,7 @@ search, and backend infrastructure can be modified as additional fields in the
 declarative configuration to customize the pipeline to meet your requirements.
 
 For details on what can be configured, check out
-[Ludwig Configuration](https://ludwig-ai.github.io/ludwig-docs/latest/configuration/) docs.
+[Ludwig Configuration](https://ludwig.ai/latest/configuration/) docs.
 
 ## Integration with any structured data source
 
@@ -280,7 +268,7 @@ ludwig train --dataset sst5 -–config_str “{input_features: [{name: sentence,
 
 ## Low-code interface for AutoML
 
-[Ludwig AutoML](https://ludwig-ai.github.io/ludwig-docs/latest/user_guide/automl/)
+[Ludwig AutoML](https://ludwig.ai/latest/user_guide/automl/)
 allows users to obtain trained models by providing just a dataset, the target column, and a time budget.
 
 ```python

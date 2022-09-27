@@ -38,7 +38,7 @@ jobs:
           git config --global user.email ci-bot@ludwig.ai
 
       - name: Publish docs
-        run: mike deploy --push --update-aliases ${{ env.ludwig_version }} latest
+        run: mike deploy --push --update-aliases ${{ env.ludwig_version }} latest  --no-redirect --title="${{ env.ludwig_version }} (latest)"
 
       - name: Copy sitemap to latest folder
         run: |

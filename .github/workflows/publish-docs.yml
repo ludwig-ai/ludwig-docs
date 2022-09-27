@@ -45,6 +45,11 @@ jobs:
           git checkout gh-pages
           cp ${{ env.ludwig_version }}/sitemap.xml latest/sitemap.xml
 
+      - name: Copy robots.txt to latest folder
+        run: |
+          git checkout gh-pages
+          cp ${{ env.ludwig_version }}/robots.txt latest/robots.xml
+
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Copying sitemap from version to make it easy for search engines to find our documentation.

@@ -164,7 +164,7 @@ create_model(
 ```
 
 
-Instantiates Encoder-Combiner-Decoder (ECD) object.
+Instantiates BaseModel object.
 
 __Inputs__
 
@@ -175,7 +175,7 @@ splits and any other random function.
 
 __Return__
 
-- __return__ (ludwig.models.ECD): Instance of the Ludwig model object.
+- __return__ (ludwig.models.BaseModel): Instance of the Ludwig model object.
  
 
 ---
@@ -663,12 +663,19 @@ __Return__
 ```python
 save_torchscript(
   save_path,
-  model_only=False
+  model_only=False,
+  device=None
 )
 ```
 
 
 Saves the Torchscript model to disk.
+
+save_path (str): The path to the directory where the model will be saved. model_only (bool, optional): If True,
+only the ECD model will be converted to Torchscript. Else, the     preprocessing and postprocessing steps will
+also be converted to Torchscript. device (TorchDevice, optional): If None, the model will be converted to
+Torchscript on the same device to     ensure maximum model parity.
+
 
 ---
 ## set_logging_level
@@ -701,27 +708,21 @@ __Return__
 
 ```python
 to_torchscript(
-  model_only=False
+  model_only=False,
+  device=None
 )
 ```
 
 
-Converts the trained LudwigModule, including preprocessing and postprocessing, to Torchscript.
-
-The scripted module takes in a `Dict[str, Union[List[str], Tensor]]` as input.
-
-More specifically, for every input feature, we provide either a Tensor of batch_size inputs, a list of Tensors
-batch_size in length, or a list of strings batch_size in length.
-
-Note that the dimensions of all Tensors and lengths of all lists must match.
-
-Similarly, the output will be a dictionary of dictionaries, where each feature has its own dictionary of
-outputs. The outputs will be a list of strings for predictions with string types, while other outputs will be
-tensors of varying dimensions for probabilities, logits, etc.
+Converts the trained model to Torchscript.
 
 Args:
 model_only (bool, optional): If True, only the ECD model will be converted to Torchscript. Else,
-preprocessing and postprocessing will also be converted to Torchscript.
+preprocessing and postprocessing steps will also be converted to Torchscript.
+device (TorchDevice, optional): If None, the model will be converted to Torchscript on the same device to
+ensure maximum model parity.
+Returns:
+A torch.jit.ScriptModule that can be used to predict on a dictionary of inputs.
 
 
 ---

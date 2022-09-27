@@ -2575,7 +2575,7 @@ weights</li>
   <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span>
 <span class="p">)</span>
 </code></pre></div>
-<p>Instantiates Encoder-Combiner-Decoder (ECD) object.</p>
+<p>Instantiates BaseModel object.</p>
 <p><strong>Inputs</strong></p>
 <ul>
 <li><strong>config</strong> (dict): Ludwig config</li>
@@ -2585,7 +2585,7 @@ splits and any other random function.</li>
 </ul>
 <p><strong>Return</strong></p>
 <ul>
-<li><strong>return</strong> (ludwig.models.ECD): Instance of the Ludwig model object.</li>
+<li><strong>return</strong> (ludwig.models.BaseModel): Instance of the Ludwig model object.</li>
 </ul>
 <hr />
 <h3 id="evaluate">evaluate<a class="headerlink" href="#evaluate" title="Permanent link">&para;</a></h3>
@@ -2992,10 +2992,15 @@ JSON file.</li>
 <h3 id="save_torchscript">save_torchscript<a class="headerlink" href="#save_torchscript" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">save_torchscript</span><span class="p">(</span>
   <span class="n">save_path</span><span class="p">,</span>
-  <span class="n">model_only</span><span class="o">=</span><span class="kc">False</span>
+  <span class="n">model_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">device</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">)</span>
 </code></pre></div>
 <p>Saves the Torchscript model to disk.</p>
+<p>save_path (str): The path to the directory where the model will be saved. model_only (bool, optional): If True,
+only the ECD model will be converted to Torchscript. Else, the     preprocessing and postprocessing steps will
+also be converted to Torchscript. device (TorchDevice, optional): If None, the model will be converted to
+Torchscript on the same device to     ensure maximum model parity.</p>
 <hr />
 <h3 id="set_logging_level">set_logging_level<a class="headerlink" href="#set_logging_level" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">set_logging_level</span><span class="p">(</span>
@@ -3015,20 +3020,18 @@ constants like <code>logging.DEBUG</code> , <code>logging.INFO</code> and <code>
 <hr />
 <h3 id="to_torchscript">to_torchscript<a class="headerlink" href="#to_torchscript" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">to_torchscript</span><span class="p">(</span>
-  <span class="n">model_only</span><span class="o">=</span><span class="kc">False</span>
+  <span class="n">model_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">device</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">)</span>
 </code></pre></div>
-<p>Converts the trained LudwigModule, including preprocessing and postprocessing, to Torchscript.</p>
-<p>The scripted module takes in a <code>Dict[str, Union[List[str], Tensor]]</code> as input.</p>
-<p>More specifically, for every input feature, we provide either a Tensor of batch_size inputs, a list of Tensors
-batch_size in length, or a list of strings batch_size in length.</p>
-<p>Note that the dimensions of all Tensors and lengths of all lists must match.</p>
-<p>Similarly, the output will be a dictionary of dictionaries, where each feature has its own dictionary of
-outputs. The outputs will be a list of strings for predictions with string types, while other outputs will be
-tensors of varying dimensions for probabilities, logits, etc.</p>
+<p>Converts the trained model to Torchscript.</p>
 <p>Args:
 model_only (bool, optional): If True, only the ECD model will be converted to Torchscript. Else,
-preprocessing and postprocessing will also be converted to Torchscript.</p>
+preprocessing and postprocessing steps will also be converted to Torchscript.
+device (TorchDevice, optional): If None, the model will be converted to Torchscript on the same device to
+ensure maximum model parity.
+Returns:
+A torch.jit.ScriptModule that can be used to predict on a dictionary of inputs.</p>
 <hr />
 <h3 id="train">train<a class="headerlink" href="#train" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">train</span><span class="p">(</span>

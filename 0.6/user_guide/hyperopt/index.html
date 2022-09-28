@@ -779,6 +779,26 @@
     Hyperopt Configuration
   </a>
   
+    <nav class="md-nav" aria-label="Hyperopt Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-hyperopt-parameters" class="md-nav__link">
+    Default Hyperopt Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nested-ludwig-config-parameters" class="md-nav__link">
+    Nested Ludwig Config Parameters
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -893,6 +913,10 @@
         
           
         
+          
+        
+          
+        
       
       
         
@@ -921,6 +945,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../configuration/model_type/" class="md-nav__link">
+        Model Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../configuration/preprocessing/" class="md-nav__link">
         Preprocessing
       </a>
@@ -938,7 +976,7 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_4" type="checkbox" id="__nav_4_4" >
       
       
       
@@ -977,13 +1015,13 @@
         
       
       
-        <label class="md-nav__link" for="__nav_4_3">
+        <label class="md-nav__link" for="__nav_4_4">
           Features
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Features" data-md-level="2">
-        <label class="md-nav__title" for="__nav_4_3">
+        <label class="md-nav__title" for="__nav_4_4">
           <span class="md-nav__icon md-icon"></span>
           Features
         </label>
@@ -1215,6 +1253,20 @@
           
         </ul>
       </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/defaults/" class="md-nav__link">
+        Defaults
+      </a>
     </li>
   
 
@@ -2139,6 +2191,26 @@
     Hyperopt Configuration
   </a>
   
+    <nav class="md-nav" aria-label="Hyperopt Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-hyperopt-parameters" class="md-nav__link">
+    Default Hyperopt Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nested-ludwig-config-parameters" class="md-nav__link">
+    Nested Ludwig Config Parameters
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2173,12 +2245,15 @@ executor.</p>
 <p>The hyperparameter optimization strategy is specified as part of the Ludwig configuration and run using
 the <code>ludwig hyperopt</code> command. Every parameter within the config can be tuned using hyperopt.</p>
 <h2 id="hyperopt-configuration">Hyperopt Configuration<a class="headerlink" href="#hyperopt-configuration" title="Permanent link">&para;</a></h2>
-<p>Most parameters or nested parameters of a ludwig configuration may be optimized, including <code>input_features</code>,
-<code>output_features</code>, <code>combiner</code>, <code>preprocessing</code>, and <code>trainer</code>.  Supported types are <code>float</code>, <code>int</code> and <code>category</code>.</p>
-<p>To enable hyperparameter optimization, add the <code>hyperopt</code> dictionary at the top level of your config.yaml.  The
+<p>Most parameters or nested parameters of a Ludwig configuration may be optimized, including <code>input_features</code>,
+<code>output_features</code>, <code>combiner</code>, <code>preprocessing</code>, <code>trainer</code> and <code>defaults</code>.  Supported types are <code>float</code>, <code>int</code> and <code>category</code>.</p>
+<p>To enable hyperparameter optimization, add the <code>hyperopt</code> dictionary at the top level of your config.yaml. The
 <code>hyperopt</code> section declares which parameters to optimize, the search strategy, and the optimization goal.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">hyperopt</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><span class="filename">config.yaml</span><pre><span></span><code><span class="nt">hyperopt</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">title.num_filters</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span><span class="w"></span>
+<span class="w">      </span><span class="nt">categories</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">128</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">256</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">512</span><span class="p p-Indicator">]</span><span class="w"></span>
 <span class="w">    </span><span class="nt">training.learning_rate</span><span class="p">:</span><span class="w"></span>
 <span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loguniform</span><span class="w"></span>
 <span class="w">      </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0001</span><span class="w"></span>
@@ -2189,6 +2264,98 @@ the <code>ludwig hyperopt</code> command. Every parameter within the config can 
 <span class="w">      </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span><span class="w"></span>
 <span class="w">  </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">minimize</span><span class="w"></span>
 <span class="w">  </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loss</span><span class="w"></span>
+</code></pre></div>
+<h3 id="default-hyperopt-parameters">Default Hyperopt Parameters<a class="headerlink" href="#default-hyperopt-parameters" title="Permanent link">&para;</a></h3>
+<p>In addition to defining hyperopt parameters for individual input or output features (like the <code>title</code> feature
+in the example above), default parameters can be specified for entire feature types (for example, the encoder
+to use for all text features in your dataset). These parameters will follow the same convention as the
+<a href="../../configuration/defaults/">defaults section</a> of the Ludwig config. This is particularly helpful in cases where a dataset has
+a large number of features and you don't want to define parameters for each feature individually.</p>
+<p>Default hyperopt parameters are defined using the following keywords in order separated by the <code>.</code> delimiter:</p>
+<ul>
+<li><code>defaults</code>: The defaults keyword used to indicate a feature-level parameter</li>
+<li><code>feature_type</code>: Any input or output feature type that Ludwig supports. This can be one of text, numeric, category,
+etc. See the full list of support feature types <a href="../../configuration/features/supported_data_types/">here</a></li>
+<li><code>subsection</code>: One of <code>preprocessing</code>, <code>encoder</code>, <code>decoder</code> or <code>loss</code>, the 4 sections that can be modified via the
+Ludwig defaults section</li>
+<li><code>parameter</code>: A valid parameter belonging to the <code>subsection</code>. For e.g., <code>most_common</code> is a valid parameter for the
+<code>preprocessing</code> sub-section for <code>text</code> feature types</li>
+</ul>
+<p>For each hyperopt trial, a value will be sampled from the parameter space and applied to either input features
+(<code>preprocessing</code> or <code>encoder</code> related parameters) or output features (<code>decoder</code> or <code>loss</code> related parameters) of
+that feature type. Additionally, parameters defined for individual features (like <code>title.preprocessing.most_common</code>)
+will take precedence over default parameters (like <code>defaults.text.preprocessing.most_common</code>) if they share the
+same feature type and parameter and both parameters are defined in the Ludwig hyperopt config.</p>
+<div class="highlight"><span class="filename">config.yaml</span><pre><span></span><code><span class="nn">...</span><span class="w"></span>
+<span class="nt">hyperopt</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">title.num_filters</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span><span class="w"></span>
+<span class="w">      </span><span class="nt">categories</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">128</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">256</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">512</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">    </span><span class="nt">defaults.text.preprocessing.most_common</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span><span class="w"></span>
+<span class="w">      </span><span class="nt">categories</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">100</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">500</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1000</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">  </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">minimize</span><span class="w"></span>
+<span class="w">  </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loss</span><span class="w"></span>
+<span class="nn">...</span><span class="w"></span>
+</code></pre></div>
+<p>In this example, <code>defaults.text.preprocessing.most_common</code> is a default parameter. Here:</p>
+<ul>
+<li><code>defaults</code> helps denote a default hyperopt parameter</li>
+<li><code>text</code> refers to the group of text input features since it is a <code>preprocessing</code> releated parameter</li>
+<li><code>preprocessing</code> refers to the text preprocessing sub-section within Ludwig's default section. This means that
+this parameter will modify preprocessing for all text input features</li>
+<li><code>most_common</code> is the parameter within <code>preprocessing</code> that we want to modify for all text input features</li>
+</ul>
+<h3 id="nested-ludwig-config-parameters">Nested Ludwig Config Parameters<a class="headerlink" href="#nested-ludwig-config-parameters" title="Permanent link">&para;</a></h3>
+<p>Ludwig also extends the range of hyperopt parameters to support parameter choices that consist of partial or
+complete blocks of Ludwig config sections. This allows users to search over a set of Ludwig configs, as
+opposed to needing to specify config params individually and search over all combinations of parameters.</p>
+<p>To provide a parameter that represents a subsection of the Ludwig config, the <code>.</code> key name can be used.</p>
+<p>For example, one can define a hyperopt search space like the one below and sample partial Ludwig configs:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">hyperopt</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">.</span><span class="p">:</span><span class="w">  </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span><span class="w"></span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">categories</span><span class="p p-Indicator">:</span><span class="w"> </span>
+<span class="w">                </span><span class="p p-Indicator">-</span><span class="w">   </span><span class="nt">combiner</span><span class="p">:</span><span class="w"> </span><span class="c1"># Ludwig config subsection 1</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tabnet</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">trainer</span><span class="p">:</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span><span class="w"></span>
+<span class="w">                </span><span class="p p-Indicator">-</span><span class="w">   </span><span class="nt">combiner</span><span class="p">:</span><span class="w"> </span><span class="c1"># Ludwig config subsection 2</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">concat</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">trainer</span><span class="p">:</span><span class="w"></span>
+<span class="w">                        </span><span class="nt">batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
+<span class="w">        </span><span class="nt">trainer.decay_rate</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loguniform</span><span class="w"></span>
+<span class="w">            </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span><span class="w"></span>
+<span class="w">            </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span><span class="w"></span>
+</code></pre></div>
+<p>The <code>.</code> parameter defines the nested hyperopt parameter with two choices. These will be sampled and
+used to update the Ludwig config for each trial based on which of the two choices is picked.</p>
+<p>This config above will create hyperopt samples that look like the following:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Trial 1</span><span class="w"></span>
+<span class="w">  </span><span class="nt">combiner</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tabnet</span><span class="w"></span>
+<span class="w">  </span><span class="nt">trainer</span><span class="p">:</span><span class="w"> </span>
+<span class="w">  </span><span class="nt">learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span><span class="w"></span>
+<span class="w">  </span><span class="nt">batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span><span class="w"></span>
+<span class="w">  </span><span class="nt">decay_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.02</span><span class="w"></span>
+
+<span class="c1"># Trial 2</span><span class="w"></span>
+<span class="w">  </span><span class="nt">combiner</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tabnet</span><span class="w"></span>
+<span class="w">  </span><span class="nt">trainer</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span><span class="w"></span>
+<span class="w">    </span><span class="nt">batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span><span class="w"></span>
+<span class="w">    </span><span class="nt">decay_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span><span class="w"></span>
+
+<span class="c1"># Trial 3</span><span class="w"></span>
+<span class="w">  </span><span class="nt">combiner</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">concat</span><span class="w"></span>
+<span class="w">  </span><span class="nt">trainer</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span><span class="w"></span>
+<span class="w">    </span><span class="nt">decay_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span><span class="w"></span>
 </code></pre></div>
 <h2 id="running-hyperparameter-optimization">Running Hyperparameter Optimization<a class="headerlink" href="#running-hyperparameter-optimization" title="Permanent link">&para;</a></h2>
 <p>Use the <code>ludwig hyperopt</code> command to run hyperparameter optimization.</p>

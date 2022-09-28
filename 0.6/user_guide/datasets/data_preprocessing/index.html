@@ -964,6 +964,10 @@
         
           
         
+          
+        
+          
+        
       
       
         
@@ -992,6 +996,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../configuration/model_type/" class="md-nav__link">
+        Model Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../configuration/preprocessing/" class="md-nav__link">
         Preprocessing
       </a>
@@ -1009,7 +1027,7 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_4" type="checkbox" id="__nav_4_4" >
       
       
       
@@ -1048,13 +1066,13 @@
         
       
       
-        <label class="md-nav__link" for="__nav_4_3">
+        <label class="md-nav__link" for="__nav_4_4">
           Features
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Features" data-md-level="2">
-        <label class="md-nav__title" for="__nav_4_3">
+        <label class="md-nav__title" for="__nav_4_4">
           <span class="md-nav__icon md-icon"></span>
           Features
         </label>
@@ -1286,6 +1304,20 @@
           
         </ul>
       </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/defaults/" class="md-nav__link">
+        Defaults
+      </a>
     </li>
   
 
@@ -2314,7 +2346,7 @@
 <li><strong>Computing metadata</strong> like vocabulary, vocabulary size, and sequence lengths. This allows Ludwig to create
    dictionaries like <code>idx2str</code> or <code>str2idx</code> to map between raw data values to tensor values.</li>
 <li><strong>Handling missing values</strong> any rows/examples that have missing feature values are filled in with constants or other
-   example-derived values (see <a href="../../../configuration/preprocessing">Preprocessing Configuration</a>).</li>
+   example-derived values (see <a href="../../../configuration/defaults#type-global-preprocessing">Type-Global Preprocesing Configuration</a>).</li>
 <li>(optional) <strong>Splitting dataset</strong> into train, validation, and test based on splitting percentages, or using explicitly
    specified splits.</li>
 <li>(optional) <strong>Balancing data</strong> which can be useful for datasets with heavily underrepresented or overrepresented
@@ -2324,7 +2356,7 @@
 The HDF5 and JSON files are saved in the same directory as the input dataset, unless <code>--skip_save_processed_input</code> is
 used. The two files will serve as a cache to help avoid performing the same preprocessing again, which can be time
 consuming.</p>
-<p>The preprocessing process is highly customizable via the <a href="../../../configuration/preprocessing">Preprocessing section</a> of
+<p>The preprocessing process is highly customizable via the <a href="../../../configuration/defaults#type-global-preprocessing">Type-Global Preprocessing Section</a> of
 the Ludwig config. The basic assumption is always that all data is UTF-8 encoded and contains one row for each
 example and one column for each feature.</p>
 <p>It's helpful to assign types to each feature. Some types assume a specific format, and different types will have
@@ -2333,7 +2365,7 @@ assign types automatically.</p>
 <h2 id="preprocessing-for-different-data-types">Preprocessing for different data types<a class="headerlink" href="#preprocessing-for-different-data-types" title="Permanent link">&para;</a></h2>
 <p>Each datatype is preprocessed in a different way, using different parameters and different tokenizers.
 Details on how to set those parameters for each feature type and for each specific feature is described in the
-<a href="../../../configuration/preprocessing">Configuration - Preprocessing</a> section.</p>
+<a href="../../../configuration/defaults#type-global-preprocessing">Configuration - Defaults - Type-Global Preprocessing</a> section.</p>
 <h3 id="binary-features">Binary features<a class="headerlink" href="#binary-features" title="Permanent link">&para;</a></h3>
 <p><code>Binary</code> features are directly transformed into a binary valued vector of length <code>n</code> (where <code>n</code> is the size of the
 dataset) and added to the HDF5 with a key that reflects the name of column in the dataset. No additional information

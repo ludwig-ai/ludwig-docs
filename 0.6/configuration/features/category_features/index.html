@@ -849,6 +849,10 @@
         
           
         
+          
+        
+          
+        
       
       
         
@@ -877,6 +881,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../model_type/" class="md-nav__link">
+        Model Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../preprocessing/" class="md-nav__link">
         Preprocessing
       </a>
@@ -896,7 +914,7 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_4" type="checkbox" id="__nav_4_4" checked>
       
       
       
@@ -935,13 +953,13 @@
         
       
       
-        <label class="md-nav__link" for="__nav_4_3">
+        <label class="md-nav__link" for="__nav_4_4">
           Features
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Features" data-md-level="2">
-        <label class="md-nav__title" for="__nav_4_3">
+        <label class="md-nav__title" for="__nav_4_4">
           <span class="md-nav__icon md-icon"></span>
           Features
         </label>
@@ -1251,6 +1269,20 @@
           
         </ul>
       </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../defaults/" class="md-nav__link">
+        Defaults
+      </a>
     </li>
   
 
@@ -2257,33 +2289,47 @@ The column name is added to the JSON file, with an associated dictionary contain
 <li><code>missing_value_strategy</code> (default <code>fill_with_const</code>): what strategy to follow when there is a missing value in the
 category column. The value should be one of <code>fill_with_const</code> (replaces the missing value with a specific value
 specified with the <code>fill_value</code> parameter), <code>fill_with_mode</code> (replaces the missing values with the most frequent value
-in the column), <code>fill_with_mean</code> (replaces the missing values with the mean of the values in the column), <code>backfill</code>
-(replaces the missing values with the next valid value).</li>
+in the column), <code>fill_with_mean</code> (replaces the missing values with the mean of the values in the column), <code>bfill</code> (replaces the missing values with the next valid value), <code>ffill</code> (replaces the missing values with the previous valid value).</li>
 <li><code>fill_value</code> (default <code>&lt;UNK&gt;</code>): the value to replace missing values with when <code>missing_value_strategy</code> is
 <code>fill_with_const</code>.</li>
 <li><code>lowercase</code> (default <code>false</code>): if the string has to be lowercased before being handled by the tokenizer.</li>
-<li><code>most_common</code> (default <code>10000</code>): the maximum number of most common tokens to be considered. if the data contains more
+<li><code>most_common</code> (default <code>10000</code>): the maximum number of most common tokens to be considered. If the data contains more
 than this amount, the most infrequent tokens will be treated as unknown.</li>
 </ul>
+<p>Configuration example:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">color</span><span class="w"></span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
+<span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">missing_value_strategy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fill_with_const</span><span class="w"></span>
+<span class="w">    </span><span class="nt">fill_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;UNK&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">lowercase</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<span class="w">    </span><span class="nt">most_common</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span><span class="w"></span>
+</code></pre></div>
+<p>Preprocessing parameters can also be defined once and applied to all category input features using the <a href="../../defaults/#type-global-preprocessing">Type-Global Preprocessing</a> section.</p>
 <h3 id="category-input-features-and-encoders">Category Input Features and Encoders<a class="headerlink" href="#category-input-features-and-encoders" title="Permanent link">&para;</a></h3>
 <p>Category features have three encoders.
 The <code>passthrough</code> encoder passes the raw integer values coming from the input placeholders to outputs of size <code>b x 1</code>.
 The other two encoders map to either <code>dense</code> or <code>sparse</code> embeddings (one-hot encodings) and returned as outputs of size
 <code>b x h</code>, where <code>b</code> is the batch size and <code>h</code> is the dimensionality of the embeddings.</p>
-<p>Input feature parameters.</p>
+<p>The encoder parameters specified at the feature level are:</p>
 <ul>
-<li><code>encoder</code> (default <code>dense</code>): the possible values are <code>passthrough</code>, <code>dense</code> and <code>sparse</code>. <code>passthrough</code> outputs the
-raw integer values unaltered. <code>dense</code> randomly initializes a trainable embedding matrix, <code>sparse</code> uses one-hot encoding.</li>
-<li><code>tied</code> (default <code>null</code>): name of the input feature to tie the weights of the encoder with. It needs to be the name of
+<li><code>tied</code> (default <code>null</code>): name of another input feature to tie the weights of the encoder with. It needs to be the name of
 a feature of the same type and with the same encoder parameters.</li>
 </ul>
 <p>Example category feature entry in the input features list:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category_column_name</span><span class="w"></span>
 <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
 <span class="nt">tied</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dense</span><span class="w"></span>
+<span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dense</span><span class="w"></span>
 </code></pre></div>
-<p>The available encoder parameters:</p>
+<p>The available encoder parameters are:</p>
+<ul>
+<li><code>type</code> (default <code>dense</code>): the possible values are <code>passthrough</code>, <code>dense</code> and <code>sparse</code>. <code>passthrough</code> outputs the
+raw integer values unaltered. <code>dense</code> randomly initializes a trainable embedding matrix, <code>sparse</code> uses one-hot encoding.</li>
+</ul>
+<p>Encoder type and encoder parameters can also be defined once and applied to all category input features using
+the <a href="../../defaults/#type-global-encoder">Type-Global Encoder</a> section.</p>
 <h4 id="dense-encoder">Dense Encoder<a class="headerlink" href="#dense-encoder" title="Permanent link">&para;</a></h4>
 <ul>
 <li><code>embedding_size</code> (default <code>256</code>): the maximum embedding size, the actual size will be
@@ -2337,14 +2383,15 @@ is used (<code>glorot_uniform</code> in most cases). Options are: <code>constant
 <p>Example category feature entry in the input features list:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category_column_name</span><span class="w"></span>
 <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
-<span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sparse</span><span class="w"></span>
 <span class="nt">tied</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
-<span class="nt">embeddings_on_cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="nt">pretrained_embeddings</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">embeddings_trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
-<span class="nt">embedding_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sparse</span><span class="w"></span>
+<span class="w">    </span><span class="nt">embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
+<span class="w">    </span><span class="nt">embeddings_on_cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<span class="w">    </span><span class="nt">pretrained_embeddings</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="w">    </span><span class="nt">embeddings_trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">    </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
+<span class="w">    </span><span class="nt">embedding_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 </code></pre></div>
 <h3 id="category-output-features-and-decoders">Category Output Features and Decoders<a class="headerlink" href="#category-output-features-and-decoders" title="Permanent link">&para;</a></h3>
 <p>Category features can be used when a multi-class classification needs to be performed.
@@ -2376,6 +2423,7 @@ the only supported loss type for category output features.</li>
 measure. It computes accuracy but considering as a match if the true category appears in the first <code>k</code> predicted
 categories ranked by decoder's confidence.</li>
 </ul>
+<p>Decoder type and decoder parameters can also be defined once and applied to all category output features using the <a href="../../defaults/#type-global-decoder">Type-Global Decoder</a> section.</p>
 <p>These are the <code>loss</code> parameters</p>
 <ul>
 <li><code>confidence_penalty</code> (default <code>0</code>): penalizes overconfident predictions (low entropy) by adding an additional term
@@ -2397,6 +2445,7 @@ row of <code>class_similarities</code>. The output of that softmax is used to de
 of the one hot vector that would be provided otherwise for each datapoint. The intuition behind it is that errors
 between similar classes are more tolerable than errors between really different classes.</li>
 </ul>
+<p>Loss and loss related parameters can also be defined once and applied to all category output features using the <a href="../../defaults/#type-global-loss">Type-Global Loss</a> section.</p>
 <p>These are the available parameters of a category output feature decoder</p>
 <ul>
 <li><code>fc_layers</code> (default <code>null</code>): a list of dictionaries containing the parameters of all the fully connected layers.
@@ -2420,9 +2469,7 @@ or for <code>layer</code> see <a href="https://pytorch.org/docs/stable/generated
 <li><code>weights_initializer</code> (default <code>glorot_uniform</code>): initializer for the fully connected weight matrix. Options are:
 <code>constant</code>, <code>identity</code>, <code>zeros</code>, <code>ones</code>, <code>orthogonal</code>, <code>normal</code>, <code>uniform</code>, <code>truncated_normal</code>, <code>variance_scaling</code>,
 <code>glorot_normal</code>, <code>glorot_uniform</code>, <code>xavier_normal</code>, <code>xavier_uniform</code>, <code>he_normal</code>, <code>he_uniform</code>, <code>lecun_normal</code>,
-<code>lecun_uniform</code>. Alternatively it is possible to specify a dictionary with a key <code>type</code> that identifies the type of
-initializer and other keys for its parameters, e.g. <code>{type: normal, mean: 0, stddev: 0}</code>. To know the parameters of each
-initializer, please refer to <a href="https://pytorch.org/docs/stable/nn.init.html">torch.nn.init</a>.</li>
+<code>lecun_uniform</code>. To see the parameters of each initializer, please refer to <a href="https://pytorch.org/docs/stable/nn.init.html">torch.nn.init</a>.</li>
 <li><code>bias_initializer</code> (default <code>zeros</code>):  initializer for the bias vector. Options are: <code>constant</code>, <code>identity</code>, <code>zeros</code>,
 <code>ones</code>, <code>orthogonal</code>, <code>normal</code>, <code>uniform</code>, <code>truncated_normal</code>, <code>variance_scaling</code>, <code>glorot_normal</code>, <code>glorot_uniform</code>,
 <code>xavier_normal</code>, <code>xavier_uniform</code>, <code>he_normal</code>, <code>he_uniform</code>, <code>lecun_normal</code>, <code>lecun_uniform</code>. Alternatively it is
@@ -2443,17 +2490,18 @@ parameters, e.g. <code>{type: normal, mean: 0, stddev: 0}</code>. To know the pa
 <span class="w">    </span><span class="nt">class_weights</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
 <span class="w">    </span><span class="nt">class_similarities</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="w">    </span><span class="nt">class_similarities_temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
-<span class="nt">fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
-<span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
-<span class="nt">activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span><span class="w"></span>
-<span class="nt">norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">norm_params</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
-<span class="nt">use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="nt">weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glorot_uniform</span><span class="w"></span>
-<span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span><span class="w"></span>
-<span class="nt">top_k</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w"></span>
+<span class="nt">decoder</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="w">    </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
+<span class="w">    </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
+<span class="w">    </span><span class="nt">activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span><span class="w"></span>
+<span class="w">    </span><span class="nt">norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="w">    </span><span class="nt">norm_params</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="w">    </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
+<span class="w">    </span><span class="nt">use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">    </span><span class="nt">weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glorot_uniform</span><span class="w"></span>
+<span class="w">    </span><span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span><span class="w"></span>
+<span class="w">    </span><span class="nt">top_k</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w"></span>
 </code></pre></div>
 <h3 id="category-features-metrics">Category Features Metrics<a class="headerlink" href="#category-features-metrics" title="Permanent link">&para;</a></h3>
 <p>The measures that are calculated every epoch and are available for category features are <code>accuracy</code>, <code>hits_at_k</code>

@@ -849,6 +849,10 @@
         
           
         
+          
+        
+          
+        
       
       
         
@@ -877,6 +881,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../model_type/" class="md-nav__link">
+        Model Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../preprocessing/" class="md-nav__link">
         Preprocessing
       </a>
@@ -894,7 +912,7 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_4" type="checkbox" id="__nav_4_4" >
       
       
       
@@ -933,13 +951,13 @@
         
       
       
-        <label class="md-nav__link" for="__nav_4_3">
+        <label class="md-nav__link" for="__nav_4_4">
           Features
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Features" data-md-level="2">
-        <label class="md-nav__title" for="__nav_4_3">
+        <label class="md-nav__title" for="__nav_4_4">
           <span class="md-nav__icon md-icon"></span>
           Features
         </label>
@@ -1182,6 +1200,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../defaults/" class="md-nav__link">
+        Defaults
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../combiner/" class="md-nav__link">
         Combiner
       </a>
@@ -1279,6 +1311,26 @@
   <a href="#more-comprehensive-example" class="md-nav__link">
     More comprehensive example
   </a>
+  
+    <nav class="md-nav" aria-label="More comprehensive example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-hyperopt-parameters" class="md-nav__link">
+    Default Hyperopt Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nested-ludwig-config-parameters" class="md-nav__link">
+    Nested Ludwig Config Parameters
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2250,6 +2302,26 @@
     More comprehensive example
   </a>
   
+    <nav class="md-nav" aria-label="More comprehensive example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-hyperopt-parameters" class="md-nav__link">
+    Default Hyperopt Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nested-ludwig-config-parameters" class="md-nav__link">
+    Nested Ludwig Config Parameters
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -2326,10 +2398,10 @@ search strategy and execution strategy.</p>
 <span class="w">  </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loss</span><span class="w"></span>
 <span class="w">  </span><span class="nt">split</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">validation</span><span class="w"></span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title.cell_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"> </span><span class="c1"># title is a text feature type</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title.num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">title.encoder.cell_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"> </span><span class="c1"># title is a text feature type</span><span class="w"></span>
+<span class="w">    </span><span class="nt">title.encoder.num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"> </span>
 <span class="w">    </span><span class="nt">combiner.num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">    </span><span class="nt">section.embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
+<span class="w">    </span><span class="nt">section.encoder.embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
 <span class="w">    </span><span class="nt">preprocessing.text.vocab_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
 <span class="w">    </span><span class="nt">trainer.learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
 <span class="w">    </span><span class="nt">trainer.optimizer.type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
@@ -2357,8 +2429,8 @@ search strategy and execution strategy.</p>
 <h2 id="defining-hyperparameter-search-spaces">Defining hyperparameter search spaces<a class="headerlink" href="#defining-hyperparameter-search-spaces" title="Permanent link">&para;</a></h2>
 <p>In the <code>parameters</code> section, hyperparameters are dot( <code>.</code>) separate names. The parts of the hyperparameter names separated by <code>.</code> are references to nested sections in the Ludwig configuration.
 For instance, to reference the <code>learning_rate</code>, in the <code>trainer</code> section one would use the name <code>trainer.learning_rate</code>.
-If the parameter to reference is inside an input or output feature, the name of that feature will be be used as starting point.
-For instance, for referencing the <code>cell_type</code> of the <code>title</code> feature, use the name <code>title.cell_type</code>.</p>
+If the parameter to reference is inside an input or output feature, the name of that feature will be used as starting point.
+For instance, for referencing the <code>cell_type</code> of the <code>encoder</code> for the <code>title</code> feature, use the name <code>title.encoder.cell_type</code>.</p>
 <h3 id="numeric-hyperparameters">Numeric Hyperparameters<a class="headerlink" href="#numeric-hyperparameters" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>space</code>: Use <a href="https://docs.ray.io/en/latest/tune/api_docs/search_space.html">Ray Tune's Search Space</a> types, e.g., <code>uniform</code>, <code>quniform</code>, <code>loguniform</code>, <code>choice</code>, etc.  Refer the cited page for details.</li>
@@ -2387,7 +2459,7 @@ For instance, for referencing the <code>cell_type</code> of the <code>title</cod
 <span class="w">  </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"></span>
 </code></pre></div>
 <p><strong>Quantized Example</strong>: Uniform random floating point values such a 0, 0.1, 0.2, ..., 0.9</p>
-<div class="highlight"><pre><span></span><code><span class="nt">my_output_feature.dropout</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">my_output_feature.decoder.dropout</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quniform</span><span class="w"></span>
 <span class="w">  </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
 <span class="w">  </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
@@ -2400,7 +2472,7 @@ For instance, for referencing the <code>cell_type</code> of the <code>title</cod
 integers, floats and anything else, even entire dictionaries.  The values will be a uniform random selection.</li>
 </ul>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">title.cell_type</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">title.encoder.cell_type</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span><span class="w"></span>
 <span class="w">  </span><span class="nt">categories</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">rnn</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">gru</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">lstm</span><span class="p p-Indicator">]</span><span class="w"></span>
 </code></pre></div>
@@ -2411,7 +2483,7 @@ integers, floats and anything else, even entire dictionaries.  The values will b
 integers, floats and anything else, even entire dictionaries.</li>
 </ul>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">title.cell_type</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">title.encoder.cell_type</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grid_search</span><span class="w"></span>
 <span class="w">  </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">rnn</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">gru</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">lstm</span><span class="p p-Indicator">]</span><span class="w"></span>
 </code></pre></div>
@@ -2426,19 +2498,26 @@ integers, floats and anything else, even entire dictionaries.</li>
 <span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">randint</span><span class="w"></span>
 <span class="w">      </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
 <span class="w">      </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title.cell_type</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">title.encoder.cell_type</span><span class="p">:</span><span class="w"></span>
 <span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grid_search</span><span class="w"></span>
 <span class="w">      </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;rnn&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;gru&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title.bidirectional</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">title.encoder.bidirectional</span><span class="p">:</span><span class="w"></span>
 <span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span><span class="w"></span>
 <span class="w">      </span><span class="nt">categories</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">True</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">False</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title.fc_layers</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">title.encoder.fc_layers</span><span class="p">:</span><span class="w"></span>
 <span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span><span class="w"></span>
 <span class="w">      </span><span class="nt">categories</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="s">&quot;output_size&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">512</span><span class="p p-Indicator">},</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;output_size&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">256</span><span class="p p-Indicator">}]</span><span class="w"></span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="s">&quot;output_size&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">512</span><span class="p p-Indicator">}]</span><span class="w"></span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="s">&quot;output_size&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">256</span><span class="p p-Indicator">}]</span><span class="w"></span>
 </code></pre></div>
+<h4 id="default-hyperopt-parameters">Default Hyperopt Parameters<a class="headerlink" href="#default-hyperopt-parameters" title="Permanent link">&para;</a></h4>
+<p>In addition to defining hyperopt parameters for individual input or output features (like the <code>title</code> feature
+in the example above), default parameters can be specified for entire feature types (for example, the encoder
+to use for all text features in your dataset). Read more about default hyperopt parameters <a href="../../user_guide/hyperopt/#default-hyperopt-parameters">here</a>.</p>
+<h4 id="nested-ludwig-config-parameters">Nested Ludwig Config Parameters<a class="headerlink" href="#nested-ludwig-config-parameters" title="Permanent link">&para;</a></h4>
+<p>Ludwig also allows partial or full Ludwig configs to be sampled from the hyperopt search space.
+Read more about nested Ludwig config parameters <a href="../../user_guide/hyperopt/#nested-ludwig-config-parameters">here</a>.</p>
 <h2 id="search-algorithm">Search Algorithm<a class="headerlink" href="#search-algorithm" title="Permanent link">&para;</a></h2>
 <p>Ray Tune supports its own collection of <a href="https://docs.ray.io/en/master/tune/api_docs/suggestion.html">search algorithms</a>, specified by the <code>search_alg</code> section of the hyperopt config:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">search_alg</span><span class="p">:</span><span class="w"></span>
@@ -2465,6 +2544,8 @@ integers, floats and anything else, even entire dictionaries.</li>
 <li><code>gpu_resources_per_trial</code>: The number of GPU devices allocated to each trial (default: 0).</li>
 <li><code>kubernetes_namespace</code>: When running on Kubernetes, provide the namespace of the Ray cluster to sync results between pods. See the <a href="https://docs.ray.io/en/master/_modules/ray/tune/integration/kubernetes.html">Ray docs</a> for more info.</li>
 <li><code>time_budget_s</code>: The number of seconds for the entire hyperopt run.</li>
+<li><code>max_concurrent_trials</code>: The maximum number of trials to
+train concurrently. Defaults to <code>num_samples</code>.</li>
 </ul>
 <h3 id="scheduler">Scheduler<a class="headerlink" href="#scheduler" title="Permanent link">&para;</a></h3>
 <p>Ray Tune also allows you to specify a <a href="https://docs.ray.io/en/master/tune/api_docs/schedulers.html">scheduler</a> to support features like early stopping and other population-based strategies that may pause and resume trials during trainer. Ludwig exposes the complete scheduler API in the <code>scheduler</code> section of the <code>executor</code> config.</p>
@@ -2491,9 +2572,10 @@ Ray cluster.</p>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">title</span><span class="w"></span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w"></span>
-<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rnn</span><span class="w"></span>
-<span class="w">    </span><span class="nt">cell_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lstm</span><span class="w"></span>
-<span class="w">    </span><span class="nt">num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
+<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rnn</span><span class="w"></span>
+<span class="w">        </span><span class="nt">cell_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lstm</span><span class="w"></span>
+<span class="w">        </span><span class="nt">num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
 <span class="nt">combiner</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">concat</span><span class="w"></span>
 <span class="w">  </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
@@ -2501,9 +2583,10 @@ Ray cluster.</p>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">class</span><span class="w"></span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
-<span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
+<span class="nt">defaults</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">text</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">word_vocab_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span><span class="w"></span>
+<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">word_vocab_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span><span class="w"></span>
 <span class="nt">training</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span><span class="w"></span>
 <span class="w">  </span><span class="nt">optimizer</span><span class="p">:</span><span class="w"></span>
@@ -2530,7 +2613,7 @@ Ray cluster.</p>
 <span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">randint</span><span class="w"></span>
 <span class="w">      </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
 <span class="w">      </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title.cell_type</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">title.encoder.cell_type</span><span class="p">:</span><span class="w"></span>
 <span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span><span class="w"></span>
 <span class="w">      </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">rnn</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">gru</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">lstm</span><span class="p p-Indicator">]</span><span class="w"></span>
 <span class="w">  </span><span class="nt">search_alg</span><span class="p">:</span><span class="w"></span>
@@ -2540,7 +2623,7 @@ Ray cluster.</p>
 <span class="w">    </span><span class="nt">num_samples</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12</span><span class="w"></span>
 </code></pre></div>
 <p>Example CLI command:</p>
-<div class="highlight"><pre><span></span><code>ludwig hyperopt --dataset reuters-allcats.csv --config_str &quot;{input_features: [{name: title, type: text, encoder: rnn, cell_type: lstm, num_layers: 2}], output_features: [{name: class, type: category}], training: {learning_rate: 0.001}, hyperopt: {goal: maximize, output_feature: class, metric: accuracy, split: validation, parameters: {trainer.learning_rate: {space: loguniform, lower: 0.0001, upper: 0.1}, title.cell_type: {space: choice, categories: [rnn, gru, lstm]}}, search_alg: {type: variant_generator},executor: {type: ray, num_samples: 10}}}&quot;
+<div class="highlight"><pre><span></span><code>ludwig hyperopt --dataset reuters-allcats.csv --config_str &quot;{input_features: [{name: title, type: text, encoder: {type: rnn, cell_type: lstm, num_layers: 2}}], output_features: [{name: class, type: category}], training: {learning_rate: 0.001}, hyperopt: {goal: maximize, output_feature: class, metric: accuracy, split: validation, parameters: {trainer.learning_rate: {space: loguniform, lower: 0.0001, upper: 0.1}, title.encoder.cell_type: {space: choice, categories: [rnn, gru, lstm]}}, search_alg: {type: variant_generator},executor: {type: ray, num_samples: 10}}}&quot;
 </code></pre></div>
 
               

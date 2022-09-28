@@ -847,6 +847,10 @@
         
           
         
+          
+        
+          
+        
       
       
         
@@ -875,6 +879,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../configuration/model_type/" class="md-nav__link">
+        Model Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../configuration/preprocessing/" class="md-nav__link">
         Preprocessing
       </a>
@@ -892,7 +910,7 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_4" type="checkbox" id="__nav_4_4" >
       
       
       
@@ -931,13 +949,13 @@
         
       
       
-        <label class="md-nav__link" for="__nav_4_3">
+        <label class="md-nav__link" for="__nav_4_4">
           Features
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Features" data-md-level="2">
-        <label class="md-nav__title" for="__nav_4_3">
+        <label class="md-nav__title" for="__nav_4_4">
           <span class="md-nav__icon md-icon"></span>
           Features
         </label>
@@ -1180,6 +1198,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../configuration/defaults/" class="md-nav__link">
+        Defaults
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../configuration/combiner/" class="md-nav__link">
         Combiner
       </a>
@@ -1377,7 +1409,7 @@
       
         <li class="md-nav__item">
   <a href="#download-the-adult-census-income-dataset" class="md-nav__link">
-    Download the Adult Census Income dataset
+    Download The Adult Census Income dataset
   </a>
   
 </li>
@@ -2213,7 +2245,7 @@
       
         <li class="md-nav__item">
   <a href="#download-the-adult-census-income-dataset" class="md-nav__link">
-    Download the Adult Census Income dataset
+    Download The Adult Census Income dataset
   </a>
   
 </li>
@@ -2326,7 +2358,7 @@
 <li>Ludwig CLI: <a href="https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/master/docs/examples/adult_census_income_colab_notebooks/Adult_Census_Income_Classification_with_Ludwig_CLI.ipynb"><img alt="Adult Census Income Classification with Ludwig CLI" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></li>
 <li>Ludwig Python API: <a href="https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/master/docs/examples/adult_census_income_colab_notebooks/Adult_Census_Income_Classification_with_Ludwig_API.ipynb"><img alt="Adult Census Income Classification with Ludwig API" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></li>
 </ul>
-<h3 id="download-the-adult-census-income-dataset">Download the Adult Census Income dataset<a class="headerlink" href="#download-the-adult-census-income-dataset" title="Permanent link">&para;</a></h3>
+<h3 id="download-the-adult-census-income-dataset">Download The Adult Census Income dataset<a class="headerlink" href="#download-the-adult-census-income-dataset" title="Permanent link">&para;</a></h3>
 <p><a href="https://archive.ics.uci.edu/ml/datasets/adult">Adult Census Income</a> is an extract of 1994 Census data for predicting whether a person's income exceeds $50K per year.  The data set consists of over 49K records with 14 attributes with missing data.</p>
 <div class="highlight"><pre><span></span><code>ludwig datasets download adult_census_income
 </code></pre></div>
@@ -2408,7 +2440,7 @@
 </table>
 <h3 id="train">Train<a class="headerlink" href="#train" title="Permanent link">&para;</a></h3>
 <p>The Ludwig configuration file describes the machine learning task.  There is a vast array of options to control the learning process.  This example only covers a small fraction of the options.  Only the options used in this example are described.  Please refer to the <a href="../../configuration">Configuration Section</a> for all the details.</p>
-<p>First <a href="../../configuration/preprocessing">'preprocessing' section</a> defines the gloabl preprocessing options.  All <a href="../../configuration/features/number_features">numeric features</a> are z-scored normalized, i.e., mean centered and scaled by the standard deviation.  Numeric missing values are filled in with the mean of non-missing values.</p>
+<p>First, the <a href="../../configuration/defaults">defaults section</a> defines the <a href="../../configuration/defaults#type-global-preprocessing">global preprocessing options</a>. All <a href="../../configuration/features/number_features">numeric features</a> are z-scored normalized, i.e., mean centered and scaled by the standard deviation.  Numeric missing values are filled in with the mean of non-missing values.</p>
 <p>The <code>input_features</code> section describes each of the predictor variables, i.e., the column name and type of input variable: <a href="../../configuration/features/number_features">number</a> or <a href="../../configuration/features/category_features/">category</a></p>
 <p>The 'combiner' section defines how the input features are combined to be passed to the output decoder.  This example uses the <a href="configuration/combiner/#concat-combiner"><code>concat</code> combiner</a>, which simply concatenates the output of the input feature encoders.  The combined data is passed through a three layer fully connected network of 128 cells in each layer with dropout regularization.</p>
 <p>Next the <code>output_features</code> are defined.  In this example, there is one response variable called <code>income</code>.  This is a <a href="../../configuration/features/binary_features/">binary feature</a> with two possible values: " &lt;=50K" or " &gt;50K".  Because thes values are not conventional binary values, i.e., "True" and "False", a feature specific preprocessing option is specified to indicate which string (" &gt;50K") is interpreted as "True".  A four layer fully connected decoder of 32 cells in each layer is specified for this output feature.</p>
@@ -2416,10 +2448,11 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">cli</label><label for="__tabbed_1_2">python</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">defaults</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">number</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">normalization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zscore</span><span class="w"></span>
-<span class="w">    </span><span class="nt">missing_value_strategy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fill_with_mean</span><span class="w"></span>
+<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">normalization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zscore</span><span class="w"></span>
+<span class="w">      </span><span class="nt">missing_value_strategy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fill_with_mean</span><span class="w"></span>
 
 <span class="nt">input_features</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">age</span><span class="w"></span>
@@ -2462,8 +2495,9 @@
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span><span class="w"></span>
 <span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
 <span class="w">      </span><span class="nt">fallback_true_label</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;</span><span class="nv"> </span><span class="s">&gt;50K&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"></span>
-<span class="w">    </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span><span class="w"></span>
+<span class="w">    </span><span class="nt">decoder</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"></span>
+<span class="w">        </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span><span class="w"></span>
 
 <span class="nt">trainer</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">epochs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span><span class="w"></span>
@@ -2494,13 +2528,21 @@
                     <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;hours-per-week&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;number&#39;</span><span class="p">},</span>
                     <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;native-country&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;category&#39;</span><span class="p">}],</span>
  <span class="s1">&#39;output_features&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;income&#39;</span><span class="p">,</span>
-                      <span class="s1">&#39;num_fc_layers&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-                      <span class="s1">&#39;output_size&#39;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
+                      <span class="s1">&#39;decoder&#39;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s1">&#39;num_fc_layers&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                            <span class="s1">&#39;output_size&#39;</span><span class="p">:</span> <span class="mi">32</span>
+                      <span class="p">},</span>
                       <span class="s1">&#39;preprocessing&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;fallback_true_label&#39;</span><span class="p">:</span> <span class="s1">&#39; &gt;50K&#39;</span><span class="p">},</span>
                       <span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;binary_weighted_cross_entropy&#39;</span><span class="p">},</span>
                       <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;binary&#39;</span><span class="p">}],</span>
- <span class="s1">&#39;preprocessing&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;number&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;missing_value_strategy&#39;</span><span class="p">:</span> <span class="s1">&#39;fill_with_mean&#39;</span><span class="p">,</span>
-                              <span class="s1">&#39;normalization&#39;</span><span class="p">:</span> <span class="s1">&#39;zscore&#39;</span><span class="p">}},</span>
+ <span class="s1">&#39;defaults&#39;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s1">&#39;number&#39;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s1">&#39;preprocessing&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;missing_value_strategy&#39;</span><span class="p">:</span> <span class="s1">&#39;fill_with_mean&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;normalization&#39;</span><span class="p">:</span> <span class="s1">&#39;zscore&#39;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+ <span class="p">}</span>
  <span class="s1">&#39;trainer&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;epochs&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;optimizer&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;adam&#39;</span><span class="p">}}}</span>
 
 <span class="c1"># instantiate Ludwig model object</span>

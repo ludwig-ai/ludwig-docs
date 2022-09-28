@@ -849,6 +849,10 @@
         
           
         
+          
+        
+          
+        
       
       
         
@@ -877,6 +881,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../model_type/" class="md-nav__link">
+        Model Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../preprocessing/" class="md-nav__link">
         Preprocessing
       </a>
@@ -896,7 +914,7 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_4" type="checkbox" id="__nav_4_4" checked>
       
       
       
@@ -935,13 +953,13 @@
         
       
       
-        <label class="md-nav__link" for="__nav_4_3">
+        <label class="md-nav__link" for="__nav_4_4">
           Features
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Features" data-md-level="2">
-        <label class="md-nav__title" for="__nav_4_3">
+        <label class="md-nav__title" for="__nav_4_4">
           <span class="md-nav__icon md-icon"></span>
           Features
         </label>
@@ -1224,6 +1242,20 @@
           
         </ul>
       </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../defaults/" class="md-nav__link">
+        Defaults
+      </a>
     </li>
   
 
@@ -2207,7 +2239,7 @@
 <h2 id="preprocessing">Preprocessing<a class="headerlink" href="#preprocessing" title="Permanent link">&para;</a></h2>
 <p>Recall Ludwig's butterfly framework.</p>
 <p><img alt="img" src="../../../images/butterfly.png" /></p>
-<p>Each input feature can specify its own preprocessing via the <code>preprocessing</code> sub-section.</p>
+<p>Each input feature can specify its own preprocessing via the <code>preprocessing</code> subsection.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">YAML</label><label for="__tabbed_2_2">Python Dict</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -2236,15 +2268,16 @@
 </div>
 </div>
 <p>It's also possible to specify preprocessing rules for all features of a certain type. See
-<a href="../../preprocessing/">type-global preprocessing</a>.</p>
+<a href="../../defaults/#type-global-preprocessing">Type-Global Preprocessing</a>.</p>
 <h2 id="encoders">Encoders<a class="headerlink" href="#encoders" title="Permanent link">&para;</a></h2>
 <p>Each input feature can configure a specific <code>encoder</code> to map input feature values into tensors. For instance, a user
 might want to encode a <code>sequence</code> feature using a <code>transformer</code> or an <code>image</code> feature using a <code>stacked_cnn</code>. Different
 data types support different encoders. Check the documentation for specific feature types to see what encoders are
 supported for that type.</p>
-<p>All the other parameters besides <code>name</code>, <code>type</code>, and <code>preprocessing</code>, will be passed as parameters to the function that
-build the input feature's encoder, and each encoder can have different parameters. Extensive documentation for all of
-the encoders that can be used for a certain data type can also be found in each data type's documentation.</p>
+<p>All the other parameters besides <code>name</code>, <code>type</code>, and <code>preprocessing</code>, will be passed as parameters to the encoder
+subsection. Note that each encoder can have different parameters, so extensive documentation for each of the encoders
+that can be used for a certain data type can be found in each data type's documentation. Here is an example of how to
+specify a specific encoder config for an input feature:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">YAML</label><label for="__tabbed_3_2">Python Dict</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -2252,11 +2285,12 @@ the encoders that can be used for a certain data type can also be found in each 
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"></span>
 <span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w"></span>
 <span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w"></span>
-<span class="w">        </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bert</span><span class="w"></span>
 <span class="w">        </span><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
 <span class="w">            </span><span class="nt">tokenizer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">space</span><span class="w"></span>
-<span class="w">        </span><span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="w">        </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">        </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
+<span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bert</span><span class="w"></span>
+<span class="w">            </span><span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="w">            </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2265,13 +2299,15 @@ the encoders that can be used for a certain data type can also be found in each 
         <span class="p">{</span>
             <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
             <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="s2">&quot;bert&quot;</span><span class="p">,</span>
             <span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;word&quot;</span><span class="p">,</span>
             <span class="s2">&quot;preprocessing&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;word_tokenizer&quot;</span><span class="p">:</span> <span class="s2">&quot;space&quot;</span>
             <span class="p">},</span>
-            <span class="s2">&quot;reduce_output&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="s2">&quot;trainable&quot;</span><span class="p">:</span> <span class="kc">True</span>
+            <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;bert&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;reduce_output&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="s2">&quot;trainable&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">]</span>
 <span class="p">}</span>
@@ -2328,6 +2364,8 @@ example:</p>
 </div>
 <p>Specifying a name of a non-existent input feature will result in an error. Also, in order to be able to have tied
 weights, all encoder parameters have to be identical between the two input features.</p>
+<p>It's also possible to specify encoder type and encoder related parameters for all features of a
+certain type. See <a href="../../defaults/#type-global-encoder">Type-Global Encoder</a>.</p>
 
               
             </article>

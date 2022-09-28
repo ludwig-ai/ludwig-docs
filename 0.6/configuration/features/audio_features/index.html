@@ -849,6 +849,10 @@
         
           
         
+          
+        
+          
+        
       
       
         
@@ -877,6 +881,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../model_type/" class="md-nav__link">
+        Model Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../preprocessing/" class="md-nav__link">
         Preprocessing
       </a>
@@ -896,7 +914,7 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_4" type="checkbox" id="__nav_4_4" checked>
       
       
       
@@ -935,13 +953,13 @@
         
       
       
-        <label class="md-nav__link" for="__nav_4_3">
+        <label class="md-nav__link" for="__nav_4_4">
           Features
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Features" data-md-level="2">
-        <label class="md-nav__title" for="__nav_4_3">
+        <label class="md-nav__title" for="__nav_4_4">
           <span class="md-nav__icon md-icon"></span>
           Features
         </label>
@@ -1224,6 +1242,20 @@
           
         </ul>
       </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../defaults/" class="md-nav__link">
+        Defaults
+      </a>
     </li>
   
 
@@ -2190,42 +2222,55 @@
 <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio</span><span class="w"></span>
 <span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">audio_file_length_limit_in_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7.5</span><span class="w"></span>
-<span class="w">  </span><span class="nt">audio_feature</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stft</span><span class="w"></span>
-<span class="w">    </span><span class="nt">window_length_in_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.04</span><span class="w"></span>
-<span class="w">    </span><span class="nt">window_shift_in_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.02</span><span class="w"></span>
-<span class="w">    </span><span class="nt">num_fft_points</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">800</span><span class="w"></span>
-<span class="w">    </span><span class="nt">window_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">boxcar</span><span class="w"></span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stft</span><span class="w"></span>
+<span class="w">  </span><span class="nt">window_length_in_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.04</span><span class="w"></span>
+<span class="w">  </span><span class="nt">window_shift_in_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.02</span><span class="w"></span>
+<span class="w">  </span><span class="nt">num_fft_points</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">800</span><span class="w"></span>
+<span class="w">  </span><span class="nt">window_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">boxcar</span><span class="w"></span>
 </code></pre></div>
 <p>Ludwig supports reading audio files using PyTorch's <a href="https://pytorch.org/audio/stable/index.html">Torchaudio</a> library. This library supports <code>WAV</code>, <code>AMB</code>, <code>MP3</code>, <code>FLAC</code>, <code>OGG/VORBIS</code>, <code>OPUS</code>, <code>SPHERE</code>, and <code>AMR-NB</code> formats.</p>
 <p>Preprocessing parameters:</p>
 <ul>
 <li><code>audio_file_length_limit_in_s</code>: (default <code>7.5</code>): float value that defines the maximum limit of the audio file in seconds. All files longer than this limit are cut off. All files shorter than this limit are padded with <code>padding_value</code></li>
-<li><code>missing_value_strategy</code> (default: <code>backfill</code>): what strategy to follow when there's a missing value in an audio column. The value should be one of <code>fill_with_const</code> (replaces the missing value with a specific value specified with the <code>fill_value</code> parameter), <code>fill_with_mode</code> (replaces the missing values with the most frequent value in the column), <code>fill_with_mean</code> (replaces the missing values with the mean of the values in the column), <code>backfill</code> (replaces the missing values with the next valid value).</li>
+<li><code>missing_value_strategy</code> (default: <code>bfill</code>): what strategy to follow when there's a missing value in an audio column. The value should be one of <code>fill_with_const</code> (replaces the missing value with a specific value specified with the <code>fill_value</code> parameter), <code>fill_with_mode</code> (replaces the missing values with the most frequent value in the column), <code>fill_with_mean</code> (replaces the missing values with the mean of the values in the column), <code>bfill</code> (replaces the missing values with the next valid value), <code>ffill</code> (replaces the missing values with the previous valid value).</li>
 <li><code>in_memory</code> (default <code>true</code>): defines whether an audio dataset will reside in memory during the training process or will be dynamically fetched from disk (useful for large datasets). In the latter case a training batch of input audio files will be fetched from disk each training iteration. At the moment only <code>in_memory</code> = true is supported.</li>
 <li><code>padding_value</code>: (default 0): float value that is used for padding.</li>
 <li><code>norm</code>: (default <code>null</code>) the normalization method that can be used for the input data. Supported methods: <code>null</code> (data is not normalized), <code>per_file</code> (z-norm is applied on a “per file” level)</li>
-<li><code>audio_feature</code>: (default <code>{ type: raw }</code>) dictionary that takes as input the audio feature <code>type</code> as well as additional parameters if <code>type != raw</code>. The following parameters can/should be defined in the dictionary:</li>
-<li><code>type</code> (default <code>raw</code>): defines the type of audio features to be used. Supported types at the moment are <code>raw</code>, <code>stft</code>, <code>stft_phase</code>, <code>group_delay</code>. For more detail, check <a href="#audio-input-features-and-encoders">Audio Input Features and Encoders</a>.</li>
-<li><code>window_length_in_s</code>: defines the window length used for the short time Fourier transformation (only needed if <code>type != raw</code>).</li>
-<li><code>window_shift_in_s</code>: defines the window shift used for the short time Fourier transformation (also called hop_length) (only needed if <code>type != raw</code>).</li>
-<li><code>num_fft_points</code>: (default <code>window_length_in_s * sample_rate</code> of audio file) defines the number of fft points used for the short time Fourier transformation. If <code>num_fft_points &gt; window_length_in_s * sample_rate</code>, then the signal is zero-padded at the end. <code>num_fft_points</code> has to be <code>&gt;= window_length_in_s * sample_rate</code> (only needed if <code>type != raw</code>).</li>
-<li><code>window_type</code>: (default <code>hamming</code>): defines the type window the signal is weighted before the short time Fourier transformation. All windows provided by <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.get_window.html">scipy’s window function</a> can be used (only needed if <code>type != raw</code>).</li>
-<li><code>num_filter_bands</code>: defines the number of filters used in the filterbank (only needed if <code>type == fbank</code>).</li>
+<li><code>type</code> (default <code>raw</code>): Defines the type of audio feature to be used. Supported types at the moment are <code>raw</code>, <code>stft</code>, <code>stft_phase</code>, <code>group_delay</code>. For more detail, check <a href="#audio-input-features-and-encoders">Audio Input Features and Encoders</a>.</li>
+<li><code>window_length_in_s</code>: Defines the window length used for the short time Fourier transformation (only needed if <code>type != raw</code>).</li>
+<li><code>window_shift_in_s</code>: Defines the window shift used for the short time Fourier transformation (also called hop_length) (only needed if <code>type != raw</code>).</li>
+<li><code>num_fft_points</code>: (default <code>window_length_in_s * sample_rate</code> of audio file) Defines the number of fft points used for the short time Fourier transformation. If <code>num_fft_points &gt; window_length_in_s * sample_rate</code>, then the signal is zero-padded at the end. <code>num_fft_points</code> has to be <code>&gt;= window_length_in_s * sample_rate</code> (only needed if <code>type != raw</code>).</li>
+<li><code>window_type</code>: (default <code>hamming</code>): Defines the type window the signal is weighted before the short time Fourier transformation. Current supported options are: (<code>bartlett</code>, <code>blackman</code>, <code>hamming</code>, and <code>hann</code>). For more information on these window types, check out <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.get_window.html">scipy’s window function</a> (only needed if <code>type != raw</code>).</li>
+<li><code>num_filter_bands</code>: Defines the number of filters used in the filterbank (only needed if <code>type == fbank</code>).</li>
 </ul>
+<p>Preprocessing parameters can also be defined once and applied to all audio input features using the <a href="../../defaults/#type-global-preprocessing">Type-Global Preprocessing</a> section.</p>
 <h3 id="audio-input-features-and-encoders">Audio Input Features and Encoders<a class="headerlink" href="#audio-input-features-and-encoders" title="Permanent link">&para;</a></h3>
-<p>Audio files are transformed into one of the following types according to <code>type</code> in <code>audio_feature</code>'s <code>preprocessing</code> configuration.</p>
+<p>Audio files are transformed into one of the following types according to <code>type</code> under the <code>preprocessing</code> configuration.</p>
 <ul>
-<li><code>raw</code>: audio file is transformed into a float valued tensor of size <code>N x L x W</code> (where <code>N</code> is the size of the dataset and <code>L</code> corresponds to <code>audio_file_length_limit_in_s * sample_rate</code> and <code>W = 1</code>).</li>
-<li><code>stft</code>: audio is transformed to the <code>stft</code> magnitude. Audio file is transformed into a float valued tensor of size <code>N x L x W</code> (where <code>N</code> is the size of the dataset, <code>L</code> corresponds to <code>ceil(audio_file_length_limit_in_s * sample_rate - window_length_in_s * sample_rate + 1/ window_shift_in_s * sample_rate) + 1</code> and <code>W</code> corresponds to <code>num_fft_points / 2</code>).</li>
-<li><code>fbank</code>: audio file is transformed to FBANK features (also called log Mel-filter bank values). FBANK features are implemented according to their definition in the <a href="http://www.inf.u-szeged.hu/~tothl/speech/htkbook.pdf">HTK Book</a>: Raw Signal -&gt; Preemphasis -&gt; DC mean removal -&gt; <code>stft</code> magnitude -&gt; Power spectrum: <code>stft^2</code> -&gt; mel-filter bank values: triangular filters equally spaced on a Mel-scale are applied -&gt; log-compression: <code>log()</code>. Overall the audio file is transformed into a float valued tensor of size <code>N x L x W</code> with <code>N,L</code> being equal to the ones in <code>stft</code> and <code>W</code> being equal to <code>num_filter_bands</code>.</li>
-<li><code>stft_phase</code>: the phase information for each stft bin is appended to the <code>stft</code> magnitude so that the audio file is transformed into a float valued tensor of size <code>N x L x 2W</code> with <code>N,L,W</code> being equal to the ones in <code>stft</code>.</li>
-<li><code>group_delay</code>: audio is transformed to group delay features according to Equation (23) in this <a href="https://www.ias.ac.in/article/fullyext/sadh/036/05/0745-0782">paper</a>. Group_delay features has the same tensor size as <code>stft</code>.</li>
+<li><code>raw</code>: Audio file is transformed into a float valued tensor of size <code>N x L x W</code> (where <code>N</code> is the size of the dataset and <code>L</code> corresponds to <code>audio_file_length_limit_in_s * sample_rate</code> and <code>W = 1</code>).</li>
+<li><code>stft</code>: Audio is transformed to the <code>stft</code> magnitude. Audio file is transformed into a float valued tensor of size <code>N x L x W</code> (where <code>N</code> is the size of the dataset, <code>L</code> corresponds to <code>ceil(audio_file_length_limit_in_s * sample_rate - window_length_in_s * sample_rate + 1/ window_shift_in_s * sample_rate) + 1</code> and <code>W</code> corresponds to <code>num_fft_points / 2</code>).</li>
+<li><code>fbank</code>: Audio file is transformed to FBANK features (also called log Mel-filter bank values). FBANK features are implemented according to their definition in the <a href="http://www.inf.u-szeged.hu/~tothl/speech/htkbook.pdf">HTK Book</a>: Raw Signal -&gt; Preemphasis -&gt; DC mean removal -&gt; <code>stft</code> magnitude -&gt; Power spectrum: <code>stft^2</code> -&gt; mel-filter bank values: triangular filters equally spaced on a Mel-scale are applied -&gt; log-compression: <code>log()</code>. Overall the audio file is transformed into a float valued tensor of size <code>N x L x W</code> with <code>N,L</code> being equal to the ones in <code>stft</code> and <code>W</code> being equal to <code>num_filter_bands</code>.</li>
+<li><code>stft_phase</code>: The phase information for each stft bin is appended to the <code>stft</code> magnitude so that the audio file is transformed into a float valued tensor of size <code>N x L x 2W</code> with <code>N,L,W</code> being equal to the ones in <code>stft</code>.</li>
+<li><code>group_delay</code>: Audio is transformed to group delay features according to Equation (23) in this <a href="https://www.ias.ac.in/article/fullyext/sadh/036/05/0745-0782">paper</a>. Group_delay features has the same tensor size as <code>stft</code>.</li>
 </ul>
+<p>The encoder parameters specified at the feature level are:</p>
+<ul>
+<li><code>tied</code> (default <code>null</code>): name of another input feature to tie the weights of the encoder with. It needs to be the name of
+a feature of the same type and with the same encoder parameters.
+-</li>
+</ul>
+<p>Example audio feature entry in the input features list:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio_column_name</span><span class="w"></span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio</span><span class="w"></span>
+<span class="nt">tied</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">parallel_cnn</span><span class="w"></span>
+</code></pre></div>
 <p>Audio feature encoders are the same as for <a href="../sequence_features#sequence-input-features-and-encoders">Sequence Features</a>.</p>
+<p>Encoder type and encoder parameters can also be defined once and applied to all audio input features using the <a href="../../defaults/#type-global-encoder">Type-Global Encoder</a> section.</p>
 <h3 id="audio-output-features-and-decoders">Audio Output Features and Decoders<a class="headerlink" href="#audio-output-features-and-decoders" title="Permanent link">&para;</a></h3>
 <p>There are no audio decoders at the moment.</p>
-<p>If this would unlock an interesting use case for your application, please file a GitHub Issue or ping the
+<p>If this unlocks an interesting use case for your application, please file a GitHub Issue or ping the
 <a href="https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ">Ludwig Slack</a>.</p>
 
               

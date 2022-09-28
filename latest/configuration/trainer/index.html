@@ -849,6 +849,10 @@
         
           
         
+          
+        
+          
+        
       
       
         
@@ -877,6 +881,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../model_type/" class="md-nav__link">
+        Model Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../preprocessing/" class="md-nav__link">
         Preprocessing
       </a>
@@ -894,7 +912,7 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_4" type="checkbox" id="__nav_4_4" >
       
       
       
@@ -933,13 +951,13 @@
         
       
       
-        <label class="md-nav__link" for="__nav_4_3">
+        <label class="md-nav__link" for="__nav_4_4">
           Features
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Features" data-md-level="2">
-        <label class="md-nav__title" for="__nav_4_3">
+        <label class="md-nav__title" for="__nav_4_4">
           <span class="md-nav__icon md-icon"></span>
           Features
         </label>
@@ -1182,6 +1200,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../defaults/" class="md-nav__link">
+        Defaults
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../combiner/" class="md-nav__link">
         Combiner
       </a>
@@ -1230,19 +1262,25 @@
     Overview
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#trainer-parameters" class="md-nav__link">
     Trainer parameters
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#optimizer-parameters" class="md-nav__link">
     Optimizer parameters
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2187,19 +2225,25 @@
     Overview
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#trainer-parameters" class="md-nav__link">
     Trainer parameters
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#optimizer-parameters" class="md-nav__link">
     Optimizer parameters
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2266,8 +2310,13 @@
 
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>The <code>trainer</code> section of the configuration lets you specify parameters that
-configure the training process, like the number of epochs or the learning rate.</p>
+configure the training process, like the number of epochs or the learning rate.
+By default, the ECD trainer is used.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">ECD</label><label for="__tabbed_1_2">GBM</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="nt">trainer</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">trainer</span><span class="w"></span>
 <span class="w">    </span><span class="nt">epochs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w"></span>
 <span class="w">    </span><span class="nt">train_steps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">None</span><span class="w"></span>
 <span class="w">    </span><span class="nt">early_stop</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span><span class="w"></span>
@@ -2303,13 +2352,71 @@ configure the training process, like the number of epochs or the learning rate.<
 <span class="w">        </span><span class="nt">clipnorm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 <span class="w">        </span><span class="nt">clip_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 </code></pre></div>
-<h2 id="trainer-parameters">Trainer parameters<a class="headerlink" href="#trainer-parameters" title="Permanent link">&para;</a></h2>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="nt">trainer</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lightgbm_trainer</span><span class="w"></span>
+<span class="w">    </span><span class="nt">boosting_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gbdt</span><span class="w"></span>
+<span class="w">    </span><span class="nt">num_boost_round</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w"></span>
+<span class="w">    </span><span class="nt">learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span><span class="w"></span>
+<span class="w">    </span><span class="nt">max_cat_to_onehot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"></span>
+<span class="w">    </span><span class="nt">max_delta_step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span><span class="w"></span>
+<span class="w">    </span><span class="nt">lambda_l1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span><span class="w"></span>
+<span class="w">    </span><span class="nt">linear_lambda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span><span class="w"></span>
+<span class="w">    </span><span class="nt">cat_l2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0</span><span class="w"></span>
+<span class="w">    </span><span class="nt">neg_bagging_fraction</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w"></span>
+<span class="w">    </span><span class="nt">skip_drop</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span><span class="w"></span>
+<span class="w">    </span><span class="nt">tree_learner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">serial</span><span class="w"></span>
+<span class="w">    </span><span class="nt">extra_trees</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span><span class="w"></span>
+<span class="w">    </span><span class="nt">lambda_l2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span><span class="w"></span>
+<span class="w">    </span><span class="nt">min_data_per_group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w"></span>
+<span class="w">    </span><span class="nt">min_gain_to_split</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span><span class="w"></span>
+<span class="w">    </span><span class="nt">validation_metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loss</span><span class="w"></span>
+<span class="w">    </span><span class="nt">max_cat_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span><span class="w"></span>
+<span class="w">    </span><span class="nt">max_bin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255</span><span class="w"></span>
+<span class="w">    </span><span class="nt">early_stop</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span><span class="w"></span>
+<span class="w">    </span><span class="nt">cegb_penalty_split</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span><span class="w"></span>
+<span class="w">    </span><span class="nt">cegb_tradeoff</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w"></span>
+<span class="w">    </span><span class="nt">other_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span><span class="w"></span>
+<span class="w">    </span><span class="nt">path_smooth</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span><span class="w"></span>
+<span class="w">    </span><span class="nt">evaluate_training_set</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span><span class="w"></span>
+<span class="w">    </span><span class="nt">num_leaves</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">31</span><span class="w"></span>
+<span class="w">    </span><span class="nt">cat_smooth</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0</span><span class="w"></span>
+<span class="w">    </span><span class="nt">extra_seed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span><span class="w"></span>
+<span class="w">    </span><span class="nt">bagging_seed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w"></span>
+<span class="w">    </span><span class="nt">min_sum_hessian_in_leaf</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span><span class="w"></span>
+<span class="w">    </span><span class="nt">min_data_in_leaf</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span><span class="w"></span>
+<span class="w">    </span><span class="nt">top_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span><span class="w"></span>
+<span class="w">    </span><span class="nt">feature_fraction_seed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
+<span class="w">    </span><span class="nt">drop_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span><span class="w"></span>
+<span class="w">    </span><span class="nt">xgboost_dart_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span><span class="w"></span>
+<span class="w">    </span><span class="nt">drop_seed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"></span>
+<span class="w">    </span><span class="nt">max_depth</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1</span><span class="w"></span>
+<span class="w">    </span><span class="nt">feature_fraction_bynode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w"></span>
+<span class="w">    </span><span class="nt">bagging_freq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
+<span class="w">    </span><span class="nt">pos_bagging_fraction</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w"></span>
+<span class="w">    </span><span class="nt">feature_fraction</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w"></span>
+<span class="w">    </span><span class="nt">eval_batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span><span class="w"></span>
+<span class="w">    </span><span class="nt">bagging_fraction</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w"></span>
+<span class="w">    </span><span class="nt">uniform_drop</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span><span class="w"></span>
+<span class="w">    </span><span class="nt">validation_field</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">combined</span><span class="w"></span>
+<span class="w">    </span><span class="nt">max_drop</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span><span class="w"></span>
+<span class="w">    </span><span class="nt">verbose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="trainer-parameters">Trainer parameters<a class="headerlink" href="#trainer-parameters" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">ECD</label><label for="__tabbed_2_2">GBM</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <ul>
+<li><code>type</code> (default <code>trainer</code>): Trainer to use for training the model. Must be one of ['trainer', 'ray_legacy_trainer'] - corresponds to name in <code>ludwig.trainers.registry.(ray_)trainers_registry</code> (default: 'trainer')</li>
 <li><code>epochs</code> (default <code>100</code>): number of epochs the training process will run for.</li>
 <li><code>train_steps</code> (default <code>None</code>): Maximum number of training steps the training process will run for. If unset, then <code>epochs</code> is used to determine training length.</li>
-<li><code>early_stop</code> (default <code>5</code>): Number of consecutive rounds of evaluation without any improvement on the <code>validation_metric</code> that triggers training to stop. Can be set to -1, which disables early stopping entirely.</li>
+<li><code>early_stop</code> (default <code>5</code>): if theres a validation set, number of epochs of patience without an improvement on the validation measure before the training is stopped.</li>
 <li><code>batch_size</code> (default <code>128</code>): size of the batch used for training the model.</li>
-<li><code>eval_batch_size</code> (default <code>null</code>): size of the batch used for evaluating the model. If it is <code>0</code> or <code>null</code>, the same value of <code>batch_size</code> is used. This is useful to speedup evaluation with a much bigger batch size than training, if enough memory is available.</li>
+<li><code>eval_batch_size</code> (default <code>null</code>): size of the batch used for evaluating the model. If it is <code>0</code>, the same value of <code>batch_size</code> is used. This is useful to speedup evaluation with a much bigger batch size than training, if enough memory is available.</li>
 <li><code>evaluate_training_set</code>: Whether to include the entire training set during evaluation (default: True).</li>
 <li><code>checkpoints_per_epoch</code>: Number of checkpoints per epoch. For example, 2 -&gt; checkpoints are written every half of an epoch. Note that it is invalid to specify both non-zero <code>steps_per_checkpoint</code> and non-zero <code>checkpoints_per_epoch</code> (default: 0).</li>
 <li><code>steps_per_checkpoint</code>: How often the model is checkpointed. Also dictates maximum evaluation frequency. If 0 the model is checkpointed after every epoch. (default: 0).</li>
@@ -2333,10 +2440,68 @@ configure the training process, like the number of epochs or the learning rate.<
 <li><code>learning_rate_warmup_epochs</code> (default <code>1</code>): Its the number or training epochs where learning rate warmup will be used. It is calculated as described in <a href="https://arxiv.org/abs/1706.02677">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a>. In the paper the authors suggest <code>6</code> epochs of warmup, that parameter is suggested for large datasets and big batches.</li>
 <li><code>optimizer</code> (default <code>{type: adam, beta1: 0.9, beta2: 0.999, epsilon: 1e-08}</code>): which optimizer to use with the relative parameters. The available optimizers are: <code>sgd</code> (or <code>stochastic_gradient_descent</code>, <code>gd</code>, <code>gradient_descent</code>, they are all the same), <code>adam</code>, <code>adadelta</code>, <code>adagrad</code>, <code>adamax</code>, <code>ftrl</code>, <code>nadam</code>, <code>rmsprop</code>. Check <a href="https://pytorch.org/docs/stable/optim.html">PyTorch optimizer documentation</a> for a full list of parameters for each optimizer. The optimizer definition can also specify gradient clipping using <code>clipglobalnorm</code>, <code>clipnorm</code>, and <code>clipvalue</code>.</li>
 </ul>
-<h2 id="optimizer-parameters">Optimizer parameters<a class="headerlink" href="#optimizer-parameters" title="Permanent link">&para;</a></h2>
+</div>
+<div class="tabbed-block">
+<p>See the <a href="https://lightgbm.readthedocs.io/en/latest/Parameters.html">LightGBM documentation</a> for more details about the available parameters.</p>
+<ul>
+<li><code>type</code> (default <code>lightgbm_trainer</code>): Trainer to use for training the model. Must be one of ['lightgbm_trainer'] - corresponds to name in <code>ludwig.trainers.registry.(ray_)trainers_registry</code>.</li>
+<li><code>boosting_type</code> (default <code>gbdt</code>): Type of boosting algorithm to use. Options: <code>gbdt</code> (traditional Gradient Boosting Decision Tree), <code>rf</code> (random forest), <code>dart</code>, <code>goss</code>.</li>
+<li><code>num_boost_round</code> (default <code>100</code>): Number of boosting rounds to perform.</li>
+<li><code>learning_rate</code> (default <code>0.001</code>): Boosting learning rate.</li>
+<li><code>max_cat_to_onehot</code> (default <code>4</code>): Maximum categorical cardinality required before one-hot encoding.</li>
+<li><code>max_delta_step</code> (default <code>0.0</code>): Used to limit the max output of tree leaves. A negative value means no constraint.</li>
+<li><code>lambda_l1</code> (default <code>0.0</code>): L1 regularization factor.</li>
+<li><code>linear_lambda</code> (default <code>0.0</code>): Linear tree regularization.</li>
+<li><code>cat_l2</code> (default <code>10.0</code>): L2 regularization factor for categorical split.</li>
+<li><code>neg_bagging_fraction</code> (default <code>1.0</code>): Fraction of negative data to use for bagging.</li>
+<li><code>skip_drop</code> (default <code>0.5</code>): Probability of skipping the dropout during one boosting iteration. Used only with boosting_type 'dart'.</li>
+<li><code>tree_learner</code> (default <code>serial</code>): Type of tree learner to use.</li>
+<li><code>extra_trees</code> (default <code>False</code>): Whether to use extremely randomized trees.</li>
+<li><code>lambda_l2</code> (default <code>0.0</code>): L2 regularization factor.</li>
+<li><code>min_data_per_group</code> (default <code>100</code>): Minimum number of data points per categorical group.</li>
+<li><code>min_gain_to_split</code> (default <code>0.0</code>): Minimum gain to split a leaf.</li>
+<li><code>validation_metric</code> (default <code>loss</code>): Metric used on <code>validation_field</code>, set by default to accuracy.</li>
+<li><code>max_cat_threshold</code> (default <code>32</code>): Number of split points considered for categorical features.</li>
+<li><code>max_bin</code> (default <code>255</code>): Maximum number of bins to use for discretizing features.</li>
+<li><code>early_stop</code> (default <code>5</code>): Number of consecutive rounds of evaluation without any improvement on the <code>validation_metric</code> that triggers training to stop. Can be set to -1, which disables early stopping entirely.</li>
+<li><code>cegb_penalty_split</code> (default <code>0.0</code>): Cost-effective gradient boosting penalty for splitting a node.</li>
+<li><code>cegb_tradeoff</code> (default <code>1.0</code>): Cost-effective gradient boosting multiplier for all penalties.</li>
+<li><code>other_rate</code> (default <code>0.1</code>): The retain ratio of small gradient data. Used only with boosting_type 'goss'.</li>
+<li><code>path_smooth</code> (default <code>0.0</code>): Smoothing factor applied to tree nodes.</li>
+<li><code>evaluate_training_set</code> (default <code>True</code>): Whether to include the entire training set during evaluation.</li>
+<li><code>num_leaves</code> (default <code>31</code>): Number of leaves to use in the tree.</li>
+<li><code>cat_smooth</code> (default <code>10.0</code>): Smoothing factor for categorical split.</li>
+<li><code>extra_seed</code> (default <code>6</code>): Random seed for extremely randomized trees.</li>
+<li><code>bagging_seed</code> (default <code>3</code>): Random seed for bagging.</li>
+<li><code>min_sum_hessian_in_leaf</code> (default <code>0.001</code>): Minimum sum of hessians in a leaf.</li>
+<li><code>min_data_in_leaf</code> (default <code>20</code>): Minimum number of data points in a leaf.</li>
+<li><code>top_rate</code> (default <code>0.2</code>): The retain ratio of large gradient data. Used only with boosting_type 'goss'.</li>
+<li><code>feature_fraction_seed</code> (default <code>2</code>): Random seed for feature fraction.</li>
+<li><code>drop_rate</code> (default <code>0.1</code>): Dropout rate. Used only with boosting_type 'dart'.</li>
+<li><code>xgboost_dart_mode</code> (default <code>False</code>): Whether to use xgboost dart mode. Used only with boosting_type 'dart'.</li>
+<li><code>drop_seed</code> (default <code>4</code>): Random seed to choose dropping models. Used only with boosting_type 'dart'.</li>
+<li><code>max_depth</code> (default <code>-1</code>): Maximum depth of a tree. A negative value means no limit.</li>
+<li><code>feature_fraction_bynode</code> (default <code>1.0</code>): Fraction of features to use for each tree node.</li>
+<li><code>bagging_freq</code> (default <code>0</code>): Frequency of bagging.</li>
+<li><code>pos_bagging_fraction</code> (default <code>1.0</code>): Fraction of positive data to use for bagging.</li>
+<li><code>feature_fraction</code> (default <code>1.0</code>): Fraction of features to use.</li>
+<li><code>eval_batch_size</code> (default <code>128</code>): Size of batch to pass to the model for evaluation.</li>
+<li><code>bagging_fraction</code> (default <code>1.0</code>): Fraction of data to use for bagging.</li>
+<li><code>uniform_drop</code> (default <code>False</code>): Whether to use uniform dropout. Used only with boosting_type 'dart'.</li>
+<li><code>validation_field</code> (default <code>combined</code>): First output feature, by default it is set as the same field of the first output feature.</li>
+<li><code>max_drop</code> (default <code>50</code>): Maximum number of dropped trees during one boosting iteration. Used only with boosting_type 'dart'. A negative value means no limit.</li>
+<li><code>verbose</code> (default <code>0</code>): Verbosity level for GBM trainer.</li>
+</ul>
+</div>
+</div>
+</div>
+<h3 id="optimizer-parameters">Optimizer parameters<a class="headerlink" href="#optimizer-parameters" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">ECD</label><label for="__tabbed_3_2">GBM</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <p>The available optimizers wrap the ones available in PyTorch.
 For details about the parameters that can be used to configure different optimizers, please refer to the <a href="https://pytorch.org/docs/stable/optim.html">PyTorch documentation</a>.</p>
-<p>The <code>learning_rate</code> parameter the optimizer will use come from the <code>trainer</code> section.
+<p>The <code>learning_rate</code> parameter used by the optimizer comes from the <code>trainer</code> section.
 Other optimizer specific parameters, shown with their Ludwig default settings, follow:</p>
 <ul>
 <li><code>sgd</code> (or <code>stochastic_gradient_descent</code>, <code>gd</code>, <code>gradient_descent</code>)</li>
@@ -2401,8 +2566,17 @@ Other optimizer specific parameters, shown with their Ludwig default settings, f
 <span class="nt">clip_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
 </code></pre></div>
 </div>
+</div>
+<div class="tabbed-block">
+<p>No optimizer parameters are available for the LightGBM trainer.</p>
+</div>
+</div>
+</div>
 <h2 id="configuring-training-length">Configuring training length<a class="headerlink" href="#configuring-training-length" title="Permanent link">&para;</a></h2>
 <p>The length of the training process is configured by:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">ECD</label><label for="__tabbed_4_2">GBM</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <ul>
 <li><code>epochs</code> (default: 100): One epoch is one pass through the entire dataset. By
     default, <code>epochs</code> is 100 which means that the training process will run for
@@ -2417,7 +2591,22 @@ Other optimizer specific parameters, shown with their Ludwig default settings, f
 early stopping criteria (<code>early_stop</code>) to stop training when there
 hasn't been any improvement for a long time.</p>
 </div>
+</div>
+<div class="tabbed-block">
+<ul>
+<li><code>num_boost_round</code> (default: 100): The number of boosting iterations. By default,
+    <code>num_boost_round</code> is 100 which means that the training process will run for
+    a maximum of 100 boosting iterations before terminating.</li>
+</ul>
+</div>
+</div>
+</div>
 <h2 id="configuring-checkpoint-and-evaluation-frequency">Configuring checkpoint and evaluation frequency<a class="headerlink" href="#configuring-checkpoint-and-evaluation-frequency" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:1"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">ECD</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
 <p>Evaluation is run every time the model is checkpointed.</p>
 <p>By default, checkpoint-evaluation will occur once every epoch.</p>
 <p>The frequency of checkpoint-evaluation can be configured using:</p>
@@ -2459,6 +2648,11 @@ cost. Turning off training set evaluation will lead to significant gains in
 training throughput and efficiency.</p>
 </div>
 <h3 id="increase-batch-size">Increase batch size<a class="headerlink" href="#increase-batch-size" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:1"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">ECD</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
 <p>Users training on GPUs can often increase training throughput by increasing
 the <code>batch_size</code> so that more examples are computed every training step. Set
 <code>batch_size</code> to <code>auto</code> to use the largest batch size that can fit in memory.</p>

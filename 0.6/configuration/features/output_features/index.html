@@ -849,6 +849,10 @@
         
           
         
+          
+        
+          
+        
       
       
         
@@ -877,6 +881,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../model_type/" class="md-nav__link">
+        Model Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../preprocessing/" class="md-nav__link">
         Preprocessing
       </a>
@@ -896,7 +914,7 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_4" type="checkbox" id="__nav_4_4" checked>
       
       
       
@@ -935,13 +953,13 @@
         
       
       
-        <label class="md-nav__link" for="__nav_4_3">
+        <label class="md-nav__link" for="__nav_4_4">
           Features
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Features" data-md-level="2">
-        <label class="md-nav__title" for="__nav_4_3">
+        <label class="md-nav__title" for="__nav_4_4">
           <span class="md-nav__icon md-icon"></span>
           Features
         </label>
@@ -1224,6 +1242,20 @@
           
         </ul>
       </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../defaults/" class="md-nav__link">
+        Defaults
+      </a>
     </li>
   
 
@@ -2213,9 +2245,9 @@ model to predict.</p>
 <p>Recall Ludwig's butterfly framework:</p>
 <p><img alt="img" src="../../../images/butterfly.png" /></p>
 <p>Instead of having <code>encoders</code>, output features have <code>decoders</code>. All the other parameters besides <code>name</code> and <code>type</code> will
-be passed as parameters to the function that builds the output feature's decoder, and each decoder can have different
-parameters. Extensive documentation for all of the decoders that can be used for a certain data type can be found in
-<a href="../supported_data_types/">each data type's documentation</a>.</p>
+be passed as parameters to the decoder subsection which dictates how to build the output feature's decoder. Like
+encoders, each decoder can also have different parameters, so we have extensive documentation for each decoder that can
+be used for a certain data type. This can be found in <a href="../supported_data_types/">each data type's documentation</a>.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">YAML</label><label for="__tabbed_2_2">Python Dict</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -2223,10 +2255,11 @@ parameters. Extensive documentation for all of the decoders that can be used for
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"></span>
 <span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">french</span><span class="w"></span>
 <span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w"></span>
-<span class="w">        </span><span class="nt">decoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">generator</span><span class="w"></span>
-<span class="w">        </span><span class="nt">cell_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lstm</span><span class="w"></span>
-<span class="w">        </span><span class="nt">num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
-<span class="w">        </span><span class="nt">max_sequence_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
+<span class="w">        </span><span class="nt">decoder</span><span class="p">:</span><span class="w"> </span>
+<span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">generator</span><span class="w"></span>
+<span class="w">            </span><span class="nt">cell_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lstm</span><span class="w"></span>
+<span class="w">            </span><span class="nt">num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
+<span class="w">            </span><span class="nt">max_sequence_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w"></span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2235,10 +2268,12 @@ parameters. Extensive documentation for all of the decoders that can be used for
         <span class="p">{</span>
             <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;french&quot;</span><span class="p">,</span>
             <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;decoder&quot;</span><span class="p">:</span> <span class="s2">&quot;generator&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;cell_type&quot;</span><span class="p">:</span> <span class="s2">&quot;lstm&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;num_layers&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-            <span class="s2">&quot;max_sequence_length&quot;</span><span class="p">:</span> <span class="mi">256</span>
+            <span class="s2">&quot;decoder&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;generator&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;cell_type&quot;</span><span class="p">:</span> <span class="s2">&quot;lstm&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;num_layers&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="s2">&quot;max_sequence_length&quot;</span><span class="p">:</span> <span class="mi">256</span>
+            <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">]</span>
 <span class="p">}</span>
@@ -2253,6 +2288,8 @@ this specific decoder. For instance, number features support both <code>mean_squ
 losses.</p>
 <p>Details about the available decoders and losses alongside with the description of all parameters is provided in
 datatype-specific documentation.</p>
+<p>It's also possible to specify decoder type and decoder related parameters for all features of a
+certain type. See <a href="../../defaults/#type-global-decoder">Type-Global Decoder</a>.</p>
 <h2 id="multi-task-learning">Multi-task Learning<a class="headerlink" href="#multi-task-learning" title="Permanent link">&para;</a></h2>
 <p>In most machine learning tasks you want to predict only one target variable, but in Ludwig users are empowered to
 specify multiple output features. During training, output features are optimized in a multi-task fashion, using a
@@ -2316,15 +2353,17 @@ the fine-grained category.</p>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"></span>
 <span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">coarse_class</span><span class="w"></span>
 <span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
-<span class="w">        </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
-<span class="w">        </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span><span class="w"></span>
+<span class="w">        </span><span class="nt">decoder</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
+<span class="w">            </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span><span class="w"></span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"></span>
 <span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fine_class</span><span class="w"></span>
 <span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
 <span class="w">        </span><span class="nt">dependencies</span><span class="p">:</span><span class="w"></span>
 <span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">coarse_class</span><span class="w"></span>
-<span class="w">        </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="w">        </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span><span class="w"></span>
+<span class="w">        </span><span class="nt">decoder</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">            </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span><span class="w"></span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2333,8 +2372,10 @@ the fine-grained category.</p>
         {
             &quot;name&quot;: &quot;coarse_class&quot;,
             &quot;type&quot;: &quot;category&quot;,
-            &quot;num_fc_layers&quot;: 2,
-            &quot;output_size&quot;: 64
+            &quot;decoder&quot;: {
+                &quot;num_fc_layers&quot;: 2,
+                &quot;output_size&quot;: 64
+            }
         },
         {
             &quot;name&quot;: &quot;fine_class&quot;,
@@ -2342,8 +2383,10 @@ the fine-grained category.</p>
             &quot;dependencies&quot;: [
                 &quot;coarse_class&quot;
             ],
-            &quot;num_fc_layers&quot;: 1,
-            &quot;output_size&quot;: 64
+            &quot;decoder&quot;: {
+                &quot;num_fc_layers&quot;: 1,
+                &quot;output_size&quot;: 64
+            }
         }
     ]
 }

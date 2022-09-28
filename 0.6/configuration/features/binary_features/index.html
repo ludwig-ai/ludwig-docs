@@ -849,6 +849,10 @@
         
           
         
+          
+        
+          
+        
       
       
         
@@ -877,6 +881,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../model_type/" class="md-nav__link">
+        Model Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../preprocessing/" class="md-nav__link">
         Preprocessing
       </a>
@@ -896,7 +914,7 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_4" type="checkbox" id="__nav_4_4" checked>
       
       
       
@@ -935,13 +953,13 @@
         
       
       
-        <label class="md-nav__link" for="__nav_4_3">
+        <label class="md-nav__link" for="__nav_4_4">
           Features
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Features" data-md-level="2">
-        <label class="md-nav__title" for="__nav_4_3">
+        <label class="md-nav__title" for="__nav_4_4">
           <span class="md-nav__icon md-icon"></span>
           Features
         </label>
@@ -1251,6 +1269,20 @@
           
         </ul>
       </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../defaults/" class="md-nav__link">
+        Defaults
+      </a>
     </li>
   
 
@@ -2246,29 +2278,52 @@ dataset) and added to the HDF5 with a key that reflects the name of column in th
 <li><code>missing_value_strategy</code> (default <code>fill_with_false</code>): what strategy to follow when there's a missing value in a binary
 column. The value should be one of <code>fill_with_const</code> (replaces the missing value with a specific value specified with
 the <code>fill_value</code> parameter), <code>fill_with_mode</code> (replaces the missing values with the most frequent value in the column),
-<code>fill_with_mean</code> (replaces the missing values with the mean of the values in the column), <code>backfill</code> (replaces the
-missing values with the next valid value), or <code>fill_with_false</code> (default, replaces the missing value with False).</li>
+<code>fill_with_mean</code> (replaces the missing values with the mean of the values in the column), <code>bfill</code> (replaces the missing values with the next valid value), <code>ffill</code> (replaces the missing values with the previous valid value), or <code>fill_with_false</code> (default, replaces the missing value with False).</li>
 <li><code>fill_value</code> (default <code>0</code>): the value to replace the missing values with in case the <code>missing_value_strategy</code> is
 <code>fill_with_const</code>.</li>
 <li><code>fallback_true_label</code>: In case the binary feature doesn't have conventional boolean values, we will interpret the
 <code>fallback_true_label</code> as 1 (true) and the other values as 0 (False).</li>
 </ul>
-<h3 id="binary-input-features-and-encoders">Binary Input Features and Encoders<a class="headerlink" href="#binary-input-features-and-encoders" title="Permanent link">&para;</a></h3>
+<p>Configuration example:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary_column_name</span><span class="w"></span>
 <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span><span class="w"></span>
-<span class="nt">tied</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">passthrough</span><span class="w"></span>
+<span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">missing_value_strategy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fill_with_false</span><span class="w"></span>
+<span class="w">    </span><span class="nt">fill_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
+</code></pre></div>
+<p>Preprocessing parameters can also be defined once and applied to all binary input features using
+the <a href="../../defaults/#type-global-preprocessing">Type-Global Preprocessing</a> section.</p>
+<h3 id="binary-input-features-and-encoders">Binary Input Features and Encoders<a class="headerlink" href="#binary-input-features-and-encoders" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary_column_name</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span><span class="w"></span>
+<span class="w">    </span><span class="nt">tied</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">passthrough</span><span class="w"></span>
 </code></pre></div>
 <p>Binary features have two encoders, <code>passthrough</code> and <code>dense</code>.</p>
 <p>The <code>passthrough</code> encoder passes through raw binary values without any transformations. Inputs of size <code>b</code> are
 transformed to outputs of size <code>b x 1</code> where <code>b</code> is the batch size.</p>
 <p>The <code>dense</code> encoder passes the raw binary values through a fully connected layer. Inputs of size <code>b</code> are transformed to
 size <code>b x h</code>.</p>
-<p>The available encoder parameters are:</p>
+<p>The encoder parameters specified at the feature level are:</p>
 <ul>
-<li><code>tied</code> (default <code>null</code>): name of the input feature to tie the weights of the encoder with. It needs to be the name of
+<li><code>tied</code> (default <code>null</code>): name of another input feature to tie the weights of the encoder with. It needs to be the name of
 a feature of the same type and with the same encoder parameters.</li>
 </ul>
+<p>Example binary feature entry in the input features list:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary_column_name</span><span class="w"></span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span><span class="w"></span>
+<span class="nt">tied</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dense</span><span class="w"></span>
+</code></pre></div>
+<p>The available encoder parameters:</p>
+<ul>
+<li><code>type</code> (default <code>passthrough</code>): the possible values are <code>passthrough</code>, <code>dense</code> and <code>sparse</code>. <code>passthrough</code> outputs the
+raw integer values unaltered. <code>dense</code> randomly initializes a trainable embedding matrix, <code>sparse</code> uses one-hot encoding.</li>
+</ul>
+<p>Encoder type and encoder parameters can also be defined once and applied to all binary input features using the
+<a href="../../defaults/#type-global-encoder">Type-Global Encoder</a> section.</p>
 <h4 id="passthrough-encoder">Passthrough Encoder<a class="headerlink" href="#passthrough-encoder" title="Permanent link">&para;</a></h4>
 <p>There are no additional parameters for the <code>passthrough</code> encoder.</p>
 <h4 id="dense-encoder">Dense Encoder<a class="headerlink" href="#dense-encoder" title="Permanent link">&para;</a></h4>
@@ -2305,18 +2360,21 @@ or for <code>layer</code> see <a href="https://pytorch.org/docs/stable/generated
 <span class="w">    </span><span class="nt">confidence_penalty</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
 <span class="w">    </span><span class="nt">robust_lambda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
 <span class="w">    </span><span class="nt">positive_class_weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="nt">fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
-<span class="nt">activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span><span class="w"></span>
-<span class="nt">norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span><span class="w"></span>
-<span class="nt">weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glorot_uniform</span><span class="w"></span>
-<span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span><span class="w"></span>
-<span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span><span class="w"></span>
+<span class="nt">decoder</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="w">    </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
+<span class="w">    </span><span class="nt">activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span><span class="w"></span>
+<span class="w">    </span><span class="nt">norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="w">    </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span><span class="w"></span>
+<span class="w">    </span><span class="nt">weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">glorot_uniform</span><span class="w"></span>
+<span class="w">    </span><span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span><span class="w"></span>
+<span class="w">    </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span><span class="w"></span>
 </code></pre></div>
 <p>Binary output features can be used when a binary classification needs to be performed or when the output is a single
 probability. There is only one decoder available for binary features and it is a (potentially empty) stack of fully
 connected layers, followed by a projection into a single number followed by a sigmoid function.</p>
+<p>Decoder type and decoder parameters can also be defined once and applied to all binary output features using the <a href="../../defaults/#type-global-decoder">Type-Global Decoder</a> section. Loss and loss related parameters can
+also be defined once in the same way.</p>
 <p>These are the available parameters of a binary output feature.</p>
 <ul>
 <li><code>reduce_input</code> (default <code>sum</code>): defines how to reduce an input that is not a vector, but a matrix or a higher order

@@ -8,20 +8,33 @@ The parameters available for preprocessing are:
 - `missing_value_strategy` (default `fill_with_false`): what strategy to follow when there's a missing value in a binary
 column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with
 the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column),
-`fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the
-missing values with the next valid value), or `fill_with_false` (default, replaces the missing value with False).
+`fill_with_mean` (replaces the missing values with the mean of the values in the column), `bfill` (replaces the missing values with the next valid value), `ffill` (replaces the missing values with the previous valid value), or `fill_with_false` (default, replaces the missing value with False).
 - `fill_value` (default `0`): the value to replace the missing values with in case the `missing_value_strategy` is
 `fill_with_const`.
 - `fallback_true_label`: In case the binary feature doesn't have conventional boolean values, we will interpret the
 `fallback_true_label` as 1 (true) and the other values as 0 (False).
 
-## Binary Input Features and Encoders
+Configuration example:
 
 ```yaml
 name: binary_column_name
 type: binary
-tied: null
-encoder: passthrough
+preprocessing:
+    missing_value_strategy: fill_with_false
+    fill_value: 0
+```
+
+Preprocessing parameters can also be defined once and applied to all binary input features using
+the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
+
+## Binary Input Features and Encoders
+
+```yaml
+    name: binary_column_name
+    type: binary
+    tied: null
+    encoder: 
+      type: passthrough
 ```
 
 Binary features have two encoders, `passthrough` and `dense`.
@@ -32,10 +45,28 @@ transformed to outputs of size `b x 1` where `b` is the batch size.
 The `dense` encoder passes the raw binary values through a fully connected layer. Inputs of size `b` are transformed to
 size `b x h`.
 
-The available encoder parameters are:
+The encoder parameters specified at the feature level are:
 
-- `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of
+- `tied` (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
 a feature of the same type and with the same encoder parameters.
+
+Example binary feature entry in the input features list:
+
+```yaml
+name: binary_column_name
+type: binary
+tied: null
+encoder: 
+    type: dense
+```
+
+The available encoder parameters:
+
+- `type` (default `passthrough`): the possible values are `passthrough`, `dense` and `sparse`. `passthrough` outputs the
+raw integer values unaltered. `dense` randomly initializes a trainable embedding matrix, `sparse` uses one-hot encoding.
+
+Encoder type and encoder parameters can also be defined once and applied to all binary input features using the
+[Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
 ### Passthrough Encoder
 
@@ -78,19 +109,23 @@ loss:
     confidence_penalty: 0
     robust_lambda: 0
     positive_class_weight: 1
-fc_layers: null
-num_fc_layers: 0
-activation: relu
-norm: null
-dropout: 0.2
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-threshold: 0.5
+decoder:
+    fc_layers: null
+    num_fc_layers: 0
+    activation: relu
+    norm: null
+    dropout: 0.2
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    threshold: 0.5
 ```
 
 Binary output features can be used when a binary classification needs to be performed or when the output is a single
 probability. There is only one decoder available for binary features and it is a (potentially empty) stack of fully
 connected layers, followed by a projection into a single number followed by a sigmoid function.
+
+Decoder type and decoder parameters can also be defined once and applied to all binary output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section. Loss and loss related parameters can
+also be defined once in the same way.
 
 These are the available parameters of a binary output feature.
 

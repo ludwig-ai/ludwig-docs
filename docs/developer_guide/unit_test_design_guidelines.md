@@ -208,3 +208,178 @@ RANDOM_SEED = 1919
 torch.manual_seed(RANDOM_SEED)
 input_tensor = torch.randn([BATCH_SIZE, input_size], dtype=torch.float32)
 ```
+
+## Test for parameter updates
+
+The utility function `check_module_parameters_updated()` in the `tests.integration_tests.parameter_utils` module
+is available to test whether Ludwig modules, e.g., encoders, combiners, decoders and related sub-components are updating
+parameters during the sequence of forward pass-backward pass-optimize step.
+
+Guidelines for implementing parameter updating test:
+
+- Not required for very simple modules, like the fully-connected layer or for well-known pre-trained modules, like the Huggingface text encoders.
+- Before implementing the parameter update test ensure that the test does not generate run-time exceptions, the generated output conforms to the expected data structure and the shape of the output is correct.
+
+`check_module_parameters_updated(module, input, target)` function requires three positional arguments:
+
+- `module` is the Ludwig component to be tested, i.e., encoder, combiner or decoder
+- `input` is tuple that is the input the Ludwig component's forward method
+- `target` is a synthetic tensor representing the target values for computing loss at the end of the forward pass.
+
+The `module` and `input` arguments can be the same as those used in the early part of the test to ensure no run-time exceptions and correct output.
+
+A two-step process is recommended steps for implementing the test:
+
+**Step 1**:
+
+Set the random seed for repeatability.  Partially implement the parameter update test to print the counts of
+parameters, e.g.,
+
+```python
+    # check for parameter updating
+    target = torch.randn(output.shape)
+    fpc, tpc, upc, not_updated = check_module_parameters_updated(sequence_rnn_decoder, (combiner_outputs, None), target)
+    print(fpc, tpc, upc, not_updated)
+```
+
+`target` is a tensor with synthetic data that is used to in computing the loss after the forward pass.  
+
+`fpc` is the count of frozen parameters.  `tpc` is the count of trainable parameters.  `upc` is the updated parameter
+count, i.e., the number of parameters that were updated during the cycle of forward pass-backward pass-optimize step.
+Inspect the values for correctness, such as
+
+- `fpc` + `tpc` should equal the total number of parameters in the module
+- `fpc` should be zero except for pre-trained modules like the Huggingface text encoders.
+- `upc` <= `tpc`
+
+In the case that some parameters are not updated, `not_updated` is a Python list containing parameter names
+that were not updated.
+
+In the ideal case, `upc` == `tpc`, i.e, count of trainable parameters is equal to the count of updated parameters.
+However, there may be situations where `upc` < `tpc`.  This may occur when dropout is used or with batch normalization
+with a single training example or conditional processing in the `forward()` method.  The preceding is not an exhaustive
+list.  Whenever `upc` < `tpc`, the developer should confirm that the counts are correct for the situation.
+
+??? note "Tips and Tricks to Understand Ludwig Module Parameter Structure"
+
+    While working in **Step 1**, these code fragments may be temporarily used to gain insight into the structure 
+    and parameters in a Ludwig module.
+
+    The `print()` will display the layers that make up a Ludwig module.  From the output the developer can confirm
+    the correct structure and configuration values.
+
+    ```python
+    encoder = create_encoder(
+        Stacked2DCNN, num_channels=image_size[0], height=image_size[1], width=image_size[2], **encoder_kwargs
+    )
+    print(encoder)
+
+    # output
+    Stacked2DCNN(
+      (conv_stack_2d): Conv2DStack(
+        (stack): ModuleList(
+          (0): Conv2DLayer(
+            (layers): ModuleList(
+              (0): Conv2d(3, 32, kernel_size=(3, 3), stride=(1, 1), padding=valid)
+              (1): ReLU()
+              (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+            )
+          )
+          (1): Conv2DLayer(
+            (layers): ModuleList(
+              (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=valid)
+              (1): ReLU()
+              (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+            )
+          )
+        )
+      )
+      (flatten): Flatten(start_dim=1, end_dim=-1)
+      (fc_stack): FCStack(
+        (stack): ModuleList(
+          (0): FCLayer(
+            (layers): ModuleList(
+              (0): Linear(in_features=32, out_features=28, bias=True)
+              (1): ReLU()
+            )
+          )
+        )
+      )
+    )
+    ```
+
+    Use the `named_parameters()` method to understand the parameters contained in a Ludwig module. This method returns
+    a list of tuples.  The first element in the tuple is the parameter's name.  The second element is the instance
+    of the PyTorch `Parameter` object.  In the following example there are 6 parameters, all of them are trainable.
+
+    ```python
+    encoder = create_encoder(
+        Stacked2DCNN, num_channels=image_size[0], height=image_size[1], width=image_size[2], **encoder_kwargs
+    )
+    for p in encoder.named_parameters():
+        print(f"name: {p[0]}, shape: {p[1].shape}, trainable: {p[1].requires_grad}")
+
+    # output
+    name: conv_stack_2d.stack.0.layers.0.weight, shape: torch.Size([32, 3, 3, 3]), trainable: True
+    name: conv_stack_2d.stack.0.layers.0.bias, shape: torch.Size([32]), trainable: True
+    name: conv_stack_2d.stack.1.layers.0.weight, shape: torch.Size([32, 32, 3, 3]), trainable: True
+    name: conv_stack_2d.stack.1.layers.0.bias, shape: torch.Size([32]), trainable: True
+    name: fc_stack.stack.0.layers.0.weight, shape: torch.Size([28, 32]), trainable: True
+    name: fc_stack.stack.0.layers.0.bias, shape: torch.Size([28]), trainable: True
+    ```
+
+**Step 2**:
+
+Once all the differences between `tpc` and `upc` are accounted for then replace the `print()` statement with the
+appropriate set of `assert` statements.  Here are some examples:
+
+```python
+    # check for parameter updating
+    target = torch.randn(output.shape)
+    fpc, tpc, upc, not_updated = check_module_parameters_updated(sequence_rnn_decoder, (combiner_outputs, None), target)
+    assert upc == tpc, f"Failed to update parameters.  Parameters not update: {not_updated}"
+```
+
+```python
+    target = torch.randn(conv1_stack.output_shape)
+    fpc, tpc, upc, not_updated = check_module_parameters_updated(conv1_stack, (input,), target)
+    if dropout == 0:
+        # all trainable parameters should be updated
+        assert tpc == upc, (
+            f"All parameter not updated. Parameters not updated: {not_updated}" f"\nModule structure:\n{conv1_stack}"
+        )
+    else:
+        # with specified config and random seed, non-zero dropout update parameter count could take different values
+        assert (tpc == upc) or (upc == 1), (
+            f"All parameter not updated. Parameters not updated: {not_updated}" f"\nModule structure:\n{conv1_stack}"
+        )
+```
+
+**Example of a full test with parameter update checking**:
+
+```python
+@pytest.mark.parametrize("cell_type", ["rnn", "gru"])
+@pytest.mark.parametrize("num_layers", [1, 2])
+@pytest.mark.parametrize("batch_size", [20, 1])
+def test_sequence_rnn_decoder(cell_type, num_layers, batch_size):
+    hidden_size = 256
+    vocab_size = 50
+    max_sequence_length = 10
+
+    # make repeatable
+    set_random_seed(RANDOM_SEED)
+
+    combiner_outputs = {HIDDEN: torch.rand([batch_size, hidden_size])}
+    sequence_rnn_decoder = SequenceRNNDecoder(
+        hidden_size, vocab_size, max_sequence_length, cell_type, num_layers=num_layers
+    )
+
+    output = sequence_rnn_decoder(combiner_outputs, target=None)
+
+    assert list(output.size()) == [batch_size, max_sequence_length, vocab_size]
+
+    # check for parameter updating
+    target = torch.randn(output.shape)
+    fpc, tpc, upc, not_updated = check_module_parameters_updated(sequence_rnn_decoder, (combiner_outputs, None), target)
+    assert upc == tpc, f"Failed to update parameters.  Parameters not update: {not_updated}"
+```

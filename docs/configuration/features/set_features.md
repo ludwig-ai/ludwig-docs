@@ -25,13 +25,27 @@ available options see [Tokenizers](../../preprocessing#tokenizers).
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a set
 column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with
 the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column),
-`fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill` (replaces the
-missing values with the next valid value).
+`fill_with_mean` (replaces the missing values with the mean of the values in the column), `bfill` (replaces the missing values with the next valid value), `ffill` (replaces the missing values with the previous valid value).
 - `fill_value` (default `<UNK>`): the value to replace the missing values with in case the `missing_value_strategy` is
 `fill_with_const`.
 - `lowercase` (default `false`): if the string has to be lowercased before being handled by the tokenizer.
 - `most_common` (default `10000`): the maximum number of most common tokens to be considered. if the data contains more
 than this amount, the most infrequent tokens will be treated as unknown.
+
+Configuration example:
+
+```yaml
+name: items_purchased
+type: set
+preprocessing:
+    tokenizer: space
+    missing_value_strategy: fill_with_const
+    fill_value: <UNK>
+    lowercase: false
+    most_common: 10000
+```
+
+Preprocessing parameters can also be defined once and applied to all set input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 
 ## Set Input Features and Encoders
 
@@ -53,7 +67,12 @@ the embeddings.
 +-+
 ```
 
-The available encoder parameters are
+The encoder parameters specified at the feature level are:
+
+- `tied` (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
+a feature of the same type and with the same encoder parameters.
+
+The available encoder parameters are:
 
 - `representation` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
 initialized randomly, `sparse` means they are initialized to be one-hot encodings.
@@ -102,31 +121,32 @@ or for `layer` see the [Torch documentation on layer normalization](https://pyto
 - `dropout` (default `0`): dropout rate
 - `reduce_output` (default `sum`): describes the strategy to use to aggregate the embeddings of the items of the set.
 Available values are: `sum`, `mean` or `avg`, `max`, `concat` and  `null` (which does not reduce and returns the full tensor).
-- `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of
-a feature of the same type and with the same encoder parameters.
+
+Encoder type and encoder parameters can also be defined once and applied to all set input features using the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
 Example set feature entry in the input features list:
 
 ```yaml
 name: set_column_name
 type: set
-representation: dense
-embedding_size: 50
-embeddings_trainable: true
-pretrained_embeddings: null
-embeddings_on_cpu: false
-fc_layers: null
-num_fc_layers: 0
-output_size: 10
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-norm: null
-norm_params: null
-activation: relu
-dropout: 0.0
-reduce_output: sum
-tied: null
+encoder:
+    representation: dense
+    embedding_size: 50
+    embeddings_trainable: true
+    pretrained_embeddings: null
+    embeddings_on_cpu: false
+    fc_layers: null
+    num_fc_layers: 0
+    output_size: 10
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    norm: null
+    norm_params: null
+    activation: relu
+    dropout: 0.0
+    reduce_output: sum
+    tied: null
 ```
 
 ## Set Output Features and Decoders
@@ -156,6 +176,8 @@ values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the firs
 vector of the first dimension).
 - `loss` (default `{type: sigmoid_cross_entropy}`): is a dictionary containing a loss `type`. The only supported loss
 `type` for set features is `sigmoid_cross_entropy`.
+
+Loss type and loss related parameters can also be defined once and applied to all set output features using the [Type-Global Loss](../defaults.md#type-global-loss) section.
 
 These are the available parameters of a set output feature decoder
 
@@ -189,6 +211,8 @@ or for `layer` see the [Torch documentation on layer normalization](https://pyto
 - `threshold` (default `0.5`): The threshold above (greater or equal) which the predicted output of the sigmoid will be
 mapped to 1.
 
+Decoder type and decoder parameters can also be defined once and applied to all set output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
+
 Example set feature entry (with default parameters) in the output features list:
 
 ```yaml
@@ -199,17 +223,18 @@ dependencies: []
 reduce_dependencies: sum
 loss:
     type: sigmoid_cross_entropy
-fc_layers: null
-num_fc_layers: 0
-output_size: 256
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-norm: null
-norm_params: null
-activation: relu
-dropout: 0.0
-threshold: 0.5
+decoder:
+    fc_layers: null
+    num_fc_layers: 0
+    output_size: 256
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    norm: null
+    norm_params: null
+    activation: relu
+    dropout: 0.0
+    threshold: 0.5
 ```
 
 ## Set Features Metrics

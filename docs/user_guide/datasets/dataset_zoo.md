@@ -88,8 +88,10 @@ train_stats, _, _ = model.train(training_set=training_set, test_set=test_set, mo
 Here is the list of the currently available datasets:
 
 | Dataset                                   | Hosted On             | Description                                                                                      |
-|-------------------------------------------|-----------------------|--------------------------------------------------------------------------------------------------|
+| ----------------------------------------- | --------------------- | ------------------------------------------------------------------------------------------------ |
 | adult_census_income                       | archive.ics.uci.edu   | <https://archive.ics.uci.edu/ml/datasets/adult>. Whether a person makes over $50K a year or not. |
+| allstate_claims_severity                  | Kaggle                | <https://www.kaggle.com/c/allstate-claims-severity>                                              |
+| amazon_employee_access_challenge          | Kaggle                | <https://www.kaggle.com/c/amazon-employee-access-challenge>                                      |
 | agnews                                    | Github                | <https://search.r-project.org/CRAN/refmans/textdata/html/dataset_ag_news.html>                   |
 | allstate_claims_severity                  | Kaggle                | <https://www.kaggle.com/c/allstate-claims-severity>                                              |
 | amazon_employee_access_challenge          | Kaggle                | <https://www.kaggle.com/c/amazon-employee-access-challenge>                                      |

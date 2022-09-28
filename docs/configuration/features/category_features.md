@@ -8,23 +8,36 @@ most rare (with 0 assigned to the special unknown placeholder token `<UNK>`).
 The column name is added to the JSON file, with an associated dictionary containing
 
 1. the mapping from integer to string (`idx2str`)
-1. the mapping from string to id (`str2idx`)
-1. the mapping from string to frequency (`str2freq`)
-1. the size of the set of all tokens (`vocab_size`)
-1. additional preprocessing information (by default how to fill missing values and what token to use to fill missing values)
+2. the mapping from string to id (`str2idx`)
+3. the mapping from string to frequency (`str2freq`)
+4. the size of the set of all tokens (`vocab_size`)
+5. additional preprocessing information (by default how to fill missing values and what token to use to fill missing values)
 
 The parameters available for preprocessing are
 
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there is a missing value in the
 category column. The value should be one of `fill_with_const` (replaces the missing value with a specific value
 specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value
-in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `backfill`
-(replaces the missing values with the next valid value).
+in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `bfill` (replaces the missing values with the next valid value), `ffill` (replaces the missing values with the previous valid value).
 - `fill_value` (default `<UNK>`): the value to replace missing values with when `missing_value_strategy` is
 `fill_with_const`.
 - `lowercase` (default `false`): if the string has to be lowercased before being handled by the tokenizer.
-- `most_common` (default `10000`): the maximum number of most common tokens to be considered. if the data contains more
+- `most_common` (default `10000`): the maximum number of most common tokens to be considered. If the data contains more
 than this amount, the most infrequent tokens will be treated as unknown.
+
+Configuration example:
+
+```yaml
+name: color
+type: category
+preprocessing:
+    missing_value_strategy: fill_with_const
+    fill_value: <UNK>
+    lowercase: false
+    most_common: 10000
+```
+
+Preprocessing parameters can also be defined once and applied to all category input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 
 ## Category Input Features and Encoders
 
@@ -33,11 +46,9 @@ The `passthrough` encoder passes the raw integer values coming from the input pl
 The other two encoders map to either `dense` or `sparse` embeddings (one-hot encodings) and returned as outputs of size
 `b x h`, where `b` is the batch size and `h` is the dimensionality of the embeddings.
 
-Input feature parameters.
+The encoder parameters specified at the feature level are:
 
-- `encoder` (default `dense`): the possible values are `passthrough`, `dense` and `sparse`. `passthrough` outputs the
-raw integer values unaltered. `dense` randomly initializes a trainable embedding matrix, `sparse` uses one-hot encoding.
-- `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of
+- `tied` (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
 a feature of the same type and with the same encoder parameters.
 
 Example category feature entry in the input features list:
@@ -46,10 +57,17 @@ Example category feature entry in the input features list:
 name: category_column_name
 type: category
 tied: null
-encoder: dense
+encoder: 
+    type: dense
 ```
 
-The available encoder parameters:
+The available encoder parameters are:
+
+- `type` (default `dense`): the possible values are `passthrough`, `dense` and `sparse`. `passthrough` outputs the
+raw integer values unaltered. `dense` randomly initializes a trainable embedding matrix, `sparse` uses one-hot encoding.
+
+Encoder type and encoder parameters can also be defined once and applied to all category input features using
+the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
 ### Dense Encoder
 
@@ -106,14 +124,15 @@ Example category feature entry in the input features list:
 ```yaml
 name: category_column_name
 type: category
-encoder: sparse
 tied: null
-embedding_size: 256
-embeddings_on_cpu: false
-pretrained_embeddings: null
-embeddings_trainable: true
-dropout: 0
-embedding_initializer: null
+encoder: 
+    type: sparse
+    embedding_size: 256
+    embeddings_on_cpu: false
+    pretrained_embeddings: null
+    embeddings_trainable: true
+    dropout: 0
+    embedding_initializer: null
 ```
 
 ## Category Output Features and Decoders
@@ -150,6 +169,8 @@ the only supported loss type for category output features.
 measure. It computes accuracy but considering as a match if the true category appears in the first `k` predicted
 categories ranked by decoder's confidence.
 
+Decoder type and decoder parameters can also be defined once and applied to all category output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
+
 These are the `loss` parameters
 
 - `confidence_penalty` (default `0`): penalizes overconfident predictions (low entropy) by adding an additional term
@@ -170,6 +191,8 @@ be included too).
 row of `class_similarities`. The output of that softmax is used to determine the supervision vector to provide instead
 of the one hot vector that would be provided otherwise for each datapoint. The intuition behind it is that errors
 between similar classes are more tolerable than errors between really different classes.
+
+Loss and loss related parameters can also be defined once and applied to all category output features using the [Type-Global Loss](../defaults.md#type-global-loss) section.
 
 These are the available parameters of a category output feature decoder
 
@@ -194,9 +217,7 @@ or for `layer` see [Torch's documentation on layer normalization](https://pytorc
 - `weights_initializer` (default `glorot_uniform`): initializer for the fully connected weight matrix. Options are:
 `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`,
 `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`,
-`lecun_uniform`. Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of
-initializer and other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each
-initializer, please refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
+`lecun_uniform`. To see the parameters of each initializer, please refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
 - `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`,
 `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`,
 `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is
@@ -219,17 +240,18 @@ loss:
     class_weights: 1
     class_similarities: null
     class_similarities_temperature: 0
-fc_layers: null
-num_fc_layers: 0
-output_size: 256
-activation: relu
-norm: null
-norm_params: null
-dropout: 0
-use_bias: true
-weights_initializer: glorot_uniform
-bias_initializer: zeros
-top_k: 3
+decoder: 
+    fc_layers: null
+    num_fc_layers: 0
+    output_size: 256
+    activation: relu
+    norm: null
+    norm_params: null
+    dropout: 0
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    top_k: 3
 ```
 
 ## Category Features Metrics

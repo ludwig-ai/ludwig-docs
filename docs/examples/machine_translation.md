@@ -17,9 +17,10 @@ input_features:
     -
         name: english
         type: text
-        encoder: rnn
-        cell_type: lstm
-        reduce_output: null
+        encoder: 
+            type: rnn
+            cell_type: lstm
+            reduce_output: null
         preprocessing:
           tokenizer: english_tokenize
 
@@ -27,10 +28,11 @@ output_features:
     -
         name: italian
         type: text
-        decoder: generator
-        cell_type: lstm
-        attention: bahdanau
-        reduce_input: null
+        decoder: 
+            type: generator
+            cell_type: lstm
+            attention: bahdanau
+            reduce_input: null
         loss:
             type: softmax_cross_entropy
         preprocessing:

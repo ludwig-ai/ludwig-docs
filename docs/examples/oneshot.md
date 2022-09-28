@@ -21,7 +21,8 @@ input_features:
     -
         name: image_path_1
         type: image
-        encoder: stacked_cnn
+        encoder: 
+            type: stacked_cnn
         preprocessing:
           width: 28
           height: 28
@@ -29,7 +30,8 @@ input_features:
     -
         name: image_path_2
         type: image
-        encoder: stacked_cnn
+        encoder: 
+            type: stacked_cnn
         preprocessing:
           width: 28
           height: 28

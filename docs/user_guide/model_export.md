@@ -4,7 +4,7 @@ There are a number of ways to export models in Ludwig.
 
 ## TorchScript Export
 
-A subset of Ludwig Models can be exported to Torchscript end-to-end. This means 
+A subset of Ludwig Models can be exported to Torchscript end-to-end. This means
 that, in addition to the model itself, the preprocessing and postprocessing steps can be exported to TorchScript as well, ensuring that the model can be used for inference in a production environment out-of-the-box.
 
 To get started, simply run the [`export_torchscript`](/user_guide/command_line_interface#export_torchscript) command:
@@ -13,7 +13,7 @@ To get started, simply run the [`export_torchscript`](/user_guide/command_line_i
 ludwig export_torchscript -m=results/experiment_run/model
 ```
 
-As long as `--model_only` is not specified, then three files are output by this command. The most important are `inference_preprocessor.pt`, `inference_predictor_<DEVICE>.pt`, and `inference_postprocessor.pt`. 
+As long as `--model_only` is not specified, then three files are output by this command. The most important are `inference_preprocessor.pt`, `inference_predictor_<DEVICE>.pt`, and `inference_postprocessor.pt`.
 
 The `inference_preprocessor.pt` file contains the preprocessor, which is a `torch.nn.Module` that takes in a dictionary of raw data and outputs a dictionary of tensors. The `inference_predictor_<DEVICE>.pt` file contains the predictor, which is a `torch.nn.Module` that takes in a dictionary of tensors and outputs a dictionary of tensors. The `inference_postprocessor.pt` file contains the postprocessor, which is a `torch.nn.Module` that takes in a dictionary of tensors and outputs a dictionary of postprocessed data containing the same keys as the Ludwig `predict` command DataFrame output. These files can each be loaded separately (and on separate devices) to run inference in a staged manner. This can be particularly useful with a tool like [NVIDIA Triton](https://developer.nvidia.com/nvidia-triton-inference-server), which can be used to manage each stage of the pipeline independently.
 
@@ -102,7 +102,7 @@ Finally, you can convert the `InferenceModule` to TorchScript if you need a mono
 
 ### Current Limitations
 
-TorchScript only implements a subset of Python libraries. This means that there are a few of Ludwig's preprocessing steps that are not supported. 
+TorchScript only implements a subset of Python libraries. This means that there are a few of Ludwig's preprocessing steps that are not supported.
 
 #### Image and Audio Features
 
@@ -112,7 +112,7 @@ If you are using the `predict` method of the `InferenceModule` module, then file
 
 #### Date Features
 
-TorchScript does not implement the `datetime` module, which means that `date` features cannot be parsed from string. 
+TorchScript does not implement the `datetime` module, which means that `date` features cannot be parsed from string.
 
 If you are using the preprocessor module directly or using the `forward` method of the `InferenceModule` module, a vector of integers representing the date must be passed in. Given a `datetime_obj`, the following code can be used to generate the vector:
 

@@ -954,17 +954,23 @@ These are the available arguments:
 ```
 usage: ludwig export_torchscript [options]
 
-This script loads a pretrained model and uses it collect weights.
+This script loads a pretrained model and saves it as torchscript.
 
 optional arguments:
   -h, --help            show this help message and exit
   -m MODEL_PATH, --model_path MODEL_PATH
                         model to load
-  -od OUTPUT_PATH, --output_path OUTPUT_PATH
-                        path where to save the export model
+  -mo, --model_only     Script and export the model only.
+  -d DEVICE, --device DEVICE
+                        Device to use for torchscript tracing (e.g. "cuda" or "cpu"). Ideally, this is the same as the device used
+                        when the model is loaded.
+  -op OUTPUT_PATH, --output_path OUTPUT_PATH
+                        path where to save the export model. If not specified, defaults to model_path.
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
 ```
+
+For more information, see [TorchScript Export](/user_guide/model_export/#torchscript-export)
 
 # export_neuropod
 

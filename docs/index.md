@@ -11,9 +11,6 @@
 <a href="https://badge.fury.io/py/ludwig" target="_blank" style="text-decoration: none;">
     <img src="https://badge.fury.io/py/ludwig.svg" alt="pypi package">
 </a>
-<a href="https://github.com/ludwig-ai/ludwig/actions/workflows/pytest.yml" target="_blank" style="text-decoration: none;">
-    <img src="https://github.com/ludwig-ai/ludwig/actions/workflows/pytest.yml/badge.svg" alt="Test">
-</a>
 <a href="https://pepy.tech/project/ludwig" target="_blank" style="text-decoration: none;">
     <img src="https://pepy.tech/badge/ludwig" alt="downloads">
 </a>

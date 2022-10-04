@@ -42,6 +42,7 @@ nav:
       - Hyperparameter Optimization: user_guide/hyperopt.md
       - AutoML: user_guide/automl.md
       - Visualizations: user_guide/visualizations.md
+      - Model Export: user_guide/model_export.md
       - Serving: user_guide/serving.md
       - Third-Party Integrations: user_guide/integrations.md
   - Configuration:

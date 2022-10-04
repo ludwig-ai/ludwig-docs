@@ -4,7 +4,7 @@ Here, you can read about [What Ludwig is](what_is_ludwig),
 [How Ludwig works](how_ludwig_works), and various features
 that Ludwig supports like [AutoML](automl),
 [Hyperparameter optimization](hyperopt),
-[Distributed Training](distributed_training), [Serving](serving),
+[Distributed Training](distributed_training), [Model Export](model_export), [Serving](serving),
 [Visualization](visualizations), the [Dataset Zoo](datasets/dataset_zoo),
 and more, with code snippets and examples scattered throughout.
 

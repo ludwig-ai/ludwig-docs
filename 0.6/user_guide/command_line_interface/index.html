@@ -495,6 +495,8 @@
         
           
         
+          
+        
       
       
         
@@ -944,6 +946,20 @@
     <li class="md-nav__item">
       <a href="../visualizations/" class="md-nav__link">
         Visualizations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model_export/" class="md-nav__link">
+        Model Export
       </a>
     </li>
   
@@ -3270,17 +3286,22 @@ you can refer to that section for an explanation.</p>
 <p>These are the available arguments:</p>
 <div class="highlight"><pre><span></span><code>usage: ludwig export_torchscript [options]
 
-This script loads a pretrained model and uses it collect weights.
+This script loads a pretrained model and saves it as torchscript.
 
 optional arguments:
   -h, --help            show this help message and exit
   -m MODEL_PATH, --model_path MODEL_PATH
                         model to load
-  -od OUTPUT_PATH, --output_path OUTPUT_PATH
-                        path where to save the export model
+  -mo, --model_only     Script and export the model only.
+  -d DEVICE, --device DEVICE
+                        Device to use for torchscript tracing (e.g. &quot;cuda&quot; or &quot;cpu&quot;). Ideally, this is the same as the device used
+                        when the model is loaded.
+  -op OUTPUT_PATH, --output_path OUTPUT_PATH
+                        path where to save the export model. If not specified, defaults to model_path.
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
 </code></pre></div>
+<p>For more information, see <a href="/user_guide/model_export/#torchscript-export">TorchScript Export</a></p>
 <h2 id="export_neuropod">export_neuropod<a class="headerlink" href="#export_neuropod" title="Permanent link">&para;</a></h2>
 <p>A Ludwig model can be exported as a <a href="https://github.com/uber/neuropod">Neuropod</a>, a mechanism that allows it to be executed in a framework agnostic way.</p>
 <p>In order to export a Ludwig model as a Neuropod, first make sure the <code>neuropod</code> package is installed in your environment together with the appropriate backend (only use Python 3.7+), then run the following command:</p>

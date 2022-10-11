@@ -144,9 +144,7 @@ theme:
         name: Switch to light mode
   features:
     - navigation.indexes
-    # - navigation.tabs  # Moves side bar to a top navigation.
     - navigation.tabs.sticky
-    - navigation.sections
 
 # Customization
 extra_css:

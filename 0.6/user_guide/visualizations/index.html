@@ -1092,6 +1092,33 @@
     hyperopt_report
   </a>
   
+    <nav class="md-nav" aria-label="hyperopt_report">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#float-parameter-hyperopt-plot" class="md-nav__link">
+    Float parameter hyperopt plot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integer-parameter-hyperopt-plot" class="md-nav__link">
+    Integer parameter hyperopt plot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#category-parameter-hyperopt-plot" class="md-nav__link">
+    Category parameter hyperopt plot
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2763,6 +2790,33 @@
     hyperopt_report
   </a>
   
+    <nav class="md-nav" aria-label="hyperopt_report">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#float-parameter-hyperopt-plot" class="md-nav__link">
+    Float parameter hyperopt plot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integer-parameter-hyperopt-plot" class="md-nav__link">
+    Integer parameter hyperopt plot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#category-parameter-hyperopt-plot" class="md-nav__link">
+    Category parameter hyperopt plot
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -3512,13 +3566,24 @@ on the <a href="https://www.kaggle.com/siddhadev/ms-cntk-atis">ATIS dataset</a> 
 <li><code>file_format</code></li>
 <li><code>hyperopt_stats_path</code></li>
 </ul>
-<p>The visualization creates one plot for each hyperparameter in the file at <code>hyperopt_stats_path</code>, plus an additional one
-containing a pair plot of hyperparameters interactions.</p>
+<p>The visualization creates one plot for each hyperparameter in the file at <code>hyperopt_stats_path</code> vs the metric hyperopt
+was optimized for (for e.g., loss), plus an additional one containing a pair plot of hyperparameters interactions.</p>
 <p>Each plot will show the distribution of the parameters with respect to the metric to optimize.
-For <code>float</code> and <code>int</code> parameters a scatter plot is used, while for <code>category</code> parameters a violin plot is used instead.</p>
+For <code>float</code> and <code>int</code> parameters a scatter plot is used, while for <code>category</code> parameters a Raincloud plot is used instead.
+Raincloud plots can visualize raw data, probability density, and key summary statistics such as median, mean, and relevant
+confidence intervals with minimal redundancy.</p>
+<h4 id="float-parameter-hyperopt-plot">Float parameter hyperopt plot<a class="headerlink" href="#float-parameter-hyperopt-plot" title="Permanent link">&para;</a></h4>
 <p><img alt="Float hyperopt plot" src="../../images/hyperopt_float.png" title="Float hyperopt plot" /></p>
+<h4 id="integer-parameter-hyperopt-plot">Integer parameter hyperopt plot<a class="headerlink" href="#integer-parameter-hyperopt-plot" title="Permanent link">&para;</a></h4>
 <p><img alt="Int hyperopt plot" src="../../images/hyperopt_int.png" title="Int hyperopt plot" /></p>
+<h4 id="category-parameter-hyperopt-plot">Category parameter hyperopt plot<a class="headerlink" href="#category-parameter-hyperopt-plot" title="Permanent link">&para;</a></h4>
 <p><img alt="Category hyperopt plot" src="../../images/hyperopt_category.png" title="Category hyperopt plot" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For <code>category</code> type parameters, raincloud plots are only created if there are enough hyperopt trials trained so
+that there are 2 or more trials per parameter value. Otherwise, a stripplot (a type of categorical scatterplot)
+is created.</p>
+</div>
 <p>The pair plot shows a heatmap of how the values of pairs of hyperparameters correlate with the metric to optimize.</p>
 <p><img alt="Pait hyperopt plot" src="../../images/hyperopt_pair.png" title="Pait hyperopt plot" /></p>
 <h3 id="hyperopt_hiplot">hyperopt_hiplot<a class="headerlink" href="#hyperopt_hiplot" title="Permanent link">&para;</a></h3>
@@ -3530,6 +3595,11 @@ For <code>float</code> and <code>int</code> parameters a scatter plot is used, w
 </ul>
 <p>The visualization creates an interactive HTML page visualizing all the results from the hyperparameter optimization at
 once using a parallel coordinate plot.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This plot is only created if there is more than one parameter in the hyperopt
+parameter space.</p>
+</div>
 <p><img alt="Hiplot hyperopt plot" src="../../images/hyperopt_hiplot.jpeg" title="Hiplot hyperopt plot" /></p>
 <h2 id="tensorboard">Tensorboard<a class="headerlink" href="#tensorboard" title="Permanent link">&para;</a></h2>
 <p>Users can visualize raw training metrics on Tensorboard with:</p>

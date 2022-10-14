@@ -854,17 +854,30 @@ Parameters for this visualization:
 - `file_format`
 - `hyperopt_stats_path`
 
-The visualization creates one plot for each hyperparameter in the file at `hyperopt_stats_path`, plus an additional one
-containing a pair plot of hyperparameters interactions.
+The visualization creates one plot for each hyperparameter in the file at `hyperopt_stats_path` vs the metric hyperopt
+was optimized for (for e.g., loss), plus an additional one containing a pair plot of hyperparameters interactions.
 
 Each plot will show the distribution of the parameters with respect to the metric to optimize.
-For `float` and `int` parameters a scatter plot is used, while for `category` parameters a violin plot is used instead.
+For `float` and `int` parameters a scatter plot is used, while for `category` parameters a Raincloud plot is used instead.
+Raincloud plots can visualize raw data, probability density, and key summary statistics such as median, mean, and relevant
+confidence intervals with minimal redundancy.
+
+### Float parameter hyperopt plot
 
 ![Float hyperopt plot](../images/hyperopt_float.png "Float hyperopt plot")
 
+### Integer parameter hyperopt plot
+
 ![Int hyperopt plot](../images/hyperopt_int.png "Int hyperopt plot")
 
+### Category parameter hyperopt plot
+
 ![Category hyperopt plot](../images/hyperopt_category.png "Category hyperopt plot")
+
+!!! Note
+    For `category` type parameters, raincloud plots are only created if there are enough hyperopt trials trained so
+    that there are 2 or more trials per parameter value. Otherwise, a stripplot (a type of categorical scatterplot)
+    is created.
 
 The pair plot shows a heatmap of how the values of pairs of hyperparameters correlate with the metric to optimize.
 
@@ -880,6 +893,10 @@ Parameters for this visualization:
 
 The visualization creates an interactive HTML page visualizing all the results from the hyperparameter optimization at
 once using a parallel coordinate plot.
+
+!!! Note
+    This plot is only created if there is more than one parameter in the hyperopt
+    parameter space.
 
 ![Hiplot hyperopt plot](../images/hyperopt_hiplot.jpeg "Hiplot hyperopt plot")
 

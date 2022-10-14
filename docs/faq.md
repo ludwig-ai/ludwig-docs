@@ -38,11 +38,11 @@ Yes! Ludwig models can be exported to Neuropod, MLFlow, and Torchscript.
 `ludwig serve` provides basic POST/GET serving endpoints, powered by FastAPI.
 
 If you are interested in a more sophisticated, hosted cloud infrastructure
-solution with reliable SLAs, check out Predibase.
+solution with reliable SLAs, check out [Predibase](https://predibase.com/).
 
 # Does Ludwig's Architecture work for model X?
 
-Most likely.
+It's likely.
 
 Ludwig's encoder-combiner-decoder framework is designed to generally mapping
 some input to some output.
@@ -53,7 +53,7 @@ some input to some output.
   (potentially using a model).
 
 Decoder-only, encoder-only, encoder-decoder, vanilla feed-forward, transformers,
-and more have all been implemented in Ludwig.
+GBMs, and more have all been implemented in Ludwig.
 
 # What does Ludwig not support (yet)?
 
@@ -86,8 +86,10 @@ Sai Sumanth Miryala while at Uber AI.
 Today, Ludwig is open source, supported by the Linux Foundation, with source
 code hosted on Github.
 
-Ludwig is actively developed and maintained by [Ludwig Maintainers](https://github.com/orgs/ludwig-ai/teams/ludwig-maintainers),
-which consists mostly of staff at Predibase, and community contributors, all of
-whom are listed in each of Ludwig's release notes.
+Ludwig is actively developed and maintained by
+[Ludwig Maintainers](https://github.com/orgs/ludwig-ai/teams/ludwig-maintainers/members),
+which consists mostly of staff at [Predibase](https://predibase.com/), and
+community contributors, all of whom are listed in each of Ludwig's release
+notes.
 
 Happy contributing!

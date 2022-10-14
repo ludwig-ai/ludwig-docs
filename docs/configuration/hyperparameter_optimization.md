@@ -185,7 +185,7 @@ The `ray` executor is used to enable [Ray Tune](https://docs.ray.io/en/master/tu
 - `gpu_resources_per_trial`: The number of GPU devices allocated to each trial (default: 0).
 - `kubernetes_namespace`: When running on Kubernetes, provide the namespace of the Ray cluster to sync results between pods. See the [Ray docs](https://docs.ray.io/en/master/_modules/ray/tune/integration/kubernetes.html) for more info.
 - `time_budget_s`: The number of seconds for the entire hyperopt run.
-- `max_concurrent_trials`: The maximum number of trials to train concurrently. Defaults to `auto`. `auto` will infer the max_concurrent_trials that can be set given your cluster configuration if you're using a Ray backend based on the cluster resources available.
+- `max_concurrent_trials`: The maximum number of trials to train concurrently. Defaults to `auto`. `auto` will infer the max_concurrent_trials that can be set given your cluster configuration if you're using a Ray backend.
 
 ## Scheduler
 

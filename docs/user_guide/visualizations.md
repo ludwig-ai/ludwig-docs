@@ -894,7 +894,7 @@ Parameters for this visualization:
 The visualization creates an interactive HTML page visualizing all the results from the hyperparameter optimization at
 once using a parallel coordinate plot.
 
-!!! note
+!!! Note
     This plot is only created if there is more than one parameter in the hyperopt
     parameter space.
 

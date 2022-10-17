@@ -186,8 +186,8 @@ The `ray` executor is used to enable [Ray Tune](https://docs.ray.io/en/master/tu
 - `kubernetes_namespace`: When running on Kubernetes, provide the namespace of the Ray cluster to sync results between pods. See the [Ray docs](https://docs.ray.io/en/master/_modules/ray/tune/integration/kubernetes.html) for more info.
 - `time_budget_s`: The number of seconds for the entire hyperopt run.
 - `max_concurrent_trials`: The maximum number of trials to train concurrently. Defaults to `auto` if not specified.
-    - If you're using a Ray backend, `auto` will infer the max_concurrent_trials that can be set given your cluster configuration to prevent trials from stalling.
-    - If you're using a Local or Horovod backend, `auto` will set max_concurrent_trials to None.
+  - If you're using a Ray backend, `auto` will infer the max_concurrent_trials that can be set given your cluster configuration to prevent trials from stalling.
+  - If you're using a Local or Horovod backend, `auto` will set max_concurrent_trials to None.
 
 ## Scheduler
 

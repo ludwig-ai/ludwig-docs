@@ -175,19 +175,21 @@ The `ray` executor is used to enable [Ray Tune](https://docs.ray.io/en/master/tu
 
 - `num_samples`: This parameter, along with the `space` specifications in the `parameters` section, controls how many trials are generated (default: 1).
 
-!!! note
+    !!! note
 
-    * If all the hyperparameters in the `parameters` section have non-`grid_search` specifications (e.g., `uniform`, `randn`, `choice`, etc.), then the number of trials will be `num_samples`.
-    * If all the hyperparameters have `grid_search`, then the number of trials will be the product of the number of values specified for each hyperparameter.  In this case, `num_samples` should be set to 1.  For example, if there are three `grid_search` hyperparameters, with 2, 4 and 4 values, respectively.  The number of trials will be 2 X 4 X 4 = 32, where each trial is a unique combination of the three `grid_search` hyperparameter values.
-    * If there is a mixture of `grid_search` and non-`grid_search` spaces, the number of trials will be product of the number of values specified for each `grid_search` hyperpameter multiplied by the value of `num_samples`.  To illustrate this point, we take the three `grid_search` hyperparameters described in the preceding bullet item and add 2 hyperparameters with `uniform` and `randint` spaces.  With `num_samples = 10`, for each unique combination of values from the `grid_search` hyperparameters, 10 trials will be generated with random values selected for the `uniform` and `randint` hyperparameters.  This will lead to a total of 32 X 10 = 320 trials.
+        * If all the hyperparameters in the `parameters` section have non-`grid_search` specifications (e.g., `uniform`, `randn`, `choice`, etc.), then the number of trials will be `num_samples`.
+        * If all the hyperparameters have `grid_search`, then the number of trials will be the product of the number of values specified for each hyperparameter.  In this case, `num_samples` should be set to 1.  For example, if there are three `grid_search` hyperparameters, with 2, 4 and 4 values, respectively.  The number of trials will be 2 X 4 X 4 = 32, where each trial is a unique combination of the three `grid_search` hyperparameter values.
+        * If there is a mixture of `grid_search` and non-`grid_search` spaces, the number of trials will be product of the number of values specified for each `grid_search` hyperpameter multiplied by the value of `num_samples`.  To illustrate this point, we take the three `grid_search` hyperparameters described in the preceding bullet item and add 2 hyperparameters with `uniform` and `randint` spaces.  With `num_samples = 10`, for each unique combination of values from the `grid_search` hyperparameters, 10 trials will be generated with random values selected for the `uniform` and `randint` hyperparameters.  This will lead to a total of 32 X 10 = 320 trials.
 
 - `cpu_resources_per_trial`: The number of CPU cores allocated to each trial (default: 1).
 - `gpu_resources_per_trial`: The number of GPU devices allocated to each trial (default: 0).
 - `kubernetes_namespace`: When running on Kubernetes, provide the namespace of the Ray cluster to sync results between pods. See the [Ray docs](https://docs.ray.io/en/master/_modules/ray/tune/integration/kubernetes.html) for more info.
 - `time_budget_s`: The number of seconds for the entire hyperopt run.
 - `max_concurrent_trials`: The maximum number of trials to train concurrently. Defaults to `auto` if not specified.
-  - If you're using a Ray backend, `auto` will infer the max_concurrent_trials that can be set given your cluster configuration.
-  - If you're using a Local or Horovod backend, `auto` will set max_concurrent_trials to None.
+
+    !!! note
+        - If you're using a Ray backend, `auto` will infer the max_concurrent_trials that can be set given your cluster configuration to prevent trials from stalling.
+        - If you're using a Local or Horovod backend, `auto` will set max_concurrent_trials to None.
 
 ## Scheduler
 

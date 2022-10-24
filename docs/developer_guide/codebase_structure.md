@@ -8,7 +8,7 @@
 │   ├── combiners          - Combiners used in ECD models
 │   ├── contribs           - 3rd-party integrations (MLFlow, WandB, Comet)
 │   ├── data               - Data loading, pre/postprocessing, sampling
-│   ├── datasets           - Ludwig Dataset Zoo: API to download datasets.
+│   ├── datasets           - Ludwig Dataset Zoo: API to download pre-configured datasets.
 │   ├── decoders           - Output feature decoders
 │   ├── encoders           - Input feature encoders
 │   ├── explain            - Utilities for explaining model predictions
@@ -19,7 +19,7 @@
 │   ├── profiling          - Dataset profiles
 │   ├── schema             - The complete schema of the ludwig config.yaml
 │   ├── trainers
-│   ├── utils
+│   ├── utils              - Various internal utilities used by ludwig python modules
 │   ├── api.py             - Entry point for python API. Declares LudwigModel.
 │   ├── api_annotations.py - Provides @PublicAPI, @DevelopAPI annotation decorators
 │   └── cli.py             - ludwig command-line tool
@@ -82,6 +82,6 @@ tree. For more details on testing, see [Style Guidelines and Tests](../style_gui
 
 Hyperparameter optimization logic is implemented in the scripts in the `ludwig/hyperopt/` package.
 
-The `ludwig/utils/` package contains various utilities used by all other packages.
+The `ludwig/utils/` package contains various internal utilities used by ludwig python modules.
 
 Finally the `ludwig/contrib/` packages contains user contributed code that integrates with external libraries.

@@ -24,6 +24,11 @@ must have the following required keys:
 
 Supported compressed archive and data file types will be inferred automatically from the file extension.
 
+!!! note
+
+    If the dataset has a train/validation/test split used as a benchmark in research papers or Kaggle contests, we
+    recommend preserving the original splits so that Ludwig models may be compared against published results.
+
 For the full set of options, see `ludwig.datasets.dataset_config.DatasetConfig`. If the options provided by
 `DatasetConfig` are sufficient to integrate your dataset, skip ahead to step 3. Test your Dataset.
 

@@ -25,7 +25,6 @@ must have the following required keys:
 Supported compressed archive and data file types will be inferred automatically from the file extension.
 
 !!! note
-
     If the dataset has a train/validation/test split used as a benchmark in research papers or Kaggle contests, we
     recommend preserving the original splits so that Ludwig models may be compared against published results.
 

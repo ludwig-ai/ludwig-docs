@@ -90,7 +90,6 @@ All datasets in the dataset zoo are provided with a default train/validation/tes
 Ludwig will randomly re-split the dataset.
 
 !!! note
-
     Some benchmark or contest datasets are released with held-out test set labels. In other words, the train and
     validation splits have labels, but the test set does not. Most Kaggle contest datasets have this unlabeled test set.
 

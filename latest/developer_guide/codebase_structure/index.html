@@ -2267,18 +2267,24 @@
 ├── ludwig                 - Ludwig library source code
 │   ├── automl             - Configurations, defaults, and utilities for AutoML
 │   ├── backend            - Execution backends (local, horovod, ray)
-│   ├── combiners
+│   ├── benchmarking       - Performance benchmarks for training and hyperopt
+│   ├── combiners          - Combiners used in ECD models
 │   ├── contribs           - 3rd-party integrations (MLFlow, WandB, Comet)
 │   ├── data               - Data loading, pre/postprocessing, sampling
-│   ├── datasets           - Datasets provided by the ludwig.datasets API
+│   ├── datasets           - Ludwig Dataset Zoo: API to download pre-configured datasets.
 │   ├── decoders           - Output feature decoders
 │   ├── encoders           - Input feature encoders
+│   ├── explain            - Utilities for explaining model predictions
 │   ├── features           - Implementations of feature types
 │   ├── hyperopt
 │   ├── models             - Implementations of ECD, trainer, predictor.
 │   ├── modules            - Torch modules including layers, metrics, and losses
-│   ├── utils
+│   ├── profiling          - Dataset profiles
+│   ├── schema             - The complete schema of the ludwig config.yaml
+│   ├── trainers
+│   ├── utils              - Various internal utilities used by ludwig python modules
 │   ├── api.py             - Entry point for python API. Declares LudwigModel.
+│   ├── api_annotations.py - Provides @PublicAPI, @DevelopAPI annotation decorators
 │   └── cli.py             - ludwig command-line tool
 └── tests
     ├── integration_tests  - End-to-end tests of Ludwig workflows
@@ -2299,7 +2305,7 @@ Feature mixins contain data preprocessing functions to obtain feature metadata (
 dataset-wide operations to collect things like min, max, average, vocabulary, etc.) and to transform raw data into
 tensors using the previously calculated metadata (<code>add_feature_data</code>, which usually work on a dataset row basis).</p>
 <p>Output features also contain datatype-specific logic to compute data postprocessing, to transform model predictions back
-into data space, and output metrics such as loss, accuracy, etc...</p>
+into data space, and output metrics such as loss or accuracy.</p>
 <h3 id="model-architectures">Model Architectures<a class="headerlink" href="#model-architectures" title="Permanent link">&para;</a></h3>
 <p>Encoders and decoders are modularized as well (they are under <code>ludwig/encoders/</code> and <code>ludwig/decoders/</code> respectively) so
 that they can be used by multiple features. For example sequence encoders are shared by text, sequence, and timeseries
@@ -2307,7 +2313,7 @@ features.</p>
 <p>Various model architecture components which can be reused are also split into dedicated modules (i.e. convolutional
 modules, fully connected layers, attention, etc...) which are available in <code>ludwig/modules/</code>.</p>
 <h3 id="training-and-inference">Training and Inference<a class="headerlink" href="#training-and-inference" title="Permanent link">&para;</a></h3>
-<p>The training logic resides in <code>ludwig/models/trainer.py</code> which initializes a training session, feeds the data, and
+<p>The training logic resides in <code>ludwig/trainers/trainer.py</code> which initializes a training session, feeds the data, and
 executes the training loop. Prediction logic including batch prediction and evaluation resides in
 <code>ludwig/models/predictor.py</code>.</p>
 <h3 id="ludwig-cli">Ludwig CLI<a class="headerlink" href="#ludwig-cli" title="Permanent link">&para;</a></h3>
@@ -2321,7 +2327,7 @@ to provide end-to-end test coverage of all workflows provided by Ludwig.</p>
 tree. For more details on testing, see <a href="../style_guidelines_and_tests">Style Guidelines and Tests</a>.</p>
 <h3 id="misc">Misc<a class="headerlink" href="#misc" title="Permanent link">&para;</a></h3>
 <p>Hyperparameter optimization logic is implemented in the scripts in the <code>ludwig/hyperopt/</code> package.</p>
-<p>The <code>ludwig/utils/</code> package contains various utilities used by all other packages.</p>
+<p>The <code>ludwig/utils/</code> package contains various internal utilities used by ludwig python modules.</p>
 <p>Finally the <code>ludwig/contrib/</code> packages contains user contributed code that integrates with external libraries.</p>
 
               

@@ -83,7 +83,7 @@ mnist.export(".")
 train_stats, _, _ = model.train(training_set=training_set, test_set=test_set, model_name="mnist_model")
 ```
 
-## Standard Dataset Splits
+## Dataset Splits
 
 All datasets in the dataset zoo are provided with a default train/validation/test split. When loading with
 `split=False`, the default split will be returned (and is guaranteed to be the same every time). With `split=True`,
@@ -95,9 +95,9 @@ Ludwig will randomly re-split the dataset.
 
 Splits:
 
-- **train**: The training set.  Required, must have labels.
-- **validation**: A set of data to evaluate out-of-sample while training. May be omitted in some cases.
-- **test**: A set of data held-out from training, used to test performance after training. May or may not be labeled.
+- **train**: Data to train on. Required, must have labels.
+- **validation**: Subset of dataset to evaluate while training. Optional, must have labels.
+- **test**: Held out from model development, used for later testing. Optional, may not be labeled.
 
 ## Zoo Datasets
 

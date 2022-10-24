@@ -4,18 +4,24 @@
 ├── ludwig                 - Ludwig library source code
 │   ├── automl             - Configurations, defaults, and utilities for AutoML
 │   ├── backend            - Execution backends (local, horovod, ray)
-│   ├── combiners
+│   ├── benchmarking       - Performance benchmarks for training and hyperopt
+│   ├── combiners          - Combiners used in ECD models
 │   ├── contribs           - 3rd-party integrations (MLFlow, WandB, Comet)
 │   ├── data               - Data loading, pre/postprocessing, sampling
-│   ├── datasets           - Datasets provided by the ludwig.datasets API
+│   ├── datasets           - Ludwig Dataset Zoo: API to download pre-configured datasets.
 │   ├── decoders           - Output feature decoders
 │   ├── encoders           - Input feature encoders
+│   ├── explain            - Utilities for explaining model predictions
 │   ├── features           - Implementations of feature types
 │   ├── hyperopt
 │   ├── models             - Implementations of ECD, trainer, predictor.
 │   ├── modules            - Torch modules including layers, metrics, and losses
-│   ├── utils
+│   ├── profiling          - Dataset profiles
+│   ├── schema             - The complete schema of the ludwig config.yaml
+│   ├── trainers
+│   ├── utils              - Various internal utilities used by ludwig python modules
 │   ├── api.py             - Entry point for python API. Declares LudwigModel.
+│   ├── api_annotations.py - Provides @PublicAPI, @DevelopAPI annotation decorators
 │   └── cli.py             - ludwig command-line tool
 └── tests
     ├── integration_tests  - End-to-end tests of Ludwig workflows
@@ -40,7 +46,7 @@ dataset-wide operations to collect things like min, max, average, vocabulary, et
 tensors using the previously calculated metadata (`add_feature_data`, which usually work on a dataset row basis).
 
 Output features also contain datatype-specific logic to compute data postprocessing, to transform model predictions back
-into data space, and output metrics such as loss, accuracy, etc...
+into data space, and output metrics such as loss or accuracy.
 
 ## Model Architectures
 
@@ -53,7 +59,7 @@ modules, fully connected layers, attention, etc...) which are available in `ludw
 
 ## Training and Inference
 
-The training logic resides in `ludwig/models/trainer.py` which initializes a training session, feeds the data, and
+The training logic resides in `ludwig/trainers/trainer.py` which initializes a training session, feeds the data, and
 executes the training loop. Prediction logic including batch prediction and evaluation resides in
 `ludwig/models/predictor.py`.
 
@@ -76,6 +82,6 @@ tree. For more details on testing, see [Style Guidelines and Tests](../style_gui
 
 Hyperparameter optimization logic is implemented in the scripts in the `ludwig/hyperopt/` package.
 
-The `ludwig/utils/` package contains various utilities used by all other packages.
+The `ludwig/utils/` package contains various internal utilities used by ludwig python modules.
 
 Finally the `ludwig/contrib/` packages contains user contributed code that integrates with external libraries.

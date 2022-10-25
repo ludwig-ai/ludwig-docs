@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
 
       - name: Setup Python
         uses: actions/setup-python@v1
@@ -44,13 +44,17 @@ jobs:
       - name: Generate API Docs
         run: python code_doc_autogen.py
 
-      - name: Create PR if there are diffs
-        if: git status --porcelain
+      - name: Commit changes
+        # if: git status --porcelain
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git commit -m "update auto-generated docs"
-          git push
+          git commit -m "Update auto-generated docs."
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
 
           # run: |
           #   if [[ `git status --porcelain` ]]; then

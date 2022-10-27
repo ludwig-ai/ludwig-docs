@@ -53,6 +53,6 @@ jobs:
           title: "[auto] Regenerate Ludwig API docs"
           body: This is an auto-generated PR that updates Ludwig API docs.
           labels: auto
-          reviewers: justinxzhao,arnavgrg,dantreiman
+          reviewers: ludwig-maintainers
           branch: ${{ steps.vars.outputs.branch-name }}
           base: ${{ github.head_ref }}

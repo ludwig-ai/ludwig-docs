@@ -53,16 +53,16 @@ jobs:
           # git push
           git push --set-upstream origin auto-update-docs
 
-      # - name: Create Pull Request
-      #   uses: peter-evans/create-pull-request@v4
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
-      #     commit-message: "[auto] Regenerate Ludwig API docs"
-      #     title: "[auto] Regenerate Ludwig API docs"
-      #     body: This is an auto-generated PR that updates Ludwig API docs.
-      #     labels: auto
-      #     reviewers: justinxzhao,arnavgrg,dantreiman
-      #     base: ${{ github.head_ref }}
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        env:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "[auto] Regenerate Ludwig API docs"
+          title: "[auto] Regenerate Ludwig API docs"
+          body: This is an auto-generated PR that updates Ludwig API docs.
+          labels: auto
+          reviewers: justinxzhao,arnavgrg,dantreiman
+          base: ${{ github.head_ref }}
 
       # run: |
       #   if [[ `git status --porcelain` ]]; then

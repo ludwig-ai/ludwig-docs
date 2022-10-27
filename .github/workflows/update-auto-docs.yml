@@ -21,7 +21,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
         with:
-          ref: auto-generate-docs-{date}
+          ref: origin/auto-generate-docs
 
       - name: Setup Python
         uses: actions/setup-python@v1

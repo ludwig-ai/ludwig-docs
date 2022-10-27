@@ -12,16 +12,9 @@ jobs:
     name: update_auto_docs
     runs-on: ubuntu-latest
 
-    # strategy:
-    #   fail-fast: false
-    #   matrix:
-    #     release-branch: [master]
-
     steps:
       - name: checkout
         uses: actions/checkout@v3
-        with:
-          ref: origin/auto-generate-docs
 
       - name: Setup Python
         uses: actions/setup-python@v1
@@ -51,8 +44,9 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
+          git checkout -b auto-update-docs
           git commit -am "Update auto-generated docs."
-          git push
+          git push --set-upstream origin auto-update-docs
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4

@@ -44,7 +44,7 @@ jobs:
       - name: Generate API Docs
         run: python code_doc_autogen.py
 
-      - name: Commit changes
+      - name: Commit Changes
         # if: git status --porcelain
         run: |
           git config user.name github-actions
@@ -55,6 +55,12 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+          commit-message: "[auto] Regenerate Ludwig API docs"
+          title: "[auto] Regenerate Ludwig API docs"
+          body: This is an auto-generated PR that updates Ludwig API docs.
+          labels: auto
+          reviewers: justinxzhao,arnavgrg,dantreiman
+          base: ${{ github.head_ref }}
 
           # run: |
           #   if [[ `git status --porcelain` ]]; then

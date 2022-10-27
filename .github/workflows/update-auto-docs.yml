@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
+        with:
+          ref: auto-generate-docs-{date}
 
       - name: Setup Python
         uses: actions/setup-python@v1
@@ -50,6 +52,7 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git commit -am "Update auto-generated docs."
+          git push
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4

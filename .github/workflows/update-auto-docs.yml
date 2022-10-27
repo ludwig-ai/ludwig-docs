@@ -16,8 +16,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
         with:
-          # ref: ${{ github.event.pull_request.head.ref }}
-          ref: origin/auto-update-docs
+          ref: ${{ github.event.pull_request.head.ref }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Python
@@ -48,7 +47,8 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          # git checkout -b auto-update-docs
+          git checkout master
+          git checkout -b auto-update-docs
           git commit -am "Automatically regenerate docs."
           # git push
           git push --set-upstream origin auto-update-docs

@@ -1,11 +1,10 @@
+# Inspired by https://github.com/peter-evans/autopep8/issues/59
 name: Update Auto-Generated Docs
 
 on:
-  # schedule:
-  #   # At the end of every day.
-  #   - cron: 0 0 * * *
-  pull_request:
-    types: [opened, synchronize, reopened]
+  schedule:
+    # At the end of every day.
+    - cron: 0 0 * * *
 
 jobs:
   update_auto_docs:
@@ -41,11 +40,12 @@ jobs:
       - name: Generate API Docs
         run: python code_doc_autogen.py
 
-      - name: Set autopep8 branch name
+      - name: Set autodocgen-patches branch name
         id: vars
         run: echo ::set-output name=branch-name::"autodocgen-patches/$GITHUB_HEAD_REF"
 
       - name: Create Pull Request
+        if: git status --porcelain
         uses: peter-evans/create-pull-request@v4
         with:
           commit-message: "[auto] Regenerate Ludwig API docs"

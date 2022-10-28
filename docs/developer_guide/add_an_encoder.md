@@ -15,6 +15,7 @@ To create a new encoder:
 2. Create all layers and state in the `__init__` method, after calling `super().__init__()`.
 3. Implement your encoder's forward pass in `def forward(self, inputs, mask=None):`.
 4. Define `@property input_shape` and `@property output_shape`.
+5. Define a schema class.
 
 Note: `Encoder` inherits from `LudwigModule`, which is itself a [torch.nn.Module](https://pytorch.org/docs/stable/generated/torch.nn.Module.html),
 so all the usual concerns of developing Torch modules apply.
@@ -113,4 +114,67 @@ list of supported input feature types:
 ```python
 @register_encoder("rnn", [AUDIO, SEQUENCE, TEXT, TIMESERIES])
 class StackedRNN(Encoder):
+```
+
+# 4. Define a schema class
+
+In order to ensure that user config validation for your custom defined encoder functions as desired, we need to define a
+schema class to go along with the newly defined encoder. To do this, we use a marshmallow_dataclass decorator on a class
+definition that contains all the inputs to your custom encoder as attributes. For each attribute, we use utility 
+functions to validate that input from the `ludwig.schema.utils` directory. Lastly, we need to put a reference to this 
+schema class on the custom encoder class. For example: 
+
+```python
+from marshmallow_dataclass import dataclass
+
+from ludwig.constants import SEQUENCE, TEXT
+from ludwig.schema.encoders.base import BaseEncoderConfig
+from ludwig.schema.encoders.utils import register_encoder_config
+import ludwig.schema.utils as schema_utils
+
+@register_encoder_config("stacked_rnn", [SEQUENCE, TEXT])
+@dataclass
+class StackedRNNConfig(BaseEncoderConfig):
+        type: str = schema_utils.StringOptions(options=["stacked_rnn"], default="stacked_rnn")
+        should_embed: bool = schema_utils.Boolean(default=True, description="")
+        vocab: list = schema_utils.List(list_type=str, default=None, description="")
+        representation: str = schema_utils.StringOptions(options=["sparse", "dense"], default="dense", description="")
+        embedding_size: int = schema_utils.Integer(default=256, description="")
+        embeddings_trainable: bool = schema_utils.Boolean(default=True, description="")
+        pretrained_embeddings: str = schema_utils.String(default=None, description="")
+        embeddings_on_cpu: bool = schema_utils.Boolean(default=False, description="")
+        num_layers: int = schema_utils.Integer(default=1, description="")
+        max_sequence_length: int = schema_utils.Integer(default=None, description="")
+        state_size: int = schema_utils.Integer(default=256, description="")
+        cell_type: str = schema_utils.StringOptions(
+            options=["rnn", "lstm", "lstm_block", "ln", "lstm_cudnn", "gru", "gru_block", "gru_cudnn"], 
+            default="rnn", description=""
+        )
+        bidirectional: bool = schema_utils.Boolean(default=False, description="")
+        activation: str = schema_utils.ActivationOptions(default="tanh", description="")
+        recurrent_activation: str = schema_utils.activations(default="sigmoid", description="")
+        unit_forget_bias: bool = schema_utils.Boolean(default=True, description="")
+        recurrent_initializer: str = schema_utils.InitializerOptions(default="orthogonal", description="")
+        dropout: float = schema_utils.FloatRange(default=0.0, min=0, max=1, description="")
+        recurrent_dropout: float = schema_utils.FloatRange(default=0.0, min=0, max=1, description="")
+        fc_layers: list = schema_utils.DictList(default=None, description="")
+        num_fc_layers: int = schema_utils.NonNegativeInteger(default=0, description="")
+        output_size: int = schema_utils.Integer(default=256, description="")
+        use_bias: bool = schema_utils.Boolean(default=True, description="")
+        weights_initialize: str = schema_utils.InitializerOptions(default="xavier_uniform", description="")
+        bias_initializer: str = schema_utils.InitializerOptions(default="zeros", description="")
+        norm: str = schema_utils.StringOptions(options=["batch", "layer"], default=None, description="")
+        norm_params: dict = schema_utils.Dict(default=None, description="")
+        fc_activation: str = schema_utils.ActivationOptions(default="relu", description="")
+        fc_dropout: float = schema_utils.FloatRange(default=0.0, min=0, max=1, description="")
+        reduce_output: str = schema_utils.ReductionOptions(default="last", description="")
+```
+
+And lastly you should add a reference to the schema class on the custom encoder:
+
+```python
+    @staticmethod
+    def get_schema_cls():
+        return StackedRNNConfig
+
 ```

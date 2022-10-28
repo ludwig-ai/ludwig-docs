@@ -80,3 +80,33 @@ def forward(self, logits: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
     loss = tempered_softmax_cross_entropy_loss(logits, labels, self.t1, self.t2)
     return torch.mean(loss)
 ```
+
+## Define a loss schema class
+
+In order to validate user input against the expected inputs and input types for the new loss you have defined, we need 
+to create a schema class that will autogenerate the json schema required for validation. This class should be defined 
+in `ludiwg.schema.features.loss.loss.py`. This example adds a schema class for the `MAELoss` class defined above:
+
+```python
+@dataclass
+class MAELossConfig(BaseLossConfig):
+
+    type: str = schema_utils.StringOptions(
+        options=[MEAN_ABSOLUTE_ERROR],
+        description="Type of loss.",
+    )
+
+    weight: float = schema_utils.NonNegativeFloat(
+        default=1.0,
+        description="Weight of the loss.",
+    )
+```
+
+Lastly, we need to add a reference to this schema class on the loss class. For example, on the `MAELoss` class defined 
+above, we would add:
+
+```python
+    @staticmethod
+    def get_schema_cls():
+        return MAELossConfig
+```

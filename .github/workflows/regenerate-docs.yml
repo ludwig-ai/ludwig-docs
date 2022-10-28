@@ -2,9 +2,11 @@
 name: Update Auto-Generated Docs
 
 on:
-  schedule:
-    # At the end of every day.
-    - cron: 0 0 * * *
+  pull_request:
+    types: [opened, synchronize, reopened]
+  # schedule:
+  #   # At the end of every day.
+  #   - cron: 0 0 * * *
 
 jobs:
   update_auto_docs:
@@ -44,9 +46,13 @@ jobs:
         id: vars
         run: echo ::set-output name=branch-name::"autodocgen-patches/$GITHUB_HEAD_REF"
 
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v34
+
       - name: Create Pull Request
-        if: git status --porcelain
         uses: peter-evans/create-pull-request@v4
+        if: steps.changed-files.outputs.any_changed == 'true'
         with:
           commit-message: "[auto] Regenerate Ludwig API docs"
           title: "[auto] Regenerate Ludwig API docs"

@@ -189,10 +189,11 @@ output_type_registry = {
 In order to validate user input against the expected inputs and input types for the new feature type you have defined,
 we need to create schema classes that will autogenerate the json schema required for validation.
 
-If the new feature type will just function as an input feature, you only need to define an input feature schema class. 
+If the new feature type will just function as an input feature, you only need to define an input feature schema class.
 Here is an example of how the category feature schema classes are defined:
 
 ### Input Feature Type
+
 ```python
 from marshmallow_dataclass import dataclass
 
@@ -227,10 +228,11 @@ class CategoryInputFeatureConfig(BaseInputFeatureConfig):
     )
 ```
 
-If the new feature type can also be an output feature type, you will need to define an output feature schema class as 
+If the new feature type can also be an output feature type, you will need to define an output feature schema class as
 well:
 
 ### Output Feature Type
+
 ```python
 from marshmallow_dataclass import dataclass
 

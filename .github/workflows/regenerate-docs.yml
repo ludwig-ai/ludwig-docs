@@ -2,11 +2,12 @@
 name: Update Auto-Generated Docs
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
-  # schedule:
-  #   # At the end of every day.
-  #   - cron: 0 0 * * *
+  # Useful for testing.
+  # pull_request:
+  #   types: [opened, synchronize, reopened]
+  schedule:
+    # At the end of every day.
+    - cron: 0 0 * * *
 
 jobs:
   update_auto_docs:

@@ -975,7 +975,7 @@ All huggingface-based text encoders are configured with the following parameters
 
 !!! note
     Any hyperparameter of any huggingface encoder can be overridden. Check the
-    [huggingface documentation](https://huggingface.co/transformers/model_doc/) for which parameters are used for which models.
+    [huggingface documentation](https://huggingface.co/docs/transformers/model_doc/bert) for which parameters are used for which models.
 
     ```yaml
     name: text_column_name
@@ -996,7 +996,7 @@ somewhat faster training time.
 The `auto_transformer` encoder automatically instantiates the model architecture for the specified
 `pretrained_model_name_or_path`. Unlike the other HF encoders, `auto_transformer` does not provide a default value for
 `pretrained_model_name_or_path`, this is its only mandatory parameter. See the Hugging Face
-[AutoModels documentation](https://huggingface.co/transformers/v3.0.2/model_doc/auto.html) for more details.
+[AutoModels documentation](https://huggingface.co/docs/transformers/model_doc/auto) for more details.
 
 #### BERT Encoder
 

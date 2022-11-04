@@ -976,7 +976,7 @@ All huggingface-based text encoders are configured with the following parameters
 
 !!! note
     Any hyperparameter of any huggingface encoder can be overridden. Check the
-    [huggingface documentation](https://huggingface.co/docs/transformers/model_doc/bert) for which parameters are used for which models.
+    [huggingface documentation](https://huggingface.co/docs/transformers/index#supported-models) for which parameters are used for which models.
 
     ```yaml
     name: text_column_name

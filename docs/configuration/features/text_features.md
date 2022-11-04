@@ -76,7 +76,7 @@ The available encoder parameters:
 
 - `type` (default `parallel_cnn`): encoder to use for the input text feature. The available encoders include encoders
 used for [Sequence Features](../sequence_features#sequence-input-features-and-encoders) as well as pre-trained text
-encoders from the 
+encoders from the
 face transformers library: `albert`, `auto_transformer`, `bert`, `camembert`, `ctrl`,
 `distilbert`, `electra`, `flaubert`, `gpt`, `gpt2`, `longformer`, `roberta`, `t5`, `mt5`, `transformer_xl`, `xlm`,
 `xlmroberta`, `xlnet`.

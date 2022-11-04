@@ -2732,7 +2732,8 @@ a feature of the same type and with the same encoder parameters.</li>
 <ul>
 <li><code>type</code> (default <code>parallel_cnn</code>): encoder to use for the input text feature. The available encoders include encoders
 used for <a href="../sequence_features#sequence-input-features-and-encoders">Sequence Features</a> as well as pre-trained text
-encoders from the huggingface transformers library: <code>albert</code>, <code>auto_transformer</code>, <code>bert</code>, <code>camembert</code>, <code>ctrl</code>,
+encoders from the
+face transformers library: <code>albert</code>, <code>auto_transformer</code>, <code>bert</code>, <code>camembert</code>, <code>ctrl</code>,
 <code>distilbert</code>, <code>electra</code>, <code>flaubert</code>, <code>gpt</code>, <code>gpt2</code>, <code>longformer</code>, <code>roberta</code>, <code>t5</code>, <code>mt5</code>, <code>transformer_xl</code>, <code>xlm</code>,
 <code>xlmroberta</code>, <code>xlnet</code>.</li>
 </ul>
@@ -3574,14 +3575,14 @@ reduce and returns the full tensor).</li>
 <h4 id="huggingface-encoders">Huggingface encoders<a class="headerlink" href="#huggingface-encoders" title="Permanent link">&para;</a></h4>
 <p>All huggingface-based text encoders are configured with the following parameters:</p>
 <ul>
-<li><code>pretrained_model_name_or_path</code> (default is the huggingface default model path for the specified encoder, i.e. <code>bert-base-uncased</code> for BERT). This can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/docs/transformers/">Hugging Face documentation</a>.</li>
+<li><code>pretrained_model_name_or_path</code> (default is the huggingface default model path for the specified encoder, i.e. <code>bert-base-uncased</code> for BERT). This can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the <a href="https://huggingface.co/docs/transformers/index#supported-models">Hugging Face documentation</a>.</li>
 <li><code>reduce_output</code> (default <code>cls_pooled</code>): defines how to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Available values are: <code>cls_pooled</code>, <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension) and  <code>null</code> (which does not reduce and returns the full tensor).</li>
 <li><code>trainable</code> (default <code>false</code>): if <code>true</code> the weights of the encoder will be trained, otherwise they will be kept frozen.</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Any hyperparameter of any huggingface encoder can be overridden. Check the
-<a href="https://huggingface.co/transformers/model_doc/">huggingface documentation</a> for which parameters are used for which models.</p>
+<a href="https://huggingface.co/docs/transformers/index#supported-models">huggingface documentation</a> for which parameters are used for which models.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text_column_name</span><span class="w"></span>
 <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w"></span>
 <span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bert</span><span class="w"></span>
@@ -3597,7 +3598,7 @@ somewhat faster training time.</p>
 <p>The <code>auto_transformer</code> encoder automatically instantiates the model architecture for the specified
 <code>pretrained_model_name_or_path</code>. Unlike the other HF encoders, <code>auto_transformer</code> does not provide a default value for
 <code>pretrained_model_name_or_path</code>, this is its only mandatory parameter. See the Hugging Face
-<a href="https://huggingface.co/transformers/v3.0.2/model_doc/auto.html">AutoModels documentation</a> for more details.</p>
+<a href="https://huggingface.co/docs/transformers/model_doc/auto">AutoModels documentation</a> for more details.</p>
 <h5 id="bert-encoder">BERT Encoder<a class="headerlink" href="#bert-encoder" title="Permanent link">&para;</a></h5>
 <p>The <code>bert</code> encoder loads a pretrained <a href="https://arxiv.org/abs/1810.04805">BERT</a> (default <code>bert-base-uncased</code>) model using
 the Hugging Face transformers package.</p>

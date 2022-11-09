@@ -1942,6 +1942,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#4-define-a-schema-class" class="md-nav__link">
+    4. Define a schema class
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2200,6 +2207,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#4-define-a-schema-class" class="md-nav__link">
+    4. Define a schema class
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2235,6 +2249,7 @@ generic supported type. If a decoder is generic with respect to output type, add
 <li>Define a new decoder class. Inherit from <code>ludwig.decoders.base.Decoder</code> or one of its subclasses.</li>
 <li>Create all layers and state in the <code>__init__</code> method, after calling <code>super().__init__()</code>.</li>
 <li>Implement your decoder's forward pass in <code>def forward(self, combiner_outputs, **kwargs):</code>.</li>
+<li>Define a schema class.</li>
 </ol>
 <p>Note: <code>Decoder</code> inherits from <code>LudwigModule</code>, which is itself a <a href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html">torch.nn.Module</a>,
 so all the usual concerns of developing Torch modules apply.</p>
@@ -2287,6 +2302,36 @@ add the <code>@register_decoder</code> decorator on the line above its class def
 list of supported output feature types:</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@register_decoder</span><span class="p">(</span><span class="s2">&quot;generator&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">SEQUENCE</span><span class="p">,</span> <span class="n">TEXT</span><span class="p">])</span>
 <span class="k">class</span> <span class="nc">SequenceGeneratorDecoder</span><span class="p">(</span><span class="n">Decoder</span><span class="p">):</span>
+</code></pre></div>
+<h2 id="4-define-a-schema-class">4. Define a schema class<a class="headerlink" href="#4-define-a-schema-class" title="Permanent link">&para;</a></h2>
+<p>In order to ensure that user config validation for your custom defined decoder functions as desired, we need to define a
+schema class to go along with the newly defined decoder. To do this, we use a marshmallow_dataclass decorator on a class
+definition that contains all the inputs to your custom decoder as attributes. For each attribute, we use utility
+functions to validate that input from the <code>ludwig.schema.utils</code> directory. Lastly, we need to put a reference to this
+schema class on the custom decoder class. For example:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">marshmallow_dataclass</span> <span class="kn">import</span> <span class="n">dataclass</span>
+
+<span class="kn">from</span> <span class="nn">ludwig.constants</span> <span class="kn">import</span> <span class="n">SEQUENCE</span><span class="p">,</span> <span class="n">TEXT</span>
+<span class="kn">from</span> <span class="nn">ludwig.schema.decoders.base</span> <span class="kn">import</span> <span class="n">BaseDecoderConfig</span>
+<span class="kn">from</span> <span class="nn">ludwig.schema.decoders.utils</span> <span class="kn">import</span> <span class="n">register_decoder_config</span>
+<span class="kn">import</span> <span class="nn">ludwig.schema.utils</span> <span class="k">as</span> <span class="nn">schema_utils</span>
+
+<span class="nd">@register_decoder_config</span><span class="p">(</span><span class="s2">&quot;generator&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">SEQUENCE</span><span class="p">,</span> <span class="n">TEXT</span><span class="p">])</span>
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">SequenceGeneratorDecoderConfig</span><span class="p">(</span><span class="n">BaseDecoderConfig</span><span class="p">):</span>
+
+    <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">StringOptions</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;generator&quot;</span><span class="p">],</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;generator&quot;</span><span class="p">)</span>
+    <span class="n">vocab_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">max_sequence_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">cell_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;gru&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">input_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">reduce_input</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">ReductionOptions</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;sum&quot;</span><span class="p">)</span>
+    <span class="n">num_layers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>And lastly you should add a reference to the schema class on the custom decoder:</p>
+<div class="highlight"><pre><span></span><code>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_schema_cls</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">SequenceGeneratorDecoderConfig</span>
 </code></pre></div>
 
               

@@ -2006,6 +2006,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#define-a-loss-schema-class" class="md-nav__link">
+    Define a loss schema class
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2249,6 +2256,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#define-a-loss-schema-class" class="md-nav__link">
+    Define a loss schema class
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2331,6 +2345,29 @@ after ensuring its inputs are the correct type, and return its output averaged o
     <span class="n">labels</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">long</span><span class="p">()</span>
     <span class="n">loss</span> <span class="o">=</span> <span class="n">tempered_softmax_cross_entropy_loss</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">t1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">t2</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="define-a-loss-schema-class">Define a loss schema class<a class="headerlink" href="#define-a-loss-schema-class" title="Permanent link">&para;</a></h3>
+<p>In order to validate user input against the expected inputs and input types for the new loss you have defined, we need
+to create a schema class that will autogenerate the json schema required for validation. This class should be defined
+in <code>ludiwg.schema.features.loss.loss.py</code>. This example adds a schema class for the <code>MAELoss</code> class defined above:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">MAELossConfig</span><span class="p">(</span><span class="n">BaseLossConfig</span><span class="p">):</span>
+
+    <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">StringOptions</span><span class="p">(</span>
+        <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="n">MEAN_ABSOLUTE_ERROR</span><span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Type of loss.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">weight</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">NonNegativeFloat</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Weight of the loss.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre></div>
+<p>Lastly, we need to add a reference to this schema class on the loss class. For example, on the <code>MAELoss</code> class defined
+above, we would add:</p>
+<div class="highlight"><pre><span></span><code>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_schema_cls</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">MAELossConfig</span>
 </code></pre></div>
 
               

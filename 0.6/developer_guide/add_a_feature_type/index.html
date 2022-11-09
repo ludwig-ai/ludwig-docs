@@ -2051,6 +2051,33 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#5-add-schema-class-definitions-for-new-feature-types" class="md-nav__link">
+    5. Add schema class definitions for new feature types
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Add schema class definitions for new feature types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#input-feature-type" class="md-nav__link">
+    Input Feature Type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-feature-type" class="md-nav__link">
+    Output Feature Type
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2390,6 +2417,33 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#5-add-schema-class-definitions-for-new-feature-types" class="md-nav__link">
+    5. Add schema class definitions for new feature types
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Add schema class definitions for new feature types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#input-feature-type" class="md-nav__link">
+    Input Feature Type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-feature-type" class="md-nav__link">
+    Output Feature Type
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2543,6 +2597,125 @@ classes, and add them to the appropriate registry dictionaries:</p>
     <span class="n">CATEGORY</span><span class="p">:</span> <span class="n">CategoryOutputFeature</span><span class="p">,</span>
 <span class="o">...</span>
 <span class="p">}</span>
+</code></pre></div>
+<h2 id="5-add-schema-class-definitions-for-new-feature-types">5. Add schema class definitions for new feature types<a class="headerlink" href="#5-add-schema-class-definitions-for-new-feature-types" title="Permanent link">&para;</a></h2>
+<p>In order to validate user input against the expected inputs and input types for the new feature type you have defined,
+we need to create schema classes that will autogenerate the json schema required for validation.</p>
+<p>If the new feature type will just function as an input feature, you only need to define an input feature schema class.
+Here is an example of how the category feature schema classes are defined:</p>
+<h4 id="input-feature-type">Input Feature Type<a class="headerlink" href="#input-feature-type" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">marshmallow_dataclass</span> <span class="kn">import</span> <span class="n">dataclass</span>
+
+<span class="kn">from</span> <span class="nn">ludwig.constants</span> <span class="kn">import</span> <span class="n">CATEGORY</span>
+<span class="kn">from</span> <span class="nn">ludwig.schema</span> <span class="kn">import</span> <span class="n">utils</span> <span class="k">as</span> <span class="n">schema_utils</span>
+<span class="kn">from</span> <span class="nn">ludwig.schema.encoders.base</span> <span class="kn">import</span> <span class="n">BaseEncoderConfig</span>
+<span class="kn">from</span> <span class="nn">ludwig.schema.encoders.utils</span> <span class="kn">import</span> <span class="n">EncoderDataclassField</span>
+<span class="kn">from</span> <span class="nn">ludwig.schema.features.base</span> <span class="kn">import</span> <span class="n">BaseInputFeatureConfig</span>
+<span class="kn">from</span> <span class="nn">ludwig.schema.features.preprocessing.base</span> <span class="kn">import</span> <span class="n">BasePreprocessingConfig</span>
+<span class="kn">from</span> <span class="nn">ludwig.schema.features.preprocessing.utils</span> <span class="kn">import</span> <span class="n">PreprocessingDataclassField</span>
+<span class="kn">from</span> <span class="nn">ludwig.schema.features.utils</span> <span class="kn">import</span> <span class="n">input_config_registry</span><span class="p">,</span> <span class="n">output_config_registry</span>
+
+
+<span class="nd">@input_config_registry</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">CATEGORY</span><span class="p">)</span>
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">CategoryInputFeatureConfig</span><span class="p">(</span><span class="n">BaseInputFeatureConfig</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;CategoryInputFeatureConfig is a dataclass that configures the parameters used for a category input</span>
+<span class="sd">    feature.&quot;&quot;&quot;</span>
+
+    <span class="n">preprocessing</span><span class="p">:</span> <span class="n">BasePreprocessingConfig</span> <span class="o">=</span> <span class="n">PreprocessingDataclassField</span><span class="p">(</span><span class="n">feature_type</span><span class="o">=</span><span class="n">CATEGORY</span><span class="p">)</span>
+
+    <span class="n">encoder</span><span class="p">:</span> <span class="n">BaseEncoderConfig</span> <span class="o">=</span> <span class="n">EncoderDataclassField</span><span class="p">(</span>
+        <span class="n">feature_type</span><span class="o">=</span><span class="n">CATEGORY</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;dense&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">tied</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">String</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Name of input feature to tie the weights of the encoder with.  It needs to be the name of a &quot;</span>
+        <span class="s2">&quot;feature of the same type and with the same encoder parameters.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre></div>
+<p>If the new feature type can also be an output feature type, you will need to define an output feature schema class as
+well:</p>
+<h4 id="output-feature-type">Output Feature Type<a class="headerlink" href="#output-feature-type" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">marshmallow_dataclass</span> <span class="kn">import</span> <span class="n">dataclass</span>
+
+<span class="kn">from</span> <span class="nn">ludwig.schema</span> <span class="kn">import</span> <span class="n">utils</span> <span class="k">as</span> <span class="n">schema_utils</span>
+<span class="kn">from</span> <span class="nn">ludwig.constants</span> <span class="kn">import</span> <span class="n">CATEGORY</span><span class="p">,</span> <span class="n">SOFTMAX_CROSS_ENTROPY</span>
+<span class="kn">from</span> <span class="nn">ludwig.schema.decoders.base</span> <span class="kn">import</span> <span class="n">BaseDecoderConfig</span>
+<span class="kn">from</span> <span class="nn">ludwig.schema.decoders.utils</span> <span class="kn">import</span> <span class="n">DecoderDataclassField</span>
+<span class="kn">from</span> <span class="nn">ludwig.schema.features.base</span> <span class="kn">import</span> <span class="n">BaseOutputFeatureConfig</span>
+<span class="kn">from</span> <span class="nn">ludwig.schema.features.loss.loss</span> <span class="kn">import</span> <span class="n">BaseLossConfig</span>
+<span class="kn">from</span> <span class="nn">ludwig.schema.features.loss.utils</span> <span class="kn">import</span> <span class="n">LossDataclassField</span>
+<span class="kn">from</span> <span class="nn">ludwig.schema.features.preprocessing.base</span> <span class="kn">import</span> <span class="n">BasePreprocessingConfig</span>
+<span class="kn">from</span> <span class="nn">ludwig.schema.features.preprocessing.utils</span> <span class="kn">import</span> <span class="n">PreprocessingDataclassField</span>
+<span class="kn">from</span> <span class="nn">ludwig.schema.features.utils</span> <span class="kn">import</span> <span class="n">output_config_registry</span>
+
+<span class="nd">@output_config_registry</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">CATEGORY</span><span class="p">)</span>
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">CategoryOutputFeatureConfig</span><span class="p">(</span><span class="n">BaseOutputFeatureConfig</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;CategoryOutputFeatureConfig is a dataclass that configures the parameters used for a category output</span>
+<span class="sd">    feature.&quot;&quot;&quot;</span>
+
+    <span class="n">preprocessing</span><span class="p">:</span> <span class="n">BasePreprocessingConfig</span> <span class="o">=</span> <span class="n">PreprocessingDataclassField</span><span class="p">(</span><span class="n">feature_type</span><span class="o">=</span><span class="s2">&quot;category_output&quot;</span><span class="p">)</span>
+
+    <span class="n">loss</span><span class="p">:</span> <span class="n">BaseLossConfig</span> <span class="o">=</span> <span class="n">LossDataclassField</span><span class="p">(</span>
+        <span class="n">feature_type</span><span class="o">=</span><span class="n">CATEGORY</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">SOFTMAX_CROSS_ENTROPY</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">decoder</span><span class="p">:</span> <span class="n">BaseDecoderConfig</span> <span class="o">=</span> <span class="n">DecoderDataclassField</span><span class="p">(</span>
+        <span class="n">feature_type</span><span class="o">=</span><span class="n">CATEGORY</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;classifier&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">reduce_input</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">ReductionOptions</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;sum&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;How to reduce an input that is not a vector, but a matrix or a higher order tensor, on the first &quot;</span>
+        <span class="s2">&quot;dimension (second if you count the batch dimension)&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">dependencies</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">List</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List of input features that this feature depends on.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">reduce_dependencies</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">ReductionOptions</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;sum&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;How to reduce the dependencies of the output feature.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">top_k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">NonNegativeInteger</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Determines the parameter k, the number of categories to consider when computing the top_k &quot;</span>
+        <span class="s2">&quot;measure. It computes accuracy but considering as a match if the true category appears in the &quot;</span>
+        <span class="s2">&quot;first k predicted categories ranked by decoder&#39;s confidence.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">calibration</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Calibrate the model&#39;s output probabilities using temperature scaling.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre></div>
+<p>Lastly, you need to add a reference to the schema class definitions on your input feature type definitions. So for
+instance, on the <code>CategoryInputFeature</code> class, we need to add a <code>get_schema_cls</code> method:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">CategoryInputFeature</span><span class="p">(</span><span class="n">CategoryFeatureMixin</span><span class="p">,</span> <span class="n">InputFeature</span><span class="p">):</span>
+
+<span class="o">...</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_schema_cls</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">CategoryInputFeatureConfig</span>
+</code></pre></div>
+<p>Likewise for the output feature class:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">CategoryOutputFeature</span><span class="p">(</span><span class="n">CategoryFeatureMixin</span><span class="p">,</span> <span class="n">OutputFeature</span><span class="p">):</span>
+
+<span class="o">...</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_schema_cls</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">CategoryOutputFeatureConfig</span>
 </code></pre></div>
 
               

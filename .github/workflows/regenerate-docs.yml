@@ -53,7 +53,7 @@ jobs:
 
       - name: List all changed files
         run: |
-          echo "Files were changed: $steps.changed-files-specific.outputs.any_changed"
+          echo "Files were changed: ${{ $steps.changed-files.outputs.any_changed }}"
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "$file was changed"
           done

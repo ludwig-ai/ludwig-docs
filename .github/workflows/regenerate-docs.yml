@@ -47,16 +47,16 @@ jobs:
       #   id: vars
       #   run: echo ::set-output name=branch-name::"autodocgen-patches/$GITHUB_HEAD_REF"
 
-      - name: Get changed files
-        id: changed-files-specific
-        uses: tj-actions/changed-files@v34
+      # - name: Get changed files
+      #   id: changed-files-specific
+      #   uses: tj-actions/changed-files@v34
 
-      - name: List all changed files
-        run: |
-          echo "Files were changed: ${{ steps.changed-files-specific.outputs.any_changed }}"
-          for file in ${{ steps.changed-files-specific.outputs.all_changed_files }}; do
-            echo "$file was changed"
-          done
+      # - name: List all changed files
+      #   run: |
+      #     echo "Files were changed: ${{ steps.changed-files-specific.outputs.any_changed }}"
+      #     for file in ${{ steps.changed-files-specific.outputs.all_changed_files }}; do
+      #       echo "$file was changed"
+      #     done
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
@@ -69,3 +69,4 @@ jobs:
           reviewers: ludwig-maintainers
           # branch: ${{ steps.vars.outputs.branch-name }}
           branch: regenerate-docs
+          base: master

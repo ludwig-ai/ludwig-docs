@@ -48,19 +48,19 @@ jobs:
       #   run: echo ::set-output name=branch-name::"autodocgen-patches/$GITHUB_HEAD_REF"
 
       - name: Get changed files
-        id: changed-files
+        id: changed-files-specific
         uses: tj-actions/changed-files@v34
 
       - name: List all changed files
         run: |
-          echo "Files were changed: ${{ steps.changed-files.outputs.any_changed }}"
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+          echo "Files were changed: ${{ steps.changed-files-specific.outputs.any_changed }}"
+          for file in ${{ steps.changed-files-specific.outputs.all_changed_files }}; do
             echo "$file was changed"
           done
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
-        if: steps.changed-files.outputs.any_changed == 'true'
+        # if: steps.changed-files.outputs.any_changed == 'true'
         with:
           commit-message: "[auto] Regenerate Ludwig API docs"
           title: "[auto] Regenerate Ludwig API docs"

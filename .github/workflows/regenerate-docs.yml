@@ -3,16 +3,16 @@ name: Update Auto-Generated Docs
 
 on:
   # Useful for testing.
-  # pull_request:
-  #   types: [opened, synchronize, reopened]
-  schedule:
-    # At the end of every day.
-    - cron: 0 0 * * *
+  pull_request:
+    # types: [opened, synchronize, reopened]
+    branches: [master]
+  # schedule:
+  #   # At the end of every day.
+  #   - cron: 0 0 * * *
 
 jobs:
   update_auto_docs:
     # Check if the PR is not raised by this workflow and is not from a fork
-    if: startsWith(github.head_ref, 'autodocgen-patches') == false && github.event.pull_request.head.repo.full_name == github.repository
     name: update_auto_docs
     runs-on: ubuntu-latest
 
@@ -43,9 +43,9 @@ jobs:
       - name: Generate API Docs
         run: python code_doc_autogen.py
 
-      - name: Set autodocgen-patches branch name
-        id: vars
-        run: echo ::set-output name=branch-name::"autodocgen-patches/$GITHUB_HEAD_REF"
+      # - name: Set autodocgen-patches branch name
+      #   id: vars
+      #   run: echo ::set-output name=branch-name::"autodocgen-patches/$GITHUB_HEAD_REF"
 
       - name: Get changed files
         id: changed-files
@@ -67,5 +67,5 @@ jobs:
           body: This is an auto-generated PR that updates Ludwig API docs.
           labels: auto
           reviewers: ludwig-maintainers
-          branch: ${{ steps.vars.outputs.branch-name }}
-          base: ${{ github.head_ref }}
+          # branch: ${{ steps.vars.outputs.branch-name }}
+          branch: regenerate-docs

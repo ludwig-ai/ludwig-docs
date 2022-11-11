@@ -69,4 +69,4 @@ jobs:
           reviewers: ludwig-maintainers
           # branch: ${{ steps.vars.outputs.branch-name }}
           branch: regenerate-docs
-          base: master
+          base: regenerate-docs

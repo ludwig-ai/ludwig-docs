@@ -1,18 +1,12 @@
-# Inspired by https://github.com/peter-evans/autopep8/issues/59
 name: Update Auto-Generated Docs
 
 on:
-  # Useful for testing.
-  pull_request:
-    # types: [opened, synchronize, reopened]
-    branches: [master]
-  # schedule:
-  #   # At the end of every day.
-  #   - cron: 0 0 * * *
+  schedule:
+    # At the end of every day.
+    - cron: 0 0 * * *
 
 jobs:
   update_auto_docs:
-    # Check if the PR is not raised by this workflow and is not from a fork
     name: update_auto_docs
     runs-on: ubuntu-latest
 
@@ -43,30 +37,13 @@ jobs:
       - name: Generate API Docs
         run: python code_doc_autogen.py
 
-      # - name: Set autodocgen-patches branch name
-      #   id: vars
-      #   run: echo ::set-output name=branch-name::"autodocgen-patches/$GITHUB_HEAD_REF"
-
-      # - name: Get changed files
-      #   id: changed-files-specific
-      #   uses: tj-actions/changed-files@v34
-
-      # - name: List all changed files
-      #   run: |
-      #     echo "Files were changed: ${{ steps.changed-files-specific.outputs.any_changed }}"
-      #     for file in ${{ steps.changed-files-specific.outputs.all_changed_files }}; do
-      #       echo "$file was changed"
-      #     done
-
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
-        # if: steps.changed-files.outputs.any_changed == 'true'
         with:
           commit-message: "[auto] Regenerate Ludwig API docs"
           title: "[auto] Regenerate Ludwig API docs"
           body: This is an auto-generated PR that updates Ludwig API docs.
           labels: auto
           reviewers: ludwig-maintainers
-          # branch: ${{ steps.vars.outputs.branch-name }}
           branch: regenerate-docs
           base: master

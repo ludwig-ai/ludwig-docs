@@ -76,7 +76,8 @@ The available encoder parameters:
 
 - `type` (default `parallel_cnn`): encoder to use for the input text feature. The available encoders include encoders
 used for [Sequence Features](../sequence_features#sequence-input-features-and-encoders) as well as pre-trained text
-encoders from the huggingface transformers library: `albert`, `auto_transformer`, `bert`, `camembert`, `ctrl`,
+encoders from the
+face transformers library: `albert`, `auto_transformer`, `bert`, `camembert`, `ctrl`,
 `distilbert`, `electra`, `flaubert`, `gpt`, `gpt2`, `longformer`, `roberta`, `t5`, `mt5`, `transformer_xl`, `xlm`,
 `xlmroberta`, `xlnet`.
 
@@ -969,13 +970,13 @@ encoder:
 
 All huggingface-based text encoders are configured with the following parameters:
 
-- `pretrained_model_name_or_path` (default is the huggingface default model path for the specified encoder, i.e. `bert-base-uncased` for BERT). This can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/docs/transformers/).
+- `pretrained_model_name_or_path` (default is the huggingface default model path for the specified encoder, i.e. `bert-base-uncased` for BERT). This can be either the name of a model or a path where it was downloaded. For details on the variants available refer to the [Hugging Face documentation](https://huggingface.co/docs/transformers/index#supported-models).
 - `reduce_output` (default `cls_pooled`): defines how to reduce the output tensor along the `s` sequence length dimension if the rank of the tensor is greater than 2. Available values are: `cls_pooled`, `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension) and  `null` (which does not reduce and returns the full tensor).
 - `trainable` (default `false`): if `true` the weights of the encoder will be trained, otherwise they will be kept frozen.
 
 !!! note
     Any hyperparameter of any huggingface encoder can be overridden. Check the
-    [huggingface documentation](https://huggingface.co/transformers/model_doc/) for which parameters are used for which models.
+    [huggingface documentation](https://huggingface.co/docs/transformers/index#supported-models) for which parameters are used for which models.
 
     ```yaml
     name: text_column_name
@@ -996,7 +997,7 @@ somewhat faster training time.
 The `auto_transformer` encoder automatically instantiates the model architecture for the specified
 `pretrained_model_name_or_path`. Unlike the other HF encoders, `auto_transformer` does not provide a default value for
 `pretrained_model_name_or_path`, this is its only mandatory parameter. See the Hugging Face
-[AutoModels documentation](https://huggingface.co/transformers/v3.0.2/model_doc/auto.html) for more details.
+[AutoModels documentation](https://huggingface.co/docs/transformers/model_doc/auto) for more details.
 
 #### BERT Encoder
 

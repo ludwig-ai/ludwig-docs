@@ -26,8 +26,8 @@ __Inputs__
 of backend to use to execute preprocessing / training steps.
 - __gpus__ (Union[str, int, List[int]], default: `None`): GPUs
 to use (it uses the same syntax of CUDA_VISIBLE_DEVICES)
-- __gpu_memory_limit__ (int: default: `None`): maximum memory in MB to
-allocate per GPU device.
+- __gpu_memory_limit__ (float: default: `None`): maximum memory fraction
+[0, 1] allowed to allocate per GPU device.
 - __allow_parallel_threads__ (bool, default: `True`): allow Torch
 to use multithreading parallelism to improve performance at the
 cost of determinism.
@@ -416,8 +416,8 @@ stderr.
 of backend to use to execute preprocessing / training steps.
 - __gpus__ (Union[str, int, List[int]], default: `None`): GPUs
 to use (it uses the same syntax of CUDA_VISIBLE_DEVICES)
-- __gpu_memory_limit__ (int: default: `None`): maximum memory in MB to
-allocate per GPU device.
+- __gpu_memory_limit__ (float: default: `None`): maximum memory fraction
+[0, 1] allowed to allocate per GPU device.
 - __allow_parallel_threads__ (bool, default: `True`): allow Torch
 to use
 multithreading parallelism to improve performance at the cost of
@@ -991,8 +991,8 @@ model and the training progress files.
    splits and any other random function.
 - __gpus__ (list, default: `None`): list of GPUs that are available
     for training.
-- __gpu_memory_limit__ (int, default: `None`): maximum memory in MB to
-    allocate per GPU device.
+- __gpu_memory_limit__ (float: default: `None`): maximum memory fraction
+    [0, 1] allowed to allocate per GPU device.
 - __allow_parallel_threads__ (bool, default: `True`): allow Torch to
     use multithreading parallelism
    to improve performance at the cost of determinism.
@@ -1132,8 +1132,8 @@ will contain the training statistics, TensorBoard logs, the saved
 model and the training progress files.
 - __gpus__ (list, default: `None`): list of GPUs that are available
 for training.
-- __gpu_memory_limit__ (int, default: `None`): maximum memory in MB to
-allocate per GPU device.
+- __gpu_memory_limit__ (float: default: `None`): maximum memory fraction
+[0, 1] allowed to allocate per GPU device.
 - __allow_parallel_threads__ (bool, default: `True`): allow TensorFlow
 to use multithreading parallelism to improve performance at
 the cost of determinism.

@@ -2521,8 +2521,8 @@
 of backend to use to execute preprocessing / training steps.</li>
 <li><strong>gpus</strong> (Union[str, int, List[int]], default: <code>None</code>): GPUs
 to use (it uses the same syntax of CUDA_VISIBLE_DEVICES)</li>
-<li><strong>gpu_memory_limit</strong> (int: default: <code>None</code>): maximum memory in MB to
-allocate per GPU device.</li>
+<li><strong>gpu_memory_limit</strong> (float: default: <code>None</code>): maximum memory fraction
+[0, 1] allowed to allocate per GPU device.</li>
 <li><strong>allow_parallel_threads</strong> (bool, default: <code>True</code>): allow Torch
 to use multithreading parallelism to improve performance at the
 cost of determinism.</li>
@@ -2842,8 +2842,8 @@ stderr.</li>
 of backend to use to execute preprocessing / training steps.</li>
 <li><strong>gpus</strong> (Union[str, int, List[int]], default: <code>None</code>): GPUs
 to use (it uses the same syntax of CUDA_VISIBLE_DEVICES)</li>
-<li><strong>gpu_memory_limit</strong> (int: default: <code>None</code>): maximum memory in MB to
-allocate per GPU device.</li>
+<li><strong>gpu_memory_limit</strong> (float: default: <code>None</code>): maximum memory fraction
+[0, 1] allowed to allocate per GPU device.</li>
 <li><strong>allow_parallel_threads</strong> (bool, default: <code>True</code>): allow Torch
 to use
 multithreading parallelism to improve performance at the cost of
@@ -3308,8 +3308,8 @@ model and the training progress files.</li>
    splits and any other random function.</li>
 <li><strong>gpus</strong> (list, default: <code>None</code>): list of GPUs that are available
     for training.</li>
-<li><strong>gpu_memory_limit</strong> (int, default: <code>None</code>): maximum memory in MB to
-    allocate per GPU device.</li>
+<li><strong>gpu_memory_limit</strong> (float: default: <code>None</code>): maximum memory fraction
+    [0, 1] allowed to allocate per GPU device.</li>
 <li><strong>allow_parallel_threads</strong> (bool, default: <code>True</code>): allow Torch to
     use multithreading parallelism
    to improve performance at the cost of determinism.</li>
@@ -3439,8 +3439,8 @@ will contain the training statistics, TensorBoard logs, the saved
 model and the training progress files.</li>
 <li><strong>gpus</strong> (list, default: <code>None</code>): list of GPUs that are available
 for training.</li>
-<li><strong>gpu_memory_limit</strong> (int, default: <code>None</code>): maximum memory in MB to
-allocate per GPU device.</li>
+<li><strong>gpu_memory_limit</strong> (float: default: <code>None</code>): maximum memory fraction
+[0, 1] allowed to allocate per GPU device.</li>
 <li><strong>allow_parallel_threads</strong> (bool, default: <code>True</code>): allow TensorFlow
 to use multithreading parallelism to improve performance at
 the cost of determinism.</li>

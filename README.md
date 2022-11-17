@@ -1,5 +1,7 @@
 # Ludwig documentation
 
+Website: [ludwig.ai](ludwig.ai)
+
 Ludwig's documentation is built using [MkDocs](https://www.mkdocs.org/) and the
 beautiful [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
 theme, deployed using [Mike](https://github.com/jimporter/mike).
@@ -18,9 +20,9 @@ theme, deployed using [Mike](https://github.com/jimporter/mike).
     mkdocs serve
     ```
 
-Navigate to <http://localhost:8000> to view your changes. As you change markdown
-files in your text editor, you can simply refresh the page to see changes
-reflected.
+3. Navigate to <http://localhost:8000> to view your changes.
+
+> :bulb: As you change markdown files in your text editor, you can simply refresh the page to see changes reflected.
 
 ## Versioned docs
 
@@ -51,11 +53,11 @@ To see how the fully rendered `ludwig.ai` website with multiple versions looks:
 4. Navigate to <http://localhost:8000> to view.
 
 > :warning: `mike serve` is **not** edit-refreshable. In order to see changes reflected, re-run `mike deploy` and `mike serve`.
-
-    ```
-    mike deploy --update-aliases $LUDWIG_VERSION latest --ignore
-    mike serve --ignore
-    ```
+>
+> ```
+> mike deploy --update-aliases $LUDWIG_VERSION latest --ignore
+> mike serve --ignore
+> ```
 
 ## Updating docs for older Ludwig versions
 

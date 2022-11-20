@@ -95,14 +95,14 @@ The sample size used for inferring dimensions of images in `infer_image_dimensio
 
 - Default: 100
 
-### `scaling`
+### `standardize_image`
 
 The scaling strategy for pixel values in the image.
 
-- Default: `pixel_normalization`
+- Default: `None`
 - Options:
-  - `pixel_normalization`: Normalizes pixel values to be between 0 and 1 by dividing each pixel value by 255.
-  - `pixel_standardization`: Normalizes pixel values based on the mean and standard deviation of images in ImageNet.
+  - `None`: No modification to image pixel values.
+  - `imagenet1k`: Normalizes pixel values based on the mean and standard deviation of images in ImageNet.
 
 ### `in_memory`
 
@@ -489,7 +489,7 @@ encoder:
     dropout: 0
 ```
 
-### MLP-Mixer Encoder
+## MLP-Mixer Encoder
 
 Encodes images using MLP-Mixer, as described in [MLP-Mixer: An all-MLP Architecture for Vision](https://arxiv.org/abs/2105.01601).
 MLP-Mixer divides the image into equal-sized patches, applying fully connected layers to each patch to compute per-patch
@@ -528,7 +528,7 @@ encoder:
     avg_pool: True
 ```
 
-### Vision Transformer Encoder
+## Vision Transformer Encoder
 
 Encodes images using a Vision Transformer as described in
 [An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929).

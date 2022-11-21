@@ -101,8 +101,8 @@ The scaling strategy for pixel values in the image.
 
 - Default: `None`
 - Options:
-  - `None`: No modification to image pixel values.
-  - `imagenet1k`: Normalizes pixel values based on the mean and standard deviation of images in ImageNet.
+    - `None`: No modification to image pixel values.
+    - `imagenet1k`: Normalizes pixel values based on the mean and standard deviation of images in ImageNet.
 
 ### `in_memory`
 
@@ -571,6 +571,82 @@ encoder:
     type: vit
     use_pretrained: true
 ```
+
+## TorchVision Pretrained Model Encoders
+
+Twenty TorchVision pretrained image classification models are available as Ludwig image encoders.  The available models 
+are `AlexNet`, `ConvNeXt`, `DenseNet`, `EfficientNet`, `EfficientNetV2`, `GoogLeNet`, `Inception V3`, `MaxVit`, 
+`MNASNet`, `MobileNet V2`, `MobileNet V3`, `RegNet`, `ResNet`, `ResNeXt`, `ShuffleNet V2`, `SqueezeNet`, 
+`SwinTransformer`, `VGG`, `VisionTransformer`, `Wide ResNet`.  
+See [TorchVison documentation](https://pytorch.org/vision/stable/models.html#classification) for more details.
+
+Ludwig encoders parameters for TorchVisoin pretrained models:
+
+- `type`: Specifies the TorchVision model to use as an image encoder. See following table for valid values.
+- `model_variant` (default varies by model `type`): specifies the architecture for the specified encoder `type`. 
+See following table for valid values for each model `type`.
+- `use_pretrained` (default `true`): Use pre-trained model weights from TorchVision (`true`) or create a encoder with
+randomly initialized weights for training from scratch (`false`).
+- `pretrained_cache_dir`(default `None`): Specifies location to cache downloaded pretrained weights.  `None` indicates
+the TorchVision default location.
+- `trainable` (default `true`): Indicates whether the encoder parameters should be updated during training (`true`) 
+or frozen (`false`).
+
+**Table of encoder `type` and `model_variant`**
+
+| Model | Encoder `type` | Encoder `model_variant` |
+|------|----------|--------------|
+|AlexNet| `alexnet_torch` | `base` (default) |
+|ConvNext| `convnext_torch` | `tiny` (default), `small`, `base`, `large` |
+|DenseNet| `densenet` | `121` (default), `161`, `169`, `201` |
+|EfficientNet| `efficientnet_torch` | `b0` (default), `b1`, `b2`, `b3`, `b4`, `b5`, `b6`, `b7`|
+|EfficientNet V2| `efficientnet_torch` |`v2_s`, `v2_m`, `v2_l`|
+|GoogLeNet| `googlenet_torch` | `base` (default) |
+|Inception V3| `inceptionv3_torch` | `base` (default) |
+|MaxViT| `maxvit_torch` | `t` (default)|
+|MNASNet| `mnasnet_torch` | `0_5` (default), `0_75`, `1_0`, `1_3` |
+|MobileNet V2| `mobilenetv2_torch` | `base` (default)|
+|MobileNet V3| `mobilenetv3_torch` | `small` (default), `large`|
+|RegNet| `regnet_torch` | `x_1_6gf` (default), `x_16gf`, `x_32gf`, `x_3_2gf`, `x_400mf`, `x_800mf`, `x_8gf`, `y_128gf`, `y_16gf`, `y_1_6gf`, `y_32gf`, `y_3_2gf`, `y_400mf`, `y_800mf`, `y_8gf` |
+|ResNet| `resnet_torch` | 18 (default), 34, 50, 101, 152|
+|ResNeXt| `resnext_torch` | `50_32x4d` (default), `101_32x8d `,`101_64x4d` |
+|ShuffleNet V2| `shufflenet_v2_torch` | `x0_5` (default), `x1_0`, `x1_5`,`x2_0`|
+|SqueezeNet|`squeezenet_torch` |`1_0` (default), `1_1`|
+|SwinTransformer|`swin_transformer_torch` |`t` (default), `s`, `b`|
+|VGG|`vgg_torch`|`11` (default), `13`, `16`, `19`, `11_bn`, `13_bn`, `16_bn`, `19_bn`|
+|Vision Transformer| `vit_torch` |`b_16` (default), `b_32`, `l_16`, `l_32`, `h_14`|
+|Wide ResNet| `wide_resnet_torch` |`50_2` (default), `101_2`|
+
+Example of image feature configuration using the TorchVison ResNet model:
+
+```yaml
+name: image_column_name
+type: image
+encoder: 
+    type: resnet_torch
+    model_variant: 18
+    use_pretrained: true
+    pretrained_cache_dir: None
+    trainable: true
+```
+
+**Note**: 
+
+* At this time Ludwig supports only the `DEFAULT` pretrained weights.
+* Some TorchVision pretrained models consume large amounts of memory.  These `model_variant` required more than 
+12GB of memory:
+    * `efficientnet_torch`: `b7`
+    * `regnet_torch`: `y_128gf`
+    * `vit_torch`: `h_14`
+
+
+
+
+
+ 
+
+
+
 
 # Image Output Features and Decoders
 

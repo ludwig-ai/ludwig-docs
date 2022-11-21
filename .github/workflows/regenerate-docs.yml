@@ -1,16 +1,18 @@
-name: Pull Request Verification
+name: Update Auto-Generated Docs
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
+  schedule:
+    # At the end of every day.
+    - cron: 0 0 * * *
 
 jobs:
-  test:
+  update_auto_docs:
+    name: update_auto_docs
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+      - name: checkout
+        uses: actions/checkout@v3
 
       - name: Setup Python
         uses: actions/setup-python@v1
@@ -35,9 +37,13 @@ jobs:
       - name: Generate API Docs
         run: python code_doc_autogen.py
 
-      - name: Validate branch clean
-        run: |
-          if [[ `git status --porcelain` ]]; then
-            echo "Branch not clean! Auto-generated docs are out of sync with latest Ludwig release. Please run `python code_doc_autogen.py` and include those changes in a separate PR."
-            exit 1
-          fi
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          commit-message: "[auto] Regenerate Ludwig API docs"
+          title: "[auto] Regenerate Ludwig API docs"
+          body: This is an auto-generated PR that updates Ludwig API docs.
+          labels: auto
+          reviewers: ludwig-maintainers
+          branch: regenerate-docs
+          base: master

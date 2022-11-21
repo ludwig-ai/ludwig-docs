@@ -761,6 +761,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#dataset-splits" class="md-nav__link">
+    Dataset Splits
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#zoo-datasets" class="md-nav__link">
     Zoo Datasets
   </a>
@@ -2217,6 +2224,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#dataset-splits" class="md-nav__link">
+    Dataset Splits
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#zoo-datasets" class="md-nav__link">
     Zoo Datasets
   </a>
@@ -2315,6 +2329,21 @@ directory of the training process.</p>
 <span class="c1"># Runs model training</span>
 <span class="n">train_stats</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">training_set</span><span class="o">=</span><span class="n">training_set</span><span class="p">,</span> <span class="n">test_set</span><span class="o">=</span><span class="n">test_set</span><span class="p">,</span> <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;mnist_model&quot;</span><span class="p">)</span>
 </code></pre></div>
+<h3 id="dataset-splits">Dataset Splits<a class="headerlink" href="#dataset-splits" title="Permanent link">&para;</a></h3>
+<p>All datasets in the dataset zoo are provided with a default train/validation/test split. When loading with
+<code>split=False</code>, the default split will be returned (and is guaranteed to be the same every time). With <code>split=True</code>,
+Ludwig will randomly re-split the dataset.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some benchmark or contest datasets are released with held-out test set labels. In other words, the train and
+validation splits have labels, but the test set does not. Most Kaggle contest datasets have this unlabeled test set.</p>
+</div>
+<p>Splits:</p>
+<ul>
+<li><strong>train</strong>: Data to train on. Required, must have labels.</li>
+<li><strong>validation</strong>: Subset of dataset to evaluate while training. Optional, must have labels.</li>
+<li><strong>test</strong>: Held out from model development, used for later testing. Optional, may not be labeled.</li>
+</ul>
 <h3 id="zoo-datasets">Zoo Datasets<a class="headerlink" href="#zoo-datasets" title="Permanent link">&para;</a></h3>
 <p>Here is the list of the currently available datasets:</p>
 <table>

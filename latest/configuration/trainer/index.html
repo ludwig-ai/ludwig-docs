@@ -1295,15 +1295,49 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuring-training-length" class="md-nav__link">
-    Configuring training length
+  <a href="#training-length" class="md-nav__link">
+    Training length
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuring-checkpoint-and-evaluation-frequency" class="md-nav__link">
-    Configuring checkpoint and evaluation frequency
+  <a href="#early-stopping" class="md-nav__link">
+    Early stopping
+  </a>
+  
+    <nav class="md-nav" aria-label="Early stopping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-early-stopping-works-in-ludwig" class="md-nav__link">
+    How early stopping works in Ludwig
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changing-the-metric-early-stopping-metrics" class="md-nav__link">
+    Changing the metric early stopping metrics
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disabling-early-stopping" class="md-nav__link">
+    Disabling early stopping
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checkpoint-evaluation-frequency" class="md-nav__link">
+    Checkpoint-evaluation frequency
   </a>
   
 </li>
@@ -2254,15 +2288,49 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuring-training-length" class="md-nav__link">
-    Configuring training length
+  <a href="#training-length" class="md-nav__link">
+    Training length
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuring-checkpoint-and-evaluation-frequency" class="md-nav__link">
-    Configuring checkpoint and evaluation frequency
+  <a href="#early-stopping" class="md-nav__link">
+    Early stopping
+  </a>
+  
+    <nav class="md-nav" aria-label="Early stopping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-early-stopping-works-in-ludwig" class="md-nav__link">
+    How early stopping works in Ludwig
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changing-the-metric-early-stopping-metrics" class="md-nav__link">
+    Changing the metric early stopping metrics
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disabling-early-stopping" class="md-nav__link">
+    Disabling early stopping
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checkpoint-evaluation-frequency" class="md-nav__link">
+    Checkpoint-evaluation frequency
   </a>
   
 </li>
@@ -2420,7 +2488,7 @@ By default, the ECD trainer is used.</p>
 <li><code>type</code> (default <code>trainer</code>): Trainer to use for training the model. Must be one of ['trainer', 'ray_legacy_trainer'] - corresponds to name in <code>ludwig.trainers.registry.(ray_)trainers_registry</code> (default: 'trainer')</li>
 <li><code>epochs</code> (default <code>100</code>): number of epochs the training process will run for.</li>
 <li><code>train_steps</code> (default <code>None</code>): Maximum number of training steps the training process will run for. If unset, then <code>epochs</code> is used to determine training length.</li>
-<li><code>early_stop</code> (default <code>5</code>): if theres a validation set, number of epochs of patience without an improvement on the validation measure before the training is stopped.</li>
+<li><code>early_stop</code> (default <code>5</code>): Number of consecutive rounds of evaluation without any improvement on the <code>validation_metric</code> that triggers training to stop. Can be set to -1, which disables early stopping entirely.</li>
 <li><code>batch_size</code> (default <code>128</code>): size of the batch used for training the model.</li>
 <li><code>eval_batch_size</code> (default <code>null</code>): size of the batch used for evaluating the model. If it is <code>0</code>, the same value of <code>batch_size</code> is used. This is useful to speedup evaluation with a much bigger batch size than training, if enough memory is available.</li>
 <li><code>evaluate_training_set</code>: Whether to include the entire training set during evaluation (default: True).</li>
@@ -2578,7 +2646,7 @@ Other optimizer specific parameters, shown with their Ludwig default settings, f
 </div>
 </div>
 </div>
-<h2 id="configuring-training-length">Configuring training length<a class="headerlink" href="#configuring-training-length" title="Permanent link">&para;</a></h2>
+<h2 id="training-length">Training length<a class="headerlink" href="#training-length" title="Permanent link">&para;</a></h2>
 <p>The length of the training process is configured by:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">ECD</label><label for="__tabbed_4_2">GBM</label></div>
 <div class="tabbed-content">
@@ -2591,12 +2659,6 @@ Other optimizer specific parameters, shown with their Ludwig default settings, f
     using one mini-batch per step. By default this is unset, and <code>epochs</code> will
     be used to determine training length.</li>
 </ul>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>In general, it's a good idea to set up a long training runway, relying on
-early stopping criteria (<code>early_stop</code>) to stop training when there
-hasn't been any improvement for a long time.</p>
-</div>
 </div>
 <div class="tabbed-block">
 <ul>
@@ -2607,7 +2669,43 @@ hasn't been any improvement for a long time.</p>
 </div>
 </div>
 </div>
-<h2 id="configuring-checkpoint-and-evaluation-frequency">Configuring checkpoint and evaluation frequency<a class="headerlink" href="#configuring-checkpoint-and-evaluation-frequency" title="Permanent link">&para;</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>In general, it's a good idea to set up a long training runway, relying on
+early stopping criteria (<code>early_stop</code>) to stop training when there
+hasn't been any improvement for a long time.</p>
+</div>
+<h2 id="early-stopping">Early stopping<a class="headerlink" href="#early-stopping" title="Permanent link">&para;</a></h2>
+<p>Machine learning models, when trained for too long, are often prone to
+overfitting. It's generally a good policy to set up some early stopping criteria
+as it's not useful to have a model train after it's maximized what it can learn,
+as to retain it's ability to generalize to new data.</p>
+<h3 id="how-early-stopping-works-in-ludwig">How early stopping works in Ludwig<a class="headerlink" href="#how-early-stopping-works-in-ludwig" title="Permanent link">&para;</a></h3>
+<p>By default, Ludwig sets <code>trainer.early_stop=5</code>, which means that if there have
+been <code>5</code> consecutive rounds of evaluation where there hasn't been any
+improvement on the <strong>validation</strong> subset, then training will terminate.</p>
+<p>Ludwig runs evaluation once per checkpoint, which by default is once per epoch.
+Checkpoint frequency can be configured using <code>checkpoints_per_epoch</code> (default:
+<code>1</code>) or <code>steps_per_checkpoint</code> (default: <code>0</code>, disabled). See
+<a href="#checkpoint-evaluation-frequency">this section</a> for more details.</p>
+<h3 id="changing-the-metric-early-stopping-metrics">Changing the metric early stopping metrics<a class="headerlink" href="#changing-the-metric-early-stopping-metrics" title="Permanent link">&para;</a></h3>
+<p>The metric that dictates early stopping is
+<code>trainer.validation_field</code> and <code>trainer.validation_metric</code>. By default, early
+stopping uses the combined loss on the validation subset.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">trainer</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">validation_field</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">combined</span><span class="w"></span>
+<span class="w">    </span><span class="nt">validation_metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loss</span><span class="w"></span>
+</code></pre></div>
+<p>However, this can be configured to use other metrics. For example, if we had an
+output feature called <code>recommended</code>, then we can configure early stopping on the
+output feature accuracy like so:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">trainer</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">validation_field</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">recommended</span><span class="w"></span>
+<span class="w">    </span><span class="nt">validation_metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">accuracy</span><span class="w"></span>
+</code></pre></div>
+<h3 id="disabling-early-stopping">Disabling early stopping<a class="headerlink" href="#disabling-early-stopping" title="Permanent link">&para;</a></h3>
+<p><code>trainer.early_stop</code> can be set to <code>-1</code>, which disables early stopping entirely.</p>
+<h2 id="checkpoint-evaluation-frequency">Checkpoint-evaluation frequency<a class="headerlink" href="#checkpoint-evaluation-frequency" title="Permanent link">&para;</a></h2>
 <div class="tabbed-set tabbed-alternate" data-tabs="5:1"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">ECD</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>

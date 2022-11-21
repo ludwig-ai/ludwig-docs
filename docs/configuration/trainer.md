@@ -105,7 +105,7 @@ By default, the ECD trainer is used.
     - `type` (default `trainer`): Trainer to use for training the model. Must be one of ['trainer', 'ray_legacy_trainer'] - corresponds to name in `ludwig.trainers.registry.(ray_)trainers_registry` (default: 'trainer')
     - `epochs` (default `100`): number of epochs the training process will run for.
     - `train_steps` (default `None`): Maximum number of training steps the training process will run for. If unset, then `epochs` is used to determine training length.
-    - `early_stop` (default `5`): if theres a validation set, number of epochs of patience without an improvement on the validation measure before the training is stopped.
+    - `early_stop` (default `5`): Number of consecutive rounds of evaluation without any improvement on the `validation_metric` that triggers training to stop. Can be set to -1, which disables early stopping entirely.
     - `batch_size` (default `128`): size of the batch used for training the model.
     - `eval_batch_size` (default `null`): size of the batch used for evaluating the model. If it is `0`, the same value of `batch_size` is used. This is useful to speedup evaluation with a much bigger batch size than training, if enough memory is available.
     - `evaluate_training_set`: Whether to include the entire training set during evaluation (default: True).
@@ -269,7 +269,7 @@ By default, the ECD trainer is used.
 
     No optimizer parameters are available for the LightGBM trainer.
 
-# Configuring training length
+# Training length
 
 The length of the training process is configured by:
 
@@ -281,18 +281,62 @@ The length of the training process is configured by:
         using one mini-batch per step. By default this is unset, and `epochs` will
         be used to determine training length.
 
-    !!! tip
-
-        In general, it's a good idea to set up a long training runway, relying on
-        early stopping criteria (`early_stop`) to stop training when there
-        hasn't been any improvement for a long time.
-
 === "GBM"
     - `num_boost_round` (default: 100): The number of boosting iterations. By default,
         `num_boost_round` is 100 which means that the training process will run for
         a maximum of 100 boosting iterations before terminating.
 
-# Configuring checkpoint and evaluation frequency
+!!! tip
+
+    In general, it's a good idea to set up a long training runway, relying on
+    early stopping criteria (`early_stop`) to stop training when there
+    hasn't been any improvement for a long time.
+
+# Early stopping
+
+Machine learning models, when trained for too long, are often prone to
+overfitting. It's generally a good policy to set up some early stopping criteria
+as it's not useful to have a model train after it's maximized what it can learn,
+as to retain it's ability to generalize to new data.
+
+## How early stopping works in Ludwig
+
+By default, Ludwig sets `trainer.early_stop=5`, which means that if there have
+been `5` consecutive rounds of evaluation where there hasn't been any
+improvement on the **validation** subset, then training will terminate.
+
+Ludwig runs evaluation once per checkpoint, which by default is once per epoch.
+Checkpoint frequency can be configured using `checkpoints_per_epoch` (default:
+`1`) or `steps_per_checkpoint` (default: `0`, disabled). See
+[this section](#checkpoint-evaluation-frequency) for more details.
+
+## Changing the metric early stopping metrics
+
+The metric that dictates early stopping is
+`trainer.validation_field` and `trainer.validation_metric`. By default, early
+stopping uses the combined loss on the validation subset.
+
+```yaml
+trainer:
+    validation_field: combined
+    validation_metric: loss
+```
+
+However, this can be configured to use other metrics. For example, if we had an
+output feature called `recommended`, then we can configure early stopping on the
+output feature accuracy like so:
+
+```yaml
+trainer:
+    validation_field: recommended
+    validation_metric: accuracy
+```
+
+## Disabling early stopping
+
+`trainer.early_stop` can be set to `-1`, which disables early stopping entirely.
+
+# Checkpoint-evaluation frequency
 
 === "ECD"
 Evaluation is run every time the model is checkpointed.

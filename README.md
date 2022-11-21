@@ -22,7 +22,8 @@ theme, deployed using [Mike](https://github.com/jimporter/mike).
 
 3. Navigate to <http://localhost:8000> to view your changes.
 
-> :bulb: As you change markdown files in your text editor, you can simply refresh the page to see changes reflected.
+> :bulb: No need to return to your terminal -- changes will be automatically
+> reflected as you save changes to files.
 
 ## Versioned docs
 

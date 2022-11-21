@@ -617,7 +617,7 @@ or frozen (`false`).
 |Vision Transformer| `vit_torch` |`b_16` (default), `b_32`, `l_16`, `l_32`, `h_14`|
 |Wide ResNet| `wide_resnet_torch` |`50_2` (default), `101_2`|
 
-Example of image feature configuration using the TorchVison ResNet model:
+Example of image feature configuration using the TorchVision ResNet model:
 
 ```yaml
 name: image_column_name

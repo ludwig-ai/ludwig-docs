@@ -83,6 +83,22 @@ mnist.export(".")
 train_stats, _, _ = model.train(training_set=training_set, test_set=test_set, model_name="mnist_model")
 ```
 
+## Dataset Splits
+
+All datasets in the dataset zoo are provided with a default train/validation/test split. When loading with
+`split=False`, the default split will be returned (and is guaranteed to be the same every time). With `split=True`,
+Ludwig will randomly re-split the dataset.
+
+!!! note
+    Some benchmark or contest datasets are released with held-out test set labels. In other words, the train and
+    validation splits have labels, but the test set does not. Most Kaggle contest datasets have this unlabeled test set.
+
+Splits:
+
+- **train**: Data to train on. Required, must have labels.
+- **validation**: Subset of dataset to evaluate while training. Optional, must have labels.
+- **test**: Held out from model development, used for later testing. Optional, may not be labeled.
+
 ## Zoo Datasets
 
 Here is the list of the currently available datasets:

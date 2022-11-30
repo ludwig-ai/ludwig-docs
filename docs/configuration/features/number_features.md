@@ -13,11 +13,15 @@ the `fill_value` parameter), `fill_with_mode` (replaces the missing values with 
 - `fill_value` (default `0`): the value to replace the missing values with in case the `missing_value_strategy` is
 `fill_with_const`.
 - `normalization` (default `null`): technique to be used when normalizing the number feature types. The available
-options are `null`, `zscore`, `minmax` and `log1p`. If the value is `null` no normalization is performed. If the value
-is `zscore`, the mean and standard deviation are computed so that values are shifted to have zero mean and 1 standard
-deviation. If the value is `minmax`, the minimum is subtracted from values and the result is divided by difference
-between maximum and minimum. If `normalization` is `log1p` the value returned is the natural log of 1 plus the original
+options are `null`, `zscore`, `minmax`, `log1p` and `iq`. 
+    - `null`: no normalization is performed. 
+    - `zscore`: the mean and standard deviation are computed so that values are shifted to have zero mean and 1 standard deviation. 
+    - `minmax`: the minimum is subtracted from values and the result is divided by difference
+between maximum and minimum. 
+    - `log1p`: the value returned is the natural log of 1 plus the original
 value. Note: `log1p` is defined only for positive values.
+    - `iq`: the median is subtracted from values and the result is divided by the interquartile range (IQR), i.e., the 75th percentile value minus the 25th percentile value. This is useful if your feature has
+    large outliers since the normalization won't be skewed by those values.
 
 Configuration example:
 

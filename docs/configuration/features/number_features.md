@@ -18,10 +18,8 @@ options are `null`, `zscore`, `minmax`, `log1p` and `iq`.
     - `zscore`: the mean and standard deviation are computed so that values are shifted to have zero mean and 1 standard deviation. 
     - `minmax`: the minimum is subtracted from values and the result is divided by difference
 between maximum and minimum. 
-    - `log1p`: the value returned is the natural log of 1 plus the original
-value. Note: `log1p` is defined only for positive values.
-    - `iq`: the median is subtracted from values and the result is divided by the interquartile range (IQR), i.e., the 75th percentile value minus the 25th percentile value. This is useful if your feature has
-    large outliers since the normalization won't be skewed by those values.
+    - `log1p`: the value returned is the natural log of 1 plus the original value. Note: `log1p` is defined only for positive values.
+    - `iq`: the median is subtracted from values and the result is divided by the interquartile range (IQR), i.e., the 75th percentile value minus the 25th percentile value. This is useful if your feature has large outliers since the normalization won't be skewed by those values.
 
 Configuration example:
 

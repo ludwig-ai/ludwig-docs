@@ -79,6 +79,7 @@ nav:
           - Image Classification: examples/mnist.md
           - Multimodal Classification: examples/multimodal_classification.md
           - Hyperparameter Optimization: examples/hyperopt.md
+          - GBMs in Ludwig: examples/gbm_fraud.md
       - Example Use Cases:
           - Named Entity Recognition Tagging: examples/ner_tagging.md
           - Natural Language Understanding: examples/nlu.md

@@ -5,7 +5,7 @@ Open this example in an interactive notebook:
 
 ## Load data
 
-First, let's download the dataset from Kaggle. 
+First, let's download the dataset from Kaggle.
 
 ```shell
 !ludwig datasets download creditcard_fraud
@@ -136,6 +136,7 @@ train_stats, preprocessed_data, output_directory = model.train(df)
 ```
 
 ## Evaluation
+
 Once the training is complete, we can evaluate the performance of our model using the `model.evaluate` command:
 
 ```python
@@ -149,14 +150,15 @@ evaluation_statistics, predictions, output_directory = model.evaluate(test, coll
 ```python
 evaluation_statistics['Class']["roc_auc"]
 ```
-0.9429567456245422
 
+0.9429567456245422
 
 **Accuracy**
 
 ```python
 evaluation_statistics['Class']["accuracy"]
 ```
+
 0.9995435476303101
 
 **Precision, recall and F1**
@@ -164,6 +166,7 @@ evaluation_statistics['Class']["accuracy"]
 ```python
 evaluation_statistics['Class']["overall_stats"]
 ```
+
 ```python
 {'token_accuracy': 0.9995435633656935,
  'avg_precision_macro': 0.9689512098036177,
@@ -179,6 +182,7 @@ evaluation_statistics['Class']["overall_stats"]
 ```
 
 ### Visualization
+
 In addition to evaluating the performance of our model with metrics such as accuracy, precision, and recall, it can also be helpful to visualize the results of our model. Ludwig provides several options for visualizing the results of our model, including confusion matrices and ROC curves.
 
 ```python
@@ -206,7 +210,7 @@ visualize.confusion_matrix(
 **ROC curve**
 
 We can also create an ROC curve, which plots the true positive rate against the false positive rate at different classification thresholds. To do this, we can use the following code:
-    
+
 ```python
 visualize.roc_curves(
     [predictions['Class_probabilities']],
@@ -226,6 +230,6 @@ We hope these visualizations have been helpful in understanding the performance 
 
 ---
 
-Thank you for following along with our tutorial on training a GBM model on the credit card fraud dataset. We hope that you found the tutorial helpful and gained a better understanding of how to use GBM models in your own machine learning projects. 
+Thank you for following along with our tutorial on training a GBM model on the credit card fraud dataset. We hope that you found the tutorial helpful and gained a better understanding of how to use GBM models in your own machine learning projects.
 
 If you have any questions or feedback, please feel free to reach out to our [community](https://ludwig.ai/latest/community/)!

@@ -21,7 +21,7 @@ The parameters available for preprocessing are
 - `tokenizer` (default `space`): defines how to transform the raw text content of the dataset column to a set of
 elements. The default value `space` splits the string on spaces. Common options include: `underscore` (splits on
 underscore), `comma` (splits on comma), `json` (decodes the string into a set or a list through a JSON parser). For all
-available options see [Tokenizers](../../preprocessing#tokenizers).
+available options see [Tokenizers](../../configuration/defaults.md#tokenizers).
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a set
 column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with
 the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column),

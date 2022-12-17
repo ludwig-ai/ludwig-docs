@@ -26,7 +26,7 @@ assign types automatically.
 
 # Preprocessing for different data types
 
-Each datatype is preprocessed in a different way, using different parameters and different tokenizers.
+Each datatype is preprocessed in a different way, using different parameters and different [tokenizers](../../configuration/defaults.md#tokenizers).
 Details on how to set those parameters for each feature type and for each specific feature is described in the
 [Configuration - Defaults - Type-Global Preprocessing](../../../configuration/defaults#type-global-preprocessing) section.
 

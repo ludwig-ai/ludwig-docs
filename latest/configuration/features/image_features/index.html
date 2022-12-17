@@ -2988,14 +2988,13 @@ target <code>width</code> and <code>height</code> can be specified in the featur
 be resized to the specified target size.</p>
 </div>
 <h4 id="height"><code>height</code><a class="headerlink" href="#height" title="Permanent link">&para;</a></h4>
-<p>Image height in pixels. If set, images will be resized to the specified height using the <code>resize_method</code> parameter. If
-unspecified, images will be resized to the size of the first image in the dataset.</p>
+<p>Image height in pixels. If set, images will be resized to the specified height using the <code>resize_method</code> parameter. If unspecified, images will be resized based on the average height of the first 100 images in the dataset. This can be controlled by the <code>infer_image_sample_size</code> attribute.</p>
 <ul>
 <li>Default: <code>null</code></li>
 </ul>
 <h4 id="width"><code>width</code><a class="headerlink" href="#width" title="Permanent link">&para;</a></h4>
-<p>Image width in pixels. If set, images will be resized to the specified width using the <code>resize_method</code> parameter. If
-unspecified, images will be resized to the size of the first image in the dataset.</p>
+<p>Image width in pixels. If set, images will be resized to the specified width using the <code>resize_method</code> parameter.
+If unspecified, images will be resized based on the average width of the first 100 images in the dataset. This can be controlled by the <code>infer_image_sample_size</code> attribute.</p>
 <ul>
 <li>Default: <code>null</code></li>
 </ul>

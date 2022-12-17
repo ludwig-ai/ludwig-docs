@@ -35,7 +35,7 @@ Image height in pixels. If set, images will be resized to the specified height u
 
 ### `width`
 
-Image width in pixels. If set, images will be resized to the specified width using the `resize_method` parameter. 
+Image width in pixels. If set, images will be resized to the specified width using the `resize_method` parameter.
 If unspecified, images will be resized based on the average width of the first 100 images in the dataset. This can be controlled by the `infer_image_sample_size` attribute.
 
 - Default: `null`

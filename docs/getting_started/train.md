@@ -67,7 +67,7 @@ Once you've created the `rotten_tomatoes.yaml` file with the contents above, you
 !!! note
 
     In this example, we encoded the text feature with an `embed` encoder, which assigns an embedding for each word and sums
-    them. Ludwig provides many options for [tokenizing](../../configuration/preprocessing#tokenizers) and [embedding](../../configuration/features/sequence_features#sequence-input-features-and-encoders) text like with CNNs, RNNs, Transformers, and pretrained models such as BERT or GPT-2 (provided through [huggingface](https://huggingface.co/docs/transformers/index)). Using a different text encoder is simple as changing encoder option in the config from `embed` to `bert`. Give it a try!
+    them. Ludwig provides many options for [tokenizing](../configuration/defaults.md#tokenizers) and [embedding](../../configuration/features/sequence_features#sequence-input-features-and-encoders) text like with CNNs, RNNs, Transformers, and pretrained models such as BERT or GPT-2 (provided through [huggingface](https://huggingface.co/docs/transformers/index)). Using a different text encoder is simple as changing encoder option in the config from `embed` to `bert`. Give it a try!
 
     ```yaml
     input_features:

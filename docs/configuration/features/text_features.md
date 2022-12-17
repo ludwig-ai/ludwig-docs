@@ -10,7 +10,7 @@ a text output feature, this same mapping is used to post-process predictions to 
 The parameters for text preprocessing are as follows:
 
 - `tokenizer` (default `space_punct`): defines how to map from the raw string content of the dataset column to a
-sequence of elements. For all available options see [Tokenizers](../../preprocessing#tokenizers).
+sequence of elements. For all available options see [Tokenizers](../../configuration/defaults.md#tokenizers).
 - `vocab_file` (default `null`): filepath string to a UTF-8 encoded file containing the sequence's vocabulary. On each
 line the first string until `\t` or `\n` is considered a word.
 - `max_sequence_length` (default `256`): the maximum length (number of tokens) of the text. Texts that are longer than

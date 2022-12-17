@@ -20,7 +20,7 @@ The column name is added to the JSON file, with an associated dictionary contain
 The parameters available for preprocessing are
 
 - `tokenizer` (default `space`): defines how to map from the raw string content of the dataset column to a sequence of
-elements. For the available options refer to the [Tokenizers](../../preprocessing#tokenizers) section.
+elements. For the available options refer to the [Tokenizers](../../configuration/defaults.md#tokenizers) section.
 - `vocab_file` (default `null`)  filepath string to a UTF-8 encoded file containing the sequence's vocabulary. On each
 line the first string until `\t` or `\n` is considered a word.
 - `max_sequence_length` (default `256`): the maximum length of the sequence. Sequences that are longer than this value

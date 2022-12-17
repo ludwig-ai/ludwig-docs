@@ -29,15 +29,14 @@ During preprocessing, raw image files are transformed into numpy arrays and save
 
 ### `height`
 
-Image height in pixels. If set, images will be resized to the specified height using the `resize_method` parameter. If
-unspecified, images will be resized to the size of the first image in the dataset.
+Image height in pixels. If set, images will be resized to the specified height using the `resize_method` parameter. If unspecified, images will be resized based on the average height of the first 100 images in the dataset. This can be controlled by the `infer_image_sample_size` attribute.
 
 - Default: `null`
 
 ### `width`
 
-Image width in pixels. If set, images will be resized to the specified width using the `resize_method` parameter. If
-unspecified, images will be resized to the size of the first image in the dataset.
+Image width in pixels. If set, images will be resized to the specified width using the `resize_method` parameter. 
+If unspecified, images will be resized based on the average width of the first 100 images in the dataset. This can be controlled by the `infer_image_sample_size` attribute.
 
 - Default: `null`
 

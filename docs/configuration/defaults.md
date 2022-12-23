@@ -162,6 +162,7 @@ More details on the models can be found in the [spaCy documentation](https://spa
 Note that spaCy tokenizers are not TorchScript-compatible.
 
 ##### TorchText and HuggingFace tokenizers
+
 - `sentencepiece`: XLM-RoBERTa sentencepeice tokenizer.
 - `clip`: CLIP Tokenizer. Based on Byte-Level BPE.
 - `gpt2bpe`: GPT-2 BPE Tokenizer.

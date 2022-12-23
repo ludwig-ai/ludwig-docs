@@ -96,32 +96,6 @@ The preprocessing parameters that each data type accepts can be found in [dataty
 Note that different features with the same datatype may require different preprocessing. Type-global preprocessing works
 in tandem with feature-specific preprocessing configuration parameters, however, feature-specific configurations override the global settings.
 
-For example, a document classification model may have two text input features, one for the title of the document and one for the body.
-
-As the length of the title is much shorter than the length of the body, the parameter `word_length_limit` should be set to `10` for
-the title and `2000` for the body, but we want both features to share the same vocabulary, with `most_common_words: 10000`.
-
-The way to do this is by adding a `preprocessing` key inside the title `input_feature` dictionary and one in the `body` input feature
-dictionary containing the desired parameter and value.
-
-```yaml
-input_features:
-  -   
-    name: title
-    type: text
-    preprocessing:
-        word_length_limit: 20
-  -   
-    name: body
-    type: text
-    preprocessing:
-        word_length_limit: 2000
-defaults:
-    text:
-        preprocessing:
-            most_common_word: 10000
-```
-
 #### Tokenizers
 
 Sequence, text, and set features tokenize features as part of preprocessing. There are several tokenization options that can be specified:
@@ -243,7 +217,7 @@ output_features:
 defaults:
     text:
         preprocessing:
-            word_vocab_size: 10000
+            most_common: 10000
         encoder:
             type: rnn
             cell_type: lstm

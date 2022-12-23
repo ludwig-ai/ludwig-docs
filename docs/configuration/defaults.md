@@ -135,7 +135,7 @@ Sequence, text, and set features tokenize features as part of preprocessing. The
 - `comma`: splits on the underscore character `,`.
 - `untokenized`: treats the whole string as a single token.
 - `stripped`: treats the whole string as a single token after removing spaces at the beginning and at the end of the string.
-- `ngram`
+- `ngram`: this will create a vocab that consists of unigrams and bigrams.
 
 ##### spaCy tokenizers
 

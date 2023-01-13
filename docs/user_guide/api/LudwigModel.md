@@ -83,6 +83,8 @@ or
 eval_stats, _, _ = ludwig_model.evaluate(dataset=dataframe)
 ```
 
+PublicAPI: This API is stable across Ludwig releases.
+
 
 ---
 # LudwigModel methods
@@ -158,7 +160,7 @@ __Return__
 
 ```python
 create_model(
-  config,
+  config_obj,
   random_seed=42
 )
 ```
@@ -168,7 +170,7 @@ Instantiates BaseModel object.
 
 __Inputs__
 
-- __config__ (dict): Ludwig config
+- __config_obj__ (Config): Ludwig config object
 - __random_seed__ (int, default: ludwig default random seed): Random
 seed used for weights initialization,
 splits and any other random function.
@@ -594,7 +596,7 @@ model and the training progress files.
 __Return__
 
 
-- __return__ (Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, Dict]): tuple containing
+- __return__ (PreprocessedDataset): data structure containing
 `(proc_training_set, proc_validation_set, proc_test_set, training_set_metadata)`.
  
 
@@ -1008,7 +1010,9 @@ __Return__
     dictionaries `kfold_cv_statistics`: contains metrics from cv run.
      `kfold_split_indices`: indices to split training data into
      training fold and test fold.
- 
+
+PublicAPI: This API is stable across Ludwig releases.
+
 ---
 
 ## hyperopt
@@ -1041,6 +1045,7 @@ ludwig.hyperopt.run.hyperopt(
   gpu_memory_limit=None,
   allow_parallel_threads=True,
   callbacks=None,
+  tune_callbacks=None,
   backend=None,
   random_seed=42,
   hyperopt_log_verbosity=3
@@ -1134,7 +1139,7 @@ model and the training progress files.
 for training.
 - __gpu_memory_limit__ (float: default: `None`): maximum memory fraction
 [0, 1] allowed to allocate per GPU device.
-- __allow_parallel_threads__ (bool, default: `True`): allow TensorFlow
+- __allow_parallel_threads__ (bool, default: `True`): allow PyTorch
 to use multithreading parallelism to improve performance at
 the cost of determinism.
 - __callbacks__ (list, default: `None`): a list of

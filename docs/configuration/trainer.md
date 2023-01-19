@@ -119,7 +119,7 @@ By default, the ECD trainer is used.
         - `reduce_on_plateau` (default `0`): if theres a validation set, how many times to reduce the learning rate when a plateau of validation measure is reached.
         - `reduce_on_plateau_patience` (default `10`): if theres a validation set, number of epochs of patience without an improvement on the validation measure before reducing the learning rate.
         - `reduce_on_plateau_rate` (default `0.1`): if theres a validation set, the reduction rate of the learning rate.
-        - `decay` (default `false`): one of `null`, `linear`, `exponential`. Whether to use one of the aforementioned decay strategies. Specifying `null` deactivates learning rate decay.
+        - `decay` (default `null`): one of `null`, `linear`, `exponential`. Whether to use one of the aforementioned decay strategies. Specifying `null` deactivates learning rate decay.
         - `decay_rate` (default `0.96`): the rate of the exponential learning rate decay.
         - `decay_steps` (default `10000`): the number of steps of the exponential learning rate decay.
         - `staircase` (default `false`): decays the learning rate at discrete intervals.

@@ -126,6 +126,8 @@ defaults:
 
 Sequence, text, and set features tokenize features as part of preprocessing. There are several tokenization options that can be specified:
 
+##### Basic tokenizers
+
 - `characters`: splits every character of the input string in a separate token.
 - `space`: splits on space characters using the regex `\s+`.
 - `space_punct`: splits on space characters and punctuation using the regex `\w+|[^\w\s]`.
@@ -133,8 +135,9 @@ Sequence, text, and set features tokenize features as part of preprocessing. The
 - `comma`: splits on the underscore character `,`.
 - `untokenized`: treats the whole string as a single token.
 - `stripped`: treats the whole string as a single token after removing spaces at the beginning and at the end of the string.
-- `hf_tokenizer`: uses the Hugging Face AutoTokenizer which uses a `pretrained_model_name_or_path` parameter to decide which tokenizer to load.
-- Language specific tokenizers: [spaCy](https://spacy.io) based language tokenizers.
+- `ngram`: this will create a vocab that consists of unigrams and bigrams.
+
+##### spaCy tokenizers
 
 The [spaCy](https://spacy.io) based tokenizers are functions that use the powerful tokenization and NLP preprocessing models provided the library.
 Several languages are available: English (code `en`), Italian (code `it`), Spanish (code `es`), German (code `de`), French (code `fr`), Portuguese (code `pt`), Dutch (code `nl`), Greek (code `el`), Chinese (code `zh`), Danish (code `da`), Dutch (code `el`), Japanese (code `ja`), Lithuanian (code `lt`), Norwegian (code `nb`), Polish (code `pl`), Romanian (code `ro`) and Multi (code `xx`, useful in case you have a dataset containing different languages).
@@ -154,8 +157,19 @@ In order to use these options, you must first download the the spaCy model:
 python -m spacy download <language_code>
 ```
 
-and provide `<language>_<function>` as `tokenizer` like: `english_tokenizer`, `italian_lemmatize_filter`, `multi_tokenize_filter` and so on.
+and provide `<language>_<function>` as `tokenizer`. Example: `english_tokenizer`, `italian_lemmatize_filter`, `multi_tokenize_filter` and so on.
 More details on the models can be found in the [spaCy documentation](https://spacy.io/models).
+Note that spaCy tokenizers are not TorchScript-compatible.
+
+##### TorchText and HuggingFace tokenizers
+
+- `sentencepiece`: XLM-RoBERTa sentencepeice tokenizer.
+- `clip`: CLIP Tokenizer. Based on Byte-Level BPE.
+- `gpt2bpe`: GPT-2 BPE Tokenizer.
+- `bert`: BERT tokenizer based on the WordPiece algorithm.
+- `hf_tokenizer`: uses the Hugging Face AutoTokenizer which uses a `pretrained_model_name_or_path` parameter to decide which tokenizer to load.
+
+Note: when specifying one of these tokenizers in the config, preprocessing parameters `most_common` and `most_common_percentile` won't have an effect. The full vocab of these tokenizers will be used.
 
 ### Type-Global Encoder
 

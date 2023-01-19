@@ -25,7 +25,7 @@ By default, the ECD trainer is used.
         increase_batch_size_on_plateau_max: 512
         learning_rate: 0.001
         learning_rate_scheduler:
-            decay: true
+            decay: exponential
             decay_steps: 10000
             decay_rate: 0.96
             staircase: false

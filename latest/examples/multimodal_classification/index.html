@@ -2415,7 +2415,7 @@ human accounts, the remaining 12425 are bots.</p>
 <p>To download datasets using the Kaggle CLI, you'll need a <a href="https://github.com/Kaggle/kaggle-api">Kaggle API</a> Token.</p>
 <p>If you already have one, it should be installed at <code>~/.kaggle/kaggle.json</code>. Run this command in a shell, and copy the
 output:</p>
-<div class="highlight"><pre><span></span><code>cat ~/.kaggle/kaggle.json
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>~/.kaggle/kaggle.json
 </code></pre></div>
 <p>If you don't have a <code>kaggle.json</code> file:</p>
 <ol>
@@ -2427,15 +2427,15 @@ in your home directory.</li>
 <li>If you want to run this example in either of the example Colab notebooks, open kaggle.json and copy its contents to
 the clipboard. The kaggle.json file should look similar to:</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="s2">&quot;your_user_name&quot;</span><span class="p">,</span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="s2">&quot;_______________________________&quot;</span><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="s2">&quot;your_user_name&quot;</span><span class="p">,</span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="s2">&quot;_______________________________&quot;</span><span class="p">}</span>
 </code></pre></div>
 <h3 id="download-dataset">Download Dataset<a class="headerlink" href="#download-dataset" title="Permanent link">&para;</a></h3>
 <p>Downloads the dataset and creates <code>twitter_human_bots_dataset.csv</code> in the current directory.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Downloads the dataset to the current working directory</span>
-kaggle datasets download danieltreiman/twitter-human-bots-dataset
+kaggle<span class="w"> </span>datasets<span class="w"> </span>download<span class="w"> </span>danieltreiman/twitter-human-bots-dataset
 
 <span class="c1"># Unzips the downloaded dataset, creates twitter_human_bots_dataset.csv</span>
-unzip -q -o twitter-human-bots-dataset.zip
+unzip<span class="w"> </span>-q<span class="w"> </span>-o<span class="w"> </span>twitter-human-bots-dataset.zip
 </code></pre></div>
 <h3 id="train">Train<a class="headerlink" href="#train" title="Permanent link">&para;</a></h3>
 <h4 id="define-ludwig-config">Define ludwig config<a class="headerlink" href="#define-ludwig-config" title="Permanent link">&para;</a></h4>
@@ -2451,40 +2451,40 @@ a small sample.</p>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>With <code>config.yaml</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default_profile</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default_profile_image</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">description</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">favourites_count</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">followers_count</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">friends_count</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geo_enabled</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lang</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">location</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">profile_background_image_path</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">profile_image_path</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">statuses_count</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">verified</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">average_tweets_per_day</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">account_age_days</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span><span class="w"></span>
-<span class="nt">output_features</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">account_type</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default_profile</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default_profile_image</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">description</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">favourites_count</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">followers_count</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">friends_count</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geo_enabled</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lang</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">location</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">profile_background_image_path</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">profile_image_path</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">statuses_count</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">verified</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">average_tweets_per_day</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">account_age_days</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
+<span class="nt">output_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">account_type</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2567,7 +2567,7 @@ a small sample.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">cli</label><label for="__tabbed_2_2">python</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>ludwig train --dataset twitter_human_bots_dataset.csv -c config.yaml
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>train<span class="w"> </span>--dataset<span class="w"> </span>twitter_human_bots_dataset.csv<span class="w"> </span>-c<span class="w"> </span>config.yaml
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2590,11 +2590,11 @@ a small sample.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">cli</label><label for="__tabbed_3_2">python</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>ludwig evaluate <span class="se">\</span>
-    --model_path results/experiment_run/model <span class="se">\</span>
-    --dataset twitter_human_bots_dataset.csv <span class="se">\</span>
-    --split <span class="nb">test</span> <span class="se">\</span>
-    --output_directory test_results
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>evaluate<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--model_path<span class="w"> </span>results/experiment_run/model<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--dataset<span class="w"> </span>twitter_human_bots_dataset.csv<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--split<span class="w"> </span><span class="nb">test</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output_directory<span class="w"> </span>test_results
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2613,12 +2613,12 @@ a small sample.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">cli</label><label for="__tabbed_4_2">python</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>ludwig visualize <span class="se">\</span>
-    --visualization confusion_matrix <span class="se">\</span>
-    --ground_truth_metadata results/experiment_run/model/training_set_metadata.json <span class="se">\</span>
-    --test_statistics test_results/test_statistics.json <span class="se">\</span>
-    --output_directory visualizations <span class="se">\</span>
-    --file_format png
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>visualize<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--visualization<span class="w"> </span>confusion_matrix<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--ground_truth_metadata<span class="w"> </span>results/experiment_run/model/training_set_metadata.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--test_statistics<span class="w"> </span>test_results/test_statistics.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output_directory<span class="w"> </span>visualizations<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--file_format<span class="w"> </span>png
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2654,12 +2654,12 @@ a small sample.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">cli</label><label for="__tabbed_5_2">python</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>ludwig visualize <span class="se">\</span>
-    --visualization learning_curves <span class="se">\</span>
-    --ground_truth_metadata results/experiment_run/model/training_set_metadata.json <span class="se">\</span>
-    --training_statistics results/experiment_run/training_statistics.json <span class="se">\</span>
-    --file_format png <span class="se">\</span>
-    --output_directory visualizations
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>visualize<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--visualization<span class="w"> </span>learning_curves<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--ground_truth_metadata<span class="w"> </span>results/experiment_run/model/training_set_metadata.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--training_statistics<span class="w"> </span>results/experiment_run/training_statistics.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--file_format<span class="w"> </span>png<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output_directory<span class="w"> </span>visualizations
 </code></pre></div>
 </div>
 <div class="tabbed-block">

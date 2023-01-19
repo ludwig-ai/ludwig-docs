@@ -2414,29 +2414,29 @@
 
 <p>The <code>hyperopt</code> section of the Ludwig configuration defines what metrics to optimize for, which parameters to optimize,
 search strategy and execution strategy.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">hyperopt</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">minimize</span><span class="w"></span>
-<span class="w">  </span><span class="nt">output_feature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">combined</span><span class="w"></span>
-<span class="w">  </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loss</span><span class="w"></span>
-<span class="w">  </span><span class="nt">split</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">validation</span><span class="w"></span>
-<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title.encoder.cell_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"> </span><span class="c1"># title is a text feature type</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">hyperopt</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">minimize</span>
+<span class="w">  </span><span class="nt">output_feature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">combined</span>
+<span class="w">  </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loss</span>
+<span class="w">  </span><span class="nt">split</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">validation</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">title.encoder.cell_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"> </span><span class="c1"># title is a text feature type</span>
 <span class="w">    </span><span class="nt">title.encoder.num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"> </span>
-<span class="w">    </span><span class="nt">combiner.num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">    </span><span class="nt">section.encoder.embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">    </span><span class="nt">preprocessing.text.vocab_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">    </span><span class="nt">trainer.learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">    </span><span class="nt">trainer.optimizer.type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">  </span><span class="nt">search_alg</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">variant_generator</span><span class="w">  </span><span class="c1"># random, hyperopt, bohb, ...</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># search_alg parameters...</span><span class="w"></span>
-<span class="w">  </span><span class="nt">executor</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span><span class="w"></span>
-<span class="w">    </span><span class="nt">num_samples</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">    </span><span class="nt">scheduler</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fifo</span><span class="w">  </span><span class="c1"># hb_bohb, asynchyperband, ...</span><span class="w"></span>
-<span class="w">      </span><span class="c1"># scheduler parameters...</span><span class="w"></span>
+<span class="w">    </span><span class="nt">combiner.num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">section.encoder.embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">preprocessing.text.vocab_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">trainer.learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">trainer.optimizer.type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="nt">search_alg</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">variant_generator</span><span class="w">  </span><span class="c1"># random, hyperopt, bohb, ...</span>
+<span class="w">    </span><span class="c1"># search_alg parameters...</span>
+<span class="w">  </span><span class="nt">executor</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span>
+<span class="w">    </span><span class="nt">num_samples</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">scheduler</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fifo</span><span class="w">  </span><span class="c1"># hb_bohb, asynchyperband, ...</span>
+<span class="w">      </span><span class="c1"># scheduler parameters...</span>
 </code></pre></div>
 <h2 id="hyperopt-configuration-parameters">Hyperopt configuration parameters<a class="headerlink" href="#hyperopt-configuration-parameters" title="Permanent link">&para;</a></h2>
 <ul>
@@ -2469,23 +2469,23 @@ For instance, for referencing the <code>cell_type</code> of the <code>encoder</c
 <p>Depending on the specific numeric <code>space</code>, the <code>upper</code> parameter may be inclusive or excluse.  Refer to the <a href="https://docs.ray.io/en/latest/tune/api_docs/search_space.html#tune-uniform">Ray Tune documentation</a> for the specific distribution for details.</p>
 </div>
 <p><strong>Float example</strong>: Uniform floating point random values (in log space) between 0.001 and 0.1</p>
-<div class="highlight"><pre><span></span><code><span class="nt">trainer.learning_rate</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loguniform</span><span class="w"></span>
-<span class="w">  </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span><span class="w"></span>
-<span class="w">  </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">trainer.learning_rate</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loguniform</span>
+<span class="w">  </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span>
+<span class="w">  </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
 </code></pre></div>
 <p><strong>Integer example</strong>: Uniform random integer values 1, 2, 3</p>
-<div class="highlight"><pre><span></span><code><span class="nt">combiner.num_fc_layers</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">randint</span><span class="w"></span>
-<span class="w">  </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="w">  </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">combiner.num_fc_layers</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">randint</span>
+<span class="w">  </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
 </code></pre></div>
 <p><strong>Quantized Example</strong>: Uniform random floating point values such a 0, 0.1, 0.2, ..., 0.9</p>
-<div class="highlight"><pre><span></span><code><span class="nt">my_output_feature.decoder.dropout</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quniform</span><span class="w"></span>
-<span class="w">  </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
-<span class="w">  </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="w">  </span><span class="nt">q</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">my_output_feature.decoder.dropout</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quniform</span>
+<span class="w">  </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">  </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">q</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
 </code></pre></div>
 <h3 id="categorical-hyperparameters">Categorical Hyperparameters<a class="headerlink" href="#categorical-hyperparameters" title="Permanent link">&para;</a></h3>
 <ul>
@@ -2494,9 +2494,9 @@ For instance, for referencing the <code>cell_type</code> of the <code>encoder</c
 integers, floats and anything else, even entire dictionaries.  The values will be a uniform random selection.</li>
 </ul>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">title.encoder.cell_type</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span><span class="w"></span>
-<span class="w">  </span><span class="nt">categories</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">rnn</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">gru</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">lstm</span><span class="p p-Indicator">]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">title.encoder.cell_type</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span>
+<span class="w">  </span><span class="nt">categories</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">rnn</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">gru</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">lstm</span><span class="p p-Indicator">]</span>
 </code></pre></div>
 <h3 id="hyperparameters-in-a-grid">Hyperparameters in a Grid<a class="headerlink" href="#hyperparameters-in-a-grid" title="Permanent link">&para;</a></h3>
 <p>For <code>space</code>: <code>grid_search</code></p>
@@ -2505,33 +2505,33 @@ integers, floats and anything else, even entire dictionaries.  The values will b
 integers, floats and anything else, even entire dictionaries.</li>
 </ul>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">title.encoder.cell_type</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grid_search</span><span class="w"></span>
-<span class="w">  </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">rnn</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">gru</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">lstm</span><span class="p p-Indicator">]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">title.encoder.cell_type</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grid_search</span>
+<span class="w">  </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">rnn</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">gru</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">lstm</span><span class="p p-Indicator">]</span>
 </code></pre></div>
 <h3 id="more-comprehensive-example">More comprehensive example<a class="headerlink" href="#more-comprehensive-example" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">hyperopt</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">trainer.learning_rate</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loguniform</span><span class="w"></span>
-<span class="w">      </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span><span class="w"></span>
-<span class="w">      </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span><span class="w"></span>
-<span class="w">    </span><span class="nt">combiner.num_fc_layers</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">randint</span><span class="w"></span>
-<span class="w">      </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
-<span class="w">      </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title.encoder.cell_type</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grid_search</span><span class="w"></span>
-<span class="w">      </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;rnn&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;gru&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title.encoder.bidirectional</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span><span class="w"></span>
-<span class="w">      </span><span class="nt">categories</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">True</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">False</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title.encoder.fc_layers</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span><span class="w"></span>
-<span class="w">      </span><span class="nt">categories</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="s">&quot;output_size&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">512</span><span class="p p-Indicator">},</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;output_size&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">256</span><span class="p p-Indicator">}]</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="s">&quot;output_size&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">512</span><span class="p p-Indicator">}]</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="s">&quot;output_size&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">256</span><span class="p p-Indicator">}]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">hyperopt</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">trainer.learning_rate</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loguniform</span>
+<span class="w">      </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span>
+<span class="w">      </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+<span class="w">    </span><span class="nt">combiner.num_fc_layers</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">randint</span>
+<span class="w">      </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">      </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span>
+<span class="w">    </span><span class="nt">title.encoder.cell_type</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grid_search</span>
+<span class="w">      </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;rnn&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;gru&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">title.encoder.bidirectional</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span>
+<span class="w">      </span><span class="nt">categories</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">True</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">False</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">title.encoder.fc_layers</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span>
+<span class="w">      </span><span class="nt">categories</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="s">&quot;output_size&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">512</span><span class="p p-Indicator">},</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;output_size&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">256</span><span class="p p-Indicator">}]</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="s">&quot;output_size&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">512</span><span class="p p-Indicator">}]</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="s">&quot;output_size&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">256</span><span class="p p-Indicator">}]</span>
 </code></pre></div>
 <h4 id="default-hyperopt-parameters">Default Hyperopt Parameters<a class="headerlink" href="#default-hyperopt-parameters" title="Permanent link">&para;</a></h4>
 <p>In addition to defining hyperopt parameters for individual input or output features (like the <code>title</code> feature
@@ -2542,8 +2542,8 @@ to use for all text features in your dataset). Read more about default hyperopt 
 Read more about nested Ludwig config parameters <a href="../../user_guide/hyperopt/#nested-ludwig-config-parameters">here</a>.</p>
 <h2 id="search-algorithm">Search Algorithm<a class="headerlink" href="#search-algorithm" title="Permanent link">&para;</a></h2>
 <p>Ray Tune supports its own collection of <a href="https://docs.ray.io/en/master/tune/api_docs/suggestion.html">search algorithms</a>, specified by the <code>search_alg</code> section of the hyperopt config:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">search_alg</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">variant_generator</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">search_alg</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">variant_generator</span>
 </code></pre></div>
 <p>You can find the full list of supported search algorithm names in Ray Tune's <a href="https://github.com/ray-project/ray/blob/master/python/ray/tune/suggest/__init__.py">create_searcher</a> function. Please note these algorithms require installation of additional packages.  As of this version of Ludwig, Ludwig installs the packages for the search algorithm <code>hyperopt</code>.  For all other search algorithms, the user is expected to install the required packages.</p>
 <h2 id="executor">Executor<a class="headerlink" href="#executor" title="Permanent link">&para;</a></h2>
@@ -2583,16 +2583,16 @@ Read more about nested Ludwig config parameters <a href="../../user_guide/hypero
 <p>Ray Tune also allows you to specify a <a href="https://docs.ray.io/en/master/tune/api_docs/schedulers.html">scheduler</a> to support features like early stopping and other population-based strategies that may pause and resume trials during trainer. Ludwig exposes the complete scheduler API in the <code>scheduler</code> section of the <code>executor</code> config.</p>
 <p>You can find the full list of supported schedulers in Ray Tune's <a href="https://github.com/ray-project/ray/blob/master/python/ray/tune/schedulers/__init__.py">create_scheduler</a> function.</p>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">executor</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span><span class="w"></span>
-<span class="w">  </span><span class="nt">cpu_resources_per_trial</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
-<span class="w">  </span><span class="nt">gpu_resources_per_trial</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="w">  </span><span class="nt">kubernetes_namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span><span class="w"></span>
-<span class="w">  </span><span class="nt">time_budget_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7200</span><span class="w"></span>
-<span class="w">  </span><span class="nt">scheduler</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">async_hyperband</span><span class="w"></span>
-<span class="w">    </span><span class="nt">time_attr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">training_iteration</span><span class="w"></span>
-<span class="w">    </span><span class="nt">reduction_factor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">executor</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span>
+<span class="w">  </span><span class="nt">cpu_resources_per_trial</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="nt">gpu_resources_per_trial</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">kubernetes_namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span>
+<span class="w">  </span><span class="nt">time_budget_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7200</span>
+<span class="w">  </span><span class="nt">scheduler</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">async_hyperband</span>
+<span class="w">    </span><span class="nt">time_attr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">training_iteration</span>
+<span class="w">    </span><span class="nt">reduction_factor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
 </code></pre></div>
 <p><strong>Running Ray Executor:</strong></p>
 <p>See the section on <a href="../../user_guide/distributed_training#ray">Running Ludwig with Ray</a> for guidance on setting up your
@@ -2600,59 +2600,59 @@ Ray cluster.</p>
 <h2 id="full-hyperparameter-optimization-example">Full hyperparameter optimization example<a class="headerlink" href="#full-hyperparameter-optimization-example" title="Permanent link">&para;</a></h2>
 <p>Following is a full example of a Ludwig configuration with hyperparameter optimization.</p>
 <p>Example YAML:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">title</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">title</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
 <span class="w">    </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rnn</span><span class="w"></span>
-<span class="w">        </span><span class="nt">cell_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lstm</span><span class="w"></span>
-<span class="w">        </span><span class="nt">num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
-<span class="nt">combiner</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">concat</span><span class="w"></span>
-<span class="w">  </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="nt">output_features</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"></span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">class</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
-<span class="nt">defaults</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">text</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">word_vocab_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span><span class="w"></span>
-<span class="nt">training</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span><span class="w"></span>
-<span class="w">  </span><span class="nt">optimizer</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adam</span><span class="w"></span>
-<span class="nt">hyperopt</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">maximize</span><span class="w"></span>
-<span class="w">  </span><span class="nt">output_feature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">class</span><span class="w"></span>
-<span class="w">  </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">accuracy</span><span class="w"></span>
-<span class="w">  </span><span class="nt">split</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">validation</span><span class="w"></span>
-<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">trainer.learning_rate</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loguniform</span><span class="w"></span>
-<span class="w">      </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0001</span><span class="w"></span>
-<span class="w">      </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span><span class="w"></span>
-<span class="w">    </span><span class="nt">trainer.optimizer.type</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span><span class="w"></span>
-<span class="w">      </span><span class="nt">categories</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">sgd</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">adam</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">adagrad</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="w">    </span><span class="nt">preprocessing.text.word_vocab_size</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qrandint</span><span class="w"></span>
-<span class="w">      </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">700</span><span class="w"></span>
-<span class="w">      </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1200</span><span class="w"></span>
-<span class="w">      </span><span class="nt">q</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span><span class="w"></span>
-<span class="w">    </span><span class="nt">combiner.num_fc_layers</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">randint</span><span class="w"></span>
-<span class="w">      </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="w">      </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span><span class="w"></span>
-<span class="w">    </span><span class="nt">title.encoder.cell_type</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span><span class="w"></span>
-<span class="w">      </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">rnn</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">gru</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">lstm</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="w">  </span><span class="nt">search_alg</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random</span><span class="w"></span>
-<span class="w">  </span><span class="nt">executor</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span><span class="w"></span>
-<span class="w">    </span><span class="nt">num_samples</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12</span><span class="w"></span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rnn</span>
+<span class="w">        </span><span class="nt">cell_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lstm</span>
+<span class="w">        </span><span class="nt">num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="nt">combiner</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">concat</span>
+<span class="w">  </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="nt">output_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">class</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span>
+<span class="nt">defaults</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">text</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">word_vocab_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span>
+<span class="nt">training</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span>
+<span class="w">  </span><span class="nt">optimizer</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adam</span>
+<span class="nt">hyperopt</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">maximize</span>
+<span class="w">  </span><span class="nt">output_feature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">class</span>
+<span class="w">  </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">accuracy</span>
+<span class="w">  </span><span class="nt">split</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">validation</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">trainer.learning_rate</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loguniform</span>
+<span class="w">      </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0001</span>
+<span class="w">      </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+<span class="w">    </span><span class="nt">trainer.optimizer.type</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span>
+<span class="w">      </span><span class="nt">categories</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">sgd</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">adam</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">adagrad</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">preprocessing.text.word_vocab_size</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qrandint</span>
+<span class="w">      </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">700</span>
+<span class="w">      </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1200</span>
+<span class="w">      </span><span class="nt">q</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">    </span><span class="nt">combiner.num_fc_layers</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">randint</span>
+<span class="w">      </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">    </span><span class="nt">title.encoder.cell_type</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span>
+<span class="w">      </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">rnn</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">gru</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">lstm</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">search_alg</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random</span>
+<span class="w">  </span><span class="nt">executor</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span>
+<span class="w">    </span><span class="nt">num_samples</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12</span>
 </code></pre></div>
 <p>Example CLI command:</p>
 <div class="highlight"><pre><span></span><code>ludwig hyperopt --dataset reuters-allcats.csv --config_str &quot;{input_features: [{name: title, type: text, encoder: {type: rnn, cell_type: lstm, num_layers: 2}}], output_features: [{name: class, type: category}], training: {learning_rate: 0.001}, hyperopt: {goal: maximize, output_feature: class, metric: accuracy, split: validation, parameters: {trainer.learning_rate: {space: loguniform, lower: 0.0001, upper: 0.1}, title.encoder.cell_type: {space: choice, categories: [rnn, gru, lstm]}}, search_alg: {type: variant_generator},executor: {type: ray, num_samples: 10}}}&quot;

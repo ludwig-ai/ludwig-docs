@@ -2477,24 +2477,24 @@ Ludwig configuration.</p>
 <p>Each hyperparameter that should be sampled is declared in <code>hyperopt.parameters</code>,
 which also specifies additional constraints that the <code>Sampler</code> should honor. For
 example:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">hyperopt</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">minimize</span><span class="w"></span>
-<span class="w">    </span><span class="nt">output_feature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">combined</span><span class="w"></span>
-<span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loss</span><span class="w"></span>
-<span class="w">    </span><span class="nt">split</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">validation</span><span class="w"></span>
-<span class="w">    </span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">trainer.learning_rate</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">linear</span><span class="w"></span>
-<span class="w">            </span><span class="nt">range</span><span class="p">:</span><span class="w"></span>
-<span class="w">                </span><span class="nt">low</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span><span class="w"></span>
-<span class="w">                </span><span class="nt">high</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span><span class="w"></span>
-<span class="w">            </span><span class="nt">steps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"></span>
-<span class="w">        </span><span class="nt">text.fc_layers</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span><span class="w"></span>
-<span class="w">            </span><span class="nt">categories</span><span class="p">:</span><span class="w"></span>
-<span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="s">&quot;output_size&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">512</span><span class="p p-Indicator">},</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;output_size&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">256</span><span class="p p-Indicator">}]</span><span class="w"></span>
-<span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="s">&quot;output_size&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">512</span><span class="p p-Indicator">}]</span><span class="w"></span>
-<span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="s">&quot;output_size&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">256</span><span class="p p-Indicator">}]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">hyperopt</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">minimize</span>
+<span class="w">    </span><span class="nt">output_feature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">combined</span>
+<span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loss</span>
+<span class="w">    </span><span class="nt">split</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">validation</span>
+<span class="w">    </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">trainer.learning_rate</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">linear</span>
+<span class="w">            </span><span class="nt">range</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">low</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span>
+<span class="w">                </span><span class="nt">high</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+<span class="w">            </span><span class="nt">steps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">        </span><span class="nt">text.fc_layers</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span>
+<span class="w">            </span><span class="nt">categories</span><span class="p">:</span>
+<span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="s">&quot;output_size&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">512</span><span class="p p-Indicator">},</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;output_size&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">256</span><span class="p p-Indicator">}]</span>
+<span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="s">&quot;output_size&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">512</span><span class="p p-Indicator">}]</span>
+<span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="s">&quot;output_size&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">256</span><span class="p p-Indicator">}]</span>
 </code></pre></div>
 <p>Here, <code>trainer.learning_rate</code> is sampled in continuously while <code>text.fc_layers</code>
 is sampled discretely.</p>

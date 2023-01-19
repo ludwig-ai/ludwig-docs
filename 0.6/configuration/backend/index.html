@@ -2307,15 +2307,15 @@ with zero code changes. This distributed execution includes preprocessing, train
 <p>In most cases, Ludwig will be able to automatically detect if you're running in an environment that supports distributed
 execution, but you can also make this explicit on the command line with the <code>--backend</code> arg or by providing a <code>backend</code>
 section to the Ludwig config YAML:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span><span class="w"></span>
-<span class="w">  </span><span class="nt">cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3://my_bucket/cache</span><span class="w"></span>
-<span class="w">  </span><span class="nt">cache_credentials</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/home/user/.credentials.json</span><span class="w"></span>
-<span class="w">  </span><span class="nt">processor</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dask</span><span class="w"></span>
-<span class="w">  </span><span class="nt">trainer</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">horovod</span><span class="w"></span>
-<span class="w">  </span><span class="nt">loader</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span>
+<span class="w">  </span><span class="nt">cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3://my_bucket/cache</span>
+<span class="w">  </span><span class="nt">cache_credentials</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/home/user/.credentials.json</span>
+<span class="w">  </span><span class="nt">processor</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dask</span>
+<span class="w">  </span><span class="nt">trainer</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">horovod</span>
+<span class="w">  </span><span class="nt">loader</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
 </code></pre></div>
 <p>Parameters:</p>
 <ul>
@@ -2349,12 +2349,12 @@ if set too high.</p>
 <p>Setting <code>persist</code> to <code>false</code> can be useful if the dataset is too large for all the memory and disk of the entire Ray cluster. Only set this to <code>false</code> if you're
 seeing issues running out of memory or disk space.</p>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span><span class="w"></span>
-<span class="w">  </span><span class="nt">processor</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dask</span><span class="w"></span>
-<span class="w">    </span><span class="nt">parallelism</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w"></span>
-<span class="w">    </span><span class="nt">persist</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span>
+<span class="w">  </span><span class="nt">processor</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dask</span>
+<span class="w">    </span><span class="nt">parallelism</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">    </span><span class="nt">persist</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </code></pre></div>
 <h3 id="modin">Modin<a class="headerlink" href="#modin" title="Permanent link">&para;</a></h3>
 <p><a href="https://github.com/modin-project/modin">Modin</a> is an eagerly-executed distributed dataframe library that closely mirrors the behavior of
@@ -2362,10 +2362,10 @@ Pandas. Because it behaves almost identically to Pandas but is able to distribut
 across the Ray cluster, there are fewer things to configure to optimize its performance.</p>
 <p>Support for Modin is currently experimental.</p>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span><span class="w"></span>
-<span class="w">  </span><span class="nt">processor</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">modin</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span>
+<span class="w">  </span><span class="nt">processor</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">modin</span>
 </code></pre></div>
 <h2 id="trainer">Trainer<a class="headerlink" href="#trainer" title="Permanent link">&para;</a></h2>
 <p>The <code>trainer</code> section configures distributed training. Currently, only <code>horovod</code> is supported as a distributed trainer, but
@@ -2390,15 +2390,15 @@ workers across nodes. In the near future, Ray will support SPREAD scheduling, at
 default number of workers during CPU training to the number of nodes in the cluster.</p>
 </div>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span><span class="w"></span>
-<span class="w">  </span><span class="nt">trainer</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">horovod</span><span class="w"></span>
-<span class="w">    </span><span class="nt">use_gpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="w">    </span><span class="nt">num_workers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"></span>
-<span class="w">    </span><span class="nt">resources_per_worker</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">CPU</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
-<span class="w">        </span><span class="nt">GPU</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span>
+<span class="w">  </span><span class="nt">trainer</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">horovod</span>
+<span class="w">    </span><span class="nt">use_gpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">num_workers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">    </span><span class="nt">resources_per_worker</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">CPU</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">        </span><span class="nt">GPU</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
 </code></pre></div>
 <h2 id="loader">Loader<a class="headerlink" href="#loader" title="Permanent link">&para;</a></h2>
 <p>The <code>loader</code> section configures the "last mile" data ingest from processed data (typically cached in the Parquet
@@ -2412,11 +2412,11 @@ improve throughput:</p>
 <li><code>window_size_bytes</code>: Load and shuffle the preprocessed dataset in discrete windows of this size (defaults to <code>null</code>, meaning data will not be windowed). Try configuring this is if shuffling is taking a very long time, indicated by every epoch of training taking many minutes to start. In general, larger window sizes result in more uniform shuffling (which can lead to better model performance in some cases), while smaller window sizes will be faster to load. This setting is particularly useful when running hyperopt over a large dataset.</li>
 </ul>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span><span class="w"></span>
-<span class="w">  </span><span class="nt">loader</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">fully_executed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="w">    </span><span class="nt">window_size_bytes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500000000</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span>
+<span class="w">  </span><span class="nt">loader</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">fully_executed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">window_size_bytes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500000000</span>
 </code></pre></div>
 
               

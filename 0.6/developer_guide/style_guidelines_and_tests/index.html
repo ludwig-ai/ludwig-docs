@@ -2313,16 +2313,16 @@ pre-commit.ci after creating a new pull request. There may be automatic fixes to
 editing to fix.</p>
 <p>To run pre-commit on local branches, you can install pre-commit locally with pip:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Installs pre-commit tool</span>
-pip install pre-commit
+pip<span class="w"> </span>install<span class="w"> </span>pre-commit
 
 <span class="c1"># Adds pre-commit hooks to local clone of git repository.</span>
-pre-commit install
+pre-commit<span class="w"> </span>install
 
 <span class="c1"># Runs pre-commit on all files</span>
-pre-commit run --all-files
+pre-commit<span class="w"> </span>run<span class="w"> </span>--all-files
 
 <span class="c1"># To disable, simply uninstall pre-commit from the local clone.</span>
-pre-commit uninstall
+pre-commit<span class="w"> </span>uninstall
 </code></pre></div>
 <h3 id="docstrings">Docstrings<a class="headerlink" href="#docstrings" title="Permanent link">&para;</a></h3>
 <p>All new files, classes, and methods should have a docstring. Docstrings should give a concise description of the method
@@ -2333,7 +2333,7 @@ in the function signature wherever possible, and should use the most specific ty
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">split</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]]:</span>
-    <span class="sd">&quot;&quot;&quot;Loads the processed Parquet into a dataframe.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Loads the processed Parquet into a dataframe.</span>
 
 <span class="sd">    :param split: Splits along &#39;split&#39; column if present.</span>
 <span class="sd">    :returns: The preprocessed dataset, or a tuple of (train, validation, test).</span>
@@ -2342,7 +2342,7 @@ in the function signature wherever possible, and should use the most specific ty
 <p>Functions with no arguments or return value may have a isingle-line docstring, ie:</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">csv_filename</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Yields a csv filename for holding temporary data.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Yields a csv filename for holding temporary data.&quot;&quot;&quot;</span>
 </code></pre></div>
 <h2 id="tests">Tests<a class="headerlink" href="#tests" title="Permanent link">&para;</a></h2>
 <p>Ludwig uses two types of tests: unit tests and integration tests. Unit tests test a single module, and should
@@ -2371,20 +2371,20 @@ which get us closer to the goal of 100% test coverage will be welcomed!</p>
 Note that you don't need to have ludwig module installed. Running tests from the ludwig source root is useful for
 development as the test will import ludwig modules directly from the source tree.</p>
 <p>To run all unit tests (will take a few minutes):</p>
-<div class="highlight"><pre><span></span><code>python -m pytest tests/ludwig/
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/ludwig/
 </code></pre></div>
 <p>Run a single test module:</p>
-<div class="highlight"><pre><span></span><code>python -m pytest tests/ludwig/decoders/test_sequence_decoder.py
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/ludwig/decoders/test_sequence_decoder.py
 </code></pre></div>
 <p>To run a single test case of a module, you can use <code>-k</code> to specify the test case name:</p>
-<div class="highlight"><pre><span></span><code>python -m pytest tests/integration_tests/test_experiment.py <span class="se">\</span>
-       -k <span class="s2">&quot;test_visual_question_answering&quot;</span>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/integration_tests/test_experiment.py<span class="w"> </span><span class="se">\</span>
+<span class="w">       </span>-k<span class="w"> </span><span class="s2">&quot;test_visual_question_answering&quot;</span>
 </code></pre></div>
 <p>Another useful tool for debugging is the <code>-vs</code> flag, which runs the test with eager stdout. This prints log messages to
 the console in real time. Also, individual test cases can be specified with the <code>module::test_case</code> pattern instead of
 <code>-k</code>:</p>
-<div class="highlight"><pre><span></span><code>python -m pytest <span class="se">\</span>
-    tests/integration_tests/test_api.py::test_api_training_determinism -vs
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>tests/integration_tests/test_api.py::test_api_training_determinism<span class="w"> </span>-vs
 </code></pre></div>
 
               

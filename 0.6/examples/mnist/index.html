@@ -2278,7 +2278,7 @@ dataset.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">cli</label><label for="__tabbed_1_2">python</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>ludwig datasets download mnist
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>datasets<span class="w"> </span>download<span class="w"> </span>mnist
 </code></pre></div>
 <p>This command will create a dataset <code>mnist_dataset.csv</code> in the current directory.  In addition, there will be directories <code>training/</code> and <code>testing/</code> containing the images.</p>
 <p>The columns in the dataset are</p>
@@ -2343,32 +2343,32 @@ This will create two pandas DataFrames.  <code>train_df</code> contains file pat
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">cli</label><label for="__tabbed_2_2">python</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="c1"># config.yaml</span><span class="w"></span>
-<span class="nt">input_features</span><span class="p">:</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image_path</span><span class="w"></span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="c1"># config.yaml</span>
+<span class="nt">input_features</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image_path</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image</span>
 <span class="w">  </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stacked_cnn</span><span class="w"></span>
-<span class="w">      </span><span class="nt">conv_layers</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">num_filters</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span><span class="w"></span>
-<span class="w">          </span><span class="nt">filter_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w"></span>
-<span class="w">          </span><span class="nt">pool_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
-<span class="w">          </span><span class="nt">pool_stride</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">num_filters</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span><span class="w"></span>
-<span class="w">          </span><span class="nt">filter_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w"></span>
-<span class="w">          </span><span class="nt">pool_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
-<span class="w">          </span><span class="nt">pool_stride</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
-<span class="w">          </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.4</span><span class="w"></span>
-<span class="w">      </span><span class="nt">fc_layers</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span><span class="w"></span>
-<span class="w">          </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.4</span><span class="w"></span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stacked_cnn</span>
+<span class="w">      </span><span class="nt">conv_layers</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">num_filters</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span>
+<span class="w">          </span><span class="nt">filter_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">          </span><span class="nt">pool_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">          </span><span class="nt">pool_stride</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">num_filters</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span>
+<span class="w">          </span><span class="nt">filter_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">          </span><span class="nt">pool_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">          </span><span class="nt">pool_stride</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">          </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.4</span>
+<span class="w">      </span><span class="nt">fc_layers</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span>
+<span class="w">          </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.4</span>
 
-<span class="nt">output_features</span><span class="p">:</span><span class="w"></span>
-<span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">label</span><span class="w"></span>
-<span class="w">   </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
+<span class="nt">output_features</span><span class="p">:</span>
+<span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">label</span>
+<span class="w">   </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span>
 
-<span class="nt">trainer</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">epochs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span><span class="w"></span>
+<span class="nt">trainer</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">epochs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2405,9 +2405,9 @@ This will create two pandas DataFrames.  <code>train_df</code> contains file pat
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><a href="../../user_guide/command_line_interface/#train"><code>ludwig train</code> command</a></p>
-<div class="highlight"><pre><span></span><code>ludwig train <span class="se">\</span>
-  --dataset mnist_dataset.csv <span class="se">\</span>
-  --config config.yaml
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>train<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--dataset<span class="w"> </span>mnist_dataset.csv<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--config<span class="w"> </span>config.yaml
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2424,10 +2424,10 @@ This will create two pandas DataFrames.  <code>train_df</code> contains file pat
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><a href="../../user_guide/command_line_interface/#evaluate"><code>ludwig evaluate</code> command</a></p>
-<div class="highlight"><pre><span></span><code>ludwig evaluate --model_path results/experiment_run/model <span class="se">\</span>
-                 --dataset mnist_dataset.csv <span class="se">\</span>
-                 --split <span class="nb">test</span> <span class="se">\</span>
-                 --output_directory test_results
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>evaluate<span class="w"> </span>--model_path<span class="w"> </span>results/experiment_run/model<span class="w"> </span><span class="se">\</span>
+<span class="w">                 </span>--dataset<span class="w"> </span>mnist_dataset.csv<span class="w"> </span><span class="se">\</span>
+<span class="w">                 </span>--split<span class="w"> </span><span class="nb">test</span><span class="w"> </span><span class="se">\</span>
+<span class="w">                 </span>--output_directory<span class="w"> </span>test_results
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2448,11 +2448,11 @@ This will create two pandas DataFrames.  <code>train_df</code> contains file pat
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><a href="../../user_guide/visualizations/#confusion-matrix"><code>ludwig visualize confusion_matrix</code> command</a></p>
-<div class="highlight"><pre><span></span><code>ludwig visualize --visualization confusion_matrix <span class="se">\</span>
-                  --ground_truth_metadata results/experiment_run/model/training_set_metadata.json <span class="se">\</span>
-                  --test_statistics test_results/test_statistics.json <span class="se">\</span>
-                  --output_directory visualizations <span class="se">\</span>
-                  --file_format png
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>visualize<span class="w"> </span>--visualization<span class="w"> </span>confusion_matrix<span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--ground_truth_metadata<span class="w"> </span>results/experiment_run/model/training_set_metadata.json<span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--test_statistics<span class="w"> </span>test_results/test_statistics.json<span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--output_directory<span class="w"> </span>visualizations<span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--file_format<span class="w"> </span>png
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2479,11 +2479,11 @@ This will create two pandas DataFrames.  <code>train_df</code> contains file pat
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><a href="../../user_guide/visualizations/#learning-curves"><code>ludwig visualize learning_curves</code> command</a></p>
-<div class="highlight"><pre><span></span><code>ludwig visualize --visualization learning_curves <span class="se">\</span>
-                  --ground_truth_metadata results/experiment_run/model/training_set_metadata.json <span class="se">\</span>
-                  --training_statistics results/experiment_run/training_statistics.json <span class="se">\</span>
-                  --file_format png <span class="se">\</span>
-                  --output_directory visualizations
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>visualize<span class="w"> </span>--visualization<span class="w"> </span>learning_curves<span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--ground_truth_metadata<span class="w"> </span>results/experiment_run/model/training_set_metadata.json<span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--training_statistics<span class="w"> </span>results/experiment_run/training_statistics.json<span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--file_format<span class="w"> </span>png<span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--output_directory<span class="w"> </span>visualizations
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2504,10 +2504,10 @@ This will create two pandas DataFrames.  <code>train_df</code> contains file pat
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><a href="../../user_guide/command_line_interface/#predict"><code>ludwig predict</code> command</a></p>
-<div class="highlight"><pre><span></span><code>ludwig predict --model_path results/experiment_run/model <span class="se">\</span>
-                --dataset mnist_dataset.csv <span class="se">\</span>
-                --split <span class="nb">test</span> <span class="se">\</span>
-                --output_directory predictions
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>predict<span class="w"> </span>--model_path<span class="w"> </span>results/experiment_run/model<span class="w"> </span><span class="se">\</span>
+<span class="w">                </span>--dataset<span class="w"> </span>mnist_dataset.csv<span class="w"> </span><span class="se">\</span>
+<span class="w">                </span>--split<span class="w"> </span><span class="nb">test</span><span class="w"> </span><span class="se">\</span>
+<span class="w">                </span>--output_directory<span class="w"> </span>predictions
 </code></pre></div>
 </div>
 <div class="tabbed-block">

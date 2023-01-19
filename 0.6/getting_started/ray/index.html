@@ -2149,31 +2149,31 @@
 <div class="highlight"><pre><span></span><code>pip install ray
 </code></pre></div>
 <p>Next let's make a configuration file named <code>cluster.yaml</code> for the Ray Cluster:</p>
-<div class="highlight"><span class="filename">cluster.yaml</span><pre><span></span><code><span class="nt">cluster_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ludwig-ray-gpu-nightly</span><span class="w"></span>
+<div class="highlight"><span class="filename">cluster.yaml</span><pre><span></span><code><span class="nt">cluster_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ludwig-ray-gpu-nightly</span>
 
-<span class="nt">min_workers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"></span>
-<span class="nt">max_workers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"></span>
+<span class="nt">min_workers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="nt">max_workers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
 
-<span class="nt">docker</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ludwigai/ludwig-ray-gpu:nightly&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ray_container&quot;</span><span class="w"></span>
+<span class="nt">docker</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ludwigai/ludwig-ray-gpu:nightly&quot;</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ray_container&quot;</span>
 
-<span class="nt">head_node</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">InstanceType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">c5.2xlarge</span><span class="w"></span>
-<span class="w">    </span><span class="nt">ImageId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest_dlami</span><span class="w"></span>
+<span class="nt">head_node</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">InstanceType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">c5.2xlarge</span>
+<span class="w">    </span><span class="nt">ImageId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest_dlami</span>
 
-<span class="nt">worker_nodes</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">InstanceType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g4dn.xlarge</span><span class="w"></span>
-<span class="w">    </span><span class="nt">ImageId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest_dlami</span><span class="w"></span>
+<span class="nt">worker_nodes</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">InstanceType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g4dn.xlarge</span>
+<span class="w">    </span><span class="nt">ImageId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest_dlami</span>
 </code></pre></div>
 <p>Finally, you can spin up the cluster with the following command:</p>
-<div class="highlight"><pre><span></span><code>ray up cluster.yaml
+<div class="highlight"><pre><span></span><code>ray<span class="w"> </span>up<span class="w"> </span>cluster.yaml
 </code></pre></div>
 <p>In order to run a distributed training job, make sure you have your dataset stored in an S3 bucket, and run this command:</p>
-<div class="highlight"><pre><span></span><code>ray submit cluster.yaml ludwig train --config rotten_tomatoes.yaml --dataset s3://mybucket/rotten_tomatoes.csv
+<div class="highlight"><pre><span></span><code>ray<span class="w"> </span>submit<span class="w"> </span>cluster.yaml<span class="w"> </span>ludwig<span class="w"> </span>train<span class="w"> </span>--config<span class="w"> </span>rotten_tomatoes.yaml<span class="w"> </span>--dataset<span class="w"> </span>s3://mybucket/rotten_tomatoes.csv
 </code></pre></div>
 <p>You can also run a distributed hyperopt job with this command:</p>
-<div class="highlight"><pre><span></span><code>ray submit cluster.yaml ludwig hyperopt --config rotten_tomatoes.yaml --dataset s3://mybucket/rotten_tomatoes.csv
+<div class="highlight"><pre><span></span><code>ray<span class="w"> </span>submit<span class="w"> </span>cluster.yaml<span class="w"> </span>ludwig<span class="w"> </span>hyperopt<span class="w"> </span>--config<span class="w"> </span>rotten_tomatoes.yaml<span class="w"> </span>--dataset<span class="w"> </span>s3://mybucket/rotten_tomatoes.csv
 </code></pre></div>
 <p>For more information on using Ray with Ludwig, refer to the <a href="../../user_guide/distributed_training">ray configuration guide</a>.</p>
 

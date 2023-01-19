@@ -2281,7 +2281,7 @@ definition + command + data or code + data.</p>
 utility</a> to create
 a synthetic data with the same feature types.</p>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code>ludwig synthesize_dataset --features<span class="o">=</span><span class="s2">&quot;[ \</span>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>synthesize_dataset<span class="w"> </span>--features<span class="o">=</span><span class="s2">&quot;[ \</span>
 <span class="s2">  {name: text, type: text}, \</span>
 <span class="s2">  {name: category, type: category}, \</span>
 <span class="s2">  {name: number, type: number}, \</span>
@@ -2294,7 +2294,7 @@ a synthetic data with the same feature types.</p>
 <span class="s2">  {name: h3, type: h3}, \</span>
 <span class="s2">  {name: vector, type: vector}, \</span>
 <span class="s2">  {name: image, type: image} \</span>
-<span class="s2">]&quot;</span> --dataset_size<span class="o">=</span><span class="m">10</span> --output_path<span class="o">=</span>synthetic_dataset.csv
+<span class="s2">]&quot;</span><span class="w"> </span>--dataset_size<span class="o">=</span><span class="m">10</span><span class="w"> </span>--output_path<span class="o">=</span>synthetic_dataset.csv
 </code></pre></div>
 
               

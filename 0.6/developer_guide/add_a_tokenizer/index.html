@@ -2237,11 +2237,11 @@ perform include:</p>
 </ul>
 <p>A tokenizer, once registered, can be used to preprocess any text input column by specifying its name as the value of
 <code>tokenizer</code> in the <code>preprocessing</code> config dictionary:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w">   </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">title</span><span class="w"></span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w"></span>
-<span class="w">        </span><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">tokenizer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;NEW_TOKENIZER&gt;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w">   </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">title</span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="w">        </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">tokenizer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;NEW_TOKENIZER&gt;</span>
 </code></pre></div>
 <p>Tokenizers are defined in <code>ludwig/utils/tokenizers.py</code>. To add a tokenizer, define a new subclass of <code>BaseTokenizer</code> and
 add it to the registry.</p>

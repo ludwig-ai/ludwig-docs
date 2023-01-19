@@ -1260,6 +1260,33 @@
     Tokenizers
   </a>
   
+    <nav class="md-nav" aria-label="Tokenizers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-tokenizers" class="md-nav__link">
+    Basic tokenizers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spacy-tokenizers" class="md-nav__link">
+    spaCy tokenizers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#torchtext-and-huggingface-tokenizers" class="md-nav__link">
+    TorchText and HuggingFace tokenizers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -2256,6 +2283,33 @@
     Tokenizers
   </a>
   
+    <nav class="md-nav" aria-label="Tokenizers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-tokenizers" class="md-nav__link">
+    Basic tokenizers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spacy-tokenizers" class="md-nav__link">
+    spaCy tokenizers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#torchtext-and-huggingface-tokenizers" class="md-nav__link">
+    TorchText and HuggingFace tokenizers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -2336,65 +2390,65 @@ of that feature type.</p>
 specific feature and also modified via defaults, the feature specific configuration overrides
 the value set in the defaults section for that particular parameter.</p>
 </div>
-<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">title</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w"></span>
-<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">most_common</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">title</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">most_common</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">summary</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">....</span><span class="w"></span>
-<span class="nt">defaults</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">text</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">most_common</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">summary</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="l l-Scalar l-Scalar-Plain">....</span>
+<span class="nt">defaults</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">text</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">most_common</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
 </code></pre></div>
 <p>In the example config above, the <code>most_common</code> preprocessing value for <code>title</code> will be
 set to 10 instead of taking on the default value of 100, while <code>summary</code> will now have its
 <code>most_common</code> preprocessing value set to 100.</p>
 <h3 id="defining-defaults">Defining Defaults<a class="headerlink" href="#defining-defaults" title="Permanent link">&para;</a></h3>
 <p>The defaults section of Ludwig has the following structure:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">defaults</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&lt;feature_type_1&gt;</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">parameter_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value</span><span class="w"></span>
-<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">        </span><span class="nt">encoder</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">parameter_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value</span><span class="w"></span>
-<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">        </span><span class="nt">decoder</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">parameter_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value</span><span class="w"></span>
-<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">        </span><span class="nt">loss</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">parameter_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value</span><span class="w"></span>
-<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&lt;feature_type_2&gt;</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">parameter_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value</span><span class="w"></span>
-<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">        </span><span class="nt">encoder</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">parameter_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value</span><span class="w"></span>
-<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">        </span><span class="nt">decoder</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">parameter_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value</span><span class="w"></span>
-<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">        </span><span class="nt">loss</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">parameter_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value</span><span class="w"></span>
-<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">defaults</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">&lt;feature_type_1&gt;</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">parameter_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">        </span><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">parameter_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">        </span><span class="nt">decoder</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">parameter_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">        </span><span class="nt">loss</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">parameter_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="nt">&lt;feature_type_2&gt;</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">parameter_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">        </span><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">parameter_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">        </span><span class="nt">decoder</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">parameter_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">        </span><span class="nt">loss</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">parameter_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
 </code></pre></div>
 <p>Each of the sections <code>preprocessing</code>, <code>encoder</code>, <code>decoder</code> and <code>loss</code> are optional so you can
 define one or more as you need.</p>
 <h4 id="type-global-preprocessing">Type-Global Preprocessing<a class="headerlink" href="#type-global-preprocessing" title="Permanent link">&para;</a></h4>
 <p>Specify preprocessing policies that apply globally across all input features of a
 certain data type. For example:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">defaults</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">category</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">missing_value_strategy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fill_with_const</span><span class="w"></span>
-<span class="w">            </span><span class="nt">fill_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;UNK&gt;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">defaults</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">category</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">missing_value_strategy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fill_with_const</span>
+<span class="w">            </span><span class="nt">fill_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;UNK&gt;</span>
 </code></pre></div>
 <p>The preprocessing parameters that each data type accepts can be found in <a href="../features/supported_data_types">datatype-specific documentation</a>.</p>
 <p>Note that different features with the same datatype may require different preprocessing. Type-global preprocessing works
@@ -2404,24 +2458,25 @@ in tandem with feature-specific preprocessing configuration parameters, however,
 the title and <code>2000</code> for the body, but we want both features to share the same vocabulary, with <code>most_common_words: 10000</code>.</p>
 <p>The way to do this is by adding a <code>preprocessing</code> key inside the title <code>input_feature</code> dictionary and one in the <code>body</code> input feature
 dictionary containing the desired parameter and value.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w">   </span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">title</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w"></span>
-<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">word_length_limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">title</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">word_length_limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w">   </span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">body</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w"></span>
-<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">word_length_limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span><span class="w"></span>
-<span class="nt">defaults</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">text</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">most_common_word</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">body</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">word_length_limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span>
+<span class="nt">defaults</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">text</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">most_common_word</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span>
 </code></pre></div>
 <h5 id="tokenizers">Tokenizers<a class="headerlink" href="#tokenizers" title="Permanent link">&para;</a></h5>
 <p>Sequence, text, and set features tokenize features as part of preprocessing. There are several tokenization options that can be specified:</p>
+<h6 id="basic-tokenizers">Basic tokenizers<a class="headerlink" href="#basic-tokenizers" title="Permanent link">&para;</a></h6>
 <ul>
 <li><code>characters</code>: splits every character of the input string in a separate token.</li>
 <li><code>space</code>: splits on space characters using the regex <code>\s+</code>.</li>
@@ -2430,9 +2485,9 @@ dictionary containing the desired parameter and value.</p>
 <li><code>comma</code>: splits on the underscore character <code>,</code>.</li>
 <li><code>untokenized</code>: treats the whole string as a single token.</li>
 <li><code>stripped</code>: treats the whole string as a single token after removing spaces at the beginning and at the end of the string.</li>
-<li><code>hf_tokenizer</code>: uses the Hugging Face AutoTokenizer which uses a <code>pretrained_model_name_or_path</code> parameter to decide which tokenizer to load.</li>
-<li>Language specific tokenizers: <a href="https://spacy.io">spaCy</a> based language tokenizers.</li>
+<li><code>ngram</code>: this will create a vocab that consists of unigrams and bigrams.</li>
 </ul>
+<h6 id="spacy-tokenizers">spaCy tokenizers<a class="headerlink" href="#spacy-tokenizers" title="Permanent link">&para;</a></h6>
 <p>The <a href="https://spacy.io">spaCy</a> based tokenizers are functions that use the powerful tokenization and NLP preprocessing models provided the library.
 Several languages are available: English (code <code>en</code>), Italian (code <code>it</code>), Spanish (code <code>es</code>), German (code <code>de</code>), French (code <code>fr</code>), Portuguese (code <code>pt</code>), Dutch (code <code>nl</code>), Greek (code <code>el</code>), Chinese (code <code>zh</code>), Danish (code <code>da</code>), Dutch (code <code>el</code>), Japanese (code <code>ja</code>), Lithuanian (code <code>lt</code>), Norwegian (code <code>nb</code>), Polish (code <code>pl</code>), Romanian (code <code>ro</code>) and Multi (code <code>xx</code>, useful in case you have a dataset containing different languages).</p>
 <p>For each language different functions are available:</p>
@@ -2447,18 +2502,28 @@ Several languages are available: English (code <code>en</code>), Italian (code <
 <p>In order to use these options, you must first download the the spaCy model:</p>
 <div class="highlight"><pre><span></span><code>python -m spacy download &lt;language_code&gt;
 </code></pre></div>
-<p>and provide <code>&lt;language&gt;_&lt;function&gt;</code> as <code>tokenizer</code> like: <code>english_tokenizer</code>, <code>italian_lemmatize_filter</code>, <code>multi_tokenize_filter</code> and so on.
-More details on the models can be found in the <a href="https://spacy.io/models">spaCy documentation</a>.</p>
+<p>and provide <code>&lt;language&gt;_&lt;function&gt;</code> as <code>tokenizer</code>. Example: <code>english_tokenizer</code>, <code>italian_lemmatize_filter</code>, <code>multi_tokenize_filter</code> and so on.
+More details on the models can be found in the <a href="https://spacy.io/models">spaCy documentation</a>.
+Note that spaCy tokenizers are not TorchScript-compatible.</p>
+<h6 id="torchtext-and-huggingface-tokenizers">TorchText and HuggingFace tokenizers<a class="headerlink" href="#torchtext-and-huggingface-tokenizers" title="Permanent link">&para;</a></h6>
+<ul>
+<li><code>sentencepiece</code>: XLM-RoBERTa sentencepeice tokenizer.</li>
+<li><code>clip</code>: CLIP Tokenizer. Based on Byte-Level BPE.</li>
+<li><code>gpt2bpe</code>: GPT-2 BPE Tokenizer.</li>
+<li><code>bert</code>: BERT tokenizer based on the WordPiece algorithm.</li>
+<li><code>hf_tokenizer</code>: uses the Hugging Face AutoTokenizer which uses a <code>pretrained_model_name_or_path</code> parameter to decide which tokenizer to load.</li>
+</ul>
+<p>Note: when specifying one of these tokenizers in the config, preprocessing parameters <code>most_common</code> and <code>most_common_percentile</code> won't have an effect. The full vocab of these tokenizers will be used.</p>
 <h4 id="type-global-encoder">Type-Global Encoder<a class="headerlink" href="#type-global-encoder" title="Permanent link">&para;</a></h4>
 <p>Specify the encoder type and encoder related parameters across all input features of a
 certain data type. This encoder will be shared across all features of this particular
 feature type. For example:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">defaults</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">text</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">encoder</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stacked_cnn</span><span class="w"></span>
-<span class="w">            </span><span class="nt">embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span><span class="w"></span>
-<span class="w">            </span><span class="nt">num_filters</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">defaults</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">text</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stacked_cnn</span>
+<span class="w">            </span><span class="nt">embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span>
+<span class="w">            </span><span class="nt">num_filters</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2471,12 +2536,12 @@ specific encoders. Only one default encoder can be defined for all features of t
 <h4 id="type-global-decoder">Type-Global Decoder<a class="headerlink" href="#type-global-decoder" title="Permanent link">&para;</a></h4>
 <p>Specify the decoder type and decoder related parameters across all output features of a
 certain data type. For example:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">defaults</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">text</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">decoder</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">generator</span><span class="w"></span>
-<span class="w">            </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span><span class="w"></span>
-<span class="w">            </span><span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">he_normal</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">defaults</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">text</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">decoder</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">generator</span>
+<span class="w">            </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span>
+<span class="w">            </span><span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">he_normal</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2488,46 +2553,46 @@ specific decoders. Only one default decoder can be defined for all features of t
 <h4 id="type-global-loss">Type-Global Loss<a class="headerlink" href="#type-global-loss" title="Permanent link">&para;</a></h4>
 <p>Specify the loss type and loss related parameters across all output features of a
 certain data type. For example:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">defaults</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">text</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">loss</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">softmax_cross_entropy</span><span class="w"></span>
-<span class="w">            </span><span class="nt">confidence_penalty</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">defaults</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">text</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">loss</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">softmax_cross_entropy</span>
+<span class="w">            </span><span class="nt">confidence_penalty</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
 </code></pre></div>
 <p>The loss types and parameters that each data type accepts can be found in <a href="../features/supported_data_types">datatype-specific documentation</a>.</p>
 <h3 id="defaults-example">Defaults Example<a class="headerlink" href="#defaults-example" title="Permanent link">&para;</a></h3>
 <p>Following is a full example of a Ludwig configuration with type-global defaults.</p>
-<div class="highlight"><span class="filename">config.yaml</span><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><span class="filename">config.yaml</span><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">title</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">title</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">body</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">body</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">num_characters</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span><span class="w"></span>
-<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">normalization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zscore</span><span class="w"></span>
-<span class="nt">combiner</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">concat</span><span class="w"></span>
-<span class="w">  </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="nt">output_features</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">num_characters</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
+<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">normalization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zscore</span>
+<span class="nt">combiner</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">concat</span>
+<span class="w">  </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="nt">output_features</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">spam</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
-<span class="nt">defaults</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">text</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">word_vocab_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span><span class="w"></span>
-<span class="w">        </span><span class="nt">encoder</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rnn</span><span class="w"></span>
-<span class="w">            </span><span class="nt">cell_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lstm</span><span class="w"></span>
-<span class="w">            </span><span class="nt">num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
-<span class="nt">training</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span><span class="w"></span>
-<span class="w">  </span><span class="nt">optimizer</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adam</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">spam</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span>
+<span class="nt">defaults</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">text</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">word_vocab_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span>
+<span class="w">        </span><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rnn</span>
+<span class="w">            </span><span class="nt">cell_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lstm</span>
+<span class="w">            </span><span class="nt">num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="nt">training</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span>
+<span class="w">  </span><span class="nt">optimizer</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adam</span>
 </code></pre></div>
 <p>Example CLI command:</p>
 <div class="highlight"><pre><span></span><code>ludwig train --dataset spam.csv --config_str &quot;{input_features: [{name: title, type: text}, {name: body, type: text}, {name: num_characters, type: number, preprocessing: {normalization: zscore}}], output_features: [{name: spam, type: category}], combiner: {type: concat, num_fc_layers: 1}, defaults: {text: {preprocessing: {word_vocab_size: 10000}, encoder: {type: rnn, cell_type: lstm, num_layers: 2}}}, training: {learning_rate: 0.001, optimizer: {type: adam}}&quot;

@@ -2270,39 +2270,39 @@ local machine to execute in parallel across a cluster.</p>
 <p>All of this comes for free without changing a single line of code in Ludwig. When Ludwig detects that you're running
 within a Ray cluster, the Ray backend will be enabled automatically. You can also enable the Ray backend explicitly
 either through the command line:</p>
-<div class="highlight"><pre><span></span><code>ludwig train ... --backend ray
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>train<span class="w"> </span>...<span class="w"> </span>--backend<span class="w"> </span>ray
 </code></pre></div>
 <p>Or in the Ludwig config:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span><span class="w"></span>
-<span class="w">  </span><span class="nt">data_format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">parquet</span><span class="w"></span>
-<span class="w">  </span><span class="nt">engine</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dask</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span>
+<span class="w">  </span><span class="nt">data_format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">parquet</span>
+<span class="w">  </span><span class="nt">engine</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dask</span>
 </code></pre></div>
 <h3 id="running-ludwig-with-ray">Running Ludwig with Ray<a class="headerlink" href="#running-ludwig-with-ray" title="Permanent link">&para;</a></h3>
 <p>To use the Ray with Ludwig, you will need to have a running Ray cluster. The simplest way to start a Ray cluster is to
 use the Ray <a href="https://docs.ray.io/en/latest/cluster/launcher.html">cluster launcher</a>, which can be installed locally
 with <code>pip</code>:</p>
-<div class="highlight"><pre><span></span><code>pip install ray
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>ray
 </code></pre></div>
 <p>Starting a Ray cluster requires that you have access to a cloud instance provider like AWS EC2 or Kubernetes.</p>
 <p>Here's an example of a partial Ray cluster configuration YAML file you can use to create your Ludwig Ray cluster:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">cluster_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ludwig-ray-gpu-nightly</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">cluster_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ludwig-ray-gpu-nightly</span>
 
-<span class="nt">min_workers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"></span>
-<span class="nt">max_workers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"></span>
+<span class="nt">min_workers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="nt">max_workers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
 
-<span class="nt">docker</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ludwigai/ludwig-ray-gpu:nightly&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ray_container&quot;</span><span class="w"></span>
+<span class="nt">docker</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ludwigai/ludwig-ray-gpu:nightly&quot;</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ray_container&quot;</span>
 
-<span class="nt">head_node</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">InstanceType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">c5.2xlarge</span><span class="w"></span>
-<span class="w">    </span><span class="nt">ImageId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest_dlami</span><span class="w"></span>
+<span class="nt">head_node</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">InstanceType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">c5.2xlarge</span>
+<span class="w">    </span><span class="nt">ImageId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest_dlami</span>
 
-<span class="nt">worker_nodes</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">InstanceType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g4dn.xlarge</span><span class="w"></span>
-<span class="w">    </span><span class="nt">ImageId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest_dlami</span><span class="w"></span>
+<span class="nt">worker_nodes</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">InstanceType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g4dn.xlarge</span>
+<span class="w">    </span><span class="nt">ImageId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest_dlami</span>
 </code></pre></div>
 <p>This configuration runs on AWS EC2 instances, with a CPU head node and 4 GPU (Nvidia T4) worker nodes. Every worker runs
 within a Docker image that provides Ludwig and its dependencies, including Ray, Dask, Horovod, etc. You can use one of
@@ -2311,9 +2311,9 @@ these pre-built Docker images as the parent image for your cluster. Ludwig provi
 ready for use with Ray.</p>
 <p>Once your Ray cluster is configured, you can start the cluster and submit your existing <code>ludwig</code> commands or Python
 files to Ray for distributed execution:</p>
-<div class="highlight"><pre><span></span><code>ray up cluster.yaml
-ray submit cluster.yaml <span class="se">\</span>
-    ludwig train --config config.yaml --dataset s3://mybucket/dataset.parquet
+<div class="highlight"><pre><span></span><code>ray<span class="w"> </span>up<span class="w"> </span>cluster.yaml
+ray<span class="w"> </span>submit<span class="w"> </span>cluster.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>ludwig<span class="w"> </span>train<span class="w"> </span>--config<span class="w"> </span>config.yaml<span class="w"> </span>--dataset<span class="w"> </span>s3://mybucket/dataset.parquet
 </code></pre></div>
 <h2 id="horovod-mpi">Horovod / MPI<a class="headerlink" href="#horovod-mpi" title="Permanent link">&para;</a></h2>
 <p>You can distribute the training and prediction of your models using <a href="https://github.com/uber/horovod">Horovod</a>, which

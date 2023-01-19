@@ -2380,7 +2380,7 @@ Ray.</p>
 <h3 id="1-set-up-an-aws-ami-with-a-gpu">1. Set up an AWS AMI with a GPU<a class="headerlink" href="#1-set-up-an-aws-ami-with-a-gpu" title="Permanent link">&para;</a></h3>
 <p>Reach out to your AWS account administrator, or <a href="https://aws.amazon.com/getting-started/hands-on/get-started-dlami/">set up an account for yourself</a>.</p>
 <h3 id="2-test-if-you-have-the-aws-cli">2. Test if you have the AWS CLI<a class="headerlink" href="#2-test-if-you-have-the-aws-cli" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>aws s3 ls
+<div class="highlight"><pre><span></span><code>aws<span class="w"> </span>s3<span class="w"> </span>ls
 </code></pre></div>
 <p>If not, install it from <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html">here</a>.</p>
 <h3 id="3-set-up-aws-keys">3. Set up AWS keys<a class="headerlink" href="#3-set-up-aws-keys" title="Permanent link">&para;</a></h3>
@@ -2403,79 +2403,79 @@ will be needed if you ever want to enable Ray to launch new nodes.</p>
 </ol>
 <h3 id="4-get-ray">4. Get Ray<a class="headerlink" href="#4-get-ray" title="Permanent link">&para;</a></h3>
 <p>Install ray locally:</p>
-<div class="highlight"><pre><span></span><code>pip install -U <span class="s2">&quot;ray[default]&quot;</span> boto3
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;ray[default]&quot;</span><span class="w"> </span>boto3
 </code></pre></div>
 <h3 id="5-set-up-a-ray-config">5. Set up a Ray Config<a class="headerlink" href="#5-set-up-a-ray-config" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>vim <span class="nv">$HOME</span>/.clusters/cluster.yaml
+<div class="highlight"><pre><span></span><code>vim<span class="w"> </span><span class="nv">$HOME</span>/.clusters/cluster.yaml
 </code></pre></div>
 <p>Copy the sample ray config below and edit all the <code>&lt;...&gt;</code> values to match your
 local dev environment.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">cluster_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;$USER&gt;-ludwig-ray-g4dn</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">cluster_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;$USER&gt;-ludwig-ray-g4dn</span>
 
-<span class="nt">max_workers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w"></span>
+<span class="nt">max_workers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
 
-<span class="nt">docker</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ludwigai/ludwig-ray-gpu:master&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ray_container&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">pull_before_run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span><span class="w"></span>
-<span class="w">  </span><span class="nt">run_options</span><span class="p">:</span><span class="w"> </span><span class="c1"># Extra options to pass into &quot;docker run&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--ulimit nofile=65536:65536</span><span class="w"></span>
+<span class="nt">docker</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ludwigai/ludwig-ray-gpu:master&quot;</span>
+<span class="w">  </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ray_container&quot;</span>
+<span class="w">  </span><span class="nt">pull_before_run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">  </span><span class="nt">run_options</span><span class="p">:</span><span class="w"> </span><span class="c1"># Extra options to pass into &quot;docker run&quot;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--ulimit nofile=65536:65536</span>
 
-<span class="nt">provider</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">aws</span><span class="w"></span>
-<span class="w">  </span><span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;us-east-2&gt;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">availability_zone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;us-east-2a&gt;</span><span class="w"></span>
+<span class="nt">provider</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">aws</span>
+<span class="w">  </span><span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;us-east-2&gt;</span>
+<span class="w">  </span><span class="nt">availability_zone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;us-east-2a&gt;</span>
 
-<span class="nt">available_node_types</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">ray.head.default</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w"></span>
-<span class="w">    </span><span class="nt">node_config</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">InstanceType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g4dn.4xlarge</span><span class="w"></span>
-<span class="w">      </span><span class="nt">ImageId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest_dlami</span><span class="w"></span>
-<span class="w">      </span><span class="nt">BlockDeviceMappings</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">DeviceName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/sda1</span><span class="w"></span>
-<span class="w">          </span><span class="nt">Ebs</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">VolumeSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w"></span>
-<span class="w">  </span><span class="nt">ray.worker.default</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">min_workers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
-<span class="w">    </span><span class="nt">max_workers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
-<span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w"></span>
-<span class="w">    </span><span class="nt">node_config</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">InstanceType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g4dn.4xlarge</span><span class="w"></span>
-<span class="w">      </span><span class="nt">ImageId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest_dlami</span><span class="w"></span>
+<span class="nt">available_node_types</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ray.head.default</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">node_config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">InstanceType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g4dn.4xlarge</span>
+<span class="w">      </span><span class="nt">ImageId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest_dlami</span>
+<span class="w">      </span><span class="nt">BlockDeviceMappings</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">DeviceName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/sda1</span>
+<span class="w">          </span><span class="nt">Ebs</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">VolumeSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">  </span><span class="nt">ray.worker.default</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">min_workers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">max_workers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">    </span><span class="nt">node_config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">InstanceType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">g4dn.4xlarge</span>
+<span class="w">      </span><span class="nt">ImageId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest_dlami</span>
 
-<span class="nt">head_node_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray.head.default</span><span class="w"></span>
+<span class="nt">head_node_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray.head.default</span>
 
-<span class="nt">file_mounts</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">{</span><span class="w"></span>
-<span class="nt">    /home/ubuntu/ludwig/</span><span class="p">:</span><span class="w"> </span><span class="nv">&lt;/Users/$USER/ludwig&gt;</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="c1"># Ludwig Repo.</span><span class="w"></span>
-<span class="nt">    /home/ray/.aws</span><span class="p">:</span><span class="w"> </span><span class="nv">&lt;/Users/$USER/.aws&gt;</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="c1"># AWS credentials.</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="nt">file_mounts</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">{</span>
+<span class="nt">    /home/ubuntu/ludwig/</span><span class="p">:</span><span class="w"> </span><span class="nv">&lt;/Users/$USER/ludwig&gt;</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="c1"># Ludwig Repo.</span>
+<span class="nt">    /home/ray/.aws</span><span class="p">:</span><span class="w"> </span><span class="nv">&lt;/Users/$USER/.aws&gt;</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="c1"># AWS credentials.</span>
+<span class="w">  </span><span class="p p-Indicator">}</span>
 
-<span class="nt">rsync_exclude</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;**/.git&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;**/.git/**&quot;</span><span class="w"></span>
+<span class="nt">rsync_exclude</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;**/.git&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;**/.git/**&quot;</span>
 
-<span class="nt">rsync_filter</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;.gitignore&quot;</span><span class="w"></span>
+<span class="nt">rsync_filter</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;.gitignore&quot;</span>
 
-<span class="nt">setup_commands</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip uninstall -y ludwig &amp;&amp; pip install -e /home/ubuntu/ludwig/.</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install s3fs==2021.10.0 aiobotocore==1.4.2 boto3==1.17.106</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install pandas==1.1.4</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install hydra-core --upgrade</span><span class="w"></span>
+<span class="nt">setup_commands</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip uninstall -y ludwig &amp;&amp; pip install -e /home/ubuntu/ludwig/.</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install s3fs==2021.10.0 aiobotocore==1.4.2 boto3==1.17.106</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install pandas==1.1.4</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install hydra-core --upgrade</span>
 
-<span class="nt">head_start_ray_commands</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray stop --force</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray start --head --port=6379 --object-manager-port=8076 --autoscaling-config=~/ray_bootstrap_config.yaml</span><span class="w"></span>
+<span class="nt">head_start_ray_commands</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray stop --force</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray start --head --port=6379 --object-manager-port=8076 --autoscaling-config=~/ray_bootstrap_config.yaml</span>
 
-<span class="nt">worker_start_ray_commands</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray stop --force</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray start --address=$RAY_HEAD_IP:6379 --object-manager-port=8076</span><span class="w"></span>
+<span class="nt">worker_start_ray_commands</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray stop --force</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray start --address=$RAY_HEAD_IP:6379 --object-manager-port=8076</span>
 </code></pre></div>
 <p>Set an environment variable mapping to the location (can be relative) of your
 cluster config:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">CLUSTER</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.clusters/cluster.yaml&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">CLUSTER</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.clusters/cluster.yaml&quot;</span>
 </code></pre></div>
 <h2 id="developer-workflow">Developer Workflow<a class="headerlink" href="#developer-workflow" title="Permanent link">&para;</a></h2>
 <h3 id="once-launch-the-ray-cluster">(once) Launch the ray cluster<a class="headerlink" href="#once-launch-the-ray-cluster" title="Permanent link">&para;</a></h3>
@@ -2484,7 +2484,7 @@ export CLUSTER_CPU="$HOME/cluster_cpu.yaml"
 ray up $CLUSTER</p>
 <h3 id="make-local-changes">Make local changes<a class="headerlink" href="#make-local-changes" title="Permanent link">&para;</a></h3>
 <p>Run tests locally.</p>
-<div class="highlight"><pre><span></span><code>pytest tests/...
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>tests/...
 </code></pre></div>
 <h3 id="rsync-your-local-changes-to-the-ray-gpu-cluster">Rsync your local changes to the ray GPU cluster<a class="headerlink" href="#rsync-your-local-changes-to-the-ray-gpu-cluster" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>ray rsync_up $CLUSTER -A &#39;/Users/$USER/ludwig/&#39; &#39;/home/ubuntu/ludwig&#39;
@@ -2495,10 +2495,10 @@ ray rsync_up $CLUSTER_CPU -A &#39;/Users/$USER/ludwig/&#39; &#39;/home/ubuntu/lu
 <p>The trailing backslash <code>/</code> is important!</p>
 </div>
 <h3 id="run-tests-on-the-gpu-cluster-from-the-ray-mounted-ludwig-directory">Run tests on the GPU cluster from the Ray-mounted ludwig directory<a class="headerlink" href="#run-tests-on-the-gpu-cluster-from-the-ray-mounted-ludwig-directory" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>ray <span class="nb">exec</span> <span class="nv">$CLUSTER</span> <span class="s2">&quot;cd /home/ubuntu/ludwig &amp;&amp; pytest tests/&quot;</span>
+<div class="highlight"><pre><span></span><code>ray<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="nv">$CLUSTER</span><span class="w"> </span><span class="s2">&quot;cd /home/ubuntu/ludwig &amp;&amp; pytest tests/&quot;</span>
 </code></pre></div>
 <p>You can also connect directly to a terminal on the cluster head:</p>
-<div class="highlight"><pre><span></span><code>ray attach <span class="nv">$CLUSTER</span>
+<div class="highlight"><pre><span></span><code>ray<span class="w"> </span>attach<span class="w"> </span><span class="nv">$CLUSTER</span>
 </code></pre></div>
 
               

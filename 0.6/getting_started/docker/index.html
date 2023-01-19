@@ -2319,12 +2319,12 @@ from the <code>master</code> branch.</p>
 <span class="c1"># invoke docker run command to execute the ludwig cli</span>
 <span class="c1"># map host directory ${parent_path}/data to container /data directory</span>
 <span class="c1"># map host directory ${parent_path}/src to container /src directory</span>
-docker run -v <span class="si">${</span><span class="nv">parent_path</span><span class="si">}</span>/data:/data  <span class="se">\</span>
-    -v <span class="si">${</span><span class="nv">parent_path</span><span class="si">}</span>/src:/src <span class="se">\</span>
-    ludwigai/ludwig:master <span class="se">\</span>
-    experiment --config /src/config.yaml <span class="se">\</span>
-        --dataset /data/train.csv <span class="se">\</span>
-        --output_directory /src/results
+docker<span class="w"> </span>run<span class="w"> </span>-v<span class="w"> </span><span class="si">${</span><span class="nv">parent_path</span><span class="si">}</span>/data:/data<span class="w">  </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="si">${</span><span class="nv">parent_path</span><span class="si">}</span>/src:/src<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>ludwigai/ludwig:master<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>experiment<span class="w"> </span>--config<span class="w"> </span>/src/config.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--dataset<span class="w"> </span>/data/train.csv<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--output_directory<span class="w"> </span>/src/results
 </code></pre></div>
 <p>Experiment results can be found in host
 directory <code>/top/level/directory/path/src/results</code></p>
@@ -2337,11 +2337,11 @@ directory <code>/top/level/directory/path/src/results</code></p>
 <span class="c1"># map host directory ${parent_path}/src to container /src directory</span>
 <span class="c1"># set current working directory to container /src directory</span>
 <span class="c1"># change default entrypoint from ludwig to python</span>
-docker run  -v <span class="si">${</span><span class="nv">parent_path</span><span class="si">}</span>/data:/data  <span class="se">\</span>
-    -v <span class="si">${</span><span class="nv">parent_path</span><span class="si">}</span>/src:/src <span class="se">\</span>
-    -w /src <span class="se">\</span>
-    --entrypoint python <span class="se">\</span>
-    ludwigai/ludwig:master /src/ludwig_api_program.py
+docker<span class="w"> </span>run<span class="w">  </span>-v<span class="w"> </span><span class="si">${</span><span class="nv">parent_path</span><span class="si">}</span>/data:/data<span class="w">  </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="si">${</span><span class="nv">parent_path</span><span class="si">}</span>/src:/src<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-w<span class="w"> </span>/src<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--entrypoint<span class="w"> </span>python<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>ludwigai/ludwig:master<span class="w"> </span>/src/ludwig_api_program.py
 </code></pre></div>
 <p>Ludwig results can be found in host
 directory <code>/top/level/directory/path/src/results</code></p>

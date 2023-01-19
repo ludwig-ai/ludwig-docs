@@ -2342,7 +2342,7 @@
 </ul>
 <h3 id="download-the-adult-census-income-dataset">Download the Adult Census Income dataset<a class="headerlink" href="#download-the-adult-census-income-dataset" title="Permanent link">&para;</a></h3>
 <p><a href="https://archive.ics.uci.edu/ml/datasets/adult">Adult Census Income</a> is an extract of 1994 Census data for predicting whether a person's income exceeds $50K per year.  The data set consists of over 49K records with 14 attributes with missing data.</p>
-<div class="highlight"><pre><span></span><code>ludwig datasets download adult_census_income
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>datasets<span class="w"> </span>download<span class="w"> </span>adult_census_income
 </code></pre></div>
 <p>This command will create a dataset <code>adult_census_income.csv</code> in the current directory.</p>
 <p>The columns in the dataset are</p>
@@ -2426,36 +2426,36 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><a href="../../user_guide/">ludwig hyperopt</a></p>
-<div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="nt">input_features</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="nt">combiner</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="nt">output_features</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="nt">trainer</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="nt">defaults</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="nt">input_features</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="nt">combiner</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="nt">output_features</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="nt">trainer</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="nt">defaults</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
 
-<span class="c1"># hyperopt specification </span><span class="w"></span>
-<span class="nt">hyperopt</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># specify parameters for the Ray Tune to executor to run the hyperparameter optimization</span><span class="w"></span>
-<span class="w">    </span><span class="nt">executor</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># specify Ray Tune search algorithm to use</span><span class="w"></span>
-<span class="w">    </span><span class="nt">search_alg</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># hyperparameter search space for the optimization</span><span class="w"></span>
-<span class="w">    </span><span class="nt">parameters</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># minimize or maximize the metric score</span><span class="w"></span>
-<span class="w">    </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># metric score to optimize</span><span class="w"></span>
-<span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># name of the output feature</span><span class="w"></span>
-<span class="w">    </span><span class="nt">output_feature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
+<span class="c1"># hyperopt specification </span>
+<span class="nt">hyperopt</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># specify parameters for the Ray Tune to executor to run the hyperparameter optimization</span>
+<span class="w">    </span><span class="nt">executor</span><span class="p">:</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># specify Ray Tune search algorithm to use</span>
+<span class="w">    </span><span class="nt">search_alg</span><span class="p">:</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># hyperparameter search space for the optimization</span>
+<span class="w">    </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># minimize or maximize the metric score</span>
+<span class="w">    </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># metric score to optimize</span>
+<span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># name of the output feature</span>
+<span class="w">    </span><span class="nt">output_feature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2494,24 +2494,24 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">cli</label><label for="__tabbed_2_2">python</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="nt">hyperopt</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">executor</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">num_samples</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span><span class="w"></span>
-<span class="w">    </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">maximize</span><span class="w"></span>
-<span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">roc_auc</span><span class="w"></span>
-<span class="w">    </span><span class="nt">output_feature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">income</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">hyperopt</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">executor</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">num_samples</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span>
+<span class="w">    </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">maximize</span>
+<span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">roc_auc</span>
+<span class="w">    </span><span class="nt">output_feature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">income</span>
 <span class="w">    </span><span class="nt">parameters</span><span class="p">:</span><span class="w"> </span>
 <span class="w">        </span><span class="nt">income.decoder.num_fc_layers</span><span class="p">:</span><span class="w"> </span>
-<span class="w">            </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">randint</span><span class="w"></span>
-<span class="w">            </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
-<span class="w">            </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9</span><span class="w"></span>
-<span class="w">        </span><span class="nt">trainer.learning_rate</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loguniform</span><span class="w"></span>
-<span class="w">            </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span><span class="w"></span>
-<span class="w">            </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span><span class="w"></span>
-<span class="w">    </span><span class="nt">search_alg</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">variant_generator</span><span class="w"></span>
-<span class="w">        </span><span class="nt">random_state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1919</span><span class="w"></span>
+<span class="w">            </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">randint</span>
+<span class="w">            </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">            </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9</span>
+<span class="w">        </span><span class="nt">trainer.learning_rate</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loguniform</span>
+<span class="w">            </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span>
+<span class="w">            </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+<span class="w">    </span><span class="nt">search_alg</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">variant_generator</span>
+<span class="w">        </span><span class="nt">random_state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1919</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2541,22 +2541,22 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">cli</label><label for="__tabbed_3_2">python</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="nt">hyperopt</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">executor</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">num_samples</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="w">    </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">maximize</span><span class="w"></span>
-<span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">roc_auc</span><span class="w"></span>
-<span class="w">    </span><span class="nt">output_feature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">income</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">hyperopt</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">executor</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">num_samples</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">maximize</span>
+<span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">roc_auc</span>
+<span class="w">    </span><span class="nt">output_feature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">income</span>
 <span class="w">    </span><span class="nt">parameters</span><span class="p">:</span><span class="w"> </span>
 <span class="w">        </span><span class="nt">income.decoder.num_fc_layers</span><span class="p">:</span><span class="w"> </span>
-<span class="w">            </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grid_search</span><span class="w"></span>
-<span class="w">            </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">6</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">8</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="w">        </span><span class="nt">trainer.learning_rate</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grid_search</span><span class="w"></span>
-<span class="w">            </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.003</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.007</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.01</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="w">    </span><span class="nt">search_alg</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">variant_generator</span><span class="w"></span>
-<span class="w">        </span><span class="nt">random_state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1919</span><span class="w"></span>
+<span class="w">            </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grid_search</span>
+<span class="w">            </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">6</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">8</span><span class="p p-Indicator">]</span>
+<span class="w">        </span><span class="nt">trainer.learning_rate</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grid_search</span>
+<span class="w">            </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.003</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.007</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.01</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">search_alg</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">variant_generator</span>
+<span class="w">        </span><span class="nt">random_state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1919</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2580,10 +2580,10 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><a href="../../user_guide/command_line_interface/#hyperopt"><code>ludwig hyperopt</code> command</a></p>
-<div class="highlight"><pre><span></span><code>ludwig hyperopt --dataset adult_census_income.csv <span class="se">\</span>
-  --config config.yaml <span class="se">\</span>
-  --output_directory results <span class="se">\</span>
-  --hyperopt_log_verbosity <span class="m">1</span>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>hyperopt<span class="w"> </span>--dataset<span class="w"> </span>adult_census_income.csv<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--config<span class="w"> </span>config.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output_directory<span class="w"> </span>results<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--hyperopt_log_verbosity<span class="w"> </span><span class="m">1</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2605,15 +2605,15 @@
 <p><a href="../../user_guide/visualizations/#hyperopt_report"><code>ludwig visualize hyperopt_report</code> command</a></p>
 <p><a href="../../user_guide/visualizations/#hyperopt_hiplot"><code>ludwig visualize hyperopt_hiplot</code> command</a></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># generate visualizations on hyperparameter effects on the metric</span>
-ludwig visualize --visualization hyperopt_report <span class="se">\</span>
-              --hyperopt_stats_path results/hyperopt_statistics.json <span class="se">\</span>
-              --output_directory visualizations <span class="se">\</span>
-              --file_format png
+ludwig<span class="w"> </span>visualize<span class="w"> </span>--visualization<span class="w"> </span>hyperopt_report<span class="w"> </span><span class="se">\</span>
+<span class="w">              </span>--hyperopt_stats_path<span class="w"> </span>results/hyperopt_statistics.json<span class="w"> </span><span class="se">\</span>
+<span class="w">              </span>--output_directory<span class="w"> </span>visualizations<span class="w"> </span><span class="se">\</span>
+<span class="w">              </span>--file_format<span class="w"> </span>png
 
 <span class="c1"># generate hyperopt hiplot parallel coordinate visualization</span>
-ludwig visualize --visualization hyperopt_hiplot <span class="se">\</span>
-                  --hyperopt_stats_path results/hyperopt_statistics.json <span class="se">\</span>
-                  --output_directory visualizations
+ludwig<span class="w"> </span>visualize<span class="w"> </span>--visualization<span class="w"> </span>hyperopt_hiplot<span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--hyperopt_stats_path<span class="w"> </span>results/hyperopt_statistics.json<span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--output_directory<span class="w"> </span>visualizations
 </code></pre></div>
 </div>
 <div class="tabbed-block">

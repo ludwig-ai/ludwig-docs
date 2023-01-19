@@ -2635,7 +2635,7 @@ Here is an example of how the category feature schema classes are defined:</p>
 <span class="nd">@input_config_registry</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">CATEGORY</span><span class="p">)</span>
 <span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">CategoryInputFeatureConfig</span><span class="p">(</span><span class="n">BaseInputFeatureConfig</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;CategoryInputFeatureConfig is a dataclass that configures the parameters used for a category input</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;CategoryInputFeatureConfig is a dataclass that configures the parameters used for a category input</span>
 <span class="sd">    feature.&quot;&quot;&quot;</span>
 
     <span class="n">preprocessing</span><span class="p">:</span> <span class="n">BasePreprocessingConfig</span> <span class="o">=</span> <span class="n">PreprocessingDataclassField</span><span class="p">(</span><span class="n">feature_type</span><span class="o">=</span><span class="n">CATEGORY</span><span class="p">)</span>
@@ -2671,7 +2671,7 @@ well:</p>
 <span class="nd">@output_config_registry</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">CATEGORY</span><span class="p">)</span>
 <span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">CategoryOutputFeatureConfig</span><span class="p">(</span><span class="n">BaseOutputFeatureConfig</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;CategoryOutputFeatureConfig is a dataclass that configures the parameters used for a category output</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;CategoryOutputFeatureConfig is a dataclass that configures the parameters used for a category output</span>
 <span class="sd">    feature.&quot;&quot;&quot;</span>
 
     <span class="n">preprocessing</span><span class="p">:</span> <span class="n">BasePreprocessingConfig</span> <span class="o">=</span> <span class="n">PreprocessingDataclassField</span><span class="p">(</span><span class="n">feature_type</span><span class="o">=</span><span class="s2">&quot;category_output&quot;</span><span class="p">)</span>

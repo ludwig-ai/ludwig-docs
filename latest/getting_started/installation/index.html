@@ -2297,7 +2297,7 @@ and output features, and Ludwig will figure out <em>how</em> to train the best m
 pre-built <a href="#with-docker"><code>docker</code></a> images. Advanced users can also install Ludwig from <a href="#with-git"><code>git</code></a>.</p>
 <p>For large or long-running workloads, Ludwig can be run remotely in the cloud or on a private compute cluster using <a href="/getting_started/ray.md"><code>Ray</code></a>.</p>
 <h2 id="with-pip">Python (with Pip) <small>recommended</small><a class="headerlink" href="#with-pip" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>pip install ludwig
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>ludwig
 </code></pre></div>
 <p>This will install Ludwig's basic requirements for modeling with binary, category, number, text, image, and audio features.
 The requirements for additional functionality are separated out so that users are able to install only the ones they actually need:</p>
@@ -2308,30 +2308,30 @@ The requirements for additional functionality are separated out so that users ar
 <li><code>ludwig[distributed]</code> for distributed training on <a href="https://www.ray.io/">Ray</a> using <a href="https://dask.org/">Dask</a> and <a href="https://github.com/horovod/horovod">Horovod</a>.</li>
 </ul>
 <p>The full set of dependencies can be installed with:</p>
-<div class="highlight"><pre><span></span><code>pip install <span class="s1">&#39;ludwig[full]&#39;</span>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;ludwig[full]&#39;</span>
 </code></pre></div>
 <h3 id="gpu-support">GPU support<a class="headerlink" href="#gpu-support" title="Permanent link">&para;</a></h3>
 <p>If your machine has a GPU to accelerate the training process, make sure you install a GPU-enabled version of PyTorch before installing Ludwig:</p>
-<div class="highlight"><pre><span></span><code>pip install torch -f https://download.pytorch.org/whl/cu113/torch_stable.html
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>-f<span class="w"> </span>https://download.pytorch.org/whl/cu113/torch_stable.html
 </code></pre></div>
 <p>The example above will install the latest version of PyTorch with CUDA 11.3. See the official <a href="https://pytorch.org/get-started/locally/">PyTorch docs</a> for
 more details on installing the right version of PyTorch for your environment.</p>
 <h2 id="with-docker">Docker<a class="headerlink" href="#with-docker" title="Permanent link">&para;</a></h2>
 <p>The Ludwig team publishes official <a href="https://hub.docker.com/u/ludwigai">Docker images</a> that come with the full set of
 dependencies pre-installed. You can pull the <code>latest</code> images (for the most recent official Ludwig release) by running:</p>
-<div class="highlight"><pre><span></span><code>docker pull ludwigai/ludwig:latest
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>pull<span class="w"> </span>ludwigai/ludwig:latest
 </code></pre></div>
 <p>The <code>ludwig</code> command line tool is provided as the entrypoint for all commands.</p>
 <h3 id="gpu-support_1">GPU support<a class="headerlink" href="#gpu-support_1" title="Permanent link">&para;</a></h3>
 <p>If your machine has a GPU to accelerate the training process, pull the official Ludwig image with GPU support:</p>
-<div class="highlight"><pre><span></span><code>docker pull ludwigai/ludwig-gpu:latest
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>pull<span class="w"> </span>ludwigai/ludwig-gpu:latest
 </code></pre></div>
 <h2 id="with-git">Git<a class="headerlink" href="#with-git" title="Permanent link">&para;</a></h2>
 <p>For developers who wish to build the source code from the <a href="https://github.com/ludwig-ai/ludwig/">GitHub</a> repository, first clone the repo locally:</p>
-<div class="highlight"><pre><span></span><code>git clone git@github.com:ludwig-ai/ludwig.git
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:ludwig-ai/ludwig.git
 </code></pre></div>
 <p>Install the required dependencies:</p>
-<div class="highlight"><pre><span></span><code>pip install -e <span class="s1">&#39;.[test]&#39;</span>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;.[test]&#39;</span>
 </code></pre></div>
 <p>The <code>test</code> extra will pull in all Ludwig dependencies in addition to test dependencies.</p>
 

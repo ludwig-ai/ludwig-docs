@@ -2281,7 +2281,7 @@ with the third-party system it integrates with, matching its file name.</p>
 <p>Ludwig provides the following callbacks which you can implement to add functionality to Ludwig. All the following
 methods are optional:</p>
 <div class="highlight"><pre><span></span><code> <span class="k">def</span> <span class="nf">on_cmdline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
-     <span class="sd">&quot;&quot;&quot;Called when Ludwig is run on the command line with the callback enabled.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called when Ludwig is run on the command line with the callback enabled.</span>
 
 <span class="sd">     :param cmd: The Ludwig subcommand being run, ex.</span>
 <span class="sd">                 &quot;train&quot;, &quot;evaluate&quot;, &quot;predict&quot;, ...</span>
@@ -2290,7 +2290,7 @@ methods are optional:</p>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_preprocess_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]):</span>
-     <span class="sd">&quot;&quot;&quot;Called before preprocessing starts.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called before preprocessing starts.</span>
 
 <span class="sd">     :param config: The config dictionary.</span>
 <span class="sd">     &quot;&quot;&quot;</span>
@@ -2303,7 +2303,7 @@ methods are optional:</p>
          <span class="n">test_set</span><span class="p">,</span>
          <span class="n">training_set_metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
     <span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called after preprocessing ends.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called after preprocessing ends.</span>
 
 <span class="sd">     :param training_set: The training set.</span>
 <span class="sd">     :type training_set: ludwig.dataset.base.Dataset</span>
@@ -2319,21 +2319,21 @@ methods are optional:</p>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_hyperopt_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called to initialize state before hyperparameter optimization begins.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called to initialize state before hyperparameter optimization begins.</span>
 
 <span class="sd">     :param experiment_name: The name of the current experiment.</span>
 <span class="sd">     &quot;&quot;&quot;</span>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_hyperopt_preprocessing_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called before data preprocessing for hyperparameter optimization begins.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called before data preprocessing for hyperparameter optimization begins.</span>
 
 <span class="sd">     :param experiment_name: The name of the current experiment.</span>
 <span class="sd">     &quot;&quot;&quot;</span>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_hyperopt_preprocessing_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called after data preprocessing for hyperparameter optimization is</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called after data preprocessing for hyperparameter optimization is</span>
 <span class="sd">     completed.</span>
 
 <span class="sd">     :param experiment_name: The name of the current experiment.</span>
@@ -2341,21 +2341,21 @@ methods are optional:</p>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_hyperopt_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called before any hyperparameter optimization trials are started.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called before any hyperparameter optimization trials are started.</span>
 
 <span class="sd">     :param experiment_name: The name of the current experiment.</span>
 <span class="sd">     &quot;&quot;&quot;</span>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_hyperopt_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called after all hyperparameter optimization trials are completed.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called after all hyperparameter optimization trials are completed.</span>
 
 <span class="sd">     :param experiment_name: The name of the current experiment.</span>
 <span class="sd">     &quot;&quot;&quot;</span>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_hyperopt_trial_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]):</span>
-     <span class="sd">&quot;&quot;&quot;Called before the start of each hyperparameter optimization trial.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called before the start of each hyperparameter optimization trial.</span>
 
 <span class="sd">     :param parameters: The complete dictionary of parameters for this</span>
 <span class="sd">            hyperparameter optimization experiment.</span>
@@ -2363,7 +2363,7 @@ methods are optional:</p>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_hyperopt_trial_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]):</span>
-     <span class="sd">&quot;&quot;&quot;Called after the end of each hyperparameter optimization trial.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called after the end of each hyperparameter optimization trial.</span>
 
 <span class="sd">     :param parameters: The complete dictionary of parameters for this</span>
 <span class="sd">            hyperparameter optimization experiment.</span>
@@ -2379,7 +2379,7 @@ methods are optional:</p>
      <span class="n">output_directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
      <span class="n">resume</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
  <span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called after preprocessing, but before the creation of the model and</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called after preprocessing, but before the creation of the model and</span>
 <span class="sd">     trainer objects.</span>
 
 <span class="sd">     :param base_config: The user-specified config, before the insertion of</span>
@@ -2399,7 +2399,7 @@ methods are optional:</p>
      <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
      <span class="n">config_fp</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
  <span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called after creation of trainer, before the start of training.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called after creation of trainer, before the start of training.</span>
 
 <span class="sd">     :param model: The ludwig model.</span>
 <span class="sd">     :type model: ludwig.utils.torch_utils.LudwigModule</span>
@@ -2410,14 +2410,14 @@ methods are optional:</p>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_train_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called at the end of training, before the model is saved.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called at the end of training, before the model is saved.</span>
 
 <span class="sd">     :param output_directory: file path to where training results are stored.</span>
 <span class="sd">     &quot;&quot;&quot;</span>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_trainer_train_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">is_coordinator</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called in every trainer (distributed or local) before training starts.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called in every trainer (distributed or local) before training starts.</span>
 
 <span class="sd">     :param trainer: The trainer instance.</span>
 <span class="sd">     :type trainer: trainer: ludwig.models.Trainer</span>
@@ -2429,7 +2429,7 @@ methods are optional:</p>
  <span class="k">def</span> <span class="nf">on_trainer_train_teardown</span><span class="p">(</span>
          <span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">is_coordinator</span><span class="p">:</span> <span class="nb">bool</span>
      <span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called in every trainer (distributed or local) after training completes.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called in every trainer (distributed or local) after training completes.</span>
 
 <span class="sd">     :param trainer: The trainer instance.</span>
 <span class="sd">     :type trainer: ludwig.models.trainer.Trainer</span>
@@ -2440,7 +2440,7 @@ methods are optional:</p>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_batch_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called on coordinator only before each batch.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called on coordinator only before each batch.</span>
 
 <span class="sd">     :param trainer: The trainer instance.</span>
 <span class="sd">     :type trainer: ludwig.models.trainer.Trainer</span>
@@ -2451,7 +2451,7 @@ methods are optional:</p>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_batch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called on coordinator only after each batch.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called on coordinator only after each batch.</span>
 
 <span class="sd">     :param trainer: The trainer instance.</span>
 <span class="sd">     :type trainer: ludwig.models.trainer.Trainer</span>
@@ -2462,7 +2462,7 @@ methods are optional:</p>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_epoch_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called on coordinator only before the start of each epoch.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called on coordinator only before the start of each epoch.</span>
 
 <span class="sd">     :param trainer: The trainer instance.</span>
 <span class="sd">     :type trainer: ludwig.models.trainer.Trainer</span>
@@ -2473,7 +2473,7 @@ methods are optional:</p>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called on coordinator only after the end of each epoch.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called on coordinator only after the end of each epoch.</span>
 
 <span class="sd">     :param trainer: The trainer instance.</span>
 <span class="sd">     :type trainer: ludwig.models.trainer.Trainer</span>
@@ -2484,7 +2484,7 @@ methods are optional:</p>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_validation_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called on coordinator before validation starts.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called on coordinator before validation starts.</span>
 
 <span class="sd">     :param trainer: The trainer instance.</span>
 <span class="sd">     :type trainer: ludwig.models.trainer.Trainer</span>
@@ -2495,7 +2495,7 @@ methods are optional:</p>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_validation_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called on coordinator after validation is complete.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called on coordinator after validation is complete.</span>
 
 <span class="sd">     :param trainer: The trainer instance.</span>
 <span class="sd">     :type trainer: ludwig.models.trainer.Trainer</span>
@@ -2506,7 +2506,7 @@ methods are optional:</p>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_test_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called on coordinator before testing starts.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called on coordinator before testing starts.</span>
 
 <span class="sd">     :param trainer: The trainer instance.</span>
 <span class="sd">     :type trainer: ludwig.models.trainer.Trainer</span>
@@ -2517,7 +2517,7 @@ methods are optional:</p>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_test_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called on coordinator after testing ends.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called on coordinator after testing ends.</span>
 
 <span class="sd">     :param trainer: The trainer instance.</span>
 <span class="sd">     :type trainer: ludwig.models.trainer.Trainer</span>
@@ -2528,7 +2528,7 @@ methods are optional:</p>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_build_metadata_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called before building metadata for dataset.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called before building metadata for dataset.</span>
 
 <span class="sd">     :param df: The dataset.</span>
 <span class="sd">     :type df: pd.DataFrame</span>
@@ -2537,7 +2537,7 @@ methods are optional:</p>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_build_metadata_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called after building dataset metadata.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called after building dataset metadata.</span>
 
 <span class="sd">     :param df: The dataset.</span>
 <span class="sd">     :type df: pd.DataFrame</span>
@@ -2546,7 +2546,7 @@ methods are optional:</p>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_build_data_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called before build_data, which does preprocessing, handling missing</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called before build_data, which does preprocessing, handling missing</span>
 <span class="sd">     values, adding metadata to training_set_metadata.</span>
 
 <span class="sd">     :param df: The dataset.</span>
@@ -2556,7 +2556,7 @@ methods are optional:</p>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_build_data_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called after build_data completes.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called after build_data completes.</span>
 
 <span class="sd">     :param df: The dataset.</span>
 <span class="sd">     :type df: pd.DataFrame</span>
@@ -2565,15 +2565,15 @@ methods are optional:</p>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_evaluation_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called before preprocessing for evaluation.&quot;&quot;&quot;</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called before preprocessing for evaluation.&quot;&quot;&quot;</span>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_evaluation_end</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called after evaluation is complete.&quot;&quot;&quot;</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called after evaluation is complete.&quot;&quot;&quot;</span>
      <span class="k">pass</span>
 
  <span class="k">def</span> <span class="nf">on_visualize_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fig</span><span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Called after a visualization is generated.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called after a visualization is generated.</span>
 
 <span class="sd">     :param fig: The figure.</span>
 <span class="sd">     :type fig: matplotlib.figure.Figure</span>
@@ -2586,7 +2586,7 @@ methods are optional:</p>
          <span class="n">tune_config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
          <span class="n">tune_callbacks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span>
      <span class="p">):</span>
-     <span class="sd">&quot;&quot;&quot;Configures Ray Tune callback and config.</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Configures Ray Tune callback and config.</span>
 
 <span class="sd">     :param train_fn: The function which runs the experiment trial.</span>
 <span class="sd">     :param tune_config: The ray tune configuration dictionary.</span>
@@ -2599,7 +2599,7 @@ methods are optional:</p>
 
  <span class="nd">@staticmethod</span>
  <span class="k">def</span> <span class="nf">preload</span><span class="p">():</span>
-     <span class="sd">&quot;&quot;&quot;Will always be called when Ludwig CLI is invoked, preload gives the</span>
+<span class="w">     </span><span class="sd">&quot;&quot;&quot;Will always be called when Ludwig CLI is invoked, preload gives the</span>
 <span class="sd">     callback an opportunity to import or create any shared resources.</span>
 
 <span class="sd">     Importing required 3rd-party libraries should be done here i.e. import wandb.</span>

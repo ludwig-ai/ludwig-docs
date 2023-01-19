@@ -2360,10 +2360,10 @@
 
 <p>The top-level <code>preprocessing</code> section specifies dataset splitting (train,
 validation, test), and dataset balancing.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">split</span><span class="p">:</span><span class="w"> </span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random</span><span class="w"></span>
-<span class="w">        </span><span class="nt">probabilities</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.7</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.1</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random</span>
+<span class="w">        </span><span class="nt">probabilities</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.7</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.1</span><span class="p p-Indicator">]</span>
 </code></pre></div>
 <h3 id="dataset-splitting">Dataset Splitting<a class="headerlink" href="#dataset-splitting" title="Permanent link">&para;</a></h3>
 <p>Data splitting is an important aspect of machine learning to train and evaluate
@@ -2381,10 +2381,10 @@ sets according to split probabilities, which by default are: <code>[0.7, 0.1, 0.
 <p>However, you can specify different splitting probabilities if you'd like. For
 instance, if you want your dataset to be split according to a <em>60% train</em>,
 <em>15% validation</em>, and <em>25% test</em> regime, you would use this config:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">split</span><span class="p">:</span><span class="w"> </span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random</span><span class="w"></span>
-<span class="w">        </span><span class="nt">probabilities</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.6</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.15</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.25</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random</span>
+<span class="w">        </span><span class="nt">probabilities</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.6</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.15</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.25</span><span class="p p-Indicator">]</span>
 </code></pre></div>
 <h4 id="fixed-split">Fixed Split<a class="headerlink" href="#fixed-split" title="Permanent link">&para;</a></h4>
 <p>For users with pre-defined split that you want to use across experiments, Ludwig
@@ -2402,10 +2402,10 @@ subset.</p>
     are encouraged, but technically optional.</p>
 <p>The following config is an example that would perform fixed splitting using a
 column named <code>split</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">split</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fixed</span><span class="w"></span>
-<span class="w">        </span><span class="nt">column</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">split</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">split</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fixed</span>
+<span class="w">        </span><span class="nt">column</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">split</span>
 </code></pre></div>
 <h4 id="stratified-split">Stratified Split<a class="headerlink" href="#stratified-split" title="Permanent link">&para;</a></h4>
 <p>Sometimes you may want to split your data according to a particular column's
@@ -2414,11 +2414,11 @@ your data subsets.</p>
 <p>In order to perform stratified splitting, you specify the name of the column you
 want to perform stratified splitting on and the split probabilities. For
 example:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">split</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stratify</span><span class="w"></span>
-<span class="w">        </span><span class="nt">column</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">color</span><span class="w"></span>
-<span class="w">        </span><span class="nt">probabilities</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.7</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.2</span><span class="p p-Indicator">]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">split</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stratify</span>
+<span class="w">        </span><span class="nt">column</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">color</span>
+<span class="w">        </span><span class="nt">probabilities</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.7</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.2</span><span class="p p-Indicator">]</span>
 </code></pre></div>
 <p>This helps ensure that the distribution of the values of the <code>color</code> feature are
 roughly the same across data subsets.</p>
@@ -2446,11 +2446,11 @@ be used for training, the middle <em>10%</em> used for validation, and the last 
 used for testing.</p>
 <p>The following config shows how to specify this type of splitting using a
 datetime column named <code>created_ts</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">split</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">datetime</span><span class="w"></span>
-<span class="w">        </span><span class="nt">column</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">created_ts</span><span class="w"></span>
-<span class="w">        </span><span class="nt">probabilities</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.7</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.2</span><span class="p p-Indicator">]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">split</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">datetime</span>
+<span class="w">        </span><span class="nt">column</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">created_ts</span>
+<span class="w">        </span><span class="nt">probabilities</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.7</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.2</span><span class="p p-Indicator">]</span>
 </code></pre></div>
 <h3 id="data-balancing">Data Balancing<a class="headerlink" href="#data-balancing" title="Permanent link">&para;</a></h3>
 <p>Users working with imbalanced datasets can specify an oversampling or
@@ -2458,14 +2458,14 @@ undersampling parameter which will balance the data during preprocessing.</p>
 <h4 id="oversampling">Oversampling<a class="headerlink" href="#oversampling" title="Permanent link">&para;</a></h4>
 <p>In this example, Ludwig will oversample the minority class to achieve a 50%
 representation in the overall dataset.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">oversample_minority</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">oversample_minority</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
 </code></pre></div>
 <h4 id="undersampling">Undersampling<a class="headerlink" href="#undersampling" title="Permanent link">&para;</a></h4>
 <p>In this example, Ludwig will undersample the majority class to achieve a 70%
 representation in the overall dataset.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">undersample_majority</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">undersample_majority</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -2485,8 +2485,8 @@ training.</p>
 <p>By default, the sample ratio is 1.0, so if not specified, all the data will be
 used for training. For example, if you only want to use 30% of my input data,
 you could specify a config like this:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">sample_ratio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">sample_ratio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3</span>
 </code></pre></div>
 <h3 id="feature-specific-preprocessing">Feature-specific preprocessing<a class="headerlink" href="#feature-specific-preprocessing" title="Permanent link">&para;</a></h3>
 <p>To configure feature-specific preprocessing, please check

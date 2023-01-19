@@ -2315,22 +2315,22 @@ around the codebase, and join the community!</p>
 <p>Clone your fork to your local disk, and add the base repository as a remote:</p>
 </li>
 </ol>
-<div class="highlight"><pre><span></span><code>git clone git@github.com:&lt;your Github handle&gt;/ludwig.git
-<span class="nb">cd</span> ludwig
-git remote add upstream https://github.com/ludwig-ai/ludwig.git
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:&lt;your<span class="w"> </span>Github<span class="w"> </span>handle&gt;/ludwig.git
+<span class="nb">cd</span><span class="w"> </span>ludwig
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>https://github.com/ludwig-ai/ludwig.git
 </code></pre></div>
 <ol>
 <li>Create a new branch to hold your development changes:</li>
 </ol>
-<div class="highlight"><pre><span></span><code>git checkout -b a-descriptive-name-for-my-changes
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>a-descriptive-name-for-my-changes
 </code></pre></div>
 <p><strong>Do not</strong> work on the <code>master</code> branch.</p>
 <ol>
 <li>Set up a development environment by running the following command in a virtual environment:</li>
 </ol>
-<div class="highlight"><pre><span></span><code>pip install -e .
-pip install pre-commit
-pre-commit install
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+pip<span class="w"> </span>install<span class="w"> </span>pre-commit
+pre-commit<span class="w"> </span>install
 </code></pre></div>
 <ol>
 <li>
@@ -2340,22 +2340,22 @@ pre-commit install
 <p>Format your code by running pre-commits so that your newly added files look nice:</p>
 </li>
 </ol>
-<div class="highlight"><pre><span></span><code>pre-commit run
+<div class="highlight"><pre><span></span><code>pre-commit<span class="w"> </span>run
 </code></pre></div>
 <p>Pre-commits also run automatically when committing.</p>
 <ol>
 <li>Once you're happy with your changes, make a commit to record your changes locally:</li>
 </ol>
-<div class="highlight"><pre><span></span><code>git add .
-git commit
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit
 </code></pre></div>
 <p>It is a good idea to sync your copy of the code with the original repository regularly. This
    way you can quickly account for changes:</p>
-<div class="highlight"><pre><span></span><code>git fetch upstream
-git rebase upstream/master
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>fetch<span class="w"> </span>upstream
+git<span class="w"> </span>rebase<span class="w"> </span>upstream/master
 </code></pre></div>
 <p>Push the changes to your account using:</p>
-<div class="highlight"><pre><span></span><code>git push -u origin a-descriptive-name-for-my-changes
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>a-descriptive-name-for-my-changes
 </code></pre></div>
 <ol>
 <li>Once you are satisfied, go the webpage of your fork on GitHub. Click on "Pull request" to send

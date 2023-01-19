@@ -2240,15 +2240,15 @@
 
 <h3 id="audio-features-preprocessing">Audio Features Preprocessing<a class="headerlink" href="#audio-features-preprocessing" title="Permanent link">&para;</a></h3>
 <p>Example of a preprocessing specification (assuming the audio files have a sample rate of 16000):</p>
-<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio_path</span><span class="w"></span>
-<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio</span><span class="w"></span>
-<span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">audio_file_length_limit_in_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7.5</span><span class="w"></span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stft</span><span class="w"></span>
-<span class="w">  </span><span class="nt">window_length_in_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.04</span><span class="w"></span>
-<span class="w">  </span><span class="nt">window_shift_in_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.02</span><span class="w"></span>
-<span class="w">  </span><span class="nt">num_fft_points</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">800</span><span class="w"></span>
-<span class="w">  </span><span class="nt">window_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">boxcar</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio_path</span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio</span>
+<span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">audio_file_length_limit_in_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7.5</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stft</span>
+<span class="w">  </span><span class="nt">window_length_in_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.04</span>
+<span class="w">  </span><span class="nt">window_shift_in_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.02</span>
+<span class="w">  </span><span class="nt">num_fft_points</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">800</span>
+<span class="w">  </span><span class="nt">window_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">boxcar</span>
 </code></pre></div>
 <p>Ludwig supports reading audio files using PyTorch's <a href="https://pytorch.org/audio/stable/index.html">Torchaudio</a> library. This library supports <code>WAV</code>, <code>AMB</code>, <code>MP3</code>, <code>FLAC</code>, <code>OGG/VORBIS</code>, <code>OPUS</code>, <code>SPHERE</code>, and <code>AMR-NB</code> formats.</p>
 <p>Preprocessing parameters:</p>
@@ -2282,11 +2282,11 @@ a feature of the same type and with the same encoder parameters.
 -</li>
 </ul>
 <p>Example audio feature entry in the input features list:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio_column_name</span><span class="w"></span>
-<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio</span><span class="w"></span>
-<span class="nt">tied</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio_column_name</span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio</span>
+<span class="nt">tied</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 <span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">parallel_cnn</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">parallel_cnn</span>
 </code></pre></div>
 <p>Audio feature encoders are the same as for <a href="../sequence_features#sequence-input-features-and-encoders">Sequence Features</a>.</p>
 <p>Encoder type and encoder parameters can also be defined once and applied to all audio input features using the <a href="../../defaults/#type-global-encoder">Type-Global Encoder</a> section.</p>

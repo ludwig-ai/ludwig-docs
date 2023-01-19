@@ -2344,7 +2344,7 @@
 
 <h2 id="serving-ludwig-models">Serving Ludwig Models<a class="headerlink" href="#serving-ludwig-models" title="Permanent link">&para;</a></h2>
 <p>Ludwig models can be served using the <a href="../command_line_interface/#serve">serve command</a>.</p>
-<div class="highlight"><pre><span></span><code>ludwig serve --model_path<span class="o">=</span>/path/to/model
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>serve<span class="w"> </span>--model_path<span class="o">=</span>/path/to/model
 </code></pre></div>
 <p>The command will spawn a Rest API using the <a href="https://fastapi.tiangolo.com/">FastAPI</a> library.</p>
 <p>This API has two endpoints: <code>predict</code> and <code>predict_batch</code>. <code>predict</code> should be used to obtain predictions for individual
@@ -2356,71 +2356,71 @@ structure from the REST API depends on the model's output features and their dat
 <h4 id="input-format">Input format<a class="headerlink" href="#input-format" title="Permanent link">&para;</a></h4>
 <p>For each input of the model, the predict endpoint expects a field with a name.
 For instance, a model trained with an input text field named <code>english_text</code> would expect a POST like:</p>
-<div class="highlight"><pre><span></span><code>curl http://0.0.0.0:8000/predict -X POST -F <span class="s1">&#39;english_text=words to be translated&#39;</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://0.0.0.0:8000/predict<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-F<span class="w"> </span><span class="s1">&#39;english_text=words to be translated&#39;</span>
 </code></pre></div>
 <p>If the model was trained with an input image field, it will instead expects a POST with a file, like:</p>
-<div class="highlight"><pre><span></span><code>curl http://0.0.0.0:8000/predict -X POST -F <span class="s1">&#39;image=@path_to_image/example.png&#39;</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://0.0.0.0:8000/predict<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-F<span class="w"> </span><span class="s1">&#39;image=@path_to_image/example.png&#39;</span>
 </code></pre></div>
 <p>A model with both a text and an image field will expect a POST like:</p>
-<div class="highlight"><pre><span></span><code>curl http://0.0.0.0:8000/predict -X POST -F <span class="s1">&#39;text=mixed together with&#39;</span> -F <span class="s1">&#39;image=@path_to_image/example.png&#39;</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://0.0.0.0:8000/predict<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-F<span class="w"> </span><span class="s1">&#39;text=mixed together with&#39;</span><span class="w"> </span>-F<span class="w"> </span><span class="s1">&#39;image=@path_to_image/example.png&#39;</span>
 </code></pre></div>
 <h4 id="output-format">Output format<a class="headerlink" href="#output-format" title="Permanent link">&para;</a></h4>
 <p>The response is a JSON dictionary with keys prefixed by the names of the model's output features.</p>
 <p>For binary outputs, the JSON structure returned by the REST API is the following:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;NAME_predictions&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;NAME_probabilities_False&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.76</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;NAME_probabilities_True&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.24</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;NAME_probability&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.76</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;NAME_predictions&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;NAME_probabilities_False&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.76</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;NAME_probabilities_True&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.24</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;NAME_probability&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.76</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>For number outputs, the JSON structure returned by the REST API is the following:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;NAME_predictions&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.381</span><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;NAME_predictions&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.381</span><span class="p">}</span>
 </code></pre></div>
 <p>For categorical outputs, the JSON structure returned by the REST API is the following:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;NAME_predictions&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CLASSNAMEK&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;NAME_probability&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.62</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;NAME_probabilities_CLASSNAME1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.099</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;NAME_probabilities_CLASSNAME2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.095</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="err">...</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;NAME_probabilities_CLASSNAMEN&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.077</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;NAME_predictions&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CLASSNAMEK&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;NAME_probability&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.62</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;NAME_probabilities_CLASSNAME1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.099</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;NAME_probabilities_CLASSNAME2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.095</span><span class="p">,</span>
+<span class="w">   </span><span class="err">...</span>
+<span class="w">   </span><span class="nt">&quot;NAME_probabilities_CLASSNAMEN&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.077</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>For set outputs, the JSON structure returned by the REST API is the following:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;NAME_predictions&quot;</span><span class="p">:[</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;CLASSNAMEI&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;CLASSNAMEJ&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;CLASSNAMEK&quot;</span><span class="w"></span>
-<span class="w">   </span><span class="p">],</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;NAME_probabilities_CLASSNAME1&quot;</span><span class="p">:</span><span class="mf">0.490</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;NAME_probabilities_CLASSNAME2&quot;</span><span class="p">:</span><span class="mf">0.245</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="err">...</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;NAME_probabilities_CLASSNAMEN&quot;</span><span class="p">:</span><span class="mf">0.341</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;NAME_probability&quot;</span><span class="p">:[</span><span class="w"></span>
-<span class="w">      </span><span class="mf">0.53</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="mf">0.62</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="mf">0.95</span><span class="w"></span>
-<span class="w">   </span><span class="p">]</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;NAME_predictions&quot;</span><span class="p">:[</span>
+<span class="w">      </span><span class="s2">&quot;CLASSNAMEI&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;CLASSNAMEJ&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;CLASSNAMEK&quot;</span>
+<span class="w">   </span><span class="p">],</span>
+<span class="w">   </span><span class="nt">&quot;NAME_probabilities_CLASSNAME1&quot;</span><span class="p">:</span><span class="mf">0.490</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;NAME_probabilities_CLASSNAME2&quot;</span><span class="p">:</span><span class="mf">0.245</span><span class="p">,</span>
+<span class="w">   </span><span class="err">...</span>
+<span class="w">   </span><span class="nt">&quot;NAME_probabilities_CLASSNAMEN&quot;</span><span class="p">:</span><span class="mf">0.341</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;NAME_probability&quot;</span><span class="p">:[</span>
+<span class="w">      </span><span class="mf">0.53</span><span class="p">,</span>
+<span class="w">      </span><span class="mf">0.62</span><span class="p">,</span>
+<span class="w">      </span><span class="mf">0.95</span>
+<span class="w">   </span><span class="p">]</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>For sequence outputs, the JSON structure returned by the REST API is the following:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;NAME_predictions&quot;</span><span class="p">:[</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;TOKEN1&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;TOKEN2&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;TOKEN3&quot;</span><span class="w"></span>
-<span class="w">   </span><span class="p">],</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;NAME_last_predictions&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TOKEN3&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;NAME_probabilities&quot;</span><span class="p">:[</span><span class="w"></span>
-<span class="w">      </span><span class="mf">0.106</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="mf">0.122</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="mf">0.118</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="mf">0.133</span><span class="w"></span>
-<span class="w">   </span><span class="p">],</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;NAME_probability&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">-6.4765729904174805</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;NAME_predictions&quot;</span><span class="p">:[</span>
+<span class="w">      </span><span class="s2">&quot;TOKEN1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;TOKEN2&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;TOKEN3&quot;</span>
+<span class="w">   </span><span class="p">],</span>
+<span class="w">   </span><span class="nt">&quot;NAME_last_predictions&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TOKEN3&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;NAME_probabilities&quot;</span><span class="p">:[</span>
+<span class="w">      </span><span class="mf">0.106</span><span class="p">,</span>
+<span class="w">      </span><span class="mf">0.122</span><span class="p">,</span>
+<span class="w">      </span><span class="mf">0.118</span><span class="p">,</span>
+<span class="w">      </span><span class="mf">0.133</span>
+<span class="w">   </span><span class="p">],</span>
+<span class="w">   </span><span class="nt">&quot;NAME_probability&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">-6.4765729904174805</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>For text outputs, the JSON structure returned by the REST API is the same as for sequences.</p>
 <h3 id="batch_predict">batch_predict<a class="headerlink" href="#batch_predict" title="Permanent link">&para;</a></h3>
@@ -2437,100 +2437,100 @@ This format divides the dataset into three parts:</p>
 </ul>
 <p>Additional form fields can be used to provide file resources like images that are referenced within the dataset.</p>
 <p>An example of batch prediction:</p>
-<div class="highlight"><pre><span></span><code>curl http://0.0.0.0:8000/batch_predict -X POST -F <span class="s1">&#39;dataset={&quot;columns&quot;: [&quot;a&quot;, &quot;b&quot;], &quot;data&quot;: [[1, 2], [3, 4]]}&#39;</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://0.0.0.0:8000/batch_predict<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-F<span class="w"> </span><span class="s1">&#39;dataset={&quot;columns&quot;: [&quot;a&quot;, &quot;b&quot;], &quot;data&quot;: [[1, 2], [3, 4]]}&#39;</span>
 </code></pre></div>
 <h4 id="output-format_1">Output format<a class="headerlink" href="#output-format_1" title="Permanent link">&para;</a></h4>
 <p>The response is a JSON dictionary with keys prefixed by the names of the model's output features.</p>
 <p>For binary outputs, the JSON structure returned by the REST API is the following:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;index&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;columns&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;NAME_predictions&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;NAME_probabilities_False&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;NAME_probabilities_True&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;NAME_probability&quot;</span><span class="w"></span>
-<span class="w">   </span><span class="p">],</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">      </span><span class="p">[</span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="mf">0.768</span><span class="p">,</span><span class="w"> </span><span class="mf">0.231</span><span class="p">,</span><span class="w"> </span><span class="mf">0.768</span><span class="p">],</span><span class="w"></span>
-<span class="w">      </span><span class="p">[</span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="mf">0.372</span><span class="p">,</span><span class="w"> </span><span class="mf">0.627</span><span class="p">,</span><span class="w"> </span><span class="mf">0.627</span><span class="p">]</span><span class="w"></span>
-<span class="w">   </span><span class="p">]</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;index&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span>
+<span class="w">   </span><span class="nt">&quot;columns&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;NAME_predictions&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;NAME_probabilities_False&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;NAME_probabilities_True&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;NAME_probability&quot;</span>
+<span class="w">   </span><span class="p">],</span>
+<span class="w">   </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">[</span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="mf">0.768</span><span class="p">,</span><span class="w"> </span><span class="mf">0.231</span><span class="p">,</span><span class="w"> </span><span class="mf">0.768</span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="mf">0.372</span><span class="p">,</span><span class="w"> </span><span class="mf">0.627</span><span class="p">,</span><span class="w"> </span><span class="mf">0.627</span><span class="p">]</span>
+<span class="w">   </span><span class="p">]</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>For number outputs, the JSON structure returned by the REST API is the following:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;index&quot;</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span><span class="nt">&quot;columns&quot;</span><span class="p">:[</span><span class="s2">&quot;NAME_predictions&quot;</span><span class="p">],</span><span class="nt">&quot;data&quot;</span><span class="p">:[[</span><span class="mf">0.381</span><span class="p">],[</span><span class="mf">0.202</span><span class="p">]]}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;index&quot;</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span><span class="nt">&quot;columns&quot;</span><span class="p">:[</span><span class="s2">&quot;NAME_predictions&quot;</span><span class="p">],</span><span class="nt">&quot;data&quot;</span><span class="p">:[[</span><span class="mf">0.381</span><span class="p">],[</span><span class="mf">0.202</span><span class="p">]]}</span>
 </code></pre></div>
 <p>For categorical outputs, the JSON structure returned by the REST API is the following:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;index&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;columns&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;NAME_predictions&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;NAME_probabilities_CLASSNAME1&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;NAME_probabilities_CLASSNAME2&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="err">...</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;NAME_probabilities_CLASSNAMEN&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;NAME_probability&quot;</span><span class="w"></span>
-<span class="w">   </span><span class="p">],</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">      </span><span class="p">[</span><span class="s2">&quot;CLASSNAMEK&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">0.099</span><span class="p">,</span><span class="w"> </span><span class="mf">0.095</span><span class="p">,</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="mf">0.077</span><span class="p">,</span><span class="w"> </span><span class="mf">0.623</span><span class="p">],</span><span class="w"></span>
-<span class="w">      </span><span class="p">[</span><span class="s2">&quot;CLASSNAMEK&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">0.092</span><span class="p">,</span><span class="w"> </span><span class="mf">0.061</span><span class="p">,</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="mf">0.084</span><span class="p">,</span><span class="w"> </span><span class="mf">0.541</span><span class="p">]</span><span class="w"></span>
-<span class="w">   </span><span class="p">]</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;index&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span>
+<span class="w">   </span><span class="nt">&quot;columns&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;NAME_predictions&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;NAME_probabilities_CLASSNAME1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;NAME_probabilities_CLASSNAME2&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="err">...</span>
+<span class="w">      </span><span class="s2">&quot;NAME_probabilities_CLASSNAMEN&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;NAME_probability&quot;</span>
+<span class="w">   </span><span class="p">],</span>
+<span class="w">   </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">[</span><span class="s2">&quot;CLASSNAMEK&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">0.099</span><span class="p">,</span><span class="w"> </span><span class="mf">0.095</span><span class="p">,</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="mf">0.077</span><span class="p">,</span><span class="w"> </span><span class="mf">0.623</span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span><span class="s2">&quot;CLASSNAMEK&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">0.092</span><span class="p">,</span><span class="w"> </span><span class="mf">0.061</span><span class="p">,</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="mf">0.084</span><span class="p">,</span><span class="w"> </span><span class="mf">0.541</span><span class="p">]</span>
+<span class="w">   </span><span class="p">]</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>For set outputs, the JSON structure returned by the REST API is the following:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;index&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;columns&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;NAME_predictions&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;NAME_probabilities_CLASSNAME1&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;NAME_probabilities_CLASSNAME2&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="err">...</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;NAME_probabilities_CLASSNAMEK&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;NAME_probability&quot;</span><span class="w"></span>
-<span class="w">   </span><span class="p">],</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">      </span><span class="p">[</span><span class="w"></span>
-<span class="w">         </span><span class="p">[</span><span class="s2">&quot;CLASSNAMEI&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CLASSNAMEJ&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CLASSNAMEK&quot;</span><span class="p">],</span><span class="w"></span>
-<span class="w">         </span><span class="mf">0.490</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="mf">0.453</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="err">...</span><span class="w"></span>
-<span class="w">         </span><span class="mf">0.500</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="p">[</span><span class="mf">0.53</span><span class="p">,</span><span class="w"> </span><span class="mf">0.62</span><span class="p">,</span><span class="w"> </span><span class="mf">0.95</span><span class="p">]</span><span class="w"></span>
-<span class="w">      </span><span class="p">],</span><span class="w"></span>
-<span class="w">      </span><span class="p">[</span><span class="w"></span>
-<span class="w">         </span><span class="p">[</span><span class="s2">&quot;CLASSNAMEM&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CLASSNAMEN&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CLASSNAMEO&quot;</span><span class="p">],</span><span class="w"></span>
-<span class="w">         </span><span class="mf">0.481</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="mf">0.466</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="err">...</span><span class="w"></span>
-<span class="w">         </span><span class="mf">0.485</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="p">[</span><span class="mf">0.63</span><span class="p">,</span><span class="w"> </span><span class="mf">0.72</span><span class="p">,</span><span class="w"> </span><span class="mf">0.81</span><span class="p">]</span><span class="w"></span>
-<span class="w">      </span><span class="p">]</span><span class="w"></span>
-<span class="w">   </span><span class="p">]</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;index&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span>
+<span class="w">   </span><span class="nt">&quot;columns&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;NAME_predictions&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;NAME_probabilities_CLASSNAME1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;NAME_probabilities_CLASSNAME2&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="err">...</span>
+<span class="w">      </span><span class="s2">&quot;NAME_probabilities_CLASSNAMEK&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;NAME_probability&quot;</span>
+<span class="w">   </span><span class="p">],</span>
+<span class="w">   </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">[</span>
+<span class="w">         </span><span class="p">[</span><span class="s2">&quot;CLASSNAMEI&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CLASSNAMEJ&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CLASSNAMEK&quot;</span><span class="p">],</span>
+<span class="w">         </span><span class="mf">0.490</span><span class="p">,</span>
+<span class="w">         </span><span class="mf">0.453</span><span class="p">,</span>
+<span class="w">         </span><span class="err">...</span>
+<span class="w">         </span><span class="mf">0.500</span><span class="p">,</span>
+<span class="w">         </span><span class="p">[</span><span class="mf">0.53</span><span class="p">,</span><span class="w"> </span><span class="mf">0.62</span><span class="p">,</span><span class="w"> </span><span class="mf">0.95</span><span class="p">]</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span>
+<span class="w">         </span><span class="p">[</span><span class="s2">&quot;CLASSNAMEM&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CLASSNAMEN&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CLASSNAMEO&quot;</span><span class="p">],</span>
+<span class="w">         </span><span class="mf">0.481</span><span class="p">,</span>
+<span class="w">         </span><span class="mf">0.466</span><span class="p">,</span>
+<span class="w">         </span><span class="err">...</span>
+<span class="w">         </span><span class="mf">0.485</span><span class="p">,</span>
+<span class="w">         </span><span class="p">[</span><span class="mf">0.63</span><span class="p">,</span><span class="w"> </span><span class="mf">0.72</span><span class="p">,</span><span class="w"> </span><span class="mf">0.81</span><span class="p">]</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">   </span><span class="p">]</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>For sequence outputs, the JSON structure returned by the REST API is the following:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;index&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;columns&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;NAME_predictions&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;NAME_last_predictions&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;NAME_probabilities&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="s2">&quot;NAME_probability&quot;</span><span class="w"></span>
-<span class="w">   </span><span class="p">],</span><span class="w"></span>
-<span class="w">   </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">      </span><span class="p">[</span><span class="w"></span>
-<span class="w">         </span><span class="p">[</span><span class="s2">&quot;TOKEN1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;TOKEN1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;TOKEN1&quot;</span><span class="p">],</span><span class="w"></span>
-<span class="w">         </span><span class="s2">&quot;TOKEN3&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="p">[</span><span class="mf">0.106</span><span class="p">,</span><span class="w"> </span><span class="mf">0.122</span><span class="p">,</span><span class="w"> </span><span class="err">…</span><span class="w"> </span><span class="mf">0.083</span><span class="p">],</span><span class="w"></span>
-<span class="w">         </span><span class="mf">-6.476</span><span class="w"></span>
-<span class="w">      </span><span class="p">],</span><span class="w"></span>
-<span class="w">      </span><span class="p">[</span><span class="w"></span>
-<span class="w">         </span><span class="p">[</span><span class="s2">&quot;TOKEN4&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;TOKEN5&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;TOKEN6&quot;</span><span class="p">],</span><span class="w"></span>
-<span class="w">         </span><span class="s2">&quot;TOKEN6&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="p">[</span><span class="mf">0.108</span><span class="p">,</span><span class="w"> </span><span class="mf">0.127</span><span class="p">,</span><span class="w"> </span><span class="err">…</span><span class="w"> </span><span class="mf">0.083</span><span class="p">],</span><span class="w"></span>
-<span class="w">         </span><span class="mf">-6.482</span><span class="w"></span>
-<span class="w">      </span><span class="p">]</span><span class="w"></span>
-<span class="w">   </span><span class="p">]</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;index&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">],</span>
+<span class="w">   </span><span class="nt">&quot;columns&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;NAME_predictions&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;NAME_last_predictions&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;NAME_probabilities&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;NAME_probability&quot;</span>
+<span class="w">   </span><span class="p">],</span>
+<span class="w">   </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">[</span>
+<span class="w">         </span><span class="p">[</span><span class="s2">&quot;TOKEN1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;TOKEN1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;TOKEN1&quot;</span><span class="p">],</span>
+<span class="w">         </span><span class="s2">&quot;TOKEN3&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="p">[</span><span class="mf">0.106</span><span class="p">,</span><span class="w"> </span><span class="mf">0.122</span><span class="p">,</span><span class="w"> </span><span class="err">…</span><span class="w"> </span><span class="mf">0.083</span><span class="p">],</span>
+<span class="w">         </span><span class="mf">-6.476</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="p">[</span>
+<span class="w">         </span><span class="p">[</span><span class="s2">&quot;TOKEN4&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;TOKEN5&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;TOKEN6&quot;</span><span class="p">],</span>
+<span class="w">         </span><span class="s2">&quot;TOKEN6&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="p">[</span><span class="mf">0.108</span><span class="p">,</span><span class="w"> </span><span class="mf">0.127</span><span class="p">,</span><span class="w"> </span><span class="err">…</span><span class="w"> </span><span class="mf">0.083</span><span class="p">],</span>
+<span class="w">         </span><span class="mf">-6.482</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">   </span><span class="p">]</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>For text outputs, the JSON structure returned by the REST API is the same as for sequences.</p>
 

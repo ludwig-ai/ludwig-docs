@@ -2382,7 +2382,7 @@
 </ul>
 <h3 id="download-the-adult-census-income-dataset">Download The Adult Census Income dataset<a class="headerlink" href="#download-the-adult-census-income-dataset" title="Permanent link">&para;</a></h3>
 <p><a href="https://archive.ics.uci.edu/ml/datasets/adult">Adult Census Income</a> is an extract of 1994 Census data for predicting whether a person's income exceeds $50K per year.  The data set consists of over 49K records with 14 attributes with missing data.</p>
-<div class="highlight"><pre><span></span><code>ludwig datasets download adult_census_income
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>datasets<span class="w"> </span>download<span class="w"> </span>adult_census_income
 </code></pre></div>
 <p>This command will create a dataset <code>adult_census_income.csv</code> in the current directory.</p>
 <p>The columns in the dataset are</p>
@@ -2470,61 +2470,61 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">cli</label><label for="__tabbed_1_2">python</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="nt">defaults</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">number</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">normalization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zscore</span><span class="w"></span>
-<span class="w">      </span><span class="nt">missing_value_strategy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fill_with_mean</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">defaults</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">number</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">normalization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zscore</span>
+<span class="w">      </span><span class="nt">missing_value_strategy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fill_with_mean</span>
 
-<span class="nt">input_features</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">age</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">workclass</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fnlwgt</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">education</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">education-num</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">marital-status</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">occupation</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relationship</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">race</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sex</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">capital-gain</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">capital-loss</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hours-per-week</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">native-country</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span><span class="w"></span>
+<span class="nt">input_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">age</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">workclass</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fnlwgt</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">education</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">education-num</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">marital-status</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">occupation</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relationship</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">race</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sex</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">capital-gain</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">capital-loss</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hours-per-week</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">native-country</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span>
 
-<span class="nt">combiner</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">concat</span><span class="w"></span>
-<span class="w">  </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w"></span>
-<span class="w">  </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span><span class="w"></span>
-<span class="w">  </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span><span class="w"></span>
+<span class="nt">combiner</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">concat</span>
+<span class="w">  </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">  </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span>
+<span class="w">  </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span>
 
-<span class="nt">output_features</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">income</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span><span class="w"></span>
-<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">fallback_true_label</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;</span><span class="nv"> </span><span class="s">&gt;50K&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">decoder</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"></span>
-<span class="w">        </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span><span class="w"></span>
+<span class="nt">output_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">income</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span>
+<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">fallback_true_label</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;</span><span class="nv"> </span><span class="s">&gt;50K&quot;</span>
+<span class="w">    </span><span class="nt">decoder</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">        </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span>
 
-<span class="nt">trainer</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">epochs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span><span class="w"></span>
-<span class="w">  </span><span class="nt">optimizer</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adam</span><span class="w"></span>
+<span class="nt">trainer</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">epochs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">  </span><span class="nt">optimizer</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adam</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2578,9 +2578,9 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><a href="../../user_guide/command_line_interface/#train"><code>ludwig train</code> command</a></p>
-<div class="highlight"><pre><span></span><code>ludwig train <span class="se">\</span>
-  --dataset adult_census_income.csv <span class="se">\</span>
-  --config config.yaml
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>train<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--dataset<span class="w"> </span>adult_census_income.csv<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--config<span class="w"> </span>config.yaml
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2597,9 +2597,9 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><a href="../../user_guide/command_line_interface/#evaluate"><code>ludwig evaluate</code> command</a></p>
-<div class="highlight"><pre><span></span><code>ludwig evaluate --model_path results/experiment_run/model <span class="se">\</span>
-                 --dataset evaluation_dataset.csv <span class="se">\</span>
-                 --output_directory test_results
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>evaluate<span class="w"> </span>--model_path<span class="w"> </span>results/experiment_run/model<span class="w"> </span><span class="se">\</span>
+<span class="w">                 </span>--dataset<span class="w"> </span>evaluation_dataset.csv<span class="w"> </span><span class="se">\</span>
+<span class="w">                 </span>--output_directory<span class="w"> </span>test_results
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2624,14 +2624,14 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><a href="../../user_guide/visualizations/#roc_curves"><code>ludwig visualize roc_curves</code> command</a></p>
-<div class="highlight"><pre><span></span><code>!ludwig visualize --visualization roc_curves <span class="se">\</span>
-                  --ground_truth evaluation_dataset.csv <span class="se">\</span>
-                  --ground_truth_metadata results/experiment_run/model/training_set_metadata.json <span class="se">\</span>
-                  --probabilities test_results/predictions.parquet <span class="se">\</span>
-                  --output_feature_name income <span class="se">\</span>
-                  --output_directory visualizations <span class="se">\</span>
-                  --model_names <span class="s2">&quot;Adult Census Income Model&quot;</span> <span class="se">\</span>
-                  --file_format png
+<div class="highlight"><pre><span></span><code>!ludwig<span class="w"> </span>visualize<span class="w"> </span>--visualization<span class="w"> </span>roc_curves<span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--ground_truth<span class="w"> </span>evaluation_dataset.csv<span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--ground_truth_metadata<span class="w"> </span>results/experiment_run/model/training_set_metadata.json<span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--probabilities<span class="w"> </span>test_results/predictions.parquet<span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--output_feature_name<span class="w"> </span>income<span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--output_directory<span class="w"> </span>visualizations<span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--model_names<span class="w"> </span><span class="s2">&quot;Adult Census Income Model&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--file_format<span class="w"> </span>png
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2658,16 +2658,16 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><a href="../../user_guide/visualizations/#binary-threshold-vs-metric"><code>ludwig visualize binary_threshole_vs_metric</code> command</a></p>
-<div class="highlight"><pre><span></span><code>ludwig visualize --visualization binary_threshold_vs_metric <span class="se">\</span>
-                  --ground_truth evaluation_dataset.csv <span class="se">\</span>
-                  --ground_truth_metadata results/experiment_run/model/training_set_metadata.json <span class="se">\</span>
-                  --probabilities test_results/predictions.parquet <span class="se">\</span>
-                  --output_feature_name income <span class="se">\</span>
-                  --positive_label <span class="m">1</span> <span class="se">\</span>
-                  --output_directory visualizations <span class="se">\</span>
-                  --model_names <span class="s2">&quot;Adult Census Income Model&quot;</span> <span class="se">\</span>
-                  --metrics accuracy precision recall f1<span class="se">\</span>
-                  --file_format png
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>visualize<span class="w"> </span>--visualization<span class="w"> </span>binary_threshold_vs_metric<span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--ground_truth<span class="w"> </span>evaluation_dataset.csv<span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--ground_truth_metadata<span class="w"> </span>results/experiment_run/model/training_set_metadata.json<span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--probabilities<span class="w"> </span>test_results/predictions.parquet<span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--output_feature_name<span class="w"> </span>income<span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--positive_label<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--output_directory<span class="w"> </span>visualizations<span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--model_names<span class="w"> </span><span class="s2">&quot;Adult Census Income Model&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">                  </span>--metrics<span class="w"> </span>accuracy<span class="w"> </span>precision<span class="w"> </span>recall<span class="w"> </span>f1<span class="se">\</span>
+<span class="w">                  </span>--file_format<span class="w"> </span>png
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -2702,9 +2702,9 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><a href="../../user_guide/command_line_interface/#predict"><code>ludwig predict</code> command</a></p>
-<div class="highlight"><pre><span></span><code>ludwig predict --model_path results/experiment_run/model <span class="se">\</span>
-                --dataset evaluation_dataset.csv <span class="se">\</span>
-                --output_directory predictions
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>predict<span class="w"> </span>--model_path<span class="w"> </span>results/experiment_run/model<span class="w"> </span><span class="se">\</span>
+<span class="w">                </span>--dataset<span class="w"> </span>evaluation_dataset.csv<span class="w"> </span><span class="se">\</span>
+<span class="w">                </span>--output_directory<span class="w"> </span>predictions
 </code></pre></div>
 </div>
 <div class="tabbed-block">

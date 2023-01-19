@@ -2473,9 +2473,9 @@
 </ul>
 <h3 id="2-update-ludwig-versions-in-code">2. Update Ludwig versions in code<a class="headerlink" href="#2-update-ludwig-versions-in-code" title="Permanent link">&para;</a></h3>
 <p>Create a new branch off of a target_release_branch, e.g. <code>master</code> or <code>release-X.Y</code>.</p>
-<div class="highlight"><pre><span></span><code>git checkout &lt;TARGET_RELEASE_BRANCH&gt;
-git checkout -b ludwig_release
-git push --set-upstream origin ludwig_release
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>&lt;TARGET_RELEASE_BRANCH&gt;
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>ludwig_release
+git<span class="w"> </span>push<span class="w"> </span>--set-upstream<span class="w"> </span>origin<span class="w"> </span>ludwig_release
 </code></pre></div>
 <p>Update the versions referenced in globals and setup. <a href="https://github.com/ludwig-ai/ludwig/pull/1723/files">Reference PR</a>.</p>
 <div class="highlight"><pre><span></span><code>git commit -m &quot;Update ludwig version to vX.YrcZ.&quot;
@@ -2488,11 +2488,11 @@ git push
 <p>After merging the PR from step 2, the latest commit on the target_release_branch
 should be the PR that upgrades ludwig versions in code.</p>
 <p>Pull the change from head.</p>
-<div class="highlight"><pre><span></span><code>git checkout &lt;TARGET_RELEASE_BRANCH&gt;
-git pull
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>&lt;TARGET_RELEASE_BRANCH&gt;
+git<span class="w"> </span>pull
 </code></pre></div>
 <p>Add a tag to the commit locally:</p>
-<div class="highlight"><pre><span></span><code>git tag -a vX.YrcZ -m <span class="s2">&quot;Ludwig vX.YrcZ&quot;</span>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>vX.YrcZ<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Ludwig vX.YrcZ&quot;</span>
 </code></pre></div>
 <p>Push tags to the repo.</p>
 <div class="highlight"><pre><span></span><code>git push --follow-tags
@@ -2523,9 +2523,9 @@ with the newest version.</p>
 </code></pre></div>
 <p>Create a PR.</p>
 <h3 id="7-for-major-releases-create-an-release-xy-branch">7. For major releases, create an release-X.Y branch<a class="headerlink" href="#7-for-major-releases-create-an-release-xy-branch" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>&gt; git checkout master
-&gt; git checkout -b release-X.Y
-&gt; git push --set-upstream origin release-X.Y
+<div class="highlight"><pre><span></span><code>&gt;<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>master
+&gt;<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>release-X.Y
+&gt;<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>--set-upstream<span class="w"> </span>origin<span class="w"> </span>release-X.Y
 </code></pre></div>
 <p>All subsequent minor releases on top of this major version will be based from
 this branch.</p>
@@ -2543,10 +2543,10 @@ coordinating sharing the release on other social media, or writing a blog post.<
 Github PR UI, i.e.</p>
 <p><img alt="img" src="../../images/commit_hash.png" /></p>
 <h3 id="2-cherry-pick-each-commit-in-a-cherrypick-xy-branch">2. Cherry pick each commit in a cherrypick-X.Y branch<a class="headerlink" href="#2-cherry-pick-each-commit-in-a-cherrypick-xy-branch" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>git checkout release-X.Y
-git checkout -b cherrypick-X.Y
-git cherry-pick &lt;commit_1&gt;  <span class="c1"># One commit at a time.</span>
-git cherry-pick &lt;commit_2&gt; &lt;commit_3&gt; &lt;commit_4&gt; ...  <span class="c1"># Or multiple commits all at once.</span>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>release-X.Y
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>cherrypick-X.Y
+git<span class="w"> </span>cherry-pick<span class="w"> </span>&lt;commit_1&gt;<span class="w">  </span><span class="c1"># One commit at a time.</span>
+git<span class="w"> </span>cherry-pick<span class="w"> </span>&lt;commit_2&gt;<span class="w"> </span>&lt;commit_3&gt;<span class="w"> </span>&lt;commit_4&gt;<span class="w"> </span>...<span class="w">  </span><span class="c1"># Or multiple commits all at once.</span>
 </code></pre></div>
 <p>Ensure that all cherry-picks have been correctly applied.</p>
 <div class="admonition note">
@@ -2566,10 +2566,10 @@ git cherry-pick &lt;commit_2&gt; &lt;commit_3&gt; &lt;commit_4&gt; ...  <span cl
 <p>If there were some last minute PRs merged after the version bump, reorder the commits to make the version bump be the last commit that gets tagged before the release.</p>
 <p><a href="https://www.youtube.com/watch?v=V9KpcGO7nLo">Reordering Commits in Git</a></p>
 <h3 id="oops-i-tagged-the-wrong-commit-and-pushed-it-to-github-already">Oops, I tagged the wrong commit, and pushed it to github already<a class="headerlink" href="#oops-i-tagged-the-wrong-commit-and-pushed-it-to-github-already" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>git tag -d &lt;tagname&gt;                  <span class="c1"># delete the old tag locally</span>
-git push origin :refs/tags/&lt;tagname&gt;  <span class="c1"># delete the old tag remotely</span>
-git tag &lt;tagname&gt; &lt;commitId&gt;          <span class="c1"># make a new tag locally</span>
-git push origin &lt;tagname&gt;             <span class="c1"># push the new local tag to the remote</span>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>tag<span class="w"> </span>-d<span class="w"> </span>&lt;tagname&gt;<span class="w">                  </span><span class="c1"># delete the old tag locally</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>:refs/tags/&lt;tagname&gt;<span class="w">  </span><span class="c1"># delete the old tag remotely</span>
+git<span class="w"> </span>tag<span class="w"> </span>&lt;tagname&gt;<span class="w"> </span>&lt;commitId&gt;<span class="w">          </span><span class="c1"># make a new tag locally</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>&lt;tagname&gt;<span class="w">             </span><span class="c1"># push the new local tag to the remote</span>
 </code></pre></div>
 
               

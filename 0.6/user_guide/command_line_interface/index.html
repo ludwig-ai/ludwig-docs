@@ -2555,10 +2555,10 @@
 <p>These are described in detail below.</p>
 <h2 id="train">train<a class="headerlink" href="#train" title="Permanent link">&para;</a></h2>
 <p>Train a model from your data.</p>
-<div class="highlight"><pre><span></span><code>ludwig train <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>train<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </code></pre></div>
 <p>or with:</p>
-<div class="highlight"><pre><span></span><code>python -m ludwig.train <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>ludwig.train<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </code></pre></div>
 <p>from within Ludwig's main directory.</p>
 <p>These are the available arguments:</p>
@@ -2696,15 +2696,15 @@ If less than all of memory is allocated, Torch will need more GPU memory it will
 <p>If parameter <code>--backend</code> is set, will use the given backend for distributed processing (Horovod or Ray).</p>
 <p>Finally the <code>--logging_level</code> argument lets you set the amount of logging that you want to see during training.</p>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code>ludwig train --dataset reuters-allcats.csv --config <span class="s2">&quot;{input_features: [{name: text, type: text, encoder: {type: parallel_cnn}}], output_features: [{name: class, type: category}]}&quot;</span>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>train<span class="w"> </span>--dataset<span class="w"> </span>reuters-allcats.csv<span class="w"> </span>--config<span class="w"> </span><span class="s2">&quot;{input_features: [{name: text, type: text, encoder: {type: parallel_cnn}}], output_features: [{name: class, type: category}]}&quot;</span>
 </code></pre></div>
 <h2 id="predict">predict<a class="headerlink" href="#predict" title="Permanent link">&para;</a></h2>
 <p>This command lets you use a previously trained model to predict on new data.
 You can call it with:</p>
-<div class="highlight"><pre><span></span><code>ludwig predict <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>predict<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </code></pre></div>
 <p>or with:</p>
-<div class="highlight"><pre><span></span><code>python -m ludwig.predict <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>ludwig.predict<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </code></pre></div>
 <p>from within Ludwig's main directory.</p>
 <p>These are the available arguments:</p>
@@ -2757,16 +2757,16 @@ You can specify not to save the raw NPY output files with the argument <code>ski
 <p>A specific batch size for speeding up the prediction can be specified using the argument <code>--batch_size</code>.</p>
 <p>Finally the <code>--logging_level</code>, <code>--debug</code>, <code>--gpus</code>, <code>--gpu_memory_limit</code> and <code>--disable_parallel_threads</code>  related arguments behave exactly like described in the train command section.</p>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code>ludwig predict --dataset reuters-allcats.csv --model_path results/experiment_run_0/model/
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>predict<span class="w"> </span>--dataset<span class="w"> </span>reuters-allcats.csv<span class="w"> </span>--model_path<span class="w"> </span>results/experiment_run_0/model/
 </code></pre></div>
 <h2 id="evaluate">evaluate<a class="headerlink" href="#evaluate" title="Permanent link">&para;</a></h2>
 <p>This command lets you use a previously trained model to predict on new data and
 evaluate the performance of the prediction compared to ground truth.
 You can call it with:</p>
-<div class="highlight"><pre><span></span><code>ludwig evaluate <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>evaluate<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </code></pre></div>
 <p>or with:</p>
-<div class="highlight"><pre><span></span><code>python -m ludwig.evaluate <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>ludwig.evaluate<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </code></pre></div>
 <p>from within Ludwig's main directory.</p>
 <p>These are the available arguments:</p>
@@ -2817,17 +2817,17 @@ truth output values in order to compute the performance statistics.
 If you receive an error regarding a missing output feature column in your data,
 it means that the data does not contain the columns for each output feature to use as ground truth.</p>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code>ludwig evaluate --dataset reuters-allcats.csv --model_path results/experiment_run_0/model/
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>evaluate<span class="w"> </span>--dataset<span class="w"> </span>reuters-allcats.csv<span class="w"> </span>--model_path<span class="w"> </span>results/experiment_run_0/model/
 </code></pre></div>
 <h2 id="experiment">experiment<a class="headerlink" href="#experiment" title="Permanent link">&para;</a></h2>
 <p>This command combines training and evaluation into a single handy command. You
 can request a k-fold cross validation run by specifying the <code>--k_fold</code>
 parameter.</p>
 <p>You can call it with:</p>
-<div class="highlight"><pre><span></span><code>ludwig experiment <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>experiment<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </code></pre></div>
 <p>or with:</p>
-<div class="highlight"><pre><span></span><code>python -m ludwig.experiment <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>ludwig.experiment<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </code></pre></div>
 <p>from within Ludwig's main directory.</p>
 <p>These are the available arguments:</p>
@@ -2932,96 +2932,96 @@ optional arguments:
 refer to those sections for an in depth explanation.
 The output directory will contain the outputs both commands produce.</p>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code>ludwig experiment --dataset reuters-allcats.csv --config <span class="s2">&quot;{input_features: [{name: text, type: text, encoder: {type: parallel_cnn}}], output_features: [{name: class, type: category}]}&quot;</span>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>experiment<span class="w"> </span>--dataset<span class="w"> </span>reuters-allcats.csv<span class="w"> </span>--config<span class="w"> </span><span class="s2">&quot;{input_features: [{name: text, type: text, encoder: {type: parallel_cnn}}], output_features: [{name: class, type: category}]}&quot;</span>
 </code></pre></div>
 <h2 id="hyperopt">hyperopt<a class="headerlink" href="#hyperopt" title="Permanent link">&para;</a></h2>
 <p>This command lets you perform an hyperparameter search with a given sampler and parameters.
 You can call it with:</p>
-<div class="highlight"><pre><span></span><code>ludwig hyperopt <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>hyperopt<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </code></pre></div>
 <p>or with:</p>
-<div class="highlight"><pre><span></span><code>python -m ludwig.hyperopt <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>ludwig.hyperopt<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </code></pre></div>
 <p>from within Ludwig's main directory.</p>
 <p>These are the available arguments:</p>
-<div class="highlight"><pre><span></span><code>usage: ludwig hyperopt <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>usage:<span class="w"> </span>ludwig<span class="w"> </span>hyperopt<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 
-This script searches <span class="k">for</span> optimal Hyperparameters
+This<span class="w"> </span>script<span class="w"> </span>searches<span class="w"> </span><span class="k">for</span><span class="w"> </span>optimal<span class="w"> </span>Hyperparameters
 
-optional arguments:
-  -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
-  -sshs, --skip_save_hyperopt_statistics
-                        skips saving hyperopt statistics file
-  --output_directory OUTPUT_DIRECTORY
-                        directory that contains the results
-  --experiment_name EXPERIMENT_NAME
-                        experiment name
-  --model_name MODEL_NAME
-                        name <span class="k">for</span> the model
-  --dataset DATASET     input data file path. If it has a split column, it
-                        will be used <span class="k">for</span> splitting <span class="o">(</span><span class="m">0</span>: train, <span class="m">1</span>: validation,
-                        <span class="m">2</span>: <span class="nb">test</span><span class="o">)</span>, otherwise the dataset will be randomly split
-  --training_set TRAINING_SET
-                        input train data file path
-  --validation_set VALIDATION_SET
-                        input validation data file path
-  --test_set TEST_SET   input <span class="nb">test</span> data file path
-  --training_set_metadata TRAINING_SET_METADATA
-                        input metadata JSON file path. An intermediate
-                        preprocessed file containing the mappings of the input
-                        file created the first <span class="nb">time</span> a file is used, <span class="k">in</span> the
-                        same directory with the same name and a .json
-                        extension
-  --data_format <span class="o">{</span>auto,csv,excel,feather,fwf,hdf5,htmltables,json,jsonl,parquet,pickle,sas,spss,stata,tsv<span class="o">}</span>
-                        format of the input data
-  -sspi, --skip_save_processed_input
-                        skips saving intermediate HDF5 and JSON files
-  -c CONFIG, --config CONFIG
-                        Path to the YAML file containing the model configuration
-  -cs CONFIG_STR, --config_str CONFIG_STRING
-                        JSON or YAML serialized string of the model configuration. Ignores --config
-  -mlp MODEL_LOAD_PATH, --model_load_path MODEL_LOAD_PATH
-                        path of a pretrained model to load as initialization
-  -mrp MODEL_RESUME_PATH, --model_resume_path MODEL_RESUME_PATH
-                        path of the model directory to resume training of
-  -sstd, --skip_save_training_description
-                        disables saving the description JSON file
-  -ssts, --skip_save_training_statistics
-                        disables saving training statistics JSON file
-  -ssm, --skip_save_model
-                        disables saving weights each <span class="nb">time</span> the model improves.
-                        By default Ludwig saves weights after each epoch the
-                        validation metric improves, but <span class="k">if</span> the model is really
-                        big that can be <span class="nb">time</span> consuming. If you <span class="k">do</span> not want to
-                        keep the weights and just find out what performance
-                        can a model get with a <span class="nb">set</span> of hyperparameters, use
-                        this parameter to skip it
-  -ssp, --skip_save_progress
-                        disables saving weights after each epoch. By default
-                        ludwig saves weights after each epoch <span class="k">for</span> enabling
-                        resuming of training, but <span class="k">if</span> the model is really big
-                        that can be <span class="nb">time</span> consuming and will save twice as much
-                        space, use this parameter to skip it
-  -ssl, --skip_save_log
-                        disables saving TensorBoard logs. By default Ludwig
-                        saves logs <span class="k">for</span> the TensorBoard, but <span class="k">if</span> it is not
-                        needed turning it off can slightly increase the
-                        overall speed
-  -rs RANDOM_SEED, --random_seed RANDOM_SEED
-                        a random seed that is going to be used anywhere there
-                        is a call to a random number generator: data
-                        splitting, parameter initialization and training <span class="nb">set</span>
-                        shuffling
-  -g GPUS <span class="o">[</span>GPUS ...<span class="o">]</span>, --gpus GPUS <span class="o">[</span>GPUS ...<span class="o">]</span>
-                        list of gpus to use
-  -gml GPU_MEMORY_LIMIT, --gpu_memory_limit GPU_MEMORY_LIMIT
-                        maximum memory <span class="k">in</span> MB to allocate per GPU device
-  -b BACKEND, --backend BACKEND
-                        specifies backend to use <span class="k">for</span> parallel / distributed execution,
-                        defaults to <span class="nb">local</span> execution or Horovod <span class="k">if</span> called using horovodrun
-  -dbg, --debug         enables debugging mode
-  -l <span class="o">{</span>critical,error,warning,info,debug,notset<span class="o">}</span>, --logging_level <span class="o">{</span>critical,error,warning,info,debug,notset<span class="o">}</span>
-                        the level of logging to use
+optional<span class="w"> </span>arguments:
+<span class="w">  </span>-h,<span class="w"> </span>--help<span class="w">            </span>show<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span><span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
+<span class="w">  </span>-sshs,<span class="w"> </span>--skip_save_hyperopt_statistics
+<span class="w">                        </span>skips<span class="w"> </span>saving<span class="w"> </span>hyperopt<span class="w"> </span>statistics<span class="w"> </span>file
+<span class="w">  </span>--output_directory<span class="w"> </span>OUTPUT_DIRECTORY
+<span class="w">                        </span>directory<span class="w"> </span>that<span class="w"> </span>contains<span class="w"> </span>the<span class="w"> </span>results
+<span class="w">  </span>--experiment_name<span class="w"> </span>EXPERIMENT_NAME
+<span class="w">                        </span>experiment<span class="w"> </span>name
+<span class="w">  </span>--model_name<span class="w"> </span>MODEL_NAME
+<span class="w">                        </span>name<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>model
+<span class="w">  </span>--dataset<span class="w"> </span>DATASET<span class="w">     </span>input<span class="w"> </span>data<span class="w"> </span>file<span class="w"> </span>path.<span class="w"> </span>If<span class="w"> </span>it<span class="w"> </span>has<span class="w"> </span>a<span class="w"> </span>split<span class="w"> </span>column,<span class="w"> </span>it
+<span class="w">                        </span>will<span class="w"> </span>be<span class="w"> </span>used<span class="w"> </span><span class="k">for</span><span class="w"> </span>splitting<span class="w"> </span><span class="o">(</span><span class="m">0</span>:<span class="w"> </span>train,<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>validation,
+<span class="w">                        </span><span class="m">2</span>:<span class="w"> </span><span class="nb">test</span><span class="o">)</span>,<span class="w"> </span>otherwise<span class="w"> </span>the<span class="w"> </span>dataset<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>randomly<span class="w"> </span>split
+<span class="w">  </span>--training_set<span class="w"> </span>TRAINING_SET
+<span class="w">                        </span>input<span class="w"> </span>train<span class="w"> </span>data<span class="w"> </span>file<span class="w"> </span>path
+<span class="w">  </span>--validation_set<span class="w"> </span>VALIDATION_SET
+<span class="w">                        </span>input<span class="w"> </span>validation<span class="w"> </span>data<span class="w"> </span>file<span class="w"> </span>path
+<span class="w">  </span>--test_set<span class="w"> </span>TEST_SET<span class="w">   </span>input<span class="w"> </span><span class="nb">test</span><span class="w"> </span>data<span class="w"> </span>file<span class="w"> </span>path
+<span class="w">  </span>--training_set_metadata<span class="w"> </span>TRAINING_SET_METADATA
+<span class="w">                        </span>input<span class="w"> </span>metadata<span class="w"> </span>JSON<span class="w"> </span>file<span class="w"> </span>path.<span class="w"> </span>An<span class="w"> </span>intermediate
+<span class="w">                        </span>preprocessed<span class="w"> </span>file<span class="w"> </span>containing<span class="w"> </span>the<span class="w"> </span>mappings<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>input
+<span class="w">                        </span>file<span class="w"> </span>created<span class="w"> </span>the<span class="w"> </span>first<span class="w"> </span><span class="nb">time</span><span class="w"> </span>a<span class="w"> </span>file<span class="w"> </span>is<span class="w"> </span>used,<span class="w"> </span><span class="k">in</span><span class="w"> </span>the
+<span class="w">                        </span>same<span class="w"> </span>directory<span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span>same<span class="w"> </span>name<span class="w"> </span>and<span class="w"> </span>a<span class="w"> </span>.json
+<span class="w">                        </span>extension
+<span class="w">  </span>--data_format<span class="w"> </span><span class="o">{</span>auto,csv,excel,feather,fwf,hdf5,htmltables,json,jsonl,parquet,pickle,sas,spss,stata,tsv<span class="o">}</span>
+<span class="w">                        </span>format<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>input<span class="w"> </span>data
+<span class="w">  </span>-sspi,<span class="w"> </span>--skip_save_processed_input
+<span class="w">                        </span>skips<span class="w"> </span>saving<span class="w"> </span>intermediate<span class="w"> </span>HDF5<span class="w"> </span>and<span class="w"> </span>JSON<span class="w"> </span>files
+<span class="w">  </span>-c<span class="w"> </span>CONFIG,<span class="w"> </span>--config<span class="w"> </span>CONFIG
+<span class="w">                        </span>Path<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>YAML<span class="w"> </span>file<span class="w"> </span>containing<span class="w"> </span>the<span class="w"> </span>model<span class="w"> </span>configuration
+<span class="w">  </span>-cs<span class="w"> </span>CONFIG_STR,<span class="w"> </span>--config_str<span class="w"> </span>CONFIG_STRING
+<span class="w">                        </span>JSON<span class="w"> </span>or<span class="w"> </span>YAML<span class="w"> </span>serialized<span class="w"> </span>string<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>model<span class="w"> </span>configuration.<span class="w"> </span>Ignores<span class="w"> </span>--config
+<span class="w">  </span>-mlp<span class="w"> </span>MODEL_LOAD_PATH,<span class="w"> </span>--model_load_path<span class="w"> </span>MODEL_LOAD_PATH
+<span class="w">                        </span>path<span class="w"> </span>of<span class="w"> </span>a<span class="w"> </span>pretrained<span class="w"> </span>model<span class="w"> </span>to<span class="w"> </span>load<span class="w"> </span>as<span class="w"> </span>initialization
+<span class="w">  </span>-mrp<span class="w"> </span>MODEL_RESUME_PATH,<span class="w"> </span>--model_resume_path<span class="w"> </span>MODEL_RESUME_PATH
+<span class="w">                        </span>path<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>model<span class="w"> </span>directory<span class="w"> </span>to<span class="w"> </span>resume<span class="w"> </span>training<span class="w"> </span>of
+<span class="w">  </span>-sstd,<span class="w"> </span>--skip_save_training_description
+<span class="w">                        </span>disables<span class="w"> </span>saving<span class="w"> </span>the<span class="w"> </span>description<span class="w"> </span>JSON<span class="w"> </span>file
+<span class="w">  </span>-ssts,<span class="w"> </span>--skip_save_training_statistics
+<span class="w">                        </span>disables<span class="w"> </span>saving<span class="w"> </span>training<span class="w"> </span>statistics<span class="w"> </span>JSON<span class="w"> </span>file
+<span class="w">  </span>-ssm,<span class="w"> </span>--skip_save_model
+<span class="w">                        </span>disables<span class="w"> </span>saving<span class="w"> </span>weights<span class="w"> </span>each<span class="w"> </span><span class="nb">time</span><span class="w"> </span>the<span class="w"> </span>model<span class="w"> </span>improves.
+<span class="w">                        </span>By<span class="w"> </span>default<span class="w"> </span>Ludwig<span class="w"> </span>saves<span class="w"> </span>weights<span class="w"> </span>after<span class="w"> </span>each<span class="w"> </span>epoch<span class="w"> </span>the
+<span class="w">                        </span>validation<span class="w"> </span>metric<span class="w"> </span>improves,<span class="w"> </span>but<span class="w"> </span><span class="k">if</span><span class="w"> </span>the<span class="w"> </span>model<span class="w"> </span>is<span class="w"> </span>really
+<span class="w">                        </span>big<span class="w"> </span>that<span class="w"> </span>can<span class="w"> </span>be<span class="w"> </span><span class="nb">time</span><span class="w"> </span>consuming.<span class="w"> </span>If<span class="w"> </span>you<span class="w"> </span><span class="k">do</span><span class="w"> </span>not<span class="w"> </span>want<span class="w"> </span>to
+<span class="w">                        </span>keep<span class="w"> </span>the<span class="w"> </span>weights<span class="w"> </span>and<span class="w"> </span>just<span class="w"> </span>find<span class="w"> </span>out<span class="w"> </span>what<span class="w"> </span>performance
+<span class="w">                        </span>can<span class="w"> </span>a<span class="w"> </span>model<span class="w"> </span>get<span class="w"> </span>with<span class="w"> </span>a<span class="w"> </span><span class="nb">set</span><span class="w"> </span>of<span class="w"> </span>hyperparameters,<span class="w"> </span>use
+<span class="w">                        </span>this<span class="w"> </span>parameter<span class="w"> </span>to<span class="w"> </span>skip<span class="w"> </span>it
+<span class="w">  </span>-ssp,<span class="w"> </span>--skip_save_progress
+<span class="w">                        </span>disables<span class="w"> </span>saving<span class="w"> </span>weights<span class="w"> </span>after<span class="w"> </span>each<span class="w"> </span>epoch.<span class="w"> </span>By<span class="w"> </span>default
+<span class="w">                        </span>ludwig<span class="w"> </span>saves<span class="w"> </span>weights<span class="w"> </span>after<span class="w"> </span>each<span class="w"> </span>epoch<span class="w"> </span><span class="k">for</span><span class="w"> </span>enabling
+<span class="w">                        </span>resuming<span class="w"> </span>of<span class="w"> </span>training,<span class="w"> </span>but<span class="w"> </span><span class="k">if</span><span class="w"> </span>the<span class="w"> </span>model<span class="w"> </span>is<span class="w"> </span>really<span class="w"> </span>big
+<span class="w">                        </span>that<span class="w"> </span>can<span class="w"> </span>be<span class="w"> </span><span class="nb">time</span><span class="w"> </span>consuming<span class="w"> </span>and<span class="w"> </span>will<span class="w"> </span>save<span class="w"> </span>twice<span class="w"> </span>as<span class="w"> </span>much
+<span class="w">                        </span>space,<span class="w"> </span>use<span class="w"> </span>this<span class="w"> </span>parameter<span class="w"> </span>to<span class="w"> </span>skip<span class="w"> </span>it
+<span class="w">  </span>-ssl,<span class="w"> </span>--skip_save_log
+<span class="w">                        </span>disables<span class="w"> </span>saving<span class="w"> </span>TensorBoard<span class="w"> </span>logs.<span class="w"> </span>By<span class="w"> </span>default<span class="w"> </span>Ludwig
+<span class="w">                        </span>saves<span class="w"> </span>logs<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>TensorBoard,<span class="w"> </span>but<span class="w"> </span><span class="k">if</span><span class="w"> </span>it<span class="w"> </span>is<span class="w"> </span>not
+<span class="w">                        </span>needed<span class="w"> </span>turning<span class="w"> </span>it<span class="w"> </span>off<span class="w"> </span>can<span class="w"> </span>slightly<span class="w"> </span>increase<span class="w"> </span>the
+<span class="w">                        </span>overall<span class="w"> </span>speed
+<span class="w">  </span>-rs<span class="w"> </span>RANDOM_SEED,<span class="w"> </span>--random_seed<span class="w"> </span>RANDOM_SEED
+<span class="w">                        </span>a<span class="w"> </span>random<span class="w"> </span>seed<span class="w"> </span>that<span class="w"> </span>is<span class="w"> </span>going<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>used<span class="w"> </span>anywhere<span class="w"> </span>there
+<span class="w">                        </span>is<span class="w"> </span>a<span class="w"> </span>call<span class="w"> </span>to<span class="w"> </span>a<span class="w"> </span>random<span class="w"> </span>number<span class="w"> </span>generator:<span class="w"> </span>data
+<span class="w">                        </span>splitting,<span class="w"> </span>parameter<span class="w"> </span>initialization<span class="w"> </span>and<span class="w"> </span>training<span class="w"> </span><span class="nb">set</span>
+<span class="w">                        </span>shuffling
+<span class="w">  </span>-g<span class="w"> </span>GPUS<span class="w"> </span><span class="o">[</span>GPUS<span class="w"> </span>...<span class="o">]</span>,<span class="w"> </span>--gpus<span class="w"> </span>GPUS<span class="w"> </span><span class="o">[</span>GPUS<span class="w"> </span>...<span class="o">]</span>
+<span class="w">                        </span>list<span class="w"> </span>of<span class="w"> </span>gpus<span class="w"> </span>to<span class="w"> </span>use
+<span class="w">  </span>-gml<span class="w"> </span>GPU_MEMORY_LIMIT,<span class="w"> </span>--gpu_memory_limit<span class="w"> </span>GPU_MEMORY_LIMIT
+<span class="w">                        </span>maximum<span class="w"> </span>memory<span class="w"> </span><span class="k">in</span><span class="w"> </span>MB<span class="w"> </span>to<span class="w"> </span>allocate<span class="w"> </span>per<span class="w"> </span>GPU<span class="w"> </span>device
+<span class="w">  </span>-b<span class="w"> </span>BACKEND,<span class="w"> </span>--backend<span class="w"> </span>BACKEND
+<span class="w">                        </span>specifies<span class="w"> </span>backend<span class="w"> </span>to<span class="w"> </span>use<span class="w"> </span><span class="k">for</span><span class="w"> </span>parallel<span class="w"> </span>/<span class="w"> </span>distributed<span class="w"> </span>execution,
+<span class="w">                        </span>defaults<span class="w"> </span>to<span class="w"> </span><span class="nb">local</span><span class="w"> </span>execution<span class="w"> </span>or<span class="w"> </span>Horovod<span class="w"> </span><span class="k">if</span><span class="w"> </span>called<span class="w"> </span>using<span class="w"> </span>horovodrun
+<span class="w">  </span>-dbg,<span class="w"> </span>--debug<span class="w">         </span>enables<span class="w"> </span>debugging<span class="w"> </span>mode
+<span class="w">  </span>-l<span class="w"> </span><span class="o">{</span>critical,error,warning,info,debug,notset<span class="o">}</span>,<span class="w"> </span>--logging_level<span class="w"> </span><span class="o">{</span>critical,error,warning,info,debug,notset<span class="o">}</span>
+<span class="w">                        </span>the<span class="w"> </span>level<span class="w"> </span>of<span class="w"> </span>logging<span class="w"> </span>to<span class="w"> </span>use
 </code></pre></div>
 <p>The parameters combine parameters from both <a href="#train">train</a> and <a href="#test">test</a> so refer to those sections for an in depth explanation. The output directory will contain a <code>hyperopt_statistics.json</code> file that summarizes the results obtained.</p>
 <p>In order to perform an hyperparameter optimization, the <code>hyperopt</code> section needs to be provided within the configuration.
@@ -3030,10 +3030,10 @@ For details on the <code>hyperopt</code> section see the detailed description in
 <h2 id="serve">serve<a class="headerlink" href="#serve" title="Permanent link">&para;</a></h2>
 <p>This command lets you load a pre-trained model and serve it on an http server.</p>
 <p>You can call it with:</p>
-<div class="highlight"><pre><span></span><code>ludwig serve <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>serve<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </code></pre></div>
 <p>or with</p>
-<div class="highlight"><pre><span></span><code>python -m ludwig.serve <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>ludwig.serve<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </code></pre></div>
 <p>from within Ludwig's main directory.</p>
 <p>These are the available arguments:</p>
@@ -3079,10 +3079,10 @@ machine-local torch environment.</p>
 <h2 id="visualize">visualize<a class="headerlink" href="#visualize" title="Permanent link">&para;</a></h2>
 <p>This command lets you visualize training and prediction statistics, alongside with comparing different models performances and predictions.
 You can call it with:</p>
-<div class="highlight"><pre><span></span><code>ludwig visualize <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>visualize<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </code></pre></div>
 <p>or with:</p>
-<div class="highlight"><pre><span></span><code>python -m ludwig.visualize <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>ludwig.visualize<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </code></pre></div>
 <p>from within Ludwig's main directory.</p>
 <p>These are the available arguments:</p>
@@ -3178,10 +3178,10 @@ optional arguments:
 </code></pre></div>
 <h2 id="collect_summary">collect_summary<a class="headerlink" href="#collect_summary" title="Permanent link">&para;</a></h2>
 <p>This command loads a pretrained model and prints names of weights and layers activations to use with <code>collect_weights</code> or <code>collect_activations</code>.</p>
-<div class="highlight"><pre><span></span><code>ludwig collect_summary <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>collect_summary<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </code></pre></div>
 <p>or with:</p>
-<div class="highlight"><pre><span></span><code>python -m ludwig.collect names <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>ludwig.collect<span class="w"> </span>names<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </code></pre></div>
 <p>from within Ludwig's main directory.</p>
 <p>These are the available arguments:</p>
@@ -3200,10 +3200,10 @@ optional arguments:
 <p>This command lets you load a pre-trained model and collect the tensors with a specific name in order to save them in a NPY format.
 This may be useful in order to visualize the learned weights (for instance collecting embedding matrices) and for some post-hoc analyses.
 You can call it with:</p>
-<div class="highlight"><pre><span></span><code>ludwig collect_weights <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>collect_weights<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </code></pre></div>
 <p>or with:</p>
-<div class="highlight"><pre><span></span><code>python -m ludwig.collect weights <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>ludwig.collect<span class="w"> </span>weights<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </code></pre></div>
 <p>from within Ludwig's main directory.</p>
 <p>These are the available arguments:</p>
@@ -3234,10 +3234,10 @@ them in a NPY format.</p>
 collecting the last layer's activations as embeddings representations of the
 input datapoint) and for some post-hoc analyses.</p>
 <p>You can call it with:</p>
-<div class="highlight"><pre><span></span><code>ludwig collect_activations <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>collect_activations<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </code></pre></div>
 <p>or with:</p>
-<div class="highlight"><pre><span></span><code>python -m ludwig.collect activations <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>ludwig.collect<span class="w"> </span>activations<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </code></pre></div>
 <p>from within Ludwig's main directory.</p>
 <p>These are the available arguments:</p>
@@ -3284,10 +3284,10 @@ an explanation.</p>
 you can refer to that section for an explanation.</p>
 <h2 id="export_torchscript">export_torchscript<a class="headerlink" href="#export_torchscript" title="Permanent link">&para;</a></h2>
 <p>Exports a pre-trained model to Torch's <code>torchscript</code> format.</p>
-<div class="highlight"><pre><span></span><code>ludwig export_torchscript <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>export_torchscript<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </code></pre></div>
 <p>or with:</p>
-<div class="highlight"><pre><span></span><code>python -m ludwig.export torchscript <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>ludwig.export<span class="w"> </span>torchscript<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </code></pre></div>
 <p>These are the available arguments:</p>
 <div class="highlight"><pre><span></span><code>usage: ludwig export_torchscript [options]
@@ -3311,10 +3311,10 @@ optional arguments:
 <h2 id="export_neuropod">export_neuropod<a class="headerlink" href="#export_neuropod" title="Permanent link">&para;</a></h2>
 <p>A Ludwig model can be exported as a <a href="https://github.com/uber/neuropod">Neuropod</a>, a mechanism that allows it to be executed in a framework agnostic way.</p>
 <p>In order to export a Ludwig model as a Neuropod, first make sure the <code>neuropod</code> package is installed in your environment together with the appropriate backend (only use Python 3.7+), then run the following command:</p>
-<div class="highlight"><pre><span></span><code>ludwig export_neuropod <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>export_neuropod<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </code></pre></div>
 <p>or with:</p>
-<div class="highlight"><pre><span></span><code>python -m ludwig.export neuropod <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>ludwig.export<span class="w"> </span>neuropod<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </code></pre></div>
 <p>These are the available arguments:</p>
 <div class="highlight"><pre><span></span><code>usage: ludwig export_neuropod [options]
@@ -3341,10 +3341,10 @@ optional arguments:
 <li>Register a saved model directory on disk or in an existing MLflow experiment to an MLflow model registry.</li>
 </ol>
 <p>For the first approach, you only need to provide the location of the saved Ludwig model locally and the location where the model should be written to on local disk:</p>
-<div class="highlight"><pre><span></span><code>ludwig export_mlflow --model_path /saved/ludwig/model --output_path /exported/mlflow/model
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>export_mlflow<span class="w"> </span>--model_path<span class="w"> </span>/saved/ludwig/model<span class="w"> </span>--output_path<span class="w"> </span>/exported/mlflow/model
 </code></pre></div>
 <p>For the second, you will need to provide a registered model name used by the model registry:</p>
-<div class="highlight"><pre><span></span><code>ludwig export_mlflow --model_path /saved/ludwig/model --output_path relative/model/path --registered_model_name my_ludwig_model
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>export_mlflow<span class="w"> </span>--model_path<span class="w"> </span>/saved/ludwig/model<span class="w"> </span>--output_path<span class="w"> </span>relative/model/path<span class="w"> </span>--registered_model_name<span class="w"> </span>my_ludwig_model
 </code></pre></div>
 <h2 id="preprocess">preprocess<a class="headerlink" href="#preprocess" title="Permanent link">&para;</a></h2>
 <p>Preprocess data and saves it into HDF5 and JSON format.
@@ -3423,7 +3423,7 @@ optional arguments:
 Process finished with exit code 0
 </code></pre></div>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code>ludwig synthesize_dataset --features<span class="o">=</span><span class="s2">&quot;[ \</span>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>synthesize_dataset<span class="w"> </span>--features<span class="o">=</span><span class="s2">&quot;[ \</span>
 <span class="s2">  {name: text, type: text}, \</span>
 <span class="s2">  {name: category, type: category}, \</span>
 <span class="s2">  {name: number, type: number}, \</span>
@@ -3436,7 +3436,7 @@ Process finished with exit code 0
 <span class="s2">  {name: h3, type: h3}, \</span>
 <span class="s2">  {name: vector, type: vector}, \</span>
 <span class="s2">  {name: image, type: image} \</span>
-<span class="s2">]&quot;</span> --dataset_size<span class="o">=</span><span class="m">10</span> --output_path<span class="o">=</span>synthetic_dataset.csv
+<span class="s2">]&quot;</span><span class="w"> </span>--dataset_size<span class="o">=</span><span class="m">10</span><span class="w"> </span>--output_path<span class="o">=</span>synthetic_dataset.csv
 </code></pre></div>
 <p>The available parameters depend on the feature type.</p>
 <p><strong>binary</strong></p>

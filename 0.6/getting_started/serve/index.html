@@ -2148,17 +2148,17 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">CLI</label><label for="__tabbed_1_2">Docker CLI</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>ludwig serve --model_path ./results/experiment_run/model
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>serve<span class="w"> </span>--model_path<span class="w"> </span>./results/experiment_run/model
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>docker run -t -i --mount <span class="nv">type</span><span class="o">=</span>bind,source<span class="o">={</span>absolute/path/to/rotten_tomatoes_data<span class="o">}</span>,target<span class="o">=</span>/rotten_tomatoes_data ludwigai/ludwig serve --model_path /rotten_tomatoes_data/results/experiment_run/model
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-t<span class="w"> </span>-i<span class="w"> </span>--mount<span class="w"> </span><span class="nv">type</span><span class="o">=</span>bind,source<span class="o">={</span>absolute/path/to/rotten_tomatoes_data<span class="o">}</span>,target<span class="o">=</span>/rotten_tomatoes_data<span class="w"> </span>ludwigai/ludwig<span class="w"> </span>serve<span class="w"> </span>--model_path<span class="w"> </span>/rotten_tomatoes_data/results/experiment_run/model
 </code></pre></div>
 </div>
 </div>
 </div>
 <p>Now that our server is up and running, you can make a POST request on the endpoint to get predictions back:</p>
-<div class="highlight"><pre><span></span><code>curl http://0.0.0.0:8000/predict -X POST -F <span class="s2">&quot;movie_title=Friends With Money&quot;</span> -F <span class="s2">&quot;content_rating=R&quot;</span> -F <span class="s2">&quot;genres=Art House &amp; International, Comedy, Drama&quot;</span> -F <span class="s2">&quot;runtime=88.0&quot;</span> -F <span class="s2">&quot;top_critic=TRUE&quot;</span> -F <span class="s2">&quot;review_content=The cast is terrific, the movie isn&#39;t.&quot;</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://0.0.0.0:8000/predict<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;movie_title=Friends With Money&quot;</span><span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;content_rating=R&quot;</span><span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;genres=Art House &amp; International, Comedy, Drama&quot;</span><span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;runtime=88.0&quot;</span><span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;top_critic=TRUE&quot;</span><span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;review_content=The cast is terrific, the movie isn&#39;t.&quot;</span>
 </code></pre></div>
 <p>Since the output feature is a binary type feature, the output from the POST call will look something like this:</p>
 <div class="highlight"><pre><span></span><code>{

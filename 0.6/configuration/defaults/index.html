@@ -2454,8 +2454,8 @@ certain data type. For example:</p>
 <p>Note that different features with the same datatype may require different preprocessing. Type-global preprocessing works
 in tandem with feature-specific preprocessing configuration parameters, however, feature-specific configurations override the global settings.</p>
 <p>For example, a document classification model may have two text input features, one for the title of the document and one for the body.</p>
-<p>As the length of the title is much shorter than the length of the body, the parameter <code>word_length_limit</code> should be set to <code>10</code> for
-the title and <code>2000</code> for the body, but we want both features to share the same vocabulary, with <code>most_common_words: 10000</code>.</p>
+<p>As the length of the title is much shorter than the length of the body, the parameter <code>max_sequence_length</code> should be set to <code>10</code> for
+the title and <code>2000</code> for the body, but we want both features to share the same vocabulary, with <code>most_common: 10000</code>.</p>
 <p>The way to do this is by adding a <code>preprocessing</code> key inside the title <code>input_feature</code> dictionary and one in the <code>body</code> input feature
 dictionary containing the desired parameter and value.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
@@ -2463,16 +2463,16 @@ dictionary containing the desired parameter and value.</p>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">title</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
 <span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">word_length_limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="w">        </span><span class="nt">max_sequence_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w">   </span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">body</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
 <span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">word_length_limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span>
+<span class="w">        </span><span class="nt">max_sequence_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span>
 <span class="nt">defaults</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">text</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">preprocessing</span><span class="p">:</span>
-<span class="w">            </span><span class="nt">most_common_word</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span>
+<span class="w">            </span><span class="nt">most_common</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span>
 </code></pre></div>
 <h5 id="tokenizers">Tokenizers<a class="headerlink" href="#tokenizers" title="Permanent link">&para;</a></h5>
 <p>Sequence, text, and set features tokenize features as part of preprocessing. There are several tokenization options that can be specified:</p>
@@ -2584,7 +2584,7 @@ certain data type. For example:</p>
 <span class="nt">defaults</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">text</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">preprocessing</span><span class="p">:</span>
-<span class="w">            </span><span class="nt">word_vocab_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span>
+<span class="w">            </span><span class="nt">most_common</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span>
 <span class="w">        </span><span class="nt">encoder</span><span class="p">:</span>
 <span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rnn</span>
 <span class="w">            </span><span class="nt">cell_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lstm</span>

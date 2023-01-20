@@ -2423,7 +2423,7 @@ By default, the ECD trainer is used.</p>
 <span class="w">    </span><span class="nt">increase_batch_size_on_plateau_max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512</span>
 <span class="w">    </span><span class="nt">learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span>
 <span class="w">    </span><span class="nt">learning_rate_scheduler</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">decay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">decay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">exponential</span>
 <span class="w">        </span><span class="nt">decay_steps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span>
 <span class="w">        </span><span class="nt">decay_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.96</span>
 <span class="w">        </span><span class="nt">staircase</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
@@ -2516,13 +2516,16 @@ By default, the ECD trainer is used.</p>
 <li><code>learning_rate</code> (default <code>0.001</code>): the learning rate to use.</li>
 <li><code>learning_rate_scheduler</code> section:<ul>
 <li><code>reduce_on_plateau</code> (default <code>0</code>): if theres a validation set, how many times to reduce the learning rate when a plateau of validation measure is reached.</li>
-<li><code>reduce_on_plateau_patience</code> (default <code>5</code>): if theres a validation set, number of epochs of patience without an improvement on the validation measure before reducing the learning rate.</li>
-<li><code>reduce_on_plateau_rate</code> (default <code>0.5</code>): if theres a validation set, the reduction rate of the learning rate.</li>
-<li><code>decay</code> (default <code>false</code>): if to use exponential decay of the learning rate or not.</li>
+<li><code>reduce_on_plateau_patience</code> (default <code>10</code>): if theres a validation set, number of epochs of patience without an improvement on the validation measure before reducing the learning rate.</li>
+<li><code>reduce_on_plateau_rate</code> (default <code>0.1</code>): if theres a validation set, the reduction rate of the learning rate.</li>
+<li><code>decay</code> (default <code>null</code>): one of <code>null</code>, <code>linear</code>, <code>exponential</code>. Whether to use one of the aforementioned decay strategies. Specifying <code>null</code> deactivates learning rate decay.</li>
 <li><code>decay_rate</code> (default <code>0.96</code>): the rate of the exponential learning rate decay.</li>
 <li><code>decay_steps</code> (default <code>10000</code>): the number of steps of the exponential learning rate decay.</li>
 <li><code>staircase</code> (default <code>false</code>): decays the learning rate at discrete intervals.</li>
-<li><code>warmup_evaluations</code> (default <code>0</code>): Its the number or training epochs where learning rate warmup will be used. It is calculated as described in <a href="https://arxiv.org/abs/1706.02677">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a>. In the paper the authors suggest <code>6</code> epochs of warmup, that parameter is suggested for large datasets and big batches.</li>
+<li><code>warmup_evaluations</code> (default <code>0</code>): Is the number or training epochs where learning rate warmup will be used. It is calculated as described in <a href="https://arxiv.org/abs/1706.02677">Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour</a>. In the paper the authors suggest <code>6</code> epochs of warmup, that parameter is suggested for large datasets and big batches.</li>
+<li><code>warmup_fraction</code> (default <code>0</code>): Fraction of total training steps to warmup the learning rate for.</li>
+<li><code>reduce_eval_metric</code> (default: <code>loss</code>): Metric used to trigger when we reduce the learning rate when <code>reduce_on_plateau</code> &gt; 0.</li>
+<li><code>reduce_eval_split</code> (default: <code>training</code>): Which dataset split to compute <code>reduce_eval_metric</code> on for reducing the learning rate when <code>reduce_on_plateau</code> &gt; 0.</li>
 </ul>
 </li>
 <li><code>increase_batch_size_on_plateau</code> (default <code>0</code>): if theres a validation set, how many times to increase the batch size when a plateau of validation measure is reached.</li>

@@ -25,7 +25,7 @@ By default, the ECD trainer is used.
         increase_batch_size_on_plateau_max: 512
         learning_rate: 0.001
         learning_rate_scheduler:
-            decay: false
+            decay: exponential
             decay_steps: 10000
             decay_rate: 0.96
             staircase: false
@@ -117,13 +117,16 @@ By default, the ECD trainer is used.
     - `learning_rate` (default `0.001`): the learning rate to use.
     - `learning_rate_scheduler` section:
         - `reduce_on_plateau` (default `0`): if theres a validation set, how many times to reduce the learning rate when a plateau of validation measure is reached.
-        - `reduce_on_plateau_patience` (default `5`): if theres a validation set, number of epochs of patience without an improvement on the validation measure before reducing the learning rate.
-        - `reduce_on_plateau_rate` (default `0.5`): if theres a validation set, the reduction rate of the learning rate.
-        - `decay` (default `false`): if to use exponential decay of the learning rate or not.
+        - `reduce_on_plateau_patience` (default `10`): if theres a validation set, number of epochs of patience without an improvement on the validation measure before reducing the learning rate.
+        - `reduce_on_plateau_rate` (default `0.1`): if theres a validation set, the reduction rate of the learning rate.
+        - `decay` (default `null`): one of `null`, `linear`, `exponential`. Whether to use one of the aforementioned decay strategies. Specifying `null` deactivates learning rate decay.
         - `decay_rate` (default `0.96`): the rate of the exponential learning rate decay.
         - `decay_steps` (default `10000`): the number of steps of the exponential learning rate decay.
         - `staircase` (default `false`): decays the learning rate at discrete intervals.
-        - `warmup_evaluations` (default `0`): Its the number or training epochs where learning rate warmup will be used. It is calculated as described in [Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour](https://arxiv.org/abs/1706.02677). In the paper the authors suggest `6` epochs of warmup, that parameter is suggested for large datasets and big batches.
+        - `warmup_evaluations` (default `0`): Is the number or training epochs where learning rate warmup will be used. It is calculated as described in [Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour](https://arxiv.org/abs/1706.02677). In the paper the authors suggest `6` epochs of warmup, that parameter is suggested for large datasets and big batches.
+        - `warmup_fraction` (default `0`): Fraction of total training steps to warmup the learning rate for.
+        - `reduce_eval_metric` (default: `loss`): Metric used to trigger when we reduce the learning rate when `reduce_on_plateau` > 0.
+        - `reduce_eval_split` (default: `training`): Which dataset split to compute `reduce_eval_metric` on for reducing the learning rate when `reduce_on_plateau` > 0.
     - `increase_batch_size_on_plateau` (default `0`): if theres a validation set, how many times to increase the batch size when a plateau of validation measure is reached.
     - `increase_batch_size_on_plateau_patience` (default `5`): if theres a validation set, number of epochs of patience without an improvement on the validation measure before increasing the learning rate.
     - `increase_batch_size_on_plateau_rate` (default `2`): if theres a validation set, the increase rate of the batch size.

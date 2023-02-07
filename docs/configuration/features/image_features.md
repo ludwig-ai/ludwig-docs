@@ -27,6 +27,12 @@ During preprocessing, raw image files are transformed into numpy arrays and save
     target `width` and `height` can be specified in the feature preprocessing parameters, in which case all images will
     be resized to the specified target size.
 
+### `missing_value_strategy`
+
+What strategy to follow when there's a missing value. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `bfill` (replaces the missing values with the next valid value), `ffill` (replaces the missing values with the previous valid value).
+
+- Default: `fill_with_const`
+
 ### `height`
 
 Image height in pixels. If set, images will be resized to the specified height using the `resize_method` parameter. If unspecified, images will be resized based on the average height of the first 100 images in the dataset. This can be controlled by the `infer_image_sample_size` attribute.

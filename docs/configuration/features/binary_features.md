@@ -7,8 +7,7 @@ The parameters available for preprocessing are:
 
 - `missing_value_strategy` (default `fill_with_false`): what strategy to follow when there's a missing value in a binary
 column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with
-the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column),
-`fill_with_mean` (replaces the missing values with the mean of the values in the column), `bfill` (replaces the missing values with the next valid value), `ffill` (replaces the missing values with the previous valid value), or `fill_with_false` (default, replaces the missing value with False).
+the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `bfill` (replaces the missing values with the next valid value), `ffill` (replaces the missing values with the previous valid value), or `fill_with_false` (default, replaces the missing value with False).
 - `fill_value` (default `0`): the value to replace the missing values with in case the `missing_value_strategy` is
 `fill_with_const`.
 - `fallback_true_label`: In case the binary feature doesn't have conventional boolean values, we will interpret the

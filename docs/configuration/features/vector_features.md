@@ -12,7 +12,7 @@ The data is expected as whitespace separated numerical values. Example: "1.0 0.0
 Preprocessing parameters:
 
 - `vector_size` (default `null`): size of the vector. If not provided, it will be inferred from the data.
-- `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `bfill` (replaces the missing values with the next valid value), `ffill` (replaces the missing values with the previous valid value).
+- `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `bfill` (replaces the missing values with the next valid value), `ffill` (replaces the missing values with the previous valid value).
 - `fill_value` (default `""`): the value to replace the missing values with in case the `missing_value_strategy` is `fill_with_const`.
 
 Configuration example:

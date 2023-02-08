@@ -18,7 +18,7 @@ The parameters available for preprocessing are
 - `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there is a missing value in the
 category column. The value should be one of `fill_with_const` (replaces the missing value with a specific value
 specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value
-in the column), `fill_with_mean` (replaces the missing values with the mean of the values in the column), `bfill` (replaces the missing values with the next valid value), `ffill` (replaces the missing values with the previous valid value).
+in the column), `bfill` (replaces the missing values with the next valid value), `ffill` (replaces the missing values with the previous valid value) or `drop_row`.
 - `fill_value` (default `<UNK>`): the value to replace missing values with when `missing_value_strategy` is
 `fill_with_const`.
 - `lowercase` (default `false`): if the string has to be lowercased before being handled by the tokenizer.

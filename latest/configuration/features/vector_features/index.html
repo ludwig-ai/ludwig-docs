@@ -2302,7 +2302,7 @@ feature. Vector output features can also be useful for distillation and noise-aw
 <p>Preprocessing parameters:</p>
 <ul>
 <li><code>vector_size</code> (default <code>null</code>): size of the vector. If not provided, it will be inferred from the data.</li>
-<li><code>missing_value_strategy</code> (default <code>fill_with_const</code>): what strategy to follow when there's a missing value. The value should be one of <code>fill_with_const</code> (replaces the missing value with a specific value specified with the <code>fill_value</code> parameter), <code>fill_with_mode</code> (replaces the missing values with the most frequent value in the column), <code>fill_with_mean</code> (replaces the missing values with the mean of the values in the column), <code>bfill</code> (replaces the missing values with the next valid value), <code>ffill</code> (replaces the missing values with the previous valid value).</li>
+<li><code>missing_value_strategy</code> (default <code>fill_with_const</code>): what strategy to follow when there's a missing value. The value should be one of <code>fill_with_const</code> (replaces the missing value with a specific value specified with the <code>fill_value</code> parameter), <code>fill_with_mode</code> (replaces the missing values with the most frequent value in the column), <code>bfill</code> (replaces the missing values with the next valid value), <code>ffill</code> (replaces the missing values with the previous valid value) or <code>drop_row</code>.</li>
 <li><code>fill_value</code> (default <code>""</code>): the value to replace the missing values with in case the <code>missing_value_strategy</code> is <code>fill_with_const</code>.</li>
 </ul>
 <p>Configuration example:</p>

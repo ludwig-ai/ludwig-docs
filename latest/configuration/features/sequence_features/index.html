@@ -2452,7 +2452,7 @@ vocabulary.</li>
 <li><code>missing_value_strategy</code> (default <code>fill_with_const</code>): what strategy to follow when there's a missing value in the
 column. The value should be one of <code>fill_with_const</code> (replaces the missing value with the value specified by the
 <code>fill_value</code> parameter), <code>fill_with_mode</code> (replaces the missing values with the most frequent value in the column),
-<code>fill_with_mean</code> (replaces the missing values with the mean of the values in the column), <code>bfill</code> (replaces the missing values with the next valid value), <code>ffill</code> (replaces the missing values with the previous valid value).</li>
+<code>bfill</code> (replaces the missing values with the next valid value), <code>ffill</code> (replaces the missing values with the previous valid value) or <code>drop_row</code>.</li>
 <li><code>fill_value</code> (default <code>&lt;UNK&gt;</code>): the value to replace the missing values with in case the <code>missing_value_strategy</code> is
 <code>fill_value</code>.</li>
 </ul>

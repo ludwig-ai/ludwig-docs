@@ -1222,6 +1222,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#missing_value_strategy" class="md-nav__link">
+    missing_value_strategy
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#height" class="md-nav__link">
     height
   </a>
@@ -2566,6 +2573,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#missing_value_strategy" class="md-nav__link">
+    missing_value_strategy
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#height" class="md-nav__link">
     height
   </a>
@@ -2987,6 +3001,11 @@ will be resized to the dimensions of the first image in the dataset. Optionally,
 target <code>width</code> and <code>height</code> can be specified in the feature preprocessing parameters, in which case all images will
 be resized to the specified target size.</p>
 </div>
+<h4 id="missing_value_strategy"><code>missing_value_strategy</code><a class="headerlink" href="#missing_value_strategy" title="Permanent link">&para;</a></h4>
+<p>What strategy to follow when there's a missing value. The value should be one of <code>fill_with_const</code> (replaces the missing value with a specific value specified with the <code>fill_value</code> parameter), <code>fill_with_mode</code> (replaces the missing values with the most frequent value in the column), <code>bfill</code> (replaces the missing values with the next valid value), <code>ffill</code> (replaces the missing values with the previous valid value) or <code>drop_row</code>.</p>
+<ul>
+<li>Default: <code>fill_with_const</code></li>
+</ul>
 <h4 id="height"><code>height</code><a class="headerlink" href="#height" title="Permanent link">&para;</a></h4>
 <p>Image height in pixels. If set, images will be resized to the specified height using the <code>resize_method</code> parameter. If unspecified, images will be resized based on the average height of the first 100 images in the dataset. This can be controlled by the <code>infer_image_sample_size</code> attribute.</p>
 <ul>

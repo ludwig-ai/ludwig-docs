@@ -29,7 +29,7 @@ During preprocessing, raw image files are transformed into numpy arrays and save
 
 ### `missing_value_strategy`
 
-What strategy to follow when there's a missing value. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `bfill` (replaces the missing values with the next valid value), `ffill` (replaces the missing values with the previous valid value).
+What strategy to follow when there's a missing value. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `bfill` (replaces the missing values with the next valid value), `ffill` (replaces the missing values with the previous valid value) or `drop_row`.
 
 - Default: `fill_with_const`
 

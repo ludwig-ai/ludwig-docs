@@ -14,7 +14,8 @@ preprocessing:
 Ludwig will parse the H3 64bit encoded format automatically.
 The parameters for preprocessing are:
 
-- `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in an H3 column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `bfill` (replaces the missing values with the next valid value), `ffill` (replaces the missing values with the previous valid value).
+- `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in an H3 column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `bfill` (replaces the missing values with the next valid value), `ffill` (replaces the missing values with the previous valid value)
+or `drop_row`.
 - `fill_value` (default `576495936675512319`): the value to replace the missing values with in case the `missing_value_strategy` is `fill_with_const`. This is a 64bit integer compatible with the H3 bit layout. The default value encodes mode 1, edge 0, resolution 0, base_cell 0.
 
 Preprocessing parameters can also be defined once and applied to all H3 input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.

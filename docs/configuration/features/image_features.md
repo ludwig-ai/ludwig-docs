@@ -707,8 +707,6 @@ augmentation:
 
 **Rotate**: Image is randomly rotated by an amount in the range [-degree, +degree].  `degree` must be a positive integer.
 
-``
-    
 ```yaml
 augmentation:
     - type: random_rotate
@@ -720,8 +718,6 @@ Following shows the effect of rotating an image:
 ![Rotate Image](augmentation_samples/rotation.png)
 
 **Blur**:  Image is randomly blurred using a Gaussian filter with kernel size specified by the user.  The `kernel_size` must be a positive, odd integer.
-
-`
 
 ```yaml
 augmentation:

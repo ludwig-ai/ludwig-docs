@@ -666,7 +666,7 @@ augmentation: False
 ```yaml
 augmentation: True
 ```
-**List of Augmentation Methods** One or more of the following augmentation methods are applied to the images in the order specified by the user: random_horizontal_flip, random_vertical_flip, random_rotate, random_blur, random_brightness, and random_contrast.
+**List of Augmentation Methods** One or more of the following augmentation methods are applied to the images in the order specified by the user: random_horizontal_flip, random_vertical_flip, random_rotate, random_blur, random_brightness, and random_contrast.  The following is an illustrative example.
 ```yaml
 augmentation:
     - type: random_horizontal_flip
@@ -682,6 +682,8 @@ augmentation:
       min_contrast: 0.5
       max_contrast: 2.0
 ```
+
+Augmentation is applied to the batch of images in the training set only.  The validation and test sets are not augmented.
 
 Following illustrates how augmentation affects an image:
 

@@ -148,20 +148,21 @@ The encoder parameters specified at the feature level are:
 
 - `tied` (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
 a feature of the same type and with the same encoder parameters.
+- `augmentation` (default `False`): specifies image data augmentation operations to generate synthetic training data.  More details on image augmentation can be found [here](#image-augmentation).
 
 Example image feature entry in the input features list:
 
 ```yaml
-name: category_column_name
-type: category
+name: image_column_name
+type: image
 tied: null
 encoder: 
-    type: dense
+    type: stacked_cnn
 ```
 
 The available encoder parameters are:
 
-- `type` (default `stacked_cnn`): the possible values are `stacked_cnn`, `resnet`, `mlp_mixer`, and `vit`.
+- `type` (default `stacked_cnn`): the possible values are `stacked_cnn`, `resnet`, `mlp_mixer`, `vit`, and [TorchVision Pretrained Image Classification models](#torchvision-pretrained-model-encoders).
 
 Encoder type and encoder parameters can also be defined once and applied to all image input features using the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
@@ -649,13 +650,153 @@ model. More details on `DEFAULT` weights can be found in this
     * `vit_torch`: `h_14`
 
 
+## Image Augmentation
+
+Image augmentation is a technique used to increase the diversity of a training dataset by applying random
+transformations to the images.  The goal is to train a model that is robust to the variations in the training data.
+
+Augmentation is specified by the `augmentation` section in the image feature configuration and can be specified in one of the following ways:
+
+**Boolean: `False` (Default)** No augmentation is applied to the images.
+```yaml
+augmentation: False
+```
+
+**Boolean: `True`** The following augmentation methods are applied to the images: random_horizontal_flip and random_rotate.
+```yaml
+augmentation: True
+```
+**List of Augmentation Methods** One or more of the following augmentation methods are applied to the images in the order specified by the user: random_horizontal_flip, random_vertical_flip, random_rotate, random_blur, random_brightness, and random_contrast.
+```yaml
+augmentation:
+    - type: random_horizontal_flip
+    - type: random_vertical_flip
+    - type: random_rotate
+      degree: 10
+    - type: random_blur
+      kernel_size: 3
+    - type: random_brightness
+      min_brightness: 0.5
+      max_brightness: 2.0
+    - type: random_contrast
+      min_contrast: 0.5
+      max_contrast: 2.0
+```
+
+Following illustrates how augmentation affects an image:
+
+![Original Image](augmentation_samples/original.png)
+
+**Horizontal Flip**: Image is randomly flipped horizontally.
+
+```yaml
+augmentation:
+    - type: random_horizontal_flip
+```
+
+![Horizontal Flip](augmentation_samples/horizontal_flip.png)
+    
+**Vertical Flip**:  Image is randomly flipped vertically.
+
+```yaml
+augmentation:
+    - type: random_vertical_flip
+```
+
+![Vertiacal Flip](augmentation_samples/vertical_flip.png)
+
+**Rotate**: Image is randomly rotated by an amount in the range [-degree, +degree].
+    
+```yaml
+augmentation:
+    - type: random_rotate
+      degree: 45
+```
+
+Following shows the effect of rotating an image:
+
+![Rotate Image](augmentation_samples/rotation.png)
+
+**Blur**:  Image is randomly blurred using a Gaussian filter with kernel size specified by the user.
+
+```yaml
+augmentation:
+    - type: random_blur
+      kernel_size: 3
+```
+
+Following shows the effect of blurring an image with various kernel sizes:
+
+![Blur Image](augmentation_samples/blur.png)
+
+**Adjust Brightness**: Image brightness is adjusted by a factor randomly selected in the range [min_brightness, max_brightness].
+
+```yaml
+augmentation:
+    - type: random_brightness
+      min_brightness: 0.5
+      max_brightness: 2.0
+```
+
+Following shows the effect of brightness adjustment with various factors:
+
+![Adjust Brightness](augmentation_samples/brightness.png)
+
+**Adjust Contrast**: Image contrast is adjusted by a factor randomly selected in the range [min_contrast, max_contrast].
+
+```yaml
+augmentation:
+    - type: random_contrast
+      min_contrast: 0.5
+      max_contrast: 2.0
+```
+
+Following shows the effect of contrast adjustment with various factors:
+
+![Adjust Contrast](augmentation_samples/contrast.png)
 
 
+**Illustrative Examples of Image Feature Configuration with Augmentation**
 
- 
+```yaml
+name: image_column_name
+type: image
+encoder: 
+    type: resnet
+    model_variant: 18
+    use_pretrained: true
+    pretrained_cache_dir: None
+    trainable: true
+augmentation: false
+```
 
+```yaml
+name: image_column_name
+type: image
+encoder: 
+    type: stacked_cnn
+augmentation: true
+```
 
-
+```yaml
+name: image_column_name
+type: image
+encoder: 
+    type: alexnet
+augmentation:
+    - type: random_horizontal_flip
+    - type: random_rotate
+      degree: 10
+    - type: random_blur
+      kernel_size: 3
+    - type: random_brightness
+      min_brightness: 0.5
+      max_brightness: 2.0
+    - type: random_contrast
+      min_contrast: 0.5
+      max_contrast: 2.0
+    - type: random_vertical_flip
+```
 
 # Image Output Features and Decoders
 

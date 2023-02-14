@@ -676,11 +676,11 @@ augmentation:
     - type: random_blur
       kernel_size: 3
     - type: random_brightness
-      min_brightness: 0.5
-      max_brightness: 2.0
+      min: 0.5
+      max: 2.0
     - type: random_contrast
-      min_contrast: 0.5
-      max_contrast: 2.0
+      min: 0.5
+      max: 2.0
 ```
 
 Augmentation is applied to the batch of images in the training set only.  The validation and test sets are not augmented.
@@ -731,26 +731,26 @@ Following shows the effect of blurring an image with various kernel sizes:
 
 ![Blur Image](augmentation_samples/blur.png)
 
-**Adjust Brightness**: Image brightness is adjusted by a factor randomly selected in the range [min_brightness, max_brightness].   Both `min_brightness` and `max_brightness` must be a float greater than 0, with `min_brightness` less than `max_brightness`.
+**Adjust Brightness**: Image brightness is adjusted by a factor randomly selected in the range [min, max].   Both `min` and `max` must be a float greater than 0, with `min` less than `max`.
 
 ```yaml
 augmentation:
     - type: random_brightness
-      min_brightness: 0.5
-      max_brightness: 2.0
+      min: 0.5
+      max: 2.0
 ```
 
 Following shows the effect of brightness adjustment with various factors:
 
 ![Adjust Brightness](augmentation_samples/brightness.png)
 
-**Adjust Contrast**: Image contrast is adjusted by a factor randomly selected in the range [min_contrast, max_contrast].  Both `min_contrast` and `max_contrast` must be a float greater than 0, with `min_contrast` less than `max_contrast`.
+**Adjust Contrast**: Image contrast is adjusted by a factor randomly selected in the range [min, max].  Both `min` and `max` must be a float greater than 0, with `min` less than `max`.
 
 ```yaml
 augmentation:
     - type: random_contrast
-      min_contrast: 0.5
-      max_contrast: 2.0
+      min: 0.5
+      max: 2.0
 ```
 
 Following shows the effect of contrast adjustment with various factors:
@@ -792,11 +792,11 @@ augmentation:
     - type: random_blur
       kernel_size: 3
     - type: random_brightness
-      min_brightness: 0.5
-      max_brightness: 2.0
+      min: 0.5
+      max: 2.0
     - type: random_contrast
-      min_contrast: 0.5
-      max_contrast: 2.0
+      min: 0.5
+      max: 2.0
     - type: random_vertical_flip
 ```
 

@@ -38,6 +38,7 @@ nav:
           - Data Preprocessing: user_guide/datasets/data_preprocessing.md
           - Data Postprocessing: user_guide/datasets/data_postprocessing.md
           - Dataset Zoo: user_guide/datasets/dataset_zoo.md
+      - GPUs: user_guide/gpus.md
       - Distributed Training: user_guide/distributed_training.md
       - Hyperparameter Optimization: user_guide/hyperopt.md
       - AutoML: user_guide/automl.md

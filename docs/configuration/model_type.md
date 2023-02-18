@@ -2,8 +2,8 @@ The top-level `model_type` parameter specifies the type of model to use.
 
 The following model types are supported:
 
-- `ecd` (default): The Ludwig Encoder-Combiner-Decoder model.
-- `gbm`: Gradient Boosting Machine tree model.
+- `ecd` (default): Encoder-Combiner-Decoder neural network model.
+- `gbm`: Gradient Boosting Machine tree-based model.
 
 ```yaml
 model_type: ecd
@@ -28,5 +28,5 @@ The GBM model type is a gradient boosting machine (GBM) tree model. It is a tree
     Selecting the `gbm` model type introduces the following limitations:
 
     - only binary, category, and number features are supported
-    - only a single target feature is supported
+    - only a single output feature is supported
     - the `combiner` section is ignored

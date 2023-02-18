@@ -11,7 +11,7 @@ By default, the ECD trainer is used.
         epochs: 100
         train_steps: None
         early_stop: 5
-        batch_size: 128
+        batch_size: auto
         eval_batch_size: null
         evaluate_training_set: True
         checkpoints_per_epoch: 0
@@ -89,7 +89,7 @@ By default, the ECD trainer is used.
         bagging_freq: 0
         pos_bagging_fraction: 1.0
         feature_fraction: 1.0
-        eval_batch_size: 128
+        eval_batch_size: null
         bagging_fraction: 1.0
         uniform_drop: False
         validation_field: combined
@@ -105,7 +105,7 @@ By default, the ECD trainer is used.
     - `epochs` (default `100`): number of epochs the training process will run for.
     - `train_steps` (default `None`): Maximum number of training steps the training process will run for. If unset, then `epochs` is used to determine training length.
     - `early_stop` (default `5`): Number of consecutive rounds of evaluation without any improvement on the `validation_metric` that triggers training to stop. Can be set to -1, which disables early stopping entirely.
-    - `batch_size` (default `128`): size of the batch used for training the model.
+    - `batch_size` (default `auto`): size of the batch used for training the model. Defaults to `auto` which will use the largest batch size that maximized throughput and avoids CUDA OOMs on GPU. On CPU, defaults to 128.
     - `eval_batch_size` (default `null`): size of the batch used for evaluating the model. If it is `0`, the same value of `batch_size` is used. This is useful to speedup evaluation with a much bigger batch size than training, if enough memory is available.
     - `evaluate_training_set`: Whether to include the entire training set during evaluation (default: True).
     - `checkpoints_per_epoch`: Number of checkpoints per epoch. For example, 2 -> checkpoints are written every half of an epoch. Note that it is invalid to specify both non-zero `steps_per_checkpoint` and non-zero `checkpoints_per_epoch` (default: 0).
@@ -179,7 +179,7 @@ By default, the ECD trainer is used.
     - `bagging_freq` (default `0`): Frequency of bagging.
     - `pos_bagging_fraction` (default `1.0`): Fraction of positive data to use for bagging.
     - `feature_fraction` (default `1.0`): Fraction of features to use.
-    - `eval_batch_size` (default `128`): Size of batch to pass to the model for evaluation.
+    - `eval_batch_size` (default `1048576`): Size of batch to pass to the model for evaluation. Evaluation is run on a compiled neural network version of the model, so larger batch sizes will significantly improve performance.
     - `bagging_fraction` (default `1.0`): Fraction of data to use for bagging.
     - `uniform_drop` (default `False`): Whether to use uniform dropout. Used only with boosting_type 'dart'.
     - `validation_field` (default `combined`): First output feature, by default it is set as the same field of the first output feature.

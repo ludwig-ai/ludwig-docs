@@ -18,6 +18,15 @@ is `zscore`, the mean and standard deviation are computed so that values are shi
 deviation. If the value is `minmax`, the minimum is subtracted from values and the result is divided by difference
 between maximum and minimum. If `normalization` is `log1p` the value returned is the natural log of 1 plus the original
 value. Note: `log1p` is defined only for positive values.
+- `outlier_strategy` (default `null`): Determines how outliers will be handled in the dataset. In most cases replacing outliers with the
+column mean (`fill_with_mean`) will be sufficient, but in others the outliers may be damaging enough
+to merit dropping the entire row of data (`drop_row`). In some cases, the best way to handle outliers
+is to leave them in the data, which is the behavior when this parameter is left as `null`.
+- `outlier_threshold` (default `3.0`): Determines the threshold past which a number will be considered an outlier in the dataset. The 3-sigma
+rule in statistics tells us that when data is normally distributed, 95% of the data will lie within 2
+standard deviations of the mean, and greater than 99% of the data will lie within 3 standard deviations
+of the mean (see: [68–95–99.7 rule](https://en.wikipedia.org/wiki/68%E2%80%9395%E2%80%9399.7_rule)). As such anything farther away than that is highly likely to be an
+outlier, and may distort the learning process by disproportionately affecting the model.
 
 Configuration example:
 
@@ -28,6 +37,8 @@ preprocessing:
     missing_value_strategy: fill_with_const
     fill_value: 0
     normalization: null
+    outlier_strategy: null
+    outlier_threshold: 3.0
 ```
 
 Preprocessing parameters can also be defined once and applied to all number input features using

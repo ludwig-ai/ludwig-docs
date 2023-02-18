@@ -46,6 +46,7 @@ preprocessing:
     lowercase: false
     missing_value_strategy: fill_with_const
     fill_value: ""
+    cache_encoder_embeddings: false
 ```
 
 Preprocessing parameters can also be defined once and applied to all text input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
@@ -53,6 +54,10 @@ Preprocessing parameters can also be defined once and applied to all text input 
 !!! note
     If a text feature's encoder specifies a huggingface model, then the tokenizer for that model will be used
     automatically.
+
+### Cache Encoder Embeddings
+
+TODO(travis)
 
 ## Text Input Features and Encoders
 

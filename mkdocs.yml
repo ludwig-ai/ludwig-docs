@@ -41,6 +41,7 @@ nav:
       - GPUs: user_guide/gpus.md
       - Distributed Training: user_guide/distributed_training.md
       - Hyperparameter Optimization: user_guide/hyperopt.md
+      - Fine-Tuning Pretrained Models: user_guide/finetuning.md
       - AutoML: user_guide/automl.md
       - Visualizations: user_guide/visualizations.md
       - Model Export: user_guide/model_export.md

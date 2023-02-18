@@ -36,9 +36,10 @@ Or in the Ludwig config:
 ```yaml
 backend:
   type: ray
-  data_format: parquet
-  engine:
+  processor:
     type: dask
+  trainer:
+    strategy: horovod
 ```
 
 ## Running Ludwig with Ray
@@ -56,21 +57,21 @@ Starting a Ray cluster requires that you have access to a cloud instance provide
 Here's an example of a partial Ray cluster configuration YAML file you can use to create your Ludwig Ray cluster:
 
 ```yaml
-cluster_name: ludwig-ray-gpu-nightly
+cluster_name: ludwig-ray-gpu-latest
 
 min_workers: 4
 max_workers: 4
 
 docker:
-    image: "ludwigai/ludwig-ray-gpu:nightly"
+    image: "ludwigai/ludwig-ray-gpu:latest"
     container_name: "ray_container"
 
 head_node:
-    InstanceType: c5.2xlarge
+    InstanceType: m5.2xlarge
     ImageId: latest_dlami
 
 worker_nodes:
-    InstanceType: g4dn.xlarge
+    InstanceType: g4dn.2xlarge
     ImageId: latest_dlami
 ```
 
@@ -88,6 +89,14 @@ ray up cluster.yaml
 ray submit cluster.yaml \
     ludwig train --config config.yaml --dataset s3://mybucket/dataset.parquet
 ```
+
+## Tips
+
+### Use a Globally Readabel and Writeable Filesystem
+
+### Setup a Remote Dataset Cache
+
+### Training on an Autoscaling Cluster
 
 # Horovod / MPI
 

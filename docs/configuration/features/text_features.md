@@ -254,11 +254,8 @@ refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
 keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
 refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be
-used for each layer. It indicates how the output should be normalized and may be one of `null`, `batch` or `layer`.
-- `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters
-used with `batch` see the [Torch documentation on batch normalization](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm1d.html)
-or for `layer` see the [Torch documentation on layer normalization](https://pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html).
+- `norm` (default `null`): normalization applied at the beginnging of the fully-connected stack. If a `norm` is not already specified for the `fc_layers` this is the default `norm` that will be used for each layer. One of: `null`, `batch`, `layer`, `ghost`. See [Normalization](../combiner.md#normalization) for details.
+- `norm_params` (default `null`): parameters passed to the `norm` module. See [Normalization](../combiner.md#normalization) for details.
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default
 `activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `dropout` (default `0`): dropout rate
@@ -388,11 +385,8 @@ refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
 keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
 refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be
-used for each layer. It indicates how the output should be normalized and may be one of `null`, `batch` or `layer`.
-- `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters
-used with `batch` see the [Torch documentation on batch normalization](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm1d.html)
-or for `layer` see the [Torch documentation on layer normalization](https://pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html).
+- `norm` (default `null`): normalization applied at the beginnging of the fully-connected stack. If a `norm` is not already specified for the `fc_layers` this is the default `norm` that will be used for each layer. One of: `null`, `batch`, `layer`, `ghost`. See [Normalization](../combiner.md#normalization) for details.
+- `norm_params` (default `null`): parameters passed to the `norm` module. See [Normalization](../combiner.md#normalization) for details.
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default
 `activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `dropout` (default `0`): dropout rate
@@ -526,11 +520,8 @@ refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
 keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
 refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be
-used for each layer. It indicates how the output should be normalized and may be one of `null`, `batch` or `layer`.
-- `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters
-used with `batch` see the [Torch documentation on batch normalization](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm1d.html)
-or for `layer` see the [Torch documentation on layer normalization](https://pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html).
+- `norm` (default `null`): normalization applied at the beginnging of the fully-connected stack. If a `norm` is not already specified for the `fc_layers` this is the default `norm` that will be used for each layer. One of: `null`, `batch`, `layer`, `ghost`. See [Normalization](../combiner.md#normalization) for details.
+- `norm_params` (default `null`): parameters passed to the `norm` module. See [Normalization](../combiner.md#normalization) for details.
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default
 `activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `dropout` (default `0`): dropout rate
@@ -646,11 +637,8 @@ refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
 keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
 refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be
-used for each layer. It indicates how the output should be normalized and may be one of `null`, `batch` or `layer`.
-- `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`. For information on parameters
-used with `batch` see the [Torch documentation on batch normalization](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm1d.html)
-or for `layer` see the [Torch documentation on layer normalization](https://pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html).
+- `norm` (default `null`): normalization applied at the beginnging of the fully-connected stack. If a `norm` is not already specified for the `fc_layers` this is the default `norm` that will be used for each layer. One of: `null`, `batch`, `layer`, `ghost`. See [Normalization](../combiner.md#normalization) for details.
+- `norm_params` (default `null`): parameters passed to the `norm` module. See [Normalization](../combiner.md#normalization) for details.
 - `fc_activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default
 `activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `fc_dropout` (default `0`): dropout rate
@@ -799,11 +787,8 @@ refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
 keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
 refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be
-used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
-- `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters
-used with `batch` see the [Torch documentation on batch normalization](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm1d.html)
-or for `layer` see the [Torch documentation on layer normalization](https://pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html).
+- `norm` (default `null`): normalization applied at the beginnging of the fully-connected stack. If a `norm` is not already specified for the `fc_layers` this is the default `norm` that will be used for each layer. One of: `null`, `batch`, `layer`, `ghost`. See [Normalization](../combiner.md#normalization) for details.
+- `norm_params` (default `null`): parameters passed to the `norm` module. See [Normalization](../combiner.md#normalization) for details.
 - `fc_activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default
 `activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `fc_dropout` (default `0`): dropout rate
@@ -928,11 +913,8 @@ refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
 keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
 refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be
-used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
-- `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters
-used with `batch` see the [Torch documentation on batch normalization](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm1d.html)
-or for `layer` see the [Torch documentation on layer normalization](https://pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html).
+- `norm` (default `null`): normalization applied at the beginnging of the fully-connected stack. If a `norm` is not already specified for the `fc_layers` this is the default `norm` that will be used for each layer. One of: `null`, `batch`, `layer`, `ghost`. See [Normalization](../combiner.md#normalization) for details.
+- `norm_params` (default `null`): parameters passed to the `norm` module. See [Normalization](../combiner.md#normalization) for details.
 - `fc_activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default
 `activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `fc_dropout` (default `0`): dropout rate
@@ -1165,11 +1147,8 @@ refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
 keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
 refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be
-used for each layer. It indicates how the output should be normalized and may be one of `null`, `batch` or `layer`.
-- `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters
-used with `batch` see the [Torch documentation on batch normalization](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm1d.html)
-or for `layer` see the [Torch documentation on layer normalization](https://pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html).
+- `norm` (default `null`): normalization applied at the beginnging of the fully-connected stack. If a `norm` is not already specified for the `fc_layers` this is the default `norm` that will be used for each layer. One of: `null`, `batch`, `layer`, `ghost`. See [Normalization](../combiner.md#normalization) for details.
+- `norm_params` (default `null`): parameters passed to the `norm` module. See [Normalization](../combiner.md#normalization) for details.
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default
 `activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `dropout` (default `0`): dropout rate
@@ -1262,11 +1241,8 @@ refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
 Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
 keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
 refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be
-used for each layer. It indicates how the output should be normalized and may be one of `null`, `batch` or `layer`.
-- `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters
-used with `batch` see [Torch documentation on batch normalization](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm1d.html)
-or for `layer` see [Torch documentation on layer normalization](https://pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html).
+- `norm` (default `null`): normalization applied at the beginnging of the fully-connected stack. If a `norm` is not already specified for the `fc_layers` this is the default `norm` that will be used for each layer. One of: `null`, `batch`, `layer`, `ghost`. See [Normalization](../combiner.md#normalization) for details.
+- `norm_params` (default `null`): parameters passed to the `norm` module. See [Normalization](../combiner.md#normalization) for details.
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default
 `activation` that will be used for each layer. It indicates the activation function applied to the output.
 - `dropout` (default `0`): dropout rate

@@ -207,11 +207,8 @@ through. Their output is projected in the feature's output space.
 `output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
 - `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default
 `activation` that will be used for each layer. It indicates the activation function applied to the output.
-- `norm` (default `null`): if a `norm` is not already specified in `fc_layers` this is the default `norm` that will be
-used for each layer. It indicates the norm of the output and it can be `null`, `batch` or `layer`.
-- `norm_params` (default `null`): parameters used if `norm` is either `batch` or `layer`.  For information on parameters
-used with `batch` see [Torch's documentation on batch normalization](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm1d.html)
-or for `layer` see [Torch's documentation on layer normalization](https://pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html).
+- `norm` (default `null`): normalization applied at the beginnging of the fully-connected stack. If a `norm` is not already specified for the `fc_layers` this is the default `norm` that will be used for each layer. One of: `null`, `batch`, `layer`, `ghost`. See [Normalization](../combiner.md#normalization) for details.
+- `norm_params` (default `null`): parameters passed to the `norm` module. See [Normalization](../combiner.md#normalization) for details.
 - `dropout` (default `0`): dropout rate
 - `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
 - `weights_initializer` (default `glorot_uniform`): initializer for the fully connected weight matrix. Options are:

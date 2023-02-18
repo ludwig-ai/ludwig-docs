@@ -8,7 +8,6 @@ By default, the ECD trainer is used.
 
     ```yaml
     trainer:
-        type: trainer
         epochs: 100
         train_steps: None
         early_stop: 5
@@ -50,7 +49,6 @@ By default, the ECD trainer is used.
 
     ```yaml
     trainer:
-        type: lightgbm_trainer
         boosting_type: gbdt
         num_boost_round: 100
         learning_rate: 0.001

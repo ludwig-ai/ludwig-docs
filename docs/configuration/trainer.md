@@ -23,7 +23,10 @@ By default, the ECD trainer is used.
         increase_batch_size_on_plateau_rate: 2
         increase_batch_size_on_plateau_max: 512
         learning_rate: 0.001
+        learning_rate_scaling: linear
         learning_rate_scheduler:
+            warmup_evaluations: 0
+            warmup_fraction: 0.0
             decay: exponential
             decay_steps: 10000
             decay_rate: 0.96
@@ -34,7 +37,6 @@ By default, the ECD trainer is used.
         validation_field: combined
         validation_metric: loss
         bucketing_field: null
-        learning_rate_warmup_epochs: 1
         optimizer:
             type: adam
             beta1: 0.9
@@ -43,6 +45,7 @@ By default, the ECD trainer is used.
             clip_global_norm: 0.5
             clipnorm: null
             clip_value: null
+        use_mixed_precision: false
     ```
 
 === "GBM"
@@ -113,6 +116,13 @@ By default, the ECD trainer is used.
     - `regularization_lambda` (default `0`): the lambda parameter used for adding regularization loss to the overall loss.
     - `regularization_type` (default `l2`): the type of regularization.
     - `learning_rate` (default `0.001`): the learning rate to use.
+    - `learning_rate_scaling` (default `linear`): Scale by which to increase the learning rate as the number
+              of distributed workers increases. Traditionally the learning rate is
+              scaled linearly with the number of workers to reflect the proportion
+              by which the effective batch size is increased. For very large batch
+              sizes, a softer square-root scale (`sqrt`) can sometimes lead to better model
+              performance. If the learning rate is hand-tuned for a given number of
+              workers, setting this value to constant (`const`) can be used to disable scale-up.
     - `learning_rate_scheduler` section:
         - `reduce_on_plateau` (default `0`): if theres a validation set, how many times to reduce the learning rate when a plateau of validation measure is reached.
         - `reduce_on_plateau_patience` (default `10`): if theres a validation set, number of epochs of patience without an improvement on the validation measure before reducing the learning rate.
@@ -374,20 +384,7 @@ The frequency of checkpoint-evaluation can be configured using:
     entirety of a test set, to produce useful monitoring metrics and signals to
     indicate model performance.
 
-# Increasing throughput
-
-## Skip evaluation on the training set
-
-Consider setting `evaluate_training_set=False`, which skips evaluation on the
-training set.
-
-!!! note
-
-    Sometimes it can be useful to monitor evaluation metrics on the training
-    set, as a secondary validation set. However, running evaluation on the full
-    training set, when your training set is large, can be a huge computational
-    cost. Turning off training set evaluation will lead to significant gains in
-    training throughput and efficiency.
+# Increasing throughput on GPUs
 
 ## Increase batch size
 
@@ -396,3 +393,13 @@ training set.
 Users training on GPUs can often increase training throughput by increasing
 the `batch_size` so that more examples are computed every training step. Set
 `batch_size` to `auto` to use the largest batch size that can fit in memory.
+
+## Use mixed precision
+
+=== "ECD"
+
+`use_mixed_precision=true`
+
+Speeds up training by using float16 parameters where it makes sense. Mixed precision training on GPU can dramatically
+speedup training, with some risks to model convergence. In practice, it works particularly well when fine-tuning
+a pretrained model like a HuggingFace transformer. See blog [here](https://pytorch.org/blog/what-every-user-should-know-about-mixed-precision-training-in-pytorch/) for more details.

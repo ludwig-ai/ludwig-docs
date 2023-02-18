@@ -29,6 +29,7 @@ the `fill_value` parameter), `fill_with_mode` (replaces the missing values with 
 `bfill` (replaces the missing values with the next valid value), `ffill` (replaces the missing values with the previous valid value) or `drop_row`.
 - `fill_value` (default `""`): the value to replace the missing values with in case the `missing_value_strategy` is
 `fill_value`.
+- `cache_encoder_embeddings` (default `false`): For pretrained encoders, compute encoder embeddings in preprocessing, speeding up training time considerably. Only supported when `encoder.trainable=false`.
 
 Configuration example:
 
@@ -54,10 +55,6 @@ Preprocessing parameters can also be defined once and applied to all text input 
 !!! note
     If a text feature's encoder specifies a huggingface model, then the tokenizer for that model will be used
     automatically.
-
-### Cache Encoder Embeddings
-
-TODO(travis)
 
 ## Text Input Features and Encoders
 

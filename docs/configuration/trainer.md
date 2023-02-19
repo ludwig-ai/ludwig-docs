@@ -50,68 +50,19 @@ By default, the ECD trainer is used.
     The `learning_rate` parameter used by the optimizer comes from the `trainer` section.
     Other optimizer specific parameters, shown with their Ludwig default settings, follow:
 
-    - `sgd` (or `stochastic_gradient_descent`, `gd`, `gradient_descent`)
+    {% set opt_classes = optimizers() %}
+    {% for opt in opt_classes %}
+    ### {{ opt.type }}
 
     ```yaml
-    momentum: 0.0,
-    nesterov: false
+    optimizer:
+        {% for line in schema_class_to_yaml(opt).split("\n") %}
+        {{- line }}
+        {% endfor %}
     ```
 
-    - `adam`
-
-    ```yaml
-    beta_1: 0.9,
-    beta_2: 0.999,
-    epsilon: 1e-08
-    ```
-
-    - `adadelta`
-
-    ```yaml
-    rho: 0.95,
-    epsilon: 1e-08
-    ```
-
-    - `adagrad`
-
-    ```yaml
-    initial_accumulator_value: 0.1,
-    epsilon: 1e-07
-    ```
-
-    - `adamax`
-
-    ```yaml
-    beta_1: 0.9,
-    beta_2: 0.999,
-    epsilon: 1e-07
-    ```
-
-    - `ftrl`
-
-    ```yaml
-    learning_rate_power: -0.5,
-    initial_accumulator_value: 0.1,
-    l1_regularization_strength: 0.0,
-    l2_regularization_strength: 0.0,
-    ```
-
-    - `nadam`,
-
-    ```yaml
-    beta_1: 0.9,
-    beta_2: 0.999,
-    epsilon: 1e-07
-    ```
-
-    - `rmsprop`
-
-    ```yaml
-    decay: 0.9,
-    momentum: 0.0,
-    epsilon: 1e-10,
-    centered: false
-    ```
+    {{ render_fields(schema_class_to_fields(opt, exclude=["type"])) }}
+    {% endfor %}
 
     !!! note
         Gradient clipping is also configurable, through optimizers, with the following parameters:

@@ -152,7 +152,7 @@ backend:
 
 ## Fully Sharded Data Parallel (FSDP)
 
-[Fully Sharded Data Parallel](https://engineering.fb.com/2021/07/15/open-source/fsdp/) or FSDP is PyTorch's native
+[Fully Sharded Data Parallel](https://pytorch.org/blog/introducing-pytorch-fully-sharded-data-parallel-api/) or FSDP is PyTorch's native
 data-parallel + model-parallel library for training very large models whose parameters are spread across multiple GPUs. 
 
 The primary scenario to use FSDP is when the model you're training is too large to fit into a single GPU 

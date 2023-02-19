@@ -129,17 +129,17 @@ preprocessing:
 
 ### Hash Split
 
-Hash splitting deterministically assigns each row to a split based on a hash
+Hash splitting deterministically assigns each sample to a split based on a hash
 of a provided "key" column. This is a useful alternative to random splitting when
 such a key is available for a couple of reasons:
 
 - *To prevent data leakage.* For example, imagine you are predicting which products a user is likely to buy. If a user
 appears in both the train and test splits, then it may appear that your model is generalizing better than it actually is. In these cases,
 hashing on the user ID column will ensure that every sample for a user is assigned to the same split.
-- *To ensure consistent assignment of rows to splits as the underlying dataset evolves over time.* 
-Though random splitting is determinstic between runs due to the use a random seed, if the underlying
-dataset changes (e.g., new rows are added over time), then rows may move into different splits. Hashing on a primary
-key will ensure that all existing rows retain their original splits as new rows are added over time.
+- *To ensure consistent assignment of samples to splits as the underlying dataset evolves over time.* 
+Though random splitting is determinstic between runs due to the use of a random seed, if the underlying
+dataset changes (e.g., new samples are added over time), then samples may move into different splits. Hashing on a primary
+key will ensure that all existing samples retain their original splits as new samples are added over time.
 
 ```yaml
 preprocessing:

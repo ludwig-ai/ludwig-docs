@@ -15,7 +15,8 @@ input_features:
       type: number
     - name: review_content
       type: text
-      encoder: embed
+      encoder: 
+        type: embed
 output_features:
     - name: recommended
       type: binary

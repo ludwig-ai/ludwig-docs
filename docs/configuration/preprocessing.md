@@ -133,8 +133,8 @@ Hash splitting deterministically assigns each sample to a split based on a hash
 of a provided "key" column. This is a useful alternative to random splitting when
 such a key is available for a couple of reasons:
 
-- *To prevent data leakage.* For example, imagine you are predicting which products a user is likely to buy. If a user
-appears in both the train and test splits, then it may appear that your model is generalizing better than it actually is. In these cases,
+- *To prevent data leakage.* For example, imagine you are predicting which users are likely to churn in a given month. If a user
+appears in both the train and test splits, then it may seem that your model is generalizing better than it actually is. In these cases,
 hashing on the user ID column will ensure that every sample for a user is assigned to the same split.
 - *To ensure consistent assignment of samples to splits as the underlying dataset evolves over time.* 
 Though random splitting is determinstic between runs due to the use of a random seed, if the underlying

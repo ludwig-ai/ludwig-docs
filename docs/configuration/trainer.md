@@ -1,3 +1,5 @@
+{% from './macros/includes.md' import render_fields %}
+
 # Overview
 
 The `trainer` section of the configuration lets you specify parameters that
@@ -104,45 +106,8 @@ By default, the ECD trainer is used.
 
 === "ECD"
 
-    - `type` (default `trainer`): Trainer to use for training the model. Must be one of ['trainer', 'ray_legacy_trainer'] - corresponds to name in `ludwig.trainers.registry.(ray_)trainers_registry` (default: 'trainer')
-    - `epochs` (default `100`): number of epochs the training process will run for.
-    - `train_steps` (default `None`): Maximum number of training steps the training process will run for. If unset, then `epochs` is used to determine training length.
-    - `early_stop` (default `5`): Number of consecutive rounds of evaluation without any improvement on the `validation_metric` that triggers training to stop. Can be set to -1, which disables early stopping entirely.
-    - `batch_size` (default `auto`): size of the batch used for training the model. Defaults to `auto` which will use the largest batch size that maximized throughput and avoids CUDA OOMs on GPU. On CPU, defaults to 128.
-    - `eval_batch_size` (default `null`): size of the batch used for evaluating the model. If it is `0`, the same value of `batch_size` is used. This is useful to speedup evaluation with a much bigger batch size than training, if enough memory is available.
-    - `evaluate_training_set`: Whether to include the entire training set during evaluation (default: True).
-    - `checkpoints_per_epoch`: Number of checkpoints per epoch. For example, 2 -> checkpoints are written every half of an epoch. Note that it is invalid to specify both non-zero `steps_per_checkpoint` and non-zero `checkpoints_per_epoch` (default: 0).
-    - `steps_per_checkpoint`: How often the model is checkpointed. Also dictates maximum evaluation frequency. If 0 the model is checkpointed after every epoch. (default: 0).
-    - `regularization_lambda` (default `0`): the lambda parameter used for adding regularization loss to the overall loss.
-    - `regularization_type` (default `l2`): the type of regularization.
-    - `learning_rate` (default `0.001`): the learning rate to use.
-    - `learning_rate_scaling` (default `linear`): Scale by which to increase the learning rate as the number
-              of distributed workers increases. Traditionally the learning rate is
-              scaled linearly with the number of workers to reflect the proportion
-              by which the effective batch size is increased. For very large batch
-              sizes, a softer square-root scale (`sqrt`) can sometimes lead to better model
-              performance. If the learning rate is hand-tuned for a given number of
-              workers, setting this value to constant (`const`) can be used to disable scale-up.
-    - `learning_rate_scheduler` section:
-        - `reduce_on_plateau` (default `0`): if theres a validation set, how many times to reduce the learning rate when a plateau of validation measure is reached.
-        - `reduce_on_plateau_patience` (default `10`): if theres a validation set, number of epochs of patience without an improvement on the validation measure before reducing the learning rate.
-        - `reduce_on_plateau_rate` (default `0.1`): if theres a validation set, the reduction rate of the learning rate.
-        - `decay` (default `null`): one of `null`, `linear`, `exponential`. Whether to use one of the aforementioned decay strategies. Specifying `null` deactivates learning rate decay.
-        - `decay_rate` (default `0.96`): the rate of the exponential learning rate decay.
-        - `decay_steps` (default `10000`): the number of steps of the exponential learning rate decay.
-        - `staircase` (default `false`): decays the learning rate at discrete intervals.
-        - `warmup_evaluations` (default `0`): Is the number or training epochs where learning rate warmup will be used. It is calculated as described in [Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour](https://arxiv.org/abs/1706.02677). In the paper the authors suggest `6` epochs of warmup, that parameter is suggested for large datasets and big batches.
-        - `warmup_fraction` (default `0`): Fraction of total training steps to warmup the learning rate for.
-        - `reduce_eval_metric` (default: `loss`): Metric used to trigger when we reduce the learning rate when `reduce_on_plateau` > 0.
-        - `reduce_eval_split` (default: `training`): Which dataset split to compute `reduce_eval_metric` on for reducing the learning rate when `reduce_on_plateau` > 0.
-    - `increase_batch_size_on_plateau` (default `0`): if theres a validation set, how many times to increase the batch size when a plateau of validation measure is reached.
-    - `increase_batch_size_on_plateau_patience` (default `5`): if theres a validation set, number of epochs of patience without an improvement on the validation measure before increasing the learning rate.
-    - `increase_batch_size_on_plateau_rate` (default `2`): if theres a validation set, the increase rate of the batch size.
-    - `increase_batch_size_on_plateau_max` (default `512`): if theres a validation set, the maximum value of batch size.
-    - `validation_field` (default `combined`): when there is more than one output feature, which one to use for computing if there was an improvement on validation. The measure to use to determine if there was an improvement can be set with the `validation_measure` parameter. Different data types have different metrics, refer to the datatype-specific section for more details. `combined` indicates the use the combination of all features. For instance the combination of `combined` and `loss` as measure uses a decrease in the combined loss of all output features to check for improvement on validation, while `combined` and `accuracy` considers on how many examples the predictions for all output features were correct (but consider that for some features, for instance `numeric` there is no accuracy measure, so you should use `accuracy` only if all your output features have an accuracy measure).
-    - `validation_metric` (default `loss`): the metric to use to determine if there was an improvement. The metric is considered for the output feature specified in `validation_field`. Different data types have different available metrics, refer to the datatype-specific section for more details.
-    - `bucketing_field` (default `null`): when not `null`, when creating batches, instead of shuffling randomly, the length along the last dimension of the matrix of the specified input feature is used for bucketing examples and then randomly shuffled examples from the same bin are sampled. Padding is trimmed to the longest example in the batch. The specified feature should be either a `sequence` or `text` feature and the encoder encoding it has to be `rnn`. When used, bucketing improves speed of `rnn` encoding up to 1.5x, depending on the length distribution of the inputs.
-    - `optimizer` (default `{type: adam, beta1: 0.9, beta2: 0.999, epsilon: 1e-08}`): which optimizer to use with the relative parameters. The available optimizers are: `sgd` (or `stochastic_gradient_descent`, `gd`, `gradient_descent`, they are all the same), `adam`, `adadelta`, `adagrad`, `adamax`, `ftrl`, `nadam`, `rmsprop`. Check [PyTorch optimizer documentation](https://pytorch.org/docs/stable/optim.html) for a full list of parameters for each optimizer. The optimizer definition can also specify gradient clipping using `clipglobalnorm`, `clipnorm`, and `clipvalue`.
+    {% set fields = trainer_ecd_params() %}
+    {{ render_fields(fields) }}
 
 === "GBM"
 

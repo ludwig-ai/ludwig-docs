@@ -2,6 +2,6 @@
     {% for name, field in fields.items() %}
     `{{ name }}`
 
-    :   Default: `{{ field.dump_default }}`. {{ field.metadata["description"] }}
+    :   {{ render_field(field) }}
     {% endfor %}
 {%- endmacro %}

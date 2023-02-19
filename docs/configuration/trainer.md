@@ -9,157 +9,36 @@ By default, the ECD trainer is used.
 === "ECD"
 
     ```yaml
+    {% set ecd_defaults = render_trainer_ecd_defaults_yaml() %}
     trainer:
-        epochs: 100
-        train_steps: None
-        early_stop: 5
-        batch_size: auto
-        eval_batch_size: null
-        evaluate_training_set: True
-        checkpoints_per_epoch: 0
-        steps_per_checkpoint: 0
-        regularization_lambda: 0
-        regularization_type: l2
-        increase_batch_size_on_plateau: 0
-        increase_batch_size_on_plateau_patience: 5
-        increase_batch_size_on_plateau_rate: 2
-        increase_batch_size_on_plateau_max: 512
-        learning_rate: 0.001
-        learning_rate_scaling: linear
-        learning_rate_scheduler:
-            warmup_evaluations: 0
-            warmup_fraction: 0.0
-            decay: exponential
-            decay_steps: 10000
-            decay_rate: 0.96
-            staircase: false
-            reduce_on_plateau: 0
-            reduce_on_plateau_patience: 5
-            reduce_on_plateau_rate: 0.5
-        validation_field: combined
-        validation_metric: loss
-        bucketing_field: null
-        optimizer:
-            type: adam
-            beta1: 0.9
-            beta2: 0.999
-            epsilon: 1e-08
-            clip_global_norm: 0.5
-            clipnorm: null
-            clip_value: null
-        use_mixed_precision: false
+        {% for line in ecd_defaults.split("\n") %}
+        {{- line }}
+        {% endfor %}
     ```
 
 === "GBM"
 
     ```yaml
+    {% set gbm_defaults = render_trainer_gbm_defaults_yaml() %}
     trainer:
-        boosting_type: gbdt
-        num_boost_round: 100
-        learning_rate: 0.001
-        max_cat_to_onehot: 4
-        max_delta_step: 0.0
-        lambda_l1: 0.0
-        linear_lambda: 0.0
-        cat_l2: 10.0
-        neg_bagging_fraction: 1.0
-        skip_drop: 0.5
-        tree_learner: serial
-        extra_trees: False
-        lambda_l2: 0.0
-        min_data_per_group: 100
-        min_gain_to_split: 0.0
-        validation_metric: loss
-        max_cat_threshold: 32
-        max_bin: 255
-        early_stop: 5
-        cegb_penalty_split: 0.0
-        cegb_tradeoff: 1.0
-        other_rate: 0.1
-        path_smooth: 0.0
-        evaluate_training_set: True
-        num_leaves: 31
-        cat_smooth: 10.0
-        extra_seed: 6
-        bagging_seed: 3
-        min_sum_hessian_in_leaf: 0.001
-        min_data_in_leaf: 20
-        top_rate: 0.2
-        feature_fraction_seed: 2
-        drop_rate: 0.1
-        xgboost_dart_mode: False
-        drop_seed: 4
-        max_depth: -1
-        feature_fraction_bynode: 1.0
-        bagging_freq: 0
-        pos_bagging_fraction: 1.0
-        feature_fraction: 1.0
-        eval_batch_size: null
-        bagging_fraction: 1.0
-        uniform_drop: False
-        validation_field: combined
-        max_drop: 50
-        verbose: 0
+        {% for line in gbm_defaults.split("\n") %}
+        {{- line }}
+        {% endfor %}
     ```
 
 ## Trainer parameters
 
 === "ECD"
 
-    {% set fields = trainer_ecd_params() %}
-    {{ render_fields(fields) }}
+    {% set ecd_fields = trainer_ecd_params() %}
+    {{ render_fields(ecd_fields) }}
 
 === "GBM"
 
     See the [LightGBM documentation](https://lightgbm.readthedocs.io/en/latest/Parameters.html) for more details about the available parameters.
 
-    - `type` (default `lightgbm_trainer`): Trainer to use for training the model. Must be one of ['lightgbm_trainer'] - corresponds to name in `ludwig.trainers.registry.(ray_)trainers_registry`.
-    - `boosting_type` (default `gbdt`): Type of boosting algorithm to use. Options: `gbdt` (traditional Gradient Boosting Decision Tree), `rf` (random forest), `dart`, `goss`.
-    - `num_boost_round` (default `100`): Number of boosting rounds to perform.
-    - `learning_rate` (default `0.001`): Boosting learning rate.
-    - `max_cat_to_onehot` (default `4`): Maximum categorical cardinality required before one-hot encoding.
-    - `max_delta_step` (default `0.0`): Used to limit the max output of tree leaves. A negative value means no constraint.
-    - `lambda_l1` (default `0.0`): L1 regularization factor.
-    - `linear_lambda` (default `0.0`): Linear tree regularization.
-    - `cat_l2` (default `10.0`): L2 regularization factor for categorical split.
-    - `neg_bagging_fraction` (default `1.0`): Fraction of negative data to use for bagging.
-    - `skip_drop` (default `0.5`): Probability of skipping the dropout during one boosting iteration. Used only with boosting_type 'dart'.
-    - `tree_learner` (default `serial`): Type of tree learner to use.
-    - `extra_trees` (default `False`): Whether to use extremely randomized trees.
-    - `lambda_l2` (default `0.0`): L2 regularization factor.
-    - `min_data_per_group` (default `100`): Minimum number of data points per categorical group.
-    - `min_gain_to_split` (default `0.0`): Minimum gain to split a leaf.
-    - `validation_metric` (default `loss`): Metric used on `validation_field`, set by default to accuracy.
-    - `max_cat_threshold` (default `32`): Number of split points considered for categorical features.
-    - `max_bin` (default `255`): Maximum number of bins to use for discretizing features.
-    - `early_stop` (default `5`): Number of consecutive rounds of evaluation without any improvement on the `validation_metric` that triggers training to stop. Can be set to -1, which disables early stopping entirely.
-    - `cegb_penalty_split` (default `0.0`): Cost-effective gradient boosting penalty for splitting a node.
-    - `cegb_tradeoff` (default `1.0`): Cost-effective gradient boosting multiplier for all penalties.
-    - `other_rate` (default `0.1`): The retain ratio of small gradient data. Used only with boosting_type 'goss'.
-    - `path_smooth` (default `0.0`): Smoothing factor applied to tree nodes.
-    - `evaluate_training_set` (default `True`): Whether to include the entire training set during evaluation.
-    - `num_leaves` (default `31`): Number of leaves to use in the tree.
-    - `cat_smooth` (default `10.0`): Smoothing factor for categorical split.
-    - `extra_seed` (default `6`): Random seed for extremely randomized trees.
-    - `bagging_seed` (default `3`): Random seed for bagging.
-    - `min_sum_hessian_in_leaf` (default `0.001`): Minimum sum of hessians in a leaf.
-    - `min_data_in_leaf` (default `20`): Minimum number of data points in a leaf.
-    - `top_rate` (default `0.2`): The retain ratio of large gradient data. Used only with boosting_type 'goss'.
-    - `feature_fraction_seed` (default `2`): Random seed for feature fraction.
-    - `drop_rate` (default `0.1`): Dropout rate. Used only with boosting_type 'dart'.
-    - `xgboost_dart_mode` (default `False`): Whether to use xgboost dart mode. Used only with boosting_type 'dart'.
-    - `drop_seed` (default `4`): Random seed to choose dropping models. Used only with boosting_type 'dart'.
-    - `max_depth` (default `-1`): Maximum depth of a tree. A negative value means no limit.
-    - `feature_fraction_bynode` (default `1.0`): Fraction of features to use for each tree node.
-    - `bagging_freq` (default `0`): Frequency of bagging.
-    - `pos_bagging_fraction` (default `1.0`): Fraction of positive data to use for bagging.
-    - `feature_fraction` (default `1.0`): Fraction of features to use.
-    - `eval_batch_size` (default `1048576`): Size of batch to pass to the model for evaluation. Evaluation is run on a compiled neural network version of the model, so larger batch sizes will significantly improve performance.
-    - `bagging_fraction` (default `1.0`): Fraction of data to use for bagging.
-    - `uniform_drop` (default `False`): Whether to use uniform dropout. Used only with boosting_type 'dart'.
-    - `validation_field` (default `combined`): First output feature, by default it is set as the same field of the first output feature.
-    - `max_drop` (default `50`): Maximum number of dropped trees during one boosting iteration. Used only with boosting_type 'dart'. A negative value means no limit.
-    - `verbose` (default `0`): Verbosity level for GBM trainer.
+    {% set gbm_fields = trainer_gbm_params() %}
+    {{ render_fields(gbm_fields) }}
 
 ## Optimizer parameters
 

@@ -11,9 +11,11 @@ Ludwig data preprocessing performs a few different operations on the incoming da
 1. (optional) **Balancing data** which can be useful for datasets with heavily underrepresented or overrepresented
    classes.
 
-Data preprocessing maps raw data to two files: 1) an HDF5 file containing tensors and 2) a JSON file of metadata.
-The HDF5 and JSON files are saved in the same directory as the input dataset, unless `--skip_save_processed_input` is
-used. The two files will serve as a cache to help avoid performing the same preprocessing again, which can be time
+Data preprocessing maps raw data to two files: 1) an processed dataset file containing tensors (HDF5 when running locally, 
+Parquet when running on Ray) and 2) a JSON file of metadata.
+The processed dataset and metadata files are saved in the [cache directory](../../configuration/backend.md) (defaults to the 
+same directory as the input dataset), unless `--skip_save_processed_input` is
+used. The two files will serve as a cache to help avoid performing the same preprocessing again for subsequent experiments, which can be time
 consuming.
 
 The preprocessing process is highly customizable via the [Type-Global Preprocessing Section](../../../configuration/defaults#type-global-preprocessing) of
@@ -33,19 +35,19 @@ Details on how to set those parameters for each feature type and for each specif
 ## Binary features
 
 `Binary` features are directly transformed into a binary valued vector of length `n` (where `n` is the size of the
-dataset) and added to the HDF5 with a key that reflects the name of column in the dataset. No additional information
+dataset) and added to the processed dataset with a key that reflects the name of column in the dataset. No additional information
 about them is available in the JSON metadata file.
 
 ## Number features
 
 `Number` features are directly transformed into a float valued vector of length `n` (where `n` is the size of the
-dataset) and added to the HDF5 with a key that reflects the name of column in the dataset. No additional information
+dataset) and added to the processed dataset with a key that reflects the name of column in the dataset. No additional information
 about them is available in the JSON metadata file.
 
 ## Category features
 
 `Category` features are transformed into an integer valued vector of size `n` (where `n` is the size of the dataset)
-and added to the HDF5 with a key that reflects the name of column in the dataset.
+and added to the processed dataset with a key that reflects the name of column in the dataset.
 
 The way categories are mapped into integers consists of first collecting a dictionary of all the unique category
 strings present in the column of the dataset, then rank them by frequency and then assign them an increasing integer ID
@@ -62,7 +64,7 @@ JSON file, with an associated dictionary containing:
 ## Set features
 
 `Set` features are transformed into a binary (int8 actually) valued matrix of size `n x l` (where `n` is the size of the
-dataset and `l` is the minimum of the size of the biggest set and a `max_size` parameter) and added to HDF5 with a key
+dataset and `l` is the minimum of the size of the biggest set and a `max_size` parameter) and added to processed dataset with a key
 that reflects the name of column in the dataset.
 
 The way sets are mapped into integers consists in first using a tokenizer to map from strings to sequences of set items
@@ -137,7 +139,7 @@ right-padded to the `max_length` (though this behavior may also be modified thro
 | \[token3, token4, token2\] | 2 4 3        |
 | \[token3, token1\]         | 2 5 0        |
 
-The final result matrix is saved in the HDF5 with the name of the original column in the dataset as key, while the
+The final result matrix is saved in the processed dataset with the name of the original column in the dataset as key, while the
 mapping from token to integer ID (and its inverse mapping) is saved in the JSON file.
 
 A frequency-ordered vocabulary dictionary is created which maps tokens to integer IDs. Special symbols like `<PAD>`,
@@ -159,7 +161,7 @@ The computed metadata includes:
 
 `Text` features are treated in the same way of sequence features, with a couple differences. Two different tokenizations
 happen, one that splits at every character and one that uses a custom tokenizer. Two different keys are added to the
-HDF5 file, one for the matrix of characters and one for the matrix of symbols.
+processed dataset file, one for the matrix of characters and one for the matrix of symbols.
 
 The same thing happens in the JSON file, where there are two sets of dictionaries, one for mapping characters to
 integers (and the inverse) and symbols to integers (and their inverse).
@@ -171,13 +173,13 @@ In the configuration users can specify which level of representation to use: the
 ## Timeseries features
 
 `Timeseries` features are treated in the same way of sequence features, with the only difference being that the matrix
-in the HDF5 file does not have integer values, but float values. The JSON file has no additional mapping information.
+in the processed dataset file does not have integer values, but float values. The JSON file has no additional mapping information.
 
 ## Image features
 
 `Image` features are transformed into a int8 valued tensor of size `n x h x w x c` (where `n` is the size of the dataset
 and `h x w` is a specific resizing of the image that can be set, and `c` is the number of color channels) and added to
-HDF5 with a key that reflects the name of column in the dataset.
+processed dataset with a key that reflects the name of column in the dataset.
 
 The column name is added to the JSON file, with an associated dictionary containing preprocessing information about the
 sizes of the resizing.

@@ -1,6 +1,10 @@
 import json
 import yaml
 
+# Force populate combiner registry:
+import ludwig.combiners.combiners  # noqa: F401
+from ludwig.schema.combiners.utils import get_combiner_registry
+from ludwig.schema.model_types.base import model_type_schema_registry
 from ludwig.schema.optimizers import optimizer_registry
 from ludwig.schema.trainer import ECDTrainerConfig, GBMTrainerConfig
 
@@ -32,6 +36,10 @@ def dump_value(v):
 
 
 def define_env(env):
+    @env.macro
+    def get_combiner_schema(type: str):
+        return get_combiner_registry()[type].get_schema_cls()
+
     @env.macro
     def render_trainer_ecd_defaults_yaml():
         return yaml.safe_dump(ECDTrainerConfig().to_dict(), indent=4, sort_keys=False)
@@ -68,7 +76,7 @@ def define_env(env):
         }
     
     @env.macro
-    def render_field(field):
+    def render_field(name, field):
         has_default = True
         default_value = field.dump_default
         if isinstance(default_value, dict):
@@ -81,7 +89,7 @@ def define_env(env):
         if has_default:
             default_str = f"(default: `{dump_value(default_value)}`)"
         
-        s = f"{default_str}: { field.metadata['description'] }"
+        s = f"- **`{ name }`** {default_str}: { field.metadata['description'] }"
         if field.validate is not None and hasattr(field.validate, "choices"):
             options = ", ".join([f"`{dump_value(opt)}`" for opt in field.validate.choices])
             s += f" Options: {options}."

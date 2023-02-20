@@ -1,3 +1,5 @@
+{% from './macros/includes.md' import render_fields %}
+
 Combiners take the outputs of all input features encoders and combine them before providing the combined representation
 to the output feature decoders.
 
@@ -7,15 +9,6 @@ the `concat` combiner will be used.
 ## Combiner Types
 
 ### Concat Combiner
-
-The `concat` combiner assumes all outputs from encoders are tensors of size `b x h` where `b` is the batch size and `h`
-is the hidden dimension, which can be different for each input.
-If any inputs have more than 2 dimensions, a sequence or set feature for example, set the `flatten_inputs` parameter to `true`.
-It concatenates along the `h` dimension, and then (optionally) passes the concatenated tensor through a stack of fully connected layers.
-It returns the final `b x h'` tensor where `h'` is the size of the last fully connected layer or the sum of the sizes of
-the `h` of all inputs in the case there are no fully connected layers.
-If only a single input feature and no fully connected layer is specified, the output of the input feature encoder is
-passed through the combiner unchanged.
 
 ```
 +-----------+
@@ -31,7 +24,30 @@ passed through the combiner unchanged.
 +-----------+
 ```
 
-These are the available parameters of a `concat` combiner:
+The `concat` combiner assumes all outputs from encoders are tensors of size `b x h` where `b` is the batch size and `h`
+is the hidden dimension, which can be different for each input.
+If any inputs have more than 2 dimensions, a sequence or set feature for example, set the `flatten_inputs` parameter to `true`.
+It concatenates along the `h` dimension, and then (optionally) passes the concatenated tensor through a stack of fully connected layers.
+It returns the final `b x h'` tensor where `h'` is the size of the last fully connected layer or the sum of the sizes of
+the `h` of all inputs in the case there are no fully connected layers.
+If only a single input feature and no fully connected layer is specified, the output of the input feature encoder is
+passed through the combiner unchanged.
+
+{% set concat_combiner = get_combiner_schema("concat") %}
+
+```yaml
+combiner:
+    {% for line in schema_class_to_yaml(concat_combiner).split("\n") %}
+    {{- line }}
+    {% endfor %}
+```
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(concat_combiner, exclude=["type"])) }}
+
+
+#### TODO 
 
 - `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers.
 The length of the list determines the number of stacked fully connected layers and the content of each dictionary

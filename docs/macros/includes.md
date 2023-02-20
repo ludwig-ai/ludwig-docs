@@ -1,5 +1,5 @@
-{% macro render_fields(fields) -%}
-    {% for name, field in fields.items() %}
-    - **`{{ name }}`** {{ render_field(field) }}
-    {% endfor %}
+{%- macro render_fields(fields) -%}
+{%- for name, field in fields.items() -%}
+    {{- render_field(name, field) }}
+{%+ endfor -%}
 {%- endmacro %}

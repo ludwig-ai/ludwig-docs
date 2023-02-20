@@ -31,14 +31,14 @@ By default, the ECD trainer is used.
 === "ECD"
 
     {% set ecd_fields = trainer_ecd_params() %}
-    {{ render_fields(ecd_fields) }}
+    {{ render_fields(ecd_fields) | indent }}
 
 === "GBM"
 
     See the [LightGBM documentation](https://lightgbm.readthedocs.io/en/latest/Parameters.html) for more details about the available parameters.
 
     {% set gbm_fields = trainer_gbm_params() %}
-    {{ render_fields(gbm_fields) }}
+    {{ render_fields(gbm_fields) | indent }}
 
 ## Optimizer parameters
 
@@ -61,7 +61,7 @@ By default, the ECD trainer is used.
         {% endfor %}
     ```
 
-    {{ render_fields(schema_class_to_fields(opt, exclude=["type"])) }}
+    {{ render_fields(schema_class_to_fields(opt, exclude=["type"])) | indent }}
     {% endfor %}
 
     !!! note

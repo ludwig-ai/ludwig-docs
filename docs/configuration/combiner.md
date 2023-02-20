@@ -103,14 +103,6 @@ Parameters:
 
 ### Sequence Combiner
 
-The `sequence` combiner stacks a sequence concat combiner with a sequence encoder.
-All the considerations about input tensor ranks described for the [sequence concat combiner](#sequence-concat-combiner)
-apply also in this case, but the main difference is that this combiner uses the `b x s x h'` output of the sequence
-concat combiner, where `b` is the batch size, `s` is the sequence length and `h'` is the sum of the hidden dimensions of
-all input features, as input for any of the sequence encoders described in the [sequence features encoders section](../features/sequence_features#sequence-input-features-and-encoders).
-Refer to that section for more detailed information about the sequence encoders and their parameters.
-All considerations on the shape of the outputs for the sequence encoders also apply to sequence combiner.
-
 ```
 Sequence
 Feature
@@ -133,22 +125,28 @@ Output       |  +-----------------+
 +-------+
 ```
 
-Example configuration of a `sequence` combiner:
+The `sequence` combiner stacks a sequence concat combiner with a sequence encoder.
+All the considerations about input tensor ranks described for the [sequence concat combiner](#sequence-concat-combiner)
+apply also in this case, but the main difference is that this combiner uses the `b x s x h'` output of the sequence
+concat combiner, where `b` is the batch size, `s` is the sequence length and `h'` is the sum of the hidden dimensions of
+all input features, as input for any of the sequence encoders described in the [sequence features encoders section](../features/sequence_features#sequence-input-features-and-encoders).
+Refer to that section for more detailed information about the sequence encoders and their parameters.
+All considerations on the shape of the outputs for the sequence encoders also apply to sequence combiner.
+
+{% set sequence_combiner = get_combiner_schema("sequence") %}
 
 ```yaml
-type: sequence
-main_sequence_feature: null
-encoder: parallel_cnn
-... encoder parameters ...
+combiner:
+    {% for line in schema_class_to_yaml(sequence_combiner).split("\n") %}
+    {{- line }}
+    {% endfor %}
 ```
 
-### TabNet Combiner
+Parameters:
 
-The `tabnet` combiner implements the [TabNet](https://arxiv.org/abs/1908.07442) model, which uses attention and sparsity
-to achieve high performance on tabular data. It assumes all outputs from encoders are tensors of size `b x h` where `b`
-is the batch size and `h` is the hidden dimension, which can be different for each input.
-If the input tensors have a different shape, it automatically flattens them.
-It returns the final `b x h'` tensor where `h'` is the user-specified output size.
+{{ render_fields(schema_class_to_fields(sequence_combiner, exclude=["type"]), details=details) }}
+
+### TabNet Combiner
 
 ```
 +-----------+
@@ -163,6 +161,12 @@ It returns the final `b x h'` tensor where `h'` is the user-specified output siz
 |Feature N  |
 +-----------+
 ```
+
+The `tabnet` combiner implements the [TabNet](https://arxiv.org/abs/1908.07442) model, which uses attention and sparsity
+to achieve high performance on tabular data. It assumes all outputs from encoders are tensors of size `b x h` where `b`
+is the batch size and `h` is the hidden dimension, which can be different for each input.
+If the input tensors have a different shape, it automatically flattens them.
+It returns the final `b x h'` tensor where `h'` is the user-specified output size.
 
 These are the available parameters of a `tabnet` combiner:
 

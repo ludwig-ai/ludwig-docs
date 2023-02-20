@@ -26,14 +26,19 @@ def flatten(d, prefix=""):
 
     return o_dict
 
+
+def dump_value(v):
+    return json.dumps(v).lstrip('\"').rstrip('\"')
+
+
 def define_env(env):
     @env.macro
     def render_trainer_ecd_defaults_yaml():
-        return yaml.safe_dump(ECDTrainerConfig().to_dict(), indent=4, sort_keys=True)
+        return yaml.safe_dump(ECDTrainerConfig().to_dict(), indent=4, sort_keys=False)
     
     @env.macro
     def render_trainer_gbm_defaults_yaml():
-        return yaml.safe_dump(GBMTrainerConfig().to_dict(), indent=4, sort_keys=True)
+        return yaml.safe_dump(GBMTrainerConfig().to_dict(), indent=4, sort_keys=False)
 
     @env.macro
     def trainer_ecd_params():
@@ -64,8 +69,20 @@ def define_env(env):
     
     @env.macro
     def render_field(field):
-        s = f"Default: `{ json.dumps(field.dump_default) }`. { field.metadata['description'] }"
+        has_default = True
+        default_value = field.dump_default
+        if isinstance(default_value, dict):
+            if "type" in default_value:
+                default_value = {"type": default_value["type"]}
+            else:
+                has_default = False
+
+        default_str = ""
+        if has_default:
+            default_str = f"(default: `{dump_value(default_value)}`)"
+        
+        s = f"{default_str}: { field.metadata['description'] }"
         if field.validate is not None and hasattr(field.validate, "choices"):
-            options = ", ".join([f"`{json.dumps(opt)}`" for opt in field.validate.choices])
+            options = ", ".join([f"`{dump_value(opt)}`" for opt in field.validate.choices])
             s += f" Options: {options}."
         return s

@@ -10,6 +10,8 @@ ludwig train \
     --output_directory s3://my_experiments/foo
 ```
 
+# Cloud Object Storage
+
 The sections below cover how to read and write between your preferred remote filesystem in Ludwig.
 
 ## Amazon S3
@@ -50,3 +52,47 @@ Mount your `$HOME/.aws/credentials` file into the container or set the following
 See `adlfs` [docs](https://github.com/fsspec/adlfs#setting-credentials) for more details.
 
 Refer to paths with protocol `az://` or `abfs://`.
+
+# Additional Configuration
+
+## Remote Dataset Cache
+
+Often your input datasets will be in a read-only location such as a shared data lake. In these cases, you won't want to
+rely on Ludwig's default caching behavior of writing to the same base directory as the input dataset. Instead, you can configure
+Ludwig to write to a dedicated cache directory / bucket by configuring the `backend` section of the config:
+
+```yaml
+backend:
+  cache_dir: "s3://ludwig_cache"
+```
+
+Individual entries will be written using a filename computed from the checksum of the dataset and Ludwig config used for training.
+
+One additional benefit of setting up a dedicated cache is to make use of cache eviction policies. For example, setting up a TTL 
+so cached datasets are automatically cleaned up after a few days.
+
+### Using different cache and dataset filesystems
+
+In some cases you may want your dartaset cache to reside in a different filesystem or account than your input dataset.
+Since this requires maintaing two sets of credentials -- one of the input data and one for the cache -- Ludwig provides
+additional configuration options for the cache credentials.
+
+Credentials can be provided explicitly in the config:
+
+```yaml
+backend:
+  cache_dir: "s3://ludwig_cache"
+  cache_credentials:
+    s3:
+      client_kwargs:
+        aws_access_key_id: "test"
+        aws_secret_access_key: "test"
+```
+
+Or in a mounted file for additional security:
+
+```yaml
+backend:
+  cache_dir: "s3://ludwig_cache"
+  cache_credentials: /home/user/.credentials.json
+```

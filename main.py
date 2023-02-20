@@ -98,3 +98,7 @@ def define_env(env):
             s += f" {details[name]}"
 
         return s
+    
+    @env.macro
+    def merge_dicts(d1, d2):
+        return {**d1, **d2}

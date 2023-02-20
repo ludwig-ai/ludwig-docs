@@ -168,38 +168,20 @@ is the batch size and `h` is the hidden dimension, which can be different for ea
 If the input tensors have a different shape, it automatically flattens them.
 It returns the final `b x h'` tensor where `h'` is the user-specified output size.
 
-These are the available parameters of a `tabnet` combiner:
-
-- `size`: the size of the hidden layers. `N_a` in the paper.
-- `output_size`: the size of the output of each step and of the final aggregated representation. `N_d` in the paper.
-- `num_steps` (default `1`): number of steps / repetitions of the attentive transformer and feature transformer computations. `N_steps` in the paper.
-- `num_total_blocks` (default `4`): total number of feature transformer blocks at each step.
-- `num_shared_blocks` (default `2`): number of shared feature transformer blocks across the steps.
-- `relaxation_factor` (default `1.5`): Factor that influences how many times a feature should be used across the steps
-of computation. a value of `1` implies it each feature should be use once, a higher value allows for multiple usages. `gamma` in the paper.
-- `bn_epsilon` (default `0.001`): epsilon to be added to the batch norm denominator.
-- `bn_momentum` (default `0.7`): momentum of the batch norm. `m_B` in the paper.
-- `bn_virtual_bs` (default `null`): size of the virtual batch size used by ghost batch norm. If `null`, regular batch
-norm is used instead. `B_v` from the paper.
-- `sparsity` (default `0.00001`): multiplier of the sparsity inducing loss. `lambda_sparse` in the paper.
-- `dropout` (default `0`): dropout rate.
-
-Example configuration of a `tabnet` combiner:
+{% set tabnet_combiner = get_combiner_schema("tabnet") %}
 
 ```yaml
-type: tabnet
-size: 32
-ooutput_size: 32
-num_steps: 5
-num_total_blocks: 4
-num_shared_blocks: 2
-relaxation_factor: 1.5
-bn_epsilon: 0.001
-bn_momentum: 0.7
-bn_virtual_bs: 128
-sparsity: 0.00001
-dropout: 0
+combiner:
+    {% for line in schema_class_to_yaml(tabnet_combiner).split("\n") %}
+    {{- line }}
+    {% endfor %}
 ```
+
+Parameters:
+
+{% set ghost_bn_details = "See [Ghost Batch Normalization](#ghost-batch-normalization) for details." %}
+{% set details = merge_dicts({"bn_virtual_bs": ghost_bn_details}, details) %}
+{{ render_fields(schema_class_to_fields(tabnet_combiner, exclude=["type"]), details=details) }}
 
 ### Transformer Combiner
 

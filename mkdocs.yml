@@ -39,9 +39,9 @@ nav:
           - Data Postprocessing: user_guide/datasets/data_postprocessing.md
           - Dataset Zoo: user_guide/datasets/dataset_zoo.md
       - GPUs: user_guide/gpus.md
-      - Remote Filesystems: user_guide/remote_filesystems.md
       - Distributed Training: user_guide/distributed_training.md
       - Hyperparameter Optimization: user_guide/hyperopt.md
+      - Remote Filesystems: user_guide/remote_filesystems.md
       - Fine-Tuning Pretrained Models: user_guide/finetuning.md
       - AutoML: user_guide/automl.md
       - Visualizations: user_guide/visualizations.md

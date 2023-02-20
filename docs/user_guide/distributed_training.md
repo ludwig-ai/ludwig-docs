@@ -120,6 +120,25 @@ See [Remote Filesystems](./remote_filesystems.md) for more detailed instructions
 
 ### Configuring a Remote Dataset Cache
 
+Often your input datasets will be in a read-only location such as a shared data lake. In these cases, you won't want to
+rely on Ludwig's default caching behavior of writing to the same base directory as the input dataset. Instead, you can configure
+Ludwig to write to a dedicated cache directory / bucket by configuring the `backend` section of the config:
+
+```yaml
+backend:
+  cache_dir: "s3://ludwig_cache"
+  cache_credentials:
+    s3:
+      client_kwargs:
+        aws_access_key_id: "test"
+        aws_secret_access_key: "test"
+```
+
+Individual entries will be written using a filename computed from the checksum of the dataset and Ludwig config used for training.
+
+One additional benefit of setting up a dedicated cache is to make use of cache eviction policies. For example, setting up a TTL 
+so cached datasets are automatically cleaned up after a few days.
+
 ### Training on an Autoscaling Cluster
 
 # Horovod / MPI

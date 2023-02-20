@@ -90,9 +90,9 @@ ray submit cluster.yaml \
     ludwig train --config config.yaml --dataset s3://mybucket/dataset.parquet
 ```
 
-## Tips
+## Best Practices
 
-### Use a Remote Filesystem
+### Remote Filesystems
 
 In order for Ray to preprocess the input `dataset`, the dataset file path must be readable
 from every worker. There are a few ways to achieve this:
@@ -118,28 +118,30 @@ To connect to one of these systems from Ludwig you need two things:
 
 See [Remote Filesystems](./remote_filesystems.md) for more detailed instructions for each major filesystem.
 
-### Configuring a Remote Dataset Cache
+### Autoscaling Clusters
 
-Often your input datasets will be in a read-only location such as a shared data lake. In these cases, you won't want to
-rely on Ludwig's default caching behavior of writing to the same base directory as the input dataset. Instead, you can configure
-Ludwig to write to a dedicated cache directory / bucket by configuring the `backend` section of the config:
+By default, Ludwig on Ray will attempt to use all available GPUs for distributed training. However, if running in an autoscaling
+clusters there may not be any GPUs in the cluster at the time Ludwig performs its check. In such cases, we recommend setting the
+number of GPU workers explicitly in the config.
+
+For example, to train with 4 GPUs:
 
 ```yaml
 backend:
-  cache_dir: "s3://ludwig_cache"
-  cache_credentials:
-    s3:
-      client_kwargs:
-        aws_access_key_id: "test"
-        aws_secret_access_key: "test"
+  trainer:
+    use_gpu: true
+    num_workers: 4
 ```
 
-Individual entries will be written using a filename computed from the checksum of the dataset and Ludwig config used for training.
+When using [Hyperopt](./hyperopt.md) in an autoscaling cluster, you should set `max_concurrent_trials` and `gpu_resources_per_trial`, 
+otherwise Ludwig will similarly underestimate how many trials can fit in the fully autoscaled cluster at a time:
 
-One additional benefit of setting up a dedicated cache is to make use of cache eviction policies. For example, setting up a TTL 
-so cached datasets are automatically cleaned up after a few days.
-
-### Training on an Autoscaling Cluster
+```yaml
+hyperopt:
+  executor:
+    max_concurrent_trials: 4
+    gpu_resources_per_trial: 1
+```
 
 # Horovod / MPI
 

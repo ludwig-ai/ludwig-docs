@@ -76,7 +76,7 @@ def define_env(env):
         }
     
     @env.macro
-    def render_field(name, field):
+    def render_field(name, field, details):
         has_default = True
         default_value = field.dump_default
         if isinstance(default_value, dict):
@@ -93,4 +93,8 @@ def define_env(env):
         if field.validate is not None and hasattr(field.validate, "choices"):
             options = ", ".join([f"`{dump_value(opt)}`" for opt in field.validate.choices])
             s += f" Options: {options}."
+
+        if details is not None and name in details:
+            s += f" {details[name]}"
+
         return s

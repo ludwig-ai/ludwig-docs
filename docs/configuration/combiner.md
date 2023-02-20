@@ -44,7 +44,9 @@ combiner:
 
 Parameters:
 
-{{ render_fields(schema_class_to_fields(concat_combiner, exclude=["type"])) }}
+{% set norm_details = "See [Normalization](#normalization) for details." %}
+{% set details = {"norm": norm_details, "norm_params": norm_details} %}
+{{ render_fields(schema_class_to_fields(concat_combiner, exclude=["type"]), details=details) }}
 
 
 #### TODO 

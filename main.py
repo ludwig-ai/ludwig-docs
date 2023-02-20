@@ -4,9 +4,8 @@ import yaml
 # Force populate combiner registry:
 import ludwig.combiners.combiners  # noqa: F401
 from ludwig.schema.combiners.utils import get_combiner_registry
-from ludwig.schema.model_types.base import model_type_schema_registry
+from ludwig.schema.trainer import trainer_schema_registry
 from ludwig.schema.optimizers import optimizer_registry
-from ludwig.schema.trainer import ECDTrainerConfig, GBMTrainerConfig
 
 
 def flatten(d, prefix=""):
@@ -39,27 +38,13 @@ def define_env(env):
     @env.macro
     def get_combiner_schema(type: str):
         return get_combiner_registry()[type].get_schema_cls()
-
-    @env.macro
-    def render_trainer_ecd_defaults_yaml():
-        return yaml.safe_dump(ECDTrainerConfig().to_dict(), indent=4, sort_keys=False)
     
     @env.macro
-    def render_trainer_gbm_defaults_yaml():
-        return yaml.safe_dump(GBMTrainerConfig().to_dict(), indent=4, sort_keys=False)
-
-    @env.macro
-    def trainer_ecd_params():
-        schema = ECDTrainerConfig.get_class_schema()()
-        return flatten(schema.fields)
+    def get_trainer_schema(model_tyoe: str):
+        return trainer_schema_registry[model_tyoe]
     
     @env.macro
-    def trainer_gbm_params():
-        schema = GBMTrainerConfig.get_class_schema()()
-        return flatten(schema.fields)
-    
-    @env.macro
-    def optimizers():
+    def get_optimizer_schemas():
         return [v[1] for v in optimizer_registry.values()]
     
     @env.macro

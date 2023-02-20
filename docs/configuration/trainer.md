@@ -1,4 +1,6 @@
 {% from './macros/includes.md' import render_fields %}
+{% set opt_details = "See [Optimizer parameters](#optimizer-parameters) for details." %}
+{% set details = {"optimizer": opt_details} %}
 
 # Overview
 
@@ -9,9 +11,9 @@ By default, the ECD trainer is used.
 === "ECD"
 
     ```yaml
-    {% set ecd_defaults = render_trainer_ecd_defaults_yaml() %}
+    {% set ecd_trainer = get_trainer_schema("ecd") %}
     trainer:
-        {% for line in ecd_defaults.split("\n") %}
+        {% for line in schema_class_to_yaml(ecd_trainer).split("\n") %}
         {{- line }}
         {% endfor %}
     ```
@@ -19,9 +21,9 @@ By default, the ECD trainer is used.
 === "GBM"
 
     ```yaml
-    {% set gbm_defaults = render_trainer_gbm_defaults_yaml() %}
+    {% set gbm_trainer = get_trainer_schema("gbm") %}
     trainer:
-        {% for line in gbm_defaults.split("\n") %}
+        {% for line in schema_class_to_yaml(gbm_trainer).split("\n") %}
         {{- line }}
         {% endfor %}
     ```
@@ -30,15 +32,13 @@ By default, the ECD trainer is used.
 
 === "ECD"
 
-    {% set ecd_fields = trainer_ecd_params() %}
-    {{ render_fields(ecd_fields) | indent }}
+    {{ render_fields(schema_class_to_fields(ecd_trainer), details=details) | indent }}
 
 === "GBM"
 
     See the [LightGBM documentation](https://lightgbm.readthedocs.io/en/latest/Parameters.html) for more details about the available parameters.
 
-    {% set gbm_fields = trainer_gbm_params() %}
-    {{ render_fields(gbm_fields) | indent }}
+    {{ render_fields(schema_class_to_fields(gbm_trainer), details=details) | indent }}
 
 ## Optimizer parameters
 
@@ -50,7 +50,7 @@ By default, the ECD trainer is used.
     The `learning_rate` parameter used by the optimizer comes from the `trainer` section.
     Other optimizer specific parameters, shown with their Ludwig default settings, follow:
 
-    {% set opt_classes = optimizers() %}
+    {% set opt_classes = get_optimizer_schemas() %}
     {% for opt in opt_classes %}
     ### {{ opt.type }}
 
@@ -185,6 +185,11 @@ The frequency of checkpoint-evaluation can be configured using:
 
 === "ECD"
 
+```yaml
+trainer:
+    batch_size: auto
+```
+
 Users training on GPUs can often increase training throughput by increasing
 the `batch_size` so that more examples are computed every training step. Set
 `batch_size` to `auto` to use the largest batch size that can fit in memory.
@@ -193,7 +198,10 @@ the `batch_size` so that more examples are computed every training step. Set
 
 === "ECD"
 
-`use_mixed_precision=true`
+```yaml
+trainer:
+    use_mixed_precision: true
+```
 
 Speeds up training by using float16 parameters where it makes sense. Mixed precision training on GPU can dramatically
 speedup training, with some risks to model convergence. In practice, it works particularly well when fine-tuning

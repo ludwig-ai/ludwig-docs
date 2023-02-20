@@ -1,4 +1,6 @@
 {% from './macros/includes.md' import render_fields %}
+{% set norm_details = "See [Normalization](#normalization) for details." %}
+{% set details = {"norm": norm_details, "norm_params": norm_details} %}
 
 Combiners take the outputs of all input features encoders and combine them before providing the combined representation
 to the output feature decoders.
@@ -44,61 +46,7 @@ combiner:
 
 Parameters:
 
-{% set norm_details = "See [Normalization](#normalization) for details." %}
-{% set details = {"norm": norm_details, "norm_params": norm_details} %}
 {{ render_fields(schema_class_to_fields(concat_combiner, exclude=["type"]), details=details) }}
-
-
-#### TODO 
-
-- `fc_layers` (default `null`): it is a list of dictionaries containing the parameters of all the fully connected layers.
-The length of the list determines the number of stacked fully connected layers and the content of each dictionary
-determines the parameters for a specific layer. The available parameters for each layer are: `activation`, `dropout`,
-`norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of those values
-is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.
-- `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes
-through. Their output is projected in the feature's output space.
-- `output_size` (default `256`): if an `output_size` is not already specified in `fc_layers` this is the default
-`output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
-- `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
-- `weights_initializer` (default `'glorot_uniform'`): initializer for the weight matrix. Options are: `constant`,
-`identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
-`glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
-Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and
-other keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. For a description of the parameters of each
-initializer, see [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `bias_initializer` (default `'zeros'`):  initializer for the bias vector. Options are: `constant`, `identity`,
-`zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
-`glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
-Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
-keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. For a description of the parameters of each
-initializer, see [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `norm` (default `null`): normalization applied at the beginnging of the fully-connected stack. If a `norm` is not already specified for the `fc_layers` this is the default `norm` that will be used for each layer. One of: `null`, `batch`, `layer`, `ghost`. See [Normalization](#normalization) for details.
-- `norm_params` (default `null`): parameters passed to the `norm` module. See [Normalization](#normalization) for details.
-- `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default
-`activation` that will be used for each layer. It indicates the activation function applied to the output.
-- `dropout` (default `0`): dropout rate.
-- `flatten_inputs` (default `false`): if `true` flatten the tensors from all the input features into a vector.
-- `residual` (default `false`): if `true` adds a residual connection to each fully connected layer block. It is required
-that all fully connected layers have the same size for this parameter to work correctly.
-
-Example configuration of a `concat` combiner:
-
-```yaml
-type: concat
-fc_layers: null
-num_fc_layers: 0
-output_size: 256
-use_bias: true
-weights_initializer: 'glorot_uniform'
-bias_initializer: 'zeros'
-norm: null
-norm_params: null
-activation: relu
-dropout: 0
-flatten_inputs: false
-residual: false
-```
 
 ### Sequence Concat Combiner
 

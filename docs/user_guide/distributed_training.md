@@ -1,5 +1,5 @@
 For large datasets, training on a single machine storing the entire dataset in memory can be prohibitively expensive. As such,
-Ludwig supports using distributing the preprocessing, training, and prediction steps across multiple machines and GPUs to
+Ludwig supports distributing the preprocessing, training, and prediction steps across multiple machines and GPUs to
 operate on separate partitions of the data in parallel.
 
 ![img](../images/ludwig_on_ray.png)
@@ -92,9 +92,33 @@ ray submit cluster.yaml \
 
 ## Tips
 
-### Use a Globally Readabel and Writeable Filesystem
+### Use a Remote Filesystem
 
-### Setup a Remote Dataset Cache
+In order for Ray to preprocess the input `dataset`, the dataset file path must be readable
+from every worker. There are a few ways to achieve this:
+
+- Replicate the input dataset to the local filesystem of every worker (suitable for small datasets).
+- Use a network mounted filesystem like [NFS](https://en.wikipedia.org/wiki/Network_File_System).
+- Use an object storage system like [Amazon S3](https://aws.amazon.com/s3/).
+
+In most cases, we recommend using an object storage system such as [S3](https://aws.amazon.com/s3/) (AWS), 
+[GCS](https://cloud.google.com/storage) (GCP), or [ADLS](https://learn.microsoft.com/en-us/azure/storage/common/storage-introduction) (Azure).
+
+To connect to one of these systems from Ludwig you need two things:
+
+1. Install the appropriate filesystem driver package into your Python environment:
+
+    ```txt
+    s3fs   # S3
+    adlfs  # Azure Storage
+    gcsfs  # GCS
+    ```
+
+2. Mount your credentials file or set the correct environment variables (example: [S3](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html#using-environment-variables)) in your container.
+
+See [Remote Filesystems](./remote_filesystems.md) for more detailed instructions for each major filesystem.
+
+### Configuring a Remote Dataset Cache
 
 ### Training on an Autoscaling Cluster
 

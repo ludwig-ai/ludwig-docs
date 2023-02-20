@@ -50,22 +50,6 @@ Parameters:
 
 ### Sequence Concat Combiner
 
-The `sequence_concat` combiner assumes at least one output from encoders is a tensors of size `b x s x h` where `b` is
-the batch size, `s` is the length of the sequence and `h` is the hidden dimension.
-A sequence-like (sequence, text or time series) input feature can be specified with the `main_sequence_feature`
-parameter which takes the name of sequence-like input feature as its value.
-If no `main_sequence_feature` is specified, the combiner will look through all the features in the order they are
-defined in the configuration and will look for a feature with a rank 3 tensor output (sequence, text or time series).
-If it cannot find one it will raise an exception, otherwise the output of that feature will be used for concatenating
-the other features along the sequence `s` dimension.
-
-If there are other input features with a rank 3 output tensor, the combiner will concatenate them alongside the `s`
-dimension, which means that all of them must have identical `s` dimension, otherwise a dimension mismatch error will be
-returned thrown during training when a datapoint with two sequential features of different lengths are provided.
-
-Other features that have a `b x h` rank 2 tensor output will be replicated `s` times and concatenated to the `s` dimension.
-The final output is a `b x s x h'` tensor where `h'` is the size of the concatenation of the `h` dimensions of all input features.
-
 ```
 Sequence
 Feature
@@ -88,25 +72,34 @@ Output       |  +-----------------+
 +-------+
 ```
 
-These are the available parameters of a `sequence_concat` combiner:
+The `sequence_concat` combiner assumes at least one output from encoders is a tensors of size `b x s x h` where `b` is
+the batch size, `s` is the length of the sequence and `h` is the hidden dimension.
+A sequence-like (sequence, text or time series) input feature can be specified with the `main_sequence_feature`
+parameter which takes the name of sequence-like input feature as its value.
+If no `main_sequence_feature` is specified, the combiner will look through all the features in the order they are
+defined in the configuration and will look for a feature with a rank 3 tensor output (sequence, text or time series).
+If it cannot find one it will raise an exception, otherwise the output of that feature will be used for concatenating
+the other features along the sequence `s` dimension.
 
-- `main_sequence_feature` (default `null`): name of a sequence, text, or time series feature to concatenate the outputs
-of the other features to. If no `main_sequence_feature` is specified, the combiner will look through all the features in
-the order they are defined in the configuration and will look for a feature with a rank 3 tensor output (sequence, text
-or time series). If it cannot find one it will raise an exception, otherwise the output of that feature will be used for
-concatenating the other features along the sequence `s` dimension. If there are other input features with a rank 3
-output tensor, the combiner will concatenate them alongside the `s` dimension. All sequence-like input features must
-have identical `s` dimension, otherwise an error will be thrown.
-- `reduce_output` (default `null`): describes the strategy to use to aggregate the embeddings of the items of the set.
-Possible values are `null`, `sum`, `mean` and `sqrt` (the weighted sum divided by the square root of the sum of the squares of the weights).
+If there are other input features with a rank 3 output tensor, the combiner will concatenate them alongside the `s`
+dimension, which means that all of them must have identical `s` dimension, otherwise a dimension mismatch error will be
+returned thrown during training when a datapoint with two sequential features of different lengths are provided.
 
-Example configuration of a `sequence_concat` combiner:
+Other features that have a `b x h` rank 2 tensor output will be replicated `s` times and concatenated to the `s` dimension.
+The final output is a `b x s x h'` tensor where `h'` is the size of the concatenation of the `h` dimensions of all input features.
+
+{% set sequence_concat_combiner = get_combiner_schema("sequence_concat") %}
 
 ```yaml
-type: sequence_concat
-main_sequence_feature: null
-reduce_output: null
+combiner:
+    {% for line in schema_class_to_yaml(sequence_concat_combiner).split("\n") %}
+    {{- line }}
+    {% endfor %}
 ```
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(sequence_concat_combiner, exclude=["type"]), details=details) }}
 
 ### Sequence Combiner
 

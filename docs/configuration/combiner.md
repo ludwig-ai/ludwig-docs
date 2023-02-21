@@ -1,4 +1,4 @@
-{% from './macros/includes.md' import render_fields %}
+{% from './macros/includes.md' import render_fields, render_yaml %}
 {% set norm_details = "See [Normalization](#normalization) for details." %}
 {% set details = {"norm": norm_details, "norm_params": norm_details} %}
 
@@ -36,13 +36,7 @@ If only a single input feature and no fully connected layer is specified, the ou
 passed through the combiner unchanged.
 
 {% set concat_combiner = get_combiner_schema("concat") %}
-
-```yaml
-combiner:
-    {% for line in schema_class_to_yaml(concat_combiner).split("\n") %}
-    {{- line }}
-    {% endfor %}
-```
+{{ render_yaml(concat_combiner, parent="combiner") }}
 
 Parameters:
 
@@ -89,13 +83,7 @@ Other features that have a `b x h` rank 2 tensor output will be replicated `s` t
 The final output is a `b x s x h'` tensor where `h'` is the size of the concatenation of the `h` dimensions of all input features.
 
 {% set sequence_concat_combiner = get_combiner_schema("sequence_concat") %}
-
-```yaml
-combiner:
-    {% for line in schema_class_to_yaml(sequence_concat_combiner).split("\n") %}
-    {{- line }}
-    {% endfor %}
-```
+{{ render_yaml(sequence_concat_combiner, parent="combiner") }}
 
 Parameters:
 
@@ -134,13 +122,7 @@ Refer to that section for more detailed information about the sequence encoders 
 All considerations on the shape of the outputs for the sequence encoders also apply to sequence combiner.
 
 {% set sequence_combiner = get_combiner_schema("sequence") %}
-
-```yaml
-combiner:
-    {% for line in schema_class_to_yaml(sequence_combiner).split("\n") %}
-    {{- line }}
-    {% endfor %}
-```
+{{ render_yaml(sequence_combiner, parent="combiner") }}
 
 Parameters:
 
@@ -169,13 +151,7 @@ If the input tensors have a different shape, it automatically flattens them.
 It returns the final `b x h'` tensor where `h'` is the user-specified output size.
 
 {% set tabnet_combiner = get_combiner_schema("tabnet") %}
-
-```yaml
-combiner:
-    {% for line in schema_class_to_yaml(tabnet_combiner).split("\n") %}
-    {{- line }}
-    {% endfor %}
-```
+{{ render_yaml(tabnet_combiner, parent="combiner") }}
 
 Parameters:
 
@@ -218,13 +194,7 @@ Resources to learn more about transformers:
 - [Illustrated: Self-Attention](https://colab.research.google.com/drive/1rPk3ohrmVclqhH7uQ7qys4oznDdAhpzF) (Colab notebook)
 
 {% set transformer_combiner = get_combiner_schema("transformer") %}
-
-```yaml
-combiner:
-    {% for line in schema_class_to_yaml(transformer_combiner).split("\n") %}
-    {{- line }}
-    {% endfor %}
-```
+{{ render_yaml(transformer_combiner, parent="combiner") }}
 
 Parameters:
 
@@ -262,13 +232,7 @@ size, or a `b x n x h'` where `n` is the number of input features and `h'` is th
 is applied.
 
 {% set tabtransformer_combiner = get_combiner_schema("tabtransformer") %}
-
-```yaml
-combiner:
-    {% for line in schema_class_to_yaml(tabtransformer_combiner).split("\n") %}
-    {{- line }}
-    {% endfor %}
-```
+{{ render_yaml(tabtransformer_combiner, parent="combiner") }}
 
 Parameters:
 
@@ -317,13 +281,7 @@ Finally, it compares the two entity representations by dot product, element-wise
 It returns the final `b x h'` tensor where `h'` is the size of the concatenation of the four comparisons.
 
 {% set comparator_combiner = get_combiner_schema("comparator") %}
-
-```yaml
-combiner:
-    {% for line in schema_class_to_yaml(comparator_combiner).split("\n") %}
-    {{- line }}
-    {% endfor %}
-```
+{{ render_yaml(comparator_combiner, parent="combiner") }}
 
 Parameters:
 

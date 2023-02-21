@@ -1,4 +1,4 @@
-{% from './macros/includes.md' import render_fields %}
+{% from './macros/includes.md' import render_fields, render_yaml %}
 {% set opt_details = "See [Optimizer parameters](#optimizer-parameters) for details." %}
 {% set details = {"optimizer": opt_details} %}
 
@@ -10,23 +10,13 @@ By default, the ECD trainer is used.
 
 === "ECD"
 
-    ```yaml
     {% set ecd_trainer = get_trainer_schema("ecd") %}
-    trainer:
-        {% for line in schema_class_to_yaml(ecd_trainer).split("\n") %}
-        {{- line }}
-        {% endfor %}
-    ```
+    {{ render_yaml(ecd_trainer, parent="trainer") | indent }}
 
 === "GBM"
 
-    ```yaml
     {% set gbm_trainer = get_trainer_schema("gbm") %}
-    trainer:
-        {% for line in schema_class_to_yaml(gbm_trainer).split("\n") %}
-        {{- line }}
-        {% endfor %}
-    ```
+    {{ render_yaml(gbm_trainer, parent="trainer") | indent }}
 
 ## Trainer parameters
 
@@ -54,12 +44,7 @@ By default, the ECD trainer is used.
     {% for opt in opt_classes %}
     ### {{ opt.type }}
 
-    ```yaml
-    optimizer:
-        {% for line in schema_class_to_yaml(opt).split("\n") %}
-        {{- line }}
-        {% endfor %}
-    ```
+    {{ render_yaml(opt, parent="optimizer") | indent }}
 
     {{ render_fields(schema_class_to_fields(opt, exclude=["type"])) | indent }}
     {% endfor %}

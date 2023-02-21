@@ -117,8 +117,12 @@ def define_env(env):
         default_str = ""
         if has_default:
             default_str = f"(default: `{dump_value(default_value)}`)"
+
+        impact = ""
+        if expected_impact(field) == 3:
+            impact = ' :octicons-bookmark-fill-24:{ title="High impact parameter" }'
         
-        s = f"- **`{ name }`** {default_str}: { field.metadata['description'] }"
+        s = f"- **`{ name }`** {default_str}{impact}: { field.metadata['description'] }"
         if field.validate is not None and hasattr(field.validate, "choices"):
             options = ", ".join([f"`{dump_value(opt)}`" for opt in field.validate.choices])
             s += f" Options: {options}."

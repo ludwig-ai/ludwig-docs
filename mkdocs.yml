@@ -163,7 +163,9 @@ markdown_extensions:
   - toc:
       permalink: true
       baselevel: 2
+  - abbr
   - attr_list
+  - pymdownx.snippets
   - md_in_html
   - pymdownx.details
   - pymdownx.superfences

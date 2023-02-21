@@ -346,15 +346,6 @@ Normalization applied at the beginnging of the fully-connected stack. If a `norm
 
 Applies Batch Normalization as described in the paper [Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift](https://arxiv.org/abs/1502.03167). See [PyTorch documentation on batch normalization](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm1d.html) for more details.
 
-Parameters:
-
-- `eps`: Epsilon to be added to the batch norm denominator. Default: `0.001`.
-- `momentum`: The value used for the running_mean and running_var computation. Can be set to None for cumulative moving average (i.e. simple average). Default: `0.1`.
-- `affine`: A boolean value that when set to `true`, this module has learnable affine parameters. Default: `true`.
-- `track_running_stats`: A boolean value that when set to `true`, this module tracks the running mean and variance, and when set to `false`, this module does not track such statistics, and initializes statistics buffers running_mean and running_var as `null`. When these buffers are `null`, this module always uses batch statistics. in both training and eval modes. Default: `true`.
-
-Example:
-
 ```yaml
 norm: batch
 norm_params:
@@ -364,16 +355,16 @@ norm_params:
   track_running_stats: true
 ```
 
+Parameters:
+
+- **`eps`** (default: `0.001`): Epsilon to be added to the batch norm denominator.
+- **`momentum`** (default: `0.1`): The value used for the running_mean and running_var computation. Can be set to None for cumulative moving average (i.e. simple average). Default: `0.1`.
+- **`affine`** (default: `true`): A boolean value that when set to `true`, this module has learnable affine parameters.
+- **`track_running_stats`** (default: `true`): A boolean value that when set to `true`, this module tracks the running mean and variance, and when set to `false`, this module does not track such statistics, and initializes statistics buffers running_mean and running_var as `null`. When these buffers are `null`, this module always uses batch statistics. in both training and eval modes.
+
 #### Layer Normalization
 
 Applies Layer Normalization over a mini-batch of inputs as described in the paper [Layer Normalization](https://arxiv.org/abs/1607.06450). See [PyTorch documentation on layer normalization](https://pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html) for more details.
-
-Parameters:
-
-- `eps`: A value added to the denominator for numerical stability. Default: `0.00001`.
-- `elementwise_affine`: A boolean value that when set to `true`, this module has learnable per-element affine parameters initialized to ones (for weights) and zeros (for biases). Default: `true`.
-
-Example:
 
 ```yaml
 norm: layer
@@ -381,6 +372,11 @@ norm_params:
   eps: 0.00001
   elementwise_affine: true
 ```
+
+Parameters:
+
+- **`eps`** (default: `0.00001`): A value added to the denominator for numerical stability.
+- **`elementwise_affine`** (default: `true`): A boolean value that when set to `true`, this module has learnable per-element affine parameters initialized to ones (for weights) and zeros (for biases)
 
 #### Ghost Batch Normalization
 
@@ -395,12 +391,6 @@ when the batch size that maximizes throughput is significantly higher than the b
 
 The approach was introduced in [Train Longer, Generalize Better: Closing the Generalization Gap in Large Batch Training of Neural Networks](https://arxiv.org/abs/1705.08741) and since popularized by its use in [TabNet](#tabnet-combiner).
 
-Parameters:
-
-- `virtual_batch_size`: Size of the virtual batch size used by ghost batch norm. If null, regular batch norm is used instead. `B_v` from the TabNet paper.
-- `epsilon`: Epsilon to be added to the batch norm denominator.
-- `momentum`: Momentum of the batch norm. 1 - `m_B` from the TabNet paper.
-
 ```yaml
 norm: ghost
 norm_params:
@@ -409,4 +399,8 @@ norm_params:
   momentum: 0.05
 ```
 
+Parameters:
 
+- **`virtual_batch_size`** (default: `128`): Size of the virtual batch size used by ghost batch norm. If null, regular batch norm is used instead. `B_v` from the TabNet paper.
+- **`epsilon`** (default: `0.001`): Epsilon to be added to the batch norm denominator.
+- **`momentum`** (default: `0.05`): Momentum of the batch norm. 1 - `m_B` from the TabNet paper.

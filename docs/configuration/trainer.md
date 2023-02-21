@@ -44,7 +44,7 @@ By default, the ECD trainer is used.
     {% for opt in opt_classes %}
     ### {{ opt.type }}
 
-    {{ render_yaml(opt, parent="optimizer", sort_by_impact=False) | indent }}
+    {{ render_yaml(opt, parent="optimizer") | indent }}
 
     {{ render_fields(schema_class_to_fields(opt, exclude=["type"])) | indent }}
     {% endfor %}

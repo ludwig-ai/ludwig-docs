@@ -1,5 +1,5 @@
 Ludwig will automatically detect and run on GPU hardware when available. To run on multiple GPUs or a cluster of GPU machines,
-see [Distributed Training](./distributed_training.md).
+see [Distributed Training](./distributed_training/index.md).
 
 GPUs will dramatically improve the speed of training using the default ECD architecture. Some features types, nmely text and images, de facto require GPUs to train in a reasonable amount of time. That said, if you are only using tabular features (binary, category, number) with the default concat combiner, or are training a GBM model, you may not notice a difference without GPUs, so the utility will vary by use case.
 

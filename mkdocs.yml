@@ -39,10 +39,11 @@ nav:
           - Data Postprocessing: user_guide/datasets/data_postprocessing.md
           - Dataset Zoo: user_guide/datasets/dataset_zoo.md
       - GPUs: user_guide/gpus.md
-      - Distributed Training: user_guide/distributed_training.md
+      - Distributed Training:
+          - Distributed Training: user_guide/distributed_training/index.md
+          - Fine-Tuning Pretrained Models: user_guide/distributed_training/finetuning.md
       - Hyperparameter Optimization: user_guide/hyperopt.md
       - Cloud Storage: user_guide/cloud_storage.md
-      - Fine-Tuning Pretrained Models: user_guide/finetuning.md
       - AutoML: user_guide/automl.md
       - Visualizations: user_guide/visualizations.md
       - Model Export: user_guide/model_export.md

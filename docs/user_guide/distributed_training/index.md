@@ -2,9 +2,9 @@ For large datasets, training on a single machine storing the entire dataset in m
 Ludwig supports distributing the preprocessing, training, and prediction steps across multiple machines and GPUs to
 operate on separate partitions of the data in parallel.
 
-![img](../images/ludwig_on_ray.png)
+![img](../../images/ludwig_on_ray.png)
 
-Ludwig supports two different distributed execution [backends](../configuration/backend.md): **Ray** and **Horovod / MPI**. In most
+Ludwig supports two different distributed execution [backends](../../configuration/backend.md): **Ray** and **Horovod / MPI**. In most
 cases, we recommend using Ray (supporting both distributed data processing and distributed training at once), but native Horovod execution
 is also supported, particularly for users accustomed to running with MPI.
 
@@ -116,7 +116,7 @@ To connect to one of these systems from Ludwig you need two things:
 
 2. Mount your credentials file or set the correct environment variables (example: [S3](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html#using-environment-variables)) in your container.
 
-See [Cloud Storage](./cloud_storage.md) for more detailed instructions for each major filesystem.
+See [Cloud Storage](../cloud_storage.md) for more detailed instructions for each major filesystem.
 
 ### Autoscaling Clusters
 
@@ -133,7 +133,7 @@ backend:
     num_workers: 4
 ```
 
-When using [Hyperopt](./hyperopt.md) in an autoscaling cluster, you should set `max_concurrent_trials` and `gpu_resources_per_trial`, 
+When using [Hyperopt](../hyperopt.md) in an autoscaling cluster, you should set `max_concurrent_trials` and `gpu_resources_per_trial`, 
 otherwise Ludwig will similarly underestimate how many trials can fit in the fully autoscaled cluster at a time:
 
 ```yaml

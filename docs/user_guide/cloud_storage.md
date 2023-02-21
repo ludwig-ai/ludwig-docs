@@ -1,5 +1,5 @@
 Cloud object storage systems like Amazon S3 are useful for working with large datasets or
-running on a cluster of machines for [distributed training](./distributed_training.md). Ludwig
+running on a cluster of machines for [distributed training](./distributed_training/index.md). Ludwig
 provides out-of-the-box support for reading and writing to remote systems through [fsspec](https://filesystem-spec.readthedocs.io/en/latest/).
 
 Example:

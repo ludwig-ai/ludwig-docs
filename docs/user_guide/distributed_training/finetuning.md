@@ -1,4 +1,22 @@
-Example:
+Fine-tuning is the process of taking a model previously trained one dataset, and 
+adapting it to a more specialized dataset / task. Typically the original dataset
+is very large and very general (for example: a crawl of a large portion of the public
+Internet), and consequently the models are very large in order to reason about all this
+information (billions of parameters or more).
+
+Libraries like HuggingFace's [transformers](https://huggingface.co/docs/transformers/index) provide
+acess to state-of-the-art pretrained models that can be used as input feature [encoders](../../configuration/features/input_features.md#encoders)
+in Ludwig, allowing you to take advantage of these large pretrained models and adapt them to solve your specific tasks, combining them
+with other domain-specific features like tabular metadata to create powerful multi-modal model architectures.
+
+Ludwig's default configuration is designed to be fast and flexible, and as such, there are a few adjustments to the default
+configuration parameters we suggest making when fine-tuning a pretraine model. The sections below show examples of configurations
+we've found to give good results, along with the rationale behind each overridden parameter.
+
+# Suggested Configuration
+
+The below partial configuration shows the "full fine-tuning configuration" including
+trainable weights, batch size set to maximize throughput, and learning rate warmup / decay:
 
 ```yaml
 defaults:
@@ -18,17 +36,25 @@ trainer:
   use_mixed_precision: true
 ```
 
-# Suggested Configurations
+If you're looking to get the best performance you can out of the model, and are insensitive to
+training time, this is a good place to start. In the sections below, we'll also cover options that
+tradeoff some potential performance in favor of large speedups to the training throughput.
 
 ## Feature Encoder and Preprocessing
-
-### Text Encoders
-
-### Image Encoders
 
 ### Trainable
 
 ### Cache Encoder Embeddings
+
+### Text Encoders
+
+All of the [HuggingFace encoders](../../configuration/features/text_features.md#huggingface-encoders) in Ludwig can be used for fine-tuning.
+If there is a specific model you want to use, but don't see it listed, you can use the `auto_transformer` encoder in conjunction with
+providing the model name in the `pretrained_model_name_or_path` parameter.
+
+### Image Encoders
+
+All of the [Torchvision pretrained models](https://pytorch.org/vision/stable/models.html) in Ludwig can be used for fine-tuning.
 
 ## Trainer
 
@@ -57,7 +83,7 @@ trainer:
 #### Learning rate schedule
 
 It's important to both warmup the learning rate (particularly when using
-[distributed training](./distributed_training.md)) and decay it to avoid catastrophic
+[distributed training](./index.md)) and decay it to avoid catastrophic
 forgetting.
 
 As a starting point, we suggest:
@@ -120,11 +146,11 @@ trainer:
 
 ## Backend
 
-Fine-tuning large pretrained models typically benefit from [distributed training](./distributed_training.md) without
-requiring a lot of additional hyperparameter tuning. As such, we recommend using the Ray [backend](../configuration/backend.md) 
+Fine-tuning large pretrained models typically benefit from [distributed training](./index.md) without
+requiring a lot of additional hyperparameter tuning. As such, we recommend using the Ray [backend](../../configuration/backend.md) 
 in order to take advantage of multi-GPU training and to scale to large datasets.
 
-In most cases, the `horovod` or `ddp` distributed [strategy](../configuration/backend.md#trainer) will work well, but if the
+In most cases, the `horovod` or `ddp` distributed [strategy](../../configuration/backend.md#trainer) will work well, but if the
 model is too large for your GPU type, then you should try model parallelism as described below.
 
 ### Model Parallelism for LLMs

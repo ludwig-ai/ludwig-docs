@@ -16,49 +16,6 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(text_preprocessing)) }}
 
-The parameters for text preprocessing are as follows:
-
-- `tokenizer` (default `space_punct`): defines how to map from the raw string content of the dataset column to a
-sequence of elements. For all available options see [Tokenizers](../../configuration/defaults.md#tokenizers).
-- `vocab_file` (default `null`): filepath string to a UTF-8 encoded file containing the sequence's vocabulary. On each
-line the first string until `\t` or `\n` is considered a word.
-- `max_sequence_length` (default `256`): the maximum length (number of tokens) of the text. Texts that are longer than
-this value will be truncated, while texts that are shorter will be padded.
-- `most_common` (default `20000`): the maximum number of most common tokens in the vocabulary. If the data contains more
-than this amount, the most infrequent symbols will be treated as unknown.
-- `padding_symbol` (default `<PAD>`): the string used as a padding symbol. This special token is mapped to the integer
-ID 0 in the vocabulary.
-- `unknown_symbol` (default `<UNK>`): the string used as an unknown placeholder. This special token is mapped to the
-integer ID 1 in the vocabulary.
-- `padding` (default `right`): the direction of the padding. `right` and `left` are available options.
-- `lowercase` (default `false`): If true, converts the string to lowercase before tokenizing.
-- `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in the
-dataset. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with
-the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column),
-`bfill` (replaces the missing values with the next valid value), `ffill` (replaces the missing values with the previous valid value) or `drop_row`.
-- `fill_value` (default `""`): the value to replace the missing values with in case the `missing_value_strategy` is
-`fill_value`.
-- `cache_encoder_embeddings` (default `false`): For pretrained encoders, compute encoder embeddings in preprocessing, speeding up training time considerably. Only supported when `encoder.trainable=false`.
-
-Configuration example:
-
-```yaml
-name: text_column_name
-type: text
-preprocessing:
-    tokenizer: space_punct
-    vocab_file: null
-    max_sequence_length: 256
-    most_common: 20000
-    padding_symbol: <PAD>
-    unknown_symbol: <UNK>
-    padding: right
-    lowercase: false
-    missing_value_strategy: fill_with_const
-    fill_value: ""
-    cache_encoder_embeddings: false
-```
-
 Preprocessing parameters can also be defined once and applied to all text input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 
 !!! note

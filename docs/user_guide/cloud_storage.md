@@ -1,4 +1,4 @@
-Remote filesystems / object storage systems like Amazon S3 are useful for working with large datasets or
+Cloud object storage systems like Amazon S3 are useful for working with large datasets or
 running on a cluster of machines for [distributed training](./distributed_training.md). Ludwig
 provides out-of-the-box support for reading and writing to remote systems through [fsspec](https://filesystem-spec.readthedocs.io/en/latest/).
 
@@ -10,7 +10,7 @@ ludwig train \
     --output_directory s3://my_experiments/foo
 ```
 
-# Cloud Object Storage
+# Environment Setup
 
 The sections below cover how to read and write between your preferred remote filesystem in Ludwig.
 

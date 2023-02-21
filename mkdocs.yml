@@ -41,7 +41,7 @@ nav:
       - GPUs: user_guide/gpus.md
       - Distributed Training: user_guide/distributed_training.md
       - Hyperparameter Optimization: user_guide/hyperopt.md
-      - Remote Filesystems: user_guide/remote_filesystems.md
+      - Cloud Storage: user_guide/cloud_storage.md
       - Fine-Tuning Pretrained Models: user_guide/finetuning.md
       - AutoML: user_guide/automl.md
       - Visualizations: user_guide/visualizations.md

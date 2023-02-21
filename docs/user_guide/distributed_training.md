@@ -92,7 +92,7 @@ ray submit cluster.yaml \
 
 ## Best Practices
 
-### Remote Filesystems
+### Cloud Storage
 
 In order for Ray to preprocess the input `dataset`, the dataset file path must be readable
 from every worker. There are a few ways to achieve this:
@@ -116,7 +116,7 @@ To connect to one of these systems from Ludwig you need two things:
 
 2. Mount your credentials file or set the correct environment variables (example: [S3](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html#using-environment-variables)) in your container.
 
-See [Remote Filesystems](./remote_filesystems.md) for more detailed instructions for each major filesystem.
+See [Cloud Storage](./cloud_storage.md) for more detailed instructions for each major filesystem.
 
 ### Autoscaling Clusters
 

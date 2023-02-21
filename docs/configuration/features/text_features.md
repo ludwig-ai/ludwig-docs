@@ -1,3 +1,5 @@
+{% from './macros/includes.md' import render_fields, render_yaml %}
+
 ## Text Features Preprocessing
 
 Text features are an extension of [sequence features](../sequence_features). Text inputs are processed by a tokenizer
@@ -6,6 +8,13 @@ mapping, each text string is converted first to a sequence of tokens, and next t
 
 The list of tokens and their integer representations (vocabulary) is stored in the metadata of the model. In the case of
 a text output feature, this same mapping is used to post-process predictions to text.
+
+{% set text_preprocessing = get_feature_preprocessing_schema("text") %}
+{{ render_yaml(text_preprocessing, parent="preprocessing") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(text_preprocessing)) }}
 
 The parameters for text preprocessing are as follows:
 

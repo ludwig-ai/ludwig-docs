@@ -4,6 +4,7 @@ import yaml
 # Force populate combiner registry:
 import ludwig.combiners.combiners  # noqa: F401
 from ludwig.schema.combiners.utils import get_combiner_registry
+from ludwig.schema.features.preprocessing.utils import preprocessing_registry
 from ludwig.schema.trainer import trainer_schema_registry
 from ludwig.schema.optimizers import optimizer_registry
 
@@ -34,7 +35,18 @@ def dump_value(v):
     return json.dumps(v).lstrip('\"').rstrip('\"')
 
 
+def is_internal(field):
+    param_meta = field.metadata.get("parameter_metadata", {})
+    if param_meta and param_meta.get("internal_only"):
+        return True
+    return False
+
+
 def define_env(env):
+    @env.macro
+    def get_feature_preprocessing_schema(type: str):
+        return preprocessing_registry[type]
+
     @env.macro
     def get_combiner_schema(type: str):
         return get_combiner_registry()[type].get_schema_cls()
@@ -49,7 +61,10 @@ def define_env(env):
     
     @env.macro
     def schema_class_to_yaml(cls):
-        return yaml.safe_dump(cls().to_dict(), indent=4, sort_keys=False)
+        schema = cls.get_class_schema()()
+        internal_fields = {n for n, f in schema.fields.items() if is_internal(f)}
+        d = {k: v for k, v in cls().to_dict().items() if k not in internal_fields}
+        return yaml.safe_dump(d, indent=4, sort_keys=False)
     
     @env.macro
     def schema_class_to_fields(cls, exclude=None):
@@ -62,6 +77,9 @@ def define_env(env):
     
     @env.macro
     def render_field(name, field, details):
+        if is_internal(field):
+            return ""
+
         has_default = True
         default_value = field.dump_default
         if isinstance(default_value, dict):

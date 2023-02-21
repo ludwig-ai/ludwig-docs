@@ -20,8 +20,8 @@ backend:
 Parameters:
 
 - `type`: How the job will be distributed, one of `local`, `ray`, `horovod`.
-- `cache_dir`: Where the preprocessed data will be written on disk, defaults to the location of the input dataset. See [Remote Filesystem](../user_guide/cloud_storage.md#remote-dataset-cache) for more details
-- `cache_credentials`: Optional dictionary of credentials (or path to credential JSON file) used to write to the cache. See [Remote Filesystem](../user_guide/cloud_storage.md#using-different-cache-and-dataset-filesystems) for more details
+- `cache_dir`: Where the preprocessed data will be written on disk, defaults to the location of the input dataset. See [Cloud Storage](../user_guide/cloud_storage.md#remote-dataset-cache) for more details
+- `cache_credentials`: Optional dictionary of credentials (or path to credential JSON file) used to write to the cache. See [Cloud Storage](../user_guide/cloud_storage.md#using-different-cache-and-dataset-filesystems) for more details
 - `processor`: (Ray only) parameters to configure execution of distributed data processing.
 - `trainer`: (Ray only) parameters to configure execution of distributed training.
 - `loader`: (Ray only) parameters to configure data loading from processed data to training batches.

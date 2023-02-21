@@ -49,14 +49,17 @@ def expected_impact(field):
     return param_meta.get("expected_impact", 0)
 
 
-def field_sort_order(x):
-    return -expected_impact(x[1])
+def field_sort_order(name, field):
+    if name == "type":
+        # Type param always comes first in the sort order
+        return -100
+    return -expected_impact(field)
 
 
 def sort_fields(fields_dict):
     return {
         k: v for k, v in
-        sorted(fields_dict.items(), key=lambda x: field_sort_order(x))
+        sorted(fields_dict.items(), key=lambda x: field_sort_order(*x))
     } 
 
 

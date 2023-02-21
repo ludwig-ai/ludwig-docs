@@ -42,6 +42,24 @@ def is_internal(field):
     return False
 
 
+def expected_impact(field):
+    param_meta = field.metadata.get("parameter_metadata", {})
+    if not param_meta:
+        return 0
+    return param_meta.get("expected_impact", 0)
+
+
+def field_sort_order(x):
+    return -expected_impact(x[1])
+
+
+def sort_fields(fields_dict):
+    return {
+        k: v for k, v in
+        sorted(fields_dict.items(), key=lambda x: field_sort_order(x))
+    } 
+
+
 def define_env(env):
     @env.macro
     def get_feature_preprocessing_schema(type: str):
@@ -60,17 +78,22 @@ def define_env(env):
         return [v[1] for v in optimizer_registry.values()]
     
     @env.macro
-    def schema_class_to_yaml(cls):
+    def schema_class_to_yaml(cls, sort_by_impact=True):
         schema = cls.get_class_schema()()
         internal_fields = {n for n, f in schema.fields.items() if is_internal(f)}
         d = {k: v for k, v in cls().to_dict().items() if k not in internal_fields}
+
+        if sort_by_impact:
+            sorted_fields = flatten(sort_fields(schema.fields))
+            d = {k: d[k] for k in sorted_fields.keys() if k in d}
+
         return yaml.safe_dump(d, indent=4, sort_keys=False)
     
     @env.macro
     def schema_class_to_fields(cls, exclude=None):
         exclude = exclude or []
         schema = cls.get_class_schema()()
-        d = flatten(schema.fields)
+        d = flatten(sort_fields(schema.fields))
         return {
             k: v for k, v in d.items() if k not in exclude
         }

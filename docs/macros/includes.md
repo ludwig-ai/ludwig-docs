@@ -5,10 +5,10 @@
 {%- endmacro %}
 
 
-{%- macro render_yaml(schema, parent) -%}
+{%- macro render_yaml(schema, parent, sort_by_impact=True) -%}
 ```yaml
 {{ parent }}:
-    {% for line in schema_class_to_yaml(schema).split("\n") %}
+    {% for line in schema_class_to_yaml(schema, sort_by_impact=sort_by_impact).split("\n") %}
     {{- line }}
     {% endfor %}
 ```

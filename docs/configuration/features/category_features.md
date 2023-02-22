@@ -141,12 +141,11 @@ Category features can be used when a multi-class classification needs to be perf
 There is only one decoder available for category features: a (potentially empty) stack of fully connected layers,
 followed by a projection into a vector of size of the number of available classes, followed by a softmax.
 
-```
-+--------------+   +---------+   +-----------+
-|Combiner      |   |Fully    |   |Projection |   +-------+
-|Output        +--->Connected+--->into Output+--->Softmax|
-|Representation|   |Layers   |   |Space      |   +-------+
-+--------------+   +---------+   +-----------+
+``` mermaid
+graph LR
+  A["Combiner\n Output"] --> B["Fully\n Connected\n Layers"];
+  B --> C["Projection into\n Output Space"];
+  C --> D["Softmax"];
 ```
 
 These are the available parameters of a category output feature

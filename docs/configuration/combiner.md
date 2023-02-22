@@ -14,11 +14,11 @@ the `concat` combiner will be used.
 
 ``` mermaid
 graph LR
-  I1[Input Feature 1] --> C[Concat];
+  I1[Encoder Output 1] --> C[Concat];
   IK[...] --> C;
-  IN[Input Feature N] --> C;
+  IN[Encoder Output N] --> C;
   C --> FC[Fully Connected Layers];
-  FC --> ...
+  FC --> ...;
   subgraph COMBINER
   C
   FC
@@ -43,26 +43,42 @@ Parameters:
 
 ### Sequence Concat Combiner
 
-```
-Sequence
-Feature
-Output
+``` mermaid
+graph LR
+  I1 --> X1{Map};
+  IK --> X1;
+  IN --> X1;
+  IO --> X1;
 
-+---------+
-|emb seq 1|
-+---------+
-|...      +--+
-+---------+  |  +-----------------+
-|emb seq n|  |  |emb seq 1|emb oth|   +------+
-+---------+  |  +-----------------+   |      |
-             +-->...      |...    +-->+Reduce+->
-Other        |  +-----------------+   |      |
-Feature      |  |emb seq n|emb oth|   +------+
-Output       |  +-----------------+
-             |
-+-------+    |
-|emb oth+----+
-+-------+
+  X1 --> SC1;
+  X1 --> SCK;
+  X1 --> SCN;
+
+  SC1 --> R[Reduce];
+  SCK --> R;
+  SCN --> R;
+  R --> ...;
+  subgraph CONCAT
+    direction TB
+    SC1["emb seq 1 | emb oth" ];
+    SCK[...];
+    SCN["emb seq n | emb oth"];
+  end
+  subgraph COMBINER
+  X1
+  CONCAT
+  R
+  end
+  subgraph SF[SEQUENCE INPUTS]
+  direction TB
+  I1["emb seq 1" ];
+  IK[...];
+  IN["emb seq n"];
+  end
+  subgraph OF[OTHER INPUTS]
+  direction TB
+  IO["emb oth"]
+  end
 ```
 
 The `sequence_concat` combiner assumes at least one output from encoders is a tensors of size `b x s x h` where `b` is

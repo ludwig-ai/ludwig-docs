@@ -103,22 +103,11 @@ the batch size, `s` is the length of the sequence and `h` is the embedding size.
 The tensor is reduced along the `s` dimension to obtain a single vector of size `h` for each element of the batch.
 If you want to output the full `b x s x h` tensor, you can specify `reduce_output: null`.
 
-```
-       +------+
-       |Emb 12|
-       +------+
-+--+   |Emb 7 |
-|12|   +------+
-|7 |   |Emb 43|   +-----------+
-|43|   +------+   |Aggregation|
-|65+--->Emb 65+--->Reduce     +-->
-|23|   +------+   |Operation  |
-|4 |   |Emb 23|   +-----------+
-|1 |   +------+
-+--+   |Emb 4 |
-       +------+
-       |Emb 1 |
-       +------+
+``` mermaid
+graph LR
+  A["12\n7\n43\n65\n23\n4\n1"] --> B["emb_12\nemb__7\nemb_43\nemb_65\nemb_23\nemb__4\nemb__1"];
+  B --> C["Aggregation\n Reduce\n Operation"];
+  C --> ...;
 ```
 
 These are the parameters available for the embed encoder
@@ -181,26 +170,17 @@ This single vector concatenating the outputs of the parallel convolutional layer
 fully connected layers and returned as a `b x h` tensor where `h` is the output size of the last fully connected layer.
 If you want to output the full `b x s x h` tensor, you can specify `reduce_output: null`.
 
-```
-                    +-------+   +----+
-                 +-->1D Conv+--->Pool+--+
-       +------+  |  |Width 2|   +----+  |
-       |Emb 12|  |  +-------+           |
-       +------+  |                      |
-+--+   |Emb 7 |  |  +-------+   +----+  |
-|12|   +------+  +-->1D Conv+--->Pool+--+
-|7 |   |Emb 43|  |  |Width 3|   +----+  |            +---------+
-|43|   +------+  |  +-------+           |  +------+  |Fully    |
-|65+-->Emb 65 +--+                      +-->Concat+-->Connected+-->
-|23|   +------+  |  +-------+   +----+  |  +------+  |Layers   |
-|4 |   |Emb 23|  +-->1D Conv+--->Pool+--+            +---------+
-|1 |   +------+  |  |Width 4|   +----+  |
-+--+   |Emb 4 |  |  +-------+           |
-       +------+  |                      |
-       |Emb 1 |  |  +-------+   +----+  |
-       +------+  +-->1D Conv+--->Pool+--+
-                    |Width 5|   +----+
-                    +-------+
+``` mermaid
+graph LR
+  A["12\n7\n43\n65\n23\n4\n1"] --> C["emb_12\nemb__7\nemb_43\nemb_65\nemb_23\nemb__4\nemb__1"];
+  C --> D1["1D Conv\n Width 2"] --> E1["Pool"];
+  C --> D2["1D Conv\n Width 3"] --> E2["Pool"];
+  C --> D3["1D Conv\n Width 4"] --> E3["Pool"];
+  C --> D4["1D Conv\n Width 5"] --> E4["Pool"];
+  E1 --> F["Concat"] --> G["Fully\n Connected\n Layers"] --> H["..."];
+  E2 --> F;
+  E3 --> F;
+  E4 --> F;
 ```
 
 These are the available parameters for a parallel cnn encoder:
@@ -312,22 +292,12 @@ If you want to output the full `b x s x h` tensor, you can specify the `pool_siz
 `null`  and `reduce_output: null`, while if `pool_size` has a value different from `null` and `reduce_output: null` the
 returned tensor will be of shape `b x s' x h`, where `s'` is width of the output of the last convolutional layer.
 
-```
-       +------+
-       |Emb 12|
-       +------+
-+--+   |Emb 7 |
-|12|   +------+
-|7 |   |Emb 43|   +----------------+   +---------+
-|43|   +------+   |1D Conv         |   |Fully    |
-|65+--->Emb 65+--->Layers          +--->Connected+-->
-|23|   +------+   |Different Widths|   |Layers   |
-|4 |   |Emb 23|   +----------------+   +---------+
-|1 |   +------+
-+--+   |Emb 4 |
-       +------+
-       |Emb 1 |
-       +------+
+``` mermaid
+graph LR
+  A["12\n7\n43\n65\n23\n4\n1"] --> B["emb_12\nemb__7\nemb_43\nemb_65\nemb_23\nemb__4\nemb__1"];
+  B --> C["1D Conv Layers\n Different Widths"];
+  C --> D["Fully\n Connected\n Layers"];
+  D --> ...;
 ```
 
 These are the parameters available for the stack cnn encoder:
@@ -445,26 +415,19 @@ This single flattened vector is then passed through a stack of fully connected l
 where `h` is the output size of the last fully connected layer.
 If you want to output the full `b x s x h` tensor, you can specify `reduce_output: null`.
 
-```
-                  +-------+                     +-------+
-                +->1D Conv+-+                 +->1D Conv+-+
-      +------+  | |Width 2| |                 | |Width 2| |
-      |Emb 12|  | +-------+ |                 | +-------+ |
-      +------+  |           |                 |           |
-+--+  |Emb 7 |  | +-------+ |                 | +-------+ |
-|12|  +------+  +->1D Conv+-+                 +->1D Conv+-+
-|7 |  |Emb 43|  | |Width 3| |                 | |Width 3| |                 +---------+
-|43|  +------+  | +-------+ | +------+  +---+ | +-------+ | +------+ +----+ |Fully    |
-|65+->Emb 65 +--+           +->Concat+-->...+-+           +->Concat+->Pool+->Connected+-->
-|23|  +------+  | +-------+ | +------+  +---+ | +-------+ | +------+ +----+ |Layers   |
-|4 |  |Emb 23|  +->1D Conv+-+                 +->1D Conv+-+                 +---------+
-|1 |  +------+  | |Width 4| |                 | |Width 4| |
-+--+  |Emb 4 |  | +-------+ |                 | +-------+ |
-      +------+  |           |                 |           |
-      |Emb 1 |  | +-------+ |                 | +-------+ |
-      +------+  +->1D Conv+-+                 +->1D Conv+-+
-                  |Width 5|                     |Width 5|
-                  +-------+                     +-------+
+``` mermaid
+graph LR
+  A["12\n7\n43\n65\n23\n4\n1"] --> C["emb_12\nemb__7\nemb_43\nemb_65\nemb_23\nemb__4\nemb__1"];
+  C --> D1["1D Conv\n Width 2"] --> E["Concat"];
+  C --> D2["1D Conv\n Width 3"] --> E;
+  C --> D3["1D Conv\n Width 4"] --> E;
+  C --> D4["1D Conv\n Width 5"] --> E;
+  E --> F["..."];
+  F --> G1["1D Conv\n Width 2"] --> H["Concat"];
+  F --> G2["1D Conv\n Width 3"] --> H;
+  F --> G3["1D Conv\n Width 4"] --> H;
+  F --> G4["1D Conv\n Width 5"] --> H;
+  H --> I["Pool"] --> J["Fully\n Connected\n Layers"] --> K["..."];
 ```
 
 These are the available parameters for the stack parallel cnn encoder:
@@ -574,22 +537,12 @@ reduce functions.
 If you want to output the full `b x s x h` where `h` is the size of the output of the last rnn layer, you can specify
 `reduce_output: null`.
 
-```
-       +------+
-       |Emb 12|
-       +------+
-+--+   |Emb 7 |
-|12|   +------+
-|7 |   |Emb 43|                 +---------+
-|43|   +------+   +----------+  |Fully    |
-|65+--->Emb 65+--->RNN Layers+-->Connected+-->
-|23|   +------+   +----------+  |Layers   |
-|4 |   |Emb 23|                 +---------+
-|1 |   +------+
-+--+   |Emb 4 |
-       +------+
-       |Emb 1 |
-       +------+
+``` mermaid
+graph LR
+  A["12\n7\n43\n65\n23\n4\n1"] --> B["emb_12\nemb__7\nemb_43\nemb_65\nemb_23\nemb__4\nemb__1"];
+  B --> C["RNN Layers"];
+  C --> D["Fully\n Connected\n Layers"];
+  D --> ...;
 ```
 
 These are the available parameters for the rnn encoder:
@@ -698,22 +651,13 @@ that by default only returns the last output, but can perform other reduce funct
 If you want to output the full `b x s x h` where `h` is the size of the output of the last rnn layer, you can specify
 `reduce_output: null`.
 
-```
-       +------+
-       |Emb 12|
-       +------+
-+--+   |Emb 7 |
-|12|   +------+
-|7 |   |Emb 43|                              +---------+
-|43|   +------+  +----------+  +----------+  |Fully    |
-|65+--->Emb 65+-->CNN Layers+-->RNN Layers+-->Connected+-->
-|23|   +------+  +----------+  +----------+  |Layers   |
-|4 |   |Emb 23|                              +---------+
-|1 |   +------+
-+--+   |Emb 4 |
-       +------+
-       |Emb 1 |
-       +------+
+``` mermaid
+graph LR
+  A["12\n7\n43\n65\n23\n4\n1"] --> B["emb_12\nemb__7\nemb_43\nemb_65\nemb_23\nemb__4\nemb__1"];
+  B --> C1["CNN Layers"];
+  C1 --> C2["RNN Layers"];
+  C2 --> D["Fully\n Connected\n Layers"];
+  D --> ...;
 ```
 
 These are the available parameters of the cnn rnn encoder:
@@ -856,23 +800,12 @@ The `transformer` encoder implements a stack of transformer blocks, replicating 
 [Attention is all you need](https://arxiv.org/abs/1706.03762) paper, and adds am optional stack of fully connected
 layers at the end.
 
-```
-       +------+
-       |Emb 12|
-       +------+
-+--+   |Emb 7 |
-|12|   +------+
-|7 |   |Emb 43|   +-------------+   +---------+
-|43|   +------+   |             |   |Fully    |
-|65+---+Emb 65+---> Transformer +--->Connected+-->
-|23|   +------+   | Blocks      |   |Layers   |
-|4 |   |Emb 23|   +-------------+   +---------+
-|1 |   +------+
-+--+   |Emb 4 |
-       +------+
-       |Emb 1 |
-       +------+
-
+``` mermaid
+graph LR
+  A["12\n7\n43\n65\n23\n4\n1"] --> B["emb_12\nemb__7\nemb_43\nemb_65\nemb_23\nemb__4\nemb__1"];
+  B --> C["Transformer\n Blocks"];
+  C --> D["Fully\n Connected\n Layers"];
+  D --> ...;
 ```
 
 - `representation` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
@@ -970,16 +903,11 @@ If you want to output the full `b x s x h` tensor, you can specify `reduce_outpu
 This encoder is not really useful for `sequence` or `text` features, but may be useful for `timeseries` features, as it
 allows for using them without any processing in later stages of the model, like in a sequence combiner for instance.
 
-```
-+--+
-|12|
-|7 |                    +-----------+
-|43|   +------------+   |Aggregation|
-|65+--->Cast float32+--->Reduce     +-->
-|23|   +------------+   |Operation  |
-|4 |                    +-----------+
-|1 |
-+--+
+``` mermaid
+graph LR
+  A["12\n7\n43\n65\n23\n4\n1"] --> B["Cast float32"];
+  B --> C["Aggregation\n Reduce\n Operation"];
+  C --> ...;
 ```
 
 These are the parameters available for the passthrough encoder
@@ -1032,17 +960,19 @@ This decoder requires its input to be shaped as `b x s x h`, where `h` is a hidd
 sequence, text or time series input feature without reduced outputs or the output of a sequence-based combiner.
 If a `b x h` input is provided instead, an error will be raised during model building.
 
-```
-Combiner
-Output
-
-+---+                 +----------+   +-------+
-|emb|   +---------+   |Projection|   |Softmax|
-+---+   |Fully    |   +----------+   +-------+
-|...+--->Connected+--->...       +--->...    |
-+---+   |Layers   |   +----------+   +-------+
-|emb|   +---------+   |Projection|   |Softmax|
-+---+                 +----------+   +-------+
+``` mermaid
+graph LR
+  A["emb[0]\n....\nemb[n]"] --> B["Fully\n Connected\n Layers"];
+  B --> C["Projection\n....\nProjection"];
+  C --> D["Softmax\n....\nSoftmax"];
+  subgraph DEC["DECODER.."]
+  B
+  C
+  D
+  end
+  subgraph COM["COMBINER OUT.."]
+  A
+  end
 ```
 
 These are the available parameters of a tagger decoder:
@@ -1123,16 +1053,22 @@ of a sequence-based combiner.
 If a `b x h` input is provided to a generator decoder using an rnn with attention instead, an error will be raised
 during model building.
 
-```
-                            Output     Output
-                               1  +-+    ... +--+    END
-                               ^    |     ^     |     ^
-+--------+   +---------+       |    |     |     |     |
-|Combiner|   |Fully    |   +---+--+ | +---+---+ | +---+--+
-|Output  +--->Connected+---+RNN   +--->RNN... +--->RNN   |
-|        |   |Layers   |   +---^--+ | +---^---+ | +---^--+
-+--------+   +---------+       |    |     |     |     |
-                              GO    +-----+     +-----+
+``` mermaid
+graph LR
+  A["Combiner Output"] --> B["Fully\n Connected\n Layers"];
+  B --> C1["RNN"] --> C2["RNN"] --> C3["RNN"];
+  GO(["GO"]) -.-o C1;
+  C1 -.-o O1("Output");
+  O1 -.-o C2;
+  C2 -.-o O2("Output");
+  O2 -.-o C3;
+  C3 -.-o END(["END"]);
+  subgraph DEC["DECODER.."]
+  B
+  C1
+  C2
+  C3
+  end
 ```
 
 - `reduce_input` (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order

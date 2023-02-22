@@ -45,7 +45,7 @@ Parameters:
 
 ``` mermaid
 graph LR
-  I1 --> X1{Map};
+  I1 --> X1{Tile};
   IK --> X1;
   IN --> X1;
   IO --> X1;
@@ -58,7 +58,7 @@ graph LR
   SCK --> R;
   SCN --> R;
   R --> ...;
-  subgraph CONCAT
+  subgraph CONCAT["TENSOR"]
     direction TB
     SC1["emb seq 1 | emb oth" ];
     SCK[...];
@@ -69,13 +69,13 @@ graph LR
   CONCAT
   R
   end
-  subgraph SF[SEQUENCE INPUTS]
+  subgraph SF[SEQUENCE FEATS]
   direction TB
   I1["emb seq 1" ];
   IK[...];
   IN["emb seq n"];
   end
-  subgraph OF[OTHER INPUTS]
+  subgraph OF[OTHER FEATS]
   direction TB
   IO["emb oth"]
   end
@@ -106,26 +106,42 @@ Parameters:
 
 ### Sequence Combiner
 
-```
-Sequence
-Feature
-Output
+``` mermaid
+graph LR
+  I1 --> X1{Tile};
+  IK --> X1;
+  IN --> X1;
+  IO --> X1;
 
-+---------+
-|emb seq 1|
-+---------+
-|...      +--+
-+---------+  |  +-----------------+
-|emb seq n|  |  |emb seq 1|emb oth|   +--------+
-+---------+  |  +-----------------+   |Sequence|
-             +-->...      |...    +-->+Encoder +->
-Other        |  +-----------------+   |        |
-Feature      |  |emb seq n|emb oth|   +--------+
-Output       |  +-----------------+
-             |
-+-------+    |
-|emb oth+----+
-+-------+
+  X1 --> SC1;
+  X1 --> SCK;
+  X1 --> SCN;
+
+  SC1 --> R["Sequence Encoder"];
+  SCK --> R;
+  SCN --> R;
+  R --> ...;
+  subgraph CONCAT["TENSOR"]
+    direction TB
+    SC1["emb seq 1 | emb oth" ];
+    SCK[...];
+    SCN["emb seq n | emb oth"];
+  end
+  subgraph COMBINER
+  X1
+  CONCAT
+  R
+  end
+  subgraph SF[SEQUENCE FEATS]
+  direction TB
+  I1["emb seq 1" ];
+  IK[...];
+  IN["emb seq n"];
+  end
+  subgraph OF[OTHER FEATS]
+  direction TB
+  IO["emb oth"]
+  end
 ```
 
 The `sequence` combiner stacks a sequence concat combiner with a sequence encoder.
@@ -145,18 +161,12 @@ Parameters:
 
 ### TabNet Combiner
 
-```
-+-----------+
-|Input      |
-|Feature 1  +-+
-+-----------+ |
-+-----------+ | +------+
-|...        +--->TabNet+-->
-+-----------+ | +------+
-+-----------+ |
-|Input      +-+
-|Feature N  |
-+-----------+
+``` mermaid
+graph LR
+  I1[Encoder Output 1] --> C[TabNet];
+  IK[...] --> C;
+  IN[Encoder Output N] --> C;
+  C --> ...;
 ```
 
 The `tabnet` combiner implements the [TabNet](https://arxiv.org/abs/1908.07442) model, which uses attention and sparsity
@@ -176,19 +186,19 @@ Parameters:
 
 ### Transformer Combiner
 
-```
-+-----------+
-|Input      |
-|Feature 1  +-+
-+-----------+ |
-+-----------+ |  +------------+   +------+   +----------+
-|...        +--->|Transformer +-->|Reduce+-->|Fully     +->
-|           | |  |Stack       |   +------+   |Connected |
-+-----------+ |  +------------+              |Layers    |
-+-----------+ |                              +----------+
-|Input      +-+
-|Feature N  |
-+-----------+
+``` mermaid
+graph LR
+  I1[Encoder Output 1] --> C["Transformer Stack"];
+  IK[...] --> C;
+  IN[Encoder Output N] --> C;
+  C --> R[Reduce];
+  R --> FC[Fully Connected Layers];
+  FC --> ...;
+  subgraph COMBINER
+  C
+  R
+  FC
+  end
 ```
 
 The `transformer` combiner combines input features using a stack of Transformer blocks (from [Attention Is All You Need](https://arxiv.org/abs/1706.03762)).
@@ -217,26 +227,35 @@ Parameters:
 
 ### TabTransformer Combiner
 
-```
-+-----------+
-|Input      |
-|Feature 1  +-+
-+-----------+ |
-+-----------+ |  +-------------+  +--------------+    +------ +   +----------+  +----------+
-|           +--->| Categoricial+->|TabTransformer +-->|Reduce +-> | Combined +->|Fully     +->
-|           | |  | Embeddings  |  |Stack          |   +-------+   | Hidden   |  |Connected |
-|           | |  +-------------+  +---------------+               | Layers   |  |Layers    |
-|...        | |                                                   +----------+  +----------+
-|           | |                          +-----------+                 ^
-|           | |                          | Binary &  |                 |
-+-----------+ |------------------------->| Numerical |------------------
-+-----------+ |                          | Encodings |
-|Input      +-+                          +-----------+
-|Feature N  |
-+-----------+
+``` mermaid
+graph LR
+  I1[Category Embed 1] --> T1["Concat"];
+  IK[...] --> T1;
+  IN[Category Embed N] --> T1;
+  N1[Number Inputs ...] --> T4["Hidden Layers"];
+  B1[Binary Inputs ...] --> T4;
+  T1 --> T2["Transformer Stack"];
+  T2 --> T3["Reduce"];
+  T3 --> T4;
+  T4 --> T5["FC Layers"];
+  T5 --> ...;
+  subgraph COMBINER
+  T1
+  T2
+  T3
+  T4
+  T5
+  end
+  subgraph ENCODER OUTPUTS
+  I1
+  IK
+  IN
+  N1
+  B1
+  end
 ```
 
-The `tabtransformer` combiner combines input features in the following sequence of operations. Except for binary and number features, the combiner projects features to an embedding size. These features are concatenated as if they were a sequence and passed through a transformer. After the transformer, the number and binary features are concatenated (which are of size 1) and then concatenated  with the output of the transformer and is passed to a stack of fully connected layers (from [TabTransformer: Tabular Data Modeling Using Contextual Embeddings](https://arxiv.org/abs/2012.06678)).
+The `tabtransformer` combiner combines input features in the following sequence of operations. The combiner projects all encoder outputs except binary and number features into an embedding space. These features are concatenated as if they were a sequence and passed through a transformer. After the transformer, the number and binary features are concatenated (which are of size 1) and then concatenated  with the output of the transformer and is passed to a stack of fully connected layers (from [TabTransformer: Tabular Data Modeling Using Contextual Embeddings](https://arxiv.org/abs/2012.06678)).
 It assumes all outputs from encoders are tensors of size `b x h` where `b` is the batch size and `h` is the hidden
 dimension, which can be different for each input.
 If the input tensors have a different shape, it automatically flattens them.
@@ -255,36 +274,41 @@ Parameters:
 
 ### Comparator Combiner
 
-```
-+-----------+
-|Entity 1   |
-|Input      |
-|Feature 1  +-+
-+-----------+ |
-+-----------+ |  +-------+   +----------+
-|...        +--->|Concat +-->|FC Layers +--+
-|           | |  +-------+   +----------+  |
-+-----------+ |                            |
-+-----------+ |                            |
-|Entity 1   +-+                            |
-|Input      |                              |
-|Feature N  |                              |
-+-----------+                              |   +---------+
-                                           +-->| Compare +->
-+-----------+                              |   +---------+
-|Entity 2   |                              |
-|Input      |                              |
-|Feature 1  +-+                            |
-+-----------+ |                            |
-+-----------+ |  +-------+   +----------+  |
-|...        +--->|Concat +-->|FC Layers +--+
-|           | |  +-------+   +----------+
-+-----------+ |
-+-----------+ |
-|Entity 2   +-+
-|Input      |
-|Feature N  |
-+-----------+
+``` mermaid
+graph LR
+  I1[Entity 1 Embed 1] --> C1[Concat];
+  IK[...] --> C1;
+  IN[Entity 1 Embed N] --> C1;
+  C1 --> FC1[FC Layers];
+  FC1 --> COMP[Compare];
+
+  I2[Entity 2 Embed 1] --> C2[Concat];
+  IK2[...] --> C2;
+  IN2[Entity 2 Embed N] --> C2;
+  C2 --> FC2[FC Layers];
+  FC2 --> COMP;
+
+  COMP --> ...;
+
+  subgraph ENTITY1["ENTITY 1"]
+  I1
+  IK
+  IN
+  end
+
+  subgraph ENTITY2["ENTITY 2"]
+  I2
+  IK2
+  IN2
+  end
+
+  subgraph COMBINER
+  C1
+  FC1
+  C2
+  FC2
+  COMP
+  end
 ```
 
 The `comparator` combiner compares the hidden representation of two entities defined by lists of features.

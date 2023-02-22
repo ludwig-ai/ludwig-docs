@@ -21,16 +21,11 @@ the embeddings.
 The parameters are the same used for [set input features](../set_features#set-input-features-and-encoders) except for
 `reduce_output` which should not be used because the weighted sum already acts as a reducer.
 
-```
-+---+
-|0.0|          +-----+
-|1.0|   +-+    |emb 0|   +-----------+
-|1.0|   |0|    +-----+   |Weighted   |
-|0.0+--->1+---->emb 1+--->Sum        +->
-|0.0|   |5|    +-----+   |Operation  |
-|2.0|   +-+    |emb 5|   +-----------+
-|0.0|          +-----+
-+---+
+``` mermaid
+graph LR
+  A["0.0\n1.0\n1.0\n0.0\n0.0\n2.0\n0.0"] --> B["0\n1\n5"];
+  B --> C["emb 0\nemb 1\nemb 5"];
+  C --> D["Weighted\n Sum\n Operation"];
 ```
 
 The encoder parameters specified at the feature level are:

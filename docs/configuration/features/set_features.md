@@ -55,16 +55,11 @@ reduced on the sequence dimension and returned as an aggregated embedding vector
 Inputs are of size `b` while outputs are of size `b x h` where `b` is the batch size and `h` is the dimensionality of
 the embeddings.
 
-```
-+-+
-|0|          +-----+
-|0|   +-+    |emb 2|   +-----------+
-|1|   |2|    +-----+   |Aggregation|
-|0+--->4+---->emb 4+--->Reduce     +->
-|1|   |5|    +-----+   |Operation  |
-|1|   +-+    |emb 5|   +-----------+
-|0|          +-----+
-+-+
+``` mermaid
+graph LR
+  A["0\n0\n1\n0\n1\n1\n0"] --> B["2\n4\n5"];
+  B --> C["emb 2\nemb 4\nemb 5"];
+  C --> D["Aggregation\n Reduce\n Operation"];
 ```
 
 The encoder parameters specified at the feature level are:
@@ -152,12 +147,16 @@ Set features can be used when multi-label classification needs to be performed.
 There is only one decoder available for set features: a (potentially empty) stack of fully connected layers, followed by
 a projection into a vector of size of the number of available classes, followed by a sigmoid.
 
-```
-+--------------+   +---------+   +-----------+
-|Combiner      |   |Fully    |   |Projection |   +-------+
-|Output        +--->Connected+--->into Output+--->Sigmoid|
-|Representation|   |Layers   |   |Space      |   +-------+
-+--------------+   +---------+   +-----------+
+``` mermaid
+graph LR
+  A["Combiner\n Output"] --> B["Fully\n Connected\n Layers"];
+  B --> C["Projection into\n Output Space"];
+  C --> D["Sigmoid"];
+  subgraph DEC["DECODER.."]
+  B
+  C
+  D
+  end
 ```
 
 These are the available parameters of the set output feature

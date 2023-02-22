@@ -146,6 +146,11 @@ graph LR
   A["Combiner\n Output"] --> B["Fully\n Connected\n Layers"];
   B --> C["Projection into\n Output Space"];
   C --> D["Softmax"];
+  subgraph DEC["DECODER.."]
+  B
+  C
+  D
+  end
 ```
 
 These are the available parameters of a category output feature

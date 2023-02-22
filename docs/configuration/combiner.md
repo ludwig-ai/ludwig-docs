@@ -12,18 +12,17 @@ the `concat` combiner will be used.
 
 ### Concat Combiner
 
-```
-+-----------+
-|Input      |
-|Feature 1  +-+
-+-----------+ |            +---------+
-+-----------+ | +------+   |Fully    |
-|...        +--->Concat+--->Connected+->
-+-----------+ | +------+   |Layers   |
-+-----------+ |            +---------+
-|Input      +-+
-|Feature N  |
-+-----------+
+``` mermaid
+graph LR
+  I1[Input Feature 1] --> C[Concat];
+  IK[...] --> C;
+  IN[Input Feature N] --> C;
+  C --> FC[Fully Connected Layers];
+  FC --> ...
+  subgraph COMBINER
+  C
+  FC
+  end
 ```
 
 The `concat` combiner assumes all outputs from encoders are tensors of size `b x h` where `b` is the batch size and `h`

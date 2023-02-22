@@ -122,12 +122,15 @@ Vector features can be used when multi-class classification needs to be performe
 There is only one decoder available for vector features: a (potentially empty) stack of fully connected layers, followed
 by a projection into a tensor of the vector size (optionally followed by a softmax in the case of multi-class classification).
 
-```
-+--------------+   +---------+   +-----------+
-|Combiner      |   |Fully    |   |Projection |   +-------+
-|Output        +--->Connected+--->into Vector+--->Softmax|
-|Representation|   |Layers   |   |Size       |   +-------+
-+--------------+   +---------+   +-----------+
+``` mermaid
+graph LR
+  A["Combiner Output"] --> B["Fully\n Connected\n Layers"];
+  B --> C["Projection into\nVector Size"] --> D["Softmax"];
+  subgraph DEC["DECODER.."]
+  B
+  C
+  D
+  end
 ```
 
 These are the available parameters of the vector output feature.

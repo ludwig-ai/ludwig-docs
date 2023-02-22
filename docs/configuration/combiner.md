@@ -19,7 +19,7 @@ graph LR
   IN[Encoder Output N] --> C;
   C --> FC[Fully Connected Layers];
   FC --> ...;
-  subgraph COMBINER
+  subgraph COMBINER..
   C
   FC
   end
@@ -58,24 +58,24 @@ graph LR
   SCK --> R;
   SCN --> R;
   R --> ...;
-  subgraph CONCAT["TENSOR"]
+  subgraph CONCAT["TENSOR.."]
     direction TB
     SC1["emb seq 1 | emb oth" ];
     SCK[...];
     SCN["emb seq n | emb oth"];
   end
-  subgraph COMBINER
+  subgraph COMBINER..
   X1
   CONCAT
   R
   end
-  subgraph SF[SEQUENCE FEATS]
+  subgraph SF[SEQUENCE FEATS..]
   direction TB
   I1["emb seq 1" ];
   IK[...];
   IN["emb seq n"];
   end
-  subgraph OF[OTHER FEATS]
+  subgraph OF[OTHER FEATS..]
   direction TB
   IO["emb oth"]
   end
@@ -121,24 +121,24 @@ graph LR
   SCK --> R;
   SCN --> R;
   R --> ...;
-  subgraph CONCAT["TENSOR"]
+  subgraph CONCAT["TENSOR.."]
     direction TB
     SC1["emb seq 1 | emb oth" ];
     SCK[...];
     SCN["emb seq n | emb oth"];
   end
-  subgraph COMBINER
+  subgraph COMBINER..
   X1
   CONCAT
   R
   end
-  subgraph SF[SEQUENCE FEATS]
+  subgraph SF[SEQUENCE FEATS..]
   direction TB
   I1["emb seq 1" ];
   IK[...];
   IN["emb seq n"];
   end
-  subgraph OF[OTHER FEATS]
+  subgraph OF[OTHER FEATS..]
   direction TB
   IO["emb oth"]
   end
@@ -194,7 +194,7 @@ graph LR
   C --> R[Reduce];
   R --> FC[Fully Connected Layers];
   FC --> ...;
-  subgraph COMBINER
+  subgraph COMBINER..
   C
   R
   FC
@@ -239,19 +239,19 @@ graph LR
   T3 --> T4;
   T4 --> T5["FC Layers"];
   T5 --> ...;
-  subgraph COMBINER
+  subgraph COMBINER..
   CAT
   T4
   T5
   end
-  subgraph ENCODER OUT
+  subgraph ENCODER OUT..
   I1
   IK
   IN
   N1
   B1
   end
-  subgraph CAT["CATEGORY PIPELINE"]
+  subgraph CAT["CATEGORY PIPELINE.."]
   direction TB
   T1
   T2
@@ -294,19 +294,19 @@ graph LR
 
   COMP --> ...;
 
-  subgraph ENTITY1["ENTITY 1"]
+  subgraph ENTITY1["ENTITY 1.."]
   I1
   IK
   IN
   end
 
-  subgraph ENTITY2["ENTITY 2"]
+  subgraph ENTITY2["ENTITY 2.."]
   I2
   IK2
   IN2
   end
 
-  subgraph COMBINER
+  subgraph COMBINER..
   C1
   FC1
   C2

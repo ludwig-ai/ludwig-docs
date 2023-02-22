@@ -229,29 +229,33 @@ Parameters:
 
 ``` mermaid
 graph LR
-  I1[Category Embed 1] --> T1["Concat"];
+  I1[Cat Emb 1] --> T1["Concat"];
   IK[...] --> T1;
-  IN[Category Embed N] --> T1;
-  N1[Number Inputs ...] --> T4["Hidden Layers"];
-  B1[Binary Inputs ...] --> T4;
-  T1 --> T2["Transformer Stack"];
+  IN[Cat Emb N] --> T1;
+  N1[Number ...] --> T4["Concat"];
+  B1[Binary ...] --> T4;
+  T1 --> T2["Transformer"];
   T2 --> T3["Reduce"];
   T3 --> T4;
   T4 --> T5["FC Layers"];
   T5 --> ...;
   subgraph COMBINER
-  T1
-  T2
-  T3
+  CAT
   T4
   T5
   end
-  subgraph ENCODER OUTPUTS
+  subgraph ENCODER OUT
   I1
   IK
   IN
   N1
   B1
+  end
+  subgraph CAT["CATEGORY PIPELINE"]
+  direction TB
+  T1
+  T2
+  T3
   end
 ```
 

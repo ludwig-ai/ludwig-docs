@@ -1,3 +1,5 @@
+{% from './macros/includes.md' import render_fields, render_yaml %}
+
 ## Time Series Features Preprocessing
 
 Timeseries features are handled as sequence features, with the only difference being that the matrix in the HDF5
@@ -6,6 +8,8 @@ preprocessing file uses floats instead of integers.
 Since data is continuous, the JSON file, which typically stores vocabulary mappings, isn't needed.
 
 ## Time Series Input Features and Encoders
+
+### Sequence Encoders
 
 Time series encoders are the same as for [Sequence Features](../sequence_features#sequence-input-features-and-encoders), with one exception:
 
@@ -27,6 +31,29 @@ tied: null
 encoder: 
     type: parallel_cnn
 ```
+
+### Passthrough Encoder
+
+``` mermaid
+graph LR
+  A["12\n7\n43\n65\n23\n4\n1"] --> B["Cast float32"];
+  B --> C["Aggregation\n Reduce\n Operation"];
+  C --> ...;
+```
+
+The passthrough encoder simply transforms each input value into a float value and adds a dimension to the input tensor,
+creating a `b x s x 1` tensor where `b` is the batch size and `s` is the length of the sequence.
+The tensor is reduced along the `s` dimension to obtain a single vector of size `h` for each element of the batch.
+If you want to output the full `b x s x h` tensor, you can specify `reduce_output: null`.
+This encoder is not really useful for `sequence` or `text` features, but may be useful for `timeseries` features, as it
+allows for using them without any processing in later stages of the model, like in a sequence combiner for instance.
+
+{% set encoder = get_encoder_schema("timeseries", "passthrough") %}
+{{ render_yaml(encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(encoder, exclude=["type"])) }}
 
 ## Time Series Output Features and Decoders
 

@@ -54,11 +54,6 @@ the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
 ### Embed Encoder
 
-The embed encoder simply maps each token in the input sequence to an embedding, creating a `b x s x h` tensor where `b`
-is the batch size, `s` is the length of the sequence and `h` is the embedding size.
-The tensor is reduced along the `s` dimension to obtain a single vector of size `h` for each element of the batch.
-If you want to output the full `b x s x h` tensor, you can specify `reduce_output: null`.
-
 ``` mermaid
 graph LR
   A["12\n7\n43\n65\n23\n4\n1"] --> B["emb_12\nemb__7\nemb_43\nemb_65\nemb_23\nemb__4\nemb__1"];
@@ -66,52 +61,17 @@ graph LR
   C --> ...;
 ```
 
-These are the parameters available for the embed encoder
+The embed encoder simply maps each token in the input sequence to an embedding, creating a `b x s x h` tensor where `b`
+is the batch size, `s` is the length of the sequence and `h` is the embedding size.
+The tensor is reduced along the `s` dimension to obtain a single vector of size `h` for each element of the batch.
+If you want to output the full `b x s x h` tensor, you can specify `reduce_output: null`.
 
-- `representation` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
-initialized randomly, `sparse` means they are initialized to be one-hot encodings.
-- `embedding_size` (default `256`): it is the maximum embedding size, the actual size will be
-`min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
-encoding, where `vocabulary_size` is the number of unique strings appearing in the training set input column plus the
-number of special tokens (`<UNK>`, `<PAD>`, `<SOS>`, `<EOS>`).
-- `embeddings_trainable` (default `true`): If `true` embeddings are trained during the training process, if `false`
-embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter
-has effect only when `representation` is `dense`, `sparse` one-hot encodings are not trainable.
-- `pretrained_embeddings` (default `null`): by default `dense` embeddings are initialized randomly, but this parameter
-allows to specify a path to a file containing embeddings in the [GloVe format](https://nlp.stanford.edu/projects/glove/).
-When the file containing the embeddings is loaded, only the embeddings with labels present in the vocabulary are kept,
-the others are discarded. If the vocabulary contains strings that have no match in the embeddings file, their embeddings
-are initialized with the average of all other embedding plus some random noise to make them different from each other.
-This parameter has effect only if `representation` is `dense`.
-- `embeddings_on_cpu` (default `false`): by default embedding matrices are stored on GPU memory if a GPU is used, as it
-allows for faster access, but in some cases the embedding matrix may be too large. This parameter forces the
-placement of the embedding matrix in regular memory and the CPU is used for embedding lookup, slightly slowing down the
-process as a result of data transfer between CPU and GPU memory.
-- `dropout` (default `0`): dropout rate.
-- `weights_initializer` (default `glorot_uniform`): initializer for the weight matrix. Options are: `constant`,
-`identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
-`glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
-Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
-keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
-refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `reduce_output` (default `sum`): defines how to reduce the output tensor along the `s` sequence length dimension if
-the rank of the tensor is greater than 2. Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates
-along the sequence dimension), `last` (selects the last vector of the sequence dimension) and  `null` (which does not
-reduce and returns the full tensor).
+{% set text_encoder = get_encoder_schema("text", "embed") %}
+{{ render_yaml(text_encoder, parent="encoder") }}
 
-Example text feature entry in the input features list using an embed encoder:
+Parameters:
 
-```yaml
-name: text_column_name
-type: text
-encoder: 
-    type: embed
-    representation: dense
-    embedding_size: 256
-    embeddings_trainable: true
-    dropout: 0
-    reduce_output: sum
-```
+{{ render_fields(schema_class_to_fields(text_encoder, exclude=["type"])) }}
 
 ### Parallel CNN Encoder
 

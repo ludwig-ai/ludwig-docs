@@ -3,7 +3,9 @@ import yaml
 
 # Force populate combiner registry:
 import ludwig.combiners.combiners  # noqa: F401
+from ludwig.constants import MODEL_ECD
 from ludwig.schema.combiners.utils import get_combiner_registry
+from ludwig.schema.encoders.utils import get_encoder_cls
 from ludwig.schema.features.preprocessing.utils import preprocessing_registry
 from ludwig.schema.trainer import trainer_schema_registry
 from ludwig.schema.optimizers import optimizer_registry
@@ -67,6 +69,10 @@ def define_env(env):
     @env.macro
     def get_feature_preprocessing_schema(type: str):
         return preprocessing_registry[type]
+    
+    @env.macro
+    def get_encoder_schema(feature: str, type: str):
+        return get_encoder_cls(MODEL_ECD, feature, type)
 
     @env.macro
     def get_combiner_schema(type: str):

@@ -132,7 +132,7 @@ Sequence, text, and set features tokenize features as part of preprocessing. The
 - `space`: splits on space characters using the regex `\s+`.
 - `space_punct`: splits on space characters and punctuation using the regex `\w+|[^\w\s]`.
 - `underscore`: splits on the underscore character `_`.
-- `comma`: splits on the underscore character `,`.
+- `comma`: splits on the comma character `,`.
 - `untokenized`: treats the whole string as a single token.
 - `stripped`: treats the whole string as a single token after removing spaces at the beginning and at the end of the string.
 - `ngram`: this will create a vocab that consists of unigrams and bigrams.

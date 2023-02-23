@@ -100,14 +100,14 @@ The sample size used for inferring dimensions of images in `infer_image_dimensio
 
 - Default: 100
 
-### `scaling`
+### `standardize_image`
 
 The scaling strategy for pixel values in the image.
 
-- Default: `pixel_normalization`
+- Default: `None`
 - Options:
-  - `pixel_normalization`: Normalizes pixel values to be between 0 and 1 by dividing each pixel value by 255.
-  - `pixel_standardization`: Normalizes pixel values based on the mean and standard deviation of images in ImageNet.
+    - `None`: No modification to image pixel values.
+    - `imagenet1k`: Normalizes pixel values based on the mean and standard deviation of images in ImageNet.
 
 ### `in_memory`
 
@@ -153,20 +153,21 @@ The encoder parameters specified at the feature level are:
 
 - `tied` (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
 a feature of the same type and with the same encoder parameters.
+- `augmentation` (default `False`): specifies image data augmentation operations to generate synthetic training data.  More details on image augmentation can be found [here](#image-augmentation).
 
 Example image feature entry in the input features list:
 
 ```yaml
-name: category_column_name
-type: category
+name: image_column_name
+type: image
 tied: null
 encoder: 
-    type: dense
+    type: stacked_cnn
 ```
 
 The available encoder parameters are:
 
-- `type` (default `stacked_cnn`): the possible values are `stacked_cnn`, `resnet`, `mlp_mixer`, and `vit`.
+- `type` (default `stacked_cnn`): the possible values are `stacked_cnn`, `resnet`, `mlp_mixer`, `vit`, and [TorchVision Pretrained Image Classification models](#torchvision-pretrained-model-encoders).
 
 Encoder type and encoder parameters can also be defined once and applied to all image input features using the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
@@ -423,6 +424,9 @@ encoder:
 
 ## ResNet Encoder
 
+DEPRECATED: This encoder is deprecated and will be removed in a future release. Please use the equivalent 
+TorchVision encoder instead.
+
 Implements ResNet V2 as described in [Identity Mappings in Deep Residual Networks](https://arxiv.org/abs/1603.05027).
 
 The ResNet encoder takes the following optional parameters:
@@ -491,7 +495,7 @@ encoder:
     dropout: 0
 ```
 
-### MLP-Mixer Encoder
+## MLP-Mixer Encoder
 
 Encodes images using MLP-Mixer, as described in [MLP-Mixer: An all-MLP Architecture for Vision](https://arxiv.org/abs/2105.01601).
 MLP-Mixer divides the image into equal-sized patches, applying fully connected layers to each patch to compute per-patch
@@ -530,7 +534,10 @@ encoder:
     avg_pool: True
 ```
 
-### Vision Transformer Encoder
+## Vision Transformer Encoder
+
+DEPRECATED: This encoder is deprecated and will be removed in a future release. Please use the equivalent 
+TorchVision encoder instead.
 
 Encodes images using a Vision Transformer as described in
 [An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929).
@@ -572,6 +579,227 @@ preprocessing:
 encoder: 
     type: vit
     use_pretrained: true
+```
+
+## TorchVision Pretrained Model Encoders
+
+Twenty TorchVision pretrained image classification models are available as Ludwig image encoders.  The available models 
+are `AlexNet`, `ConvNeXt`, `DenseNet`, `EfficientNet`, `EfficientNetV2`, `GoogLeNet`, `Inception V3`, `MaxVit`, 
+`MNASNet`, `MobileNet V2`, `MobileNet V3`, `RegNet`, `ResNet`, `ResNeXt`, `ShuffleNet V2`, `SqueezeNet`, 
+`SwinTransformer`, `VGG`, `VisionTransformer`, `Wide ResNet`.  
+See [TorchVison documentation](https://pytorch.org/vision/stable/models.html#classification) for more details.
+
+Ludwig encoders parameters for TorchVisoin pretrained models:
+
+- `type`: Specifies the TorchVision model to use as an image encoder. See following table for valid values.
+- `model_variant` (default varies by model `type`): specifies the architecture for the specified encoder `type`. 
+See following table for valid values for each model `type`.
+- `use_pretrained` (default `true`): Use pre-trained model weights from TorchVision (`true`) or create a encoder with
+randomly initialized weights for training from scratch (`false`).
+- `pretrained_cache_dir`(default `None`): Specifies location to cache downloaded pretrained weights.  `None` indicates
+the TorchVision default location.
+- `trainable` (default `true`): Indicates whether the encoder parameters should be updated during training (`true`) 
+or frozen (`false`).
+
+**Table of encoder `type` and `model_variant`**
+
+| Model ( Encoder `type`)                    | Encoder `model_variant`                                                                                                                                               |
+|--------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| AlexNet (`alexnet`)                  | `base` (default)                                                                                                                                                      |
+| ConvNext (`convnext`)                | `tiny` (default), `small`, `base`, `large`                                                                                                                            |
+| DenseNet (`densenet`)                | `121` (default), `161`, `169`, `201`                                                                                                                                  |
+| EfficientNet (`efficientnet`)        | `b0` (default), `b1`, `b2`, `b3`, `b4`, `b5`, `b6`, `b7`                                                                                                              |
+| EfficientNet V2 (`efficientnet`)     | `v2_s`, `v2_m`, `v2_l`                                                                                                                                                |
+| GoogLeNet (`googlenet`)              | `base` (default)                                                                                                                                                      |
+| Inception V3 (`inceptionv3`)         | `base` (default)                                                                                                                                                      |
+| MaxViT (`maxvit`)                    | `t` (default)                                                                                                                                                         |
+| MNASNet (`mnasnet`)                  | `0_5` (default), `0_75`, `1_0`, `1_3`                                                                                                                                 |
+| MobileNet V2 (`mobilenetv2`)         | `base` (default)                                                                                                                                                      |
+| MobileNet V3 (`mobilenetv3`)         | `small` (default), `large`                                                                                                                                            |
+| RegNet (`regnet`)                    | `x_1_6gf` (default), `x_16gf`, `x_32gf`, `x_3_2gf`, `x_400mf`, `x_800mf`, `x_8gf`, `y_128gf`, `y_16gf`, `y_1_6gf`, `y_32gf`, `y_3_2gf`, `y_400mf`, `y_800mf`, `y_8gf` |
+| ResNet (`resnet`)                    | `18` (default), `34`, `50`, `101`, `152`                                                                                                                              |
+| ResNeXt (`resnext`)                  | `50_32x4d` (default), `101_32x8d `,`101_64x4d`                                                                                                                        |
+| ShuffleNet V2 (`shufflenet_v2`)      | `x0_5` (default), `x1_0`, `x1_5`,`x2_0`                                                                                                                               |
+| SqueezeNet (`squeezenet`)            | `1_0` (default), `1_1`                                                                                                                                                |
+| SwinTransformer (`swin_transformer`) | `t` (default), `s`, `b`                                                                                                                                               |
+| VGG (`vgg`)                          | `11` (default), `13`, `16`, `19`, `11_bn`, `13_bn`, `16_bn`, `19_bn`                                                                                                  |
+| Vision Transformer (`vit`)           | `b_16` (default), `b_32`, `l_16`, `l_32`, `h_14`                                                                                                                      |
+| Wide ResNet (`wide_resnet`)          | `50_2` (default), `101_2`                                                                                                                                             |
+
+
+Example of image feature configuration using the TorchVision ResNet model:
+
+```yaml
+name: image_column_name
+type: image
+encoder: 
+    type: resnet
+    model_variant: 18
+    use_pretrained: true
+    pretrained_cache_dir: None
+    trainable: true
+```
+
+**Note**: 
+
+* At this time Ludwig supports only the `DEFAULT` pretrained weights, which are the best available weights for a specific
+model. More details on `DEFAULT` weights can be found in this 
+[blog post](https://pytorch.org/blog/introducing-torchvision-new-multi-weight-support-api/).
+* Some TorchVision pretrained models consume large amounts of memory.  These `model_variant` required more than 
+12GB of memory:
+    * `efficientnet_torch`: `b7`
+    * `regnet_torch`: `y_128gf`
+    * `vit_torch`: `h_14`
+
+
+## Image Augmentation
+
+Image augmentation is a technique used to increase the diversity of a training dataset by applying random
+transformations to the images.  The goal is to train a model that is robust to the variations in the training data.
+
+Augmentation is specified by the `augmentation` section in the image feature configuration and can be specified in one of the following ways:
+
+**Boolean: `False` (Default)** No augmentation is applied to the images.
+```yaml
+augmentation: False
+```
+
+**Boolean: `True`** The following augmentation methods are applied to the images: random_horizontal_flip and random_rotate.
+```yaml
+augmentation: True
+```
+**List of Augmentation Methods** One or more of the following augmentation methods are applied to the images in the order specified by the user: random_horizontal_flip, random_vertical_flip, random_rotate, random_blur, random_brightness, and random_contrast.  The following is an illustrative example.
+```yaml
+augmentation:
+    - type: random_horizontal_flip
+    - type: random_vertical_flip
+    - type: random_rotate
+      degree: 10
+    - type: random_blur
+      kernel_size: 3
+    - type: random_brightness
+      min: 0.5
+      max: 2.0
+    - type: random_contrast
+      min: 0.5
+      max: 2.0
+```
+
+Augmentation is applied to the batch of images in the training set only.  The validation and test sets are not augmented.
+
+Following illustrates how augmentation affects an image:
+
+![Original Image](augmentation_samples/original.png)
+
+**Horizontal Flip**: Image is randomly flipped horizontally.
+
+```yaml
+augmentation:
+    - type: random_horizontal_flip
+```
+
+![Horizontal Flip](augmentation_samples/horizontal_flip.png)
+    
+**Vertical Flip**:  Image is randomly flipped vertically.
+
+```yaml
+augmentation:
+    - type: random_vertical_flip
+```
+
+![Vertiacal Flip](augmentation_samples/vertical_flip.png)
+
+**Rotate**: Image is randomly rotated by an amount in the range [-degree, +degree].  `degree` must be a positive integer.
+
+```yaml
+augmentation:
+    - type: random_rotate
+      degree: 45
+```
+
+Following shows the effect of rotating an image:
+
+![Rotate Image](augmentation_samples/rotation.png)
+
+**Blur**:  Image is randomly blurred using a Gaussian filter with kernel size specified by the user.  The `kernel_size` must be a positive, odd integer.
+
+```yaml
+augmentation:
+    - type: random_blur
+      kernel_size: 3
+```
+
+Following shows the effect of blurring an image with various kernel sizes:
+
+![Blur Image](augmentation_samples/blur.png)
+
+**Adjust Brightness**: Image brightness is adjusted by a factor randomly selected in the range [min, max].   Both `min` and `max` must be a float greater than 0, with `min` less than `max`.
+
+```yaml
+augmentation:
+    - type: random_brightness
+      min: 0.5
+      max: 2.0
+```
+
+Following shows the effect of brightness adjustment with various factors:
+
+![Adjust Brightness](augmentation_samples/brightness.png)
+
+**Adjust Contrast**: Image contrast is adjusted by a factor randomly selected in the range [min, max].  Both `min` and `max` must be a float greater than 0, with `min` less than `max`.
+
+```yaml
+augmentation:
+    - type: random_contrast
+      min: 0.5
+      max: 2.0
+```
+
+Following shows the effect of contrast adjustment with various factors:
+
+![Adjust Contrast](augmentation_samples/contrast.png)
+
+
+**Illustrative Examples of Image Feature Configuration with Augmentation**
+
+```yaml
+name: image_column_name
+type: image
+encoder: 
+    type: resnet
+    model_variant: 18
+    use_pretrained: true
+    pretrained_cache_dir: None
+    trainable: true
+augmentation: false
+```
+
+```yaml
+name: image_column_name
+type: image
+encoder: 
+    type: stacked_cnn
+augmentation: true
+```
+
+```yaml
+name: image_column_name
+type: image
+encoder: 
+    type: alexnet
+augmentation:
+    - type: random_horizontal_flip
+    - type: random_rotate
+      degree: 10
+    - type: random_blur
+      kernel_size: 3
+    - type: random_brightness
+      min: 0.5
+      max: 2.0
+    - type: random_contrast
+      min: 0.5
+      max: 2.0
+    - type: random_vertical_flip
 ```
 
 # Image Output Features and Decoders

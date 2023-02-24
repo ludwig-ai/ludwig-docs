@@ -35,7 +35,7 @@ The other two encoders map to either `dense` or `sparse` embeddings (one-hot enc
 
 The encoder parameters specified at the feature level are:
 
-- `tied` (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
+- **`tied`** (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
 a feature of the same type and with the same encoder parameters.
 
 Example category feature entry in the input features list:
@@ -50,7 +50,7 @@ encoder:
 
 The available encoder parameters are:
 
-- `type` (default `dense`): the possible values are `passthrough`, `dense` and `sparse`. `passthrough` outputs the
+- **`type`** (default `dense`): the possible values are `passthrough`, `dense` and `sparse`. `passthrough` outputs the
 raw integer values unaltered. `dense` randomly initializes a trainable embedding matrix, `sparse` uses one-hot encoding.
 
 Encoder type and encoder parameters can also be defined once and applied to all category input features using
@@ -58,69 +58,21 @@ the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
 ### Dense Encoder
 
-- `embedding_size` (default `256`): the maximum embedding size, the actual size will be
-`min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
-encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the column the
-feature is named after (plus 1 for `<UNK>`).
-- `embeddings_on_cpu` (default `false`): by default embedding matrices are stored on GPU memory if a GPU is used, as it
-allows for faster access, but in some cases the embedding matrix may be too large. This parameter forces the
-placement of the embedding matrix in regular memory and the CPU is used for embedding lookup, slightly slowing down the
-process as a result of data transfer between CPU and GPU memory.
-- `pretrained_embeddings` (default `null`): by default `dense` embeddings are initialized randomly, but this parameter
-allows to specify a path to a file containing embeddings in the [GloVe format](https://nlp.stanford.edu/projects/glove/).
-When the file containing the embeddings is loaded, only the embeddings with labels present in the vocabulary are kept,
-the others are discarded. If the vocabulary contains strings that have no match in the embeddings file, their embeddings
-are initialized with the average of all other embedding plus some random noise to make them different from each other.
-This parameter has effect only if `representation` is `dense`.
-- `embeddings_trainable` (default `true`): If `true` embeddings are trained during the training process, if `false`
-embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter
-has effect only when `representation` is `dense` as `sparse` one-hot encodings are not trainable.
-- `dropout` (default `0`): dropout rate.
-- `embedding_initializer` (default `null`): the initializer to use. If `null`, the default initialized of each variable
-is used (`glorot_uniform` in most cases). Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`,
-`uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`,
-`he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
+{% set encoder = get_encoder_schema("category", "dense") %}
+{{ render_yaml(encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(encoder, exclude=["type"])) }}
 
 ### Sparse Encoder
 
-- `embedding_size` (default `256`): it is the maximum embedding size, the actual size will be
-`min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
-encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the column the
-feature is named after (plus 1 for `<UNK>`).
-- `embeddings_on_cpu` (default `false`): by default embedding matrices are stored on GPU memory if a GPU is used, as it
-allows for faster access, but in some cases the embedding matrix may be too large. This parameter forces the
-placement of the embedding matrix in regular memory and the CPU is used for embedding lookup, slightly slowing down the
-process as a result of data transfer between CPU and GPU memory.
-- `pretrained_embeddings` (default `null`): by default `dense` embeddings are initialized randomly, but this parameter
-allows to specify a path to a file containing embeddings in the [GloVe format](https://nlp.stanford.edu/projects/glove/).
-When the file containing the embeddings is loaded, only the embeddings with labels present in the vocabulary are kept,
-the others are discarded. If the vocabulary contains strings that have no match in the embeddings file, their embeddings
-are initialized with the average of all other embedding plus some random noise to make them different from each other.
-This parameter has effect only if `representation` is `dense`.
-- `embeddings_trainable` (default `true`): If `true` embeddings are trained during the training process, if `false`
-embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter
-has effect only when `representation` is `dense` as `sparse` one-hot encodings are not trainable.
-- `dropout` (default `0`): dropout rate
-- `embedding_initializer` (default `null`): the initializer to use. If `null`, the default initialized of each variable
-is used (`glorot_uniform` in most cases). Options are: `constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`,
-`uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`,
-`he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
+{% set encoder = get_encoder_schema("category", "sparse") %}
+{{ render_yaml(encoder, parent="encoder") }}
 
-Example category feature entry in the input features list:
+Parameters:
 
-```yaml
-name: category_column_name
-type: category
-tied: null
-encoder: 
-    type: sparse
-    embedding_size: 256
-    embeddings_on_cpu: false
-    pretrained_embeddings: null
-    embeddings_trainable: true
-    dropout: 0
-    embedding_initializer: null
-```
+{{ render_fields(schema_class_to_fields(encoder, exclude=["type"])) }}
 
 ## Category Output Features and Decoders
 

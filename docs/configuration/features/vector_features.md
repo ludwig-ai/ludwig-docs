@@ -1,3 +1,8 @@
+{% from './macros/includes.md' import render_fields, render_yaml %}
+{% set mv_details = "See [Missing Value Strategy](./input_features.md#missing-value-strategy) for details." %}
+{% set norm_details = "See [Normalization](../combiner.md#normalization) for details." %}
+{% set details = {"missing_value_strategy": mv_details, "norm": norm_details, "fc_norm": norm_details} %}
+
 Vector features enable providing an ordered set of numerical values within a single feature.
 
 This is useful for providing pre-trained representations or activations obtained from other models or for providing
@@ -9,22 +14,12 @@ feature. Vector output features can also be useful for distillation and noise-aw
 
 The data is expected as whitespace separated numerical values. Example: "1.0 0.0 1.04 10.49".  All vectors are expected to be of the same size.
 
-Preprocessing parameters:
+{% set preprocessing = get_feature_preprocessing_schema("vector") %}
+{{ render_yaml(preprocessing, parent="preprocessing") }}
 
-- `vector_size` (default `null`): size of the vector. If not provided, it will be inferred from the data.
-- `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `bfill` (replaces the missing values with the next valid value), `ffill` (replaces the missing values with the previous valid value) or `drop_row`.
-- `fill_value` (default `""`): the value to replace the missing values with in case the `missing_value_strategy` is `fill_with_const`.
+Parameters:
 
-Configuration example:
-
-```yaml
-name: vector_feature_name
-type: vector
-preprocessing:
-    vector_size: null
-    missing_value_strategy: fill_with_const
-    fill_value: ""
-```
+{{ render_fields(schema_class_to_fields(preprocessing), details=details) }}
 
 Preprocessing parameters can also be defined once and applied to all vector input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 

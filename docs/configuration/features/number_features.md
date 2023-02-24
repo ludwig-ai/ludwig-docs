@@ -140,7 +140,7 @@ Parameters:
 {{ render_fields(schema_class_to_fields(loss, exclude=["type"]), details=details) }}
 {% endfor %}
 
-Loss and loss related parameters can also be defined once and applied to all category output features using the [Type-Global Loss](../defaults.md#type-global-loss) section.
+Loss and loss related parameters can also be defined once and applied to all number output features using the [Type-Global Loss](../defaults.md#type-global-loss) section.
 
 ### Metrics
 

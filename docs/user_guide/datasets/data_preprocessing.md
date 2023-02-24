@@ -11,9 +11,9 @@ Ludwig data preprocessing performs a few different operations on the incoming da
 1. (optional) **Balancing data** which can be useful for datasets with heavily underrepresented or overrepresented
    classes.
 
-Data preprocessing maps raw data to two files: 1) an processed dataset file containing tensors (HDF5 when running locally, 
+Data preprocessing maps raw data to two files: 1) an processed dataset file containing tensors (HDF5 when running locally,
 Parquet when running on Ray) and 2) a JSON file of metadata.
-The processed dataset and metadata files are saved in the [cache directory](../../configuration/backend.md) (defaults to the 
+The processed dataset and metadata files are saved in the [cache directory](../../configuration/backend.md) (defaults to the
 same directory as the input dataset), unless `--skip_save_processed_input` is
 used. The two files will serve as a cache to help avoid performing the same preprocessing again for subsequent experiments, which can be time
 consuming.

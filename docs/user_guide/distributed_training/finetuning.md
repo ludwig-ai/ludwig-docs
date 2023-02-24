@@ -1,4 +1,4 @@
-Fine-tuning is the process of taking a model previously trained one dataset, and 
+Fine-tuning is the process of taking a model previously trained one dataset, and
 adapting it to a more specialized dataset / task. Typically the original dataset
 is very large and very general (for example: a crawl of a large portion of the public
 Internet), and consequently the models are very large in order to reason about all this
@@ -114,7 +114,7 @@ the default value of `100`, then too much time will be spent in warmup and the d
 
 The base `trainer.learning_rate` will be scaled up as the number of training workers increases for distributed training. By
 default the learning rate will scale linearly (`linear`), but this can be relaxed if you notice catastrophic forgetting is
-occurring, in which case a softer `learning_rate_scaling=sqrt` setting may be worth considering. 
+occurring, in which case a softer `learning_rate_scaling=sqrt` setting may be worth considering.
 
 ```yaml
 trainer:
@@ -147,7 +147,7 @@ trainer:
 ## Backend
 
 Fine-tuning large pretrained models typically benefit from [distributed training](./index.md) without
-requiring a lot of additional hyperparameter tuning. As such, we recommend using the Ray [backend](../../configuration/backend.md) 
+requiring a lot of additional hyperparameter tuning. As such, we recommend using the Ray [backend](../../configuration/backend.md)
 in order to take advantage of multi-GPU training and to scale to large datasets.
 
 In most cases, the `horovod` or `ddp` distributed [strategy](../../configuration/backend.md#trainer) will work well, but if the

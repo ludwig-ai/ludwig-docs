@@ -25,7 +25,7 @@ def flatten(d, prefix=""):
             default = v.load_default
             if callable(default):
                 default = default()
-            
+
             cls = type(default)
             if hasattr(cls, "get_class_schema"):
                 schema = cls.get_class_schema()()
@@ -36,7 +36,7 @@ def flatten(d, prefix=""):
 
 
 def dump_value(v):
-    return json.dumps(v).lstrip('\"').rstrip('\"')
+    return json.dumps(v).lstrip('"').rstrip('"')
 
 
 def is_internal(field):
@@ -61,34 +61,33 @@ def field_sort_order(name, field):
         return -100
     if name == "column":
         return -99
-    
+
     return -expected_impact(field)
 
 
 def sort_fields(fields_dict):
     return {
-        k: v for k, v in
-        sorted(fields_dict.items(), key=lambda x: field_sort_order(*x))
-    } 
+        k: v for k, v in sorted(fields_dict.items(), key=lambda x: field_sort_order(*x))
+    }
 
 
 def define_env(env):
     @env.macro
     def get_feature_preprocessing_schema(type: str):
         return preprocessing_registry[type]
-    
+
     @env.macro
     def get_input_feature_schema(type: str):
         return get_input_feature_cls(type)
-    
+
     @env.macro
     def get_output_feature_schema(type: str):
         return get_output_feature_cls(type)
-    
+
     @env.macro
     def get_encoder_schema(feature: str, type: str):
         return get_encoder_cls(MODEL_ECD, feature, type)
-    
+
     @env.macro
     def get_decoder_schema(feature: str, type: str):
         return get_decoder_cls(feature, type)
@@ -96,15 +95,15 @@ def define_env(env):
     @env.macro
     def get_combiner_schema(type: str):
         return get_combiner_registry()[type].get_schema_cls()
-    
+
     @env.macro
     def get_trainer_schema(model_tyoe: str):
         return trainer_schema_registry[model_tyoe]
-    
+
     @env.macro
     def get_optimizer_schemas():
         return [v[1] for v in optimizer_registry.values()]
-    
+
     @env.macro
     def schema_class_to_yaml(cls, sort_by_impact=True, exclude=None, updates=None):
         schema = cls.get_class_schema()()
@@ -122,16 +121,14 @@ def define_env(env):
         d.update(updates)
 
         return yaml.safe_dump(d, indent=4, sort_keys=False)
-    
+
     @env.macro
     def schema_class_to_fields(cls, exclude=None):
         exclude = exclude or []
         schema = cls.get_class_schema()()
         d = flatten(sort_fields(schema.fields))
-        return {
-            k: v for k, v in d.items() if k not in exclude
-        }
-    
+        return {k: v for k, v in d.items() if k not in exclude}
+
     @env.macro
     def render_field(name, field, details):
         if is_internal(field):
@@ -152,18 +149,22 @@ def define_env(env):
         impact = expected_impact(field)
         impact_badge = ""
         if impact == 3:
-            impact_badge = ' :octicons-bookmark-fill-24:{ title="High impact parameter" }'
+            impact_badge = (
+                ' :octicons-bookmark-fill-24:{ title="High impact parameter" }'
+            )
 
         s = f"- **`{ name }`** {default_str}{impact_badge}: { field.metadata['description'] }"
         if field.validate is not None and hasattr(field.validate, "choices"):
-            options = ", ".join([f"`{dump_value(opt)}`" for opt in field.validate.choices])
+            options = ", ".join(
+                [f"`{dump_value(opt)}`" for opt in field.validate.choices]
+            )
             s += f" Options: {options}."
 
         if details is not None and name in details:
             s += f" {details[name]}"
 
         return s
-    
+
     @env.macro
     def merge_dicts(d1, d2):
         return {**d1, **d2}

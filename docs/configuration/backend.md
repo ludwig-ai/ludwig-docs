@@ -138,7 +138,7 @@ backend:
 ## Distributed Data Parallel (DDP)
 
 [Distributed Data Parallel](https://pytorch.org/tutorials/intermediate/ddp_tutorial.html) or DDP is PyTorch's native data-parallel
-library that functions very similarly to Horovod, but does not require installing any additional packages to use. 
+library that functions very similarly to Horovod, but does not require installing any additional packages to use.
 
 In benchmarks, we found DDP and Horovod to perform near identically, so if you're not already using Horovod, DDP is the easiest
 way to get started with distributed training in Ludwig.
@@ -153,10 +153,10 @@ backend:
 ## Fully Sharded Data Parallel (FSDP)
 
 [Fully Sharded Data Parallel](https://pytorch.org/blog/introducing-pytorch-fully-sharded-data-parallel-api/) or FSDP is PyTorch's native
-data-parallel + model-parallel library for training very large models whose parameters are spread across multiple GPUs. 
+data-parallel + model-parallel library for training very large models whose parameters are spread across multiple GPUs.
 
-The primary scenario to use FSDP is when the model you're training is too large to fit into a single GPU 
-(e.g., fine-tuning a large language model like [BLOOM)](https://huggingface.co/docs/transformers/model_doc/bloom)). 
+The primary scenario to use FSDP is when the model you're training is too large to fit into a single GPU
+(e.g., fine-tuning a large language model like [BLOOM)](https://huggingface.co/docs/transformers/model_doc/bloom)).
 When the model is small enough to fit in a single GPU, however, benchmarking has shown it's generally better to use Horovod or DDP.
 
 ```yaml

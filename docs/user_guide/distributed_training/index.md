@@ -101,7 +101,7 @@ from every worker. There are a few ways to achieve this:
 - Use a network mounted filesystem like [NFS](https://en.wikipedia.org/wiki/Network_File_System).
 - Use an object storage system like [Amazon S3](https://aws.amazon.com/s3/).
 
-In most cases, we recommend using an object storage system such as [S3](https://aws.amazon.com/s3/) (AWS), 
+In most cases, we recommend using an object storage system such as [S3](https://aws.amazon.com/s3/) (AWS),
 [GCS](https://cloud.google.com/storage) (GCP), or [ADLS](https://learn.microsoft.com/en-us/azure/storage/common/storage-introduction) (Azure).
 
 To connect to one of these systems from Ludwig you need two things:
@@ -133,7 +133,7 @@ backend:
     num_workers: 4
 ```
 
-When using [Hyperopt](../hyperopt.md) in an autoscaling cluster, you should set `max_concurrent_trials` and `gpu_resources_per_trial`, 
+When using [Hyperopt](../hyperopt.md) in an autoscaling cluster, you should set `max_concurrent_trials` and `gpu_resources_per_trial`,
 otherwise Ludwig will similarly underestimate how many trials can fit in the fully autoscaled cluster at a time:
 
 ```yaml

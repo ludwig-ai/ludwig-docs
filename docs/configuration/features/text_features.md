@@ -40,9 +40,9 @@ encoder:
     trainable: true
 ```
 
-The available encoder parameters:
+Parameters:
 
-- `type` (default `parallel_cnn`): encoder to use for the input text feature. The available encoders include encoders
+- **`type`** (default `parallel_cnn`): encoder to use for the input text feature. The available encoders include encoders
 used for [Sequence Features](../sequence_features#sequence-input-features-and-encoders) as well as pre-trained text
 encoders from the
 face transformers library: `albert`, `auto_transformer`, `bert`, `camembert`, `ctrl`,
@@ -369,21 +369,46 @@ Text output features can be used for either tagging (classifying each token of a
 generation (generating text by repeatedly sampling from the model). There are two decoders available for these tasks
 named `tagger` and `generator` respectively.
 
-{% set text_out = get_output_feature_schema("text") %}
-{{ render_yaml(text_out, exclude=["preprocessing", "active"], updates={"name": "text_feature_name"}) }}
+Example text feature entry using a tagger decoder (with default parameters) in the output features list:
 
-The following are the available parameters of a text output feature:
+```yaml
+name: text_column_name
+type: text
+reduce_input: null
+dependencies: []
+reduce_dependencies: sum
+loss:
+    type: softmax_cross_entropy
+    confidence_penalty: 0
+    robust_lambda: 0
+    class_weights: 1
+    class_similarities_temperature: 0
+decoder: 
+    type: tagger
+    num_fc_layers: 0
+    output_size: 256
+    use_bias: true
+    weights_initializer: glorot_uniform
+    bias_initializer: zeros
+    activation: relu
+    dropout: 0
+    attention: false
+    attention_embedding_size: 256
+    attention_num_heads: 8
+```
 
-- `reduce_input` (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order
+Parameters:
+
+- **`reduce_input`** (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order
 tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`,
 `max`, `concat` (concatenates along the sequence dimension), `last` (returns the last vector of the sequence dimension).
-- `dependencies` (default `[]`): the output features this one is dependent on. For a detailed explanation refer to
+- **`dependencies`** (default `[]`): the output features this one is dependent on. For a detailed explanation refer to
 [Output Feature Dependencies](../output_features#output-feature-dependencies).
-- `reduce_dependencies` (default `sum`): defines how to reduce the output of a dependent feature that is not a vector,
+- **`reduce_dependencies`** (default `sum`): defines how to reduce the output of a dependent feature that is not a vector,
 but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available
 values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the sequence dimension), `last` (returns the
 last vector of the sequence dimension).
-- `loss` (default `{type: softmax_cross_entropy, class_similarities_temperature: 0, class_weights: 1,
+- **`loss`** (default `{type: softmax_cross_entropy, class_similarities_temperature: 0, class_weights: 1,
 confidence_penalty: 0, robust_lambda: 0}`): is a dictionary containing a loss `type`. The only available loss `type` for
 text features is `softmax_cross_entropy`. For more details on losses and their options, see also
 [Category Output Features and Decoders](../category_features#category-output-features-and-decoders).

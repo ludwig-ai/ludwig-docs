@@ -96,7 +96,7 @@ def define_env(env):
     @env.macro
     def get_loss_schema(name: str):
         return get_loss_schema_registry()[name]
-    
+
     @env.macro
     def get_loss_schemas(feature: str):
         return get_loss_classes(feature).values()

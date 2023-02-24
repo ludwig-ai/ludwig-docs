@@ -371,7 +371,7 @@ Text output features can be used for either tagging (classifying each token of a
 generation (generating text by repeatedly sampling from the model). There are two decoders available for these tasks
 named `tagger` and `generator` respectively.
 
-Example text feature entry using a tagger decoder (with default parameters) in the output features list:
+Example sequence output feature using default parameters:
 
 ```yaml
 name: text_column_name
@@ -386,17 +386,7 @@ loss:
     class_weights: 1
     class_similarities_temperature: 0
 decoder: 
-    type: tagger
-    num_fc_layers: 0
-    output_size: 256
-    use_bias: true
-    weights_initializer: glorot_uniform
-    bias_initializer: zeros
-    activation: relu
-    dropout: 0
-    attention: false
-    attention_embedding_size: 256
-    attention_num_heads: 8
+    type: generator
 ```
 
 Parameters:
@@ -414,6 +404,7 @@ last vector of the sequence dimension).
 confidence_penalty: 0, robust_lambda: 0}`): is a dictionary containing a loss `type`. The only available loss `type` for
 text features is `softmax_cross_entropy`. For more details on losses and their options, see also
 [Category Output Features and Decoders](../category_features#category-output-features-and-decoders).
+- **`decoder`** (default: `{"type": "generator"}`): Decoder for the desired task. Options: `generator`, `tagger`.
 
 Decoder type and decoder parameters can also be defined once and applied to all text output features using
 the [Type-Global Decoder](../defaults.md#type-global-decoder) section. Loss and loss related parameters can

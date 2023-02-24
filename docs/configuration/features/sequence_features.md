@@ -257,7 +257,25 @@ Sequence output features can be used for either tagging (classifying each elemen
 generation (generating a sequence by sampling from the model). Ludwig provides two sequence decoders named `tagger` and
 `generator` respectively.
 
-The following are the available parameters of a sequence output feature:
+Example sequence output feature using default parameters:
+
+```yaml
+name: seq_column_name
+type: sequence
+reduce_input: null
+dependencies: []
+reduce_dependencies: sum
+loss:
+    type: softmax_cross_entropy
+    confidence_penalty: 0
+    robust_lambda: 0
+    class_weights: 1
+    class_similarities_temperature: 0
+decoder: 
+    type: generator
+```
+
+Parameters:
 
 - **`reduce_input`** (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order
 tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`,
@@ -272,6 +290,7 @@ last vector of the sequence dimension).
 confidence_penalty: 0, robust_lambda: 0}`): is a dictionary containing a loss `type`. The only available
 loss `type` for sequences is `softmax_cross_entropy`. For more details on losses and their options, see also
 [Category Output Features and Decoders](../category_features#category-output-features-and-decoders).
+- **`decoder`** (default: `{"type": "generator"}`): Decoder for the desired task. Options: `generator`, `tagger`.
 
 Decoder type and decoder parameters can also be defined once and applied to all sequence output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section. Loss and loss related parameters can also be defined once in the same way.
 

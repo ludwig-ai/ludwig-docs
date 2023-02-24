@@ -76,10 +76,6 @@ Parameters:
 
 ## Category Output Features and Decoders
 
-Category features can be used when a multi-class classification needs to be performed.
-There is only one decoder available for category features: a (potentially empty) stack of fully connected layers,
-followed by a projection into a vector of size of the number of available classes, followed by a softmax.
-
 ``` mermaid
 graph LR
   A["Combiner\n Output"] --> B["Fully\n Connected\n Layers"];
@@ -92,80 +88,11 @@ graph LR
   end
 ```
 
-These are the available parameters of a category output feature
+Category features can be used when a multi-class classification needs to be performed.
+There is only one decoder available for category features: a (potentially empty) stack of fully connected layers,
+followed by a projection into a vector of size of the number of available classes, followed by a softmax.
 
-- `reduce_input` (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order
-tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`,
-`max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension).
-- `calibration` (default `false`): if true, performs calibration by temperature scaling after training is complete.
-Calibration uses the validation set to find a scale factor (temperature) which is multiplied with the logits to shift
-output probabilities closer to true likelihoods.
-- `dependencies` (default `[]`): the output features this one is dependent on. For a detailed explanation refer to
-[Output Features Dependencies](../output_features#output-feature-dependencies).
-- `reduce_dependencies` (default `sum`): defines how to reduce the output of a dependent feature that is not a vector,
-but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available
-values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last
-vector of the first dimension).
-- `loss` (default `{type: softmax_cross_entropy}`): is a dictionary containing a loss `type`. `softmax_cross_entropy` is
-the only supported loss type for category output features.
-- `top_k` (default `3`): determines the parameter `k`, the number of categories to consider when computing the `top_k`
-measure. It computes accuracy but considering as a match if the true category appears in the first `k` predicted
-categories ranked by decoder's confidence.
-
-Decoder type and decoder parameters can also be defined once and applied to all category output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
-
-These are the `loss` parameters
-
-- `confidence_penalty` (default `0`): penalizes overconfident predictions (low entropy) by adding an additional term
-that penalizes too confident predictions by adding a `a * (max_entropy - entropy) / max_entropy` term to the loss, where
-a is the value of this parameter. Useful in case of noisy labels.
-- `robust_lambda` (default `0`): replaces the loss with `(1 - robust_lambda) * loss + robust_lambda / c` where `c` is
-the number of classes, which is useful in case of noisy labels.
-- `class_weights` (default `1`): the value can be a vector of weights, one for each class, that is multiplied to the
-loss of the datapoints that have that class as ground truth. It is an alternative to oversampling in case of unbalanced
-class distribution. The ordering of the vector follows the category to integer ID mapping in the JSON metadata file (the
-`<UNK>` class needs to be included too). Alternatively, the value can be a dictionary with class strings as keys and
-weights as values, like `{class_a: 0.5, class_b: 0.7, ...}`.
-- `class_similarities` (default `null`): if not `null` it is a `c x c` matrix in the form of a list of lists that
-contains the mutual similarity of classes. It is used if `class_similarities_temperature` is greater than 0. The
-ordering of the vector follows the category to integer ID mapping in the JSON metadata file (the `<UNK>` class needs to
-be included too).
-- `class_similarities_temperature` (default `0`): is the temperature parameter of the softmax that is performed on each
-row of `class_similarities`. The output of that softmax is used to determine the supervision vector to provide instead
-of the one hot vector that would be provided otherwise for each datapoint. The intuition behind it is that errors
-between similar classes are more tolerable than errors between really different classes.
-
-Loss and loss related parameters can also be defined once and applied to all category output features using the [Type-Global Loss](../defaults.md#type-global-loss) section.
-
-These are the available parameters of a category output feature decoder
-
-- `fc_layers` (default `null`): a list of dictionaries containing the parameters of all the fully connected layers.
-The length of the list determines the number of stacked fully connected layers and the content of each dictionary
-determines the parameters for a specific layer. The available parameters for each layer are: `activation`, `dropout`,
-`norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of those values
-is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead.
-- `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes
-through. Their output is projected in the feature's output space.
-- `output_size` (default `256`): if a `output_size` is not already specified in `fc_layers` this is the default
-`output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
-- `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default
-`activation` that will be used for each layer. It indicates the activation function applied to the output.
-- `norm` (default `null`): normalization applied at the beginnging of the fully-connected stack. If a `norm` is not already specified for the `fc_layers` this is the default `norm` that will be used for each layer. One of: `null`, `batch`, `layer`, `ghost`. See [Normalization](../combiner.md#normalization) for details.
-- `norm_params` (default `null`): parameters passed to the `norm` module. See [Normalization](../combiner.md#normalization) for details.
-- `dropout` (default `0`): dropout rate
-- `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
-- `weights_initializer` (default `glorot_uniform`): initializer for the fully connected weight matrix. Options are:
-`constant`, `identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`,
-`glorot_normal`, `glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`,
-`lecun_uniform`. To see the parameters of each initializer, please refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`,
-`ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`,
-`xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is
-possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its
-parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to
-[torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-
-Example category feature entry (with default parameters) in the output features list:
+Example sequence output feature using default parameters:
 
 ```yaml
 name: category_column_name
@@ -177,22 +104,55 @@ loss:
     type: softmax_cross_entropy
     confidence_penalty: 0
     robust_lambda: 0
-    class_weights: 1
+    class_weights: null
     class_similarities: null
     class_similarities_temperature: 0
-decoder: 
-    fc_layers: null
-    num_fc_layers: 0
-    output_size: 256
-    activation: relu
-    norm: null
-    norm_params: null
-    dropout: 0
-    use_bias: true
-    weights_initializer: glorot_uniform
-    bias_initializer: zeros
-    top_k: 3
+decoder:
+    type: classifier
 ```
+
+Parameters:
+
+- **`reduce_input`** (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order
+tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`,
+`max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension).
+- **`calibration`** (default `false`): if true, performs calibration by temperature scaling after training is complete.
+Calibration uses the validation set to find a scale factor (temperature) which is multiplied with the logits to shift
+output probabilities closer to true likelihoods.
+- **`dependencies`** (default `[]`): the output features this one is dependent on. For a detailed explanation refer to
+[Output Features Dependencies](../output_features#output-feature-dependencies).
+- **`reduce_dependencies`** (default `sum`): defines how to reduce the output of a dependent feature that is not a vector,
+but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available
+values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last
+vector of the first dimension).
+- **`loss`** (default `{type: softmax_cross_entropy}`): is a dictionary containing a loss `type`. `softmax_cross_entropy` is
+the only supported loss type for category output features. See [Loss](#loss) for details.
+- **`top_k`** (default `3`): determines the parameter `k`, the number of categories to consider when computing the `top_k`
+measure. It computes accuracy but considering as a match if the true category appears in the first `k` predicted
+categories ranked by decoder's confidence.
+- **`decoder`** (default: `{"type": "classifier"}`): Decoder for the desired task. Options: `classifier`. See [Decoder](#decoder) for details.
+
+Decoder type and decoder parameters can also be defined once and applied to all category output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
+
+### Loss
+
+{% set loss = get_loss_schema("softmax_cross_entropy") %}
+{{ render_yaml(loss, parent="loss") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(loss, exclude=["type"])) }}
+
+Loss and loss related parameters can also be defined once and applied to all category output features using the [Type-Global Loss](../defaults.md#type-global-loss) section.
+
+### Decoder
+
+{% set decoder = get_decoder_schema("category", "classifier") %}
+{{ render_yaml(decoder, parent="decoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(decoder, exclude=["type"])) }}
 
 ## Category Features Metrics
 

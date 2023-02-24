@@ -44,7 +44,7 @@ flattened vector through fully connected layers, so in order to obtain the full 
 
 The encoder parameters specified at the feature level are:
 
-- `tied` (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
+- **`tied`** (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
 a feature of the same type and with the same encoder parameters.
 
 Example sequence feature entry in the input features list:
@@ -59,7 +59,7 @@ encoder:
 
 The available encoder parameters:
 
-- `type` (default `parallel_cnn`): the name of the encoder to use to encode the sequence, one of `embed`,
+- **`type`** (default `parallel_cnn`): the name of the encoder to use to encode the sequence, one of `embed`,
 `parallel_cnn`, `stacked_cnn`, `stacked_parallel_cnn`, `rnn`, `cnnrnn`, `transformer` and `passthrough` (equivalent to
 `null` or `None`).
 
@@ -257,16 +257,16 @@ generation (generating a sequence by sampling from the model). Ludwig provides t
 
 The following are the available parameters of a sequence output feature:
 
-- `reduce_input` (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order
+- **`reduce_input`** (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order
 tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`,
 `max`, `concat` (concatenates along the sequence dimension), `last` (returns the last vector of the sequence dimension).
-- `dependencies` (default `[]`): the output features this one is dependent on. For a detailed explanation refer to
+- **`dependencies`** (default `[]`): the output features this one is dependent on. For a detailed explanation refer to
 [Output Feature Dependencies](../output_features#output-feature-dependencies).
-- `reduce_dependencies` (default `sum`): defines how to reduce the output of a dependent feature that is not a vector,
+- **`reduce_dependencies`** (default `sum`): defines how to reduce the output of a dependent feature that is not a vector,
 but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available
 values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the sequence dimension), `last` (returns the
 last vector of the sequence dimension).
-- `loss` (default `{type: softmax_cross_entropy, class_similarities_temperature: 0, class_weights: 1,
+- **`loss`** (default `{type: softmax_cross_entropy, class_similarities_temperature: 0, class_weights: 1,
 confidence_penalty: 0, robust_lambda: 0}`): is a dictionary containing a loss `type`. The only available
 loss `type` for sequences is `softmax_cross_entropy`. For more details on losses and their options, see also
 [Category Output Features and Decoders](../category_features#category-output-features-and-decoders).

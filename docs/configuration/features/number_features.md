@@ -1,7 +1,8 @@
 {% from './macros/includes.md' import render_fields, render_yaml %}
 {% set mv_details = "See [Missing Value Strategy](./input_features.md#missing-value-strategy) for details." %}
 {% set nz_details = "See [Normalization](#normalization) for details." %}
-{% set details = {"missing_value_strategy": mv_details, "normalization": nz_details} %}
+{% set norm_details = "See [Normalization](../combiner.md#normalization) for details." %}
+{% set details = {"missing_value_strategy": mv_details, "normalization": nz_details, "norm": norm_details} %}
 
 ## Number Features Preprocessing
 
@@ -43,7 +44,7 @@ In this case the inputs of size `b` are transformed to size `b x h`.
 
 The encoder parameters specified at the feature level are:
 
-- `tied` (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of
+- **`tied`** (default `null`): name of the input feature to tie the weights of the encoder with. It needs to be the name of
 a feature of the same type and with the same encoder parameters.
 
 Example number feature entry in the input features list:
@@ -58,7 +59,7 @@ encoder:
 
 The available encoder parameters:
 
-- `type` (default `passthrough`): the possible values are `passthrough`, `dense` and `sparse`. `passthrough` outputs the
+- **`type`** (default `passthrough`): the possible values are `passthrough`, `dense` and `sparse`. `passthrough` outputs the
 raw integer values unaltered. `dense` randomly initializes a trainable embedding matrix, `sparse` uses one-hot encoding.
 
 Encoder type and encoder parameters can also be defined once and applied to all number input features using
@@ -66,57 +67,19 @@ the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
 ### Passthrough Encoder
 
-There are no additional parameters for the `passthrough` encoder.
+{% set encoder = get_encoder_schema("number", "passthrough") %}
+{{ render_yaml(encoder, parent="encoder") }}
+
+There are no additional parameters for `passthrough` encoder.
 
 ### Dense Encoder
 
-For the `dense` encoder these are the available parameters.
+{% set encoder = get_encoder_schema("number", "dense") %}
+{{ render_yaml(encoder, parent="encoder") }}
 
-- `fc_layers` (default `null`): a list of dictionaries containing the parameters of all the fully connected
-layers. The length of the list determines the number of stacked fully connected layers and the content of each
-dictionary determines the parameters for a specific layer. The available parameters for each layer are: `activation`,
-`dropout`, `norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of
-those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used
-instead.
-- `num_layers` (default `1`): this is the number of stacked fully connected layers that the input to the feature passes
-through. Their output is projected in the feature's output space.
-- `output_size` (default `256`): if `output_size` is not already specified in `fc_layers` this is the default
-`output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
-- `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
-- `weights_initializer` (default `glorot_uniform`): initializer for the weight matrix. Options are: `constant`,
-`identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
-`glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
-To see the parameters of each initializer, please
-refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`,
-`zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
-`glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
-Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
-keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
-refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `norm` (default `null`): normalization applied at the beginnging of the fully-connected stack. If a `norm` is not already specified for the `fc_layers` this is the default `norm` that will be used for each layer. One of: `null`, `batch`, `layer`, `ghost`. See [Normalization](../combiner.md#normalization) for details.
-- `norm_params` (default `null`): parameters passed to the `norm` module. See [Normalization](../combiner.md#normalization) for details.
-- `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default
-`activation` that will be used for each layer. It indicates the activation function applied to the output.
-- `dropout` (default `0`): dropout rate
+Parameters:
 
-Example number feature entry in the input features list:
-
-```yaml
-name: number_column_name
-type: number
-norm: null
-tied: null
-encoder: 
-    type: dense
-    num_layers: 1
-    output_size: 256
-    use_bias: true
-    weights_initializer: glorot_uniform
-    bias_initializer: zeros
-    activation: relu
-    dropout: 0
-```
+{{ render_fields(schema_class_to_fields(encoder, exclude=["type"]), details=details) }}
 
 ## Number Output Features and Decoders
 

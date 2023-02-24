@@ -1,6 +1,7 @@
 {% from './macros/includes.md' import render_fields, render_yaml %}
 {% set mv_details = "See [Missing Value Strategy](./input_features.md#missing-value-strategy) for details." %}
-{% set details = {"missing_value_strategy": mv_details} %}
+{% set norm_details = "See [Normalization](../combiner.md#normalization) for details." %}
+{% set details = {"missing_value_strategy": mv_details, "fc_norm": norm_details} %}
 
 ## Category Features Preprocessing
 
@@ -63,7 +64,7 @@ the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
 Parameters:
 
-{{ render_fields(schema_class_to_fields(encoder, exclude=["type"])) }}
+{{ render_fields(schema_class_to_fields(encoder, exclude=["type"]), details=details) }}
 
 ### Sparse Encoder
 
@@ -72,7 +73,7 @@ Parameters:
 
 Parameters:
 
-{{ render_fields(schema_class_to_fields(encoder, exclude=["type"])) }}
+{{ render_fields(schema_class_to_fields(encoder, exclude=["type"]), details=details) }}
 
 ## Category Output Features and Decoders
 
@@ -141,7 +142,7 @@ Decoder type and decoder parameters can also be defined once and applied to all 
 
 Parameters:
 
-{{ render_fields(schema_class_to_fields(decoder, exclude=["type"])) }}
+{{ render_fields(schema_class_to_fields(decoder, exclude=["type"]), details=details) }}
 
 ### Loss
 
@@ -150,7 +151,7 @@ Parameters:
 
 Parameters:
 
-{{ render_fields(schema_class_to_fields(loss, exclude=["type"])) }}
+{{ render_fields(schema_class_to_fields(loss, exclude=["type"]), details=details) }}
 
 Loss and loss related parameters can also be defined once and applied to all category output features using the [Type-Global Loss](../defaults.md#type-global-loss) section.
 

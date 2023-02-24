@@ -371,7 +371,7 @@ Text output features can be used for either tagging (classifying each token of a
 generation (generating text by repeatedly sampling from the model). There are two decoders available for these tasks
 named `tagger` and `generator` respectively.
 
-Example sequence output feature using default parameters:
+Example text output feature using default parameters:
 
 ```yaml
 name: text_column_name

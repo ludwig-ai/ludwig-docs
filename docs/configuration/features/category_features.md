@@ -134,6 +134,15 @@ categories ranked by decoder's confidence.
 
 Decoder type and decoder parameters can also be defined once and applied to all category output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
 
+### Decoder
+
+{% set decoder = get_decoder_schema("category", "classifier") %}
+{{ render_yaml(decoder, parent="decoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(decoder, exclude=["type"])) }}
+
 ### Loss
 
 {% set loss = get_loss_schema("softmax_cross_entropy") %}
@@ -145,16 +154,7 @@ Parameters:
 
 Loss and loss related parameters can also be defined once and applied to all category output features using the [Type-Global Loss](../defaults.md#type-global-loss) section.
 
-### Decoder
-
-{% set decoder = get_decoder_schema("category", "classifier") %}
-{{ render_yaml(decoder, parent="decoder") }}
-
-Parameters:
-
-{{ render_fields(schema_class_to_fields(decoder, exclude=["type"])) }}
-
-## Category Features Metrics
+### Metrics
 
 The measures that are calculated every epoch and are available for category features are `accuracy`, `hits_at_k`
 (computes accuracy considering as a match if the true category appears in the first `k` predicted categories ranked by

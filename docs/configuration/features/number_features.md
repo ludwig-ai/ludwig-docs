@@ -1,48 +1,37 @@
+{% from './macros/includes.md' import render_fields, render_yaml %}
+{% set mv_details = "See [Missing Value Strategy](./input_features.md#missing-value-strategy) for details." %}
+{% set nz_details = "See [Normalization](#normalization) for details." %}
+{% set details = {"missing_value_strategy": mv_details, "normalization": nz_details} %}
+
 ## Number Features Preprocessing
 
 Number features are directly transformed into a float valued vector of length `n` (where `n` is the size of the dataset)
 and added to the HDF5 with a key that reflects the name of column in the dataset.
 No additional information about them is available in the JSON metadata file.
 
-Parameters available for preprocessing are
+{% set preprocessing = get_feature_preprocessing_schema("number") %}
+{{ render_yaml(preprocessing, parent="preprocessing") }}
 
-- `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a number
-column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with
-the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column),
-`fill_with_mean` (replaces the missing values with the mean of the values in the column), `bfill` (replaces the missing values with the next valid value), `ffill` (replaces the missing values with the previous valid value) or `drop_row`.
-- `fill_value` (default `0`): the value to replace the missing values with in case the `missing_value_strategy` is
-`fill_with_const`.
-- `normalization` (default `null`): technique to be used when normalizing the number feature types. The available
-options are `null`, `zscore`, `minmax` and `log1p`. If the value is `null` no normalization is performed. If the value
-is `zscore`, the mean and standard deviation are computed so that values are shifted to have zero mean and 1 standard
-deviation. If the value is `minmax`, the minimum is subtracted from values and the result is divided by difference
-between maximum and minimum. If `normalization` is `log1p` the value returned is the natural log of 1 plus the original
-value. Note: `log1p` is defined only for positive values.
-- `outlier_strategy` (default `null`): Determines how outliers will be handled in the dataset. In most cases replacing outliers with the
-column mean (`fill_with_mean`) will be sufficient, but in others the outliers may be damaging enough
-to merit dropping the entire row of data (`drop_row`). In some cases, the best way to handle outliers
-is to leave them in the data, which is the behavior when this parameter is left as `null`.
-- `outlier_threshold` (default `3.0`): Determines the threshold past which a number will be considered an outlier in the dataset. The 3-sigma
-rule in statistics tells us that when data is normally distributed, 95% of the data will lie within 2
-standard deviations of the mean, and greater than 99% of the data will lie within 3 standard deviations
-of the mean (see: [68–95–99.7 rule](https://en.wikipedia.org/wiki/68%E2%80%9395%E2%80%9399.7_rule)). As such anything farther away than that is highly likely to be an
-outlier, and may distort the learning process by disproportionately affecting the model.
+Parameters:
 
-Configuration example:
-
-```yaml
-name: click_count
-type: number
-preprocessing:
-    missing_value_strategy: fill_with_const
-    fill_value: 0
-    normalization: null
-    outlier_strategy: null
-    outlier_threshold: 3.0
-```
+{{ render_fields(schema_class_to_fields(preprocessing), details=details) }}
 
 Preprocessing parameters can also be defined once and applied to all number input features using
 the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
+
+### Normalization
+
+Technique to be used when normalizing the number feature types.
+
+Options:
+
+- **`null`**: No normalization is performed.
+- **`zscore`**: The mean and standard deviation are computed so that values are shifted to have zero mean and 1 standard deviation.
+- **`minmax`**: The minimum is subtracted from values and the result is divided by difference between maximum and minimum.
+- **`log1p`**: The value returned is the natural log of 1 plus the original value. Note: `log1p` is defined only for positive values.
+- **`iq`**: The median is subtracted from values and the result is divided by the interquartile range (IQR), i.e., the 75th percentile value minus the 25th percentile value. The resulting data has a zero mean and median and a standard deviation of 1. This is useful if your feature has large outliers since the normalization won't be skewed by those values.
+
+The best normalization techniqe to use depends on the distribution of your data, but `zscore` is a good place to start in many cases.
 
 ## Number Input Features and Encoders
 

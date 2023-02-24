@@ -93,7 +93,7 @@ Category features can be used when a multi-class classification needs to be perf
 There is only one decoder available for category features: a (potentially empty) stack of fully connected layers,
 followed by a projection into a vector of size of the number of available classes, followed by a softmax.
 
-Example sequence output feature using default parameters:
+Example category output feature using default parameters:
 
 ```yaml
 name: category_column_name

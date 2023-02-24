@@ -2,7 +2,7 @@
 {% set mv_details = "See [Missing Value Strategy](./input_features.md#missing-value-strategy) for details." %}
 {% set nz_details = "See [Normalization](#normalization) for details." %}
 {% set norm_details = "See [Normalization](../combiner.md#normalization) for details." %}
-{% set details = {"missing_value_strategy": mv_details, "normalization": nz_details, "norm": norm_details} %}
+{% set details = {"missing_value_strategy": mv_details, "normalization": nz_details, "norm": norm_details, "fc_norm": norm_details} %}
 
 ## Number Features Preprocessing
 
@@ -87,57 +87,7 @@ Number features can be used when a regression needs to be performed.
 There is only one decoder available for number features: a (potentially empty) stack of fully connected layers, followed
 by a projection to a single number.
 
-These are the available parameters of a number output feature
-
-- `reduce_input` (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order
-tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`,
-`max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension).
-- `dependencies` (default `[]`): the output features this one is dependent on. For a detailed explanation refer to
-[Output Feature Dependencies](../output_features#output-feature-dependencies).
-- `reduce_dependencies` (default `sum`): defines how to reduce the output of a dependent feature that is not a vector,
-but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available
-values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last
-vector of the first dimension).
-- `loss` (default `{type: mean_squared_error}`): is a dictionary containing a loss `type`. The available loss types are
-`mean_squared_error` and `mean_absolute_error`.
-
-Loss type and loss related parameters can also be defined once and applied to all number output features using the [Type-Global Loss](../defaults.md#type-global-loss) section.
-
-These are the available parameters of a number output feature decoder
-
-- `fc_layers` (default `null`): a list of dictionaries containing the parameters of all the fully connected
-layers. The length of the list determines the number of stacked fully connected layers and the content of each
-dictionary determines the parameters for a specific layer. The available parameters for each layer are: `activation`,
-`dropout`, `norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of
-those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used
-instead.
-- `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes
-through. Their output is projected in the feature's output space.
-- `output_size` (default `256`): if `output_size` is not already specified in `fc_layers` this is the default
-`output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
-- `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default
-`activation` that will be used for each layer. It indicates the activation function applied to the output.
-- `norm` (default `null`): normalization applied at the beginnging of the fully-connected stack. If a `norm` is not already specified for the `fc_layers` this is the default `norm` that will be used for each layer. One of: `null`, `batch`, `layer`, `ghost`. See [Normalization](../combiner.md#normalization) for details.
-- `norm_params` (default `null`): parameters passed to the `norm` module. See [Normalization](../combiner.md#normalization) for details.
-- `dropout` (default `0`): dropout rate
-- `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
-- `weights_initializer` (default `xavier_uniform`): initializer for the weight matrix. Options are: `constant`,
-`identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
-`glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
-To see the parameters of each initializer, please refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`,
-`zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
-`glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
-Alternatively it is possible to specify a dictionary with a key `type` that identifies the type of initializer and other
-keys for its parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please
-refer to [torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `clip` (default `null`): If not `null` it specifies a minimum and maximum value the predictions will be clipped to.
-The value can be either a list or a tuple of length 2, with the first value representing the minimum and the second the
-maximum. For instance `(-5,5)` will make it so that all predictions will be clipped to the `[-5,5]` interval.
-
-Decoder type and decoder parameters can also be defined once and applied to all number output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
-
-Example number feature entry (with default parameters) in the output features list:
+Example number output feature using default parameters:
 
 ```yaml
 name: number_column_name
@@ -148,20 +98,51 @@ reduce_dependencies: sum
 loss:
     type: mean_squared_error
 decoder:
-    fc_layers: null
-    num_fc_layers: 0
-    output_size: 256
-    activation: relu
-    norm: null
-    norm_params: null
-    dropout: 0
-    use_bias: true
-    weights_initializer: glorot_uniform
-    bias_initializer: zeros
-    clip: null
+    type: regressor
 ```
 
-## Number Features Metrics
+Parameters:
+
+- **`reduce_input`** (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order
+tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`,
+`max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension).
+- **`dependencies`** (default `[]`): the output features this one is dependent on. For a detailed explanation refer to
+[Output Feature Dependencies](../output_features#output-feature-dependencies).
+- **`reduce_dependencies`** (default `sum`): defines how to reduce the output of a dependent feature that is not a vector,
+but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available
+values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last
+vector of the first dimension).
+- **`loss`** (default `{type: mean_squared_error}`): is a dictionary containing a loss `type`. Options: 
+`mean_squared_error`, `mean_absolute_error`, `root_mean_squared_error`, `root_mean_squared_percentage_error`. See [Loss](#loss) for details.
+- **`decoder`** (default: `{"type": "regressor"}`): Decoder for the desired task. Options: `regressor`. See [Decoder](#decoder) for details.
+
+### Decoder
+
+{% set decoder = get_decoder_schema("number", "regressor") %}
+{{ render_yaml(decoder, parent="decoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(decoder, exclude=["type"]), details=details) }}
+
+Decoder type and decoder parameters can also be defined once and applied to all number output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
+
+### Loss
+
+{% set loss_classes = get_loss_schemas("number") %}
+{% for loss in loss_classes %}
+#### {{ loss.name() }}
+
+{{ render_yaml(loss, parent="loss") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(loss, exclude=["type"]), details=details) }}
+{% endfor %}
+
+Loss and loss related parameters can also be defined once and applied to all category output features using the [Type-Global Loss](../defaults.md#type-global-loss) section.
+
+### Metrics
 
 The metrics that are calculated every epoch and are available for number features are `mean_squared_error`,
 `mean_absolute_error`, `root_mean_squared_error`, `root_mean_squared_percentage_error` and the `loss` itself.

@@ -9,7 +9,7 @@ from ludwig.schema.decoders.utils import get_decoder_cls
 from ludwig.schema.encoders.utils import get_encoder_cls
 from ludwig.schema.features.preprocessing.utils import preprocessing_registry
 from ludwig.schema.features.utils import get_input_feature_cls, get_output_feature_cls
-from ludwig.schema.features.loss import get_loss_schema_registry
+from ludwig.schema.features.loss import get_loss_schema_registry, get_loss_classes
 from ludwig.schema.trainer import trainer_schema_registry
 from ludwig.schema.optimizers import optimizer_registry
 
@@ -96,6 +96,10 @@ def define_env(env):
     @env.macro
     def get_loss_schema(name: str):
         return get_loss_schema_registry()[name]
+    
+    @env.macro
+    def get_loss_schemas(feature: str):
+        return get_loss_classes(feature).values()
 
     @env.macro
     def get_combiner_schema(type: str):

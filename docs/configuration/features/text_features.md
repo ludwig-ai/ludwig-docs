@@ -369,6 +369,9 @@ Text output features can be used for either tagging (classifying each token of a
 generation (generating text by repeatedly sampling from the model). There are two decoders available for these tasks
 named `tagger` and `generator` respectively.
 
+{% set text_out = get_output_feature_schema("text") %}
+{{ render_yaml(text_out, exclude=["preprocessing", "active"], updates={"name": "text_feature_name"}) }}
+
 The following are the available parameters of a text output feature:
 
 - `reduce_input` (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order
@@ -413,7 +416,7 @@ This decoder requires its input to be shaped as `b x s x h`, where `h` is a hidd
 sequence, text or time series input feature without reduced outputs or the output of a sequence-based combiner.
 If a `b x h` input is provided instead, an error will be raised during model building.
 
-{% set decoder = get_decoder_schema("sequence", "tagger") %}
+{% set decoder = get_decoder_schema("text", "tagger") %}
 {{ render_yaml(decoder, parent="decoder") }}
 
 Parameters:
@@ -455,7 +458,7 @@ of a sequence-based combiner.
 If a `b x h` input is provided to a generator decoder using an RNN with attention instead, an error will be raised
 during model building.
 
-{% set decoder = get_decoder_schema("sequence", "generator") %}
+{% set decoder = get_decoder_schema("text", "generator") %}
 {{ render_yaml(decoder, parent="decoder") }}
 
 Parameters:

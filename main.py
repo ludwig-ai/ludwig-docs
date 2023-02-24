@@ -8,6 +8,7 @@ from ludwig.schema.combiners.utils import get_combiner_registry
 from ludwig.schema.decoders.utils import get_decoder_cls
 from ludwig.schema.encoders.utils import get_encoder_cls
 from ludwig.schema.features.preprocessing.utils import preprocessing_registry
+from ludwig.schema.features.utils import get_input_feature_cls, get_output_feature_cls
 from ludwig.schema.trainer import trainer_schema_registry
 from ludwig.schema.optimizers import optimizer_registry
 
@@ -53,9 +54,14 @@ def expected_impact(field):
 
 
 def field_sort_order(name, field):
+    # These fields should come at the top
+    if name == "name":
+        return -200
     if name == "type":
-        # Type param always comes first in the sort order
         return -100
+    if name == "column":
+        return -99
+    
     return -expected_impact(field)
 
 
@@ -70,6 +76,14 @@ def define_env(env):
     @env.macro
     def get_feature_preprocessing_schema(type: str):
         return preprocessing_registry[type]
+    
+    @env.macro
+    def get_input_feature_schema(type: str):
+        return get_input_feature_cls(type)
+    
+    @env.macro
+    def get_output_feature_schema(type: str):
+        return get_output_feature_cls(type)
     
     @env.macro
     def get_encoder_schema(feature: str, type: str):
@@ -92,14 +106,20 @@ def define_env(env):
         return [v[1] for v in optimizer_registry.values()]
     
     @env.macro
-    def schema_class_to_yaml(cls, sort_by_impact=True):
+    def schema_class_to_yaml(cls, sort_by_impact=True, exclude=None, updates=None):
         schema = cls.get_class_schema()()
         internal_fields = {n for n, f in schema.fields.items() if is_internal(f)}
-        d = {k: v for k, v in cls().to_dict().items() if k not in internal_fields}
+        d = {k: v for k, v in cls().to_dict().items() if k not in internal_fields and k}
 
         if sort_by_impact:
             sorted_fields = flatten(sort_fields(schema.fields))
             d = {k: d[k] for k in sorted_fields.keys() if k in d}
+
+        exclude = exclude or []
+        d = {k: v for k, v in d.items() if k not in exclude}
+
+        updates = updates or {}
+        d.update(updates)
 
         return yaml.safe_dump(d, indent=4, sort_keys=False)
     

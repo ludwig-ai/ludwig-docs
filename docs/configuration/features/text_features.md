@@ -411,7 +411,7 @@ also be defined once in the same way.
 
 ### Decoder
 
-### Generator
+#### Generator
 
 ``` mermaid
 graph LR
@@ -453,7 +453,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(decoder, exclude=["type"])) }}
 
-### Tagger
+#### Tagger
 
 ``` mermaid
 graph LR

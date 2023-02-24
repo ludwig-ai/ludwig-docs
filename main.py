@@ -7,6 +7,7 @@ from ludwig.constants import MODEL_ECD
 from ludwig.schema.combiners.utils import get_combiner_registry
 from ludwig.schema.decoders.utils import get_decoder_cls
 from ludwig.schema.encoders.utils import get_encoder_cls
+from ludwig.schema.features.augmentation.utils import get_augmentation_cls
 from ludwig.schema.features.preprocessing.utils import preprocessing_registry
 from ludwig.schema.features.utils import get_input_feature_cls, get_output_feature_cls
 from ludwig.schema.trainer import trainer_schema_registry
@@ -75,6 +76,10 @@ def define_env(env):
     @env.macro
     def get_feature_preprocessing_schema(type: str):
         return preprocessing_registry[type]
+
+    @env.macro
+    def get_augmentation_schema(feature: str, type: str):
+        return get_augmentation_cls(feature, type)
 
     @env.macro
     def get_input_feature_schema(type: str):

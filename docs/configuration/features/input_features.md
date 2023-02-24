@@ -85,7 +85,6 @@ For output features, the default strategy is always `drop_row`, as otherwise Lud
 ground truth values being predicted. However, this can also be overridden using the same `missing_value_stragegy` param
 if so desired.
 
-
 # Encoders
 
 Each input feature can configure a specific `encoder` to map input feature values into tensors. For instance, a user

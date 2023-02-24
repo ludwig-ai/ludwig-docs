@@ -38,7 +38,6 @@ Parameters:
 
 Preprocessing parameters can also be defined once and applied to all image input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 
-
 # Image Input Features and Encoders
 
 The encoder parameters specified at the feature level are:
@@ -76,7 +75,6 @@ Convolutional Stack Encoder takes the following optional parameters:
 Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
-
 
 ## ResNet Encoder
 
@@ -122,7 +120,6 @@ patch, then applies a deep transformer architecture to the sequence of encoded p
 
 The Vision Transformer Encoder takes the following optional parameters:
 
-
 {% set image_encoder = get_encoder_schema("image", "_vit_legacy") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
 
@@ -155,7 +152,7 @@ Ludwig encoders parameters for TorchVision pretrained models:
 {% set image_encoder = get_encoder_schema("image", "alexnet") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
 
-Parameters: 
+Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
@@ -164,47 +161,52 @@ Parameters:
 {% set image_encoder = get_encoder_schema("image", "convnext") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
 
-Parameters: 
+Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
 ### DenseNet
+
 {% set image_encoder = get_encoder_schema("image", "densenet") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
 
-Parameters: 
+Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
 ### EfficientNet
+
 {% set image_encoder = get_encoder_schema("image", "efficientnet") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
 
-Parameters: 
+Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
 ### GoogLeNet
+
 {% set image_encoder = get_encoder_schema("image", "googlenet") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
 
-Parameters: 
+Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
 ### Inception V3
+
 {% set image_encoder = get_encoder_schema("image", "inceptionv3") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
 
-Parameters: 
+Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
 ### MaxVit
+
 {% set image_encoder = get_encoder_schema("image", "maxvit") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
 
-Parameters: 
+Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
@@ -213,7 +215,7 @@ Parameters:
 {% set image_encoder = get_encoder_schema("image", "mnasnet") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
 
-Parameters: 
+Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
@@ -222,7 +224,7 @@ Parameters:
 {% set image_encoder = get_encoder_schema("image", "mobilenetv2") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
 
-Parameters: 
+Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
@@ -231,7 +233,7 @@ Parameters:
 {% set image_encoder = get_encoder_schema("image", "mobilenetv3") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
 
-Parameters: 
+Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
@@ -240,7 +242,7 @@ Parameters:
 {% set image_encoder = get_encoder_schema("image", "regnet") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
 
-Parameters: 
+Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
@@ -249,7 +251,7 @@ Parameters:
 {% set image_encoder = get_encoder_schema("image", "resnet") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
 
-Parameters: 
+Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
@@ -258,7 +260,7 @@ Parameters:
 {% set image_encoder = get_encoder_schema("image", "resnext") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
 
-Parameters: 
+Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
@@ -267,7 +269,7 @@ Parameters:
 {% set image_encoder = get_encoder_schema("image", "shufflenet_v2") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
 
-Parameters: 
+Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
@@ -276,7 +278,7 @@ Parameters:
 {% set image_encoder = get_encoder_schema("image", "squeezenet") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
 
-Parameters: 
+Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
@@ -285,7 +287,7 @@ Parameters:
 {% set image_encoder = get_encoder_schema("image", "swin_transformer") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
 
-Parameters: 
+Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
@@ -294,7 +296,7 @@ Parameters:
 {% set image_encoder = get_encoder_schema("image", "vgg") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
 
-Parameters: 
+Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
@@ -303,7 +305,7 @@ Parameters:
 {% set image_encoder = get_encoder_schema("image", "vit") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
 
-Parameters: 
+Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
@@ -312,7 +314,7 @@ Parameters:
 {% set image_encoder = get_encoder_schema("image", "wide_resnet") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
 
-Parameters: 
+Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 

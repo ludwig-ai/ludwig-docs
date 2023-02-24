@@ -1,3 +1,7 @@
+{% from './macros/includes.md' import render_fields, render_yaml %}
+{% set mv_details = "See [Missing Value Strategy](./input_features.md#missing-value-strategy) for details." %}
+{% set details = {"missing_value_strategy": mv_details} %}
+
 ## Category Features Preprocessing
 
 Category features are transformed into integer valued vectors of size `n` (where `n` is the size of the dataset) and
@@ -13,29 +17,12 @@ The column name is added to the JSON file, with an associated dictionary contain
 4. the size of the set of all tokens (`vocab_size`)
 5. additional preprocessing information (by default how to fill missing values and what token to use to fill missing values)
 
-The parameters available for preprocessing are
+{% set preprocessing = get_feature_preprocessing_schema("category") %}
+{{ render_yaml(preprocessing, parent="preprocessing") }}
 
-- `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there is a missing value in the
-category column. The value should be one of `fill_with_const` (replaces the missing value with a specific value
-specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value
-in the column), `bfill` (replaces the missing values with the next valid value), `ffill` (replaces the missing values with the previous valid value) or `drop_row`.
-- `fill_value` (default `<UNK>`): the value to replace missing values with when `missing_value_strategy` is
-`fill_with_const`.
-- `lowercase` (default `false`): if the string has to be lowercased before being handled by the tokenizer.
-- `most_common` (default `10000`): the maximum number of most common tokens to be considered. If the data contains more
-than this amount, the most infrequent tokens will be treated as unknown.
+Parameters:
 
-Configuration example:
-
-```yaml
-name: color
-type: category
-preprocessing:
-    missing_value_strategy: fill_with_const
-    fill_value: <UNK>
-    lowercase: false
-    most_common: 10000
-```
+{{ render_fields(schema_class_to_fields(preprocessing), details=details) }}
 
 Preprocessing parameters can also be defined once and applied to all category input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 

@@ -1,4 +1,6 @@
 {% from './macros/includes.md' import render_fields, render_yaml %}
+{% set mv_details = "See [Missing Value Strategy](./input_features.md#missing-value-strategy) for details." %}
+{% set details = {"missing_value_strategy": mv_details} %}
 
 ## Sequence Features Preprocessing
 
@@ -24,7 +26,7 @@ The column name is added to the JSON file, with an associated dictionary contain
 
 Parameters:
 
-{{ render_fields(schema_class_to_fields(preprocessing)) }}
+{{ render_fields(schema_class_to_fields(preprocessing), details=details) }}
 
 Preprocessing parameters can also be defined once and applied to all sequence input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 

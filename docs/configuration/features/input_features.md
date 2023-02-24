@@ -58,6 +58,34 @@ Each input feature can specify its own preprocessing via the `preprocessing` sub
 It's also possible to specify preprocessing rules for all features of a certain type. See
 [Type-Global Preprocessing](../defaults.md#type-global-preprocessing).
 
+## Common Parameters
+
+### Missing Value Strategy
+
+Ludwig allows any input feature to be "missing" in the dataset (at both training and prediction time). How
+missing values are handled by default varies depending on the feature type, but this handling strategy can be configured
+in `preprocessing` section of the config for each feature:
+
+```yaml
+preprocessing:
+    missing_value_strategy: fill_with_mean
+```
+
+Options:
+
+- **`fill_with_const`**: Replaces the missing value with a specific value specified with the `fill_value` parameter.
+- **`fill_with_mean`**: Replaces the missing values with the mean of the values in the column.
+- **`fill_with_mode`**: Replaces the missing values with the most frequent value in the column.
+- **`fill_with_false`** Replace the missing values with the `false` value in the column (`binary` features only).
+- **`bfill`**: Replaces the missing values with the next valid value from the subsequent rows of the input dataset.
+- **`ffill`**: Replaces the missing values with the previous valid value from the preceding rows of the input dataset.
+- **`drop_row`**: Removes the entire row from the dataset if this column is missing.
+
+For output features, the default strategy is always `drop_row`, as otherwise Ludwig would be forced to "make up" the
+ground truth values being predicted. However, this can also be overridden using the same `missing_value_stragegy` param
+if so desired.
+
+
 # Encoders
 
 Each input feature can configure a specific `encoder` to map input feature values into tensors. For instance, a user

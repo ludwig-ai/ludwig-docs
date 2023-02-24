@@ -1,4 +1,6 @@
 {% from './macros/includes.md' import render_fields, render_yaml %}
+{% set mv_details = "See [Missing Value Strategy](./input_features.md#missing-value-strategy) for details." %}
+{% set details = {"missing_value_strategy": mv_details} %}
 
 ## Text Features Preprocessing
 
@@ -14,7 +16,7 @@ a text output feature, this same mapping is used to post-process predictions to 
 
 Parameters:
 
-{{ render_fields(schema_class_to_fields(text_preprocessing)) }}
+{{ render_fields(schema_class_to_fields(text_preprocessing), details=details) }}
 
 Preprocessing parameters can also be defined once and applied to all text input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 

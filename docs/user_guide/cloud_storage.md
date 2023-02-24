@@ -68,7 +68,7 @@ backend:
 
 Individual entries will be written using a filename computed from the checksum of the dataset and Ludwig config used for training.
 
-One additional benefit of setting up a dedicated cache is to make use of cache eviction policies. For example, setting up a TTL 
+One additional benefit of setting up a dedicated cache is to make use of cache eviction policies. For example, setting up a TTL
 so cached datasets are automatically cleaned up after a few days.
 
 ### Using different cache and dataset filesystems

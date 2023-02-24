@@ -130,7 +130,7 @@ in the same unified configuration system.
 
   Scale to very large datasets, train on multiple GPUs and multiple machines
   in a distributed setting using [Ray](https://www.ray.io), with no code or
-  config changes required. Runs natively in the cloud on [Kubernetes](https://kubernetes.io/) 
+  config changes required. Runs natively in the cloud on [Kubernetes](https://kubernetes.io/)
   using [KubeRay](https://github.com/ray-project/kuberay).
 
 - **[Serving](https://ludwig.ai/latest/user_guide/serving)**

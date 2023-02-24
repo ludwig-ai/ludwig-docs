@@ -336,7 +336,7 @@ These parameters are used across multiple combiners (and some encoders / decoder
 
 ### Normalization
 
-Normalization applied at the beginnging of the fully-connected stack. If a `norm` is not already specified for the `fc_layers` this is the default `norm` that will be used for each layer. One of: 
+Normalization applied at the beginnging of the fully-connected stack. If a `norm` is not already specified for the `fc_layers` this is the default `norm` that will be used for each layer. One of:
 
 - `null`: no normalization
 - `batch`: batch normalization
@@ -383,7 +383,7 @@ Parameters:
 
 Ghost Batch Norm is a technique designed to address the "generalization gap" whereby the training process breaks down with very large batch sizes.
 If you are using a large batch size (typically in the thousands) to maximize GPU utilization, but the model is not converging well, enabling ghost
-batch norm can be a useful technique to improve convergence. 
+batch norm can be a useful technique to improve convergence.
 
 When using ghost batch norm, you specify a `virtual_batch_size` (default `128`) representing the "ideal" batch size to train with (ignoring throughput or GPU utilization). The ghost batch norm will then subdivide each batch into subbatches of size `virtual_batch_size` and apply batch normalization to each.
 

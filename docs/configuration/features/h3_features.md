@@ -77,7 +77,7 @@ The intuition behind this is that, starting from the base cell, the sequence of 
 {% set encoder_rnn = get_encoder_schema("h3", "rnn") %}
 {{ render_yaml(encoder_rnn, parent="encoder") }}
 
-Parameters: 
+Parameters:
 
 {{ render_fields(schema_class_to_fields(encoder_rnn, exclude=["type"]), details=details) }}
 

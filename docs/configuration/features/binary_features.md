@@ -105,7 +105,7 @@ Parameters:
 Calibration uses the validation set to find a scale factor (temperature) which is multiplied with the logits to shift
 output probabilities closer to true likelihoods.
 - **`reduce_dependencies`** (default `sum`): defines how to reduce the output of a dependent feature that is not a vector, but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension).
-- **`threshold`** (defaults `0.5`): The threshold above (greater or equal) which the predicted output of the sigmoid 
+- **`threshold`** (defaults `0.5`): The threshold above (greater or equal) which the predicted output of the sigmoid
   function will be mapped to 1.
 - **`loss`** (default `{"type": "binary_weighted_cross_entropy"}`): is a dictionary containing a loss `type`. `binary_weighted_cross_entropy` is the only supported loss type for binary output features. See [Loss](#loss) for details.
 - **`decoder`** (default: `{"type": "regressor"}`): Decoder for the desired task. Options: `regressor`. See [Decoder](#decoder) for details.

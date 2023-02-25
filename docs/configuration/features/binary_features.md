@@ -112,7 +112,7 @@ output probabilities closer to true likelihoods.
 - **`loss`** (default `{"type": "binary_weighted_cross_entropy"}`): is a dictionary containing a loss `type`. `binary_weighted_cross_entropy` is the only supported loss type for binary output features. See [Loss](#loss) for details.
 - **`decoder`** (default: `{"type": "regressor"}`): Decoder for the desired task. Options: `regressor`. See [Decoder](#decoder) for details.
 
-Decoder type and decoder parameters can also be defined once and applied to all binary output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section. 
+Decoder type and decoder parameters can also be defined once and applied to all binary output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
 
 ### Decoder
 

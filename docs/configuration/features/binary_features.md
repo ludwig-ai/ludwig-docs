@@ -128,8 +128,6 @@ Parameters:
 
 #### Passthrough Decoder
 
-The `passthrough` decoder passes through raw binary values without any transformations.
-
 {% set decoder = get_decoder_schema("binary", "passthrough") %}
 {{ render_yaml(decoder, parent="decoder") }}
 

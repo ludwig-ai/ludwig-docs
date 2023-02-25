@@ -1,7 +1,7 @@
 {% from './macros/includes.md' import render_fields, render_yaml %}
 {% set mv_details = "See [Missing Value Strategy](./input_features.md#missing-value-strategy) for details." %}
 {% set norm_details = "See [Normalization](../combiner.md#normalization) for details." %}
-{% set details = {"missing_value_strategy": mv_details, "norm": norm_details, "norm_params": norm_details} %}
+{% set details = {"missing_value_strategy": mv_details} %}
 
 ## Binary Features Preprocessing
 

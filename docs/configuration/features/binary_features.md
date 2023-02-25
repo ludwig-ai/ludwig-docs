@@ -62,18 +62,6 @@ Parameters:
 
 ## Binary Output Features and Decoders
 
-``` mermaid
-graph LR
-  A["Combiner\n Output"] --> B["Fully\n Connected\n Layers"];
-  B --> C["Projection into\n Output Space"];
-  C --> D["Sigmoid"];
-  subgraph DEC["DECODER.."]
-  B
-  C
-  D
-  end
-```
-
 Binary output features can be used when a binary classification needs to be performed or when the output is a single probability. There are two decoders available: `regressor` and `passthrough`.
 
 Example binary output feature using default parameters:
@@ -117,6 +105,18 @@ Decoder type and decoder parameters can also be defined once and applied to all 
 ### Decoder
 
 #### Regressor Decoder
+
+``` mermaid
+graph LR
+  A["Combiner\n Output"] --> B["Fully\n Connected\n Layers"];
+  B --> C["Projection into\n Output Space"];
+  C --> D["Sigmoid"];
+  subgraph DEC["DECODER.."]
+  B
+  C
+  D
+  end
+```
 
 The regressor decoder is a (potentially empty) stack of fully connected layers, followed by a projection into a single number followed by a sigmoid function.
 

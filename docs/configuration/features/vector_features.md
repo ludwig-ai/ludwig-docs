@@ -118,7 +118,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(decoder, exclude=["type"]), details=details) }}
 
-Decoder type and decoder parameters can also be defined once and applied to all number output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
+Decoder type and decoder parameters can also be defined once and applied to all vector output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
 
 ### Loss
 

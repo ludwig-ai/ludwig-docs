@@ -1,4 +1,4 @@
-It's exciting to see the creative ways Ludwig has been integrated into various data science workflows and products. 
+It's exciting to see the creative ways Ludwig has been integrated into various data science workflows and products.
 
 To better support the engineers and scientists who use Ludwig as a platform, Ludwig has stability guarantees and expectations defined within the codebase. To make API stability clear in code, we’ve adopted the python decorators below. You can find their python implementations in this [module](https://github.com/ludwig-ai/ludwig/blob/master/ludwig/api_annotations.py) within the Ludwig codebase.
 
@@ -21,4 +21,3 @@ Developer APIs are lower-level methods explicitly exposed to advanced Ludwig use
 # Deprecated
 
 Deprecated APIs may be removed in future releases of Ludwig. Deprecated annotations will include a message with recommended alternatives, such as when a function has moved to a different import path, or the arguments of a function have changed.
-

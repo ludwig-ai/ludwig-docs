@@ -61,7 +61,7 @@ Parameters:
 
 ## Binary Output Features and Decoders
 
-Binary output features can be used when a binary classification needs to be performed or when the output is a single probability. There are two decoders available: `regressor` and `passthrough`.
+Binary output features can be used when a binary classification needs to be performed or when the output is a single probability. There is only one decoder available: `regressor`.
 
 Example binary output feature using default parameters:
 
@@ -72,20 +72,29 @@ reduce_input: sum
 dependencies: []
 calibration: false
 reduce_dependencies: sum
-loss:
-    type: cross_entropy
-    confidence_penalty: 0
-    robust_lambda: 0
-    positive_class_weight: 1
+threshold: 0.5
 decoder:
-    fc_layers: null
-    num_fc_layers: 0
-    activation: relu
-    norm: null
-    dropout: 0.2
-    weights_initializer: glorot_uniform
-    bias_initializer: zeros
-    threshold: 0.5
+  type: regressor
+  fc_layers: null
+  num_fc_layers: 0
+  fc_output_size: 256
+  fc_use_bias: true
+  fc_weights_initializer: xavier_uniform
+  fc_bias_initializer: zeros
+  fc_norm: null
+  fc_norm_params: null
+  fc_activation: relu
+  fc_dropout: 0.0
+  input_size: null
+  use_bias: true
+  weights_initializer: xavier_uniform
+  bias_initializer: zeros
+loss:
+  type: binary_weighted_cross_entropy
+  weight: 1.0
+  positive_class_weight: null
+  robust_lambda: 0
+  confidence_penalty: 0
 ```
 
 Parameters:
@@ -96,14 +105,14 @@ Parameters:
 Calibration uses the validation set to find a scale factor (temperature) which is multiplied with the logits to shift
 output probabilities closer to true likelihoods.
 - **`reduce_dependencies`** (default `sum`): defines how to reduce the output of a dependent feature that is not a vector, but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension).
+- **`threshold`** (defaults `0.5`): The threshold above (greater or equal) which the predicted output of the sigmoid 
+  function will be mapped to 1.
 - **`loss`** (default `{"type": "binary_weighted_cross_entropy"}`): is a dictionary containing a loss `type`. `binary_weighted_cross_entropy` is the only supported loss type for binary output features. See [Loss](#loss) for details.
 - **`decoder`** (default: `{"type": "regressor"}`): Decoder for the desired task. Options: `regressor`. See [Decoder](#decoder) for details.
 
 Decoder type and decoder parameters can also be defined once and applied to all binary output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
 
 ### Decoder
-
-#### Regressor Decoder
 
 ``` mermaid
 graph LR
@@ -126,17 +135,6 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(decoder, exclude=["type"]), details=details) }}
 
-#### Passthrough Decoder
-
-The passthrough decoder provides the raw output from the combiner.
-
-{% set decoder = get_decoder_schema("binary", "passthrough") %}
-{{ render_yaml(decoder, parent="decoder") }}
-
-Parameters:
-
-{{ render_fields(schema_class_to_fields(decoder, exclude=["type"]), details=details) }}
-
 ### Loss
 
 {% set loss = get_loss_schema("binary_weighted_cross_entropy") %}
@@ -153,4 +151,4 @@ Loss and loss related parameters can also be defined once and applied to all bin
 The metrics that are calculated every epoch and are available for binary features are the `accuracy`, `loss`,
 `precision`, `recall`, `roc_auc` and `specificity`.
 
-You can set either to be the `validation_metric` in the `training` section of the configuration if the `validation_field` is set as the name of a binary feature.
+You can set any of these to be the `validation_metric` in the `training` section of the configuration if the `validation_field` is set as the name of a binary feature.

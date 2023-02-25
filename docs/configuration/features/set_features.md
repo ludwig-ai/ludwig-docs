@@ -1,4 +1,9 @@
-## Set Features Preprocessing
+{% from './macros/includes.md' import render_fields, render_yaml %}
+{% set mv_details = "See [Missing Value Strategy](./input_features.md#missing-value-strategy) for details." %}
+{% set norm_details = "See [Normalization](../combiner.md#normalization) for details." %}
+{% set details = {"missing_value_strategy": mv_details, "norm": norm_details} %}
+
+## Preprocessing
 
 Set features are expected to be provided as a string of elements separated by whitespace, e.g. "elem5 elem9 elem6".
 The string values are transformed into a binary (int8 actually) valued matrix of size `n x l` (where `n` is the number
@@ -16,44 +21,16 @@ The column name is added to the JSON file, with an associated dictionary contain
 1. the maximum size of all sets (`max_set_size`)
 1. additional preprocessing information (by default how to fill missing values and what token to use to fill missing values)
 
-The parameters available for preprocessing are
+{% set preprocessing = get_feature_preprocessing_schema("set") %}
+{{ render_yaml(preprocessing, parent="preprocessing") }}
 
-- `tokenizer` (default `space`): defines how to transform the raw text content of the dataset column to a set of
-elements. The default value `space` splits the string on spaces. Common options include: `underscore` (splits on
-underscore), `comma` (splits on comma), `json` (decodes the string into a set or a list through a JSON parser). For all
-available options see [Tokenizers](../../configuration/defaults.md#tokenizers).
-- `missing_value_strategy` (default `fill_with_const`): what strategy to follow when there's a missing value in a set
-column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with
-the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column),
-`bfill` (replaces the missing values with the next valid value), `ffill` (replaces the missing values with the previous valid value) or `drop_row`.
-- `fill_value` (default `<UNK>`): the value to replace the missing values with in case the `missing_value_strategy` is
-`fill_with_const`.
-- `lowercase` (default `false`): if the string has to be lowercased before being handled by the tokenizer.
-- `most_common` (default `10000`): the maximum number of most common tokens to be considered. if the data contains more
-than this amount, the most infrequent tokens will be treated as unknown.
+Parameters:
 
-Configuration example:
-
-```yaml
-name: items_purchased
-type: set
-preprocessing:
-    tokenizer: space
-    missing_value_strategy: fill_with_const
-    fill_value: <UNK>
-    lowercase: false
-    most_common: 10000
-```
+{{ render_fields(schema_class_to_fields(preprocessing), details=details) }}
 
 Preprocessing parameters can also be defined once and applied to all set input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 
-## Set Input Features and Encoders
-
-Set features have one encoder, the raw binary values coming from the input placeholders are first transformed to sparse
-integer lists, then they are mapped to either dense or sparse embeddings (one-hot encodings), finally they are
-reduced on the sequence dimension and returned as an aggregated embedding vector.
-Inputs are of size `b` while outputs are of size `b x h` where `b` is the batch size and `h` is the dimensionality of
-the embeddings.
+## Input Features and Encoders
 
 ``` mermaid
 graph LR
@@ -62,90 +39,37 @@ graph LR
   C --> D["Aggregation\n Reduce\n Operation"];
 ```
 
+Set features have one encoder: `embed`, the raw binary values coming from the input placeholders are first transformed to sparse
+integer lists, then they are mapped to either dense or sparse embeddings (one-hot encodings), finally they are
+reduced on the sequence dimension and returned as an aggregated embedding vector.
+Inputs are of size `b` while outputs are of size `b x h` where `b` is the batch size and `h` is the dimensionality of
+the embeddings.
+
 The encoder parameters specified at the feature level are:
 
-- `tied` (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
+- **`tied`** (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
 a feature of the same type and with the same encoder parameters.
-
-The available encoder parameters are:
-
-- `representation` (default `dense`): the possible values are `dense` and `sparse`. `dense` means the embeddings are
-initialized randomly, `sparse` means they are initialized to be one-hot encodings.
-- `embedding_size` (default `50`): it is the maximum embedding size, the actual size will be
-`min(vocabulary_size, embedding_size)` for `dense` representations and exactly `vocabulary_size` for the `sparse`
-encoding, where `vocabulary_size` is the number of different strings appearing in the training set in the input column
-(plus 1 for the unknown token placeholder `<UNK>`).
-- `embeddings_trainable` (default `true`): If `true` embeddings are trained during the training process, if `false`
-embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter
-has effect only when `representation` is `dense` as `sparse` one-hot encodings are not trainable.
-- `pretrained_embeddings` (default `null`): by default `dense` embeddings are initialized randomly, but this parameter
-allows to specify a path to a file containing embeddings in the [GloVe format](https://nlp.stanford.edu/projects/glove/).
-When the file containing the embeddings is loaded, only the embeddings with labels present in the vocabulary are kept,
-the others are discarded. If the vocabulary contains strings that have no match in the embeddings file, their embeddings
-are initialized with the average of all other embedding plus some random noise to make them different from each other.
-This parameter has effect only if `representation` is `dense`.
-- `embeddings_on_cpu` (default `false`): by default embedding matrices are stored on GPU memory if a GPU is used, as it
-allows for faster access, but in some cases the embedding matrix may be too large. This parameter forces the placement
-of the embedding matrix in regular memory and the CPU is used for embedding lookup, slightly slowing down the process as
-a result of data transfer between CPU and GPU memory.
-- `fc_layers` (default `null`): a list of dictionaries containing the parameters of all the fully connected
-layers. The length of the list determines the number of stacked fully connected layers and the content of each
-dictionary determines the parameters for a specific layer. The available parameters for each layer are: `activation`,
-`dropout`, `norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of
-those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used
-instead. If both `fc_layers` and `num_fc_layers` are `null`, a default list will be assigned to `fc_layers` with the
-value `[{output_size: 512}, {output_size: 256}]` (only applies if `reduce_output` is not `null`).
-- `num_fc_layers` (default `1`): this is the number of stacked fully connected layers that the input to the feature
-passes through. Their output is projected in the feature's output space.
-- `output_size` (default `10`): if `output_size` is not already specified in `fc_layers` this is the default
-`output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
-- `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
-- `weights_initializer` (default `glorot_uniform`): initializer for the weight matrix. Options are: `constant`,
-`identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
-`glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
-- `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`,
-`ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`,
-`xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
-- `norm` (default `null`): normalization applied at the beginnging of the fully-connected stack. If a `norm` is not already specified for the `fc_layers` this is the default `norm` that will be used for each layer. One of: `null`, `batch`, `layer`, `ghost`. See [Normalization](../combiner.md#normalization) for details.
-- `norm_params` (default `null`): parameters passed to the `norm` module. See [Normalization](../combiner.md#normalization) for details.
-- `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default
-`activation` that will be used for each layer. It indicates the activation function applied to the output.
-- `dropout` (default `0`): dropout rate
-- `reduce_output` (default `sum`): describes the strategy to use to aggregate the embeddings of the items of the set.
-Available values are: `sum`, `mean` or `avg`, `max`, `concat` and  `null` (which does not reduce and returns the full tensor).
-
-Encoder type and encoder parameters can also be defined once and applied to all set input features using the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
-
-Example set feature entry in the input features list:
 
 ```yaml
 name: set_column_name
 type: set
-encoder:
-    representation: dense
-    embedding_size: 50
-    embeddings_trainable: true
-    pretrained_embeddings: null
-    embeddings_on_cpu: false
-    fc_layers: null
-    num_fc_layers: 0
-    output_size: 10
-    use_bias: true
-    weights_initializer: glorot_uniform
-    bias_initializer: zeros
-    norm: null
-    norm_params: null
-    activation: relu
-    dropout: 0.0
-    reduce_output: sum
-    tied: null
+tied: null
+encoder: 
+    type: embed
 ```
 
-## Set Output Features and Decoders
+Encoder type and encoder parameters can also be defined once and applied to all set input features using the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
-Set features can be used when multi-label classification needs to be performed.
-There is only one decoder available for set features: a (potentially empty) stack of fully connected layers, followed by
-a projection into a vector of size of the number of available classes, followed by a sigmoid.
+### Embed Encoder
+
+{% set encoder = get_encoder_schema("set", "embed") %}
+{{ render_yaml(encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(encoder, exclude=["type"]), details=details) }}
+
+## Output Features and Decoders
 
 ``` mermaid
 graph LR
@@ -159,54 +83,9 @@ graph LR
   end
 ```
 
-These are the available parameters of the set output feature
-
-- `reduce_input` (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order
-tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`,
-`max`, `concat` (concatenates along the first dimension).
-- `dependencies` (default `[]`): the output features this one is dependent on. For a detailed explanation refer to
-[Output Feature Dependencies](../output_features#output-feature-dependencies).
-- `reduce_dependencies` (default `sum`): defines how to reduce the output of a dependent feature that is not a vector,
-but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available
-values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last
-vector of the first dimension).
-- `loss` (default `{type: sigmoid_cross_entropy}`): is a dictionary containing a loss `type`. The only supported loss
-`type` for set features is `sigmoid_cross_entropy`.
-
-Loss type and loss related parameters can also be defined once and applied to all set output features using the [Type-Global Loss](../defaults.md#type-global-loss) section.
-
-These are the available parameters of a set output feature decoder
-
-- `fc_layers` (default `null`): a list of dictionaries containing the parameters of all the fully connected
-layers. The length of the list determines the number of stacked fully connected layers and the content of each
-dictionary determines the parameters for a specific layer. The available parameters for each layer are: `activation`,
-`dropout`, `norm`, `norm_params`, `output_size`, `use_bias`, `bias_initializer` and `weights_initializer`. If any of
-those values is missing from the dictionary, the default one specified as a parameter of the decoder will be used instead.
-- `num_fc_layers` (default 0): this is the number of stacked fully connected layers that the input to the feature passes
-through. Their output is projected in the feature's output space.
-- `output_size` (default `256`): if `output_size` is not already specified in `fc_layers` this is the default
-`output_size` that will be used for each layer. It indicates the size of the output of a fully connected layer.
-- `use_bias` (default `true`): boolean, whether the layer uses a bias vector.
-- `weights_initializer` (default `glorot_uniform`): initializer for the weight matrix. Options are: `constant`,
-`identity`, `zeros`, `ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`,
-`glorot_uniform`, `xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`.
-- `bias_initializer` (default `zeros`):  initializer for the bias vector. Options are: `constant`, `identity`, `zeros`,
-`ones`, `orthogonal`, `normal`, `uniform`, `truncated_normal`, `variance_scaling`, `glorot_normal`, `glorot_uniform`,
-`xavier_normal`, `xavier_uniform`, `he_normal`, `he_uniform`, `lecun_normal`, `lecun_uniform`. Alternatively it is
-possible to specify a dictionary with a key `type` that identifies the type of initializer and other keys for its
-parameters, e.g. `{type: normal, mean: 0, stddev: 0}`. To know the parameters of each initializer, please refer to
-[torch.nn.init](https://pytorch.org/docs/stable/nn.init.html).
-- `norm` (default `null`): normalization applied at the beginnging of the fully-connected stack. If a `norm` is not already specified for the `fc_layers` this is the default `norm` that will be used for each layer. One of: `null`, `batch`, `layer`, `ghost`. See [Normalization](../combiner.md#normalization) for details.
-- `norm_params` (default `null`): parameters passed to the `norm` module. See [Normalization](../combiner.md#normalization) for details.
-- `activation` (default `relu`): if an `activation` is not already specified in `fc_layers` this is the default
-`activation` that will be used for each layer. It indicates the activation function applied to the output.
-- `dropout` (default `0`): dropout rate
-- `threshold` (default `0.5`): The threshold above (greater or equal) which the predicted output of the sigmoid will be
-mapped to 1.
-
-Decoder type and decoder parameters can also be defined once and applied to all set output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
-
-Example set feature entry (with default parameters) in the output features list:
+Set features can be used when multi-label classification needs to be performed.
+There is only one decoder available for set features: a (potentially empty) stack of fully connected layers, followed by
+a projection into a vector of size of the number of available classes, followed by a sigmoid.
 
 ```yaml
 name: set_column_name
@@ -217,20 +96,52 @@ reduce_dependencies: sum
 loss:
     type: sigmoid_cross_entropy
 decoder:
-    fc_layers: null
-    num_fc_layers: 0
-    output_size: 256
-    use_bias: true
-    weights_initializer: glorot_uniform
-    bias_initializer: zeros
-    norm: null
-    norm_params: null
-    activation: relu
-    dropout: 0.0
-    threshold: 0.5
+    type: classifier
 ```
 
-## Set Features Metrics
+Parameters:
+
+- **`reduce_input`** (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order
+tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`,
+`max`, `concat` (concatenates along the first dimension).
+- **`dependencies`** (default `[]`): the output features this one is dependent on. For a detailed explanation refer to
+[Output Feature Dependencies](../output_features#output-feature-dependencies).
+- **`reduce_dependencies`** (default `sum`): defines how to reduce the output of a dependent feature that is not a vector,
+but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available
+values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last
+vector of the first dimension).
+- **`loss`** (default `{type: sigmoid_cross_entropy}`): is a dictionary containing a loss `type`. The only supported loss
+`type` for set features is `sigmoid_cross_entropy`. See [Loss](#loss) for details.
+- **`decoder`** (default: `{"type": "classifier"}`): Decoder for the desired task. Options: `classifier`. See [Decoder](#decoder) for details.
+
+### Decoder
+
+{% set decoder = get_decoder_schema("set", "classifier") %}
+{{ render_yaml(decoder, parent="decoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(decoder, exclude=["type"]), details=details) }}
+
+Decoder type and decoder parameters can also be defined once and applied to all set output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
+
+### Loss
+
+{% set loss_classes = get_loss_schemas("set") %}
+{% for loss in loss_classes %}
+
+#### {{ loss.name() }}
+
+{{ render_yaml(loss, parent="loss") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(loss, exclude=["type"]), details=details) }}
+{% endfor %}
+
+Loss type and loss related parameters can also be defined once and applied to all set output features using the [Type-Global Loss](../defaults.md#type-global-loss) section.
+
+### Metrics
 
 The metrics that are calculated every epoch and are available for set features are `jaccard` (counts the number of
 elements in the intersection of prediction and label divided by number of elements in the union) and the `loss` itself.

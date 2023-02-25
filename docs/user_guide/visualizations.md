@@ -750,6 +750,47 @@ This visualization produces a line chart plotting the roc curves for the specifi
 
 ![ROC Curves from Prediction Statistics](../images/roc_curves_from_test_statistics.png "ROC Curves from Prediction Statistics")
 
+# Precision Recall Curves
+
+## precision_recall_curves
+
+Parameters for this visualization:
+
+- `ground_truth`
+- `split_file`
+- `ground_truth_metadata`
+- `output_directory`
+- `file_format`
+- `output_feature_name`
+- `ground_truth_split`
+- `probabilities`
+- `model_names`
+- `positive_label`
+
+`output_feature_name` can be a category or binary feature.
+This visualization produces a line chart plotting the precision recall curves for the specified `output_feature_name`.
+If `output_feature_name` is a category feature, `positive_label` indicates which class is considered the positive class,
+all others will be considered negative.
+`positive_label` must be an integer, to find the integer label associated with a class check the `ground_truth_metadata`
+JSON file.
+
+![Precision Recall Curves](../images/precision_recall_curve.png "Precision Recall Curves")
+
+## precision_recall_curves_from_test_statistics
+
+Parameters for this visualization:
+
+- `output_directory`
+- `file_format`
+- `output_feature_name`
+- `test_statistics`
+- `model_names`
+
+`output_feature_name` must name a binary feature.
+This visualization produces a line chart plotting the precision recall curves for the specified `output_feature_name`.
+
+![Precision Recall Curves from Prediction Statistics](../images/precision_recall_curve.png "Precision Recall Curves from Prediction Statistics")
+
 # Calibration Plot
 
 ## calibration_1_vs_all

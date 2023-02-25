@@ -141,7 +141,7 @@ Parameters:
 
 Loss type and loss related parameters can also be defined once and applied to all set output features using the [Type-Global Loss](../defaults.md#type-global-loss) section.
 
-###  Metrics
+### Metrics
 
 The metrics that are calculated every epoch and are available for set features are `jaccard` (counts the number of
 elements in the intersection of prediction and label divided by number of elements in the union) and the `loss` itself.

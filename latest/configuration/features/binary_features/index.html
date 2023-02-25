@@ -2377,7 +2377,7 @@ or for <code>layer</code> see <a href="https://pytorch.org/docs/stable/generated
 <span class="nt">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
 <span class="nt">reduce_dependencies</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sum</span>
 <span class="nt">loss</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cross_entropy</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary_weighted_cross_entropy</span>
 <span class="w">    </span><span class="nt">confidence_penalty</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
 <span class="w">    </span><span class="nt">robust_lambda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
 <span class="w">    </span><span class="nt">positive_class_weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
@@ -2410,8 +2410,8 @@ output probabilities closer to true likelihoods.</li>
 but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available
 values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last
 vector of the first dimension).</li>
-<li><code>loss</code> (default <code>{type: cross_entropy, confidence_penalty: 0, robust_lambda: 0, positive_class_weight: 1}</code>): is a
-dictionary containing a loss <code>type</code> and its hyperparameters. The only available loss <code>type</code> is <code>cross_entropy</code> (cross
+<li><code>loss</code> (default <code>{type: binary_weighted_cross_entropy, confidence_penalty: 0, robust_lambda: 0, positive_class_weight: 1}</code>): is a
+dictionary containing a loss <code>type</code> and its hyperparameters. The only available loss <code>type</code> is <code>binary_weighted_cross_entropy</code> (cross
 entropy), and the optional parameters are <code>confidence_penalty</code> (an additional term that penalizes too confident
 predictions by adding a <code>a * (max_entropy - entropy) / max_entropy</code> term to the loss, where a is the value of this
 parameter), <code>robust_lambda</code> (replaces the loss with <code>(1 - robust_lambda) * loss + robust_lambda / 2</code> which is useful in

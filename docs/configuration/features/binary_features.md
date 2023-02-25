@@ -128,6 +128,8 @@ Parameters:
 
 #### Passthrough Decoder
 
+The passthrough decoder provides the raw output from the combiner.
+
 {% set decoder = get_decoder_schema("binary", "passthrough") %}
 {{ render_yaml(decoder, parent="decoder") }}
 

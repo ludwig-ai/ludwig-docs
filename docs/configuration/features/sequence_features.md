@@ -1,4 +1,6 @@
 {% from './macros/includes.md' import render_fields, render_yaml %}
+{% set mv_details = "See [Missing Value Strategy](./input_features.md#missing-value-strategy) for details." %}
+{% set details = {"missing_value_strategy": mv_details} %}
 
 ## Sequence Features Preprocessing
 
@@ -24,7 +26,7 @@ The column name is added to the JSON file, with an associated dictionary contain
 
 Parameters:
 
-{{ render_fields(schema_class_to_fields(preprocessing)) }}
+{{ render_fields(schema_class_to_fields(preprocessing), details=details) }}
 
 Preprocessing parameters can also be defined once and applied to all sequence input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 
@@ -255,7 +257,25 @@ Sequence output features can be used for either tagging (classifying each elemen
 generation (generating a sequence by sampling from the model). Ludwig provides two sequence decoders named `tagger` and
 `generator` respectively.
 
-The following are the available parameters of a sequence output feature:
+Example sequence output feature using default parameters:
+
+```yaml
+name: seq_column_name
+type: sequence
+reduce_input: null
+dependencies: []
+reduce_dependencies: sum
+loss:
+    type: softmax_cross_entropy
+    confidence_penalty: 0
+    robust_lambda: 0
+    class_weights: 1
+    class_similarities_temperature: 0
+decoder: 
+    type: generator
+```
+
+Parameters:
 
 - **`reduce_input`** (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order
 tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`,
@@ -268,43 +288,14 @@ values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the sequ
 last vector of the sequence dimension).
 - **`loss`** (default `{type: softmax_cross_entropy, class_similarities_temperature: 0, class_weights: 1,
 confidence_penalty: 0, robust_lambda: 0}`): is a dictionary containing a loss `type`. The only available
-loss `type` for sequences is `softmax_cross_entropy`. For more details on losses and their options, see also
-[Category Output Features and Decoders](../category_features#category-output-features-and-decoders).
+loss `type` for sequences is `softmax_cross_entropy`. See [Loss](#loss) for details.
+- **`decoder`** (default: `{"type": "generator"}`): Decoder for the desired task. Options: `generator`, `tagger`. See [Decoder](#decoder) for details.
 
 Decoder type and decoder parameters can also be defined once and applied to all sequence output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section. Loss and loss related parameters can also be defined once in the same way.
 
-### Tagger Decoder
+### Decoder
 
-``` mermaid
-graph LR
-  A["emb[0]\n....\nemb[n]"] --> B["Fully\n Connected\n Layers"];
-  B --> C["Projection\n....\nProjection"];
-  C --> D["Softmax\n....\nSoftmax"];
-  subgraph DEC["DECODER.."]
-  B
-  C
-  D
-  end
-  subgraph COM["COMBINER OUT.."]
-  A
-  end
-```
-
-In the case of `tagger` the decoder is a (potentially empty) stack of fully connected layers, followed by a projection
-into a tensor of size `b x s x c`, where `b` is the batch size, `s` is the length of the sequence and `c` is the number
-of classes, followed by a softmax_cross_entropy.
-This decoder requires its input to be shaped as `b x s x h`, where `h` is a hidden dimension, which is the output of a
-sequence, text or time series input feature without reduced outputs or the output of a sequence-based combiner.
-If a `b x h` input is provided instead, an error will be raised during model building.
-
-{% set decoder = get_decoder_schema("sequence", "tagger") %}
-{{ render_yaml(decoder, parent="decoder") }}
-
-Parameters:
-
-{{ render_fields(schema_class_to_fields(decoder, exclude=["type"])) }}
-
-### Generator Decoder
+#### Generator
 
 ``` mermaid
 graph LR
@@ -346,7 +337,47 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(decoder, exclude=["type"])) }}
 
-## Sequence Features Metrics
+#### Tagger
+
+``` mermaid
+graph LR
+  A["emb[0]\n....\nemb[n]"] --> B["Fully\n Connected\n Layers"];
+  B --> C["Projection\n....\nProjection"];
+  C --> D["Softmax\n....\nSoftmax"];
+  subgraph DEC["DECODER.."]
+  B
+  C
+  D
+  end
+  subgraph COM["COMBINER OUT.."]
+  A
+  end
+```
+
+In the case of `tagger` the decoder is a (potentially empty) stack of fully connected layers, followed by a projection
+into a tensor of size `b x s x c`, where `b` is the batch size, `s` is the length of the sequence and `c` is the number
+of classes, followed by a softmax_cross_entropy.
+This decoder requires its input to be shaped as `b x s x h`, where `h` is a hidden dimension, which is the output of a
+sequence, text or time series input feature without reduced outputs or the output of a sequence-based combiner.
+If a `b x h` input is provided instead, an error will be raised during model building.
+
+{% set decoder = get_decoder_schema("sequence", "tagger") %}
+{{ render_yaml(decoder, parent="decoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(decoder, exclude=["type"])) }}
+
+### Loss
+
+{% set loss = get_loss_schema("softmax_cross_entropy") %}
+{{ render_yaml(loss, parent="loss") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(loss, exclude=["type"])) }}
+
+### Metrics
 
 The metrics that are calculated every epoch and are available for sequence features are:
 

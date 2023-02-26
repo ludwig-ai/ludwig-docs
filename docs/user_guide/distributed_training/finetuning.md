@@ -67,7 +67,7 @@ encoder:
   use_pretrained: true
 ```
 
-All of the [Torchvision pretrained models](https://pytorch.org/vision/stable/models.html) in Ludwig can be used 
+All of the [Torchvision pretrained models](https://pytorch.org/vision/stable/models.html) in Ludwig can be used
 for fine-tuning when `use_pretrained-true` in the encoder config (default).
 
 ### Trainable

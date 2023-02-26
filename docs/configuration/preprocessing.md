@@ -107,11 +107,11 @@ Hash splitting deterministically assigns each sample to a split based on a hash
 of a provided "key" column. This is a useful alternative to random splitting when
 such a key is available for a couple of reasons:
 
-- **To prevent data leakage**: 
+- **To prevent data leakage**:
 For example, imagine you are predicting which users are likely to churn in a given month. If a user
 appears in both the train and test splits, then it may seem that your model is generalizing better than it actually is. In these cases,
 hashing on the user ID column will ensure that every sample for a user is assigned to the same split.
-- **To ensure consistent assignment of samples to splits as the underlying dataset evolves over time**: 
+- **To ensure consistent assignment of samples to splits as the underlying dataset evolves over time**:
 Though random splitting is determinstic between runs due to the use of a random seed, if the underlying
 dataset changes (e.g., new samples are added over time), then samples may move into different splits. Hashing on a primary
 key will ensure that all existing samples retain their original splits as new samples are added over time.
@@ -156,9 +156,9 @@ preprocessing:
 
 # Sample Ratio
 
-Sometimes users may want to train on a sample of their input training data (maybe 
+Sometimes users may want to train on a sample of their input training data (maybe
 there's too much, and we only need 20%, or we want to try out ideas on a smaller
-subset of our data). In order to achieve this, a user can specify a `sample_ratio` 
+subset of our data). In order to achieve this, a user can specify a `sample_ratio`
 to indicate the ratio of the dataset to use for training.
 
 By default, the sample ratio is 1.0, so if not specified, all the data will be

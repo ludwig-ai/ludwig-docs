@@ -106,6 +106,7 @@ nav:
       - Developer Guide: developer_guide/index.md
       - How to Contribute: developer_guide/contributing.md
       - Codebase Structure: developer_guide/codebase_structure.md
+      - Ludwig API Guarantees: developer_guide/api_annotations.md
       - Add an Encoder: developer_guide/add_an_encoder.md
       - Add a Combiner: developer_guide/add_a_combiner.md
       - Add a Decoder: developer_guide/add_a_decoder.md

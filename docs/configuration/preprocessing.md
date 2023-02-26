@@ -2,14 +2,8 @@
 
 The top-level `preprocessing` section specifies dataset splitting (train, validation, test), sample ratio (undersampling the minority class or oversampling the majority class) and dataset balancing.
 
-```yaml
-preprocessing:
-    sample_ratio: 1.0
-    oversample_minority: 0.5
-    split: 
-        type: random
-        probabilities: [0.7, 0.2, 0.1]
-```
+{% set preprocessing = get_preprocessing_schema() %}
+{{ render_yaml(preprocessing, parent="preprocessing") }}
 
 # Dataset Splitting
 

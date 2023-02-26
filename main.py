@@ -128,7 +128,7 @@ def define_env(env):
     @env.macro
     def get_optimizer_schemas():
         return [v[1] for v in optimizer_registry.values()]
-    
+
     @env.macro
     def render_config(config):
         d = ModelConfig.from_dict(config).to_dict()

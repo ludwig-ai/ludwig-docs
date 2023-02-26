@@ -100,6 +100,7 @@ name: category_column_name
 type: category
 reduce_input: sum
 dependencies: []
+calibration: false
 reduce_dependencies: sum
 loss:
     type: softmax_cross_entropy

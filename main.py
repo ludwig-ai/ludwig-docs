@@ -101,12 +101,8 @@ def define_env(env):
         return get_decoder_cls(feature, type)
 
     @env.macro
-    def get_split_schema(type: str, col_name: str = None):
-        cls = get_split_cls(type)
-        # Random split doesn't have column as an attribute
-        if type != "random" and col_name:
-            cls.column = col_name
-        return cls
+    def get_split_schema(type: str):
+        return get_split_cls(type)
 
     @env.macro
     def get_preprocessing_schema():

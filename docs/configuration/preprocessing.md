@@ -62,8 +62,8 @@ In order to perform stratified splitting, you specify the name of the column you
 
 The following config is an example that would perform stratified splitting for a column `color`:
 
-{% set stratify_split = get_split_schema("stratify", col_name="color") %}
-{{ render_yaml(stratify_split, parent="split") }}
+{% set stratify_split = get_split_schema("stratify") %}
+{{ render_yaml(stratify_split, parent="split", updates={"column": "color"}) }}
 
 This helps ensure that the distribution of the values in `color` are
 roughly the same across data subsets.
@@ -98,8 +98,8 @@ used for testing.
 The following config shows how to specify this type of splitting using a
 datetime column named `created_ts`:
 
-{% set datetime_split = get_split_schema("datetime", col_name="created_ts") %}
-{{ render_yaml(datetime_split, parent="split") }}
+{% set datetime_split = get_split_schema("datetime") %}
+{{ render_yaml(datetime_split, parent="split", updates={"column": "created_ts"}) }}
 
 ## Hash Split
 
@@ -116,8 +116,8 @@ Though random splitting is determinstic between runs due to the use of a random 
 dataset changes (e.g., new samples are added over time), then samples may move into different splits. Hashing on a primary
 key will ensure that all existing samples retain their original splits as new samples are added over time.
 
-{% set hash_split = get_split_schema("hash", col_name="user_id") %}
-{{ render_yaml(hash_split, parent="split") }}
+{% set hash_split = get_split_schema("hash") %}
+{{ render_yaml(hash_split, parent="split", updates={"column": "user_id"}) }}
 
 # Data Balancing
 

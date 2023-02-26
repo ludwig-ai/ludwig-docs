@@ -24,3 +24,12 @@
 
 {%- endif -%}
 {%- endmacro %}
+
+
+{%- macro render_config_yaml(config) -%}
+```yaml
+{% for line in render_config(config).split("\n") %}
+{{- line }}
+{% endfor %}
+```
+{%- endmacro %}

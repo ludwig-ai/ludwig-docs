@@ -11,6 +11,7 @@ from ludwig.schema.features.augmentation.utils import get_augmentation_cls
 from ludwig.schema.features.preprocessing.utils import preprocessing_registry
 from ludwig.schema.features.utils import get_input_feature_cls, get_output_feature_cls
 from ludwig.schema.features.loss import get_loss_schema_registry, get_loss_classes
+from ludwig.schema.model_config import ModelConfig
 from ludwig.schema.optimizers import optimizer_registry
 from ludwig.schema.preprocessing import PreprocessingConfig
 from ludwig.schema.split import get_split_cls
@@ -127,6 +128,11 @@ def define_env(env):
     @env.macro
     def get_optimizer_schemas():
         return [v[1] for v in optimizer_registry.values()]
+    
+    @env.macro
+    def render_config(config):
+        d = ModelConfig.from_dict(config).to_dict()
+        return yaml.safe_dump(d, indent=4, sort_keys=False)
 
     @env.macro
     def schema_class_to_yaml(cls, sort_by_impact=True, exclude=None, updates=None):

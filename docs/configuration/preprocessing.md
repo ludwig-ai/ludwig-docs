@@ -1,14 +1,11 @@
-The top-level `preprocessing` section specifies dataset splitting (train,
-validation, test), and dataset balancing.
+{% from './macros/includes.md' import render_fields, render_yaml %}
 
-```yaml
-preprocessing:
-    split: 
-        type: random
-        probabilities: [0.7, 0.2, 0.1]
-```
+The top-level `preprocessing` section specifies dataset splitting (train, validation, test), sample ratio (undersampling the minority class or oversampling the majority class) and dataset balancing.
 
-## Dataset Splitting
+{% set preprocessing = get_preprocessing_schema() %}
+{{ render_yaml(preprocessing, parent="preprocessing") }}
+
+# Dataset Splitting
 
 Data splitting is an important aspect of machine learning to train and evaluate
 machine learning models.
@@ -24,30 +21,28 @@ methods is specified under the `split` subsection.
 
 The following splitting methods are currently supported by Ludwig:
 
-### Random Split
+## Random Split
 
 By default, Ludwig will randomly split the data into train, validation, and test
 sets according to split probabilities, which by default are: `[0.7, 0.1, 0.2]`.
 
-However, you can specify different splitting probabilities if you'd like. For
-instance, if you want your dataset to be split according to a *60% train*,
-*15% validation*, and *25% test* regime, you would use this config:
+{% set random_split = get_split_schema("random") %}
+{{ render_yaml(random_split, parent="split") }}
 
-```yaml
-preprocessing:
-    split: 
-        type: random
-        probabilities: [0.6, 0.15, 0.25]
-```
+However, you can specify different splitting probabilities if you'd like by setting
+the probabilities for each of the 3 datasets (so that they sum up to 1)
 
-### Fixed Split
+## Fixed Split
 
-For users with pre-defined split that you want to use across experiments, Ludwig
-supports fixed dataset splitting.
+If you have a column denoting pre-defined splits (train, validation and test) that you want to use across experiments, Ludwig supports using fixed dataset splits.
 
-Provide an additional column in your data called `split` with the following
-values for each split you want to include in your training/validation/test
-subset.
+The following config is an example that would perform fixed splitting using a column named `split` in the dataset:
+
+{% set fixed_split = get_split_schema("fixed") %}
+{{ render_yaml(fixed_split, parent="split") }}
+
+Within the data itself, we would ensure that there is a column called `split` with the following
+values for each row in the column based on the split we want to map that row to:
 
 - `0`: train
 - `1`: validation
@@ -55,38 +50,22 @@ subset.
 
 !!! note
 
-    Your dataset must contain a train split while the validation and test splits
-    are encouraged, but technically optional.
+    Your dataset must contain a train split. However, the validation and test splits
+    are encouraged, but optional.
 
-The following config is an example that would perform fixed splitting using a
-column named `split`:
+## Stratified Split
 
-```yaml
-preprocessing:
-    split:
-        type: fixed
-        column: split
-```
+Sometimes you may want to split your data according to a particular column's distribution to maintain the same representation of this distribution across all your data subsets. This may
+be particularly useful when you have more than one class and your dataset is imbalanced.
 
-### Stratified Split
+In order to perform stratified splitting, you specify the name of the column you want to perform stratified splitting on and the split probabilities.
 
-Sometimes you may want to split your data according to a particular column's
-distribution to maintain the same representation of this distribution across all
-your data subsets.
+The following config is an example that would perform stratified splitting for a column `color`:
 
-In order to perform stratified splitting, you specify the name of the column you
-want to perform stratified splitting on and the split probabilities. For
-example:
+{% set stratify_split = get_split_schema("stratify") %}
+{{ render_yaml(stratify_split, parent="split", updates={"column": "color"}) }}
 
-```yaml
-preprocessing:
-    split:
-        type: stratify
-        column: color
-        probabilities: [0.7, 0.1, 0.2]
-```
-
-This helps ensure that the distribution of the values of the `color` feature are
+This helps ensure that the distribution of the values in `color` are
 roughly the same across data subsets.
 
 !!! note
@@ -94,7 +73,7 @@ roughly the same across data subsets.
     This split method is only supported with a local Pandas backend. We are
     actively working on including support for other data sources like Dask.
 
-### Datetime Split
+## Datetime Split
 
 Another common use case is splitting a column according to a datetime column
 where you may want to have the data split in a temporal order.
@@ -119,60 +98,31 @@ used for testing.
 The following config shows how to specify this type of splitting using a
 datetime column named `created_ts`:
 
-```yaml
-preprocessing:
-    split:
-        type: datetime
-        column: created_ts
-        probabilities: [0.7, 0.1, 0.2]
-```
+{% set datetime_split = get_split_schema("datetime") %}
+{{ render_yaml(datetime_split, parent="split", updates={"column": "created_ts"}) }}
 
-### Hash Split
+## Hash Split
 
 Hash splitting deterministically assigns each sample to a split based on a hash
 of a provided "key" column. This is a useful alternative to random splitting when
 such a key is available for a couple of reasons:
 
-- *To prevent data leakage.* For example, imagine you are predicting which users are likely to churn in a given month. If a user
+- **To prevent data leakage**:
+For example, imagine you are predicting which users are likely to churn in a given month. If a user
 appears in both the train and test splits, then it may seem that your model is generalizing better than it actually is. In these cases,
 hashing on the user ID column will ensure that every sample for a user is assigned to the same split.
-- *To ensure consistent assignment of samples to splits as the underlying dataset evolves over time.*
+- **To ensure consistent assignment of samples to splits as the underlying dataset evolves over time**:
 Though random splitting is determinstic between runs due to the use of a random seed, if the underlying
 dataset changes (e.g., new samples are added over time), then samples may move into different splits. Hashing on a primary
 key will ensure that all existing samples retain their original splits as new samples are added over time.
 
-```yaml
-preprocessing:
-    split: 
-        type: hash
-        column: user_id
-        probabilities: [0.6, 0.15, 0.25]
-```
+{% set hash_split = get_split_schema("hash") %}
+{{ render_yaml(hash_split, parent="split", updates={"column": "user_id"}) }}
 
-## Data Balancing
+# Data Balancing
 
 Users working with imbalanced datasets can specify an oversampling or
 undersampling parameter which will balance the data during preprocessing.
-
-### Oversampling
-
-In this example, Ludwig will oversample the minority class to achieve a 50%
-representation in the overall dataset.
-
-```yaml
-preprocessing:
-    oversample_minority: 0.5
-```
-
-### Undersampling
-
-In this example, Ludwig will undersample the majority class to achieve a 70%
-representation in the overall dataset.
-
-```yaml
-preprocessing:
-    undersample_majority: 0.7
-```
 
 !!! warning
 
@@ -184,12 +134,32 @@ preprocessing:
     Specifying both oversampling and undersampling parameters simultaneously is
     not supported.
 
-### Sample Ratio
+## Oversampling
 
-Sometimes users may want to train on a sample of their input training data
-(maybe there's too much, and we only need 20%). In order to achieve this, a user
-can specify a `sample_ratio` to specify the ratio of the dataset to use for
-training.
+In this example, Ludwig will oversample the minority class to achieve a 50%
+representation in the overall dataset.
+
+```yaml
+preprocessing:
+    oversample_minority: 0.5
+```
+
+## Undersampling
+
+In this example, Ludwig will undersample the majority class to achieve a 70%
+representation in the overall dataset.
+
+```yaml
+preprocessing:
+    undersample_majority: 0.7
+```
+
+# Sample Ratio
+
+Sometimes users may want to train on a sample of their input training data (maybe
+there's too much, and we only need 20%, or we want to try out ideas on a smaller
+subset of our data). In order to achieve this, a user can specify a `sample_ratio`
+to indicate the ratio of the dataset to use for training.
 
 By default, the sample ratio is 1.0, so if not specified, all the data will be
 used for training. For example, if you only want to use 30% of my input data,
@@ -200,7 +170,7 @@ preprocessing:
     sample_ratio: 0.3
 ```
 
-## Feature-specific preprocessing
+# Feature-specific preprocessing
 
 To configure feature-specific preprocessing, please check
 [datatype-specific documentation](../features/supported_data_types).

@@ -11,8 +11,10 @@ from ludwig.schema.features.augmentation.utils import get_augmentation_cls
 from ludwig.schema.features.preprocessing.utils import preprocessing_registry
 from ludwig.schema.features.utils import get_input_feature_cls, get_output_feature_cls
 from ludwig.schema.features.loss import get_loss_schema_registry, get_loss_classes
-from ludwig.schema.trainer import trainer_schema_registry
 from ludwig.schema.optimizers import optimizer_registry
+from ludwig.schema.preprocessing import PreprocessingConfig
+from ludwig.schema.split import get_split_cls
+from ludwig.schema.trainer import trainer_schema_registry
 
 
 def flatten(d, prefix=""):
@@ -97,6 +99,14 @@ def define_env(env):
     @env.macro
     def get_decoder_schema(feature: str, type: str):
         return get_decoder_cls(feature, type)
+
+    @env.macro
+    def get_split_schema(type: str):
+        return get_split_cls(type)
+
+    @env.macro
+    def get_preprocessing_schema():
+        return PreprocessingConfig
 
     @env.macro
     def get_loss_schema(name: str):

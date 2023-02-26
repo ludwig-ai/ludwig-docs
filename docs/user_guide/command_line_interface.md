@@ -764,8 +764,8 @@ optional arguments:
                         target(s) to predict as output features of the model
   --time_limit_s TIME_LIMIT_S
                         time limit to train the model in seconds when using hyperopt
-  --tune_for_memory TUNE_FOR_MEMORY
-                        refine hyperopt search space based on available host / GPU memory
+  --suggested SUGGESTED
+                        use suggested config from automl, otherwise only use inferred types and return a minimal config
   --hyperopt HYPEROPT   include automl hyperopt config
   --random_seed RANDOM_SEED
                         seed for random number generators used in hyperopt to improve repeatability

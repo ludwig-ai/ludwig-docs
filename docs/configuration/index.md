@@ -1,4 +1,8 @@
-Ludwig models are configured by a single config with the following keys:
+{% from './macros/includes.md' import render_config_yaml %}
+
+## Parameters
+
+Ludwig models are configured by a single config with the following parameters:
 
 ```yaml
 model_type: ecd
@@ -123,3 +127,35 @@ The config can be expressed as a python dictionary (`--config_str` for
         ]
     }
     ```
+
+## Rendered Defaults
+
+Ludwig has many parameter options, but with the exception of input and output feature
+names and types, all of the other parameters are optional. When a parameter is unspecified, Ludwig
+assigns it a *reasonable default* value. Ludwig defines "reasonable" to mean that it is unlikely
+to produce bad results, and will train in a reasonable amount of time on commodity hardware. In other
+words, Ludwig defaults are intended to be good **baseline** configs upon which more advanced options
+can be layed on top.
+
+Here's an example of a minimal config generated from the following command:
+
+```bash
+ludwig init_config --dataset ludwig://sst2 --target label --output sst2.yaml
+```
+
+```yaml
+input_features:
+- name: sentence
+  type: text
+output_features:
+- name: label
+  type: binary
+```
+
+And here is the fully rendered config generated from the following command:
+
+```bash
+ludwig render_config --config sst2.yaml --output sst2_rendered.yaml
+```
+
+{{ render_config_yaml({"input_features": [{"name": "sentence", "type": "text"}], "output_features": [{"name": "label", "type": "binary"}]}) }}

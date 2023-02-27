@@ -17,14 +17,16 @@ jobs:
         with:
           python-version: "3.8"
 
+      - name: Upgrade Pip
+        run: |
+          python -m pip -U pip
+
       - name: Setup Linux
-        if: runner.os == 'linux'
         run: |
           sudo apt-get install -y cmake libsndfile1
 
       - name: Install Ludwig
         run: |
-          pip install hummingbird-ml @ git+https://github.com/microsoft/hummingbird.git
           pip install ludwig[full]==0.7
 
       - name: Set Ludwig version env

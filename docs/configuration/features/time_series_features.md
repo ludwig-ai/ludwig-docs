@@ -42,6 +42,7 @@ graph LR
   B --> C["Aggregation\n Reduce\n Operation"];
   C --> ...;
 ```
+
 { data-search-exclude }
 
 The passthrough encoder simply transforms each input value into a float value and adds a dimension to the input tensor,

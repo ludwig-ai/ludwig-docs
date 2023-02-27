@@ -90,6 +90,7 @@ graph LR
   D
   end
 ```
+
 { data-search-exclude }
 
 Category features can be used when a multi-class classification needs to be performed.

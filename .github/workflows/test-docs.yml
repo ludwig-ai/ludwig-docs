@@ -19,7 +19,8 @@ jobs:
 
       - name: Upgrade Pip
         run: |
-          python -m pip -U pip
+          python -m pip install --upgrade pip
+          python -m pip install setuptools wheel
 
       - name: Setup Linux
         run: |

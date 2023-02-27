@@ -321,7 +321,6 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
-
 ### Legacy Vision Transformer Encoder
 
 DEPRECATED: This encoder is deprecated and will be removed in a future release. Please use the equivalent

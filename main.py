@@ -210,7 +210,7 @@ def define_env(env):
             s += f" {details[name]}"
 
         return s
-        
+
     @env.macro
     def render_config(config):
         d = ModelConfig.from_dict(config).to_dict()

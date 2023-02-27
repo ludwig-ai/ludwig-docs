@@ -76,22 +76,6 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
-## ResNet Encoder
-
-DEPRECATED: This encoder is deprecated and will be removed in a future release. Please use the equivalent
-TorchVision encoder instead.
-
-Implements ResNet V2 as described in [Identity Mappings in Deep Residual Networks](https://arxiv.org/abs/1603.05027).
-
-The ResNet encoder takes the following optional parameters:
-
-{% set image_encoder = get_encoder_schema("image", "_resnet_legacy") %}
-{{ render_yaml(image_encoder, parent="encoder") }}
-
-Parameters:
-
-{{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
-
 ## MLP-Mixer Encoder
 
 Encodes images using MLP-Mixer, as described in [MLP-Mixer: An all-MLP Architecture for Vision](https://arxiv.org/abs/2105.01601).
@@ -107,42 +91,32 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
-## Vision Transformer Encoder
-
-DEPRECATED: This encoder is deprecated and will be removed in a future release. Please use the equivalent
-TorchVision encoder instead.
-
-Encodes images using a Vision Transformer as described in
-[An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929).
-
-Vision Transformer divides the image into equal-sized patches, uses a linear transformation to encode each flattened
-patch, then applies a deep transformer architecture to the sequence of encoded patches.
-
-The Vision Transformer Encoder takes the following optional parameters:
-
-{% set image_encoder = get_encoder_schema("image", "_vit_legacy") %}
-{{ render_yaml(image_encoder, parent="encoder") }}
-
-Parameters:
-
-{{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
-
 ## TorchVision Pretrained Model Encoders
 
 Twenty TorchVision pretrained image classification models are available as Ludwig image encoders.  The available models
-are `AlexNet`, `ConvNeXt`, `DenseNet`, `EfficientNet`, `EfficientNetV2`, `GoogLeNet`, `Inception V3`, `MaxVit`,
-`MNASNet`, `MobileNet V2`, `
-MobileNet V3`, `
-RegNet`, `
-ResNet`, `
-ResNeXt`, `
-ShuffleNet V2`, `
-SqueezeNet`,
-`
-SwinTransformer`, `
-VGG`, `
-VisionTransformer`, `
-Wide ResNet`,.  
+are:
+
+- `AlexNet`
+- `ConvNeXt`
+- `DenseNet`
+- `EfficientNet`
+- `EfficientNetV2`
+- `GoogLeNet`
+- `Inception V3`
+- `MaxVit`
+- `MNASNet`
+- `MobileNet V2`
+- `MobileNet V3`
+- `RegNet`
+- `ResNet`
+- `ResNeXt`
+- `ShuffleNet V2`
+- `SqueezeNet`
+- `SwinTransformer`
+- `VGG`
+- `VisionTransformer`
+- `Wide ResNet`
+
 See [TorchVison documentation](https://pytorch.org/vision/stable/models.html#classification) for more details.
 
 Ludwig encoders parameters for TorchVision pretrained models:
@@ -328,6 +302,45 @@ model. More details on `DEFAULT` weights can be found in this
   - `efficientnet_torch`: `b7`
   - `regnet_torch`: `y_128gf`
   - `vit_torch`: `h_14`
+
+## Deprecated Encoders (planned to remove in v0.8)
+
+### Legacy ResNet Encoder
+
+DEPRECATED: This encoder is deprecated and will be removed in a future release. Please use the equivalent
+TorchVision [ResNet](#resnet) encoder instead.
+
+Implements ResNet V2 as described in [Identity Mappings in Deep Residual Networks](https://arxiv.org/abs/1603.05027).
+
+The ResNet encoder takes the following optional parameters:
+
+{% set image_encoder = get_encoder_schema("image", "_resnet_legacy") %}
+{{ render_yaml(image_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
+
+
+### Legacy Vision Transformer Encoder
+
+DEPRECATED: This encoder is deprecated and will be removed in a future release. Please use the equivalent
+TorchVision [VisionTransformer](#visiontransformer) encoder instead.
+
+Encodes images using a Vision Transformer as described in
+[An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929).
+
+Vision Transformer divides the image into equal-sized patches, uses a linear transformation to encode each flattened
+patch, then applies a deep transformer architecture to the sequence of encoded patches.
+
+The Vision Transformer Encoder takes the following optional parameters:
+
+{% set image_encoder = get_encoder_schema("image", "_vit_legacy") %}
+{{ render_yaml(image_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
 ## Image Augmentation
 

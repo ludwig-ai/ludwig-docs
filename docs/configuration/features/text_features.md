@@ -258,109 +258,18 @@ All huggingface-based text encoders are configured with the following parameters
     num_attention_heads: 16 # Instead of 12
     ```
 
-#### ALBERT Encoder
+{% set hf_classes = get_hf_text_encoder_schemas() %}
+{% for hf_encoder in hf_classes %}
+#### {{ hf_encoder.module_name() }}
 
-The `albert` encoder loads a pretrained [ALBERT](https://arxiv.org/abs/1909.11942) (default `albert-base-v2`) model
-using the Hugging Face transformers package. Albert is similar to BERT, with significantly lower memory usage and
-somewhat faster training time.
+{{ schema_class_long_description(hf_encoder) }}
 
-#### AutoTransformer
+{{ render_yaml(hf_encoder, parent="encoder") }}
 
-The `auto_transformer` encoder automatically instantiates the model architecture for the specified
-`pretrained_model_name_or_path`. Unlike the other HF encoders, `auto_transformer` does not provide a default value for
-`pretrained_model_name_or_path`, this is its only mandatory parameter. See the Hugging Face
-[AutoModels documentation](https://huggingface.co/docs/transformers/model_doc/auto) for more details.
+Parameters:
 
-#### BERT Encoder
-
-The `bert` encoder loads a pretrained [BERT](https://arxiv.org/abs/1810.04805) (default `bert-base-uncased`) model using
-the Hugging Face transformers package.
-
-#### CamemBERT Encoder
-
-The `camembert` encoder loads a pretrained [CamemBERT](https://arxiv.org/abs/1911.03894)
-(default `jplu/tf-camembert-base`) model using the Hugging Face transformers package. CamemBERT is pre-trained on a
-large French language web-crawled text corpus.
-
-#### CTRL Encoder
-
-The `ctrl` encoder loads a pretrained [CTRL](https://arxiv.org/abs/1909.05858) (default `ctrl`) model using the Hugging
-Face transformers package. CTRL is a conditional transformer language model trained to condition on control codes that
-govern style, content, and task-specific behavior.
-
-#### DistilBERT Encoder
-
-The `distilbert` encoder loads a pretrained [DistilBERT](https://medium.com/huggingface/distilbert-8cf3380435b5)
-(default `distilbert-base-uncased`) model using the Hugging Face transformers package. A compressed version of BERT,
-60% faster and smaller that BERT.
-
-#### ELECTRA Encoder
-
-The `electra` encoder loads a pretrained [ELECTRA](https://openreview.net/pdf?id=r1xMH1BtvB) model using the Hugging
-Face transformers package.
-
-#### FlauBERT Encoder
-
-The `flaubert` encoder loads a pretrained [FlauBERT](https://arxiv.org/abs/1912.05372)
-(default `jplu/tf-flaubert-base-uncased`) model using the Hugging Face transformers package. FlauBERT has an architecture
-similar to BERT and is pre-trained on a large French language corpus.
-
-#### GPT Encoder
-
-The `gpt` encoder loads a pretrained
-[GPT](https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf)
-(default `openai-gpt`) model using the Hugging Face transformers package.
-
-#### GPT-2 Encoder
-
-The `gpt2` encoder loads a pretrained
-[GPT-2](https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)
-(default `gpt2`) model using the Hugging Face transformers package.
-
-#### Longformer Encoder
-
-The `longformer` encoder loads a pretrained [Longformer](https://arxiv.org/pdf/2004.05150.pdf)
-(default `allenai/longformer-base-4096`) model using the Hugging Face transformers package. Longformer is a good choice
-for longer text, as it supports sequences up to 4096 tokens long.
-
-#### RoBERTa Encoder
-
-The `roberta` encoder loads a pretrained [RoBERTa](https://arxiv.org/abs/1907.11692) (default `roberta-base`) model
-using the Hugging Face transformers package. Replication of BERT pretraining which may match or exceed the performance
-of BERT.
-
-#### Transformer XL Encoder
-
-The `transformer_xl` encoder loads a pretrained [Transformer-XL](https://arxiv.org/abs/1901.02860)
-(default `transfo-xl-wt103`) model using the Hugging Face transformers package. Adds novel positional encoding scheme
-which improves understanding and generation of long-form text up to thousands of tokens.
-
-#### T5 Encoder
-
-The `t5` encoder loads a pretrained [T5](https://arxiv.org/pdf/1910.10683.pdf) (default `t5-small`) model using the
-Hugging Face transformers package. T5 (Text-to-Text Transfer Transformer) is pre-trained on a huge text dataset crawled
-from the web and shows good transfer performance on multiple tasks.
-
-#### MT5 Encoder
-
-The `mt5` encoder loads a pretrained [MT5](https://arxiv.org/abs/2010.11934) (default `google/mt5-base`) model using the
-Hugging Face transformers package. MT5 is a multilingual variant of T5 trained on a dataset of 101 languages.
-
-#### XLM Encoder
-
-The `xlm` encoder loads a pretrained [XLM](https://arxiv.org/abs/1901.07291) (default `xlm-mlm-en-2048`) model using the
-Hugging Face transformers package. Pre-trained by cross-language modeling.
-
-#### XLM-RoBERTa Encoder
-
-The `xlmroberta` encoder loads a pretrained [XLM-RoBERTa](https://arxiv.org/abs/1911.02116)
-(default `jplu/tf-xlm-reoberta-base`) model using the Hugging Face transformers package. XLM-RoBERTa is a multi-language
-model similar to BERT, trained on 100 languages.
-
-#### XLNet Encoder
-
-The `xlnet` encoder loads a pretrained [XLNet](https://arxiv.org/abs/1906.08237) (default `xlnet-base-cased`) model
-using the Hugging Face transformers package. XLNet outperforms BERT on a variety of benchmarks.
+{{ render_fields(schema_class_to_fields(hf_encoder, exclude=["type"])) }}
+{% endfor %}
 
 ## Text Output Features and Decoders
 

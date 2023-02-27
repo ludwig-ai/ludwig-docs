@@ -6,7 +6,8 @@ import ludwig.combiners.combiners  # noqa: F401
 from ludwig.constants import MODEL_ECD
 from ludwig.schema.combiners.utils import get_combiner_registry
 from ludwig.schema.decoders.utils import get_decoder_cls
-from ludwig.schema.encoders.utils import get_encoder_cls
+from ludwig.schema.encoders.text_encoders import HFEncoderConfig
+from ludwig.schema.encoders.utils import get_encoder_cls, get_encoder_classes
 from ludwig.schema.features.augmentation.utils import get_augmentation_cls
 from ludwig.schema.features.preprocessing.utils import preprocessing_registry
 from ludwig.schema.features.utils import get_input_feature_cls, get_output_feature_cls
@@ -127,6 +128,22 @@ def define_env(env):
     @env.macro
     def get_optimizer_schemas():
         return [v[1] for v in optimizer_registry.values()]
+    
+    @env.macro
+    def get_encoder_schemas(feature: str):
+        return get_encoder_classes(feature)
+    
+    @env.macro
+    def get_hf_text_encoder_schemas():
+        # Sort encoders alphabetically, but put AutoTransformer first
+        return sorted(
+            [s for s in get_encoder_classes(MODEL_ECD, "text").values() if issubclass(s, HFEncoderConfig)],
+            key=lambda s: s.type.lower() if s.type != "auto_transformer" else ""
+        )
+    
+    @env.macro
+    def schema_class_long_description(cls):
+        return cls.get_class_schema()().fields["type"].metadata["description"]
 
     @env.macro
     def schema_class_to_yaml(cls, sort_by_impact=True, exclude=None, updates=None):

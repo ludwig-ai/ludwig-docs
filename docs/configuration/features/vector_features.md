@@ -80,6 +80,7 @@ graph LR
   D
   end
 ```
+{ data-search-exclude }
 
 Vector features can be used when multi-class classification needs to be performed with a noise-aware loss or when the task is multivariate regression.
 

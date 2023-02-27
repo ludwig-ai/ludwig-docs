@@ -75,6 +75,7 @@ graph LR
   B --> C["Aggregation\n Reduce\n Operation"];
   C --> ...;
 ```
+{ data-search-exclude }
 
 The embed encoder simply maps each token in the input sequence to an embedding, creating a `b x s x h` tensor where `b`
 is the batch size, `s` is the length of the sequence and `h` is the embedding size.
@@ -102,6 +103,7 @@ graph LR
   E3 --> F;
   E4 --> F;
 ```
+{ data-search-exclude }
 
 The parallel cnn encoder is inspired by
 [Yoon Kim's Convolutional Neural Network for Sentence Classification](https://arxiv.org/abs/1408.5882).
@@ -129,6 +131,7 @@ graph LR
   C --> D["Fully\n Connected\n Layers"];
   D --> ...;
 ```
+{ data-search-exclude }
 
 The stacked cnn encoder is inspired by [Xiang Zhang at all's Character-level Convolutional Networks for Text Classification](https://arxiv.org/abs/1509.01626).
 It works by first mapping the input token sequence `b x s` (where `b` is the batch size and `s` is the length of the
@@ -164,6 +167,7 @@ graph LR
   F --> G4["1D Conv\n Width 5"] --> H;
   H --> I["Pool"] --> J["Fully\n Connected\n Layers"] --> K["..."];
 ```
+{ data-search-exclude }
 
 The stacked parallel cnn encoder is a combination of the Parallel CNN and the Stacked CNN encoders where each layer of
 the stack is composed of parallel convolutional layers.
@@ -190,6 +194,7 @@ graph LR
   C --> D["Fully\n Connected\n Layers"];
   D --> ...;
 ```
+{ data-search-exclude }
 
 The rnn encoder works by first mapping the input token sequence `b x s` (where `b` is the batch size and `s` is the
 length of the sequence) into a sequence of embeddings, then it passes the embedding through a stack of recurrent layers
@@ -215,6 +220,7 @@ graph LR
   C2 --> D["Fully\n Connected\n Layers"];
   D --> ...;
 ```
+{ data-search-exclude }
 
 The `cnnrnn` encoder works by first mapping the input token sequence `b x s` (where `b` is the batch size and `s` is
 the length of the sequence) into a sequence of embeddings, then it passes the embedding through a stack of convolutional
@@ -239,6 +245,7 @@ graph LR
   C --> D["Fully\n Connected\n Layers"];
   D --> ...;
 ```
+{ data-search-exclude }
 
 The `transformer` encoder implements a stack of transformer blocks, replicating the architecture introduced in the
 [Attention is all you need](https://arxiv.org/abs/1706.03762) paper, and adds am optional stack of fully connected
@@ -314,6 +321,7 @@ graph LR
   C3
   end
 ```
+{ data-search-exclude }
 
 In the case of `generator` the decoder is a (potentially empty) stack of fully connected layers, followed by an rnn that
 generates outputs feeding on its own previous predictions and generates a tensor of size `b x s' x c`, where `b` is the
@@ -353,6 +361,7 @@ graph LR
   A
   end
 ```
+{ data-search-exclude }
 
 In the case of `tagger` the decoder is a (potentially empty) stack of fully connected layers, followed by a projection
 into a tensor of size `b x s x c`, where `b` is the batch size, `s` is the length of the sequence and `c` is the number

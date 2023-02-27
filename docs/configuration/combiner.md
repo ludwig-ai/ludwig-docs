@@ -24,6 +24,7 @@ graph LR
   FC
   end
 ```
+{ data-search-exclude }
 
 The `concat` combiner assumes all outputs from encoders are tensors of size `b x h` where `b` is the batch size and `h`
 is the hidden dimension, which can be different for each input.
@@ -80,6 +81,7 @@ graph LR
   IO["emb oth"]
   end
 ```
+{ data-search-exclude }
 
 The `sequence_concat` combiner assumes at least one output from encoders is a tensors of size `b x s x h` where `b` is
 the batch size, `s` is the length of the sequence and `h` is the hidden dimension.
@@ -143,6 +145,7 @@ graph LR
   IO["emb oth"]
   end
 ```
+{ data-search-exclude }
 
 The `sequence` combiner stacks a sequence concat combiner with a sequence encoder.
 All the considerations about input tensor ranks described for the [sequence concat combiner](#sequence-concat-combiner)
@@ -168,6 +171,7 @@ graph LR
   IN[Encoder Output N] --> C;
   C --> ...;
 ```
+{ data-search-exclude }
 
 The `tabnet` combiner implements the [TabNet](https://arxiv.org/abs/1908.07442) model, which uses attention and sparsity
 to achieve high performance on tabular data. It assumes all outputs from encoders are tensors of size `b x h` where `b`
@@ -200,6 +204,7 @@ graph LR
   FC
   end
 ```
+{ data-search-exclude }
 
 The `transformer` combiner combines input features using a stack of Transformer blocks (from [Attention Is All You Need](https://arxiv.org/abs/1706.03762)).
 It assumes all outputs from encoders are tensors of size `b x h` where `b` is the batch size and `h` is the hidden
@@ -258,6 +263,7 @@ graph LR
   T3
   end
 ```
+{ data-search-exclude }
 
 The `tabtransformer` combiner combines input features in the following sequence of operations. The combiner projects all encoder outputs except binary and number features into an embedding space. These features are concatenated as if they were a sequence and passed through a transformer. After the transformer, the number and binary features are concatenated (which are of size 1) and then concatenated  with the output of the transformer and is passed to a stack of fully connected layers (from [TabTransformer: Tabular Data Modeling Using Contextual Embeddings](https://arxiv.org/abs/2012.06678)).
 It assumes all outputs from encoders are tensors of size `b x h` where `b` is the batch size and `h` is the hidden
@@ -314,6 +320,7 @@ graph LR
   COMP
   end
 ```
+{ data-search-exclude }
 
 The `comparator` combiner compares the hidden representation of two entities defined by lists of features.
 It assumes all outputs from encoders are tensors of size `b x h` where `b` is the batch size and `h` is the hidden

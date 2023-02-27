@@ -88,6 +88,7 @@ graph LR
   D
   end
 ```
+{ data-search-exclude }
 
 Category features can be used when a multi-class classification needs to be performed.
 There is only one decoder available for category features: a (potentially empty) stack of fully connected layers,

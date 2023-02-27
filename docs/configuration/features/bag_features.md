@@ -48,6 +48,7 @@ graph LR
   B --> C["emb 0\nemb 1\nemb 5"];
   C --> D["Weighted\n Sum\n Operation"];
 ```
+{ data-search-exclude }
 
 The embed weighted encoder first transforms the element frequency vector to sparse integer lists, which are then mapped
 to either dense or sparse embeddings (one-hot encodings). Lastly, embeddings are aggregated as a weighted sum where each

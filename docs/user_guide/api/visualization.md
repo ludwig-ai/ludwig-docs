@@ -44,8 +44,10 @@ Ludwig pipeline.
 
 __Return__
 
-- __return__ (None):
- 
+- __return__ (Non): (None)
+
+DeveloperAPI: This API may change across minor Ludwig releases.
+
 ---
 
 ## compare_performance
@@ -98,7 +100,9 @@ model_b = LudwigModel.load("path/to/model/")
 b_evaluation_stats, _, _ = model_b.evaluate(eval_set)
 compare_performance([a_evaluation_stats, b_evaluation_stats], model_names=["A", "B"])
 ```
- 
+
+DeveloperAPI: This API may change across minor Ludwig releases.
+
 ---
 
 ## compare_classifiers_performance_from_prob
@@ -151,8 +155,10 @@ metadata['str2idx'] in np.vectorize
 __Return__
 
 
-- __return__ (None):
- 
+- __return__ (Non): (None)
+
+DeveloperAPI: This API may change across minor Ludwig releases.
+
 ---
 
 ## compare_classifiers_performance_from_pred
@@ -201,8 +207,10 @@ metadata['str2idx'] in np.vectorize
 __Return__
 
 
-- __return__ (None):
- 
+- __return__ (Non): (None)
+
+DeveloperAPI: This API may change across minor Ludwig releases.
+
 ---
 
 ## compare_classifiers_performance_subset
@@ -260,8 +268,10 @@ __Inputs__
 __Return__
 
 
-- __return__ (None):
- 
+- __return__ (Non): (None)
+
+DeveloperAPI: This API may change across minor Ludwig releases.
+
 ---
 
 ## compare_classifiers_performance_changing_k
@@ -314,8 +324,10 @@ metadata['str2idx'] in np.vectorize
 __Return__
 
 
-- __return__ (None):
- 
+- __return__ (Non): (None)
+
+DeveloperAPI: This API may change across minor Ludwig releases.
+
 ---
 
 ## compare_classifiers_multiclass_multimetric
@@ -359,8 +371,10 @@ plots. If not specified, plots will be displayed in a window
 
 __Return__
 
-- __return__ (None):
- 
+- __return__ (Non): (None)
+
+DeveloperAPI: This API may change across minor Ludwig releases.
+
 ---
 
 ## compare_classifiers_predictions
@@ -406,8 +420,10 @@ metadata['str2idx'] in np.vectorize
 __Return__
 
 
-- __return__ (None):
- 
+- __return__ (Non): (None)
+
+DeveloperAPI: This API may change across minor Ludwig releases.
+
 ---
 
 ## confidence_thresholding_2thresholds_2d
@@ -460,8 +476,10 @@ plots. If not specified, plots will be displayed in a window
 __Return__
 
 
-- __return__ (None):
- 
+- __return__ (Non): (None)
+
+DeveloperAPI: This API may change across minor Ludwig releases.
+
 ---
 
 ## confidence_thresholding_2thresholds_3d
@@ -509,8 +527,10 @@ plots. If not specified, plots will be displayed in a window
 __Return__
 
 
-- __return__ (None):
- 
+- __return__ (Non): (None)
+
+DeveloperAPI: This API may change across minor Ludwig releases.
+
 ---
 
 ## confidence_thresholding
@@ -560,8 +580,10 @@ metadata['str2idx'] in np.vectorize
 __Return__
 
 
-- __return__ (None):
- 
+- __return__ (Non): (None)
+
+DeveloperAPI: This API may change across minor Ludwig releases.
+
 ---
 
 ## confidence_thresholding_data_vs_acc
@@ -613,8 +635,10 @@ metadata['str2idx'] in np.vectorize
 
 __Return__
 
-- __return__ (None):
- 
+- __return__ (Non): (None)
+
+DeveloperAPI: This API may change across minor Ludwig releases.
+
 ---
 
 ## confidence_thresholding_data_vs_acc_subset
@@ -684,8 +708,10 @@ metadata['str2idx'] in np.vectorize
 __Return__
 
 
-- __return__ (None):
- 
+- __return__ (Non): (None)
+
+DeveloperAPI: This API may change across minor Ludwig releases.
+
 ---
 
 ## binary_threshold_vs_metric
@@ -743,8 +769,10 @@ metadata['str2idx'] in np.vectorize
 __Return__
 
 
-- __return__ (`None`):
- 
+- __return__ (`None): (`None`)
+
+DeveloperAPI: This API may change across minor Ludwig releases.
+
 ---
 
 ## roc_curves
@@ -797,8 +825,10 @@ metadata['str2idx'] in np.vectorize
 __Return__
 
 
-- __return__ (None):
- 
+- __return__ (Non): (None)
+
+DeveloperAPI: This API may change across minor Ludwig releases.
+
 ---
 
 ## roc_curves_from_test_statistics
@@ -839,8 +869,10 @@ plots. If not specified, plots will be displayed in a window
 __Return__
 
 
-- __return__ (None):
- 
+- __return__ (Non): (None)
+
+DeveloperAPI: This API may change across minor Ludwig releases.
+
 ---
 
 ## calibration_1_vs_all
@@ -902,8 +934,10 @@ metadata['str2idx'] in np.vectorize
 __String__
 
 
-- __return__ (None):
- 
+- __return__ (Non): (None)
+
+DeveloperAPI: This API may change across minor Ludwig releases.
+
 ---
 
 ## calibration_multiclass
@@ -949,8 +983,10 @@ metadata['str2idx'] in np.vectorize
 __Return__
 
 
-- __return__ (None):
- 
+- __return__ (Non): (None)
+
+DeveloperAPI: This API may change across minor Ludwig releases.
+
 ---
 
 ## confusion_matrix
@@ -1000,8 +1036,10 @@ plots. If not specified, plots will be displayed in a window
 __Return__
 
 
-- __return__ (None):
- 
+- __return__ (Non): (None)
+
+DeveloperAPI: This API may change across minor Ludwig releases.
+
 ---
 
 ## frequency_vs_f1
@@ -1058,8 +1096,10 @@ plots. If not specified, plots will be displayed in a window
 __Return__
 
 
-- __return__ (None):
- 
+- __return__ (Non): (None)
+
+DeveloperAPI: This API may change across minor Ludwig releases.
+
 ---
 
 ## hyperopt_report
@@ -1089,8 +1129,10 @@ plots. If not specified, plots will be displayed in a window.
 __Return__
 
 
-- __return__ (None):
- 
+- __return__ (Non): (None)
+
+DeveloperAPI: This API may change across minor Ludwig releases.
+
 ---
 
 ## hyperopt_hiplot
@@ -1117,5 +1159,6 @@ plots. If not specified, plots will be displayed in a window.
 __Return__
 
 
-- __return__ (None):
- 
+- __return__ (Non): (None)
+
+DeveloperAPI: This API may change across minor Ludwig releases.

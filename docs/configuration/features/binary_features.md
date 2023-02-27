@@ -129,7 +129,6 @@ graph LR
   D
   end
 ```
-
 { data-search-exclude }
 
 The regressor decoder is a (potentially empty) stack of fully connected layers, followed by a projection into a single number followed by a sigmoid function.

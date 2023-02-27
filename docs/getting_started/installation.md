@@ -29,6 +29,7 @@ The requirements for additional functionality are separated out so that users ar
 - `ludwig[viz]` for visualization dependencies.
 - `ludwig[hyperopt]` for hyperparameter optimization dependencies.
 - `ludwig[distributed]` for distributed training on [Ray](https://www.ray.io/) using [Dask](https://dask.org/) and [Horovod](https://github.com/horovod/horovod).
+- `ludwig[tree]` for training [LightGBM](https://lightgbm.readthedocs.io/) models using `model_type: gbm` in the config.
 
  The full set of dependencies can be installed with:
 

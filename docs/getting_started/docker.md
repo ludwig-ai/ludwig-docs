@@ -9,9 +9,9 @@ from the `master` branch.
 - `ludwigai/ludwig` Ludwig packaged with PyTorch
 - `ludwigai/ludwig-gpu` Ludwig packaged with gpu-enabled version of PyTorch
 - `ludwigai/ludwig-ray` Ludwig packaged with PyTorch
-  and [nightly build of ray-project/ray](https://github.com/ray-project/ray)
+  and [2.2 version of ray-project/ray](https://github.com/ray-project/ray)
 - `ludwigai/ludwig-ray-gpu` Ludwig packaged with gpu-enabled versions of PyTorch
-  and [nightly build of ray-project/ray](https://github.com/ray-project/ray)
+  and [2.2 version of ray-project/ray](https://github.com/ray-project/ray)
 
 ### Image Tags
 

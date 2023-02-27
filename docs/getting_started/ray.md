@@ -11,21 +11,21 @@ pip install ray
 Next let's make a configuration file named `cluster.yaml` for the Ray Cluster:
 
 ```yaml  title="cluster.yaml"
-cluster_name: ludwig-ray-gpu-nightly
+cluster_name: ludwig-ray-gpu-latest
 
 min_workers: 4
 max_workers: 4
 
 docker:
-    image: "ludwigai/ludwig-ray-gpu:nightly"
+    image: "ludwigai/ludwig-ray-gpu:latest"
     container_name: "ray_container"
 
 head_node:
-    InstanceType: c5.2xlarge
+    InstanceType: m5.2xlarge
     ImageId: latest_dlami
 
 worker_nodes:
-    InstanceType: g4dn.xlarge
+    InstanceType: g4dn.2xlarge
     ImageId: latest_dlami
 ```
 

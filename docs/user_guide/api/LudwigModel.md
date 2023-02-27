@@ -83,6 +83,8 @@ or
 eval_stats, _, _ = ludwig_model.evaluate(dataset=dataframe)
 ```
 
+PublicAPI: This API is stable across Ludwig releases.
+
 
 ---
 # LudwigModel methods
@@ -158,7 +160,7 @@ __Return__
 
 ```python
 create_model(
-  config,
+  config_obj,
   random_seed=42
 )
 ```
@@ -168,7 +170,7 @@ Instantiates BaseModel object.
 
 __Inputs__
 
-- __config__ (dict): Ludwig config
+- __config_obj__ (Config): Ludwig config object
 - __random_seed__ (int, default: ludwig default random seed): Random
 seed used for weights initialization,
 splits and any other random function.
@@ -552,50 +554,53 @@ preprocess(
 
 This function is used to preprocess data.
 
-__Inputs__
-
+__Args:__
 
 - __dataset__ (Union[str, dict, pandas.DataFrame], default: `None`):
-source containing the entire dataset to be used in the experiment.
-If it has a split column, it will be used for splitting
-(0 for train, 1 for validation, 2 for test),
-otherwise the dataset will be randomly split.
+    source containing the entire dataset to be used in the experiment.
+    If it has a split column, it will be used for splitting
+    (0 for train, 1 for validation, 2 for test),
+    otherwise the dataset will be randomly split.
 - __training_set__ (Union[str, dict, pandas.DataFrame], default: `None`):
-source containing training data.
+    source containing training data.
 - __validation_set__ (Union[str, dict, pandas.DataFrame], default: `None`):
-source containing validation data.
+    source containing validation data.
 - __test_set__ (Union[str, dict, pandas.DataFrame], default: `None`):
-source containing test data.
+    source containing test data.
 - __training_set_metadata__ (Union[str, dict], default: `None`):
-metadata JSON file or loaded metadata. Intermediate preprocessed
+    metadata JSON file or loaded metadata. Intermediate preprocessed
 structure containing the mappings of the input
-dataset created the first time an input file is used in the same
-directory with the same name and a '.meta.json' extension.
+    dataset created the first time an input file is used in the same
+    directory with the same name and a '.meta.json' extension.
 - __data_format__ (str, default: `None`): format to interpret data
-sources. Will be inferred automatically if not specified.  Valid
-formats are `'auto'`, `'csv'`, `'df'`, `'dict'`, `'excel'`,
-`'feather'`, `'fwf'`,
-`'hdf5'` (cache file produced during previous training),
-`'html'` (file containing a single HTML `<table>`),
-`'json'`, `'jsonl'`, `'parquet'`,
-`'pickle'` (pickled Pandas DataFrame),
-`'sas'`, `'spss'`, `'stata'`, `'tsv'`.
+    sources. Will be inferred automatically if not specified.  Valid
+    formats are `'auto'`, `'csv'`, `'df'`, `'dict'`, `'excel'`,
+    `'feather'`, `'fwf'`,
+    `'hdf5'` (cache file produced during previous training),
+    `'html'` (file containing a single HTML `<table>`),
+    `'json'`, `'jsonl'`, `'parquet'`,
+    `'pickle'` (pickled Pandas DataFrame),
+    `'sas'`, `'spss'`, `'stata'`, `'tsv'`.
 - __skip_save_processed_input__ (bool, default: `False`): if input
-dataset is provided it is preprocessed and cached by saving an HDF5
-and JSON files to avoid running the preprocessing again. If this
-parameter is `False`, the HDF5 and JSON file are not saved.
+    dataset is provided it is preprocessed and cached by saving an HDF5
+    and JSON files to avoid running the preprocessing again. If this
+    parameter is `False`, the HDF5 and JSON file are not saved.
 - __output_directory__ (str, default: `'results'`): the directory that
-will contain the training statistics, TensorBoard logs, the saved
-model and the training progress files.
+    will contain the training statistics, TensorBoard logs, the saved
+    model and the training progress files.
 - __random_seed__ (int, default: `42`): a random seed that will be
-   used anywhere there is a call to a random number generator: data
-   splitting, parameter initialization and training set shuffling
+    used anywhere there is a call to a random number generator: data
+    splitting, parameter initialization and training set shuffling
 
-__Return__
+__Returns:__
 
+- __:return__: (PreprocessedDataset) data structure containing
+    `(proc_training_set, proc_validation_set, proc_test_set, training_set_metadata)`.
 
-- __return__ (Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, Dict]): tuple containing
-`(proc_training_set, proc_validation_set, proc_test_set, training_set_metadata)`.
+__Raises:__
+
+- __RuntimeError__: An error occured while preprocessing the data. Examples include training dataset
+    being empty after preprocessing, lazy loading not being supported with RayBackend, etc.
  
 
 ---
@@ -1008,7 +1013,9 @@ __Return__
     dictionaries `kfold_cv_statistics`: contains metrics from cv run.
      `kfold_split_indices`: indices to split training data into
      training fold and test fold.
- 
+
+PublicAPI: This API is stable across Ludwig releases.
+
 ---
 
 ## hyperopt
@@ -1041,6 +1048,7 @@ ludwig.hyperopt.run.hyperopt(
   gpu_memory_limit=None,
   allow_parallel_threads=True,
   callbacks=None,
+  tune_callbacks=None,
   backend=None,
   random_seed=42,
   hyperopt_log_verbosity=3
@@ -1134,7 +1142,7 @@ model and the training progress files.
 for training.
 - __gpu_memory_limit__ (float: default: `None`): maximum memory fraction
 [0, 1] allowed to allocate per GPU device.
-- __allow_parallel_threads__ (bool, default: `True`): allow TensorFlow
+- __allow_parallel_threads__ (bool, default: `True`): allow PyTorch
 to use multithreading parallelism to improve performance at
 the cost of determinism.
 - __callbacks__ (list, default: `None`): a list of

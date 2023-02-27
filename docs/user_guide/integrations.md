@@ -5,6 +5,18 @@ simply insert its flag into the command line. Each integration may have specific
 
 # Available integrations
 
+## MLFlow
+
+`--mlflow` - logs training metrics, hyperopt parameters, output artifacts, and trained models to
+[MLflow](https://mlflow.org/). Set the environment variable `MLFLOW_TRACKING_URI` to log results to a remote tracking
+server.
+
+## Weights & Biases
+
+`--wandb` - logs training metrics, configuration parameters, environment details, and trained model to
+[Weights & Biases](https://www.wandb.com/). For more details, refer to
+[W&B Quickstart](https://docs.wandb.com/quickstart).
+
 ## Comet ML
 
 `--comet` - logs training metrics, environment details, test results, visualizations, and more to
@@ -16,18 +28,6 @@ simply insert its flag into the command line. Each integration may have specific
 `--aim` - complete experimentation trackings with configuration, metadata, hyperparameters, losses and terminal logs.
 In order to see and end to end Aim-Ludwig training and tracking example please refer to our [demo](https://github.com/aimhubio/aim-ludwig-demo).
 For more details about [Aim](https://aimstack.io/) refer to the [documentation](https://aimstack.readthedocs.io/en/latest/).
-
-## Weights & Biases
-
-`--wandb` - logs training metrics, configuration parameters, environment details, and trained model to
-[Weights & Biases](https://www.wandb.com/). For more details, refer to
-[W&B Quickstart](https://docs.wandb.com/quickstart).
-
-## ML Flow
-
-`--mlflow` - logs training metrics, hyperopt parameters, output artifacts, and trained models to
-[MLflow](https://mlflow.org/). Set the environment variable `MLFLOW_TRACKING_URI` to log results to a remote tracking
-server.
 
 ## Add more integrations
 

@@ -38,8 +38,12 @@ nav:
           - Data Preprocessing: user_guide/datasets/data_preprocessing.md
           - Data Postprocessing: user_guide/datasets/data_postprocessing.md
           - Dataset Zoo: user_guide/datasets/dataset_zoo.md
-      - Distributed Training: user_guide/distributed_training.md
+      - GPUs: user_guide/gpus.md
+      - Distributed Training:
+          - Distributed Training: user_guide/distributed_training/index.md
+          - Fine-Tuning Pretrained Models: user_guide/distributed_training/finetuning.md
       - Hyperparameter Optimization: user_guide/hyperopt.md
+      - Cloud Storage: user_guide/cloud_storage.md
       - AutoML: user_guide/automl.md
       - Visualizations: user_guide/visualizations.md
       - Model Export: user_guide/model_export.md
@@ -102,6 +106,7 @@ nav:
       - Developer Guide: developer_guide/index.md
       - How to Contribute: developer_guide/contributing.md
       - Codebase Structure: developer_guide/codebase_structure.md
+      - Ludwig API Guarantees: developer_guide/api_annotations.md
       - Add an Encoder: developer_guide/add_an_encoder.md
       - Add a Combiner: developer_guide/add_a_combiner.md
       - Add a Decoder: developer_guide/add_a_decoder.md
@@ -159,9 +164,12 @@ markdown_extensions:
   - toc:
       permalink: true
       baselevel: 2
+  - abbr
   - attr_list
+  - pymdownx.snippets
   - md_in_html
   - pymdownx.details
+  - pymdownx.emoji
   - pymdownx.superfences
   - pymdownx.highlight:
       extend_pygments_lang:
@@ -174,11 +182,17 @@ markdown_extensions:
       alternate_style: true
   - footnotes
   - meta
-#  - pymdownx.superfences:
-#      custom_fences:
-#        - name: mermaid
-#          class: mermaid
-#          format: !!python/name:pymdownx.superfences.fence_div_format
+  - tables
+  - def_list
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
 
 extra:
   version:
@@ -190,6 +204,7 @@ extra:
 
 plugins:
   - search
+  - macros
   - mike:
       # these fields are all optional; the defaults are as below...
       version_selector: true # set to false to leave out the version selector

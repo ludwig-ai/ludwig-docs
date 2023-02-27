@@ -1,6 +1,14 @@
 The Ludwig Dataset Zoo provides datasets that can be directly plugged into a Ludwig model.
 
-The simplest way to use a dataset is to import and load it. The `.load()` method will return a Pandas DataFrame.
+The simplest way to use a dataset is to reference it as a URI when specifying the training set:
+
+```bash
+ludwig train --dataset ludwig://reuters ...
+```
+
+Any Ludwig dataset can be specified as a URI of the form `ludwig://<dataset>`.
+
+Datasets can also be programatically imported and loaded into a Pandas DataFrame using the `.load()` method:
 
 ```python
 from ludwig.datasets import reuters

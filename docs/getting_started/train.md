@@ -18,7 +18,8 @@ input_features:
       type: number
     - name: review_content
       type: text
-      encoder: embed
+      encoder: 
+          type: embed
 output_features:
     - name: recommended
       type: binary
@@ -83,7 +84,8 @@ Once you've created the `rotten_tomatoes.yaml` file with the contents above, you
           type: number
         - name: review_content
           type: text
-          encoder: bert
+          encoder: 
+              type: bert
     output_features:
         - name: recommended
           type: binary

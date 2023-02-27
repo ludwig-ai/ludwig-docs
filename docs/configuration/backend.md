@@ -13,15 +13,15 @@ backend:
   processor:
     type: dask
   trainer:
-    type: horovod
+    strategy: horovod
   loader: {}
 ```
 
 Parameters:
 
 - `type`: How the job will be distributed, one of `local`, `ray`, `horovod`.
-- `cache_dir`: Where the preprocessed data will be written on disk, defaults to the location of the input dataset.
-- `cache_credentials`: Optional dictionary of credentials (or path to credential JSON file) used to write to the cache.
+- `cache_dir`: Where the preprocessed data will be written on disk, defaults to the location of the input dataset. See [Cloud Storage](../user_guide/cloud_storage.md#remote-dataset-cache) for more details
+- `cache_credentials`: Optional dictionary of credentials (or path to credential JSON file) used to write to the cache. See [Cloud Storage](../user_guide/cloud_storage.md#using-different-cache-and-dataset-filesystems) for more details
 - `processor`: (Ray only) parameters to configure execution of distributed data processing.
 - `trainer`: (Ray only) parameters to configure execution of distributed training.
 - `loader`: (Ray only) parameters to configure data loading from processed data to training batches.
@@ -83,16 +83,16 @@ backend:
 
 # Trainer
 
-The `trainer` section configures distributed training. Currently, only `horovod` is supported as a distributed trainer, but
-we will be adding support for more frameworks in future releases.
+The `trainer` section configures distributed training strategy. Currently we support the following strategies (described
+in detail below) with more coming in the future:
 
-## Horovod
+- Horovod
+- Distributed Data Parallel (DDP)
+- Fully Sharded Data Parallel (FSDP)
 
-[Horovod](https://horovod.ai/) is a distributed data-parallel framework that is optimized for bandwidth-constrained computing
-environments. It makes use of Nvidia's NCCL for fast GPU-to-GPU communication.
+The following parameters can be configured for any distributed strategy:
 
-The following parameters can be configured for Horovod:
-
+- `strategy`: one of `horovod`, `ddp`, or `fsdp`.
 - `use_gpu`: whether to use GPUs for training (defaults to `true` when the cluster has at least one GPU).
 - `num_workers`: how many Horovod workers to use for training (defaults to the number of GPUs, or 1 if no GPUs are found).
 - `resources_per_worker`: the Ray resources to assign to each Horovod worker (defaults to 1 CPU and 1 GPU if available).
@@ -101,12 +101,30 @@ The following parameters can be configured for Horovod:
 
 See the [Ray Train API](https://docs.ray.io/en/latest/train/api.html#trainer) for more details on these parameters.
 
-!!! note
+Example:
 
-    Currently Ray Train will attempt to pack multiple Horovod workers onto the same node by default. As such,
-    if you are training on CPUs, you will likely want to increase the CPU `resources_per_worker` to force Ray to spread
-    workers across nodes. In the near future, Ray will support SPREAD scheduling, at which point we will change the
-    default number of workers during CPU training to the number of nodes in the cluster.
+```yaml
+backend:
+  type: ray
+  trainer:
+    strategy: horovod
+    use_gpu: true
+    num_workers: 4
+    resources_per_worker:
+        CPU: 2
+        GPU: 1
+```
+
+In most cases, you shouldn't need to set these values explicitly, as Ludwig will set them on your behalf to maximize
+the resources available in the cluster. There are two cases in which it makes sense to set these values explicitly, however:
+
+- Your Ray cluster makes use of autoscaling (in which case Ludwig will not know how many GPUs are available with scaling).
+- Your Ray cluster is running multiple workloads at once (in which case you may wish to reserve resources for other jobs).
+
+## Horovod
+
+[Horovod](https://horovod.ai/) is a distributed data-parallel framework that is optimized for bandwidth-constrained computing
+environments. It makes use of Nvidia's NCCL for fast GPU-to-GPU communication.
 
 Example:
 
@@ -114,12 +132,38 @@ Example:
 backend:
   type: ray
   trainer:
-    type: horovod
-    use_gpu: true
-    num_workers: 4
-    resources_per_worker:
-        CPU: 2
-        GPU: 1
+    strategy: horovod
+```
+
+## Distributed Data Parallel (DDP)
+
+[Distributed Data Parallel](https://pytorch.org/tutorials/intermediate/ddp_tutorial.html) or DDP is PyTorch's native data-parallel
+library that functions very similarly to Horovod, but does not require installing any additional packages to use.
+
+In benchmarks, we found DDP and Horovod to perform near identically, so if you're not already using Horovod, DDP is the easiest
+way to get started with distributed training in Ludwig.
+
+```yaml
+backend:
+  type: ray
+  trainer:
+    strategy: ddp
+```
+
+## Fully Sharded Data Parallel (FSDP)
+
+[Fully Sharded Data Parallel](https://pytorch.org/blog/introducing-pytorch-fully-sharded-data-parallel-api/) or FSDP is PyTorch's native
+data-parallel + model-parallel library for training very large models whose parameters are spread across multiple GPUs.
+
+The primary scenario to use FSDP is when the model you're training is too large to fit into a single GPU
+(e.g., fine-tuning a large language model like [BLOOM)](https://huggingface.co/docs/transformers/model_doc/bloom)).
+When the model is small enough to fit in a single GPU, however, benchmarking has shown it's generally better to use Horovod or DDP.
+
+```yaml
+backend:
+  type: ray
+  trainer:
+    strategy: fsdp
 ```
 
 # Loader

@@ -1,52 +1,37 @@
-## Audio Features Preprocessing
+{% from './macros/includes.md' import render_fields, render_yaml %}
+{% set mv_details = "See [Missing Value Strategy](./input_features.md#missing-value-strategy) for details." %}
+{% set type = "See explanations for each type [here](audio_features.md#audio-input-features-and-encoders)." %}
+{% set details = {"missing_value_strategy": mv_details, "type": type} %}
+
+# Preprocessing
 
 Example of a preprocessing specification (assuming the audio files have a sample rate of 16000):
 
-```yaml
-name: audio_path
-type: audio
-preprocessing:
-  audio_file_length_limit_in_s: 7.5
-  type: stft
-  window_length_in_s: 0.04
-  window_shift_in_s: 0.02
-  num_fft_points: 800
-  window_type: boxcar
-```
+{% set preprocessing = get_feature_preprocessing_schema("audio") %}
+{{ render_yaml(preprocessing, parent="preprocessing") }}
 
 Ludwig supports reading audio files using PyTorch's [Torchaudio](https://pytorch.org/audio/stable/index.html) library. This library supports `WAV`, `AMB`, `MP3`, `FLAC`, `OGG/VORBIS`, `OPUS`, `SPHERE`, and `AMR-NB` formats.
 
-Preprocessing parameters:
+Parameters:
 
-- `audio_file_length_limit_in_s`: (default `7.5`): float value that defines the maximum limit of the audio file in seconds. All files longer than this limit are cut off. All files shorter than this limit are padded with `padding_value`
-- `missing_value_strategy` (default: `bfill`): what strategy to follow when there's a missing value in an audio column. The value should be one of `fill_with_const` (replaces the missing value with a specific value specified with the `fill_value` parameter), `fill_with_mode` (replaces the missing values with the most frequent value in the column), `bfill` (replaces the missing values with the next valid value), `ffill` (replaces the missing values with the previous valid value) or `drop_row`.
-- `in_memory` (default `true`): defines whether an audio dataset will reside in memory during the training process or will be dynamically fetched from disk (useful for large datasets). In the latter case a training batch of input audio files will be fetched from disk each training iteration. At the moment only `in_memory` = true is supported.
-- `padding_value`: (default 0): float value that is used for padding.
-- `norm`: (default `null`) the normalization method that can be used for the input data. Supported methods: `null` (data is not normalized), `per_file` (z-norm is applied on a “per file” level)
-- `type` (default `raw`): Defines the type of audio feature to be used. Supported types at the moment are `raw`, `stft`, `stft_phase`, `group_delay`. For more detail, check [Audio Input Features and Encoders](#audio-input-features-and-encoders).
-- `window_length_in_s`: Defines the window length used for the short time Fourier transformation (only needed if `type != raw`).
-- `window_shift_in_s`: Defines the window shift used for the short time Fourier transformation (also called hop_length) (only needed if `type != raw`).
-- `num_fft_points`: (default `window_length_in_s * sample_rate` of audio file) Defines the number of fft points used for the short time Fourier transformation. If `num_fft_points > window_length_in_s * sample_rate`, then the signal is zero-padded at the end. `num_fft_points` has to be `>= window_length_in_s * sample_rate` (only needed if `type != raw`).
-- `window_type`: (default `hamming`): Defines the type window the signal is weighted before the short time Fourier transformation. Current supported options are: (`bartlett`, `blackman`, `hamming`, and `hann`). For more information on these window types, check out [scipy’s window function](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.get_window.html) (only needed if `type != raw`).
-- `num_filter_bands`: Defines the number of filters used in the filterbank (only needed if `type == fbank`).
+{{ render_fields(schema_class_to_fields(preprocessing), details=details) }}
 
 Preprocessing parameters can also be defined once and applied to all audio input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 
-## Audio Input Features and Encoders
+# Input Features
 
 Audio files are transformed into one of the following types according to `type` under the `preprocessing` configuration.
 
-- `raw`: Audio file is transformed into a float valued tensor of size `N x L x W` (where `N` is the size of the dataset and `L` corresponds to `audio_file_length_limit_in_s * sample_rate` and `W = 1`).
-- `stft`: Audio is transformed to the `stft` magnitude. Audio file is transformed into a float valued tensor of size `N x L x W` (where `N` is the size of the dataset, `L` corresponds to `ceil(audio_file_length_limit_in_s * sample_rate - window_length_in_s * sample_rate + 1/ window_shift_in_s * sample_rate) + 1` and `W` corresponds to `num_fft_points / 2`).
-- `fbank`: Audio file is transformed to FBANK features (also called log Mel-filter bank values). FBANK features are implemented according to their definition in the [HTK Book](http://www.inf.u-szeged.hu/~tothl/speech/htkbook.pdf): Raw Signal -> Preemphasis -> DC mean removal -> `stft` magnitude -> Power spectrum: `stft^2` -> mel-filter bank values: triangular filters equally spaced on a Mel-scale are applied -> log-compression: `log()`. Overall the audio file is transformed into a float valued tensor of size `N x L x W` with `N,L` being equal to the ones in `stft` and `W` being equal to `num_filter_bands`.
-- `stft_phase`: The phase information for each stft bin is appended to the `stft` magnitude so that the audio file is transformed into a float valued tensor of size `N x L x 2W` with `N,L,W` being equal to the ones in `stft`.
-- `group_delay`: Audio is transformed to group delay features according to Equation (23) in this [paper](https://www.ias.ac.in/article/fullyext/sadh/036/05/0745-0782). Group_delay features has the same tensor size as `stft`.
+- **`raw`**: Audio file is transformed into a float valued tensor of size `N x L x W` (where `N` is the size of the dataset and `L` corresponds to `audio_file_length_limit_in_s * sample_rate` and `W = 1`).
+- **`stft`**: Audio is transformed to the `stft` magnitude. Audio file is transformed into a float valued tensor of size `N x L x W` (where `N` is the size of the dataset, `L` corresponds to `ceil(audio_file_length_limit_in_s * sample_rate - window_length_in_s * sample_rate + 1/ window_shift_in_s * sample_rate) + 1` and `W` corresponds to `num_fft_points / 2`).
+- **`fbank`**: Audio file is transformed to FBANK features (also called log Mel-filter bank values). FBANK features are implemented according to their definition in the [HTK Book](http://www.inf.u-szeged.hu/~tothl/speech/htkbook.pdf): Raw Signal -> Preemphasis -> DC mean removal -> `stft` magnitude -> Power spectrum: `stft^2` -> mel-filter bank values: triangular filters equally spaced on a Mel-scale are applied -> log-compression: `log()`. Overall the audio file is transformed into a float valued tensor of size `N x L x W` with `N,L` being equal to the ones in `stft` and `W` being equal to `num_filter_bands`.
+- **`stft_phase`**: The phase information for each stft bin is appended to the `stft` magnitude so that the audio file is transformed into a float valued tensor of size `N x L x 2W` with `N,L,W` being equal to the ones in `stft`.
+- **`group_delay`**: Audio is transformed to group delay features according to Equation (23) in this [paper](https://www.ias.ac.in/article/fullyext/sadh/036/05/0745-0782). Group_delay features has the same tensor size as `stft`.
 
 The encoder parameters specified at the feature level are:
 
-- `tied` (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
+- **`tied`** (default `null`): name of another input feature to tie the weights of the encoder with. It needs to be the name of
 a feature of the same type and with the same encoder parameters.
--
 
 Example audio feature entry in the input features list:
 
@@ -58,11 +43,13 @@ encoder:
     type: parallel_cnn
 ```
 
+## Encoders
+
 Audio feature encoders are the same as for [Sequence Features](../sequence_features#sequence-input-features-and-encoders).
 
 Encoder type and encoder parameters can also be defined once and applied to all audio input features using the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
-## Audio Output Features and Decoders
+# Output Features
 
 There are no audio decoders at the moment.
 

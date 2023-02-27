@@ -1,26 +1,28 @@
-name: Update Auto-Generated Docs
+name: Test Docs
 
 on:
-  schedule:
-    # At the end of every day.
-    - cron: 0 0 * * *
+  pull_request:
+    branches: ["master"]
 
 jobs:
-  update_auto_docs:
-    name: update_auto_docs
+  api-docs:
     runs-on: ubuntu-latest
-
     steps:
-      - name: checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v1
         with:
           python-version: "3.8"
 
+      - name: Upgrade Pip
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install setuptools wheel
+
       - name: Setup Linux
-        if: runner.os == 'linux'
         run: |
           sudo apt-get install -y cmake libsndfile1
 
@@ -38,16 +40,5 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Generate API Docs
-        run: python code_doc_autogen.py
-
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
-        with:
-          commit-message: "[auto] Regenerate Ludwig API docs"
-          title: "[auto] Regenerate Ludwig API docs"
-          body: This is an auto-generated PR that updates Ludwig API docs.
-          labels: auto
-          reviewers: ludwig-maintainers
-          branch: regenerate-docs
-          base: master
+      - name: Test docs
+        run: mkdocs build

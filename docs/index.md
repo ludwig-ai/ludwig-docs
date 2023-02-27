@@ -128,18 +128,22 @@ in the same unified configuration system.
 
 - **[Distributed training](https://ludwig.ai/latest/user_guide/distributed_training)**
 
-  Train models in a distributed setting using [Horovod](https://github.com/horovod/horovod),
-  which allows training on a single machine with multiple GPUs or multiple
-  machines with multiple GPUs.
+  Scale to very large datasets, train on multiple GPUs and multiple machines
+  in a distributed setting using [Ray](https://www.ray.io), with no code or
+  config changes required. Runs natively in the cloud on [Kubernetes](https://kubernetes.io/)
+  using [KubeRay](https://github.com/ray-project/kuberay).
 
 - **[Serving](https://ludwig.ai/latest/user_guide/serving)**
 
-  Serve models using FastAPI.
+  Serve models using FastAPI with a single command:
 
   ```shell
   ludwig serve --model_path ./results/experiment_run/model
   curl http://0.0.0.0:8000/predict -X POST -F "movie_title=Friends With Money" -F "content_rating=R" -F "genres=Art House & International, Comedy, Drama" -F "runtime=88.0" -F "top_critic=TRUE" -F "review_content=The cast is terrific, the movie isn't."
   ```
+
+  For optimized performance, compile end-to-end models with [TorchScript](https://pytorch.org/docs/stable/jit.html)
+  and serve with [Nviida Triton](https://developer.nvidia.com/nvidia-triton-inference-server).
 
 - **[Hyperparameter optimization](https://ludwig.ai/latest/user_guide/hyperopt)**
 

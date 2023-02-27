@@ -33,15 +33,16 @@ repos:
     hooks:
       - id: black
         name: Format code
-  - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.33.0
-    hooks:
-      - id: markdownlint-fix
-        # args: [
-        #     # Auto-generated files.
-        #     --ignore=docs/user_guide/api/visualization.md,
-        #     --ignore=docs/user_guide/api/LudwigModel.md,
-        #   ]
+  # NOTE: disabling mkdown formatting as it breaks some annotations that rely on line spacing
+  # - repo: https://github.com/igorshubovych/markdownlint-cli
+  #   rev: v0.33.0
+  #   hooks:
+  #     - id: markdownlint-fix
+  # args: [
+  #     # Auto-generated files.
+  #     --ignore=docs/user_guide/api/visualization.md,
+  #     --ignore=docs/user_guide/api/LudwigModel.md,
+  #   ]
 #   NOTE: mdformat is incompatible with mkdocs content tabs.
 #   - repo: https://github.com/executablebooks/mdformat
 #     rev: 0.7.13

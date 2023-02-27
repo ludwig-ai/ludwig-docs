@@ -38,7 +38,6 @@ graph LR
   B --> C["emb 2\nemb 4\nemb 5"];
   C --> D["Aggregation\n Reduce\n Operation"];
 ```
-
 { data-search-exclude }
 
 Set features have one encoder: `embed`, the raw binary values coming from the input placeholders are first transformed to sparse
@@ -86,7 +85,6 @@ graph LR
   D
   end
 ```
-
 { data-search-exclude }
 
 Set features can be used when multi-label classification needs to be performed.

@@ -28,6 +28,7 @@ jobs:
 
       - name: Install Ludwig
         run: |
+          pip install ludwig==0.7
           pip install ludwig[full]==0.7
 
       - name: Set Ludwig version env

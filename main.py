@@ -128,19 +128,23 @@ def define_env(env):
     @env.macro
     def get_optimizer_schemas():
         return [v[1] for v in optimizer_registry.values()]
-    
+
     @env.macro
     def get_encoder_schemas(feature: str):
         return get_encoder_classes(feature)
-    
+
     @env.macro
     def get_hf_text_encoder_schemas():
         # Sort encoders alphabetically, but put AutoTransformer first
         return sorted(
-            [s for s in get_encoder_classes(MODEL_ECD, "text").values() if issubclass(s, HFEncoderConfig)],
-            key=lambda s: s.type.lower() if s.type != "auto_transformer" else ""
+            [
+                s
+                for s in get_encoder_classes(MODEL_ECD, "text").values()
+                if issubclass(s, HFEncoderConfig)
+            ],
+            key=lambda s: s.type.lower() if s.type != "auto_transformer" else "",
         )
-    
+
     @env.macro
     def schema_class_long_description(cls):
         return cls.get_class_schema()().fields["type"].metadata["description"]

@@ -260,6 +260,7 @@ All huggingface-based text encoders are configured with the following parameters
 
 {% set hf_classes = get_hf_text_encoder_schemas() %}
 {% for hf_encoder in hf_classes %}
+
 #### {{ hf_encoder.module_name() }}
 
 {{ schema_class_long_description(hf_encoder) }}

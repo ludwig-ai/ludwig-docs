@@ -15,7 +15,7 @@ from ludwig.schema.features.utils import get_input_feature_cls, get_output_featu
 from ludwig.schema.features.loss import get_loss_schema_registry, get_loss_classes
 from ludwig.schema.hyperopt import HyperoptConfig
 from ludwig.schema.hyperopt.executor import ExecutorConfig
-from ludwig.schema.hyperopt.schedulers import scheduler_config_registry
+from ludwig.schema.hyperopt.scheduler import scheduler_config_registry
 from ludwig.schema.model_config import ModelConfig
 from ludwig.schema.optimizers import optimizer_registry
 from ludwig.schema.preprocessing import PreprocessingConfig

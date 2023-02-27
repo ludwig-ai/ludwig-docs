@@ -2442,11 +2442,10 @@ a feature of the same type and with the same encoder parameters.</li>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">parallel_cnn</span>
 </code></pre></div>
 <h4 id="passthrough-encoder">Passthrough Encoder<a class="headerlink" href="#passthrough-encoder" title="Permanent link">&para;</a></h4>
-<pre class="mermaid"><code>graph LR
+<p><pre class="mermaid"><code>graph LR
   A["12\n7\n43\n65\n23\n4\n1"] --&gt; B["Cast float32"];
   B --&gt; C["Aggregation\n Reduce\n Operation"];
-  C --&gt; ...;</code></pre>
-<p>{ data-search-exclude }</p>
+  C --&gt; ...;</code></pre></p>
 <p>The passthrough encoder simply transforms each input value into a float value and adds a dimension to the input tensor,
 creating a <code>b x s x 1</code> tensor where <code>b</code> is the batch size and <code>s</code> is the length of the sequence.
 The tensor is reduced along the <code>s</code> dimension to obtain a single vector of size <code>h</code> for each element of the batch.

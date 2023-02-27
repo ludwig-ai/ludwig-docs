@@ -2916,11 +2916,10 @@ face transformers library: <code>albert</code>, <code>auto_transformer</code>, <
 the <a href="../../defaults/#type-global-encoder">Type-Global Encoder</a> section.</p>
 <h3 id="encoders">Encoders<a class="headerlink" href="#encoders" title="Permanent link">&para;</a></h3>
 <h4 id="embed-encoder">Embed Encoder<a class="headerlink" href="#embed-encoder" title="Permanent link">&para;</a></h4>
-<pre class="mermaid"><code>graph LR
+<p><pre class="mermaid"><code>graph LR
   A["12\n7\n43\n65\n23\n4\n1"] --&gt; B["emb_12\nemb__7\nemb_43\nemb_65\nemb_23\nemb__4\nemb__1"];
   B --&gt; C["Aggregation\n Reduce\n Operation"];
-  C --&gt; ...;</code></pre>
-<p>{ data-search-exclude }</p>
+  C --&gt; ...;</code></pre></p>
 <p>The embed encoder simply maps each token in the input sequence to an embedding, creating a <code>b x s x h</code> tensor where <code>b</code>
 is the batch size, <code>s</code> is the length of the sequence and <code>h</code> is the embedding size.
 The tensor is reduced along the <code>s</code> dimension to obtain a single vector of size <code>h</code> for each element of the batch.
@@ -2959,7 +2958,7 @@ initializer, see <a href="https://pytorch.org/docs/stable/nn.init.html">torch.nn
 </li>
 </ul>
 <h4 id="parallel-cnn-encoder">Parallel CNN Encoder<a class="headerlink" href="#parallel-cnn-encoder" title="Permanent link">&para;</a></h4>
-<pre class="mermaid"><code>graph LR
+<p><pre class="mermaid"><code>graph LR
   A["12\n7\n43\n65\n23\n4\n1"] --&gt; C["emb_12\nemb__7\nemb_43\nemb_65\nemb_23\nemb__4\nemb__1"];
   C --&gt; D1["1D Conv\n Width 2"] --&gt; E1["Pool"];
   C --&gt; D2["1D Conv\n Width 3"] --&gt; E2["Pool"];
@@ -2968,8 +2967,7 @@ initializer, see <a href="https://pytorch.org/docs/stable/nn.init.html">torch.nn
   E1 --&gt; F["Concat"] --&gt; G["Fully\n Connected\n Layers"] --&gt; H["..."];
   E2 --&gt; F;
   E3 --&gt; F;
-  E4 --&gt; F;</code></pre>
-<p>{ data-search-exclude }</p>
+  E4 --&gt; F;</code></pre></p>
 <p>The parallel cnn encoder is inspired by
 <a href="https://arxiv.org/abs/1408.5882">Yoon Kim's Convolutional Neural Network for Sentence Classification</a>.
 It works by first mapping the input token sequence <code>b x s</code> (where <code>b</code> is the batch size and <code>s</code> is the length of the
@@ -3059,12 +3057,11 @@ missing from the dictionary, the default one specified as a parameter of the enc
 <li><strong><code>num_filters</code></strong> (default: <code>256</code>): Number of filters, and by consequence number of output channels of the 1d convolution.</li>
 </ul>
 <h4 id="stacked-cnn-encoder">Stacked CNN Encoder<a class="headerlink" href="#stacked-cnn-encoder" title="Permanent link">&para;</a></h4>
-<pre class="mermaid"><code>graph LR
+<p><pre class="mermaid"><code>graph LR
   A["12\n7\n43\n65\n23\n4\n1"] --&gt; B["emb_12\nemb__7\nemb_43\nemb_65\nemb_23\nemb__4\nemb__1"];
   B --&gt; C["1D Conv Layers\n Different Widths"];
   C --&gt; D["Fully\n Connected\n Layers"];
-  D --&gt; ...;</code></pre>
-<p>{ data-search-exclude }</p>
+  D --&gt; ...;</code></pre></p>
 <p>The stacked cnn encoder is inspired by <a href="https://arxiv.org/abs/1509.01626">Xiang Zhang at all's Character-level Convolutional Networks for Text Classification</a>.
 It works by first mapping the input token sequence <code>b x s</code> (where <code>b</code> is the batch size and <code>s</code> is the length of the
 sequence) into a sequence of embeddings, then it passes the embedding through a stack of 1d convolutional layers with
@@ -3169,7 +3166,7 @@ initializer, see <a href="https://pytorch.org/docs/stable/nn.init.html">torch.nn
 </li>
 </ul>
 <h4 id="stacked-parallel-cnn-encoder">Stacked Parallel CNN Encoder<a class="headerlink" href="#stacked-parallel-cnn-encoder" title="Permanent link">&para;</a></h4>
-<pre class="mermaid"><code>graph LR
+<p><pre class="mermaid"><code>graph LR
   A["12\n7\n43\n65\n23\n4\n1"] --&gt; C["emb_12\nemb__7\nemb_43\nemb_65\nemb_23\nemb__4\nemb__1"];
   C --&gt; D1["1D Conv\n Width 2"] --&gt; E["Concat"];
   C --&gt; D2["1D Conv\n Width 3"] --&gt; E;
@@ -3180,8 +3177,7 @@ initializer, see <a href="https://pytorch.org/docs/stable/nn.init.html">torch.nn
   F --&gt; G2["1D Conv\n Width 3"] --&gt; H;
   F --&gt; G3["1D Conv\n Width 4"] --&gt; H;
   F --&gt; G4["1D Conv\n Width 5"] --&gt; H;
-  H --&gt; I["Pool"] --&gt; J["Fully\n Connected\n Layers"] --&gt; K["..."];</code></pre>
-<p>{ data-search-exclude }</p>
+  H --&gt; I["Pool"] --&gt; J["Fully\n Connected\n Layers"] --&gt; K["..."];</code></pre></p>
 <p>The stacked parallel cnn encoder is a combination of the Parallel CNN and the Stacked CNN encoders where each layer of
 the stack is composed of parallel convolutional layers.
 It works by first mapping the input token sequence <code>b x s</code> (where <code>b</code> is the batch size and <code>s</code> is the length of the
@@ -3261,12 +3257,11 @@ initializer, see <a href="https://pytorch.org/docs/stable/nn.init.html">torch.nn
 </li>
 </ul>
 <h4 id="rnn-encoder">RNN Encoder<a class="headerlink" href="#rnn-encoder" title="Permanent link">&para;</a></h4>
-<pre class="mermaid"><code>graph LR
+<p><pre class="mermaid"><code>graph LR
   A["12\n7\n43\n65\n23\n4\n1"] --&gt; B["emb_12\nemb__7\nemb_43\nemb_65\nemb_23\nemb__4\nemb__1"];
   B --&gt; C["RNN Layers"];
   C --&gt; D["Fully\n Connected\n Layers"];
-  D --&gt; ...;</code></pre>
-<p>{ data-search-exclude }</p>
+  D --&gt; ...;</code></pre></p>
 <p>The rnn encoder works by first mapping the input token sequence <code>b x s</code> (where <code>b</code> is the batch size and <code>s</code> is the
 length of the sequence) into a sequence of embeddings, then it passes the embedding through a stack of recurrent layers
 (by default 1 layer), followed by a reduce operation that by default only returns the last output, but can perform other
@@ -3350,13 +3345,12 @@ initializer, see <a href="https://pytorch.org/docs/stable/nn.init.html">torch.nn
 </li>
 </ul>
 <h4 id="cnn-rnn-encoder">CNN RNN Encoder<a class="headerlink" href="#cnn-rnn-encoder" title="Permanent link">&para;</a></h4>
-<pre class="mermaid"><code>graph LR
+<p><pre class="mermaid"><code>graph LR
   A["12\n7\n43\n65\n23\n4\n1"] --&gt; B["emb_12\nemb__7\nemb_43\nemb_65\nemb_23\nemb__4\nemb__1"];
   B --&gt; C1["CNN Layers"];
   C1 --&gt; C2["RNN Layers"];
   C2 --&gt; D["Fully\n Connected\n Layers"];
-  D --&gt; ...;</code></pre>
-<p>{ data-search-exclude }</p>
+  D --&gt; ...;</code></pre></p>
 <p>The <code>cnnrnn</code> encoder works by first mapping the input token sequence <code>b x s</code> (where <code>b</code> is the batch size and <code>s</code> is
 the length of the sequence) into a sequence of embeddings, then it passes the embedding through a stack of convolutional
 layers (by default 2), that is followed by a stack of recurrent layers (by default 1), followed by a reduce operation
@@ -3481,12 +3475,11 @@ initializer, see <a href="https://pytorch.org/docs/stable/nn.init.html">torch.nn
 </li>
 </ul>
 <h4 id="transformer-encoder">Transformer Encoder<a class="headerlink" href="#transformer-encoder" title="Permanent link">&para;</a></h4>
-<pre class="mermaid"><code>graph LR
+<p><pre class="mermaid"><code>graph LR
   A["12\n7\n43\n65\n23\n4\n1"] --&gt; B["emb_12\nemb__7\nemb_43\nemb_65\nemb_23\nemb__4\nemb__1"];
   B --&gt; C["Transformer\n Blocks"];
   C --&gt; D["Fully\n Connected\n Layers"];
-  D --&gt; ...;</code></pre>
-<p>{ data-search-exclude }</p>
+  D --&gt; ...;</code></pre></p>
 <p>The <code>transformer</code> encoder implements a stack of transformer blocks, replicating the architecture introduced in the
 <a href="https://arxiv.org/abs/1706.03762">Attention is all you need</a> paper, and adds am optional stack of fully connected
 layers at the end.</p>
@@ -4333,7 +4326,7 @@ the <a href="../../defaults/#type-global-decoder">Type-Global Decoder</a> sectio
 also be defined once in the same way.</p>
 <h3 id="decoders">Decoders<a class="headerlink" href="#decoders" title="Permanent link">&para;</a></h3>
 <h4 id="generator">Generator<a class="headerlink" href="#generator" title="Permanent link">&para;</a></h4>
-<pre class="mermaid"><code>graph LR
+<p><pre class="mermaid"><code>graph LR
   A["Combiner Output"] --&gt; B["Fully\n Connected\n Layers"];
   B --&gt; C1["RNN"] --&gt; C2["RNN"] --&gt; C3["RNN"];
   GO(["GO"]) -.-o C1;
@@ -4347,8 +4340,7 @@ also be defined once in the same way.</p>
   C1
   C2
   C3
-  end</code></pre>
-<p>{ data-search-exclude }</p>
+  end</code></pre></p>
 <p>In the case of <code>generator</code> the decoder is a (potentially empty) stack of fully connected layers, followed by an RNN that
 generates outputs feeding on its own previous predictions and generates a tensor of size <code>b x s' x c</code>, where <code>b</code> is the
 batch size, <code>s'</code> is the length of the generated sequence and <code>c</code> is the number of classes, followed by a
@@ -4396,7 +4388,7 @@ during model building.</p>
 <li><strong><code>fc_norm_params</code></strong> (default: <code>null</code>): Default parameters passed to the <code>norm</code> module.</li>
 </ul>
 <h4 id="tagger">Tagger<a class="headerlink" href="#tagger" title="Permanent link">&para;</a></h4>
-<pre class="mermaid"><code>graph LR
+<p><pre class="mermaid"><code>graph LR
   A["emb[0]\n....\nemb[n]"] --&gt; B["Fully\n Connected\n Layers"];
   B --&gt; C["Projection\n....\nProjection"];
   C --&gt; D["Softmax\n....\nSoftmax"];
@@ -4407,8 +4399,7 @@ during model building.</p>
   end
   subgraph COM["COMBINER OUT.."]
   A
-  end</code></pre>
-<p>{ data-search-exclude }</p>
+  end</code></pre></p>
 <p>In the case of <code>tagger</code> the decoder is a (potentially empty) stack of fully connected layers, followed by a projection
 into a tensor of size <code>b x s x c</code>, where <code>b</code> is the batch size, <code>s</code> is the length of the sequence and <code>c</code> is the number
 of classes, followed by a softmax_cross_entropy.

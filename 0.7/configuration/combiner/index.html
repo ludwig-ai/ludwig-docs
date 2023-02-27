@@ -2532,7 +2532,7 @@ to the output feature decoders.</p>
 the <code>concat</code> combiner will be used.</p>
 <h3 id="combiner-types">Combiner Types<a class="headerlink" href="#combiner-types" title="Permanent link">&para;</a></h3>
 <h4 id="concat-combiner">Concat Combiner<a class="headerlink" href="#concat-combiner" title="Permanent link">&para;</a></h4>
-<pre class="mermaid"><code>graph LR
+<p><pre class="mermaid"><code>graph LR
   I1[Encoder Output 1] --&gt; C[Concat];
   IK[...] --&gt; C;
   IN[Encoder Output N] --&gt; C;
@@ -2541,8 +2541,7 @@ the <code>concat</code> combiner will be used.</p>
   subgraph COMBINER..
   C
   FC
-  end</code></pre>
-<p>{ data-search-exclude }</p>
+  end</code></pre></p>
 <p>The <code>concat</code> combiner assumes all outputs from encoders are tensors of size <code>b x h</code> where <code>b</code> is the batch size and <code>h</code>
 is the hidden dimension, which can be different for each input.
 If any inputs have more than 2 dimensions, a sequence or set feature for example, set the <code>flatten_inputs</code> parameter to <code>true</code>.
@@ -2594,7 +2593,7 @@ initializer, see <a href="https://pytorch.org/docs/stable/nn.init.html">torch.nn
 <li><strong><code>fc_layers</code></strong> (default: <code>null</code>): List of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: <code>activation</code>, <code>dropout</code>, <code>norm</code>, <code>norm_params</code>, <code>output_size</code>, <code>use_bias</code>, <code>bias_initializer</code> and <code>weights_initializer</code>. If any of those values is missing from the dictionary, the default one provided as a standalone parameter will be used instead.</li>
 </ul>
 <h4 id="sequence-concat-combiner">Sequence Concat Combiner<a class="headerlink" href="#sequence-concat-combiner" title="Permanent link">&para;</a></h4>
-<pre class="mermaid"><code>graph LR
+<p><pre class="mermaid"><code>graph LR
   I1 --&gt; X1{Tile};
   IK --&gt; X1;
   IN --&gt; X1;
@@ -2628,8 +2627,7 @@ initializer, see <a href="https://pytorch.org/docs/stable/nn.init.html">torch.nn
   subgraph OF[OTHER FEATS..]
   direction TB
   IO["emb oth"]
-  end</code></pre>
-<p>{ data-search-exclude }</p>
+  end</code></pre></p>
 <p>The <code>sequence_concat</code> combiner assumes at least one output from encoders is a tensors of size <code>b x s x h</code> where <code>b</code> is
 the batch size, <code>s</code> is the length of the sequence and <code>h</code> is the hidden dimension.
 A sequence-like (sequence, text or time series) input feature can be specified with the <code>main_sequence_feature</code>
@@ -2665,7 +2663,7 @@ have identical <code>s</code> dimension, otherwise an error will be thrown.</p>
 </li>
 </ul>
 <h4 id="sequence-combiner">Sequence Combiner<a class="headerlink" href="#sequence-combiner" title="Permanent link">&para;</a></h4>
-<pre class="mermaid"><code>graph LR
+<p><pre class="mermaid"><code>graph LR
   I1 --&gt; X1{Tile};
   IK --&gt; X1;
   IN --&gt; X1;
@@ -2699,8 +2697,7 @@ have identical <code>s</code> dimension, otherwise an error will be thrown.</p>
   subgraph OF[OTHER FEATS..]
   direction TB
   IO["emb oth"]
-  end</code></pre>
-<p>{ data-search-exclude }</p>
+  end</code></pre></p>
 <p>The <code>sequence</code> combiner stacks a sequence concat combiner with a sequence encoder.
 All the considerations about input tensor ranks described for the <a href="#sequence-concat-combiner">sequence concat combiner</a>
 apply also in this case, but the main difference is that this combiner uses the <code>b x s x h'</code> output of the sequence
@@ -2759,12 +2756,11 @@ have identical <code>s</code> dimension, otherwise an error will be thrown.</p>
 <li><strong><code>encoder</code></strong> (default: <code>{"type": "parallel_cnn"}</code>): Encoder to apply to <code>main_sequence_feature</code>.</li>
 </ul>
 <h4 id="tabnet-combiner">TabNet Combiner<a class="headerlink" href="#tabnet-combiner" title="Permanent link">&para;</a></h4>
-<pre class="mermaid"><code>graph LR
+<p><pre class="mermaid"><code>graph LR
   I1[Encoder Output 1] --&gt; C[TabNet];
   IK[...] --&gt; C;
   IN[Encoder Output N] --&gt; C;
-  C --&gt; ...;</code></pre>
-<p>{ data-search-exclude }</p>
+  C --&gt; ...;</code></pre></p>
 <p>The <code>tabnet</code> combiner implements the <a href="https://arxiv.org/abs/1908.07442">TabNet</a> model, which uses attention and sparsity
 to achieve high performance on tabular data. It assumes all outputs from encoders are tensors of size <code>b x h</code> where <code>b</code>
 is the batch size and <code>h</code> is the hidden dimension, which can be different for each input.
@@ -2803,7 +2799,7 @@ It returns the final <code>b x h'</code> tensor where <code>h'</code> is the use
 <li><strong><code>entmax_alpha</code></strong> (default: <code>1.5</code>): Must be a number between 1.0 and 2.0. If entmax_mode is <code>adaptive</code>, <code>entmax_alpha</code> is used as the initial value for the learnable parameter. 1 corresponds to softmax, 2 is sparsemax.</li>
 </ul>
 <h4 id="transformer-combiner">Transformer Combiner<a class="headerlink" href="#transformer-combiner" title="Permanent link">&para;</a></h4>
-<pre class="mermaid"><code>graph LR
+<p><pre class="mermaid"><code>graph LR
   I1[Encoder Output 1] --&gt; C["Transformer Stack"];
   IK[...] --&gt; C;
   IN[Encoder Output N] --&gt; C;
@@ -2814,8 +2810,7 @@ It returns the final <code>b x h'</code> tensor where <code>h'</code> is the use
   C
   R
   FC
-  end</code></pre>
-<p>{ data-search-exclude }</p>
+  end</code></pre></p>
 <p>The <code>transformer</code> combiner combines input features using a stack of Transformer blocks (from <a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a>).
 It assumes all outputs from encoders are tensors of size <code>b x h</code> where <code>b</code> is the batch size and <code>h</code> is the hidden
 dimension, which can be different for each input.
@@ -2885,7 +2880,7 @@ initializer, see <a href="https://pytorch.org/docs/stable/nn.init.html">torch.nn
 <li><strong><code>reduce_output</code></strong> (default: <code>mean</code>): Strategy to use to aggregate the output of the transformer. Options: <code>last</code>, <code>sum</code>, <code>mean</code>, <code>avg</code>, <code>max</code>, <code>concat</code>, <code>attention</code>, <code>none</code>, <code>None</code>, <code>null</code>.</li>
 </ul>
 <h4 id="tabtransformer-combiner">TabTransformer Combiner<a class="headerlink" href="#tabtransformer-combiner" title="Permanent link">&para;</a></h4>
-<pre class="mermaid"><code>graph LR
+<p><pre class="mermaid"><code>graph LR
   I1[Cat Emb 1] --&gt; T1["Concat"];
   IK[...] --&gt; T1;
   IN[Cat Emb N] --&gt; T1;
@@ -2913,8 +2908,7 @@ initializer, see <a href="https://pytorch.org/docs/stable/nn.init.html">torch.nn
   T1
   T2
   T3
-  end</code></pre>
-<p>{ data-search-exclude }</p>
+  end</code></pre></p>
 <p>The <code>tabtransformer</code> combiner combines input features in the following sequence of operations. The combiner projects all encoder outputs except binary and number features into an embedding space. These features are concatenated as if they were a sequence and passed through a transformer. After the transformer, the number and binary features are concatenated (which are of size 1) and then concatenated  with the output of the transformer and is passed to a stack of fully connected layers (from <a href="https://arxiv.org/abs/2012.06678">TabTransformer: Tabular Data Modeling Using Contextual Embeddings</a>).
 It assumes all outputs from encoders are tensors of size <code>b x h</code> where <code>b</code> is the batch size and <code>h</code> is the hidden
 dimension, which can be different for each input.
@@ -2979,7 +2973,7 @@ initializer, see <a href="https://pytorch.org/docs/stable/nn.init.html">torch.nn
 <li><strong><code>reduce_output</code></strong> (default: <code>concat</code>): Strategy to use to aggregate the output of the transformer. Options: <code>last</code>, <code>sum</code>, <code>mean</code>, <code>avg</code>, <code>max</code>, <code>concat</code>, <code>attention</code>, <code>none</code>, <code>None</code>, <code>null</code>.</li>
 </ul>
 <h4 id="comparator-combiner">Comparator Combiner<a class="headerlink" href="#comparator-combiner" title="Permanent link">&para;</a></h4>
-<pre class="mermaid"><code>graph LR
+<p><pre class="mermaid"><code>graph LR
   I1[Entity 1 Embed 1] --&gt; C1[Concat];
   IK[...] --&gt; C1;
   IN[Entity 1 Embed N] --&gt; C1;
@@ -3012,8 +3006,7 @@ initializer, see <a href="https://pytorch.org/docs/stable/nn.init.html">torch.nn
   C2
   FC2
   COMP
-  end</code></pre>
-<p>{ data-search-exclude }</p>
+  end</code></pre></p>
 <p>The <code>comparator</code> combiner compares the hidden representation of two entities defined by lists of features.
 It assumes all outputs from encoders are tensors of size <code>b x h</code> where <code>b</code> is the batch size and <code>h</code> is the hidden
 dimension, which can be different for each input.

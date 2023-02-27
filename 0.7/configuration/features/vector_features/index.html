@@ -2639,15 +2639,14 @@ initializer, see <a href="https://pytorch.org/docs/stable/nn.init.html">torch.nn
 <li><strong><code>fc_layers</code></strong> (default: <code>null</code>): List of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: <code>activation</code>, <code>dropout</code>, <code>norm</code>, <code>norm_params</code>, <code>output_size</code>, <code>use_bias</code>, <code>bias_initializer</code> and <code>weights_initializer</code>. If any of those values is missing from the dictionary, the default one provided as a standalone parameter will be used instead.</li>
 </ul>
 <h2 id="output-features">Output Features<a class="headerlink" href="#output-features" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>graph LR
+<p><pre class="mermaid"><code>graph LR
   A["Combiner Output"] --&gt; B["Fully\n Connected\n Layers"];
   B --&gt; C["Projection into\nVector Size"] --&gt; D["Softmax"];
   subgraph DEC["DECODER.."]
   B
   C
   D
-  end</code></pre>
-<p>{ data-search-exclude }</p>
+  end</code></pre></p>
 <p>Vector features can be used when multi-class classification needs to be performed with a noise-aware loss or when the task is multivariate regression.</p>
 <p>There is only one decoder available for vector features: a (potentially empty) stack of fully connected layers, followed
 by a projection into a tensor of the vector size (optionally followed by a softmax in the case of multi-class classification).</p>

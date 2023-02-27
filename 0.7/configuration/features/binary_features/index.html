@@ -2653,7 +2653,7 @@ output probabilities closer to true likelihoods.</li>
 <p>Decoder type and decoder parameters can also be defined once and applied to all binary output features using the <a href="../../defaults/#type-global-decoder">Type-Global Decoder</a> section.</p>
 <h3 id="decoders">Decoders<a class="headerlink" href="#decoders" title="Permanent link">&para;</a></h3>
 <h4 id="regressor">Regressor<a class="headerlink" href="#regressor" title="Permanent link">&para;</a></h4>
-<pre class="mermaid"><code>graph LR
+<p><pre class="mermaid"><code>graph LR
   A["Combiner\n Output"] --&gt; B["Fully\n Connected\n Layers"];
   B --&gt; C["Projection into\n Output Space"];
   C --&gt; D["Sigmoid"];
@@ -2661,8 +2661,7 @@ output probabilities closer to true likelihoods.</li>
   B
   C
   D
-  end</code></pre>
-<p>{ data-search-exclude }</p>
+  end</code></pre></p>
 <p>The regressor decoder is a (potentially empty) stack of fully connected layers, followed by a projection into a single number followed by a sigmoid function.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">decoder</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">regressor</span>

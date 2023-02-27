@@ -2443,11 +2443,10 @@ a feature of the same type and with the same encoder parameters.</li>
 <a href="../../defaults/#type-global-encoder">Type-Global Encoder</a> section.</p>
 <h3 id="encoders">Encoders<a class="headerlink" href="#encoders" title="Permanent link">&para;</a></h3>
 <h4 id="embed-weighted-encoder">Embed Weighted Encoder<a class="headerlink" href="#embed-weighted-encoder" title="Permanent link">&para;</a></h4>
-<pre class="mermaid"><code>graph LR
+<p><pre class="mermaid"><code>graph LR
   A["0.0\n1.0\n1.0\n0.0\n0.0\n2.0\n0.0"] --&gt; B["0\n1\n5"];
   B --&gt; C["emb 0\nemb 1\nemb 5"];
-  C --&gt; D["Weighted\n Sum\n Operation"];</code></pre>
-<p>{ data-search-exclude }</p>
+  C --&gt; D["Weighted\n Sum\n Operation"];</code></pre></p>
 <p>The embed weighted encoder first transforms the element frequency vector to sparse integer lists, which are then mapped
 to either dense or sparse embeddings (one-hot encodings). Lastly, embeddings are aggregated as a weighted sum where each
 embedding is multiplied by its respective element's frequency.

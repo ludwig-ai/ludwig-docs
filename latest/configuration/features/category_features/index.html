@@ -2622,7 +2622,7 @@ the <a href="../../defaults/#type-global-encoder">Type-Global Encoder</a> sectio
 </li>
 </ul>
 <h2 id="output-features">Output Features<a class="headerlink" href="#output-features" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>graph LR
+<p><pre class="mermaid"><code>graph LR
   A["Combiner\n Output"] --&gt; B["Fully\n Connected\n Layers"];
   B --&gt; C["Projection into\n Output Space"];
   C --&gt; D["Softmax"];
@@ -2630,8 +2630,7 @@ the <a href="../../defaults/#type-global-encoder">Type-Global Encoder</a> sectio
   B
   C
   D
-  end</code></pre>
-<p>{ data-search-exclude }</p>
+  end</code></pre></p>
 <p>Category features can be used when a multi-class classification needs to be performed.
 There is only one decoder available for category features: a (potentially empty) stack of fully connected layers,
 followed by a projection into a vector of size of the number of available classes, followed by a softmax.</p>

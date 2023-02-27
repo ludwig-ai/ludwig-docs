@@ -27,6 +27,7 @@ The GBM model type is a gradient boosting machine (GBM) tree model. It is a tree
 
     Selecting the `gbm` model type introduces the following limitations:
 
+    - dataset larger than 1GB are not supported
     - only binary, category, and number features are supported
     - only a single output feature is supported
     - the `combiner` section is ignored

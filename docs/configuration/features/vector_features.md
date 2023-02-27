@@ -10,7 +10,7 @@ multivariate inputs and outputs. An interesting use of vector features is the po
 distribution as output for a multiclass classification problem instead of a single correct class like with a category
 feature. Vector output features can also be useful for distillation and noise-aware losses.
 
-## Vector Feature Preprocessing
+# Preprocessing
 
 The data is expected as whitespace separated numerical values. Example: "1.0 0.0 1.04 10.49".  All vectors are expected to be of the same size.
 
@@ -23,7 +23,7 @@ Parameters:
 
 Preprocessing parameters can also be defined once and applied to all vector input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 
-## Vector Input Features and Encoders
+# Input Features
 
 The vector feature supports two encoders: `dense` and `passthrough`.
 
@@ -50,6 +50,8 @@ raw vector values unaltered. `dense` uses a stack of fully connected layers to c
 Encoder type and encoder parameters can also be defined once and applied to all vector input features using the
 [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
+## Encoders
+
 ### Passthrough Encoder
 
 {% set encoder = get_encoder_schema("vector", "passthrough") %}
@@ -68,7 +70,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(encoder, exclude=["type"]), details=details) }}
 
-## Vector Output Features and Decoders
+# Output Features
 
 ``` mermaid
 graph LR
@@ -111,7 +113,9 @@ Parameters:
 - **`loss`** (default `{type: mean_squared_error}`): is a dictionary containing a loss `type`. The available loss `type` are `mean_squared_error`, `mean_absolute_error` and `softmax_cross_entropy` (use it only if `softmax` is `true`). See [Loss](#loss) for details.
 - **`decoder`** (default: `{"type": "projector"}`): Decoder for the desired task. Options: `projector`. See [Decoder](#decoder) for details.
 
-### Decoder
+## Decoders
+
+### Projector
 
 {% set decoder = get_decoder_schema("vector", "projector") %}
 {{ render_yaml(decoder, parent="decoder") }}
@@ -122,12 +126,12 @@ Parameters:
 
 Decoder type and decoder parameters can also be defined once and applied to all vector output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
 
-### Loss
+## Loss
 
 {% set loss_classes = get_loss_schemas("vector") %}
 {% for loss in loss_classes %}
 
-#### {{ loss.name() }}
+### {{ loss.name() }}
 
 {{ render_yaml(loss, parent="loss") }}
 
@@ -138,7 +142,7 @@ Parameters:
 
 Loss type and loss related parameters can also be defined once and applied to all vector output features using the [Type-Global Loss](../defaults.md#type-global-loss) section.
 
-### Metrics
+## Metrics
 
 The metrics that are calculated every epoch and are available for set features are `mean_squared_error`, `mean_absolute_error`, `r2`, and the `loss` itself.
 

@@ -4,7 +4,7 @@
 {% set norm_details = "See [Normalization](../combiner.md#normalization) for details." %}
 {% set details = {"missing_value_strategy": mv_details, "normalization": nz_details, "norm": norm_details, "fc_norm": norm_details} %}
 
-## Number Features Preprocessing
+# Preprocessing
 
 Number features are directly transformed into a float valued vector of length `n` (where `n` is the size of the dataset)
 and added to the HDF5 with a key that reflects the name of column in the dataset.
@@ -20,7 +20,7 @@ Parameters:
 Preprocessing parameters can also be defined once and applied to all number input features using
 the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 
-### Normalization
+## Normalization
 
 Technique to be used when normalizing the number feature types.
 
@@ -34,7 +34,7 @@ Options:
 
 The best normalization techniqe to use depends on the distribution of your data, but `zscore` is a good place to start in many cases.
 
-## Number Input Features and Encoders
+# Input Features
 
 Number features have two encoders.
 One encoder (`passthrough`) simply returns the raw numerical values coming from the input placeholders as outputs.
@@ -65,6 +65,8 @@ raw integer values unaltered. `dense` randomly initializes a trainable embedding
 Encoder type and encoder parameters can also be defined once and applied to all number input features using
 the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
+## Encoders
+
 ### Passthrough Encoder
 
 {% set encoder = get_encoder_schema("number", "passthrough") %}
@@ -81,7 +83,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(encoder, exclude=["type"]), details=details) }}
 
-## Number Output Features and Decoders
+# Output Features
 
 Number features can be used when a regression needs to be performed.
 There is only one decoder available for number features: a (potentially empty) stack of fully connected layers, followed
@@ -116,7 +118,9 @@ vector of the first dimension).
 `mean_squared_error`, `mean_absolute_error`, `root_mean_squared_error`, `root_mean_squared_percentage_error`. See [Loss](#loss) for details.
 - **`decoder`** (default: `{"type": "regressor"}`): Decoder for the desired task. Options: `regressor`. See [Decoder](#decoder) for details.
 
-### Decoder
+## Decoders
+
+### Regressor
 
 {% set decoder = get_decoder_schema("number", "regressor") %}
 {{ render_yaml(decoder, parent="decoder") }}
@@ -127,12 +131,12 @@ Parameters:
 
 Decoder type and decoder parameters can also be defined once and applied to all number output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
 
-### Loss
+## Loss
 
 {% set loss_classes = get_loss_schemas("number") %}
 {% for loss in loss_classes %}
 
-#### {{ loss.name() }}
+### {{ loss.name() }}
 
 {{ render_yaml(loss, parent="loss") }}
 
@@ -143,7 +147,7 @@ Parameters:
 
 Loss and loss related parameters can also be defined once and applied to all number output features using the [Type-Global Loss](../defaults.md#type-global-loss) section.
 
-### Metrics
+## Metrics
 
 The metrics that are calculated every epoch and are available for number features are `mean_squared_error`,
 `mean_absolute_error`, `root_mean_squared_error`, `root_mean_squared_percentage_error` and the `loss` itself.

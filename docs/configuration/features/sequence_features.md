@@ -2,7 +2,7 @@
 {% set mv_details = "See [Missing Value Strategy](./input_features.md#missing-value-strategy) for details." %}
 {% set details = {"missing_value_strategy": mv_details} %}
 
-## Sequence Features Preprocessing
+# Preprocessing
 
 Sequence features are transformed into an integer valued matrix of size `n x l` (where `n` is the number of rows and `l`
 is the minimum of the length of the longest sequence and a `max_sequence_length` parameter) and added to HDF5 with a
@@ -30,7 +30,7 @@ Parameters:
 
 Preprocessing parameters can also be defined once and applied to all sequence input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 
-## Sequence Input Features and Encoders
+# Input Features
 
 Sequence features have several encoders and each of them has its own parameters.
 Inputs are of size `b` while outputs are of size `b x h` where `b` is the batch size and `h` is the dimensionality of
@@ -66,6 +66,8 @@ The available encoder parameters:
 `null` or `None`).
 
 Encoder type and encoder parameters can also be defined once and applied to all sequence input features using the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
+
+## Encoders
 
 ### Embed Encoder
 
@@ -258,7 +260,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(seq_encoder, exclude=["type"])) }}
 
-## Sequence Output Features and Decoders
+# Output Features
 
 Sequence output features can be used for either tagging (classifying each element of an input sequence) or
 generation (generating a sequence by sampling from the model). Ludwig provides two sequence decoders named `tagger` and
@@ -300,9 +302,9 @@ loss `type` for sequences is `softmax_cross_entropy`. See [Loss](#loss) for deta
 
 Decoder type and decoder parameters can also be defined once and applied to all sequence output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section. Loss and loss related parameters can also be defined once in the same way.
 
-### Decoder
+## Decoders
 
-#### Generator
+### Generator
 
 ``` mermaid
 graph LR
@@ -345,7 +347,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(decoder, exclude=["type"])) }}
 
-#### Tagger
+### Tagger
 
 ``` mermaid
 graph LR
@@ -377,7 +379,9 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(decoder, exclude=["type"])) }}
 
-### Loss
+## Loss
+
+### Softmax Cross Entropy
 
 {% set loss = get_loss_schema("softmax_cross_entropy") %}
 {{ render_yaml(loss, parent="loss") }}
@@ -386,7 +390,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(loss, exclude=["type"])) }}
 
-### Metrics
+## Metrics
 
 The metrics that are calculated every epoch and are available for sequence features are:
 

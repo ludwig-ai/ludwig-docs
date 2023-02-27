@@ -2,7 +2,7 @@
 {% set mv_details = "See [Missing Value Strategy](./input_features.md#missing-value-strategy) for details." %}
 {% set details = {"missing_value_strategy": mv_details} %}
 
-## Binary Features Preprocessing
+# Preprocessing
 
 Binary features are directly transformed into a binary valued vector of length `n` (where `n` is the size of the dataset) and added to the HDF5 with a key that reflects the name of column in the dataset.
 
@@ -16,7 +16,7 @@ Parameters:
 Preprocessing parameters can also be defined once and applied to all binary input features using
 the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 
-## Binary Input Features and Encoders
+# Input Features
 
 Binary features have two encoders, `passthrough` and `dense`. The available encoder can be specified using the `type` parameter:
 
@@ -39,6 +39,8 @@ encoder:
 Encoder type and encoder parameters can also be defined once and applied to all binary input features using the
 [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
+## Encoders
+
 ### Passthrough Encoder
 
 The `passthrough` encoder passes through raw binary values without any transformations. Inputs of size `b` are transformed to outputs of size `b x 1` where `b` is the batch size.
@@ -59,7 +61,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(encoder_dense, exclude=["type"]), details=details) }}
 
-## Binary Output Features and Decoders
+# Output Features
 
 Binary output features can be used when a binary classification needs to be performed or when the output is a single probability. There is only one decoder available: `regressor`.
 
@@ -112,7 +114,9 @@ output probabilities closer to true likelihoods.
 
 Decoder type and decoder parameters can also be defined once and applied to all binary output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
 
-### Decoder
+## Decoders
+
+### Regressor
 
 ``` mermaid
 graph LR
@@ -136,7 +140,9 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(decoder, exclude=["type"]), details=details) }}
 
-### Loss
+## Loss
+
+### Binary Weighted Cross Entropy
 
 {% set loss = get_loss_schema("binary_weighted_cross_entropy") %}
 {{ render_yaml(loss, parent="loss") }}
@@ -147,7 +153,7 @@ Parameters:
 
 Loss and loss related parameters can also be defined once and applied to all binary output features using the [Type-Global Loss](../defaults.md#type-global-loss) section.
 
-### Metrics
+## Metrics
 
 The metrics that are calculated every epoch and are available for binary features are the `accuracy`, `loss`,
 `precision`, `recall`, `roc_auc` and `specificity`.

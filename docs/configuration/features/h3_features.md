@@ -6,7 +6,7 @@
 H3 is a indexing system for representing geospatial data.
 For more details about it refer to <https://eng.uber.com/h3>.
 
-## H3 Features Preprocessing
+# Preprocessing
 
 Ludwig will parse the H3 64bit encoded format automatically.
 
@@ -19,7 +19,7 @@ Parameters:
 
 Preprocessing parameters can also be defined once and applied to all H3 input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 
-## H3 Input Features and Encoders
+# Input Features
 
 Input H3 features are transformed into a int valued tensors of size `N x 19` (where `N` is the size of the dataset and the 19 dimensions
 represent 4 H3 resolution parameters (4) - mode, edge, resolution, base cell - and 15 cell coordinate values.
@@ -45,6 +45,8 @@ The available encoder parameters are:
 
 Encoder type and encoder parameters can also be defined once and applied to all H3 input features using
 the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
+
+## Encoders
 
 ### Embed Encoder
 
@@ -81,6 +83,6 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(encoder_rnn, exclude=["type"]), details=details) }}
 
-## H3 Output Features and Decoders
+# Output Features
 
 There is currently no support for H3 as an output feature. Consider using the [`TEXT` type](../../features/text_features).

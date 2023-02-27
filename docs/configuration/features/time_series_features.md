@@ -1,13 +1,15 @@
 {% from './macros/includes.md' import render_fields, render_yaml %}
 
-## Time Series Features Preprocessing
+# Preprocessing
 
 Timeseries features are handled as sequence features, with the only difference being that the matrix in the HDF5
 preprocessing file uses floats instead of integers.
 
 Since data is continuous, the JSON file, which typically stores vocabulary mappings, isn't needed.
 
-## Time Series Input Features and Encoders
+# Input Features
+
+## Encoders
 
 ### Sequence Encoders
 
@@ -56,7 +58,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(encoder, exclude=["type"])) }}
 
-## Time Series Output Features and Decoders
+# Output Features
 
 There are no time series decoders at the moment.
 

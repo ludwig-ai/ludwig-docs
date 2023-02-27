@@ -19,7 +19,7 @@ formats and the number of channels.
 | RGB                  | 3                  |
 | RGB with Alpha       | 4                  |
 
-# Image Features Preprocessing
+# Preprocessing
 
 During preprocessing, raw image files are transformed into numpy arrays and saved in the hdf5 format.
 
@@ -38,7 +38,7 @@ Parameters:
 
 Preprocessing parameters can also be defined once and applied to all image input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 
-# Image Input Features and Encoders
+# Input Features
 
 The encoder parameters specified at the feature level are:
 
@@ -62,7 +62,9 @@ The available encoder parameters are:
 
 Encoder type and encoder parameters can also be defined once and applied to all image input features using the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
-## Convolutional Stack Encoder (`stacked_cnn`)
+## Encoders
+
+### Convolutional Stack Encoder (`stacked_cnn`)
 
 Stack of 2D convolutional layers with optional normalization, dropout, and down-sampling pooling layers, followed by an
 optional stack of fully connected layers.
@@ -76,7 +78,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
-## MLP-Mixer Encoder
+### MLP-Mixer Encoder
 
 Encodes images using MLP-Mixer, as described in [MLP-Mixer: An all-MLP Architecture for Vision](https://arxiv.org/abs/2105.01601).
 MLP-Mixer divides the image into equal-sized patches, applying fully connected layers to each patch to compute per-patch
@@ -91,7 +93,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
-## TorchVision Pretrained Model Encoders
+### TorchVision Pretrained Model Encoders
 
 Twenty TorchVision pretrained image classification models are available as Ludwig image encoders.  The available models
 are:
@@ -121,7 +123,7 @@ See [TorchVison documentation](https://pytorch.org/vision/stable/models.html#cla
 
 Ludwig encoders parameters for TorchVision pretrained models:
 
-### AlexNet
+#### AlexNet
 
 {% set image_encoder = get_encoder_schema("image", "alexnet") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
@@ -130,7 +132,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
-### ConvNeXt
+#### ConvNeXt
 
 {% set image_encoder = get_encoder_schema("image", "convnext") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
@@ -139,7 +141,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
-### DenseNet
+#### DenseNet
 
 {% set image_encoder = get_encoder_schema("image", "densenet") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
@@ -148,7 +150,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
-### EfficientNet
+#### EfficientNet
 
 {% set image_encoder = get_encoder_schema("image", "efficientnet") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
@@ -157,7 +159,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
-### GoogLeNet
+#### GoogLeNet
 
 {% set image_encoder = get_encoder_schema("image", "googlenet") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
@@ -166,7 +168,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
-### Inception V3
+#### Inception V3
 
 {% set image_encoder = get_encoder_schema("image", "inceptionv3") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
@@ -175,7 +177,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
-### MaxVit
+#### MaxVit
 
 {% set image_encoder = get_encoder_schema("image", "maxvit") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
@@ -184,7 +186,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
-### MNASNet
+#### MNASNet
 
 {% set image_encoder = get_encoder_schema("image", "mnasnet") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
@@ -193,7 +195,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
-### MobileNet V2
+#### MobileNet V2
 
 {% set image_encoder = get_encoder_schema("image", "mobilenetv2") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
@@ -202,7 +204,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
-### MobileNet V3
+#### MobileNet V3
 
 {% set image_encoder = get_encoder_schema("image", "mobilenetv3") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
@@ -211,7 +213,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
-### RegNet
+#### RegNet
 
 {% set image_encoder = get_encoder_schema("image", "regnet") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
@@ -220,7 +222,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
-### ResNet
+#### ResNet
 
 {% set image_encoder = get_encoder_schema("image", "resnet") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
@@ -229,7 +231,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
-### ResNeXt
+#### ResNeXt
 
 {% set image_encoder = get_encoder_schema("image", "resnext") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
@@ -238,7 +240,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
-### ShuffleNet V2
+#### ShuffleNet V2
 
 {% set image_encoder = get_encoder_schema("image", "shufflenet_v2") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
@@ -247,7 +249,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
-### SqueezeNet
+#### SqueezeNet
 
 {% set image_encoder = get_encoder_schema("image", "squeezenet") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
@@ -256,7 +258,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
-### SwinTransformer
+#### SwinTransformer
 
 {% set image_encoder = get_encoder_schema("image", "swin_transformer") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
@@ -265,7 +267,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
-### VGG
+#### VGG
 
 {% set image_encoder = get_encoder_schema("image", "vgg") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
@@ -274,7 +276,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
-### VisionTransformer
+#### VisionTransformer
 
 {% set image_encoder = get_encoder_schema("image", "vit") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
@@ -283,7 +285,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
-### Wide ResNet
+#### Wide ResNet
 
 {% set image_encoder = get_encoder_schema("image", "wide_resnet") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
@@ -303,9 +305,9 @@ model. More details on `DEFAULT` weights can be found in this
   - `regnet_torch`: `y_128gf`
   - `vit_torch`: `h_14`
 
-## Deprecated Encoders (planned to remove in v0.8)
+### Deprecated Encoders (planned to remove in v0.8)
 
-### Legacy ResNet Encoder
+#### Legacy ResNet Encoder
 
 DEPRECATED: This encoder is deprecated and will be removed in a future release. Please use the equivalent
 TorchVision [ResNet](#resnet) encoder instead.
@@ -321,7 +323,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
 
-### Legacy Vision Transformer Encoder
+#### Legacy Vision Transformer Encoder
 
 DEPRECATED: This encoder is deprecated and will be removed in a future release. Please use the equivalent
 TorchVision [VisionTransformer](#visiontransformer) encoder instead.
@@ -502,10 +504,6 @@ augmentation:
     - type: random_vertical_flip
 ```
 
-# Image Output Features and Decoders
+# Output Features
 
-There are no image decoders at the moment (WIP), so image cannot be used as output features.
-
-# Image Features Measures
-
-As no image decoders are available at the moment, there are also no image measures.
+There are no image decoders at the moment (WIP), so images cannot be used as output features.

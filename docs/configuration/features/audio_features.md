@@ -3,7 +3,7 @@
 {% set type = "See explanations for each type [here](audio_features.md#audio-input-features-and-encoders)." %}
 {% set details = {"missing_value_strategy": mv_details, "type": type} %}
 
-## Audio Features Preprocessing
+# Preprocessing
 
 Example of a preprocessing specification (assuming the audio files have a sample rate of 16000):
 
@@ -18,7 +18,7 @@ Parameters:
 
 Preprocessing parameters can also be defined once and applied to all audio input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 
-## Audio Input Features and Encoders
+# Input Features
 
 Audio files are transformed into one of the following types according to `type` under the `preprocessing` configuration.
 
@@ -43,11 +43,13 @@ encoder:
     type: parallel_cnn
 ```
 
+## Encoders
+
 Audio feature encoders are the same as for [Sequence Features](../sequence_features#sequence-input-features-and-encoders).
 
 Encoder type and encoder parameters can also be defined once and applied to all audio input features using the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
-## Audio Output Features and Decoders
+# Output Features
 
 There are no audio decoders at the moment.
 

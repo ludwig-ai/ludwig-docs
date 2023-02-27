@@ -3,7 +3,7 @@
 {% set norm_details = "See [Normalization](../combiner.md#normalization) for details." %}
 {% set details = {"missing_value_strategy": mv_details, "norm": norm_details} %}
 
-## Preprocessing
+# Preprocessing
 
 Bag features are expected to be provided as a string of elements separated by whitespace, e.g. "elem5 elem0 elem5 elem1".
 Bags are similar to [set features](../set_features), the only difference being that elements may appear multiple
@@ -18,7 +18,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(preprocessing), details=details) }}
 
-## Input Features and Encoders
+# Input Features
 
 Bag features have only one encoder type available: `embed`.
 
@@ -39,6 +39,8 @@ encoder:
 
 Encoder type and encoder parameters can also be defined once and applied to all bag input features using the
 [Type-Global Encoder](../defaults.md#type-global-encoder) section.
+
+## Encoders
 
 ### Embed Weighted Encoder
 
@@ -66,6 +68,6 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(encoder, exclude=["type"]), details=details) }}
 
-## Output Features and Decoders
+# Output Features
 
 Bag types are not supported as output features at this time.

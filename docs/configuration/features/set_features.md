@@ -3,7 +3,7 @@
 {% set norm_details = "See [Normalization](../combiner.md#normalization) for details." %}
 {% set details = {"missing_value_strategy": mv_details, "norm": norm_details} %}
 
-## Preprocessing
+# Preprocessing
 
 Set features are expected to be provided as a string of elements separated by whitespace, e.g. "elem5 elem9 elem6".
 The string values are transformed into a binary (int8 actually) valued matrix of size `n x l` (where `n` is the number
@@ -30,7 +30,7 @@ Parameters:
 
 Preprocessing parameters can also be defined once and applied to all set input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 
-## Input Features and Encoders
+# Input Features
 
 ``` mermaid
 graph LR
@@ -61,6 +61,8 @@ encoder:
 
 Encoder type and encoder parameters can also be defined once and applied to all set input features using the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
+## Encoders
+
 ### Embed Encoder
 
 {% set encoder = get_encoder_schema("set", "embed") %}
@@ -70,7 +72,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(encoder, exclude=["type"]), details=details) }}
 
-## Output Features and Decoders
+# Output Features
 
 ``` mermaid
 graph LR
@@ -116,7 +118,9 @@ vector of the first dimension).
 `type` for set features is `sigmoid_cross_entropy`. See [Loss](#loss) for details.
 - **`decoder`** (default: `{"type": "classifier"}`): Decoder for the desired task. Options: `classifier`. See [Decoder](#decoder) for details.
 
-### Decoder
+## Decoders
+
+### Classifier
 
 {% set decoder = get_decoder_schema("set", "classifier") %}
 {{ render_yaml(decoder, parent="decoder") }}
@@ -127,12 +131,12 @@ Parameters:
 
 Decoder type and decoder parameters can also be defined once and applied to all set output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
 
-### Loss
+## Loss
 
 {% set loss_classes = get_loss_schemas("set") %}
 {% for loss in loss_classes %}
 
-#### {{ loss.name() }}
+### {{ loss.name() }}
 
 {{ render_yaml(loss, parent="loss") }}
 
@@ -143,7 +147,7 @@ Parameters:
 
 Loss type and loss related parameters can also be defined once and applied to all set output features using the [Type-Global Loss](../defaults.md#type-global-loss) section.
 
-### Metrics
+## Metrics
 
 The metrics that are calculated every epoch and are available for set features are `jaccard` (counts the number of
 elements in the intersection of prediction and label divided by number of elements in the union) and the `loss` itself.

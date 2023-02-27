@@ -2,7 +2,7 @@
 {% set mv_details = "See [Missing Value Strategy](./input_features.md#missing-value-strategy) for details." %}
 {% set details = {"missing_value_strategy": mv_details} %}
 
-## Text Features Preprocessing
+# Preprocessing
 
 Text features are an extension of [sequence features](../sequence_features). Text inputs are processed by a tokenizer
 which maps the raw text input into a sequence of tokens. An integer id is assigned to each unique token. Using this
@@ -24,7 +24,7 @@ Preprocessing parameters can also be defined once and applied to all text input 
     If a text feature's encoder specifies a huggingface model, then the tokenizer for that model will be used
     automatically.
 
-## Text Input Features and Encoders
+# Input Features
 
 The encoder parameters specified at the feature level are:
 
@@ -53,6 +53,8 @@ face transformers library: `albert`, `auto_transformer`, `bert`, `camembert`, `c
 
 Encoder type and encoder parameters can also be defined once and applied to all text input features using
 the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
+
+## Encoders
 
 ### Embed Encoder
 
@@ -279,7 +281,7 @@ Parameters:
 {{ render_fields(schema_class_to_fields(hf_encoder, exclude=["type"])) }}
 {% endfor %}
 
-## Text Output Features and Decoders
+# Output Features
 
 Text output features are a special case of [Sequence Features](#sequence-output-features-and-decoders), so all options
 of sequence features are available for text features as well.
@@ -326,9 +328,9 @@ Decoder type and decoder parameters can also be defined once and applied to all 
 the [Type-Global Decoder](../defaults.md#type-global-decoder) section. Loss and loss related parameters can
 also be defined once in the same way.
 
-### Decoder
+## Decoders
 
-#### Generator
+### Generator
 
 ``` mermaid
 graph LR
@@ -371,7 +373,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(decoder, exclude=["type"])) }}
 
-#### Tagger
+### Tagger
 
 ``` mermaid
 graph LR
@@ -403,7 +405,9 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(decoder, exclude=["type"])) }}
 
-### Loss
+## Loss
+
+### Softmax Cross Entropy
 
 {% set loss = get_loss_schema("softmax_cross_entropy") %}
 {{ render_yaml(loss, parent="loss") }}

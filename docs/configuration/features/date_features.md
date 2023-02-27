@@ -5,7 +5,7 @@
 
 Date features are like `2023-06-25 15:00:00`, `2023-06-25`, `6-25-2023`, or `6/25/2023`.
 
-## Date Features Preprocessing
+# Preprocessing
 
 Ludwig will try to infer the date format automatically, but a specific format can be provided. The date string spec is
 the same as the one described in python's [datetime](https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior).
@@ -28,7 +28,7 @@ Parameters:
 
 Preprocessing parameters can also be defined once and applied to all date input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 
-## Date Input Features and Encoders
+# Input Features
 
 Input date features are transformed into a int tensors of size `N x 9` (where `N` is the size of the dataset and the 9 dimensions contain year, month, day, weekday, yearday, hour, minute, second, and second of day).
 
@@ -66,6 +66,8 @@ encoder:
 
 Encoder type and encoder parameters can also be defined once and applied to all date input features using the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
+## Encoders
+
 ### Embed Encoder
 
 This encoder passes the year through a fully connected layer of one neuron and embeds all other elements for the date, concatenates them and passes the concatenated representation through fully connected layers.
@@ -88,6 +90,6 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(encoder_wave, exclude=["type"]), details=details) }}
 
-## Date Output Features and Decoders
+# Output Features
 
 There is currently no support for date as an output feature. Consider using the [`TEXT` type](../../features/text_features).

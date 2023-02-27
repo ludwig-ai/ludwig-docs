@@ -1,6 +1,6 @@
 {% from './macros/includes.md' import render_config_yaml %}
 
-## Parameters
+## Configuration Structure
 
 Ludwig models are configured by a single config with the following parameters:
 

@@ -3,7 +3,7 @@
 {% set norm_details = "See [Normalization](../combiner.md#normalization) for details." %}
 {% set details = {"missing_value_strategy": mv_details, "fc_norm": norm_details} %}
 
-## Category Features Preprocessing
+# Preprocessing
 
 Category features are transformed into integer valued vectors of size `n` (where `n` is the size of the dataset) and
 added to the HDF5 with a key that reflects the name of column in the dataset.
@@ -27,7 +27,7 @@ Parameters:
 
 Preprocessing parameters can also be defined once and applied to all category input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 
-## Category Input Features and Encoders
+# Input Features
 
 Category features have three encoders.
 The `passthrough` encoder passes the raw integer values coming from the input placeholders to outputs of size `b x 1`.
@@ -57,6 +57,8 @@ raw integer values unaltered. `dense` randomly initializes a trainable embedding
 Encoder type and encoder parameters can also be defined once and applied to all category input features using
 the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
+## Encoders
+
 ### Dense Encoder
 
 {% set encoder = get_encoder_schema("category", "dense") %}
@@ -75,7 +77,7 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(encoder, exclude=["type"]), details=details) }}
 
-## Category Output Features and Decoders
+# Output Features
 
 ``` mermaid
 graph LR
@@ -137,7 +139,9 @@ categories ranked by decoder's confidence.
 
 Decoder type and decoder parameters can also be defined once and applied to all category output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
 
-### Decoder
+## Decoders
+
+### Classifier
 
 {% set decoder = get_decoder_schema("category", "classifier") %}
 {{ render_yaml(decoder, parent="decoder") }}
@@ -146,7 +150,9 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(decoder, exclude=["type"]), details=details) }}
 
-### Loss
+## Loss
+
+### Softmax Cross Entropy
 
 {% set loss = get_loss_schema("softmax_cross_entropy") %}
 {{ render_yaml(loss, parent="loss") }}
@@ -157,7 +163,7 @@ Parameters:
 
 Loss and loss related parameters can also be defined once and applied to all category output features using the [Type-Global Loss](../defaults.md#type-global-loss) section.
 
-### Metrics
+## Metrics
 
 The measures that are calculated every epoch and are available for category features are `accuracy`, `hits_at_k`
 (computes accuracy considering as a match if the true category appears in the first `k` predicted categories ranked by

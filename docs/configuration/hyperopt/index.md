@@ -120,12 +120,12 @@ hyperopt:
 
 In addition to defining hyperopt parameters for individual input or output features (like the `title` feature
 in the example above), default parameters can be specified for entire feature types (for example, the encoder
-to use for all text features in your dataset). Read more about default hyperopt parameters [here](../user_guide/hyperopt.md#default-hyperopt-parameters).
+to use for all text features in your dataset). Read more about default hyperopt parameters [here](../../user_guide/hyperopt.md#default-hyperopt-parameters).
 
 ### Nested Ludwig Config Parameters
 
 Ludwig also allows partial or full Ludwig configs to be sampled from the hyperopt search space.
-Read more about nested Ludwig config parameters [here](../user_guide/hyperopt.md#nested-ludwig-config-parameters).
+Read more about nested Ludwig config parameters [here](../../user_guide/hyperopt.md#nested-ludwig-config-parameters).
 
 # Search Algorithm
 
@@ -136,7 +136,7 @@ search_alg:
   type: variant_generator
 ```
 
-You can find the full list of supported search algorithm names in Ray Tune's [create_searcher](https://github.com/ray-project/ray/blob/master/python/ray/tune/suggest/__init__.py) function. Please note these algorithms require installation of additional packages.  As of this version of Ludwig, Ludwig installs the packages for the search algorithm `hyperopt`.  For all other search algorithms, the user is expected to install the required packages.
+You can find the full list of supported search algorithm names in Ray Tune's [create_searcher](https://github.com/ray-project/ray/blob/master/python/ray/tune/suggest/__init__.py) function. Please note these algorithms require installation of additional packages.  Currently, Ludwig installs the packages for the search algorithm `hyperopt`.  For all other search algorithms, the user is expected to install the required packages.
 
 # Executor
 

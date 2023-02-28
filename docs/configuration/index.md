@@ -31,7 +31,7 @@ embedding vector. The combiner effectively combines individual feature-level mod
 - [defaults](./defaults.md) default feature configuration. Useful when you have many input features of the same type, and want to apply the same
 preprocessing, encoders, etc. to all of them. Overridden by the feature-level configuration if provided.
 - [trainer](./trainer.md): hyperparameters used to control the training process, including batch size, learning rate, number of training epochs, etc.
-- [hyperopt](./hyperparameter_optimization.md): hyperparameter optimization options. Any param from the previous sections can be treated as a
+- [hyperopt](./hyperopt/index.md): hyperparameter optimization options. Any param from the previous sections can be treated as a
 hyperparameter and explored in combination with other config params.
 - [backend](./backend.md): infrastructure and runtime options, including what libraries and distribution strategies will be used during training, how
 many cluster resources to use per training worker, how many total workers, whether to use GPUs, etc.

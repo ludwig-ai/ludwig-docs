@@ -24,11 +24,8 @@ jobs:
         run: |
           sudo apt-get install -y cmake libsndfile1
 
-      # TODO(travis): first install ludwig without extra deps to workaround hummingbird installed from GH
-      # https://github.com/microsoft/hummingbird/issues/688
       - name: Install Ludwig
         run: |
-          pip install ludwig
           pip install ludwig[full]
 
       - name: Set Ludwig version env

@@ -37,12 +37,6 @@ The requirements for additional functionality are separated out so that users ar
  pip install 'ludwig[full]'
  ```
 
-!!! warning
-
-    If this is your first time installing Ludwig into your environment,
-    you may need to temporarily install with `pip install ludwig` before installing
-    with full dependencies until [hummingbird#688](https://github.com/microsoft/hummingbird/issues/688) is resolved.
-
 ## GPU support
 
 If your machine has a GPU to accelerate the training process, make sure you install a GPU-enabled version of PyTorch before installing Ludwig:

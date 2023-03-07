@@ -68,11 +68,6 @@ The following config is an example that would perform stratified splitting for a
 This helps ensure that the distribution of the values in `color` are
 roughly the same across data subsets.
 
-!!! note
-
-    This split method is only supported with a local Pandas backend. We are
-    actively working on including support for other data sources like Dask.
-
 ## Datetime Split
 
 Another common use case is splitting a column according to a datetime column

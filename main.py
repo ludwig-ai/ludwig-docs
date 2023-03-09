@@ -4,7 +4,6 @@ import yaml
 # Force populate combiner registry:
 import ludwig.combiners.combiners  # noqa: F401
 from ludwig.constants import MODEL_ECD
-from ludwig.hyperopt.registry import get_search_algorithm_cls
 from ludwig.schema.combiners.utils import get_combiner_registry
 from ludwig.schema.decoders.utils import get_decoder_cls
 from ludwig.schema.encoders.text_encoders import HFEncoderConfig
@@ -15,7 +14,11 @@ from ludwig.schema.features.utils import get_input_feature_cls, get_output_featu
 from ludwig.schema.features.loss import get_loss_schema_registry, get_loss_classes
 from ludwig.schema.hyperopt import HyperoptConfig
 from ludwig.schema.hyperopt.executor import ExecutorConfig
-from ludwig.schema.hyperopt.scheduler import scheduler_config_registry
+from ludwig.schema.hyperopt.utils import (
+    get_parameter_cls,
+    get_scheduler_cls,
+    get_search_algorithm_cls,
+)
 from ludwig.schema.model_config import ModelConfig
 from ludwig.schema.optimizers import optimizer_registry
 from ludwig.schema.preprocessing import PreprocessingConfig
@@ -158,9 +161,12 @@ def define_env(env):
     def get_hyperopt_executor_schema():
         return ExecutorConfig
 
+    def get_hyperopt_parameter_schema(name):
+        return get_parameter_cls(name)
+
     @env.macro
     def get_hyperopt_executor_scheduler_schema(name: str):
-        return scheduler_config_registry[name]
+        return get_scheduler_cls(name)
 
     @env.macro
     def get_hyperopt_search_algorithm_schema(name: str):

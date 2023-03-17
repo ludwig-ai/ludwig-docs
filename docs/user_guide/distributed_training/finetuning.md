@@ -34,6 +34,7 @@ trainer:
   optimizer:
     type: adamw
   use_mixed_precision: true
+  compile: true
 ```
 
 If you're looking to get the best performance you can out of the model, and are insensitive to
@@ -233,6 +234,15 @@ trainer:
 
 It's highly recommended to set `use_mixed_precision=true` when fine-tuning. Empirically, it can speedup training by
 about 2.5x witout loss of model quality.
+
+### Model Compilation
+
+```yaml
+trainer:
+  compile: true
+```
+
+For users using PyTorch v2.0 and above, you can take advantage of the new [model compilation](https://pytorch.org/get-started/pytorch-2.0/) features to speed up training by upwards of 20%. Model compilation is particularly impactful when used in conjunction with with mixed precision training.
 
 ## Backend
 

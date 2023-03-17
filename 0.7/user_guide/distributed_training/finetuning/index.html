@@ -963,6 +963,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#model-compilation" class="md-nav__link">
+    Model Compilation
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2584,6 +2591,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#model-compilation" class="md-nav__link">
+    Model Compilation
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2664,6 +2678,7 @@ trainable weights, batch size set to maximize throughput, and learning rate warm
 <span class="w">  </span><span class="nt">optimizer</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adamw</span>
 <span class="w">  </span><span class="nt">use_mixed_precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">compile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </code></pre></div>
 <p>If you're looking to get the best performance you can out of the model, and are insensitive to
 training time, this is a good place to start. In the sections below, we'll also cover options that
@@ -2803,6 +2818,11 @@ is of particular importance during fine-tuning to avoid catastrophic forgetting.
 </code></pre></div>
 <p>It's highly recommended to set <code>use_mixed_precision=true</code> when fine-tuning. Empirically, it can speedup training by
 about 2.5x witout loss of model quality.</p>
+<h4 id="model-compilation">Model Compilation<a class="headerlink" href="#model-compilation" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="nt">trainer</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">compile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>For users using PyTorch v2.0 and above, you can take advantage of the new <a href="https://pytorch.org/get-started/pytorch-2.0/">model compilation</a> features to speed up training by upwards of 20%. Model compilation is particularly impactful when used in conjunction with with mixed precision training.</p>
 <h3 id="backend">Backend<a class="headerlink" href="#backend" title="Permanent link">&para;</a></h3>
 <p>Fine-tuning large pretrained models typically benefit from <a href="../">distributed training</a> without
 requiring a lot of additional hyperparameter tuning. As such, we recommend using the Ray <a href="../../../configuration/backend/">backend</a>

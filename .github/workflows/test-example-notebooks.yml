@@ -26,10 +26,6 @@ jobs:
         run: |
           sudo apt-get install -y cmake libsndfile1
 
-      - name: Install Ludwig
-        run: |
-          pip install ludwig[full]
-
       - name: Install test dependencies
         run: pip install pytest nbmake
 

@@ -1,9 +1,11 @@
 name: Update Auto-Generated Docs
 
 on:
-  schedule:
-    # At the end of every day.
-    - cron: 0 0 * * *
+  pull_request:
+    branches: ["master"]
+  # schedule:
+  # At the end of every day.
+  # - cron: 0 0 * * *
 
 jobs:
   update_auto_docs:

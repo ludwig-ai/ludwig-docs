@@ -42,10 +42,10 @@ The requirements for additional functionality are separated out so that users ar
 If your machine has a GPU to accelerate the training process, make sure you install a GPU-enabled version of PyTorch before installing Ludwig:
 
 ``` sh
-pip install torch -f https://download.pytorch.org/whl/cu113/torch_stable.html
+pip install torch -f https://download.pytorch.org/whl/cu118/torch_stable.html
 ```
 
-The example above will install the latest version of PyTorch with CUDA 11.3. See the official [PyTorch docs](https://pytorch.org/get-started/locally/) for
+The example above will install the latest version of PyTorch with CUDA 11.8. See the official [PyTorch docs](https://pytorch.org/get-started/locally/) for
 more details on installing the right version of PyTorch for your environment.
 
 # Docker { #with-docker }

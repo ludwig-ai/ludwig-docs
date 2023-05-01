@@ -29,6 +29,7 @@ jobs:
       - name: Install Ludwig
         run: |
           pip install ludwig
+          pip install ludwig[viz]
 
       - name: Set Ludwig version env
         run: |

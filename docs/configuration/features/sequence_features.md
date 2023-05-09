@@ -381,9 +381,9 @@ Parameters:
 
 ## Loss
 
-### Softmax Cross Entropy
+### Sequence Softmax Cross Entropy
 
-{% set loss = get_loss_schema("softmax_cross_entropy") %}
+{% set loss = get_loss_schema("sequence_softmax_cross_entropy") %}
 {{ render_yaml(loss, parent="loss") }}
 
 Parameters:

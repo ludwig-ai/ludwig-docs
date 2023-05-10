@@ -1474,8 +1474,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#softmax-cross-entropy" class="md-nav__link">
-    Softmax Cross Entropy
+  <a href="#sequence-softmax-cross-entropy" class="md-nav__link">
+    Sequence Softmax Cross Entropy
   </a>
   
 </li>
@@ -2817,8 +2817,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#softmax-cross-entropy" class="md-nav__link">
-    Softmax Cross Entropy
+  <a href="#sequence-softmax-cross-entropy" class="md-nav__link">
+    Sequence Softmax Cross Entropy
   </a>
   
 </li>
@@ -4459,15 +4459,16 @@ If a <code>b x h</code> input is provided instead, an error will be raised durin
 <li><strong><code>attention_num_heads</code></strong> (default: <code>8</code>): The number of attention heads in the multi-head self attention layer.</li>
 </ul>
 <h3 id="loss">Loss<a class="headerlink" href="#loss" title="Permanent link">&para;</a></h3>
-<h4 id="softmax-cross-entropy">Softmax Cross Entropy<a class="headerlink" href="#softmax-cross-entropy" title="Permanent link">&para;</a></h4>
+<h4 id="sequence-softmax-cross-entropy">Sequence Softmax Cross Entropy<a class="headerlink" href="#sequence-softmax-cross-entropy" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="nt">loss</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">softmax_cross_entropy</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sequence_softmax_cross_entropy</span>
 <span class="w">    </span><span class="nt">class_weights</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 <span class="w">    </span><span class="nt">robust_lambda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
 <span class="w">    </span><span class="nt">confidence_penalty</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
 <span class="w">    </span><span class="nt">class_similarities</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 <span class="w">    </span><span class="nt">class_similarities_temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
 <span class="w">    </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">    </span><span class="nt">unique</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 </code></pre></div>
 <p>Parameters:</p>
 <ul>
@@ -4477,6 +4478,7 @@ If a <code>b x h</code> input is provided instead, an error will be raised durin
 <li><strong><code>class_similarities</code></strong> (default: <code>null</code>): If not <code>null</code> it is a <code>c x c</code> matrix in the form of a list of lists that contains the mutual similarity of classes. It is used if <code>class_similarities_temperature</code> is greater than 0. The ordering of the vector follows the category to integer ID mapping in the JSON metadata file (the <code>&lt;UNK&gt;</code> class needs to be included too).</li>
 <li><strong><code>class_similarities_temperature</code></strong> (default: <code>0</code>): The temperature parameter of the softmax that is performed on each row of <code>class_similarities</code>. The output of that softmax is used to determine the supervision vector to provide instead of the one hot vector that would be provided otherwise for each datapoint. The intuition behind it is that errors between similar classes are more tolerable than errors between really different classes.</li>
 <li><strong><code>weight</code></strong> (default: <code>1.0</code>): Weight of the loss.</li>
+<li><strong><code>unique</code></strong> (default: <code>false</code>): If true, the loss is only computed for unique elements in the sequence. Options: <code>true</code>, <code>false</code>.</li>
 </ul>
 <h3 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permanent link">&para;</a></h3>
 <p>The metrics available for text features are the same as for <a href="../sequence_features#sequence-features-metrics">Sequence Features</a>:</p>

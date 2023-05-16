@@ -16,10 +16,6 @@ ghp-import==2.1.0
     # via mkdocs
 idna==3.4
     # via requests
-importlib-metadata==6.0.0
-    # via
-    #   markdown
-    #   mkdocs
 jinja2==3.1.2
     # via
     #   mike
@@ -54,7 +50,7 @@ packaging==23.0
     # via mkdocs
 pygments==2.14.0
     # via mkdocs-material
-pymdown-extensions==9.9.2
+pymdown-extensions==10.0
     # via mkdocs-material
 python-dateutil==2.8.2
     # via
@@ -65,6 +61,7 @@ pyyaml==6.0
     #   mike
     #   mkdocs
     #   mkdocs-macros-plugin
+    #   pymdown-extensions
     #   pyyaml-env-tag
 pyyaml-env-tag==0.1
     # via mkdocs
@@ -82,5 +79,3 @@ verspec==0.1.0
     # via mike
 watchdog==2.2.1
     # via mkdocs
-zipp==3.14.0
-    # via importlib-metadata

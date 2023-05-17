@@ -12,6 +12,13 @@ from ludwig.schema.features.augmentation.utils import get_augmentation_cls
 from ludwig.schema.features.preprocessing.utils import preprocessing_registry
 from ludwig.schema.features.utils import get_input_feature_cls, get_output_feature_cls
 from ludwig.schema.features.loss import get_loss_schema_registry, get_loss_classes
+from ludwig.schema.hyperopt import HyperoptConfig
+from ludwig.schema.hyperopt.executor import ExecutorConfig
+from ludwig.schema.hyperopt.utils import (
+    get_parameter_cls,
+    get_scheduler_cls,
+    get_search_algorithm_cls,
+)
 from ludwig.schema.model_config import ModelConfig
 from ludwig.schema.optimizers import optimizer_registry
 from ludwig.schema.preprocessing import PreprocessingConfig
@@ -145,6 +152,25 @@ def define_env(env):
             ],
             key=lambda s: s.type.lower() if s.type != "auto_transformer" else "",
         )
+
+    @env.macro
+    def get_hyperopt_schema():
+        return HyperoptConfig
+
+    @env.macro
+    def get_hyperopt_executor_schema():
+        return ExecutorConfig
+
+    def get_hyperopt_parameter_schema(name):
+        return get_parameter_cls(name)
+
+    @env.macro
+    def get_hyperopt_executor_scheduler_schema(name: str):
+        return get_scheduler_cls(name)
+
+    @env.macro
+    def get_hyperopt_search_algorithm_schema(name: str):
+        return get_search_algorithm_cls(name)
 
     @env.macro
     def schema_class_long_description(cls):

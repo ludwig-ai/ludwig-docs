@@ -73,7 +73,9 @@ nav:
       - Defaults: configuration/defaults.md
       - Combiner: configuration/combiner.md
       - Trainer: configuration/trainer.md
-      - Hyperopt: configuration/hyperparameter_optimization.md
+      - Hyperopt:
+          - Search Algorithms: configuration/hyperopt/search_algorithms.md
+          - Distributed Schedulers: configuration/hyperopt/distributed_schedulers.md
       - Backend: configuration/backend.md
   - Examples:
       - Examples: examples/index.md

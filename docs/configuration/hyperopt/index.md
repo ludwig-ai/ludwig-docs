@@ -1,41 +1,14 @@
+{% from './macros/includes.md' import render_fields, render_yaml %}
+
 The `hyperopt` section of the Ludwig configuration defines what metrics to optimize for, which parameters to optimize,
 search strategy and execution strategy.
 
-```yaml
-hyperopt:
-  goal: minimize
-  output_feature: combined
-  metric: loss
-  split: validation
-  parameters:
-    title.encoder.cell_type: ... # title is a text feature type
-    title.encoder.num_layers: ... 
-    combiner.num_fc_layers: ...
-    section.encoder.embedding_size: ...
-    preprocessing.text.vocab_size: ...
-    trainer.learning_rate: ...
-    trainer.optimizer.type: ...
-    ...
-  search_alg:
-    type: variant_generator  # random, hyperopt, bohb, ...
-    # search_alg parameters...
-  executor:
-    type: ray
-    num_samples: ...
-    scheduler:
-      type: fifo  # hb_bohb, asynchyperband, ...
-      # scheduler parameters...
-```
+{% set hyperopt = get_hyperopt_schema() %}
+{{ render_yaml(hyperopt, parent="hyperopt") }}
 
 # Hyperopt configuration parameters
 
-- `goal` which indicates if to minimize or maximize a metric or a loss of any of the output features on any of the dataset splits. Available values are: `minimize` (default) or `maximize`.
-- `output_feature` is a `str` containing the name of the output feature that we want to optimize the metric or loss of. Available values are `combined` (default) or the name of any output feature provided in the configuration. `combined` is a special output feature that allows to optimize for the aggregated loss and metrics of all output features.
-- `metric` is the metric that we want to optimize for. The default one is `loss`, but depending on the type of the feature defined in `output_feature`, different metrics and losses are available. Check the metrics section of the specific output feature type to figure out what metrics are available to use.
-- `split` is the split of data that we want to compute our metric on. By default it is the `validation` split, but you have the flexibility to specify also `train` or `test` splits.
-- `parameters` section consists of a set of hyperparameters to optimize. They are provided as keys (the names of the parameters) and values associated with them (that define the search space). The values vary depending on the type of the hyperparameter. Syntax for this section is based on [Ray Tune's Search Space parameters](https://docs.ray.io/en/latest/tune/api_docs/search_space.html).
-- `search_alg` section specifies the algorithm to sample the defined `parameters` space. Candidate algorithms are those found in [Ray Tune's Search Algorithms](https://docs.ray.io/en/latest/tune/api_docs/suggestion.html).
-- `executor` section specifies how to execute the hyperparameter optimization. The execution could happen locally in a serial manner or in parallel across multiple workers and with GPUs as well if available.  The `executor` section includes specification for work scheduling and the number of samples to generate.
+{{ render_fields(schema_class_to_fields(hyperopt)) }}
 
 # Defining hyperparameter search spaces
 
@@ -147,12 +120,12 @@ hyperopt:
 
 In addition to defining hyperopt parameters for individual input or output features (like the `title` feature
 in the example above), default parameters can be specified for entire feature types (for example, the encoder
-to use for all text features in your dataset). Read more about default hyperopt parameters [here](../user_guide/hyperopt.md#default-hyperopt-parameters).
+to use for all text features in your dataset). Read more about default hyperopt parameters [here](../../user_guide/hyperopt.md#default-hyperopt-parameters).
 
 ### Nested Ludwig Config Parameters
 
 Ludwig also allows partial or full Ludwig configs to be sampled from the hyperopt search space.
-Read more about nested Ludwig config parameters [here](../user_guide/hyperopt.md#nested-ludwig-config-parameters).
+Read more about nested Ludwig config parameters [here](../../user_guide/hyperopt.md#nested-ludwig-config-parameters).
 
 # Search Algorithm
 
@@ -163,33 +136,21 @@ search_alg:
   type: variant_generator
 ```
 
-You can find the full list of supported search algorithm names in Ray Tune's [create_searcher](https://github.com/ray-project/ray/blob/master/python/ray/tune/suggest/__init__.py) function. Please note these algorithms require installation of additional packages.  As of this version of Ludwig, Ludwig installs the packages for the search algorithm `hyperopt`.  For all other search algorithms, the user is expected to install the required packages.
+You can find the full list of supported search algorithm names in Ray Tune's [create_searcher](https://github.com/ray-project/ray/blob/master/python/ray/tune/suggest/__init__.py) function. Please note these algorithms require installation of additional packages.  Currently, Ludwig installs the packages for the search algorithm `hyperopt`.  For all other search algorithms, the user is expected to install the required packages.
 
 # Executor
 
 ## Ray Tune Executor
 
+{% set executor = get_hyperopt_executor_schema() %}
+
+{{ render_yaml(executor, parent="executor") }}
+
 The `ray` executor is used to enable [Ray Tune](https://docs.ray.io/en/master/tune/index.html) for both local and distributed hyperopt across a cluster of machines.
 
 **Parameters:**
 
-- `num_samples`: This parameter, along with the `space` specifications in the `parameters` section, controls how many trials are generated (default: 1).
-
-    !!! note
-
-        * If all the hyperparameters in the `parameters` section have non-`grid_search` specifications (e.g., `uniform`, `randn`, `choice`, etc.), then the number of trials will be `num_samples`.
-        * If all the hyperparameters have `grid_search`, then the number of trials will be the product of the number of values specified for each hyperparameter.  In this case, `num_samples` should be set to 1.  For example, if there are three `grid_search` hyperparameters, with 2, 4 and 4 values, respectively.  The number of trials will be 2 X 4 X 4 = 32, where each trial is a unique combination of the three `grid_search` hyperparameter values.
-        * If there is a mixture of `grid_search` and non-`grid_search` spaces, the number of trials will be product of the number of values specified for each `grid_search` hyperpameter multiplied by the value of `num_samples`.  To illustrate this point, we take the three `grid_search` hyperparameters described in the preceding bullet item and add 2 hyperparameters with `uniform` and `randint` spaces.  With `num_samples = 10`, for each unique combination of values from the `grid_search` hyperparameters, 10 trials will be generated with random values selected for the `uniform` and `randint` hyperparameters.  This will lead to a total of 32 X 10 = 320 trials.
-
-- `cpu_resources_per_trial`: The number of CPU cores allocated to each trial (default: 1).
-- `gpu_resources_per_trial`: The number of GPU devices allocated to each trial (default: 0).
-- `kubernetes_namespace`: When running on Kubernetes, provide the namespace of the Ray cluster to sync results between pods. See the [Ray docs](https://docs.ray.io/en/master/_modules/ray/tune/integration/kubernetes.html) for more info.
-- `time_budget_s`: The number of seconds for the entire hyperopt run.
-- `max_concurrent_trials`: The maximum number of trials to train concurrently. Defaults to `auto` if not specified.
-
-    !!! note
-        - If you're using a Ray backend, `auto` will infer the max_concurrent_trials that can be set given your cluster configuration to prevent trials from stalling.
-        - If you're using a Local or Horovod backend, `auto` will set max_concurrent_trials to None.
+{{ render_fields(schema_class_to_fields(executor)) }}
 
 ## Scheduler
 
@@ -228,7 +189,7 @@ input_features:
   -
     name: title
     type: text
-    encoder: 
+    encoder:
         type: rnn
         cell_type: lstm
         num_layers: 2

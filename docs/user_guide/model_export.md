@@ -7,7 +7,7 @@ There are a number of ways to export models in Ludwig.
 A subset of Ludwig Models can be exported to Torchscript end-to-end. This means
 that, in addition to the model itself, the preprocessing and postprocessing steps can be exported to TorchScript as well, ensuring that the model can be used for inference in a production environment out-of-the-box.
 
-To get started, simply run the [`export_torchscript`](/user_guide/command_line_interface#export_torchscript) command:
+To get started, simply run the [`export_torchscript`](https://ludwig.ai/latest/user_guide/command_line_interface/#export_torchscript) command:
 
 ```
 ludwig export_torchscript -m=results/experiment_run/model

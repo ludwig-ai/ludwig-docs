@@ -28,7 +28,7 @@
 
 # What is Ludwig?
 
-Ludwig is a [declarative machine learning framework](https://ludwig.ai/latest/user_guide/what_is_ludwig/#why-declarative-machine-learning-systems)
+Ludwig is a [declarative machine learning framework](https://ludwig.ai/latest/user_guide/what_is_ludwig/#why-declarative-machine-learning-systems/)
 that makes it easy to define machine learning pipelines using a simple and
 flexible data-driven configuration system. Ludwig is suitable for a wide variety
 of AI tasks, and is hosted by the
@@ -65,7 +65,7 @@ in the same unified configuration system.
 
 # Main Features
 
-- **[Data-Driven configuration system](https://ludwig.ai/latest/user_guide/how_ludwig_works)**
+- **[Data-Driven configuration system](https://ludwig.ai/latest/user_guide/how_ludwig_works/)**
 
   A config YAML file that describes the schema of your data (input features,
   output features, and their types) is all you need to start training deep
@@ -92,7 +92,7 @@ in the same unified configuration system.
       ...
   ```
 
-- **[Training, prediction, and evaluation from the command line](https://ludwig.ai/latest/user_guide/command_line_interface)**
+- **[Training, prediction, and evaluation from the command line](https://ludwig.ai/latest/user_guide/command_line_interface/)**
 
   Simple commands can be used to train models and predict new data.
 
@@ -102,7 +102,7 @@ in the same unified configuration system.
   ludwig eval --model_path results/experiment_run/model --dataset test.csv
   ```
 
-- **[Programmatic API](https://ludwig.ai/latest/user_guide/api/LudwigModel)**
+- **[Programmatic API](https://ludwig.ai/latest/user_guide/api/LudwigModel/)**
 
   Ludwig also provides a simple programmatic API for all of the functionality
   described above and more.
@@ -126,14 +126,14 @@ in the same unified configuration system.
   predictions = model.predict(data)
   ```
 
-- **[Distributed training](https://ludwig.ai/latest/user_guide/distributed_training)**
+- **[Distributed training](https://ludwig.ai/latest/user_guide/distributed_training/)**
 
   Scale to very large datasets, train on multiple GPUs and multiple machines
   in a distributed setting using [Ray](https://www.ray.io), with no code or
   config changes required. Runs natively in the cloud on [Kubernetes](https://kubernetes.io/)
   using [KubeRay](https://github.com/ray-project/kuberay).
 
-- **[Serving](https://ludwig.ai/latest/user_guide/serving)**
+- **[Serving](https://ludwig.ai/latest/user_guide/serving/)**
 
   Serve models using FastAPI with a single command:
 
@@ -145,7 +145,7 @@ in the same unified configuration system.
   For optimized performance, compile end-to-end models with [TorchScript](https://pytorch.org/docs/stable/jit.html)
   and serve with [Nviida Triton](https://developer.nvidia.com/nvidia-triton-inference-server).
 
-- **[Hyperparameter optimization](https://ludwig.ai/latest/user_guide/hyperopt)**
+- **[Hyperparameter optimization](https://ludwig.ai/latest/user_guide/hyperopt/)**
 
   Run hyperparameter optimization locally or using [Ray Tune](https://docs.ray.io/en/latest/tune/index.html).
 
@@ -153,18 +153,18 @@ in the same unified configuration system.
   ludwig hyperopt --config config.yaml --dataset data.csv
   ```
 
-- **[AutoML](https://ludwig.ai/latest/user_guide/automl)**
+- **[AutoML](https://ludwig.ai/latest/user_guide/automl/)**
 
   Ludwig AutoML takes a dataset, the target column, and a time budget, and
   returns a trained Ludwig model.
 
-- **[Third-Party integrations](https://ludwig.ai/latest/user_guide/integrations)**
+- **[Third-Party integrations](https://ludwig.ai/latest/user_guide/integrations/)**
 
   Ludwig provides an extendable interface to integrate with third-party
   systems for tracking experiments. Third-party integrations exist for Comet
   ML, Weights & Biases, WhyLabs, and MLFlow.
 
-- **[Extensibility](https://ludwig.ai/latest/developer_guide)**
+- **[Extensibility](https://ludwig.ai/latest/developer_guide/)**
 
   Ludwig is built from the ground up with extensibility in mind. It is easy to
   add new data types by implementing clear, well-documented abstract classes
@@ -172,13 +172,13 @@ in the same unified configuration system.
 
   Furthermore, new `torch nn.Module` models can be easily added by them to a
   registry. This encourages reuse and sharing new models with the community.
-  Refer to the [Developer Guide](https://ludwig.ai/latest/developer_guide)
+  Refer to the [Developer Guide](https://ludwig.ai/latest/developer_guide/)
   for further details.
 
 # Quick Start
 
 For a full tutorial, check out the official [getting started guide](https://ludwig.ai/latest/getting_started/),
-or take a look at end-to-end [Examples](https://ludwig.ai/latest/examples).
+or take a look at end-to-end [Examples](https://ludwig.ai/latest/examples/).
 
 ## Step 1: Install
 
@@ -290,7 +290,7 @@ compare them.
 ludwig visualize --visualization compare_performance --test_statistics path/to/test_statistics_model_1.json path/to/test_statistics_model_2.json
 ```
 
-For the full set of visualization see the [Visualization Guide](https://ludwig.ai/latest/user_guide/visualizations).
+For the full set of visualization see the [Visualization Guide](https://ludwig.ai/latest/user_guide/visualizations/).
 
 ## Step 6: Happy modeling
 
@@ -382,36 +382,36 @@ if you have any questions.
 
 # Tutorials
 
-- [Text Classification](https://ludwig.ai/latest/examples/text_classification)
-- [Tabular Data Classification](https://ludwig.ai/latest/examples/adult_census_income)
-- [Image Classification](https://ludwig.ai/latest/examples/mnist)
-- [Multimodal Classification](https://ludwig.ai/latest/examples/multimodal_classification)
+- [Text Classification](https://ludwig.ai/latest/examples/text_classification/)
+- [Tabular Data Classification](https://ludwig.ai/latest/examples/adult_census_income/)
+- [Image Classification](https://ludwig.ai/latest/examples/mnist/)
+- [Multimodal Classification](https://ludwig.ai/latest/examples/multimodal_classification/)
 
 # Example Use Cases
 
-- [Named Entity Recognition Tagging](https://ludwig.ai/latest/examples/ner_tagging)
-- [Natural Language Understanding](https://ludwig.ai/latest/examples/nlu)
-- [Machine Translation](https://ludwig.ai/latest/examples/machine_translation)
-- [Chit-Chat Dialogue Modeling through seq2seq](https://ludwig.ai/latest/examples/seq2seq)
-- [Sentiment Analysis](https://ludwig.ai/latest/examples/sentiment_analysis)
-- [One-shot Learning with Siamese Networks](https://ludwig.ai/latest/examples/oneshot)
-- [Visual Question Answering](https://ludwig.ai/latest/examples/visual_qa)
-- [Spoken Digit Speech Recognition](https://ludwig.ai/latest/examples/speech_recognition)
-- [Speaker Verification](https://ludwig.ai/latest/examples/speaker_verification)
-- [Binary Classification (Titanic)](https://ludwig.ai/latest/examples/titanic)
-- [Timeseries forecasting](https://ludwig.ai/latest/examples/forecasting)
-- [Timeseries forecasting (Weather)](https://ludwig.ai/latest/examples/weather)
-- [Movie rating prediction](https://ludwig.ai/latest/examples/movie_ratings)
-- [Multi-label classification](https://ludwig.ai/latest/examples/multi_label)
-- [Multi-Task Learning](https://ludwig.ai/latest/examples/multi_task)
-- [Simple Regression: Fuel Efficiency Prediction](https://ludwig.ai/latest/examples/fuel_efficiency)
-- [Fraud Detection](https://ludwig.ai/latest/examples/fraud)
+- [Named Entity Recognition Tagging](https://ludwig.ai/latest/examples/ner_tagging/)
+- [Natural Language Understanding](https://ludwig.ai/latest/examples/nlu/)
+- [Machine Translation](https://ludwig.ai/latest/examples/machine_translation/)
+- [Chit-Chat Dialogue Modeling through seq2seq](https://ludwig.ai/latest/examples/seq2seq/)
+- [Sentiment Analysis](https://ludwig.ai/latest/examples/sentiment_analysis/)
+- [One-shot Learning with Siamese Networks](https://ludwig.ai/latest/examples/oneshot/)
+- [Visual Question Answering](https://ludwig.ai/latest/examples/visual_qa/)
+- [Spoken Digit Speech Recognition](https://ludwig.ai/latest/examples/speech_recognition/)
+- [Speaker Verification](https://ludwig.ai/latest/examples/speaker_verification/)
+- [Binary Classification (Titanic)](https://ludwig.ai/latest/examples/titanic/)
+- [Timeseries forecasting](https://ludwig.ai/latest/examples/forecasting/)
+- [Timeseries forecasting (Weather)](https://ludwig.ai/latest/examples/weather/)
+- [Movie rating prediction](https://ludwig.ai/latest/examples/movie_ratings/)
+- [Multi-label classification](https://ludwig.ai/latest/examples/multi_label/)
+- [Multi-Task Learning](https://ludwig.ai/latest/examples/multi_task/)
+- [Simple Regression: Fuel Efficiency Prediction](https://ludwig.ai/latest/examples/fuel_efficiency/)
+- [Fraud Detection](https://ludwig.ai/latest/examples/fraud/)
 
 # More Information
 
 Read our publications on [Ludwig](https://arxiv.org/pdf/1909.07930.pdf), [declarative ML](https://arxiv.org/pdf/2107.08148.pdf), and [Ludwig’s SoTA benchmarks](https://openreview.net/pdf?id=hwjnu6qW7E4).
 
-Learn more about [how Ludwig works](https://ludwig.ai/latest/user_guide/how_ludwig_works/), [how to get started](https://ludwig.ai/latest/getting_started/), and work through more [examples](https://ludwig.ai/latest/examples).
+Learn more about [how Ludwig works](https://ludwig.ai/latest/user_guide/how_ludwig_works/), [how to get started](https://ludwig.ai/latest/getting_started/), and work through more [examples](https://ludwig.ai/latest/examples/).
 
 If you are interested in contributing, have questions, comments, or thoughts to share, or if you just want to be in the
 know, please consider [joining the Ludwig Slack](https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ) and follow us on [Twitter](https://twitter.com/ludwig_ai)!

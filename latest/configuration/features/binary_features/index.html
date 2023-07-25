@@ -2716,16 +2716,16 @@ output probabilities closer to true likelihoods.</li>
 <div class="highlight"><pre><span></span><code><span class="nt">loss</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary_weighted_cross_entropy</span>
 <span class="w">    </span><span class="nt">positive_class_weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
 <span class="w">    </span><span class="nt">robust_lambda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
 <span class="w">    </span><span class="nt">confidence_penalty</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
-<span class="w">    </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
 </code></pre></div>
 <p>Parameters:</p>
 <ul>
 <li><strong><code>positive_class_weight</code></strong> (default: <code>null</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Weight of the positive class.</li>
+<li><strong><code>weight</code></strong> (default: <code>1.0</code>): Weight of the loss.</li>
 <li><strong><code>robust_lambda</code></strong> (default: <code>0</code>): Replaces the loss with <code>(1 - robust_lambda) * loss + robust_lambda / c</code> where <code>c</code> is the number of classes. Useful in case of noisy labels.</li>
 <li><strong><code>confidence_penalty</code></strong> (default: <code>0</code>): Penalizes overconfident predictions (low entropy) by adding an additional term that penalizes too confident predictions by adding a <code>a * (max_entropy - entropy) / max_entropy</code> term to the loss, where a is the value of this parameter. Useful in case of noisy labels.</li>
-<li><strong><code>weight</code></strong> (default: <code>1.0</code>): Weight of the loss.</li>
 </ul>
 <p>Loss and loss related parameters can also be defined once and applied to all binary output features using the <a href="../../defaults/#type-global-loss">Type-Global Loss</a> section.</p>
 <h3 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permanent link">&para;</a></h3>

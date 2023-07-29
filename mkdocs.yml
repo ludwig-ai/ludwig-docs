@@ -38,6 +38,10 @@ nav:
           - Data Preprocessing: user_guide/datasets/data_preprocessing.md
           - Data Postprocessing: user_guide/datasets/data_postprocessing.md
           - Dataset Zoo: user_guide/datasets/dataset_zoo.md
+      - Large Language Models:
+          - Large Language Models: user_guide/llms/index.md
+          - Fine-Tuning: user_guide/llms/finetuning.md
+          - Evaluation: user_guide/llms/evaluation.md
       - GPUs: user_guide/gpus.md
       - Distributed Training:
           - Distributed Training: user_guide/distributed_training/index.md

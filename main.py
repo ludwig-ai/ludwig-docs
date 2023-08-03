@@ -1,5 +1,6 @@
 import json
 import yaml
+from marshmallow import missing
 
 # Force populate combiner registry:
 import ludwig.combiners.combiners  # noqa: F401
@@ -120,7 +121,7 @@ def define_env(env):
 
     @env.macro
     def get_combiner_schema(type: str):
-        return get_combiner_registry()[type].get_schema_cls()
+        return get_combiner_registry()[type]
 
     @env.macro
     def get_trainer_schema(model_tyoe: str):
@@ -152,9 +153,11 @@ def define_env(env):
 
     @env.macro
     def schema_class_to_yaml(cls, sort_by_impact=True, exclude=None, updates=None):
+        updates = updates or {}
+
         schema = cls.get_class_schema()()
         internal_fields = {n for n, f in schema.fields.items() if is_internal(f)}
-        d = {k: v for k, v in cls().to_dict().items() if k not in internal_fields and k}
+        d = {k: v for k, v in cls(**updates).to_dict().items() if k not in internal_fields and k}
 
         if sort_by_impact:
             sorted_fields = flatten(sort_fields(schema.fields))
@@ -163,7 +166,6 @@ def define_env(env):
         exclude = exclude or []
         d = {k: v for k, v in d.items() if k not in exclude}
 
-        updates = updates or {}
         d.update(updates)
 
         return yaml.safe_dump(d, indent=4, sort_keys=False)
@@ -190,6 +192,8 @@ def define_env(env):
 
         default_str = ""
         if has_default:
+            if default_value == missing:
+                default_value = None
             default_str = f"(default: `{dump_value(default_value)}`)"
 
         impact = expected_impact(field)

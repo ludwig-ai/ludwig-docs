@@ -15,7 +15,7 @@ from ludwig.schema.features.loss import get_loss_schema_registry, get_loss_class
 from ludwig.schema.llms.generation import LLMGenerationConfig
 from ludwig.schema.llms.model_parameters import ModelParametersConfig, RoPEScalingConfig
 from ludwig.schema.llms.peft import adapter_registry
-from ludwig.schema.llms.prompt import PromptConfig
+from ludwig.schema.llms.prompt import PromptConfig, RetrievalConfig
 from ludwig.schema.llms.quantization import QuantizationConfig
 from ludwig.schema.model_config import ModelConfig
 from ludwig.schema.model_types import base
@@ -141,6 +141,10 @@ def define_env(env):
     @env.macro
     def get_prompt_schema():
         return PromptConfig
+    
+    @env.macro
+    def get_retrieval_schema():
+        return RetrievalConfig
     
     @env.macro
     def get_adapter_schemas():

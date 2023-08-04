@@ -172,7 +172,7 @@ the `adapter` config parameter.
 
 Quantization allows you to load model parameters, which are typically stored
 as 16 or 32 bit floating-points, as 4 bit or 8 bit integers. This allows
-you to reduce the GPU memory overhead by a factor of 4x to 8x.
+you to reduce the GPU memory overhead by a factor of up to 8x.
 
 When combined with the LoRA [adapter](#adapter), you can perform quantized
 fine-tuning as described in the paper [QLoRA](https://arxiv.org/abs/2305.14314). For

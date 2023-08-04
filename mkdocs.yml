@@ -41,7 +41,7 @@ nav:
       - Large Language Models:
           - Large Language Models: user_guide/llms/index.md
           - Fine-Tuning: user_guide/llms/finetuning.md
-          - Evaluation: user_guide/llms/evaluation.md
+          - In-Context Learning: user_guide/llms/in_context_learning.md
       - GPUs: user_guide/gpus.md
       - Distributed Training:
           - Distributed Training: user_guide/distributed_training/index.md

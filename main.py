@@ -3,7 +3,6 @@ import yaml
 from marshmallow import missing
 
 # Force populate combiner registry:
-import ludwig.combiners.combiners  # noqa: F401
 from ludwig.constants import MODEL_ECD
 from ludwig.schema.combiners.utils import get_combiner_registry
 from ludwig.schema.decoders.utils import get_decoder_cls
@@ -14,10 +13,15 @@ from ludwig.schema.features.preprocessing.utils import preprocessing_registry
 from ludwig.schema.features.utils import get_input_feature_cls, get_output_feature_cls
 from ludwig.schema.features.loss import get_loss_schema_registry, get_loss_classes
 from ludwig.schema.model_config import ModelConfig
+from ludwig.schema.model_types import base
 from ludwig.schema.optimizers import optimizer_registry
 from ludwig.schema.preprocessing import PreprocessingConfig
 from ludwig.schema.split import get_split_cls
 from ludwig.schema.trainer import trainer_schema_registry
+
+
+# Monkey patch the jsonschema check is it's unnedded and leads to inspect errors
+base.check_schema = lambda x: None
 
 
 def flatten(d, prefix=""):

@@ -56,6 +56,7 @@ nav:
   - Configuration:
       - Configuration: configuration/index.md
       - Model Types: configuration/model_type.md
+      - Large Language Models: configuration/large_language_model.md
       - Preprocessing: configuration/preprocessing.md
       - Features:
           - Supported Data Types: configuration/features/supported_data_types.md

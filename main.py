@@ -12,12 +12,17 @@ from ludwig.schema.features.augmentation.utils import get_augmentation_cls
 from ludwig.schema.features.preprocessing.utils import preprocessing_registry
 from ludwig.schema.features.utils import get_input_feature_cls, get_output_feature_cls
 from ludwig.schema.features.loss import get_loss_schema_registry, get_loss_classes
+from ludwig.schema.llms.generation import LLMGenerationConfig
+from ludwig.schema.llms.model_parameters import ModelParametersConfig, RoPEScalingConfig
+from ludwig.schema.llms.peft import adapter_registry
+from ludwig.schema.llms.prompt import PromptConfig
+from ludwig.schema.llms.quantization import QuantizationConfig
 from ludwig.schema.model_config import ModelConfig
 from ludwig.schema.model_types import base
 from ludwig.schema.optimizers import optimizer_registry
 from ludwig.schema.preprocessing import PreprocessingConfig
 from ludwig.schema.split import get_split_cls
-from ludwig.schema.trainer import trainer_schema_registry
+from ludwig.schema.trainer import get_llm_trainer_cls, trainer_schema_registry
 
 
 # Monkey patch the jsonschema check is it's unnedded and leads to inspect errors
@@ -129,7 +134,33 @@ def define_env(env):
 
     @env.macro
     def get_trainer_schema(model_tyoe: str):
+        if model_tyoe == "llm":
+            return get_llm_trainer_cls("finetune")
         return trainer_schema_registry[model_tyoe]
+    
+    @env.macro
+    def get_prompt_schema():
+        return PromptConfig
+    
+    @env.macro
+    def get_adapter_schemas():
+        return [v for v in adapter_registry.values()]
+    
+    @env.macro
+    def get_quantization_schema():
+        return QuantizationConfig
+    
+    @env.macro
+    def get_model_parameters_schema():
+        return ModelParametersConfig
+    
+    @env.macro
+    def get_rope_scaling_schema():
+        return RoPEScalingConfig
+    
+    @env.macro
+    def get_generation_schema():
+        return LLMGenerationConfig
 
     @env.macro
     def get_optimizer_schemas():

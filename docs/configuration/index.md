@@ -20,7 +20,7 @@ The config specifies input features, output features, preprocessing, model archi
 search, and backend infrastructure -- everything that's needed to build, train, and evaluate a model:
 
 - [model_type](./model_type.md): the model variant used for training. Defaults to ECD, which is a neural network based architecture. Also supports
-GBM, a gradient-boosted machine (tree based model).
+LLM (large language model for text generation) and GBM (gradient-boosted machine, a tree based model).
 - [input_features](./features/input_features.md): which columns from your training dataset will be used as inputs to the model, what their
 data types are, how they should be preprocessed, and how they should be encoded.
 - [output_features](./features/output_features.md): the targets we want the model to learn to predict. The data type of the output feature defines

@@ -152,6 +152,11 @@ task the LLM is to perform while delegating the exact prompt template to Ludwig'
 
 # Adapter
 
+One of the biggest barriers to cost effective fine-tuning for LLMs is the need to update billions of parameters each training step. Parameter efficient fine-tuning (PEFT) adatpers are a collection of techniques that reduce the number of trainable parameters during fine-tuning to speed up training, and decrease the memory and disk space required to train large language models.
+
+[PEFT](https://github.com/huggingface/peft) is a popular library from HuggingFace that implements a number of popular parameter efficient fine-tuning strategies. Ludwig provides native integration with PEFT, allowing you to leverage any number of techniques to more efficiently fine-tune LLMs through
+the `adapter` config parameter.
+
 {% set adapter_classes = get_adapter_schemas() %}
 {% for adapter in adapter_classes %}
 ### {{ adapter.name() }}
@@ -164,6 +169,24 @@ task the LLM is to perform while delegating the exact prompt template to Ludwig'
 {% endfor %}
 
 # Quantization
+
+Quantization allows you to load model parameters, which are typically stored
+as 16 or 32 bit floating-points, as 4 bit or 8 bit integers. This allows
+you to reduce the GPU memory overhead by a factor of 4x to 8x.
+
+When combined with the LoRA [adapter](#adapter), you can perform quantized
+fine-tuning as described in the paper [QLoRA](https://arxiv.org/abs/2305.14314). For
+context, this enables training large language models as big as 7 billion parameters
+on a single commodity GPU with minimal performance penalties.
+
+!!! attention
+
+    Quantized fine-tuning currently requires using `adapter: lora`. In-context
+    learning does not have this restriction.
+
+!!! attention
+
+    Quantization is currently only supported with `backend: local`.
 
 {% set quantization = get_quantization_schema() %}
 {{ render_yaml(quantization, parent="quantization") }}

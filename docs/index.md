@@ -57,7 +57,7 @@ Or install with all optional dependencies:
 pip install ludwig[full]
 ```
 
-# 🚂 Getting Started
+# 🏃 Quick Start
 
 For a full tutorial, check out the official [getting started guide](./getting_started/index.md),
 or take a look at end-to-end [Examples](./examples/index.md).

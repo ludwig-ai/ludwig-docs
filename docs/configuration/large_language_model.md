@@ -240,9 +240,9 @@ trainer:
 # Generation
 
 When generating text during inference using a pretrained or fine-tuned LLM, you may
-often want to control the generation process, such as how many new tokens to produce, which tokens
-to exclude, or how diverse you want the generated text to be. All of these can be controlled through
-the `generation` config in Ludwig.
+often want to control the generation process, such as what token decoding strategy to use,
+how many new tokens to produce, which tokens to exclude, or how diverse you want the generated
+text to be. All of these can be controlled through the `generation` config in Ludwig.
 
 While Ludwig sets predefined default values for most of these parameters, some of the most useful parameters
 to control the generation process are:

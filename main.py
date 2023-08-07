@@ -137,31 +137,31 @@ def define_env(env):
         if model_tyoe == "llm":
             return get_llm_trainer_cls("finetune")
         return trainer_schema_registry[model_tyoe]
-    
+
     @env.macro
     def get_prompt_schema():
         return PromptConfig
-    
+
     @env.macro
     def get_retrieval_schema():
         return RetrievalConfig
-    
+
     @env.macro
     def get_adapter_schemas():
         return [v for v in adapter_registry.values()]
-    
+
     @env.macro
     def get_quantization_schema():
         return QuantizationConfig
-    
+
     @env.macro
     def get_model_parameters_schema():
         return ModelParametersConfig
-    
+
     @env.macro
     def get_rope_scaling_schema():
         return RoPEScalingConfig
-    
+
     @env.macro
     def get_generation_schema():
         return LLMGenerationConfig
@@ -196,7 +196,11 @@ def define_env(env):
 
         schema = cls.get_class_schema()()
         internal_fields = {n for n, f in schema.fields.items() if is_internal(f)}
-        d = {k: v for k, v in cls(**updates).to_dict().items() if k not in internal_fields and k}
+        d = {
+            k: v
+            for k, v in cls(**updates).to_dict().items()
+            if k not in internal_fields and k
+        }
 
         if sort_by_impact:
             sorted_fields = flatten(sort_fields(schema.fields))

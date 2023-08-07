@@ -268,7 +268,7 @@ Text generation can be performed in a variety of ways for inference. Broadly, th
 - **Greedy Decoding (default)**: Greedy search is the simplest decoding method. It selects the word with the highest probability as its next word at each time step `t`.
 - **Beam Search**: Beam search reduces the risk of missing hidden high probability word sequences by keeping the most likely `num_beams` of hypotheses at each time step `t` and eventually choosing the hypothesis that has the overall highest probability.
 - **Sampling**: Sampling means randomly picking the next word according to its conditional probability distribution. Language generation using sampling is not deterministic.
-- **Top-K Sampling**: In Top-K sampling, the `k` most likely next words are filtered and the probability mass is redistributed among only those `k` next words.
+- **Top-k Sampling**: In Top-k sampling, the `k` most likely next words are filtered and the probability mass is redistributed among only those `k` next words.
 - **Top-p (nucleus) sampling**: Instead of sampling only from the most likely K words, Top-p sampling chooses from the smallest possible set of words whose cumulative probability exceeds the probability `p`. The probability mass is then redistributed among this set of words. This way, the size of the set of words (a.k.a the number of words in the set) can dynamically increase and decrease according to the next word's probability distribution.
 
 If you want to enable a decoding strategy other than **greedy decoding**, you can set the following parameters in the generation config to enable them.

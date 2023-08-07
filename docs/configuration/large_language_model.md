@@ -2,9 +2,9 @@
 
 Large Language Models (LLMs) are a kind of neural network used for text generation
 tasks like chatbots, coding assistants, etc. Unlike ECD models, which are primarily
-designed for *predictive* tasks, LLMs are a fundamentally *generative* model type.
+designed for _predictive_ tasks, LLMs are a fundamentally _generative_ model type.
 
-The *backbone* of an LLM (without the language model head used for next token
+The _backbone_ of an LLM (without the language model head used for next token
 generation) can be used as a **text encoder** in ECD models when using the
 [auto_transformer](./features/text_features.md#huggingface-encoders) encoder. If you wish
 to use LLMs for predictive tasks like classification and regression, try ECD. For generative
@@ -16,33 +16,33 @@ Example config for fine-tuning [LLaMA-2-7b](https://huggingface.co/meta-llama/Ll
 model_type: llm
 base_model: meta-llama/Llama-2-7b-hf
 input_features:
-    - name: input
-      type: text
+  - name: input
+    type: text
 output_features:
-    - name: response
-      type: text
+  - name: response
+    type: text
 prompt:
-    template: |
-        <<SYS>>
-        You are a helpful, detailed, and polite artificial 
-        intelligence assistant. Your answers are clear and 
-        suitable for a professional environment.
-        
-        If context is provided, answer using only the provided 
-        contextual information.
-        <</SYS>>
-        
-        [INST] {__sample__} [/INST]
+  template: |
+    <<SYS>>
+    You are a helpful, detailed, and polite artificial 
+    intelligence assistant. Your answers are clear and 
+    suitable for a professional environment.
+
+    If context is provided, answer using only the provided 
+    contextual information.
+    <</SYS>>
+
+    [INST] {__sample__} [/INST]
 adapter:
-    type: lora
+  type: lora
 quantization:
-    bits: 4
+  bits: 4
 trainer:
-    type: finetune
-    learning_rate: 0.0001
-    batch_size: 1
-    gradient_accumulation_steps: 8
-    epochs: 3
+  type: finetune
+  learning_rate: 0.0001
+  batch_size: 1
+  gradient_accumulation_steps: 8
+  epochs: 3
 ```
 
 # Base Model
@@ -66,7 +66,7 @@ base_model: meta-llama/Llama-2-7b-hf
 
 ## HuggingFace Access Token
 
-Some base models like Llama-2 require authorization from HuggingFace to download, 
+Some base models like Llama-2 require authorization from HuggingFace to download,
 which in turn requires obtaining a HuggingFace [User Access Token](https://huggingface.co/docs/hub/security-tokens).
 
 Once you have obtained permission to download your preferred base model and have a user access token,
@@ -90,8 +90,8 @@ will be used as the input feature value during training and inference.
 
 ```yaml
 input_features:
-    - name: input
-      type: text
+  - name: input
+    type: text
 ```
 
 See [Text Features](./features/text_features.md) for
@@ -102,15 +102,16 @@ configuration options.
 Currently, the LLM model type only supports a single output feature.
 
 When fine-tuning (`trainer.type: finetune`), the output feature type must be
-`text`.
+`text`. Even if you are fine-tuning your LLM for a binary or multi-class classification
+problem, set the output feature type of that column to `text`.
 
-For in-context learning (`trainer.type: none`), the output feature type can be
-one of `text` or `category`.
+For in-context learning or zero shot learning (`trainer.type: none`), the output
+feature type can be one of `text` or `category`.
 
 ```yaml
 output_features:
-    - name: response
-      type: text
+  - name: response
+    type: text
 ```
 
 See [Text Output Features](./features/text_features.md#output-features) for
@@ -159,6 +160,7 @@ the `adapter` config parameter.
 
 {% set adapter_classes = get_adapter_schemas() %}
 {% for adapter in adapter_classes %}
+
 ### {{ adapter.name() }}
 
 {{ adapter.description() }}
@@ -197,7 +199,7 @@ on a single commodity GPU with minimal performance penalties.
 
 ```yaml
 model_parameters:
-    rope_scaling: {}
+  rope_scaling: {}
 ```
 
 ## RoPE Scaling
@@ -221,7 +223,7 @@ options.
 
 ```yaml
 trainer:
-    type: finetune
+  type: finetune
 ```
 
 ## In-Context Learning
@@ -232,12 +234,65 @@ a no-op, except for the purpose of computing metrics on the test set.
 
 ```yaml
 trainer:
-    type: none
+  type: none
 ```
 
 # Generation
+
+When generating text during inference using a pretrained or fine-tuned LLM, you may
+often want to control the generation process, such as how many new tokens to produce, which tokens
+to exclude, or how diverse you want the generated text to be. All of these can be controlled through
+the `generation` config in Ludwig.
+
+While Ludwig sets predefined default values for most of these parameters, some of the most useful parameters
+to control the generation process are:
+
+- `max_new_tokens`
+- `temperature`
+- `do_sample`
+- `num_beams`
+- `top_k`
+- `top_p`
+
+Check out the description for these parameters below!
 
 {% set gen = get_generation_schema() %}
 {{ render_yaml(gen, parent="generation") }}
 
 {{ render_fields(schema_class_to_fields(gen)) }}
+
+## Generation Strategies
+
+Text generation can be performed in a variety of ways for inference. Broadly, there are 5 strategies:
+
+- **Greedy Decoding (default)**: Greedy search is the simplest decoding method. It selects the word with the highest probability as its next word at each time step `t`.
+- **Beam Search**: Beam search reduces the risk of missing hidden high probability word sequences by keeping the most likely `num_beams` of hypotheses at each time step `t` and eventually choosing the hypothesis that has the overall highest probability.
+- **Sampling**: Sampling means randomly picking the next word according to its conditional probability distribution. Language generation using sampling is not deterministic.
+- **Top-K Sampling**: In Top-K sampling, the `k` most likely next words are filtered and the probability mass is redistributed among only those `k` next words.
+- **Top-p (nucleus) sampling**: Instead of sampling only from the most likely K words, Top-p sampling chooses from the smallest possible set of words whose cumulative probability exceeds the probability `p`. The probability mass is then redistributed among this set of words. This way, the size of the set of words (a.k.a the number of words in the set) can dynamically increase and decrease according to the next word's probability distribution.
+
+If you want to enable a decoding strategy other than **greedy decoding**, you can set the following parameters in the generation config to enable them.
+
+- **Greedy Decoding (default)**:
+  - num_beams = 1
+  - do_sample = False
+- **Multinomial Sampling**:
+  - num_beams = 1
+  - do_sample = True
+- **Beam-Search Decoding**:
+  - num_beams > 1
+  - do_sample = False
+- **Contrastive Search**:
+  - penalty_alpha > 0.
+  - top_k > 1
+- **Beam-Search Multinomial Sampling**:
+  - num_beams > 1
+  - do_sample = True
+- **Diverse Beam-Search Decoding**:
+  - num_beams > 1
+  - num_beam_groups > 1
+- **Constrained Beam-Search Decoding**:
+  - constraints != None
+  - force_words_ids != None
+
+To read more about how these decoding strategies work in a visual manner, check out [this](https://huggingface.co/blog/how-to-generate) excellent blogpost by HuggingFace.

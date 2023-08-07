@@ -274,25 +274,25 @@ Text generation can be performed in a variety of ways for inference. Broadly, th
 If you want to enable a decoding strategy other than **greedy decoding**, you can set the following parameters in the generation config to enable them.
 
 - **Greedy Decoding (default)**:
-  - num_beams = 1
-  - do_sample = False
+    - num_beams = 1
+    - do_sample = False
 - **Multinomial Sampling**:
-  - num_beams = 1
-  - do_sample = True
+    - num_beams = 1
+    - do_sample = True
 - **Beam-Search Decoding**:
-  - num_beams > 1
-  - do_sample = False
+    - num_beams > 1
+    - do_sample = False
 - **Contrastive Search**:
-  - penalty_alpha > 0.
-  - top_k > 1
+    - penalty_alpha > 0.
+    - top_k > 1
 - **Beam-Search Multinomial Sampling**:
-  - num_beams > 1
-  - do_sample = True
+    - num_beams > 1
+    - do_sample = True
 - **Diverse Beam-Search Decoding**:
-  - num_beams > 1
-  - num_beam_groups > 1
+    - num_beams > 1
+    - num_beam_groups > 1
 - **Constrained Beam-Search Decoding**:
-  - constraints != None
-  - force_words_ids != None
+    - constraints != None
+    - force_words_ids != None
 
 To read more about how these decoding strategies work in a visual manner, check out [this](https://huggingface.co/blog/how-to-generate) excellent blogpost by HuggingFace.

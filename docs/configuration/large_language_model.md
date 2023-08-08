@@ -197,6 +197,9 @@ on a single commodity GPU with minimal performance penalties.
 
 # Model Parameters
 
+The model parameters section is used to customized LLM model parameters during model initialization.
+Currently, the only supported initialization parameter is `rope_scaling`.
+
 ```yaml
 model_parameters:
   rope_scaling: {}
@@ -204,10 +207,36 @@ model_parameters:
 
 ## RoPE Scaling
 
+Large language models like LLaMA-2 face a limitation in the length of context they can consider, which impacts their
+capacity to comprehend intricate queries or chat-style discussions spanning multiple paragraphs. For instance,
+LlaMA-2's context is capped at 4096 tokens, or roughly 3000 English words. This renders the model ineffective for
+tasks involving lengthy documents that surpass this context length.
+
+**RoPE Scaling** presents a way to increase the context length of your model at the cost of a slight performance
+penalty using a method called Position Interpolation. You can read more about it in the original paper
+[here](https://arxiv.org/pdf/2306.15595.pdf).
+
+There are two parameters to consider for RoPE scaling: `type` and `factor`. The typical rule of thumb is that
+your new context length will be `context_length` \* `factor`. So, if you want to extend LLaMA-2 to have a context
+length of ~ 16K tokens, you would set the `factor` to 4.0. The `type` attribute supports `linear` interpolation
+and `dynamic` interpolation. Typically, `dynamic` interpolation has the best performance over larger context lengths
+while maintaining low perplexity.
+
+![](images/../../images/rope_scaling.webp)
+_Credit to /u/emozilla and /u/kaiokendev on Reddit for their work and this graphic._
+
+You can enable RoPE Scaling in Ludwig using the following config:
+
 {% set rs = get_rope_scaling_schema() %}
-{{ render_yaml(rs, parent="rope_scaling", updates={"type": "linear", "factor": 2.0}) }}
+{{ render_yaml(rs, parent="rope_scaling", updates={"type": "dynamic", "factor": 2.0}) }}
 
 {{ render_fields(schema_class_to_fields(rs)) }}
+
+!!! attention
+
+    Typically, you need to fine-tune your LLM for about 1000 steps with RoPE scaling enabled
+    to ensure that the performance drop with RoPE scaling is minimal and the model adapts your data
+    to the new RoPE embeddings.
 
 # Trainer
 
@@ -274,36 +303,47 @@ Text generation can be performed in a variety of ways for inference. Broadly, th
 If you want to enable a decoding strategy other than **greedy decoding**, you can set the following parameters in the generation config to enable them.
 
 - **Greedy Decoding (default)**:
+
   ```yaml
   generation:
     num_beams: 1
     do_sample: false
   ```
+
 - **Multinomial Sampling**:
+
   ```yaml
   generation:
     num_beams: 1
     do_sample: true
   ```
+
 - **Beam-Search Decoding**:
+
   ```yaml
   generation:
     num_beams: 2 # Must be > 1
     do_sample: false
   ```
+
 - **Contrastive Search**:
+
   ```yaml
   generation:
     penalty_alpha: 0.1 # Must be > 0
     top_k: 2 # Must be > 1
   ```
+
 - **Beam-Search Multinomial Sampling**:
+
   ```yaml
   generation:
     num_beams: 2 # Must be > 1
     do_sample: true
   ```
+
 - **Diverse Beam-Search Decoding**:
+
   ```yaml
   generation:
     num_beams: 2 # Must be > 1

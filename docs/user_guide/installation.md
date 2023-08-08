@@ -14,6 +14,7 @@ pip install ludwig
 
 Optional Ludwig functionality is separated out into subpackages. Install what you need:
 
+- `ludwig[llm]` for LLM dependencies.
 - `ludwig[serve]` for serving dependencies.
 - `ludwig[viz]` for visualization dependencies.
 - `ludwig[hyperopt]` for hyperparameter optimization dependencies.

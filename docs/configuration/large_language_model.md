@@ -351,3 +351,19 @@ If you want to enable a decoding strategy other than **greedy decoding**, you ca
   ```
 
 To read more about how these decoding strategies work in a visual manner, check out [this](https://huggingface.co/blog/how-to-generate) excellent blogpost by HuggingFace.
+
+# Post Fine-Tuning
+
+## Uploading Fine-Tuned LLM weights to HuggingFace Hub
+
+Once you've fine-tuned your model, you can upload your fine-tuned model artifacts straight
+to HuggingFace Hub, either in a public model repository that anyone can access, or to a private
+repository. This works for both artifacts produced during full fine-tuning, as well as adapter
+based fine-tuning. From there, you can pull the weights straight into a downstream inference service,
+or even use it directly through Ludwig for inference.
+
+```sh
+ludwig upload hf_hub --repo_id <repo_id> --model_path </path/to/saved/model>
+```
+
+To learn more on how to do this, click [here](../user_guide/api/LudwigModel.md#upload_to_hf_hub).

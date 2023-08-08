@@ -846,10 +846,10 @@ Performs one epoch of training of the model on `dataset`.
 
 - **return** (None): `None`
 
-## upload
+## upload_to_hf_hub
 
 ```python
-upload(
+upload_to_hf_hub(
   service: str,
   repo_id: str,
   model_path: str,
@@ -862,6 +862,8 @@ upload(
 ```
 
 Uploads fine-tuned LLM model artifacts to HuggingFace Hub.
+
+**Inputs**
 
 - **service** (`str`, defaults to `hf_hub`): Name of the hosted model service to push the trained artifacts to.
   Currently, this only supports `hf_hub`.
@@ -877,6 +879,10 @@ Uploads fine-tuned LLM model artifacts to HuggingFace Hub.
   `f"Upload {path_in_repo} with huggingface_hub"`
 - **commit_description** (`str` _optional_):
   The description of the generated commit
+
+**Return**
+
+- **return** (bool): True if upload was successful, False if upload failed.
 
 ---
 

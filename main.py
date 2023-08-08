@@ -109,8 +109,8 @@ def define_env(env):
         return get_encoder_cls(MODEL_ECD, feature, type)
 
     @env.macro
-    def get_decoder_schema(feature: str, type: str):
-        return get_decoder_cls(MODEL_ECD, feature, type)
+    def get_decoder_schema(feature: str, type: str, model_type=MODEL_ECD):
+        return get_decoder_cls(model_type, feature, type)
 
     @env.macro
     def get_split_schema(type: str):

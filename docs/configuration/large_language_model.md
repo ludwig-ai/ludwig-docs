@@ -101,6 +101,8 @@ configuration options.
 
 Currently, the LLM model type only supports a single output feature.
 
+### LLM Text Output Feature
+
 When fine-tuning (`trainer.type: finetune`), the output feature type must be
 `text`. Even if you are fine-tuning your LLM for a binary or multi-class classification
 problem, set the output feature type of that column to `text`.
@@ -116,6 +118,32 @@ output_features:
 
 See [Text Output Features](./features/text_features.md#output-features) for
 configuration options.
+
+### LLM Category Output Feature
+
+In order to use the `category` output feature type, you must provide two additional specifications. The first additional specification is a set of `match` values as part of the decoder configuration. These match values are used to determine which category label to assign to the generated response. This is particularly helpful to mitigate against cases where LLM text generation deviates from the desired response format.
+
+The second additional specification is a fallback label  in `preprocessing.fallback_label`. This label is used both for filling in missing values in the output feature column in your dataset, but also for providing a pre-determined value when the LLM is unable to generate a response that matches any of the categories provided.
+
+```yaml
+output_features:
+- name: label
+  type: category
+  preprocessing:
+      fallback_label: "neutral"
+  decoder:
+      type: category_extractor
+      match:
+          "negative":
+              type: contains
+              value: "positive"
+          "neutral":
+              type: contains
+              value: "neutral"
+          "positive":
+              type: contains
+              value: "positive"
+```
 
 # Prompt
 

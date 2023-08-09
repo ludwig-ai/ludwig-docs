@@ -101,7 +101,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#with-pip" class="md-skip">
+        <a href="#use-pip" class="md-skip">
           Skip to content
         </a>
       
@@ -376,16 +376,30 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#with-pip" class="md-nav__link">
-    Python (with Pip) recommended
+  <a href="#use-pip" class="md-nav__link">
+    Use pip
   </a>
   
-    <nav class="md-nav" aria-label="Python (with Pip) recommended">
+    <nav class="md-nav" aria-label="Use pip">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#gpu-support" class="md-nav__link">
-    GPU support
+  <a href="#install-additional-packages" class="md-nav__link">
+    Install additional packages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-from-git" class="md-nav__link">
+    Install from git
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-from-source" class="md-nav__link">
+    Install from source
   </a>
   
 </li>
@@ -396,28 +410,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#with-docker" class="md-nav__link">
-    Docker
+  <a href="#use-devcontainers" class="md-nav__link">
+    Use devcontainers
   </a>
-  
-    <nav class="md-nav" aria-label="Docker">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#gpu-support_1" class="md-nav__link">
-    GPU support
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#with-git" class="md-nav__link">
-    Git
+  <a href="#use-pre-build-docker-images" class="md-nav__link">
+    Use pre-build docker images
   </a>
   
 </li>
@@ -2664,16 +2665,30 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#with-pip" class="md-nav__link">
-    Python (with Pip) recommended
+  <a href="#use-pip" class="md-nav__link">
+    Use pip
   </a>
   
-    <nav class="md-nav" aria-label="Python (with Pip) recommended">
+    <nav class="md-nav" aria-label="Use pip">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#gpu-support" class="md-nav__link">
-    GPU support
+  <a href="#install-additional-packages" class="md-nav__link">
+    Install additional packages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-from-git" class="md-nav__link">
+    Install from git
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-from-source" class="md-nav__link">
+    Install from source
   </a>
   
 </li>
@@ -2684,28 +2699,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#with-docker" class="md-nav__link">
-    Docker
+  <a href="#use-devcontainers" class="md-nav__link">
+    Use devcontainers
   </a>
-  
-    <nav class="md-nav" aria-label="Docker">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#gpu-support_1" class="md-nav__link">
-    GPU support
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#with-git" class="md-nav__link">
-    Git
+  <a href="#use-pre-build-docker-images" class="md-nav__link">
+    Use pre-build docker images
   </a>
   
 </li>
@@ -2730,53 +2732,39 @@
 
   <h1>Installation</h1>
 
-<p>Ludwig is a <em>declarative</em> deep learning framework that allows users to train, evaluate, and deploy models without
-the need to write code.</p>
-<p>Being declarative means you only need to tell Ludwig <em>what</em> columns in your data are input
-and output features, and Ludwig will figure out <em>how</em> to train the best model.</p>
-<p>For users familiar with Python, we recommend installing with <a href="#with-pip"><code>pip</code></a> within an isolated
+<h2 id="use-pip">Use pip<a class="headerlink" href="#use-pip" title="Permanent link">&para;</a></h2>
+<p>For users familiar with Python, we recommend installing with [<code>pip</code>][pip] within an isolated
 <a href="https://docs.python-guide.org/dev/virtualenvs/">virtual environment</a>. If not, you can use our
-pre-built <a href="#with-docker"><code>docker</code></a> images. Advanced users can also install Ludwig from <a href="#with-git"><code>git</code></a>.</p>
-<p>For large or long-running workloads, Ludwig can be run remotely in the cloud or on a private compute cluster using <a href="/getting_started/ray.md"><code>Ray</code></a>.</p>
-<h2 id="with-pip">Python (with Pip) <small>recommended</small><a class="headerlink" href="#with-pip" title="Permanent link">&para;</a></h2>
+pre-built <a href="https://hub.docker.com/search?q=ludwigai"><code>docker</code></a> images.</p>
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>ludwig
 </code></pre></div>
-<p>This will install Ludwig's basic requirements for modeling with binary, category, number, text, image, and audio features.
-The requirements for additional functionality are separated out so that users are able to install only the ones they actually need:</p>
+<p>For large or long-running workloads, Ludwig can be run remotely in the cloud or on a private compute cluster using <a href="/getting_started/ray"><code>Ray</code></a>.</p>
+<h3 id="install-additional-packages">Install additional packages<a class="headerlink" href="#install-additional-packages" title="Permanent link">&para;</a></h3>
+<p>Optional Ludwig functionality is separated out into subpackages. Install what you need:</p>
 <ul>
+<li><code>ludwig[llm]</code> for LLM dependencies.</li>
 <li><code>ludwig[serve]</code> for serving dependencies.</li>
 <li><code>ludwig[viz]</code> for visualization dependencies.</li>
 <li><code>ludwig[hyperopt]</code> for hyperparameter optimization dependencies.</li>
-<li><code>ludwig[distributed]</code> for distributed training on <a href="https://www.ray.io/">Ray</a> using <a href="https://dask.org/">Dask</a> and <a href="https://github.com/horovod/horovod">Horovod</a>.</li>
-<li><code>ludwig[tree]</code> for training <a href="https://lightgbm.readthedocs.io/">LightGBM</a> models using <code>model_type: gbm</code> in the config.</li>
+<li><code>ludwig[distributed]</code> for distributed training on <a href="https://www.ray.io/">Ray</a> using <a href="https://dask.org/">Dask</a>.</li>
+<li><code>ludwig[explain]</code> for prediction explanations.</li>
+<li><code>ludwig[tree]</code> for LightGBM and tree-based models.</li>
+<li><code>ludwig[test]</code> for running ludwig's integration and unit tests.</li>
+<li><code>ludwig[benchmarking]</code> for Ludwig model benchmarking.</li>
+<li><code>ludwig[full]</code> for the full set of dependencies.</li>
 </ul>
-<p>The full set of dependencies can be installed with:</p>
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;ludwig[full]&#39;</span>
+<h3 id="install-from-git">Install from git<a class="headerlink" href="#install-from-git" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/ludwig-ai/ludwig.git
 </code></pre></div>
-<h3 id="gpu-support">GPU support<a class="headerlink" href="#gpu-support" title="Permanent link">&para;</a></h3>
-<p>If your machine has a GPU to accelerate the training process, make sure you install a GPU-enabled version of PyTorch before installing Ludwig:</p>
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>-f<span class="w"> </span>https://download.pytorch.org/whl/cu113/torch_stable.html
+<h3 id="install-from-source">Install from source<a class="headerlink" href="#install-from-source" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ludwig-ai/ludwig.git
+<span class="nb">cd</span><span class="w"> </span>ludwig
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </code></pre></div>
-<p>The example above will install the latest version of PyTorch with CUDA 11.3. See the official <a href="https://pytorch.org/get-started/locally/">PyTorch docs</a> for
-more details on installing the right version of PyTorch for your environment.</p>
-<h2 id="with-docker">Docker<a class="headerlink" href="#with-docker" title="Permanent link">&para;</a></h2>
-<p>The Ludwig team publishes official <a href="https://hub.docker.com/u/ludwigai">Docker images</a> that come with the full set of
-dependencies pre-installed. You can pull the <code>latest</code> images (for the most recent official Ludwig release) by running:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>pull<span class="w"> </span>ludwigai/ludwig:latest
-</code></pre></div>
-<p>The <code>ludwig</code> command line tool is provided as the entrypoint for all commands.</p>
-<h3 id="gpu-support_1">GPU support<a class="headerlink" href="#gpu-support_1" title="Permanent link">&para;</a></h3>
-<p>If your machine has a GPU to accelerate the training process, pull the official Ludwig image with GPU support:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>pull<span class="w"> </span>ludwigai/ludwig-gpu:latest
-</code></pre></div>
-<h2 id="with-git">Git<a class="headerlink" href="#with-git" title="Permanent link">&para;</a></h2>
-<p>For developers who wish to build the source code from the <a href="https://github.com/ludwig-ai/ludwig/">GitHub</a> repository, first clone the repo locally:</p>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:ludwig-ai/ludwig.git
-</code></pre></div>
-<p>Install the required dependencies:</p>
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;.[test]&#39;</span>
-</code></pre></div>
-<p>The <code>test</code> extra will pull in all Ludwig dependencies in addition to test dependencies.</p>
+<h2 id="use-devcontainers">Use devcontainers<a class="headerlink" href="#use-devcontainers" title="Permanent link">&para;</a></h2>
+<p>Ludwig supports development on <a href="https://code.visualstudio.com/docs/devcontainers/containers">VSCode devcontainers</a>. See Ludwig's <a href="https://github.com/ludwig-ai/ludwig/tree/master/.devcontainer">devcontainer files</a>.</p>
+<h2 id="use-pre-build-docker-images">Use pre-build docker images<a class="headerlink" href="#use-pre-build-docker-images" title="Permanent link">&para;</a></h2>
+<p>See Ludiwg's <a href="/getting_started/docker">docker docs</a>.</p>
 
 
   

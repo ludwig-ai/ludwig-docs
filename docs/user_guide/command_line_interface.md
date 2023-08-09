@@ -21,6 +21,7 @@ Ludwig provides several functions through its command line interface.
 | [`export_mlflow`](#export_mlflow)             | Exports Ludwig models to MLflow                                                   |
 | [`preprocess`](#preprocess)                   | Preprocess data and saves it into HDF5 and JSON format                            |
 | [`synthesize_dataset`](#synthesize_dataset)   | Creates synthetic data for testing purposes                                       |
+| [`upload_to_hf_hub`](#upload_to_hf_hub)       | Push trained model artifacts to HuggingFace Hub                                   |
 
 These are described in detail below.
 
@@ -132,7 +133,7 @@ JSON file will contain a `idx2str` list containing all tokens
 (`{"<UNK>": 0, "label_1": 1, "label_2": 2, "label_3": 3}`) and a `str2freq`
 dictionary (`{"<UNK>": 0, "label_1": 93, "label_2": 55, "label_3": 24}`).
 
-The reason to have those  intermediate files is two-fold: on one hand, if you are going to train your model again Ludwig will try to load them instead of recomputing all tensors, which saves a considerable amount of time, and on the other hand when you want to use your model to predict, data has to be mapped to tensors in exactly the same way it was mapped during training, so you'll be required to load the JSON metadata file in the `predict` command.
+The reason to have those intermediate files is two-fold: on one hand, if you are going to train your model again Ludwig will try to load them instead of recomputing all tensors, which saves a considerable amount of time, and on the other hand when you want to use your model to predict, data has to be mapped to tensors in exactly the same way it was mapped during training, so you'll be required to load the JSON metadata file in the `predict` command.
 
 The first time you provide a UTF-8 encoded dataset (`--dataset`), the HDF5 and JSON files are created, from the second time on Ludwig will load them instead of the dataset even if you specify the dataset (it looks in the same directory for files names in the same way but with a different extension), finally you can directly specify the HDF5 and JSON files.
 
@@ -143,7 +144,7 @@ Splitting between train, validation and test set can be done in several ways.
 This allows for a few possible input data scenarios:
 
 - one single UTF-8 encoded dataset file is provided (`-dataset`). In this case if the dataset contains a `split` column with values `0` for training, `1` for validation and `2` for test, this split will be used. If you want to ignore the split column and perform a random split, use a `force_split` argument in the configuration. In the case when there is no split column, a random `70-20-10` split will be performed. You can set the percentages and specify if you want stratified sampling in the configuration preprocessing section.
-- you can provide separate UTF-8 encoded training, validation and test sets  (`--training_set`, `--validation_set`, `--test_set`).
+- you can provide separate UTF-8 encoded training, validation and test sets (`--training_set`, `--validation_set`, `--test_set`).
 - the HDF5 and JSON file indications specified in the case of a single dataset file apply also in the multiple files case, with the only difference that you need to specify only one JSON file (`--train_set_metadata_json`).
 
 The validation set is optional, but if absent the training will continue until the end of the training epochs, while when there's a validation set the default behavior is to perform early stopping after the validation measure does not improve for a certain amount of epochs. The test set is optional too.
@@ -273,7 +274,7 @@ You can specify not to save the raw NPY output files with the argument `skip_sav
 
 A specific batch size for speeding up the prediction can be specified using the argument `--batch_size`.
 
-Finally the `--logging_level`, `--debug`, `--gpus`, `--gpu_memory_limit` and `--disable_parallel_threads`  related arguments behave exactly like described in the train command section.
+Finally the `--logging_level`, `--debug`, `--gpus`, `--gpu_memory_limit` and `--disable_parallel_threads` related arguments behave exactly like described in the train command section.
 
 Example:
 
@@ -640,19 +641,19 @@ Once running, you can make a POST request on the `/predict` endpoint to run infe
 
 ## Example curl
 
-__File__
+**File**
 
 `curl http://0.0.0.0:8000/predict -X POST -F 'image_path=@path_to_image/example.png'`
 
-__Text__
+**Text**
 
 `curl http://0.0.0.0:8000/predict -X POST -F 'english_text=words to be translated'`
 
-__Both Text and File__
+**Both Text and File**
 
 `curl http://0.0.0.0:8000/predict -X POST -F 'text=mixed together with' -F 'image=@path_to_image/example.png'`
 
-__Batch prediction__
+**Batch prediction**
 
 You can also make a POST request on the `/batch_predict` endpoint to run inference on multiple samples at once.
 
@@ -1123,8 +1124,6 @@ optional arguments:
                         dictionary must include a name, a type and can include
                         some generation parameters depending on the type
 
-Process finished with exit code 0
-
 ```
 
 Example:
@@ -1148,54 +1147,54 @@ ludwig synthesize_dataset --features="[ \
 
 The available parameters depend on the feature type.
 
-__binary__
+**binary**
 
 - `prob` (float, default: `0.5`): probability of generating `true`.
 - `cycle` (boolean, default: `false`): cycle through values instead of sampling.
 
-__number__
+**number**
 
 - `min` (float, default: `0`): minimum value of the range of values to generate.
 - `max` (float, default: `1`): maximum value of the range of values to generate.
 
-__category__
+**category**
 
 - `vocab_size` (int, default: `10`): size of the vocabulary to sample from.
 - `cycle` (boolean, default: `false`): cycle through values instead of sampling.
 
-__sequence__
+**sequence**
 
 - `vocab_size` (int, default: `10`): size of the vocabulary to sample from.
 - `max_len` (int, default: `10`): maximum length of the generated sequence.
 - `min_len` (int, default: `null`): if `null` all sequences will be of size `max_len`. If a value is provided, the length will be randomly determined between `min_len` and `max_len`.
 
-__set__
+**set**
 
 - `vocab_size` (int, default: `10`): size of the vocabulary to sample from.
 - `max_len` (int, default: `10`): maximum length of the generated set.
 
-__bag__
+**bag**
 
 - `vocab_size` (int, default: `10`): size of the vocabulary to sample from.
 - `max_len` (int, default: `10`): maximum length of the generated set.
 
-__text__
+**text**
 
 - `vocab_size` (int, default: `10`): size of the vocabulary to sample from.
 - `max_len` (int, default: `10`): maximum length of the generated sequence, lengths will be randomly sampled between `max_len - 20%` and `max_len`.
 
-__timeseries__
+**timeseries**
 
 - `max_len` (int, default: `10`): maximum length of the generated sequence.
 - `min` (float, default: `0`): minimum value of the range of values to generate.
 - `max` (float, default: `1`): maximum value of the range of values to generate.
 
-__audio__
+**audio**
 
 - `destination_folder` (str): folder where the generated audio files will be saved.
 - `preprocessing: {audio_file_length_limit_in_s}` (int, default: `1`): length of the generated audio in seconds.
 
-__image__
+**image**
 
 - `destination_folder` (str): folder where the generated image files will be saved.
 - `preprocessing: {height}` (int, default: `28`): height of the generated image in pixels.
@@ -1206,14 +1205,65 @@ __image__
 - `preprocessing: {infer_image_max_height}` (int, default `256`): maximum height of an image transformed using `infer_image_dimensions`.
 - `preprocessing: {infer_image_max_width}` (int, default `256`): maximum width of an image transformed using `infer_image_dimensions`.
 
-__date__
+**date**
 
 No parameters.
 
-__h3__
+**h3**
 
 No parameters.
 
-__vector__
+**vector**
 
 - `vector_size` (int, default: `10`): size of the vectors to generate.
+
+# upload_to_hf_hub
+
+Pushes fine-tuned LLM model artifacts to HuggingFace Hub.
+
+```
+ludwig upload [options]
+```
+
+or with:
+
+```
+python -m ludwig.upload [options]
+```
+
+These are the available arguments:
+
+```
+usage: ludwig upload [options]
+
+This script pushes a trained model to a hosted model repository service
+
+positional arguments:
+  {hf_hub}              Name of the model repository service.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -r REPO_ID, --repo_id REPO_ID
+                        Name of the repo. This will be created if it doesn't exist. Format: username/repo_name
+  -m MODEL_PATH, --model_path MODEL_PATH
+                        Path of the trained model on disk
+  -p {True,False}, --private {True,False}
+                        Make the repo private
+  -t {model,space,dataset}, --repo_type {model,space,dataset}
+                        Type of repo
+  -c COMMIT_MESSAGE, --commit_message COMMIT_MESSAGE
+                        The summary / title / first line of the generated commit.
+  -d COMMIT_DESCRIPTION, --commit_description COMMIT_DESCRIPTION
+                        The description of the generated commit
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        The level of logging to use
+
+```
+
+Example:
+
+```sh
+ludwig upload hf_hub --repo_id ludwig/test_model --model_path ~/trained_models/my_model
+```
+
+This will upload the fine-tuned weights in ` ~/trained_models/my_model` to `ludwig/test_model` on HuggingFace Hub.

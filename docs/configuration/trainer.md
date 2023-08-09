@@ -13,6 +13,11 @@ By default, the ECD trainer is used.
     {% set ecd_trainer = get_trainer_schema("ecd") %}
     {{ render_yaml(ecd_trainer, parent="trainer") | indent }}
 
+=== "LLM"
+
+    {% set llm_trainer = get_trainer_schema("llm") %}
+    {{ render_yaml(llm_trainer, parent="trainer") | indent }}
+
 === "GBM"
 
     {% set gbm_trainer = get_trainer_schema("gbm") %}
@@ -24,6 +29,10 @@ By default, the ECD trainer is used.
 
     {{ render_fields(schema_class_to_fields(ecd_trainer), details=details) | indent }}
 
+=== "LLM"
+
+    {{ render_fields(schema_class_to_fields(llm_trainer), details=details) | indent }}
+
 === "GBM"
 
     See the [LightGBM documentation](https://lightgbm.readthedocs.io/en/latest/Parameters.html) for more details about the available parameters.
@@ -32,7 +41,7 @@ By default, the ECD trainer is used.
 
 ## Optimizer parameters
 
-=== "ECD"
+=== "ECD / LLM"
 
     The available optimizers wrap the ones available in PyTorch.
     For details about the parameters that can be used to configure different optimizers, please refer to the [PyTorch documentation](https://pytorch.org/docs/stable/optim.html).
@@ -66,7 +75,7 @@ By default, the ECD trainer is used.
 
 The length of the training process is configured by:
 
-=== "ECD"
+=== "ECD / LLM"
     - `epochs` (default: 100): One epoch is one pass through the entire dataset. By
         default, `epochs` is 100 which means that the training process will run for
         a maximum of 100 epochs before terminating.
@@ -131,7 +140,7 @@ trainer:
 
 # Checkpoint-evaluation frequency
 
-=== "ECD"
+=== "ECD / LLM"
 Evaluation is run every time the model is checkpointed.
 
 By default, checkpoint-evaluation will occur once every epoch.
@@ -168,7 +177,7 @@ The frequency of checkpoint-evaluation can be configured using:
 
 ## Increase batch size
 
-=== "ECD"
+=== "ECD / LLM"
 
 ```yaml
 trainer:
@@ -181,7 +190,7 @@ the `batch_size` so that more examples are computed every training step. Set
 
 ## Use mixed precision
 
-=== "ECD"
+=== "ECD / LLM"
 
 ```yaml
 trainer:

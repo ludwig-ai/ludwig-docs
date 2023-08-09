@@ -331,7 +331,7 @@ Finally, it compares the two entity representations by dot product, element-wise
 It returns the final `b x h'` tensor where `h'` is the size of the concatenation of the four comparisons.
 
 {% set comparator_combiner = get_combiner_schema("comparator") %}
-{{ render_yaml(comparator_combiner, parent="combiner") }}
+{{ render_yaml(comparator_combiner, parent="combiner", updates={"entity_1": ["feature_1", "feature_2"], "entity_2": ["feature_3"]}) }}
 
 Parameters:
 

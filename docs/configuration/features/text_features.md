@@ -274,7 +274,7 @@ All huggingface-based text encoders are configured with the following parameters
 
 {{ schema_class_long_description(hf_encoder) }}
 
-{{ render_yaml(hf_encoder, parent="encoder") }}
+{{ render_yaml(hf_encoder, parent="encoder", updates={"pretrained_model_name_or_path": "bert"}) }}
 
 Parameters:
 

@@ -90,7 +90,7 @@ nav:
           - Instruction-tuning llama-2-7b: examples/llms/llm_finetuning.md
           - Adapter-based encoder fine-tuning for text classification with deepspeed: examples/llms/llm_finetuning_deepspeed.md
           - Adapter-based fine-tuning for text generation: examples/llms/llm_text_generation.md
-          - Zero-shot batch inference text generation: examples/llms/llm_zero_shot_text_generation.md
+          - Zero-shot batch inference for text generation: examples/llms/llm_zero_shot_text_generation.md
           - Zero-shot batch inference for text classification: examples/llms/llm_zero_shot_batch_inference.md
           - Few-shot batch inference for text classification (RAG): examples/llms/llm_few_shot_batch_inference.md
           - Zero-shot batch inference for tabular classification (TabLLM): examples/llms/llm_tabular_zero_shot_batch_inference.md

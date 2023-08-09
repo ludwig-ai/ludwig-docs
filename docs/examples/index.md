@@ -1,12 +1,11 @@
-This section contains several examples of how to build models with Ludwig for a variety of tasks.
-For each task we show an example dataset and a sample model definition that can be used to train a model from that data.
+💡 Hands-on examples are the best way to learn about a new framework.
 
-Write-ups in the **Tutorials** section show both Ludwig's command line interface and Python API.  For these tutorials, there are ready-to-run notebooks that work in [Google's Colab Service](https://colab.research.google.com/).  The notebooks provide the user a starting point for learning about Ludwig capabilities.
+Here, you'll find several examples of how to build models with Ludwig for a variety of tasks with LLMs, neural networks, and tree-based models. We provide sample datasets, commands, scripts, and colab notebooks. Please [reach out](https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ) if you have any questions!
 
-The **Example Use Cases** section illustrate how Ludwig can be applied to a variety of machine learning tasks, such as, natural language understanding, timeseries forcasting, multi-label classification to name just a few.
+💬 The **LLMs** section gives a broad overview of the full breadth of Ludwig's LLM capabilities like [zero-shot batch inference]() and [fine-tuning Llama-2-7b]().
 
-In addition to the examples here, on the Ludwig medium publication you can find a three part tutorial on Sentiment Analysis with Ludwig:
+🎯 The **Supervised ML** section has in-depth tutorials for how to use Ludwig's command line interface and Python API for machine learning in a supervised setting. Check out [Image Classification on MNIST](http://127.0.0.1:8000/examples/mnist/).
 
-- [Part I (Training models from scratch)](https://medium.com/ludwig-ai/the-complete-guide-to-sentiment-analysis-with-ludwig-part-i-65a9e6bc054e?source=friends_link&sk=420a8859340d40a8f36963bd0fa4d808)
-- [Part II (Finetuning pretrained models)](https://medium.com/ludwig-ai/the-complete-guide-to-sentiment-analysis-with-ludwig-part-ii-d9f3952a06c6?source=friends_link&sk=188e650703aed70f138cc990049f051e)
-- [Part III (Hyperparameter Optimization)](https://medium.com/ludwig-ai/hyperparameter-optimization-with-ludwig-6e31272e43fb?source=friends_link&sk=0bc7eac913a5c529b17e8352ae278bd8)
+🏛️ The **Use Cases** section illustrate how Ludwig can be applied to a variety of machine learning tasks, such as, natural language understanding, timeseries forcasting, multi-label classification to name just a few. Read about Ludwig models for [Sentiment Analysis]().
+
+Have fun exploring!

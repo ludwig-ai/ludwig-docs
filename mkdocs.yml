@@ -15,20 +15,22 @@ copyright: Copyright &copy; 2018 - 2020 Uber Technologies Inc., 2021 - 2022 Linu
 # Navigation
 nav:
   - Ludwig: index.md
-  - Getting Started:
+  - 🚀 Getting Started:
       - Getting Started: getting_started/index.md
-      - Installation: getting_started/installation.md
-      - Dataset preparation: getting_started/prepare_data.md
-      - Training: getting_started/train.md
-      - Prediction and Evaluation: getting_started/evaluate.md
-      - Hyperopt: getting_started/hyperopt.md
-      - Serving: getting_started/serve.md
-      - Distributed training on Ray: getting_started/ray.md
-      - Ludwig with Docker: getting_started/docker.md
-  - User Guide:
+      - LLMs:
+          - Fine-tuning Llama2-7b: getting_started/llm_finetuning.md
+      - Supervised ML:
+          - Dataset preparation: getting_started/prepare_data.md
+          - Training: getting_started/train.md
+          - Prediction and Evaluation: getting_started/evaluate.md
+          - Hyperopt: getting_started/hyperopt.md
+          - Serving: getting_started/serve.md
+          - Distributed training on Ray: getting_started/ray.md
+  - 📖 User Guide:
       - User Guide: user_guide/index.md
       - What is Ludwig?: user_guide/what_is_ludwig.md
       - How Ludwig Works: user_guide/how_ludwig_works.md
+      - Installation: user_guide/installation.md
       - Command Line Interface: user_guide/command_line_interface.md
       - Python API:
           - LudwigModel: user_guide/api/LudwigModel.md
@@ -53,7 +55,8 @@ nav:
       - Model Export: user_guide/model_export.md
       - Serving: user_guide/serving.md
       - Third-Party Integrations: user_guide/integrations.md
-  - Configuration:
+      - Ludwig with Docker: getting_started/docker.md
+  - 📚 Configuration:
       - Configuration: configuration/index.md
       - Model Types: configuration/model_type.md
       - Large Language Models: configuration/large_language_model.md
@@ -80,17 +83,27 @@ nav:
       - Trainer: configuration/trainer.md
       - Hyperopt: configuration/hyperparameter_optimization.md
       - Backend: configuration/backend.md
-  - Examples:
+  - 💡 Examples:
       - Examples: examples/index.md
-      - Tutorials:
-          - Large Language Models (LLMs): examples/llm.md
+      - LLMs:
+          - Fine-tuning for classification: examples/llms/llm_classification.md
+          - Instruction-tuning llama-2-7b: examples/llms/llm_finetuning.md
+          - Adapter-based encoder fine-tuning for text classification with deepspeed: examples/llms/llm_finetuning_deepspeed.md
+          - Adapter-based fine-tuning for text generation: examples/llms/llm_text_generation.md
+          - Zero-shot batch inference text generation: examples/llms/llm_zero_shot_text_generation.md
+          - Zero-shot batch inference for text classification: examples/llms/llm_zero_shot_batch_inference.md
+          - Few-shot batch inference for text classification (RAG): examples/llms/llm_few_shot_batch_inference.md
+          - Zero-shot batch inference for tabular classification (TabLLM): examples/llms/llm_tabular_zero_shot_batch_inference.md
+          - Fine-tuning for tabular classification (TabLLM): examples/llms/llm_tabular_classification.md
+      - Supervised ML:
           - Text Classification: examples/text_classification.md
           - Tabular Data Classification: examples/adult_census_income.md
           - Image Classification: examples/mnist.md
           - Multimodal Classification: examples/multimodal_classification.md
           - Hyperparameter Optimization: examples/hyperopt.md
-          - GBMs in Ludwig: examples/gbm_fraud.md
-      - Example Use Cases:
+          - Fraud with GBMs: examples/gbm_fraud.md
+          - Sentiment Analysis: examples/sentiment_analysis.md
+      - Use Cases:
           - Named Entity Recognition Tagging: examples/ner_tagging.md
           - Natural Language Understanding: examples/nlu.md
           - Machine Translation: examples/machine_translation.md
@@ -108,7 +121,7 @@ nav:
           - Multi-Task Learning: examples/multi_task.md
           - Simple Regression - Fuel Efficiency Prediction: examples/fuel_efficiency.md
           - Fraud Detection: examples/fraud.md
-  - Developer Guide:
+  - 🛠️ Developer Guide:
       - Developer Guide: developer_guide/index.md
       - How to Contribute: developer_guide/contributing.md
       - Codebase Structure: developer_guide/codebase_structure.md
@@ -128,8 +141,8 @@ nav:
       - Unit Test Design Guidelines: developer_guide/unit_test_design_guidelines.md
       - Run Tests on GPU Using Ray: developer_guide/run_tests_on_gpu_using_ray.md
       - Release Process: developer_guide/release_process.md
-  - Community: community.md
-  - FAQ: faq.md
+  - 🤗 Community: community.md
+  - ❓ FAQ: faq.md
 
 # Configuration
 site_dir: ../docs/

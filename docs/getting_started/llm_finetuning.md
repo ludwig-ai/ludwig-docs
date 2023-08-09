@@ -14,36 +14,68 @@ with GPU availability.
 - Access approval to [Llama2-7b-hf](https://huggingface.co/meta-llama/Llama-2-7b-hf)
 - GPU with at least 12 GiB of VRAM (in our tests, we used an Nvidia T4)
 
-## Running
-
-### Install Ludwig
+## Installation
 
 ```sh
 pip install ludwig ludwig[llm]
 ```
 
-### Command Line
+## Running
 
-Set your token environment variable from the terminal, then run the API script:
+We'll use the [Stanford Alpaca](https://crfm.stanford.edu/2023/03/13/alpaca.html) dataset, which will be formatted as a table-like file that looks like this:
 
-```bash
-export HUGGING_FACE_HUB_TOKEN="<api_token>"
-./run_train.sh
+|               instruction            |  input   | output |
+| :----------------------------------: | :------: | :------: |
+|  Give three tips for staying healthy.|  | 1.Eat a balanced diet and make sure to include... |
+| Arrange the items given below in the order to ... |  cake, me, eating   | I eating cake. |
+|  Write an introductory paragraph about a famous... |  Michelle Obama   | Michelle Obama is an inspirational woman who r... |
+|                 ...                  |   ...    | ... |
+
+Create a YAML config file named `model.yaml` with the following:
+
+```yaml
+model_type: llm
+base_model: meta-llama/Llama-2-7b-hf
+
+quantization:
+  bits: 4
+
+adapter:
+  type: lora
+
+prompt:
+  template: |
+    ### Instruction:
+    {instruction}
+
+    ### Input:
+    {input}
+
+    ### Response:
+
+input_features:
+  - name: prompt
+    type: text
+
+output_features:
+  - name: output
+    type: text
+
+trainer:
+  type: finetune
+  learning_rate: 0.0001
+  batch_size: 1
+  gradient_accumulation_steps: 16
+  epochs: 3
+  learning_rate_scheduler:
+    warmup_fraction: 0.01
+
+preprocessing:
+  sample_ratio: 0.1
 ```
 
-### Python API
-
-Set your token environment variable from the terminal, then run the API script:
+And now let's train the model:
 
 ```bash
-export HUGGING_FACE_HUB_TOKEN="<api_token>"
-python train_alpaca.py
-```
-
-## Upload to HuggingFace
-
-You can upload to the HuggingFace Hub from the command line:
-
-```bash
-ludwig upload hf_hub -r <your_org>/<model_name> -m <path/to/model>
+ludwig train --config model.yaml --dataset "ludwig://alpaca"
 ```

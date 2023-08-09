@@ -17,15 +17,15 @@ nav:
   - Ludwig: index.md
   - 🚀 Getting Started:
       - Getting Started: getting_started/index.md
-      - LLMs:
-          - Fine-tuning Llama2-7b: getting_started/llm_finetuning.md
-      - Supervised ML:
-          - Dataset preparation: getting_started/prepare_data.md
-          - Training: getting_started/train.md
-          - Prediction and Evaluation: getting_started/evaluate.md
-          - Hyperopt: getting_started/hyperopt.md
-          - Serving: getting_started/serve.md
-          - Distributed training on Ray: getting_started/ray.md
+      - Installation: getting_started/installation.md
+      - Dataset preparation: getting_started/prepare_data.md
+      - Training: getting_started/train.md
+      - Prediction and Evaluation: getting_started/evaluate.md
+      - Hyperopt: getting_started/hyperopt.md
+      - Serving: getting_started/serve.md
+      - Distributed training on Ray: getting_started/ray.md
+      - LLM Fine-tuning: getting_started/llm_finetuning.md
+      - Ludwig with Docker: getting_started/docker.md
   - 📖 User Guide:
       - User Guide: user_guide/index.md
       - What is Ludwig?: user_guide/what_is_ludwig.md
@@ -55,7 +55,6 @@ nav:
       - Model Export: user_guide/model_export.md
       - Serving: user_guide/serving.md
       - Third-Party Integrations: user_guide/integrations.md
-      - Ludwig with Docker: getting_started/docker.md
   - 📚 Configuration:
       - Configuration: configuration/index.md
       - Model Types: configuration/model_type.md

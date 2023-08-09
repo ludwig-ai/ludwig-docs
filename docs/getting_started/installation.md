@@ -1,6 +1,4 @@
-# Installing Ludwig
-
-## Use pip <small>recommended</small>
+## Use pip
 
 For users familiar with Python, we recommend installing with [`pip`][pip] within an isolated
 [virtual environment](https://docs.python-guide.org/dev/virtualenvs/). If not, you can use our
@@ -10,6 +8,8 @@ pre-built [`docker`][docker] images.
 pip install ludwig
 ```
 
+For large or long-running workloads, Ludwig can be run remotely in the cloud or on a private compute cluster using [`Ray`](/getting_started/ray).
+
 ### Install additional packages
 
 Optional Ludwig functionality is separated out into subpackages. Install what you need:
@@ -18,7 +18,7 @@ Optional Ludwig functionality is separated out into subpackages. Install what yo
 - `ludwig[serve]` for serving dependencies.
 - `ludwig[viz]` for visualization dependencies.
 - `ludwig[hyperopt]` for hyperparameter optimization dependencies.
-- `ludwig[distributed]` for distributed training on [Ray](https://www.ray.io/) using [Dask](https://dask.org/) and [Horovod](https://github.com/horovod/horovod).
+- `ludwig[distributed]` for distributed training on [Ray](https://www.ray.io/) using [Dask](https://dask.org/).
 - `ludwig[explain]` for prediction explanations.
 - `ludwig[tree]` for LightGBM and tree-based models.
 - `ludwig[test]` for running ludwig's integration and unit tests.
@@ -50,3 +50,4 @@ See Ludiwg's [docker docs](docker).
 For users familiar with Python, we recommend installing with [`pip`][pip] within an isolated
 [virtual environment](https://docs.python-guide.org/dev/virtualenvs/). If not, you can use our
 pre-built [`docker`][docker] images. Advanced users can also install Ludwig from [`git`][git].
+

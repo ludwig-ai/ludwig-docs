@@ -926,7 +926,7 @@ Performs k-fold cross validation and returns result data structures.
 - **config** (Union[dict, str]): model specification
   required to build a model. Parameter may be a dictionary or string
   specifying the file path to a yaml configuration file. Refer to the
-  [User Guide](https://ludwig.ai/latest/user_guide/#model-config)
+  [User Guide](/latest/user_guide/#model-config)
   for details.
 - **dataset** (Union[str, dict, pandas.DataFrame], default: `None`):
   source containing the entire dataset to be used for k_fold processing.

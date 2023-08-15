@@ -30,7 +30,6 @@ nav:
       - User Guide: user_guide/index.md
       - What is Ludwig?: user_guide/what_is_ludwig.md
       - How Ludwig Works: user_guide/how_ludwig_works.md
-      - Installation: user_guide/installation.md
       - Command Line Interface: user_guide/command_line_interface.md
       - Python API:
           - LudwigModel: user_guide/api/LudwigModel.md

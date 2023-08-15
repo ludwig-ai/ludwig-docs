@@ -491,11 +491,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://ludwig.ai/latest/user_guide/installation/</loc>
-         <lastmod>2023-08-15</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://ludwig.ai/latest/user_guide/integrations/</loc>
          <lastmod>2023-08-15</lastmod>
          <changefreq>daily</changefreq>

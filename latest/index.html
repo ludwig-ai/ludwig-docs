@@ -2973,7 +2973,7 @@ or take a look at end-to-end <a href="examples/">Examples</a>.</p>
 <div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>train<span class="w"> </span>--config<span class="w"> </span>model.yaml<span class="w"> </span>--dataset<span class="w"> </span><span class="s2">&quot;ludwig://alpaca&quot;</span>
 </code></pre></div>
 <h3 id="supervied-ml">Supervied ML<a class="headerlink" href="#supervied-ml" title="Permanent link">&para;</a></h3>
-<p>Let's build a neural network that predicts whether a given movie critic's review on <a href="https://www.kaggle.com/stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset">Rotten Tomatoes</a> was positive or negative. </p>
+<p>Let's build a neural network that predicts whether a given movie critic's review on <a href="https://www.kaggle.com/stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset">Rotten Tomatoes</a> was positive or negative.</p>
 <p>Our dataset will be a CSV file that looks like this:</p>
 <table>
 <thead>
@@ -3031,23 +3031,23 @@ or take a look at end-to-end <a href="examples/">Examples</a>.</p>
 </code></pre></div>
 <p>Next create a YAML config file named <code>model.yaml</code> with the following:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">genres</span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">set</span>
-<span class="w">      </span><span class="nt">preprocessing</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">tokenizer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">comma</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">content_rating</span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">top_critic</span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">runtime</span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">review_content</span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
-<span class="w">      </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
-<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">embed</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">genres</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">set</span>
+<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">tokenizer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">comma</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">content_rating</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">top_critic</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">runtime</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">review_content</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">embed</span>
 <span class="nt">output_features</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">recommended</span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">recommended</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span>
 </code></pre></div>
 <p>That's it! Now let's train the model:</p>
 <div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>train<span class="w"> </span>--config<span class="w"> </span>model.yaml<span class="w"> </span>--dataset<span class="w"> </span>rotten_tomatoes.csv
@@ -3130,34 +3130,34 @@ if you have any questions.</p>
 </code></pre></div>
 <h2 id="tutorials">📚 Tutorials<a class="headerlink" href="#tutorials" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="./examples/text_classification">Text Classification</a></li>
-<li><a href="./examples/adult_census_income">Tabular Data Classification</a></li>
-<li><a href="./examples/mnist">Image Classification</a></li>
-<li><a href="./examples/multimodal_classification">Multimodal Classification</a></li>
+<li><a href="./examples/text_classification/">Text Classification</a></li>
+<li><a href="./examples/adult_census_income/">Tabular Data Classification</a></li>
+<li><a href="./examples/mnist/">Image Classification</a></li>
+<li><a href="./examples/multimodal_classification/">Multimodal Classification</a></li>
 </ul>
 <h2 id="example-use-cases">🔬 Example Use Cases<a class="headerlink" href="#example-use-cases" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="./examples/ner_tagging">Named Entity Recognition Tagging</a></li>
-<li><a href="./examples/nlu">Natural Language Understanding</a></li>
-<li><a href="./examples/machine_translation">Machine Translation</a></li>
-<li><a href="./examples/seq2seq">Chit-Chat Dialogue Modeling through seq2seq</a></li>
-<li><a href="./examples/sentiment_analysis">Sentiment Analysis</a></li>
-<li><a href="./examples/oneshot">One-shot Learning with Siamese Networks</a></li>
-<li><a href="./examples/visual_qa">Visual Question Answering</a></li>
-<li><a href="./examples/speech_recognition">Spoken Digit Speech Recognition</a></li>
-<li><a href="./examples/speaker_verification">Speaker Verification</a></li>
-<li><a href="./examples/titanic">Binary Classification (Titanic)</a></li>
-<li><a href="./examples/forecasting">Timeseries forecasting</a></li>
-<li><a href="./examples/weather">Timeseries forecasting (Weather)</a></li>
-<li><a href="./examples/movie_ratings">Movie rating prediction</a></li>
-<li><a href="./examples/multi_label">Multi-label classification</a></li>
-<li><a href="./examples/multi_task">Multi-Task Learning</a></li>
-<li><a href="./examples/fuel_efficiency">Simple Regression: Fuel Efficiency Prediction</a></li>
-<li><a href="./examples/fraud">Fraud Detection</a></li>
+<li><a href="./examples/ner_tagging/">Named Entity Recognition Tagging</a></li>
+<li><a href="./examples/nlu/">Natural Language Understanding</a></li>
+<li><a href="./examples/machine_translation/">Machine Translation</a></li>
+<li><a href="./examples/seq2seq/">Chit-Chat Dialogue Modeling through seq2seq</a></li>
+<li><a href="./examples/sentiment_analysis/">Sentiment Analysis</a></li>
+<li><a href="./examples/oneshot/">One-shot Learning with Siamese Networks</a></li>
+<li><a href="./examples/visual_qa/">Visual Question Answering</a></li>
+<li><a href="./examples/speech_recognition/">Spoken Digit Speech Recognition</a></li>
+<li><a href="./examples/speaker_verification/">Speaker Verification</a></li>
+<li><a href="./examples/titanic/">Binary Classification (Titanic)</a></li>
+<li><a href="./examples/forecasting/">Timeseries forecasting</a></li>
+<li><a href="./examples/weather/">Timeseries forecasting (Weather)</a></li>
+<li><a href="./examples/movie_ratings/">Movie rating prediction</a></li>
+<li><a href="./examples/multi_label/">Multi-label classification</a></li>
+<li><a href="./examples/multi_task/">Multi-Task Learning</a></li>
+<li><a href="./examples/fuel_efficiency/">Simple Regression: Fuel Efficiency Prediction</a></li>
+<li><a href="./examples/fraud/">Fraud Detection</a></li>
 </ul>
 <h2 id="more-information">💡 More Information<a class="headerlink" href="#more-information" title="Permanent link">&para;</a></h2>
 <p>Read our publications on <a href="https://arxiv.org/pdf/1909.07930.pdf">Ludwig</a>, <a href="https://arxiv.org/pdf/2107.08148.pdf">declarative ML</a>, and <a href="https://openreview.net/pdf?id=hwjnu6qW7E4">Ludwig’s SoTA benchmarks</a>.</p>
-<p>Learn more about <a href="./user_guide/how_ludwig_works/">how Ludwig works</a>, <a href="./getting_started/">how to get started</a>, and work through more <a href="./examples">examples</a>.</p>
+<p>Learn more about <a href="./user_guide/how_ludwig_works/">how Ludwig works</a>, <a href="./getting_started/">how to get started</a>, and work through more <a href="./examples/">examples</a>.</p>
 <p>If you are interested in contributing, have questions, comments, or thoughts to share, or if you just want to be in the
 know, please consider <a href="https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ">joining the Ludwig Slack</a> and follow us on <a href="https://twitter.com/ludwig_ai">Twitter</a>!</p>
 <h2 id="join-the-community-to-build-ludwig-with-us">🤝 Join the community to build Ludwig with us<a class="headerlink" href="#join-the-community-to-build-ludwig-with-us" title="Permanent link">&para;</a></h2>

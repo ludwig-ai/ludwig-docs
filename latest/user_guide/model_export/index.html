@@ -2845,7 +2845,7 @@
 <h3 id="torchscript-export">TorchScript Export<a class="headerlink" href="#torchscript-export" title="Permanent link">&para;</a></h3>
 <p>A subset of Ludwig Models can be exported to Torchscript end-to-end. This means
 that, in addition to the model itself, the preprocessing and postprocessing steps can be exported to TorchScript as well, ensuring that the model can be used for inference in a production environment out-of-the-box.</p>
-<p>To get started, simply run the <a href="/user_guide/command_line_interface#export_torchscript"><code>export_torchscript</code></a> command:</p>
+<p>To get started, simply run the <a href="/latest/user_guide/command_line_interface/#export_torchscript"><code>export_torchscript</code></a> command:</p>
 <div class="highlight"><pre><span></span><code>ludwig export_torchscript -m=results/experiment_run/model
 </code></pre></div>
 <p>As long as <code>--model_only</code> is not specified, then three files are output by this command. The most important are <code>inference_preprocessor.pt</code>, <code>inference_predictor_&lt;DEVICE&gt;.pt</code>, and <code>inference_postprocessor.pt</code>.</p>

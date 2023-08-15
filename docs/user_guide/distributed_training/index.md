@@ -39,7 +39,7 @@ backend:
   processor:
     type: dask
   trainer:
-    strategy: horovod
+    strategy: ddp
 ```
 
 ## Running Ludwig with Ray
@@ -142,6 +142,23 @@ hyperopt:
     max_concurrent_trials: 4
     gpu_resources_per_trial: 1
 ```
+
+# DeepSpeed
+
+You can run using the [DeepSpeed](https://github.com/microsoft/DeepSpeed) launcher, supporting large model training
+on multiple GPUs and multiple machines.
+
+Example:
+
+```bash
+deepspeed --no_python --no_local_rank --num_gpus 4 \
+    ludwig train --config config.yaml --dataset dataset.csv
+```
+
+DeepSpeed can also be used as a distributed strategy when using the `ray` backend. Using the `ray` backend
+allows Ludwig to train with larger-than-memory datasets, at the cost of some coordination overhead. In practice,
+performance is comparable, though Ludwig on Ray has some additional optimization to reduce memory pressure vs
+running with the `deepspeed` CLI.
 
 # Horovod / MPI
 

@@ -1,8 +1,8 @@
 import json
 import yaml
+from marshmallow import missing
 
 # Force populate combiner registry:
-import ludwig.combiners.combiners  # noqa: F401
 from ludwig.constants import MODEL_ECD
 from ludwig.schema.combiners.utils import get_combiner_registry
 from ludwig.schema.decoders.utils import get_decoder_cls
@@ -12,11 +12,21 @@ from ludwig.schema.features.augmentation.utils import get_augmentation_cls
 from ludwig.schema.features.preprocessing.utils import preprocessing_registry
 from ludwig.schema.features.utils import get_input_feature_cls, get_output_feature_cls
 from ludwig.schema.features.loss import get_loss_schema_registry, get_loss_classes
+from ludwig.schema.llms.generation import LLMGenerationConfig
+from ludwig.schema.llms.model_parameters import ModelParametersConfig, RoPEScalingConfig
+from ludwig.schema.llms.peft import adapter_registry
+from ludwig.schema.llms.prompt import PromptConfig, RetrievalConfig
+from ludwig.schema.llms.quantization import QuantizationConfig
 from ludwig.schema.model_config import ModelConfig
+from ludwig.schema.model_types import base
 from ludwig.schema.optimizers import optimizer_registry
 from ludwig.schema.preprocessing import PreprocessingConfig
 from ludwig.schema.split import get_split_cls
-from ludwig.schema.trainer import trainer_schema_registry
+from ludwig.schema.trainer import get_llm_trainer_cls, trainer_schema_registry
+
+
+# Monkey patch the jsonschema check is it's unnedded and leads to inspect errors
+base.check_schema = lambda x: None
 
 
 def flatten(d, prefix=""):
@@ -99,8 +109,8 @@ def define_env(env):
         return get_encoder_cls(MODEL_ECD, feature, type)
 
     @env.macro
-    def get_decoder_schema(feature: str, type: str):
-        return get_decoder_cls(feature, type)
+    def get_decoder_schema(feature: str, type: str, model_type=MODEL_ECD):
+        return get_decoder_cls(model_type, feature, type)
 
     @env.macro
     def get_split_schema(type: str):
@@ -120,11 +130,41 @@ def define_env(env):
 
     @env.macro
     def get_combiner_schema(type: str):
-        return get_combiner_registry()[type].get_schema_cls()
+        return get_combiner_registry()[type]
 
     @env.macro
     def get_trainer_schema(model_tyoe: str):
+        if model_tyoe == "llm":
+            return get_llm_trainer_cls("finetune")
         return trainer_schema_registry[model_tyoe]
+
+    @env.macro
+    def get_prompt_schema():
+        return PromptConfig
+
+    @env.macro
+    def get_retrieval_schema():
+        return RetrievalConfig
+
+    @env.macro
+    def get_adapter_schemas():
+        return [v for v in adapter_registry.values()]
+
+    @env.macro
+    def get_quantization_schema():
+        return QuantizationConfig
+
+    @env.macro
+    def get_model_parameters_schema():
+        return ModelParametersConfig
+
+    @env.macro
+    def get_rope_scaling_schema():
+        return RoPEScalingConfig
+
+    @env.macro
+    def get_generation_schema():
+        return LLMGenerationConfig
 
     @env.macro
     def get_optimizer_schemas():
@@ -152,9 +192,15 @@ def define_env(env):
 
     @env.macro
     def schema_class_to_yaml(cls, sort_by_impact=True, exclude=None, updates=None):
+        updates = updates or {}
+
         schema = cls.get_class_schema()()
         internal_fields = {n for n, f in schema.fields.items() if is_internal(f)}
-        d = {k: v for k, v in cls().to_dict().items() if k not in internal_fields and k}
+        d = {
+            k: v
+            for k, v in cls(**updates).to_dict().items()
+            if k not in internal_fields and k
+        }
 
         if sort_by_impact:
             sorted_fields = flatten(sort_fields(schema.fields))
@@ -163,7 +209,6 @@ def define_env(env):
         exclude = exclude or []
         d = {k: v for k, v in d.items() if k not in exclude}
 
-        updates = updates or {}
         d.update(updates)
 
         return yaml.safe_dump(d, indent=4, sort_keys=False)
@@ -190,6 +235,8 @@ def define_env(env):
 
         default_str = ""
         if has_default:
+            if default_value == missing:
+                default_value = None
             default_str = f"(default: `{dump_value(default_value)}`)"
 
         impact = expected_impact(field)

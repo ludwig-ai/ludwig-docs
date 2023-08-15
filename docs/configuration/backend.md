@@ -13,13 +13,13 @@ backend:
   processor:
     type: dask
   trainer:
-    strategy: horovod
+    strategy: ddp
   loader: {}
 ```
 
 Parameters:
 
-- `type`: How the job will be distributed, one of `local`, `ray`, `horovod`.
+- `type`: How the job will be distributed, one of `local`, `ray`, `deepspeed`, `horovod`.
 - `cache_dir`: Where the preprocessed data will be written on disk, defaults to the location of the input dataset. See [Cloud Storage](../user_guide/cloud_storage.md#remote-dataset-cache) for more details
 - `cache_credentials`: Optional dictionary of credentials (or path to credential JSON file) used to write to the cache. See [Cloud Storage](../user_guide/cloud_storage.md#using-different-cache-and-dataset-filesystems) for more details
 - `processor`: (Ray only) parameters to configure execution of distributed data processing.
@@ -86,9 +86,9 @@ backend:
 The `trainer` section configures distributed training strategy. Currently we support the following strategies (described
 in detail below) with more coming in the future:
 
-- Horovod
 - Distributed Data Parallel (DDP)
-- Fully Sharded Data Parallel (FSDP)
+- DeepSpeed
+- Horovod
 
 The following parameters can be configured for any distributed strategy:
 
@@ -107,7 +107,7 @@ Example:
 backend:
   type: ray
   trainer:
-    strategy: horovod
+    strategy: ddp
     use_gpu: true
     num_workers: 4
     resources_per_worker:
@@ -121,27 +121,10 @@ the resources available in the cluster. There are two cases in which it makes se
 - Your Ray cluster makes use of autoscaling (in which case Ludwig will not know how many GPUs are available with scaling).
 - Your Ray cluster is running multiple workloads at once (in which case you may wish to reserve resources for other jobs).
 
-## Horovod
-
-[Horovod](https://horovod.ai/) is a distributed data-parallel framework that is optimized for bandwidth-constrained computing
-environments. It makes use of Nvidia's NCCL for fast GPU-to-GPU communication.
-
-Example:
-
-```yaml
-backend:
-  type: ray
-  trainer:
-    strategy: horovod
-```
-
 ## Distributed Data Parallel (DDP)
 
 [Distributed Data Parallel](https://pytorch.org/tutorials/intermediate/ddp_tutorial.html) or DDP is PyTorch's native data-parallel
-library that functions very similarly to Horovod, but does not require installing any additional packages to use.
-
-In benchmarks, we found DDP and Horovod to perform near identically, so if you're not already using Horovod, DDP is the easiest
-way to get started with distributed training in Ludwig.
+library that does not require installing any additional packages to use. It is the default strategy when using the `ray` backend.
 
 ```yaml
 backend:
@@ -150,20 +133,68 @@ backend:
     strategy: ddp
 ```
 
-## Fully Sharded Data Parallel (FSDP)
+## DeepSpeed
 
-[Fully Sharded Data Parallel](https://pytorch.org/blog/introducing-pytorch-fully-sharded-data-parallel-api/) or FSDP is PyTorch's native
-data-parallel + model-parallel library for training very large models whose parameters are spread across multiple GPUs.
+[DeepSpeed](https://github.com/microsoft/DeepSpeed) is a data + model parallel framework for training very large models whose parameters
+are then spread across multiple GPUs during training.
 
-The primary scenario to use FSDP is when the model you're training is too large to fit into a single GPU
-(e.g., fine-tuning a large language model like [BLOOM)](https://huggingface.co/docs/transformers/model_doc/bloom)).
-When the model is small enough to fit in a single GPU, however, benchmarking has shown it's generally better to use Horovod or DDP.
+The primary scenario to use DeepSpeed is when the model you're training is too large to fit into a single GPU
+(e.g., fine-tuning a large language model like Llama-2).
+When the model is small enough to fit in a single GPU, however, benchmarking has shown it's generally better 
+to use a data parallel framework like DDP or Horovod.
 
 ```yaml
 backend:
   type: ray
   trainer:
-    strategy: fsdp
+    strategy: deepspeed
+```
+
+DeepSpeed comes with a number of [configuration options](https://www.deepspeed.ai/docs/config-json/), most of which can be provided in
+the Ludwig config as shown in the DeepSpeed documentation.
+
+The currently supported DeepSpeed config section in Ludwig include:
+
+- `zero_optimization`, controls the optimization stage used to reduce GPU memory pressure during training.
+- `fp16`, whether to train with float16 precision.
+- `bf16`, whether to train with bfloat16 precision on supported hardware (e.g., Ampere architecture GPUs and above).
+
+Other parameters like batch size, gradient accumulation, and optimizer params are specified as part of the normal Ludwig `trainer`
+section of the config. When DeepSpeed is used as the backend, Ludwig will defer the implementation of these settings to DeepSpeed automatically.
+
+Example DeepSpeed config using ZeRO stage 3, optimizer offload, and bfloat16:
+
+```yaml
+backend:
+  type: ray
+  trainer:
+    use_gpu: true
+    strategy:
+      type: deepspeed
+      zero_optimization:
+        stage: 3
+        offload_optimizer:
+          device: cpu
+          pin_memory: true
+      bf16:
+        enabled: true
+```
+
+## Horovod
+
+[Horovod](https://horovod.ai/) is a distributed data-parallel framework that is optimized for bandwidth-constrained computing
+environments. It makes use of Nvidia's NCCL for fast GPU-to-GPU communication.
+
+In benchmarks, we found DDP and Horovod to perform near identically, so if you're not already using Horovod, DDP is the easiest
+way to get started with distributed training in Ludwig.
+
+Example:
+
+```yaml
+backend:
+  type: ray
+  trainer:
+    strategy: horovod
 ```
 
 # Loader

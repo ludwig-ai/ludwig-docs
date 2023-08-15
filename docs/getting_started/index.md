@@ -11,3 +11,8 @@ dataset, a CSV file with variety of feature types and a binary target:
 - [Hyperparameter optimization](./hyperopt)
 - [Serving](./serve)
 - [Distributed training on Ray](./ray)
+
+Other topics covered:
+
+- [LLM Fine-tuning](./llm_finetuning.md)
+- [Ludwig with Docker](./docker.md)

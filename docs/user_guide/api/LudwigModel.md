@@ -846,6 +846,44 @@ Performs one epoch of training of the model on `dataset`.
 
 - **return** (None): `None`
 
+## upload_to_hf_hub
+
+```python
+upload_to_hf_hub(
+  service: str,
+  repo_id: str,
+  model_path: str,
+  repo_type: str = "model",
+  private: bool = False,
+  commit_message: str = "Upload trained [Ludwig](https://ludwig.ai/latest/) model weights",
+  commit_description: Optional[str] = None,
+  **kwargs,
+)
+```
+
+Uploads fine-tuned LLM model artifacts to HuggingFace Hub.
+
+**Inputs**
+
+- **service** (`str`, defaults to `hf_hub`): Name of the hosted model service to push the trained artifacts to.
+  Currently, this only supports `hf_hub`.
+- **repo_id** (`str`):
+  A namespace (user or an organization) and a repo name separated by a `/`.
+- **model_path** (`str`): The path of the saved model. This is the top level directory where
+  the models weights as well as other associated training artifacts are saved.
+- **private** (`bool`, _optional_, defaults to `False`): Whether the model repo should be private.
+- **repo_type** (`str`, _optional_): Set to `"dataset"` or `"space"` if uploading to a dataset or
+  space, `None` or `"model"` if uploading to a model. Default is `None`.
+- **commit_message** (`str`, _optional_):
+  The summary / title / first line of the generated commit. Defaults to:
+  `f"Upload {path_in_repo} with huggingface_hub"`
+- **commit_description** (`str` _optional_):
+  The description of the generated commit
+
+**Return**
+
+- **return** (bool): True if upload was successful, False if upload failed.
+
 ---
 
 # Module functions

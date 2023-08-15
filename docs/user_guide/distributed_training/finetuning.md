@@ -250,33 +250,6 @@ Fine-tuning large pretrained models typically benefit from [distributed training
 requiring a lot of additional hyperparameter tuning. As such, we recommend using the Ray [backend](../../configuration/backend.md)
 in order to take advantage of multi-GPU training and to scale to large datasets.
 
-In most cases, the `horovod` or `ddp` distributed [strategy](../../configuration/backend.md#trainer) will work well, but if the
-model is too large for your GPU type, then you should try model parallelism as described below.
-
-### Model Parallelism for LLMs
-
-Some large language models have billions of parameters and are too large to train even on the most powerful single GPUs. Some examples
-include the large variants of:
-
-- [BLOOM](https://huggingface.co/docs/transformers/model_doc/bloom)
-- [GPT2](https://huggingface.co/docs/transformers/model_doc/gpt2)
-- [GPT-J](https://huggingface.co/docs/transformers/model_doc/gptj)
-- [OPT](https://huggingface.co/docs/transformers/model_doc/opt)
-- [FLAN-T5](https://huggingface.co/docs/transformers/model_doc/flan-t5)
-
-For these models, it's recommended to enable the `fsdp` distributed strategy in a multi-GPU Ray cluster.
-
-Example:
-
-```yaml
-defaults:
-  text:
-    encoder:
-      type: auto_transformer
-      pretrained_model_name_or_path: bigscience/bloom-3b
-      trainable: true
-backend:
-  type: ray
-  trainer:
-    strategy: fsdp
-```
+In most cases, the`ddp` or  `horovod` distributed [strategy](../../configuration/backend.md#trainer) will work well, but if the
+model is too large for your GPU type, then you should try the `deepspeed` strategy, which allows for sharding model parameters
+across multiple GPUs.

@@ -1,12 +1,11 @@
 {
-    "editor.rulers": [
-        80
-    ],
-    "editor.formatOnSave": true,
-    "python.formatting.provider": "black",
-    "python.linting.enabled": true,
-    "python.linting.flake8Enabled": true,
-    "python.linting.flake8Args": [
-        "--config=setup.cfg"
-    ]
+  "editor.rulers": [80],
+  "editor.formatOnSave": true,
+  "python.formatting.provider": "none",
+  "python.linting.enabled": true,
+  "python.linting.flake8Enabled": true,
+  "python.linting.flake8Args": ["--config=setup.cfg"],
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  }
 }

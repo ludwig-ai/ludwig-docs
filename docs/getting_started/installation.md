@@ -4,11 +4,11 @@ For users familiar with Python, we recommend installing with [`pip`][pip] within
 [virtual environment](https://docs.python-guide.org/dev/virtualenvs/). If not, you can use our
 pre-built [`docker`](https://hub.docker.com/search?q=ludwigai) images.
 
-``` sh
+```sh
 pip install ludwig
 ```
 
-For large or long-running workloads, Ludwig can be run remotely in the cloud or on a private compute cluster using [`Ray`](/getting_started/ray).
+For large or long-running workloads, Ludwig can be run remotely in the cloud or on a private compute cluster using [`Ray`](/latest/getting_started/ray/).
 
 ## Install additional packages
 
@@ -45,4 +45,4 @@ Ludwig supports development on [VSCode devcontainers](https://code.visualstudio.
 
 # Use pre-build docker images
 
-See Ludiwg's [docker docs](/getting_started/docker).
+See Ludiwg's [docker docs](/latest/getting_started/docker/).

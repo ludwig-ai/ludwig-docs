@@ -78,12 +78,12 @@ Let's fine-tune a pretrained LLaMA-2-7b large language model to follow instructi
 
 We'll use the [Stanford Alpaca](https://crfm.stanford.edu/2023/03/13/alpaca.html) dataset, which will be formatted as a table-like file that looks like this:
 
-|               instruction            |  input   | output |
-| :----------------------------------: | :------: | :------: |
-|  Give three tips for staying healthy.|  | 1.Eat a balanced diet and make sure to include... |
-| Arrange the items given below in the order to ... |  cake, me, eating   | I eating cake. |
-|  Write an introductory paragraph about a famous... |  Michelle Obama   | Michelle Obama is an inspirational woman who r... |
-|                 ...                  |   ...    | ... |
+|                    instruction                    |      input       |                      output                       |
+| :-----------------------------------------------: | :--------------: | :-----------------------------------------------: |
+|       Give three tips for staying healthy.        |                  | 1.Eat a balanced diet and make sure to include... |
+| Arrange the items given below in the order to ... | cake, me, eating |                  I eating cake.                   |
+| Write an introductory paragraph about a famous... |  Michelle Obama  | Michelle Obama is an inspirational woman who r... |
+|                        ...                        |       ...        |                        ...                        |
 
 Create a YAML config file named `model.yaml` with the following:
 
@@ -136,16 +136,16 @@ ludwig train --config model.yaml --dataset "ludwig://alpaca"
 
 ## Supervied ML
 
-Let's build a neural network that predicts whether a given movie critic's review on [Rotten Tomatoes](https://www.kaggle.com/stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset) was positive or negative. 
+Let's build a neural network that predicts whether a given movie critic's review on [Rotten Tomatoes](https://www.kaggle.com/stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset) was positive or negative.
 
 Our dataset will be a CSV file that looks like this:
 
-|     movie_title      | content_rating |                                  genres                                  | runtime | top_critic | review_content                                                                                                                                                                                                   | recommended |
-| :------------------: | :------------: | :----------------------------------------------------------------------: | :-----: | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| Deliver Us from Evil |       R        |                        Action & Adventure, Horror                        |  117.0  | TRUE       | Director Scott Derrickson and his co-writer, Paul Harris Boardman, deliver a routine procedural with unremarkable frights.                                                                                       | 0           |
-|       Barbara        |     PG-13      |                     Art House & International, Drama                     |  105.0  | FALSE      | Somehow, in this stirring narrative, Barbara manages to keep hold of her principles, and her humanity and courage, and battles to save a dissident teenage girl whose life the Communists are trying to destroy. | 1           |
-|   Horrible Bosses    |       R        |                                  Comedy                                  |  98.0   | FALSE      | These bosses cannot justify either murder or lasting comic memories, fatally compromising a farce that could have been great but ends up merely mediocre.                                                        | 0           |
-| ... | ... | ... | ... | ... | ... | ... |
+|     movie_title      | content_rating |              genres              | runtime | top_critic | review_content                                                                                                                                                                                                   | recommended |
+| :------------------: | :------------: | :------------------------------: | :-----: | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| Deliver Us from Evil |       R        |    Action & Adventure, Horror    |  117.0  | TRUE       | Director Scott Derrickson and his co-writer, Paul Harris Boardman, deliver a routine procedural with unremarkable frights.                                                                                       | 0           |
+|       Barbara        |     PG-13      | Art House & International, Drama |  105.0  | FALSE      | Somehow, in this stirring narrative, Barbara manages to keep hold of her principles, and her humanity and courage, and battles to save a dissident teenage girl whose life the Communists are trying to destroy. | 1           |
+|   Horrible Bosses    |       R        |              Comedy              |  98.0   | FALSE      | These bosses cannot justify either murder or lasting comic memories, fatally compromising a farce that could have been great but ends up merely mediocre.                                                        | 0           |
+|         ...          |      ...       |               ...                |   ...   | ...        | ...                                                                                                                                                                                                              | ...         |
 
 Download a sample of the dataset from [here](https://ludwig.ai/latest/data/rotten_tomatoes.csv).
 
@@ -157,23 +157,23 @@ Next create a YAML config file named `model.yaml` with the following:
 
 ```yaml
 input_features:
-    - name: genres
-      type: set
-      preprocessing:
-          tokenizer: comma
-    - name: content_rating
-      type: category
-    - name: top_critic
-      type: binary
-    - name: runtime
-      type: number
-    - name: review_content
-      type: text
-      encoder: 
-          type: embed
+  - name: genres
+    type: set
+    preprocessing:
+      tokenizer: comma
+  - name: content_rating
+    type: category
+  - name: top_critic
+    type: binary
+  - name: runtime
+    type: number
+  - name: review_content
+    type: text
+    encoder:
+      type: embed
 output_features:
-    - name: recommended
-      type: binary
+  - name: recommended
+    type: binary
 ```
 
 That's it! Now let's train the model:
@@ -272,36 +272,36 @@ if you have any questions.
 
 # 📚 Tutorials
 
-- [Text Classification](./examples/text_classification)
-- [Tabular Data Classification](./examples/adult_census_income)
-- [Image Classification](./examples/mnist)
-- [Multimodal Classification](./examples/multimodal_classification)
+- [Text Classification](./examples/text_classification/)
+- [Tabular Data Classification](./examples/adult_census_income/)
+- [Image Classification](./examples/mnist/)
+- [Multimodal Classification](./examples/multimodal_classification/)
 
 # 🔬 Example Use Cases
 
-- [Named Entity Recognition Tagging](./examples/ner_tagging)
-- [Natural Language Understanding](./examples/nlu)
-- [Machine Translation](./examples/machine_translation)
-- [Chit-Chat Dialogue Modeling through seq2seq](./examples/seq2seq)
-- [Sentiment Analysis](./examples/sentiment_analysis)
-- [One-shot Learning with Siamese Networks](./examples/oneshot)
-- [Visual Question Answering](./examples/visual_qa)
-- [Spoken Digit Speech Recognition](./examples/speech_recognition)
-- [Speaker Verification](./examples/speaker_verification)
-- [Binary Classification (Titanic)](./examples/titanic)
-- [Timeseries forecasting](./examples/forecasting)
-- [Timeseries forecasting (Weather)](./examples/weather)
-- [Movie rating prediction](./examples/movie_ratings)
-- [Multi-label classification](./examples/multi_label)
-- [Multi-Task Learning](./examples/multi_task)
-- [Simple Regression: Fuel Efficiency Prediction](./examples/fuel_efficiency)
-- [Fraud Detection](./examples/fraud)
+- [Named Entity Recognition Tagging](./examples/ner_tagging/)
+- [Natural Language Understanding](./examples/nlu/)
+- [Machine Translation](./examples/machine_translation/)
+- [Chit-Chat Dialogue Modeling through seq2seq](./examples/seq2seq/)
+- [Sentiment Analysis](./examples/sentiment_analysis/)
+- [One-shot Learning with Siamese Networks](./examples/oneshot/)
+- [Visual Question Answering](./examples/visual_qa/)
+- [Spoken Digit Speech Recognition](./examples/speech_recognition/)
+- [Speaker Verification](./examples/speaker_verification/)
+- [Binary Classification (Titanic)](./examples/titanic/)
+- [Timeseries forecasting](./examples/forecasting/)
+- [Timeseries forecasting (Weather)](./examples/weather/)
+- [Movie rating prediction](./examples/movie_ratings/)
+- [Multi-label classification](./examples/multi_label/)
+- [Multi-Task Learning](./examples/multi_task/)
+- [Simple Regression: Fuel Efficiency Prediction](./examples/fuel_efficiency/)
+- [Fraud Detection](./examples/fraud/)
 
 # 💡 More Information
 
 Read our publications on [Ludwig](https://arxiv.org/pdf/1909.07930.pdf), [declarative ML](https://arxiv.org/pdf/2107.08148.pdf), and [Ludwig’s SoTA benchmarks](https://openreview.net/pdf?id=hwjnu6qW7E4).
 
-Learn more about [how Ludwig works](./user_guide/how_ludwig_works/), [how to get started](./getting_started/), and work through more [examples](./examples).
+Learn more about [how Ludwig works](./user_guide/how_ludwig_works/), [how to get started](./getting_started/), and work through more [examples](./examples/).
 
 If you are interested in contributing, have questions, comments, or thoughts to share, or if you just want to be in the
 know, please consider [joining the Ludwig Slack](https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ) and follow us on [Twitter](https://twitter.com/ludwig_ai)!
@@ -322,4 +322,3 @@ more accessible and feature rich framework for everyone to use!
 - [Twitter](https://twitter.com/ludwig_ai)
 - [Medium](https://medium.com/ludwig-ai)
 - [GitHub Issues](https://github.com/ludwig-ai/ludwig/issues)
-

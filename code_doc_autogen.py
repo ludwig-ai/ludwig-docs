@@ -141,7 +141,7 @@ PAGES = [
     # }
 ]
 
-ROOT = "http://ludwig.ai/"
+ROOT = "https://ludwig.ai/"
 OUTPUT_DIR = "docs"
 
 

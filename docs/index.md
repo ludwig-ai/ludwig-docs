@@ -134,7 +134,7 @@ And now let's train the model:
 ludwig train --config model.yaml --dataset "ludwig://alpaca"
 ```
 
-## Supervied ML
+## Supervised ML
 
 Let's build a neural network that predicts whether a given movie critic's review on [Rotten Tomatoes](https://www.kaggle.com/stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset) was positive or negative.
 

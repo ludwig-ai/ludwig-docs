@@ -2726,7 +2726,7 @@
   
     <li class="md-nav__item">
       <a href="../../community/" class="md-nav__link">
-        🤗 Community
+        👋 Community
       </a>
     </li>
   
@@ -2986,8 +2986,9 @@ By default, the ECD trainer is used.</p>
 <span class="w">    </span><span class="nt">use_mixed_precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">    </span><span class="nt">compile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">    </span><span class="nt">checkpoints_per_epoch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">effective_batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auto</span>
+<span class="w">    </span><span class="nt">gradient_accumulation_steps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auto</span>
 <span class="w">    </span><span class="nt">regularization_lambda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
-<span class="w">    </span><span class="nt">gradient_accumulation_steps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
 <span class="w">    </span><span class="nt">validation_field</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 <span class="w">    </span><span class="nt">validation_metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 <span class="w">    </span><span class="nt">train_steps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
@@ -3007,6 +3008,7 @@ By default, the ECD trainer is used.</p>
 <span class="w">        </span><span class="nt">clipvalue</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 <span class="w">    </span><span class="nt">learning_rate_scaling</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">linear</span>
 <span class="w">    </span><span class="nt">bucketing_field</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">skip_all_evaluation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">    </span><span class="nt">learning_rate_scheduler</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">decay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 <span class="w">        </span><span class="nt">decay_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.96</span>
@@ -3043,8 +3045,9 @@ By default, the ECD trainer is used.</p>
 <span class="w">    </span><span class="nt">use_mixed_precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">    </span><span class="nt">compile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">    </span><span class="nt">checkpoints_per_epoch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">effective_batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auto</span>
+<span class="w">    </span><span class="nt">gradient_accumulation_steps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auto</span>
 <span class="w">    </span><span class="nt">regularization_lambda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
-<span class="w">    </span><span class="nt">gradient_accumulation_steps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
 <span class="w">    </span><span class="nt">validation_field</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 <span class="w">    </span><span class="nt">validation_metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 <span class="w">    </span><span class="nt">train_steps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
@@ -3064,6 +3067,7 @@ By default, the ECD trainer is used.</p>
 <span class="w">        </span><span class="nt">clipvalue</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 <span class="w">    </span><span class="nt">learning_rate_scaling</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">linear</span>
 <span class="w">    </span><span class="nt">bucketing_field</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">skip_all_evaluation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">    </span><span class="nt">learning_rate_scheduler</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">decay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 <span class="w">        </span><span class="nt">decay_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.96</span>
@@ -3132,6 +3136,7 @@ By default, the ECD trainer is used.</p>
 <span class="w">    </span><span class="nt">verbose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1</span>
 <span class="w">    </span><span class="nt">max_bin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255</span>
 <span class="w">    </span><span class="nt">feature_pre_filter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">skip_all_evaluation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 </code></pre></div>
 </div>
 </div>
@@ -3150,8 +3155,9 @@ By default, the ECD trainer is used.</p>
 <li><strong><code>use_mixed_precision</code></strong> (default: <code>false</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Enable automatic mixed-precision (AMP) during training. Options: <code>true</code>, <code>false</code>.</li>
 <li><strong><code>compile</code></strong> (default: <code>false</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Whether to compile the model before training. Options: <code>true</code>, <code>false</code>.</li>
 <li><strong><code>checkpoints_per_epoch</code></strong> (default: <code>0</code>): Number of checkpoints per epoch. For example, 2 -&gt; checkpoints are written every half of an epoch. Note that it is invalid to specify both non-zero <code>steps_per_checkpoint</code> and non-zero <code>checkpoints_per_epoch</code>.</li>
+<li><strong><code>effective_batch_size</code></strong> (default: <code>auto</code>): The effective batch size is the total number of samples used to compute a single gradient update to the model weights. This differs from <code>batch_size</code> by taking <code>gradient_accumulation_steps</code> and number of training worker processes into account. In practice, <code>effective_batch_size = batch_size * gradient_accumulation_steps * num_workers</code>. If 'auto', the effective batch size is derivied implicitly from <code>batch_size</code>, but if set explicitly, then one of <code>batch_size</code> or <code>gradient_accumulation_steps</code> must be set to something other than 'auto', and consequently will be set following the formula given above.</li>
+<li><strong><code>gradient_accumulation_steps</code></strong> (default: <code>auto</code>): Number of steps to accumulate gradients over before performing a weight update.</li>
 <li><strong><code>regularization_lambda</code></strong> (default: <code>0.0</code>): Strength of the regularization.</li>
-<li><strong><code>gradient_accumulation_steps</code></strong> (default: <code>1</code>): Number of steps to accumulate gradients over before performing a weight update.</li>
 <li><strong><code>validation_field</code></strong> (default: <code>null</code>): The field for which the <code>validation_metric</code> is used for validation-related mechanics like early stopping, parameter change plateaus, as well as what hyperparameter optimization uses to determine the best trial. If unset (default), the first output feature is used. If explicitly specified, neither <code>validation_field</code> nor <code>validation_metric</code> are overwritten.</li>
 <li><strong><code>validation_metric</code></strong> (default: <code>null</code>): Metric from <code>validation_field</code> that is used. If validation_field is not explicitly specified, this is overwritten to be the first output feature type's <code>default_validation_metric</code>, consistent with validation_field. If the validation_metric is specified, then we will use the first output feature that produces this metric as the <code>validation_field</code>.</li>
 <li><strong><code>train_steps</code></strong> (default: <code>null</code>): Maximum number of training steps the algorithm is intended to be run over. Unset by default. If set, will override <code>epochs</code> and if left unset then <code>epochs</code> is used to determine training length.</li>
@@ -3171,6 +3177,7 @@ By default, the ECD trainer is used.</p>
 <li><strong><code>gradient_clipping.clipvalue</code></strong> (default: <code>null</code>): Maximum allowed value of the gradients</li>
 <li><strong><code>learning_rate_scaling</code></strong> (default: <code>linear</code>): Scale by which to increase the learning rate as the number of distributed workers increases. Traditionally the learning rate is scaled linearly with the number of workers to reflect the proportion by which the effective batch size is increased. For very large batch sizes, a softer square-root scale can sometimes lead to better model performance. If the learning rate is hand-tuned for a given number of workers, setting this value to constant can be used to disable scale-up. Options: <code>constant</code>, <code>sqrt</code>, <code>linear</code>.</li>
 <li><strong><code>bucketing_field</code></strong> (default: <code>null</code>): Feature to use for bucketing datapoints</li>
+<li><strong><code>skip_all_evaluation</code></strong> (default: <code>false</code>): Whether to skip evaluation entirely. If you are training a model with a well-known configuration on a well-known dataset and are confident about the expected results, you might skip all evaluation. Moreover, evaluating a model, especially on large validation or test sets, can be time-consuming. Options: <code>true</code>, <code>false</code>.</li>
 <li><strong><code>learning_rate_scheduler</code></strong> : Parameter values for learning rate scheduler.</li>
 <li><strong><code>learning_rate_scheduler.decay</code></strong> (default: <code>null</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Turn on decay of the learning rate. Options: <code>linear</code>, <code>exponential</code>, <code>cosine</code>, <code>null</code>.</li>
 <li><strong><code>learning_rate_scheduler.decay_rate</code></strong> (default: <code>0.96</code>): Decay per epoch (%): Factor to decrease the Learning rate.</li>
@@ -3200,8 +3207,9 @@ By default, the ECD trainer is used.</p>
 <li><strong><code>use_mixed_precision</code></strong> (default: <code>false</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Enable automatic mixed-precision (AMP) during training. Options: <code>true</code>, <code>false</code>.</li>
 <li><strong><code>compile</code></strong> (default: <code>false</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Whether to compile the model before training. Options: <code>true</code>, <code>false</code>.</li>
 <li><strong><code>checkpoints_per_epoch</code></strong> (default: <code>0</code>): Number of checkpoints per epoch. For example, 2 -&gt; checkpoints are written every half of an epoch. Note that it is invalid to specify both non-zero <code>steps_per_checkpoint</code> and non-zero <code>checkpoints_per_epoch</code>.</li>
+<li><strong><code>effective_batch_size</code></strong> (default: <code>auto</code>): The effective batch size is the total number of samples used to compute a single gradient update to the model weights. This differs from <code>batch_size</code> by taking <code>gradient_accumulation_steps</code> and number of training worker processes into account. In practice, <code>effective_batch_size = batch_size * gradient_accumulation_steps * num_workers</code>. If 'auto', the effective batch size is derivied implicitly from <code>batch_size</code>, but if set explicitly, then one of <code>batch_size</code> or <code>gradient_accumulation_steps</code> must be set to something other than 'auto', and consequently will be set following the formula given above.</li>
+<li><strong><code>gradient_accumulation_steps</code></strong> (default: <code>auto</code>): Number of steps to accumulate gradients over before performing a weight update.</li>
 <li><strong><code>regularization_lambda</code></strong> (default: <code>0.0</code>): Strength of the regularization.</li>
-<li><strong><code>gradient_accumulation_steps</code></strong> (default: <code>1</code>): Number of steps to accumulate gradients over before performing a weight update.</li>
 <li><strong><code>validation_field</code></strong> (default: <code>null</code>): The field for which the <code>validation_metric</code> is used for validation-related mechanics like early stopping, parameter change plateaus, as well as what hyperparameter optimization uses to determine the best trial. If unset (default), the first output feature is used. If explicitly specified, neither <code>validation_field</code> nor <code>validation_metric</code> are overwritten.</li>
 <li><strong><code>validation_metric</code></strong> (default: <code>null</code>): Metric from <code>validation_field</code> that is used. If validation_field is not explicitly specified, this is overwritten to be the first output feature type's <code>default_validation_metric</code>, consistent with validation_field. If the validation_metric is specified, then we will use the first output feature that produces this metric as the <code>validation_field</code>.</li>
 <li><strong><code>train_steps</code></strong> (default: <code>null</code>): Maximum number of training steps the algorithm is intended to be run over. Unset by default. If set, will override <code>epochs</code> and if left unset then <code>epochs</code> is used to determine training length.</li>
@@ -3221,6 +3229,7 @@ By default, the ECD trainer is used.</p>
 <li><strong><code>gradient_clipping.clipvalue</code></strong> (default: <code>null</code>): Maximum allowed value of the gradients</li>
 <li><strong><code>learning_rate_scaling</code></strong> (default: <code>linear</code>): Scale by which to increase the learning rate as the number of distributed workers increases. Traditionally the learning rate is scaled linearly with the number of workers to reflect the proportion by which the effective batch size is increased. For very large batch sizes, a softer square-root scale can sometimes lead to better model performance. If the learning rate is hand-tuned for a given number of workers, setting this value to constant can be used to disable scale-up. Options: <code>constant</code>, <code>sqrt</code>, <code>linear</code>.</li>
 <li><strong><code>bucketing_field</code></strong> (default: <code>null</code>): Feature to use for bucketing datapoints</li>
+<li><strong><code>skip_all_evaluation</code></strong> (default: <code>false</code>): Whether to skip evaluation entirely. If you are training a model with a well-known configuration on a well-known dataset and are confident about the expected results, you might skip all evaluation. Moreover, evaluating a model, especially on large validation or test sets, can be time-consuming. Options: <code>true</code>, <code>false</code>.</li>
 <li><strong><code>learning_rate_scheduler</code></strong> : Parameter values for learning rate scheduler.</li>
 <li><strong><code>learning_rate_scheduler.decay</code></strong> (default: <code>null</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Turn on decay of the learning rate. Options: <code>linear</code>, <code>exponential</code>, <code>cosine</code>, <code>null</code>.</li>
 <li><strong><code>learning_rate_scheduler.decay_rate</code></strong> (default: <code>0.96</code>): Decay per epoch (%): Factor to decrease the Learning rate.</li>
@@ -3290,6 +3299,7 @@ By default, the ECD trainer is used.</p>
 <li><strong><code>verbose</code></strong> (default: <code>-1</code>): Verbosity level for GBM trainer. Options: <code>-1</code>, <code>0</code>, <code>1</code>, <code>2</code>.</li>
 <li><strong><code>max_bin</code></strong> (default: <code>255</code>): Maximum number of bins to use for discretizing features with GBM trainer.</li>
 <li><strong><code>feature_pre_filter</code></strong> (default: <code>true</code>): Whether to ignore features that are unsplittable based on min_data_in_leaf in the GBM trainer. Options: <code>true</code>, <code>false</code>.</li>
+<li><strong><code>skip_all_evaluation</code></strong> (default: <code>false</code>): Whether to skip evaluation entirely. If you are training a model with a well-known configuration on a well-known dataset and are confident about the expected results, you might skip all evaluation. Moreover, evaluating a model, especially on large validation or test sets, can be time-consuming. Options: <code>true</code>, <code>false</code>.</li>
 </ul>
 </div>
 </div>

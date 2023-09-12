@@ -139,7 +139,7 @@ nav:
       - Unit Test Design Guidelines: developer_guide/unit_test_design_guidelines.md
       - Run Tests on GPU Using Ray: developer_guide/run_tests_on_gpu_using_ray.md
       - Release Process: developer_guide/release_process.md
-  - 🤗 Community: community.md
+  - 👋 Community: community.md
   - ❓ FAQ: faq.md
 
 # Configuration

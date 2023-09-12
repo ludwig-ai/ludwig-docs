@@ -3220,12 +3220,14 @@ available at all.</p>
 <span class="w">    </span><span class="nt">r</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
 <span class="w">    </span><span class="nt">alpha</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span>
 <span class="w">    </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span>
+<span class="w">    </span><span class="nt">pretrained_adapter_weights</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 <span class="w">    </span><span class="nt">bias_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span>
 </code></pre></div>
 <ul>
 <li><strong><code>r</code></strong> (default: <code>8</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Lora attention dimension.</li>
 <li><strong><code>alpha</code></strong> (default: <code>16</code>): The alpha parameter for Lora scaling.</li>
 <li><strong><code>dropout</code></strong> (default: <code>0.05</code>): The dropout probability for Lora layers.</li>
+<li><strong><code>pretrained_adapter_weights</code></strong> (default: <code>null</code>): Path to pretrained weights.</li>
 <li><strong><code>bias_type</code></strong> (default: <code>none</code>): Bias type for Lora. Options: <code>none</code>, <code>all</code>, <code>lora_only</code>.</li>
 </ul>
 <h4 id="adalora">AdaLoRA<a class="headerlink" href="#adalora" title="Permanent link">&para;</a></h4>
@@ -3239,6 +3241,7 @@ that have no training data available at all.</p>
 <span class="w">    </span><span class="nt">r</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
 <span class="w">    </span><span class="nt">alpha</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span>
 <span class="w">    </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span>
+<span class="w">    </span><span class="nt">pretrained_adapter_weights</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 <span class="w">    </span><span class="nt">bias_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span>
 <span class="w">    </span><span class="nt">target_r</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
 <span class="w">    </span><span class="nt">init_r</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12</span>
@@ -3255,6 +3258,7 @@ that have no training data available at all.</p>
 <li><strong><code>r</code></strong> (default: <code>8</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Lora attention dimension.</li>
 <li><strong><code>alpha</code></strong> (default: <code>16</code>): The alpha parameter for Lora scaling.</li>
 <li><strong><code>dropout</code></strong> (default: <code>0.05</code>): The dropout probability for Lora layers.</li>
+<li><strong><code>pretrained_adapter_weights</code></strong> (default: <code>null</code>): Path to pretrained weights.</li>
 <li><strong><code>bias_type</code></strong> (default: <code>none</code>): Bias type for Lora. Options: <code>none</code>, <code>all</code>, <code>lora_only</code>.</li>
 <li><strong><code>target_r</code></strong> (default: <code>8</code>): Target Lora Matrix Dimension. The target average rank of incremental matrix.</li>
 <li><strong><code>init_r</code></strong> (default: <code>12</code>): Initial Lora Matrix Dimension. The initial rank for each incremental matrix.</li>
@@ -3279,10 +3283,12 @@ the paper, LLaMA-Adapter can generate high-quality responses, comparable to Alpa
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adaption_prompt</span>
 <span class="w">    </span><span class="nt">adapter_len</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
 <span class="w">    </span><span class="nt">adapter_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">pretrained_adapter_weights</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 </code></pre></div>
 <ul>
 <li><strong><code>adapter_len</code></strong> (default: <code>4</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Number of adapter tokens to insert.</li>
 <li><strong><code>adapter_layers</code></strong> (default: <code>1</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Number of adapter layers to insert (from the top).</li>
+<li><strong><code>pretrained_adapter_weights</code></strong> (default: <code>null</code>): Path to pretrained weights.</li>
 </ul>
 <h2 id="quantization">Quantization<a class="headerlink" href="#quantization" title="Permanent link">&para;</a></h2>
 <p>Quantization allows you to load model parameters, which are typically stored

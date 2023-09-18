@@ -461,6 +461,7 @@ ludwig.predict(
   data_format=None,
   split='full',
   batch_size=128,
+  generation_config=None,
   skip_save_unprocessed_output=True,
   skip_save_predictions=True,
   output_directory='results',
@@ -487,6 +488,11 @@ Using a trained model, make predictions from the provided dataset.
   to use. Possible values are `'full'`, `'training'`, `'validation'`, `'test'`.
 - **batch_size** (int, default: 128): size of batch to use when making
   predictions.
+- **generation_config** (Dict, default: `None`) config for the generation of the
+  predictions. If `None`, the config that was used during model training is
+  used. This is only used if the model type is LLM. Otherwise, this parameter is
+  ignored. See [Large Language Models](https://ludwig.ai/latest/configuration/large_language_model/#generation) for
+  an example generation config.
 - **skip_save_unprocessed_output** (bool, default: `True`): if this
   parameter is `False`, predictions and their probabilities are saved
   in both raw unprocessed numpy files containing tensors and as

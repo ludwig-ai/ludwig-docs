@@ -3343,6 +3343,7 @@ It saves the trained model and the statistics of training and testing.</p>
   <span class="n">data_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
   <span class="n">split</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>
   <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
+  <span class="n">generation_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
   <span class="n">skip_save_unprocessed_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
   <span class="n">skip_save_predictions</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
   <span class="n">output_directory</span><span class="o">=</span><span class="s1">&#39;results&#39;</span><span class="p">,</span>
@@ -3367,6 +3368,11 @@ It saves the trained model and the statistics of training and testing.</p>
   to use. Possible values are <code>'full'</code>, <code>'training'</code>, <code>'validation'</code>, <code>'test'</code>.</li>
 <li><strong>batch_size</strong> (int, default: 128): size of batch to use when making
   predictions.</li>
+<li><strong>generation_config</strong> (Dict, default: <code>None</code>) config for the generation of the
+  predictions. If <code>None</code>, the config that was used during model training is
+  used. This is only used if the model type is LLM. Otherwise, this parameter is
+  ignored. See <a href="https://ludwig.ai/latest/configuration/large_language_model/#generation">Large Language Models</a> for
+  an example generation config.</li>
 <li><strong>skip_save_unprocessed_output</strong> (bool, default: <code>True</code>): if this
   parameter is <code>False</code>, predictions and their probabilities are saved
   in both raw unprocessed numpy files containing tensors and as

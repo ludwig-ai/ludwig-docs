@@ -23,16 +23,14 @@ output_features:
     type: text
 prompt:
   template: |
-    <<SYS>>
+    [INST] <<SYS>>
     You are a helpful, detailed, and polite artificial 
     intelligence assistant. Your answers are clear and 
     suitable for a professional environment.
-
     If context is provided, answer using only the provided 
     contextual information.
     <</SYS>>
-
-    [INST] {__sample__} [/INST]
+    {user_message_1} [/INST]
 adapter:
   type: lora
 quantization:

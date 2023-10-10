@@ -18,7 +18,7 @@ Create a new `.yaml` file under `ludwig/datasets/configs/` with a name matching 
 must have the following required keys:
 
 - `version`: The version of the dataset
-- `name`: The name of the dataset. This is the name which will be imported or passed into `get_datasets(datset_name)`.
+- `name`: The name of the dataset. This is the name which will be imported or passed into `get_datasets(dataset_name)`.
 - `description`: Human-readable description of the dataset. May contain multi-line text with links.
 - One of `download_urls`, `kaggle_competition`, or `kaggle_dataset_id`.
 

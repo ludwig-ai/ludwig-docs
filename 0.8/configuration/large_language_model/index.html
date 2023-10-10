@@ -3219,6 +3219,9 @@ available at all.</p>
 <span class="w">    </span><span class="nt">alpha</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span>
 <span class="w">    </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span>
 <span class="w">    </span><span class="nt">pretrained_adapter_weights</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">postprocessor</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">merge_adapter_into_base_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">progressbar</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">    </span><span class="nt">bias_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span>
 </code></pre></div>
 <ul>
@@ -3226,6 +3229,11 @@ available at all.</p>
 <li><strong><code>alpha</code></strong> (default: <code>16</code>): The alpha parameter for Lora scaling.</li>
 <li><strong><code>dropout</code></strong> (default: <code>0.05</code>): The dropout probability for Lora layers.</li>
 <li><strong><code>pretrained_adapter_weights</code></strong> (default: <code>null</code>): Path to pretrained weights.</li>
+<li><strong><code>postprocessor</code></strong> : </li>
+<li><strong><code>postprocessor.merge_adapter_into_base_model</code></strong> (default: <code>false</code>): Instructs whether or not the fine-tuned LoRA weights are to be merged into the base LLM model so
+that the complete fine-tuned model is available to be used and/or persisted, and then reused upon loading as a single
+model (rather than having to load base and fine-tuned models separately). Options: <code>true</code>, <code>false</code>.</li>
+<li><strong><code>postprocessor.progressbar</code></strong> (default: <code>false</code>): Instructs whether or not to show a progress bar indicating the unload and merge process. Options: <code>true</code>, <code>false</code>.</li>
 <li><strong><code>bias_type</code></strong> (default: <code>none</code>): Bias type for Lora. Options: <code>none</code>, <code>all</code>, <code>lora_only</code>.</li>
 </ul>
 <h4 id="adalora">AdaLoRA<a class="headerlink" href="#adalora" title="Permanent link">&para;</a></h4>
@@ -3240,6 +3248,9 @@ that have no training data available at all.</p>
 <span class="w">    </span><span class="nt">alpha</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span>
 <span class="w">    </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span>
 <span class="w">    </span><span class="nt">pretrained_adapter_weights</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">postprocessor</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">merge_adapter_into_base_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">progressbar</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">    </span><span class="nt">bias_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span>
 <span class="w">    </span><span class="nt">target_r</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
 <span class="w">    </span><span class="nt">init_r</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12</span>
@@ -3257,6 +3268,11 @@ that have no training data available at all.</p>
 <li><strong><code>alpha</code></strong> (default: <code>16</code>): The alpha parameter for Lora scaling.</li>
 <li><strong><code>dropout</code></strong> (default: <code>0.05</code>): The dropout probability for Lora layers.</li>
 <li><strong><code>pretrained_adapter_weights</code></strong> (default: <code>null</code>): Path to pretrained weights.</li>
+<li><strong><code>postprocessor</code></strong> : </li>
+<li><strong><code>postprocessor.merge_adapter_into_base_model</code></strong> (default: <code>false</code>): Instructs whether or not the fine-tuned LoRA weights are to be merged into the base LLM model so
+that the complete fine-tuned model is available to be used and/or persisted, and then reused upon loading as a single
+model (rather than having to load base and fine-tuned models separately). Options: <code>true</code>, <code>false</code>.</li>
+<li><strong><code>postprocessor.progressbar</code></strong> (default: <code>false</code>): Instructs whether or not to show a progress bar indicating the unload and merge process. Options: <code>true</code>, <code>false</code>.</li>
 <li><strong><code>bias_type</code></strong> (default: <code>none</code>): Bias type for Lora. Options: <code>none</code>, <code>all</code>, <code>lora_only</code>.</li>
 <li><strong><code>target_r</code></strong> (default: <code>8</code>): Target Lora Matrix Dimension. The target average rank of incremental matrix.</li>
 <li><strong><code>init_r</code></strong> (default: <code>12</code>): Initial Lora Matrix Dimension. The initial rank for each incremental matrix.</li>
@@ -3282,11 +3298,19 @@ the paper, LLaMA-Adapter can generate high-quality responses, comparable to Alpa
 <span class="w">    </span><span class="nt">adapter_len</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
 <span class="w">    </span><span class="nt">adapter_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
 <span class="w">    </span><span class="nt">pretrained_adapter_weights</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">postprocessor</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">merge_adapter_into_base_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">progressbar</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 </code></pre></div>
 <ul>
 <li><strong><code>adapter_len</code></strong> (default: <code>4</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Number of adapter tokens to insert.</li>
 <li><strong><code>adapter_layers</code></strong> (default: <code>1</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Number of adapter layers to insert (from the top).</li>
 <li><strong><code>pretrained_adapter_weights</code></strong> (default: <code>null</code>): Path to pretrained weights.</li>
+<li><strong><code>postprocessor</code></strong> : </li>
+<li><strong><code>postprocessor.merge_adapter_into_base_model</code></strong> (default: <code>false</code>): Instructs whether or not the fine-tuned LoRA weights are to be merged into the base LLM model so
+that the complete fine-tuned model is available to be used and/or persisted, and then reused upon loading as a single
+model (rather than having to load base and fine-tuned models separately). Options: <code>true</code>, <code>false</code>.</li>
+<li><strong><code>postprocessor.progressbar</code></strong> (default: <code>false</code>): Instructs whether or not to show a progress bar indicating the unload and merge process. Options: <code>true</code>, <code>false</code>.</li>
 </ul>
 <h2 id="quantization">Quantization<a class="headerlink" href="#quantization" title="Permanent link">&para;</a></h2>
 <p>Quantization allows you to load model parameters, which are typically stored
@@ -3398,7 +3422,7 @@ to control the generation process are:</p>
 <span class="w">    </span><span class="nt">min_new_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 <span class="w">    </span><span class="nt">max_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span>
 <span class="w">    </span><span class="nt">min_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
-<span class="w">    </span><span class="nt">do_sample</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">do_sample</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">    </span><span class="nt">num_beams</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
 <span class="w">    </span><span class="nt">use_cache</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">    </span><span class="nt">top_k</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
@@ -3437,7 +3461,7 @@ to control the generation process are:</p>
 <li><strong><code>min_new_tokens</code></strong> (default: <code>null</code>): The minimum number of new tokens to generate, ignoring the number of tokens in the input prompt.</li>
 <li><strong><code>max_length</code></strong> (default: <code>32</code>): The maximum length the generated tokens can have. Corresponds to the length of the input prompt + max_new_tokens. Its effect is overridden by max_new_tokens, if also set.</li>
 <li><strong><code>min_length</code></strong> (default: <code>0</code>): The minimum length of the sequence to be generated. Corresponds to the length of the input prompt + min_new_tokens. Its effect is overridden by min_new_tokens, if also set.</li>
-<li><strong><code>do_sample</code></strong> (default: <code>false</code>): Whether or not to use sampling ; use greedy decoding otherwise. Options: <code>true</code>, <code>false</code>.</li>
+<li><strong><code>do_sample</code></strong> (default: <code>true</code>): Whether or not to use sampling ; use greedy decoding otherwise. Options: <code>true</code>, <code>false</code>.</li>
 <li><strong><code>num_beams</code></strong> (default: <code>1</code>): Number of beams for beam search. 1 means no beam search and is the default value. The beam search strategy generates the translation word by word from left-to-right while keeping a fixed number (beam) of active candidates at each time step during token generation. By increasing the beam size, the translation performance can increase at the expense of significantly reducing the decoder speed.</li>
 <li><strong><code>use_cache</code></strong> (default: <code>true</code>): Whether or not the model should use the past last key/values attentions (if applicable to the model) to speed up decoding. Options: <code>true</code>, <code>false</code>.</li>
 <li><strong><code>top_k</code></strong> (default: <code>50</code>): The number of highest probability vocabulary tokens to keep for top-k-filtering.</li>

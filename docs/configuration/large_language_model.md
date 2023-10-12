@@ -62,6 +62,13 @@ base_model: meta-llama/Llama-2-7b-hf
     these models are currently unsupported. If you have interest in using one of these models,
     please file a GitHub issue with your use case.
 
+You can also pass in a path to a locally saved Hugging Face model instead of loading from Hugging Face directly.
+
+Example:
+```yaml
+base_model: path/to/local/model/weights
+```
+
 ## HuggingFace Access Token
 
 Some base models like Llama-2 require authorization from HuggingFace to download,

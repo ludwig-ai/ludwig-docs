@@ -3101,6 +3101,10 @@ as the foundation of your custom LLM.</p>
 these models are currently unsupported. If you have interest in using one of these models,
 please file a GitHub issue with your use case.</p>
 </div>
+<p>You can also pass in a path to a locally saved Hugging Face model instead of loading from Hugging Face directly.</p>
+<p>Example:
+<div class="highlight"><pre><span></span><code><span class="nt">base_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">path/to/local/model/weights</span>
+</code></pre></div></p>
 <h3 id="huggingface-access-token">HuggingFace Access Token<a class="headerlink" href="#huggingface-access-token" title="Permanent link">&para;</a></h3>
 <p>Some base models like Llama-2 require authorization from HuggingFace to download,
 which in turn requires obtaining a HuggingFace <a href="https://huggingface.co/docs/hub/security-tokens">User Access Token</a>.</p>

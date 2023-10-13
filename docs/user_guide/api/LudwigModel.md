@@ -98,7 +98,8 @@ collect_activations(
   dataset,
   data_format=None,
   split='full',
-  batch_size=128
+  batch_size=128,
+  debug=False
 )
 ```
 
@@ -119,7 +120,7 @@ formats are `'auto'`, `'csv'`, `'df'`, `'dict'`, `'excel'`, `'feather'`,
 `'html'` (file containing a single HTML `<table>`), `'json'`, `'jsonl'`,
 `'parquet'`, `'pickle'` (pickled Pandas DataFrame), `'sas'`, `'spss'`,
 `'stata'`, `'tsv'`.
-- __split__ (str, default= `'full'`):: if the input dataset contains
+:param: split: (str, default= `'full'`): if the input dataset contains
 a split column, this parameter indicates which split of the data
 to use. Possible values are `'full'`, `'training'`, `'validation'`, `'test'`.
 - __batch_size__ (int, default: 128): size of batch to use when making
@@ -214,7 +215,7 @@ formats are `'auto'`, `'csv'`, `'df'`, `'dict'`, `'excel'`, `'feather'`,
 `'html'` (file containing a single HTML `<table>`), `'json'`, `'jsonl'`,
 `'parquet'`, `'pickle'` (pickled Pandas DataFrame), `'sas'`, `'spss'`,
 `'stata'`, `'tsv'`.
-- __split__ (str, default=`'full'`):: if the input dataset contains
+:param: split: (str, default= `'full'`): if the input dataset contains
 a split column, this parameter indicates which split of the data
 to use. Possible values are `'full'`, `'training'`, `'validation'`, `'test'`.
 - __batch_size__ (int, default: None): size of batch to use when making
@@ -262,6 +263,7 @@ experiment(
   data_format=None,
   experiment_name='experiment',
   model_name='run',
+  model_load_path=None,
   model_resume_path=None,
   eval_split='test',
   skip_save_training_description=False,
@@ -313,6 +315,9 @@ formats are `'auto'`, `'csv'`, `'df'`, `'dict'`, `'excel'`, `'feather'`,
 the experiment.
 - __model_name__ (str, default: `'run'`): name of the model that is
 being used.
+- __model_load_path__ (str, default: `None`): if this is specified the
+loaded model will be used as initialization
+(useful for transfer learning).
 - __model_resume_path__ (str, default: `None`): resumes training of
 the model from the path specified. The config is restored.
 In addition to config, training statistics and loss for
@@ -396,39 +401,6 @@ forecast(
 )
 ```
 
-
----
-## free_gpu_memory
-
-
-```python
-free_gpu_memory(
-)
-```
-
-
-Manually moves the model to CPU to force GPU memory to be freed.
-
-For more context: https://discuss.pytorch.org/t/how-can-we-release-gpu-memory-cache/14530/35
-
-
----
-## is_merge_and_unload_set
-
-
-```python
-is_merge_and_unload_set(
-)
-```
-
-
-Check whether the encapsulated model is of type LLM and is configured to merge_and_unload QLoRA weights.
-
-__Return__
-
-
-:return (bool): whether merge_and_unload should be done.
- 
 
 ---
 ## load
@@ -537,43 +509,42 @@ ludwig.predict(
 
 Using a trained model, make predictions from the provided dataset.
 
-__Inputs__
+#Inputs
 
-
-- __dataset__ (Union[str, dict, pandas.DataFrame]):: source containing the entire dataset to be evaluated.
-- __data_format__ (str, default: `None`): format to interpret data sources. Will be inferred automatically
+:param dataset: (Union[str, dict, pandas.DataFrame]): source containing the entire dataset to be evaluated.
+:param data_format: (str, default: `None`) format to interpret data sources. Will be inferred automatically
 if not specified.  Valid formats are `'auto'`, `'csv'`, `'df'`, `'dict'`, `'excel'`, `'feather'`,
 `'fwf'`, `'hdf5'` (cache file produced during previous training), `'html'` (file containing a single
 HTML `<table>`), `'json'`, `'jsonl'`, `'parquet'`, `'pickle'` (pickled Pandas DataFrame), `'sas'`,
 `'spss'`, `'stata'`, `'tsv'`.
-- __split__ (str, default= `'full'`)::  if the input dataset contains a split column, this parameter
+:param split: (str, default= `'full'`):  if the input dataset contains a split column, this parameter
 indicates which split of the data to use. Possible values are `'full'`, `'training'`, `'validation'`,
 `'test'`.
-- __batch_size__ (int, default: 128): size of batch to use when making predictions.
-- __generation_config__ (Dict, default: `None`): config for the generation of the
+:param batch_size: (int, default: 128) size of batch to use when making predictions.
+:param generation_config: (Dict, default: `None`) config for the generation of the
 predictions. If `None`, the config that was used during model training is
 used. This is only used if the model type is LLM. Otherwise, this parameter is
 ignored. See
 [Large Language Models](https://ludwig.ai/latest/configuration/large_language_model/#generation) under
 "Generation" for an example generation config.
-- __skip_save_unprocessed_output__ (bool, default: `True`): if this parameter is `False`, predictions and
+:param skip_save_unprocessed_output: (bool, default: `True`) if this parameter is `False`, predictions and
 their probabilities are saved in both raw unprocessed numpy files containing tensors and as
 postprocessed CSV files (one for each output feature). If this parameter is `True`, only the CSV ones
 are saved and the numpy ones are skipped.
-- __skip_save_predictions__ (bool, default: `True`): skips saving test predictions CSV files.
-- __output_directory__ (str, default: `'results'`): the directory that will contain the training
+:param skip_save_predictions: (bool, default: `True`) skips saving test predictions CSV files.
+:param output_directory: (str, default: `'results'`) the directory that will contain the training
 statistics, TensorBoard logs, the saved model and the training progress files.
-- __return_type__ (Union[str, dict, pandas.DataFrame], default: pd.DataFrame): indicates the format of the
+:param return_type: (Union[str, dict, pandas.DataFrame], default: pd.DataFrame) indicates the format of the
 returned predictions.
-- __callbacks__ (Optional[List[Callback]], default: None): optional list of callbacks to use during this
+:param callbacks: (Optional[List[Callback]], default: None) optional list of callbacks to use during this
 predict operation. Any callbacks already registered to the model will be preserved.
 
 __Return__
 
 
 :return `(predictions, output_directory)`: (Tuple[Union[dict, pd.DataFrame], str])
-`predictions` predictions from the provided dataset,
-`output_directory` filepath string to where data was stored.
+    `predictions` predictions from the provided dataset,
+    `output_directory` filepath string to where data was stored.
  
 
 ---
@@ -627,6 +598,9 @@ structure containing the mappings of the input
     dataset is provided it is preprocessed and cached by saving an HDF5
     and JSON files to avoid running the preprocessing again. If this
     parameter is `False`, the HDF5 and JSON file are not saved.
+- __output_directory__ (str, default: `'results'`): the directory that
+    will contain the training statistics, TensorBoard logs, the saved
+    model and the training progress files.
 - __random_seed__ (int, default: `42`): a random seed that will be
     used anywhere there is a call to a random number generator: data
     splitting, parameter initialization and training set shuffling
@@ -715,20 +689,11 @@ save_torchscript(
 
 Saves the Torchscript model to disk.
 
-__Inputs__
+save_path (str): The path to the directory where the model will be saved. model_only (bool, optional): If True,
+only the ECD model will be converted to Torchscript. Else, the     preprocessing and postprocessing steps will
+also be converted to Torchscript. device (TorchDevice, optional): If None, the model will be converted to
+Torchscript on the same device to     ensure maximum model parity.
 
-
-- __save_path (str)__ (str):: The path to the directory where the model will be saved.
-- __model_only (bool, optional)__ (bool, optional):: If True, only the ECD model will be converted to Torchscript. Else, the
-preprocessing and postprocessing steps will also be converted to Torchscript.
-- __device (TorchDevice, optional)__ (TorchDevice, optional):: If None, the model will be converted to Torchscript on the same device to
-ensure maximum model parity.
-
-__Return__
-
-
-- __return__ ( `None): `None`
- 
 
 ---
 ## set_logging_level
@@ -769,19 +734,14 @@ to_torchscript(
 
 Converts the trained model to Torchscript.
 
-__Inputs__
-
-
-- __ model_only (bool, optional)__ (bool, optional):: If True, only the ECD model will be converted to Torchscript. Else,
+Args:
+model_only (bool, optional): If True, only the ECD model will be converted to Torchscript. Else,
 preprocessing and postprocessing steps will also be converted to Torchscript.
-- __device (TorchDevice, optional)__ (TorchDevice, optional):: If None, the model will be converted to Torchscript on the same device to
+device (TorchDevice, optional): If None, the model will be converted to Torchscript on the same device to
 ensure maximum model parity.
+Returns:
+A torch.jit.ScriptModule that can be used to predict on a dictionary of inputs.
 
-__Returns__
-
-
-- __return__ ( A torch.jit.ScriptModule that can be used to predict on a dictionary of inputs): A torch.jit.ScriptModule that can be used to predict on a dictionary of inputs.
- 
 
 ---
 ## train
@@ -888,9 +848,8 @@ parameter is `False`, the HDF5 and JSON file are not saved.
 will contain the training statistics, TensorBoard logs, the saved
 model and the training progress files.
 - __random_seed__ (int, default: `42`): a random seed that will be
-used anywhere there is a call to a random number generator: data
-splitting, parameter initialization and training set shuffling
-- __kwargs__ (dict, default: {}): a dictionary of optional parameters.
+   used anywhere there is a call to a random number generator: data
+   splitting, parameter initialization and training set shuffling
 
 __Return__
 
@@ -968,33 +927,29 @@ ludwig.upload_to_hf_hub(
 
 Uploads trained model artifacts to the HuggingFace Hub.
 
-__Inputs__
-
-
-- __repo_id (`str`)__ (`str`)::
+Args:
+repo_id (`str`):
 A namespace (user or an organization) and a repo name separated
 by a `/`.
-- __model_path (`str`)__ (`str`)::
+model_path (`str`):
 The path of the saved model. This is the top level directory where
 the models weights as well as other associated training artifacts
 are saved.
-- __private (`bool`, *optional*, defaults to `False`)__ (`bool`, *optional*, defaults to `False`)::
+private (`bool`, *optional*, defaults to `False`):
 Whether the model repo should be private.
-- __repo_type (`str`, *optional*)__ (`str`, *optional*)::
+repo_type (`str`, *optional*):
 Set to `"dataset"` or `"space"` if uploading to a dataset or
 space, `None` or `"model"` if uploading to a model. Default is
 `None`.
-- __commit_message (`str`, *optional*)__ (`str`, *optional*)::
+commit_message (`str`, *optional*):
 The summary / title / first line of the generated commit. Defaults to:
 `f"Upload {path_in_repo} with huggingface_hub"`
-- __commit_description (`str` *optional*)__ (`str` *optional*)::
+commit_description (`str` *optional*):
 The description of the generated commit
 
-__Returns__
+Returns:
+bool: True for success, False for failure.
 
-
-- __return__ (bool): True for success, False for failure.
- 
 ---
 
 # Module functions

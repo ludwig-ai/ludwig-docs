@@ -49,6 +49,8 @@ click==8.1.3
     #   typer
 cloudpathlib==0.15.1
     # via weasel
+cmake==3.27.7
+    # via triton
 colorama==0.4.6
     # via mkdocs-material
 commonmark==0.9.1
@@ -76,6 +78,7 @@ filelock==3.12.4
     #   ludwig
     #   torch
     #   transformers
+    #   triton
 frozenlist==1.4.0
     # via
     #   aiohttp
@@ -109,10 +112,6 @@ idna==3.4
     # via
     #   requests
     #   yarl
-importlib-metadata==6.8.0
-    # via
-    #   markdown
-    #   mkdocs
 jinja2==3.1.2
     # via
     #   mike
@@ -132,6 +131,8 @@ kaggle==1.5.16
     # via ludwig
 langcodes==3.3.0
     # via spacy
+lit==17.0.3
+    # via triton
 loguru==0.7.2
     # via getdaft
 ludwig==0.8.4
@@ -208,8 +209,33 @@ numpy==1.26.0
     #   torchtext
     #   torchvision
     #   transformers
+nvidia-cublas-cu11==11.10.3.66
+    # via
+    #   nvidia-cudnn-cu11
+    #   nvidia-cusolver-cu11
+    #   torch
+nvidia-cuda-cupti-cu11==11.7.101
+    # via torch
+nvidia-cuda-nvrtc-cu11==11.7.99
+    # via torch
+nvidia-cuda-runtime-cu11==11.7.99
+    # via torch
+nvidia-cudnn-cu11==8.5.0.96
+    # via torch
+nvidia-cufft-cu11==10.9.0.58
+    # via torch
+nvidia-curand-cu11==10.2.10.91
+    # via torch
+nvidia-cusolver-cu11==11.4.0.1
+    # via torch
+nvidia-cusparse-cu11==11.7.4.91
+    # via torch
 nvidia-ml-py==12.535.108
     # via gpustat
+nvidia-nccl-cu11==2.14.3
+    # via torch
+nvidia-nvtx-cu11==11.7.91
+    # via torch
 oauthlib==3.2.2
     # via requests-oauthlib
 openpyxl==3.1.2
@@ -392,6 +418,7 @@ torch==2.0.1
     #   torchmetrics
     #   torchtext
     #   torchvision
+    #   triton
 torchaudio==2.0.2
     # via ludwig
 torchdata==0.6.1
@@ -416,6 +443,8 @@ tqdm==4.66.1
     #   transformers
 transformers==4.33.3
     # via ludwig
+triton==2.0.0
+    # via torch
 typer==0.7.0
     # via
     #   pathy
@@ -423,7 +452,6 @@ typer==0.7.0
     #   weasel
 typing-extensions==4.8.0
     # via
-    #   cloudpathlib
     #   huggingface-hub
     #   pydantic
     #   torch
@@ -434,7 +462,7 @@ typing-inspect==0.9.0
     #   marshmallow-dataclass
 tzdata==2023.3
     # via pandas
-urllib3==1.26.17
+urllib3==1.26.18
     # via
     #   kaggle
     #   requests
@@ -458,6 +486,14 @@ webencodings==0.5.1
     #   html5lib
 werkzeug==3.0.0
     # via tensorboard
+wheel==0.41.2
+    # via
+    #   nvidia-cublas-cu11
+    #   nvidia-cuda-cupti-cu11
+    #   nvidia-cuda-runtime-cu11
+    #   nvidia-curand-cu11
+    #   nvidia-cusparse-cu11
+    #   nvidia-nvtx-cu11
 xlrd==2.0.1
     # via ludwig
 xlsxwriter==3.1.6
@@ -466,8 +502,6 @@ xlwt==1.3.0
     # via ludwig
 yarl==1.9.2
     # via aiohttp
-zipp==3.17.0
-    # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

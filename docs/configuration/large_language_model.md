@@ -192,18 +192,19 @@ when it comes to fine-tuning LLMs efficiently on a single GPU.
 One of the most important parameters in your control to keep GPU memory usage in
 check is the choice of the maximum sequence length.
 
-Ludwig provides 3 primary knobs to control your max sequence length:
-1. Setting max sequence length on the input example, which includes your prompt.
-2. Setting max sequence length on the output example, which does not include your prompt.
-3. Setting global max sequence length, which is the maximum length sequence (merged input and output) fed to the LLM's forward pass during training.
+Ludwig provides 3 primary knobs to control max sequence lengths:
+
+1. `input_feature.preprocessing.max_sequence_length` on the input example, which includes your prompt.
+2. `output_feature.preprocessing.max_sequence_length` on the output example, which does not include your prompt.
+3. `preprocessing.global_max_sequence_length`, which is the maximum length sequence (merged input and output) fed to the LLM's forward pass during training.
 
 ![img](images/../../images/max_sequence_lengths.png)
 
 If you are running into GPU OOM issues, consider profiling your dataset to
 understand the distribution of sequence lengths. For input/output columns with a
-long tail distribution, for example, it may be worth considering choosing a
-smaller max sequence length as to truncate a small portion of your data while
-still training with smaller GPUs.
+long tail distribution, it may be worth considering choosing a smaller max
+sequence length as to truncate a small portion of your data while still training
+with smaller GPUs.
 
 # Adapter
 

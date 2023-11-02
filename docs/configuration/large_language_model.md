@@ -184,6 +184,27 @@ task the LLM is to perform while delegating the exact prompt template to Ludwig'
 
 {{ render_fields(schema_class_to_fields(retrieval)) }}
 
+# Max Sequence Lengths
+
+There are [many factors at play](https://www.youtube.com/watch?v=g68qlo9Izf0&t=2685s)
+when it comes to fine-tuning LLMs efficiently on a single GPU.
+
+One of the most important parameters in your control to keep GPU memory usage in
+check is the choice of the maximum sequence length.
+
+Ludwig provides 3 primary knobs to control your max sequence length:
+1. Setting max sequence length on the input example, which includes your prompt.
+2. Setting max sequence length on the output example, which does not include your prompt.
+3. Setting global max sequence length, which is the maximum length sequence (merged input and output) fed to the LLM's forward pass during training.
+
+![img](images/../../images/max_sequence_lengths.png)
+
+If you are running into GPU OOM issues, consider profiling your dataset to
+understand the distribution of sequence lengths. For input/output columns with a
+long tail distribution, for example, it may be worth considering choosing a
+smaller max sequence length as to truncate a small portion of your data while
+still training with smaller GPUs.
+
 # Adapter
 
 One of the biggest barriers to cost effective fine-tuning for LLMs is the need to update billions of parameters each training step. Parameter efficient fine-tuning (PEFT) adatpers are a collection of techniques that reduce the number of trainable parameters during fine-tuning to speed up training, and decrease the memory and disk space required to train large language models.

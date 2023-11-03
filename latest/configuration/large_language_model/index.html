@@ -1498,6 +1498,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#max-sequence-lengths" class="md-nav__link">
+    Max Sequence Lengths
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#adapter" class="md-nav__link">
     Adapter
   </a>
@@ -3693,6 +3700,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#max-sequence-lengths" class="md-nav__link">
+    Max Sequence Lengths
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#adapter" class="md-nav__link">
     Adapter
   </a>
@@ -3997,6 +4011,23 @@ performing <a href="#in-context-learning">in-context learning</a>.</p>
 <li><strong><code>model_name</code></strong> (default: <code>null</code>): The model used to generate the embeddings used to retrieve samples to inject in the prompt.</li>
 <li><strong><code>k</code></strong> (default: <code>0</code>): The number of samples to retrieve.</li>
 </ul>
+<h2 id="max-sequence-lengths">Max Sequence Lengths<a class="headerlink" href="#max-sequence-lengths" title="Permanent link">&para;</a></h2>
+<p>There are <a href="https://www.youtube.com/watch?v=g68qlo9Izf0&amp;t=2685s">many factors at play</a>
+when it comes to fine-tuning LLMs efficiently on a single GPU.</p>
+<p>One of the most important parameters in your control to keep GPU memory usage in
+check is the choice of the maximum sequence length.</p>
+<p>Ludwig provides 3 primary knobs to control max sequence lengths:</p>
+<ol>
+<li><code>input_feature.preprocessing.max_sequence_length</code> on the input example, which includes your prompt.</li>
+<li><code>output_feature.preprocessing.max_sequence_length</code> on the output example, which does not include your prompt.</li>
+<li><code>preprocessing.global_max_sequence_length</code>, which is the maximum length sequence (merged input and output) fed to the LLM's forward pass during training.</li>
+</ol>
+<p><img alt="img" src="../../images/max_sequence_lengths.png" /></p>
+<p>If you are running into GPU OOM issues, consider profiling your dataset to
+understand the distribution of sequence lengths. For input/output columns with a
+long tail distribution, it may be worth considering choosing a smaller max
+sequence length as to truncate a small portion of your data while still training
+with smaller GPUs.</p>
 <h2 id="adapter">Adapter<a class="headerlink" href="#adapter" title="Permanent link">&para;</a></h2>
 <p>One of the biggest barriers to cost effective fine-tuning for LLMs is the need to update billions of parameters each training step. Parameter efficient fine-tuning (PEFT) adatpers are a collection of techniques that reduce the number of trainable parameters during fine-tuning to speed up training, and decrease the memory and disk space required to train large language models.</p>
 <p><a href="https://github.com/huggingface/peft">PEFT</a> is a popular library from HuggingFace that implements a number of popular parameter efficient fine-tuning strategies. Ludwig provides native integration with PEFT, allowing you to leverage any number of techniques to more efficiently fine-tune LLMs through

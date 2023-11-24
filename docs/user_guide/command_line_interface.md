@@ -1035,7 +1035,7 @@ ludwig export_mlflow --model_path /saved/ludwig/model --output_path relative/mod
 
 Preprocess data and saves it into HDF5 and JSON format.
 The preprocessed files can be then used for performing training, prediction and evaluation.
-The advantage is that, being the data already preprocessed, if multiple models have to be trained on the same data, the preprocessed files act as a cache to avoid performing preprocessing multiple times.
+The advantage is that with the data having already been preprocessed, if multiple models have to be trained on the same data, the preprocessed files act as a cache to avoid performing preprocessing multiple times.
 
 ```
 ludwig preprocess [options]

@@ -121,7 +121,7 @@ class StackedRNN(Encoder):
 In order to ensure that user config validation for your custom defined encoder functions as desired, we need to define a
 schema class to go along with the newly defined encoder. To do this, we use a marshmallow_dataclass decorator on a class
 definition that contains all the inputs to your custom encoder as attributes. For each attribute, we use utility
-functions to validate that input from the `ludwig.schema.utils` directory. Lastly, we need to put a reference to this
+functions from the `ludwig.schema.utils` directory to validate that input. Lastly, we need to put a reference to this
 schema class on the custom encoder class. For example:
 
 ```python

@@ -105,7 +105,7 @@ __Return__
 def __init__(self, feature: Dict[str, Any], output_features: Dict[str, OutputFeature]):
     super().__init__(feature, output_features)
     self.overwrite_defaults(feature)
-    # Initialize any decoder modules, layers, metrics, loss objects, etc...
+    # Initialize any decoder modules, layers, metrics, loss objects, etc.
 ```
 
 __Inputs__

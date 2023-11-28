@@ -121,7 +121,7 @@ nav:
           - Fraud Detection: examples/fraud.md
   - 🛠️ Developer Guide:
       - Developer Guide: developer_guide/index.md
-      - How to Contribute: developer_guide/contributing.md
+      - How to Contribute: https://github.com/ludwig-ai/ludwig/blob/master/CONTRIBUTING.md
       - Codebase Structure: developer_guide/codebase_structure.md
       - Ludwig API Guarantees: developer_guide/api_annotations.md
       - Add an Encoder: developer_guide/add_an_encoder.md

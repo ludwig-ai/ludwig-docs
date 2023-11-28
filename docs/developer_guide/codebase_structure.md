@@ -55,7 +55,7 @@ that they can be used by multiple features. For example sequence encoders are sh
 features.
 
 Various model architecture components which can be reused are also split into dedicated modules (i.e. convolutional
-modules, fully connected layers, attention, etc...) which are available in `ludwig/modules/`.
+modules, fully connected layers, attention, etc.) which are available in `ludwig/modules/`.
 
 ## Training and Inference
 
@@ -66,7 +66,7 @@ executes the training loop. Prediction logic including batch prediction and eval
 ## Ludwig CLI
 
 The command line interface is managed by the `ludwig/cli.py` script, which imports the other scripts in the `ludwig/`
-top-level directory which perform various sub-commands (experiment, evaluate, export, visualize, etc...).
+top-level directory which perform various sub-commands (experiment, evaluate, export, visualize, etc.).
 
 The programmatic interface (which is also used by the CLI commands) is available in the `ludwig/api.py`.
 

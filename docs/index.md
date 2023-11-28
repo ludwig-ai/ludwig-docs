@@ -303,7 +303,7 @@ Read our publications on [Ludwig](https://arxiv.org/pdf/1909.07930.pdf), [declar
 
 Learn more about [how Ludwig works](./user_guide/how_ludwig_works/), [how to get started](./getting_started/), and work through more [examples](./examples/).
 
-If you are interested in contributing, have questions, comments, or thoughts to share, or if you just want to be in the
+If you are interested in [contributing](https://github.com/ludwig-ai/ludwig/blob/master/CONTRIBUTING.md), have questions, comments, or thoughts to share, or if you just want to be in the
 know, please consider [joining the Ludwig Slack](https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ) and follow us on [Twitter](https://twitter.com/ludwig_ai)!
 
 # 🤝 Join the community to build Ludwig with us

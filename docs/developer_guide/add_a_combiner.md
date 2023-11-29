@@ -2,7 +2,7 @@ Combiners are responsible for combining the outputs of one or more input feature
 which is usually a vector, but may also be a sequence of vectors or some other higher-dimensional tensor. One or more
 output features will use this combined representation to generate predictions.
 
-Users can specify which combiner to use in the `combiner` section of the configuration, if a combiner is not specified
+Users can specify which combiner to use in the `combiner` section of the configuration; if a combiner is not specified
 the `concat` combiner will be used.
 
 Recall the ECD (Encoder, Combiner, Decoder) data flow architecture: all input feature outputs flow into the combiner,

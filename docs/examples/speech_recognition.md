@@ -83,6 +83,6 @@ output_features:
         name: label
         type: category
 
-training:
+trainer:
     early_stop: 10
 ```

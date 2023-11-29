@@ -262,7 +262,7 @@ defaults:
             type: rnn
             cell_type: lstm
             num_layers: 2
-training:
+trainer:
   learning_rate: 0.001
   optimizer:
     type: adam
@@ -271,5 +271,5 @@ training:
 Example CLI command:
 
 ```
-ludwig train --dataset spam.csv --config_str "{input_features: [{name: title, type: text}, {name: body, type: text}, {name: num_characters, type: number, preprocessing: {normalization: zscore}}], output_features: [{name: spam, type: category}], combiner: {type: concat, num_fc_layers: 1}, defaults: {text: {preprocessing: {word_vocab_size: 10000}, encoder: {type: rnn, cell_type: lstm, num_layers: 2}}}, training: {learning_rate: 0.001, optimizer: {type: adam}}"
+ludwig train --dataset spam.csv --config_str "{input_features: [{name: title, type: text}, {name: body, type: text}, {name: num_characters, type: number, preprocessing: {normalization: zscore}}], output_features: [{name: spam, type: category}], combiner: {type: concat, num_fc_layers: 1}, defaults: {text: {preprocessing: {word_vocab_size: 10000}, encoder: {type: rnn, cell_type: lstm, num_layers: 2}}}, trainer: {learning_rate: 0.001, optimizer: {type: adam}}"
 ```

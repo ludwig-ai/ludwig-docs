@@ -16,7 +16,7 @@ ludwig experiment \
 With `config.yaml`:
 
 ```yaml
-training:
+trainer:
     batch_size: 32
     epochs: 1000
     early_stop: 50
@@ -49,8 +49,6 @@ output_features:
     -
         name: MPG
         type: number
-        optimizer:
-            type: mean_squared_error
         decoder:
             num_fc_layers: 2
             output_size: 64

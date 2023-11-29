@@ -3805,13 +3805,13 @@ certain data type. For example:</p>
 <span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rnn</span>
 <span class="w">            </span><span class="nt">cell_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lstm</span>
 <span class="w">            </span><span class="nt">num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
-<span class="nt">training</span><span class="p">:</span>
+<span class="nt">trainer</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span>
 <span class="w">  </span><span class="nt">optimizer</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adam</span>
 </code></pre></div>
 <p>Example CLI command:</p>
-<div class="highlight"><pre><span></span><code>ludwig train --dataset spam.csv --config_str &quot;{input_features: [{name: title, type: text}, {name: body, type: text}, {name: num_characters, type: number, preprocessing: {normalization: zscore}}], output_features: [{name: spam, type: category}], combiner: {type: concat, num_fc_layers: 1}, defaults: {text: {preprocessing: {word_vocab_size: 10000}, encoder: {type: rnn, cell_type: lstm, num_layers: 2}}}, training: {learning_rate: 0.001, optimizer: {type: adam}}&quot;
+<div class="highlight"><pre><span></span><code>ludwig train --dataset spam.csv --config_str &quot;{input_features: [{name: title, type: text}, {name: body, type: text}, {name: num_characters, type: number, preprocessing: {normalization: zscore}}], output_features: [{name: spam, type: category}], combiner: {type: concat, num_fc_layers: 1}, defaults: {text: {preprocessing: {word_vocab_size: 10000}, encoder: {type: rnn, cell_type: lstm, num_layers: 2}}}, trainer: {learning_rate: 0.001, optimizer: {type: adam}}&quot;
 </code></pre></div>
 
 

@@ -33,6 +33,6 @@ output_features:
         loss:
             type: softmax_cross_entropy
 
-training:
+trainer:
     batch_size: 96
 ```

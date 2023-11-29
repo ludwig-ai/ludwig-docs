@@ -243,7 +243,7 @@ defaults:
   text:
     preprocessing:
       word_vocab_size: 10000
-training:
+trainer:
   learning_rate: 0.001
   optimizer:
     type: adam
@@ -282,5 +282,5 @@ hyperopt:
 Example CLI command:
 
 ```
-ludwig hyperopt --dataset reuters-allcats.csv --config_str "{input_features: [{name: title, type: text, encoder: {type: rnn, cell_type: lstm, num_layers: 2}}], output_features: [{name: class, type: category}], training: {learning_rate: 0.001}, hyperopt: {goal: maximize, output_feature: class, metric: accuracy, split: validation, parameters: {trainer.learning_rate: {space: loguniform, lower: 0.0001, upper: 0.1}, title.encoder.cell_type: {space: choice, categories: [rnn, gru, lstm]}}, search_alg: {type: variant_generator},executor: {type: ray, num_samples: 10}}}"
+ludwig hyperopt --dataset reuters-allcats.csv --config_str "{input_features: [{name: title, type: text, encoder: {type: rnn, cell_type: lstm, num_layers: 2}}], output_features: [{name: class, type: category}], trainer: {learning_rate: 0.001}, hyperopt: {goal: maximize, output_feature: class, metric: accuracy, split: validation, parameters: {trainer.learning_rate: {space: loguniform, lower: 0.0001, upper: 0.1}, title.encoder.cell_type: {space: choice, categories: [rnn, gru, lstm]}}, search_alg: {type: variant_generator},executor: {type: ray, num_samples: 10}}}"
 ```

@@ -38,6 +38,6 @@ output_features:
         preprocessing:
           tokenizer: italian_tokenize
 
-training:
+trainer:
     batch_size: 96
 ```

@@ -221,6 +221,7 @@ extra:
 
 plugins:
   - search
+  - open-in-new-tab
   - macros
   - mike:
       # these fields are all optional; the defaults are as below...

@@ -95,3 +95,4 @@ watchdog==3.0.0
     # via mkdocs
 zipp==3.17.0
     # via importlib-metadata
+mkdocs-open-in-new-tab

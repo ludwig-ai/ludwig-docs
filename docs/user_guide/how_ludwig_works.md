@@ -114,7 +114,7 @@ Take a look at [Examples](../../examples) to see how you can use Ludwig for seve
 
 # Distributed training, data processing, and hyperparameter search with Ray
 
-**Ludwig on Ray** enables users can scale their training process from running on their local laptop, to running in the cloud on a GPU instance, to scaling across hundreds of machines in parallel, all without changing a single line of code.
+**Ludwig on Ray** enables users to scale their training process from running on their local laptop, to running in the cloud on a GPU instance, to scaling across hundreds of machines in parallel, all without changing a single line of code.
 
 ![img](../images/ludwig_on_ray.png)
 

@@ -55,4 +55,4 @@ output_features:
         type: binary
 ```
 
-Better results can be obtained with morerefined feature transformations and preprocessing, but this example has the only aim to show how this type do tasks and data can be used in Ludwig.
+Better results can be obtained with more refined feature transformations and preprocessing, but this example has the only aim to show how this type do tasks and data can be used in Ludwig.

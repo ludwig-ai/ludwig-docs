@@ -3,4 +3,5 @@ mkdocs-material
 mike
 Markdown>=3.0.1
 mkdocs-macros-plugin
-mkdocs-open-in-new-tab
+ptitprince
+wget

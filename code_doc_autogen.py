@@ -24,6 +24,8 @@ import inspect
 import os
 import re
 import sys
+import pathlib
+import wget
 
 from ludwig.api import kfold_cross_validate
 from ludwig.hyperopt.run import hyperopt
@@ -447,6 +449,21 @@ def read_page_data(_page_data, type):
     return data
 
 
+def download_contributor_guide(local_path: str = 'docs/developer_guide/contributing.md') -> None:
+    url: str = "https://raw.githubusercontent.com/ludwig-ai/ludwig/master/CONTRIBUTING.md"
+    
+    local_file_path: pathlib.Path = pathlib.Path(local_path)
+    if local_file_path.is_file():
+        # Delete local file, if it already exists (to replace with the latest).
+        local_file_path.unlink()
+
+    try:
+        # Download CONTRIBUTING.md using wget (latest from Ludwig repository).
+        new_local_file_path: str = wget.download(url, out=local_path)
+        print(f'\nCONTRIBUTING.md downloaded and saved to: "{new_local_file_path}".')
+    except Exception as e:
+        print(f'Failed to download "CONTRIBUTING.md" file.  Error: {e}')
+
 if __name__ == "__main__":
     print("Cleaning up existing {} directory.".format(OUTPUT_DIR))
     for page_data in PAGES:
@@ -558,3 +575,4 @@ if __name__ == "__main__":
             f.write(mkdown)
 
     # shutil.copyfile('../CONTRIBUTING.md', 'os.path.join(OUTPUT_DIR, 'contributing.md'))
+    download_contributor_guide()  # Sync from source in Ludwig code repository.

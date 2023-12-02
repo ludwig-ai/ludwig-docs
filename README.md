@@ -23,9 +23,10 @@ theme, deployed using [Mike](https://github.com/jimporter/mike).
     ```
     
     in order to download it into `docs/developer_guide/contributing.md` in this
-    repository (since all documentation content is served from local files).
+    repository (since all documentation content is served from local files).  Be
+    sure to commit the new version of the contributor guide into the repository.
 
-    Otherwise, skip this step.
+    If the contributor guide source did not change, then skip this step.
 
 3. In terminal, keep a window running:
 

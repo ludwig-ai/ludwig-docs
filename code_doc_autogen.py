@@ -471,7 +471,7 @@ def download_contributor_guide() -> None:
             source_url, out=dest_local_file_path_str
         )
         print(
-            f'\nSuccessfully downloaded "{source_url}" and saved it to "{dest_local_file_path_str}".'
+            f'\nSuccessfully downloaded "{source_url}" and saved it to "{downloaded_file_path}".'
         )
     except Exception as e: 
         # Re-raising exception with the cause, and ensuring it cannot be caught.

@@ -13,16 +13,16 @@
         <meta name="author" content="Piero Molino">
       
       
-        <link rel="canonical" href="https://ludwig.ai/latest/examples/llms/llm_tabular_classification/">
+        <link rel="canonical" href="https://ludwig.ai/latest/developer_guide/contributing/">
       
       
-        <link rel="prev" href="../llm_tabular_zero_shot_batch_inference/">
+        <link rel="prev" href="../">
       
       
-        <link rel="next" href="../../text_classification/">
+        <link rel="next" href="../codebase_structure/">
       
       
-      <link rel="icon" href="../../../favicon.ico">
+      <link rel="icon" href="../../favicon.ico">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
     
   <meta content="http://raw.githubusercontent.com/ludwig-ai/ludwig-docs/master/docs/images/og-image.jpg"
@@ -32,14 +32,14 @@
 
     
       
-        <title>Fine-tuning for tabular classification (TabLLM) - Ludwig</title>
+        <title>How to Contribute - Ludwig</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.35e1ed30.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.35e1ed30.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.356b1318.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.356b1318.min.css">
       
       
 
@@ -58,13 +58,13 @@
       
     
     
-      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-      <link rel="stylesheet" href="../../../stylesheets/monokai.css">
+      <link rel="stylesheet" href="../../stylesheets/monokai.css">
     
-      <link rel="stylesheet" href="../../../stylesheets/colorful.css">
+      <link rel="stylesheet" href="../../stylesheets/colorful.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -103,7 +103,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#config" class="md-skip">
+        <a href="#contributing" class="md-skip">
           Skip to content
         </a>
       
@@ -123,9 +123,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="Ludwig" class="md-header__button md-logo" aria-label="Ludwig" data-md-component="logo">
+    <a href="../.." title="Ludwig" class="md-header__button md-logo" aria-label="Ludwig" data-md-component="logo">
       
-<img alt="logo" src="../../../images/ludwig_logo.svg"
+<img alt="logo" src="../../images/ludwig_logo.svg"
      style="height:1rem;width:4rem;">
 
     </a>
@@ -143,7 +143,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Fine-tuning for tabular classification (TabLLM)
+              How to Contribute
             
           </span>
         </div>
@@ -253,9 +253,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="Ludwig" class="md-nav__button md-logo" aria-label="Ludwig" data-md-component="logo">
+    <a href="../.." title="Ludwig" class="md-nav__button md-logo" aria-label="Ludwig" data-md-component="logo">
       
-<img alt="logo" src="../../../images/ludwig_logo.svg"
+<img alt="logo" src="../../images/ludwig_logo.svg"
      style="height:1rem;width:4rem;">
 
     </a>
@@ -282,7 +282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -339,7 +339,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../getting_started/" class="md-nav__link ">
+            <a href="../../getting_started/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -371,7 +371,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting_started/installation/" class="md-nav__link">
+      <a href="../../getting_started/installation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -391,7 +391,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting_started/prepare_data/" class="md-nav__link">
+      <a href="../../getting_started/prepare_data/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -411,7 +411,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting_started/train/" class="md-nav__link">
+      <a href="../../getting_started/train/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -431,7 +431,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting_started/evaluate/" class="md-nav__link">
+      <a href="../../getting_started/evaluate/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -451,7 +451,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting_started/hyperopt/" class="md-nav__link">
+      <a href="../../getting_started/hyperopt/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -471,7 +471,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting_started/serve/" class="md-nav__link">
+      <a href="../../getting_started/serve/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -491,7 +491,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting_started/ray/" class="md-nav__link">
+      <a href="../../getting_started/ray/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -511,7 +511,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting_started/llm_finetuning/" class="md-nav__link">
+      <a href="../../getting_started/llm_finetuning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -531,7 +531,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting_started/docker/" class="md-nav__link">
+      <a href="../../getting_started/docker/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -608,7 +608,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../user_guide/" class="md-nav__link ">
+            <a href="../../user_guide/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -640,7 +640,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/what_is_ludwig/" class="md-nav__link">
+      <a href="../../user_guide/what_is_ludwig/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -660,7 +660,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/how_ludwig_works/" class="md-nav__link">
+      <a href="../../user_guide/how_ludwig_works/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -680,7 +680,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/command_line_interface/" class="md-nav__link">
+      <a href="../../user_guide/command_line_interface/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -742,7 +742,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/api/LudwigModel/" class="md-nav__link">
+      <a href="../../user_guide/api/LudwigModel/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -762,7 +762,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/api/visualization/" class="md-nav__link">
+      <a href="../../user_guide/api/visualization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -836,7 +836,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/datasets/supported_formats/" class="md-nav__link">
+      <a href="../../user_guide/datasets/supported_formats/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -856,7 +856,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/datasets/data_preprocessing/" class="md-nav__link">
+      <a href="../../user_guide/datasets/data_preprocessing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -876,7 +876,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/datasets/data_postprocessing/" class="md-nav__link">
+      <a href="../../user_guide/datasets/data_postprocessing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -896,7 +896,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/datasets/dataset_zoo/" class="md-nav__link">
+      <a href="../../user_guide/datasets/dataset_zoo/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -948,7 +948,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../user_guide/llms/" class="md-nav__link ">
+            <a href="../../user_guide/llms/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -980,7 +980,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/llms/finetuning/" class="md-nav__link">
+      <a href="../../user_guide/llms/finetuning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1000,7 +1000,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/llms/in_context_learning/" class="md-nav__link">
+      <a href="../../user_guide/llms/in_context_learning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1028,7 +1028,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/gpus/" class="md-nav__link">
+      <a href="../../user_guide/gpus/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1070,7 +1070,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../user_guide/distributed_training/" class="md-nav__link ">
+            <a href="../../user_guide/distributed_training/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1102,7 +1102,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/distributed_training/finetuning/" class="md-nav__link">
+      <a href="../../user_guide/distributed_training/finetuning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1130,7 +1130,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/hyperopt/" class="md-nav__link">
+      <a href="../../user_guide/hyperopt/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1150,7 +1150,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/cloud_storage/" class="md-nav__link">
+      <a href="../../user_guide/cloud_storage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1170,7 +1170,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/automl/" class="md-nav__link">
+      <a href="../../user_guide/automl/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1190,7 +1190,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/visualizations/" class="md-nav__link">
+      <a href="../../user_guide/visualizations/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1210,7 +1210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/model_export/" class="md-nav__link">
+      <a href="../../user_guide/model_export/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1230,7 +1230,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/serving/" class="md-nav__link">
+      <a href="../../user_guide/serving/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1250,7 +1250,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/integrations/" class="md-nav__link">
+      <a href="../../user_guide/integrations/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1315,7 +1315,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../configuration/" class="md-nav__link ">
+            <a href="../../configuration/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1347,7 +1347,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/model_type/" class="md-nav__link">
+      <a href="../../configuration/model_type/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1367,7 +1367,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/large_language_model/" class="md-nav__link">
+      <a href="../../configuration/large_language_model/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1387,7 +1387,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/preprocessing/" class="md-nav__link">
+      <a href="../../configuration/preprocessing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1477,7 +1477,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/features/supported_data_types/" class="md-nav__link">
+      <a href="../../configuration/features/supported_data_types/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1497,7 +1497,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/features/input_features/" class="md-nav__link">
+      <a href="../../configuration/features/input_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1517,7 +1517,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/features/output_features/" class="md-nav__link">
+      <a href="../../configuration/features/output_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1537,7 +1537,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/features/binary_features/" class="md-nav__link">
+      <a href="../../configuration/features/binary_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1557,7 +1557,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/features/number_features/" class="md-nav__link">
+      <a href="../../configuration/features/number_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1577,7 +1577,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/features/category_features/" class="md-nav__link">
+      <a href="../../configuration/features/category_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1597,7 +1597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/features/bag_features/" class="md-nav__link">
+      <a href="../../configuration/features/bag_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1617,7 +1617,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/features/set_features/" class="md-nav__link">
+      <a href="../../configuration/features/set_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1637,7 +1637,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/features/sequence_features/" class="md-nav__link">
+      <a href="../../configuration/features/sequence_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1657,7 +1657,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/features/text_features/" class="md-nav__link">
+      <a href="../../configuration/features/text_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1677,7 +1677,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/features/vector_features/" class="md-nav__link">
+      <a href="../../configuration/features/vector_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1697,7 +1697,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/features/audio_features/" class="md-nav__link">
+      <a href="../../configuration/features/audio_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1717,7 +1717,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/features/date_features/" class="md-nav__link">
+      <a href="../../configuration/features/date_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1737,7 +1737,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/features/h3_features/" class="md-nav__link">
+      <a href="../../configuration/features/h3_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1757,7 +1757,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/features/image_features/" class="md-nav__link">
+      <a href="../../configuration/features/image_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1777,7 +1777,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/features/time_series_features/" class="md-nav__link">
+      <a href="../../configuration/features/time_series_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1805,7 +1805,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/defaults/" class="md-nav__link">
+      <a href="../../configuration/defaults/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1825,7 +1825,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/combiner/" class="md-nav__link">
+      <a href="../../configuration/combiner/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1845,7 +1845,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/trainer/" class="md-nav__link">
+      <a href="../../configuration/trainer/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1865,7 +1865,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/hyperparameter_optimization/" class="md-nav__link">
+      <a href="../../configuration/hyperparameter_optimization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1885,7 +1885,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/backend/" class="md-nav__link">
+      <a href="../../configuration/backend/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1910,8 +1910,6 @@
       
   
   
-    
-  
   
     
     
@@ -1930,17 +1928,17 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../" class="md-nav__link ">
+            <a href="../../examples/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1957,7 +1955,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             💡 Examples
@@ -1970,8 +1968,6 @@
                 
   
   
-    
-  
   
     
     
@@ -1998,12 +1994,12 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
         
           
           <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
@@ -2017,7 +2013,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_2">
             <span class="md-nav__icon md-icon"></span>
             LLMs
@@ -2030,7 +2026,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../llm_classification/" class="md-nav__link">
+      <a href="../../examples/llms/llm_classification/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2050,7 +2046,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../llm_finetuning/" class="md-nav__link">
+      <a href="../../examples/llms/llm_finetuning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2070,7 +2066,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../llm_finetuning_deepspeed/" class="md-nav__link">
+      <a href="../../examples/llms/llm_finetuning_deepspeed/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2090,7 +2086,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../llm_text_generation/" class="md-nav__link">
+      <a href="../../examples/llms/llm_text_generation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2110,7 +2106,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../llm_zero_shot_text_generation/" class="md-nav__link">
+      <a href="../../examples/llms/llm_zero_shot_text_generation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2130,7 +2126,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../llm_zero_shot_batch_inference/" class="md-nav__link">
+      <a href="../../examples/llms/llm_zero_shot_batch_inference/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2150,7 +2146,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../llm_few_shot_batch_inference/" class="md-nav__link">
+      <a href="../../examples/llms/llm_few_shot_batch_inference/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2170,7 +2166,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../llm_tabular_zero_shot_batch_inference/" class="md-nav__link">
+      <a href="../../examples/llms/llm_tabular_zero_shot_batch_inference/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2188,27 +2184,9 @@
                 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Fine-tuning for tabular classification (TabLLM)
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../examples/llms/llm_tabular_classification/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2217,31 +2195,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#config" class="md-nav__link">
-    Config
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2313,7 +2266,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../text_classification/" class="md-nav__link">
+      <a href="../../examples/text_classification/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2333,7 +2286,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../adult_census_income/" class="md-nav__link">
+      <a href="../../examples/adult_census_income/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2353,7 +2306,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../mnist/" class="md-nav__link">
+      <a href="../../examples/mnist/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2373,7 +2326,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../multimodal_classification/" class="md-nav__link">
+      <a href="../../examples/multimodal_classification/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2393,7 +2346,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../hyperopt/" class="md-nav__link">
+      <a href="../../examples/hyperopt/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2413,7 +2366,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../gbm_fraud/" class="md-nav__link">
+      <a href="../../examples/gbm_fraud/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2433,7 +2386,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../sentiment_analysis/" class="md-nav__link">
+      <a href="../../examples/sentiment_analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2533,7 +2486,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ner_tagging/" class="md-nav__link">
+      <a href="../../examples/ner_tagging/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2553,7 +2506,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../nlu/" class="md-nav__link">
+      <a href="../../examples/nlu/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2573,7 +2526,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../machine_translation/" class="md-nav__link">
+      <a href="../../examples/machine_translation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2593,7 +2546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../seq2seq/" class="md-nav__link">
+      <a href="../../examples/seq2seq/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2613,7 +2566,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../sentiment_analysis/" class="md-nav__link">
+      <a href="../../examples/sentiment_analysis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2633,7 +2586,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../oneshot/" class="md-nav__link">
+      <a href="../../examples/oneshot/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2653,7 +2606,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../visual_qa/" class="md-nav__link">
+      <a href="../../examples/visual_qa/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2673,7 +2626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../speech_recognition/" class="md-nav__link">
+      <a href="../../examples/speech_recognition/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2693,7 +2646,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../speaker_verification/" class="md-nav__link">
+      <a href="../../examples/speaker_verification/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2713,7 +2666,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../titanic/" class="md-nav__link">
+      <a href="../../examples/titanic/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2733,7 +2686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../forecasting/" class="md-nav__link">
+      <a href="../../examples/forecasting/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2753,7 +2706,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../weather/" class="md-nav__link">
+      <a href="../../examples/weather/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2773,7 +2726,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../movie_ratings/" class="md-nav__link">
+      <a href="../../examples/movie_ratings/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2793,7 +2746,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../multi_label/" class="md-nav__link">
+      <a href="../../examples/multi_label/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2813,7 +2766,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../multi_task/" class="md-nav__link">
+      <a href="../../examples/multi_task/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2833,7 +2786,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fuel_efficiency/" class="md-nav__link">
+      <a href="../../examples/fuel_efficiency/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2853,7 +2806,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fraud/" class="md-nav__link">
+      <a href="../../examples/fraud/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2886,6 +2839,8 @@
       
   
   
+    
+  
   
     
     
@@ -2934,17 +2889,17 @@
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../developer_guide/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2961,7 +2916,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             🛠️ Developer Guide
@@ -2974,9 +2929,27 @@
                 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../../developer_guide/contributing/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    How to Contribute
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -2985,6 +2958,72 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contributing" class="md-nav__link">
+    Contributing
+  </a>
+  
+    <nav class="md-nav" aria-label="Contributing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#open-issues" class="md-nav__link">
+    Open Issues
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-pull-requests" class="md-nav__link">
+    Creating Pull Requests
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-tips" class="md-nav__link">
+    Other tips
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attribution" class="md-nav__link">
+    Attribution
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-of-conduct" class="md-nav__link">
+    Code of Conduct
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2996,7 +3035,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/codebase_structure/" class="md-nav__link">
+      <a href="../codebase_structure/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3016,7 +3055,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/api_annotations/" class="md-nav__link">
+      <a href="../api_annotations/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3036,7 +3075,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/add_an_encoder/" class="md-nav__link">
+      <a href="../add_an_encoder/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3056,7 +3095,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/add_a_combiner/" class="md-nav__link">
+      <a href="../add_a_combiner/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3076,7 +3115,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/add_a_decoder/" class="md-nav__link">
+      <a href="../add_a_decoder/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3096,7 +3135,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/add_a_feature_type/" class="md-nav__link">
+      <a href="../add_a_feature_type/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3116,7 +3155,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/add_a_metric/" class="md-nav__link">
+      <a href="../add_a_metric/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3136,7 +3175,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/add_a_loss_function/" class="md-nav__link">
+      <a href="../add_a_loss_function/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3156,7 +3195,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/add_a_tokenizer/" class="md-nav__link">
+      <a href="../add_a_tokenizer/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3176,7 +3215,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/add_a_hyperopt/" class="md-nav__link">
+      <a href="../add_a_hyperopt/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3196,7 +3235,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/add_a_pretrained_model/" class="md-nav__link">
+      <a href="../add_a_pretrained_model/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3216,7 +3255,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/add_an_integration/" class="md-nav__link">
+      <a href="../add_an_integration/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3236,7 +3275,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/add_a_dataset/" class="md-nav__link">
+      <a href="../add_a_dataset/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3256,7 +3295,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/style_guidelines_and_tests/" class="md-nav__link">
+      <a href="../style_guidelines_and_tests/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3276,7 +3315,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/unit_test_design_guidelines/" class="md-nav__link">
+      <a href="../unit_test_design_guidelines/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3296,7 +3335,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/run_tests_on_gpu_using_ray/" class="md-nav__link">
+      <a href="../run_tests_on_gpu_using_ray/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3316,7 +3355,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../developer_guide/release_process/" class="md-nav__link">
+      <a href="../release_process/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3343,7 +3382,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../community/" class="md-nav__link">
+      <a href="../../community/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3362,7 +3401,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../faq/" class="md-nav__link">
+      <a href="../../faq/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3400,9 +3439,50 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#config" class="md-nav__link">
-    Config
+  <a href="#contributing" class="md-nav__link">
+    Contributing
   </a>
+  
+    <nav class="md-nav" aria-label="Contributing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#open-issues" class="md-nav__link">
+    Open Issues
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-pull-requests" class="md-nav__link">
+    Creating Pull Requests
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-tips" class="md-nav__link">
+    Other tips
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attribution" class="md-nav__link">
+    Attribution
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-of-conduct" class="md-nav__link">
+    Code of Conduct
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3424,70 +3504,124 @@
   
 
 
-  <h1>Fine-tuning for tabular classification (TabLLM)</h1>
+  <h1>How to Contribute</h1>
 
-<p>Prompt templates in Ludwig use Python-style placeholder notation, where every placeholder corresponds to a column in the input dataset:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">prompt</span><span class="p">:</span>
-<span class="w"> </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">{color}</span><span class="nv"> </span><span class="s">{animal}</span><span class="nv"> </span><span class="s">jumped</span><span class="nv"> </span><span class="s">over</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">{size}</span><span class="nv"> </span><span class="s">{object}&quot;</span>
+<h2 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h2>
+<p>Everyone is welcome to contribute, and we value everybody’s contribution. Code is thus not the only
+way to help the community. Answering questions, helping others, reaching out and improving the
+documentation are immensely valuable contributions as well.</p>
+<p>It also helps us if you spread the word: reference the library from blog posts on the awesome
+projects it made possible, shout out on Twitter every time it has helped you, or simply star the
+repo to say "thank you".</p>
+<p>Check out the official <a href="https://ludwig-ai.github.io/ludwig-docs/">Ludwig docs</a> to get oriented
+around the codebase, and join the community!</p>
+<h3 id="open-issues">Open Issues<a class="headerlink" href="#open-issues" title="Permanent link">&para;</a></h3>
+<p>Issues are listed at: <a href="https://github.com/ludwig-ai/ludwig/issues">https://github.com/ludwig-ai/ludwig/issues</a></p>
+<p>If you would like to work on any of them, make sure it is not already assigned to someone else.</p>
+<p>You can self-assign it by commenting on the Issue page with one of the keywords: <code>#take</code> or
+<code>#self-assign</code>.</p>
+<p>Work on your self-assigned issue and eventually create a Pull Request.</p>
+<h3 id="creating-pull-requests">Creating Pull Requests<a class="headerlink" href="#creating-pull-requests" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Fork the <a href="https://github.com/ludwig-ai/ludwig">repository</a> by clicking on the "Fork" button on
+   the repository's page. This creates a copy of the code under your GitHub user account.</p>
+</li>
+<li>
+<p>Clone your fork to your local disk, and add the base repository as a remote:</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:&lt;your<span class="w"> </span>Github<span class="w"> </span>handle&gt;/ludwig.git
+<span class="nb">cd</span><span class="w"> </span>ludwig
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>https://github.com/ludwig-ai/ludwig.git
 </code></pre></div>
-<p>When a prompt template like the above is provided, the prompt with all placeholders filled will be used as the text input feature value for the LLM.</p>
-<div class="highlight"><pre><span></span><code>Dataset:
-| color | animal | size | object |
-| ----- | ------ | ---- | ------ |
-| brown | fox    | big  | dog    |
-| white | cat    | huge | rock   |
-
-Prompts:
-&quot;The brown fox jumped over the big dog&quot;
-&quot;The white cat jumped over the huge rock&quot;
+<ol>
+<li>Create a new branch to hold your development changes:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>a-descriptive-name-for-my-changes
 </code></pre></div>
-<p>Tabular data can be used directly within an LLM fine-tuning setup by
-constructing a prompt using the columns of the dataset.</p>
-<p>For example, here's a configuration that fine-tunes BERT with a binary
-classifcation head on tabular data with the following column names:</p>
+<p><em>Do not</em>* work on the <code>master</code> branch.</p>
+<ol>
+<li>Set up a development environment by running the following command in a virtual environment:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</code></pre></div>
+<p>The above command will install only the packages in "requirements.txt" in the developer mode.  If you would like to
+   be able to potentially make changes to the overall Ludwig codebase, then use the following command:</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="o">[</span>full<span class="o">]</span>
+</code></pre></div>
+<p>Please note that in certain Shell environments (e.g., the <code>Z shell</code>), the dependencies in brackets have to be quoted:</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="s2">&quot;[full]&quot;</span>
+</code></pre></div>
+<p>If you do not need access to the entire Ludwig codebase, but just want to be able to run <code>pytest</code> on the essential
+   functionality, then you would replace the above command with:</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="o">[</span>test<span class="o">]</span>
+</code></pre></div>
+<p>(Please use <code>pip install -e ."[test]"</code> where your Shell environment requires quotes around the square brackets.)</p>
+<p>For the full list of the optional dependencies available in Ludwig, please see
+   <a href="https://ludwig.ai/latest/getting_started/installation/">Installation Guide</a> and "setup.py" in the root of the Ludwig
+   repository.</p>
+<ol>
+<li>On MacOS with Apple Silicon, if this installation approach runs into errors, you may need to install the following
+   prerequisites:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>brew<span class="w"> </span>install<span class="w"> </span>cmake<span class="w"> </span>libomp
+</code></pre></div>
+<p>This step requires <code>homebrew</code> to be installed on your development machine.</p>
+<ol>
+<li>Install and run <code>pre-commit</code>:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>pre-commit
+pre-commit<span class="w"> </span>install
+</code></pre></div>
+<ol>
+<li>
+<p>Finally, if during the installation of <code>horovod</code>, the exception <code>ModuleNotFoundError: No module named 'packaging'</code>
+   occurs, you may need to disable <code>horovod</code> (that means you will need train with another backend, just not <code>horovod</code>).
+   To do that, edit the file <code>requirements_extra.txt</code> and comment out the line that begins with <code>horovod</code>.  After that,
+   please execute the long <code>pip install</code> command given in the previous step.  With these work-around provisions, your
+   installation should run to completion successfully.  If you are still having difficulty, please reach out with the
+   specifics of your environment in the Ludwig Community
+   <a href="https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ">Slack</a>.</p>
+</li>
+<li>
+<p>Develop features on your branch.</p>
+</li>
+<li>
+<p>Format your code by running pre-commits so that your newly added files look nice:</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code>pre-commit<span class="w"> </span>run
+</code></pre></div>
+<p>Pre-commits also run automatically when committing.</p>
+<ol>
+<li>Once you're happy with your changes, make a commit to record your changes locally:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit
+</code></pre></div>
+<p>It is a good idea to sync your copy of the code with the original repository regularly. This
+   way you can quickly account for changes:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>fetch<span class="w"> </span>upstream
+git<span class="w"> </span>rebase<span class="w"> </span>upstream/master
+</code></pre></div>
+<p>Push the changes to your account using:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>a-descriptive-name-for-my-changes
+</code></pre></div>
+<ol>
+<li>Once you are satisfied, go the webpage of your fork on GitHub. Click on "Pull request" to send
+   your contribution to the project maintainers for review.</li>
+</ol>
+<h3 id="other-tips">Other tips<a class="headerlink" href="#other-tips" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>Recency -- months since last donation</code></li>
-<li><code>Frequency -- total number of donations</code></li>
-<li><code>Monetary -- total blood donated in c.c.</code></li>
-<li><code>Time -- months since first donation</code></li>
+<li>Add unit tests for any new code you write.</li>
+<li>Make sure tests pass. See the <a href="https://ludwig-ai.github.io/ludwig-docs/latest/developer_guide/style_guidelines_and_tests/">Developer Guide</a> for more details.</li>
 </ul>
-<h3 id="config">Config<a class="headerlink" href="#config" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Recency -- months since last donation</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
-<span class="w">    </span><span class="nt">prompt</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;-</span>
-<span class="w">        </span><span class="no">The Recency -- months since last donation is {Recency -- months since</span>
-<span class="w">        </span><span class="no">last donation}. The Frequency -- total number of donations is {Frequency</span>
-<span class="w">        </span><span class="no">-- total number of donations}. The Monetary -- total blood donated in</span>
-<span class="w">        </span><span class="no">c.c. is {Monetary -- total blood donated in c.c.}. The Time -- months</span>
-<span class="w">        </span><span class="no">since first donation is {Time -- months since first donation}.</span>
-<span class="nt">output_features</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;y&#39;</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span>
-<span class="w">    </span><span class="nt">column</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;y&#39;</span>
-<span class="nt">preprocessing</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">split</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fixed</span>
-<span class="w">    </span><span class="nt">column</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">split</span>
-<span class="nt">defaults</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">text</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bert</span>
-<span class="w">      </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="nt">combiner</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">concat</span>
-<span class="nt">trainer</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">epochs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
-<span class="w">  </span><span class="nt">optimizer</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adamw</span>
-<span class="w">  </span><span class="nt">learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.00002</span>
-<span class="w">  </span><span class="nt">use_mixed_precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">  </span><span class="nt">learning_rate_scheduler</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">decay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">linear</span>
-<span class="w">    </span><span class="nt">warmup_fraction</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
-<span class="nt">ludwig_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8.dev</span>
-</code></pre></div>
+<h3 id="attribution">Attribution<a class="headerlink" href="#attribution" title="Permanent link">&para;</a></h3>
+<p>This contributing guideline is adapted from <code>huggingface</code>, available at <a href="https://github.com/huggingface/datasets/blob/master/CONTRIBUTING.md">https://github.com/huggingface/datasets/blob/master/CONTRIBUTING.md</a>.</p>
+<h3 id="code-of-conduct">Code of Conduct<a class="headerlink" href="#code-of-conduct" title="Permanent link">&para;</a></h3>
+<p>Please be mindful of and adhere to the Linux Foundation's
+<a href="https://lfprojects.org/policies/code-of-conduct">Code of Conduct</a> when contributing to Ludwig.</p>
 
 
   
@@ -3536,8 +3670,8 @@ classifcation head on tabular data with the following column names:</p>
         <!-- Link to previous page -->
         
         
-        <a href="../llm_tabular_zero_shot_batch_inference/" class="md-footer__link md-footer__link--prev"
-            aria-label="Previous: Zero-shot batch inference for tabular classification (TabLLM)" rel="prev">
+        <a href="../" class="md-footer__link md-footer__link--prev"
+            aria-label="Previous: Developer Guide" rel="prev">
             <div class="md-footer__button md-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
             </div>
@@ -3546,7 +3680,7 @@ classifcation head on tabular data with the following column names:</p>
                     <span class="md-footer__direction">
                         Previous
                     </span>
-                    Zero-shot batch inference for tabular classification (TabLLM)
+                    Developer Guide
                 </div>
             </div>
         </a>
@@ -3555,14 +3689,14 @@ classifcation head on tabular data with the following column names:</p>
         <!-- Link to next page -->
         
         
-        <a href="../../text_classification/" class="md-footer__link md-footer__link--next"
-            aria-label="Next: Text Classification" rel="next">
+        <a href="../codebase_structure/" class="md-footer__link md-footer__link--next"
+            aria-label="Next: Codebase Structure" rel="next">
             <div class="md-footer__title">
                 <div class="md-ellipsis">
                     <span class="md-footer__direction">
                         Next
                     </span>
-                    Text Classification
+                    Codebase Structure
                 </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -3627,10 +3761,10 @@ classifcation head on tabular data with the following column names:</p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.indexes", "navigation.tabs.sticky"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.indexes", "navigation.tabs.sticky"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.aecac24b.min.js"></script>
+      <script src="../../assets/javascripts/bundle.aecac24b.min.js"></script>
       
     
   </body>

@@ -8,7 +8,7 @@ It also helps us if you spread the word: reference the library from blog posts o
 projects it made possible, shout out on Twitter every time it has helped you, or simply star the
 repo to say "thank you".
 
-Check out the official [ludwig docs](https://ludwig-ai.github.io/ludwig-docs/) to get oriented
+Check out the official [Ludwig docs](https://ludwig-ai.github.io/ludwig-docs/) to get oriented
 around the codebase, and join the community!
 
 ## Open Issues

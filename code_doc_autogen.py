@@ -456,11 +456,13 @@ def download_contributor_guide() -> None:
     be exactly one source of ground truth for this document -- Ludwig codebase.
     It is synchronized for "mkdocs" to serve all documents from local resources.
     """
-    source_url: str = "https://raw.githubusercontent.com/ludwig-ai/ludwig/master/CONTRIBUTING.md"
+    source_url: str = (
+        "https://raw.githubusercontent.com/ludwig-ai/ludwig/master/CONTRIBUTING.md"
+    )
 
     dest_local_file_path_str: str = "docs/developer_guide/contributing.md"
     dest_local_file_path: pathlib.Path = pathlib.Path(dest_local_file_path_str)
-    
+
     if dest_local_file_path.is_file():
         # Delete local file, if it already exists (to replace with the latest).
         dest_local_file_path.unlink()
@@ -473,17 +475,17 @@ def download_contributor_guide() -> None:
         print(
             f'\nSuccessfully downloaded "{source_url}" and saved it to "{downloaded_file_path}".'
         )
-    except Exception as e: 
+    except Exception as e:
         # Re-raising exception with the cause, and ensuring it cannot be caught.
         exception_traceback: str = traceback.format_exc()
         exception_message: str = f"""Failed to download "{source_url}" and save it \
 to "{dest_local_file_path_str}".
 """
         exception_message += (
-            f'{type(e).__name__}: "{str(e)}".  '
-            f'Traceback: "{exception_traceback}".'
+            f'{type(e).__name__}: "{str(e)}".  ' f'Traceback: "{exception_traceback}".'
         )
         raise SystemExit(exception_message) from e  # Make sure error is fatal.
+
 
 if __name__ == "__main__":
     """

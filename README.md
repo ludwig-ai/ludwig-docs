@@ -14,13 +14,27 @@ theme, deployed using [Mike](https://github.com/jimporter/mike).
     pip install -r requirements.txt
     ```
 
-2. In terminal, keep a window running:
+2. If the content of
+   [contributing guide](https://github.com/ludwig-ai/ludwig/blob/master/CONTRIBUTING.md)
+   in the Ludwig code repository has changed, then run
+
+    ```
+    python code_doc_autogen.py
+    ```
+    
+    in order to download it into `docs/developer_guide/contributing.md` in this
+    repository (since all documentation content is served from local files).  Be
+    sure to commit the new version of the contributor guide into the repository.
+
+    If the contributor guide source did not change, then skip this step.
+
+3. In terminal, keep a window running:
 
     ```
     mkdocs serve
     ```
 
-3. Navigate to <http://localhost:8000> to view your changes.
+4. Navigate to <http://localhost:8000> to view your changes.
 
 > :bulb: No need to return to your terminal -- changes will be automatically
 > reflected as you save changes to files.

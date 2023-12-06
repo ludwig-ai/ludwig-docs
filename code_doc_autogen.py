@@ -24,6 +24,9 @@ import inspect
 import os
 import re
 import sys
+import pathlib
+import wget
+import traceback
 
 from ludwig.api import kfold_cross_validate
 from ludwig.hyperopt.run import hyperopt
@@ -447,7 +450,54 @@ def read_page_data(_page_data, type):
     return data
 
 
+def download_contributor_guide() -> None:
+    """
+    This method downloads Contributing Guide from Ludwig codebase.  There should
+    be exactly one source of ground truth for this document -- Ludwig codebase.
+    It is synchronized for "mkdocs" to serve all documents from local resources.
+    """
+    source_url: str = (
+        "https://raw.githubusercontent.com/ludwig-ai/ludwig/master/CONTRIBUTING.md"
+    )
+
+    dest_local_file_path_str: str = "docs/developer_guide/contributing.md"
+    dest_local_file_path: pathlib.Path = pathlib.Path(dest_local_file_path_str)
+
+    if dest_local_file_path.is_file():
+        # Delete local file, if it already exists (to replace with the latest).
+        dest_local_file_path.unlink()
+
+    try:
+        # Download CONTRIBUTING.md using wget (latest from Ludwig repository).
+        downloaded_file_path: str = wget.download(
+            source_url, out=dest_local_file_path_str
+        )
+        print(
+            f'\nSuccessfully downloaded "{source_url}" and saved it to "{downloaded_file_path}".'
+        )
+    except Exception as e:
+        # Re-raising exception with the cause, and ensuring it cannot be caught.
+        exception_traceback: str = traceback.format_exc()
+        exception_message: str = f"""Failed to download "{source_url}" and save it \
+to "{dest_local_file_path_str}".
+"""
+        exception_message += (
+            f'{type(e).__name__}: "{str(e)}".  ' f'Traceback: "{exception_traceback}".'
+        )
+        raise SystemExit(exception_message) from e  # Make sure error is fatal.
+
+
 if __name__ == "__main__":
+    """
+    This script performs several functions as part of generating Ludwig
+    documentation (for "https://ludwig.ai/") from Ludwig source code repository
+    ("https://github.com/ludwig-ai/ludwig") and from documentation content.
+
+    The components of generated documentation for use by "mkdocs" include:
+    - class, method, and function signatures
+    - docstrings
+    - CONTRIBUTING.md (contributor guide)
+    """
     print("Cleaning up existing {} directory.".format(OUTPUT_DIR))
     for page_data in PAGES:
         file_path = os.path.join(OUTPUT_DIR, page_data["page"])
@@ -558,3 +608,4 @@ if __name__ == "__main__":
             f.write(mkdown)
 
     # shutil.copyfile('../CONTRIBUTING.md', 'os.path.join(OUTPUT_DIR, 'contributing.md'))
+    download_contributor_guide()  # Sync from source in Ludwig code repository.

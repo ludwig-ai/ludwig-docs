@@ -486,6 +486,16 @@ to "{dest_local_file_path_str}".
         raise SystemExit(exception_message) from e  # Make sure error is fatal.
 
 if __name__ == "__main__":
+    """
+    This script performs several functions as part of generating Ludwig
+    documentation (for "https://ludwig.ai/") from Ludwig source code repository
+    ("https://github.com/ludwig-ai/ludwig") and from documentation content.
+
+    The components of generated documentation for use by "mkdocs" include:
+    - class, method, and function signatures
+    - docstrings
+    - CONTRIBUTING.md (contributor guide)
+    """
     print("Cleaning up existing {} directory.".format(OUTPUT_DIR))
     for page_data in PAGES:
         file_path = os.path.join(OUTPUT_DIR, page_data["page"])

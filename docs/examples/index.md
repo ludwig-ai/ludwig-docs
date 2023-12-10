@@ -6,6 +6,6 @@ Here, you'll find several examples of how to build models with Ludwig for a vari
 
 🎯 The **Supervised ML** section has in-depth tutorials for how to use Ludwig's command line interface and Python API for machine learning in a supervised setting. Check out [Image Classification on MNIST](/examples/mnist/).
 
-🏛️ The **Use Cases** section illustrates how Ludwig can be applied to a variety of machine learning tasks, such as, natural language understanding, timeseries forecasting, multi-label classification to name just a few. Read about Ludwig models for [Sentiment Analysis]().
+🏛️ The **Use Cases** section illustrates how Ludwig can be applied to a variety of machine learning tasks, such as, natural language understanding, timeseries forecasting, multi-label classification to name just a few. Read about Ludwig models for [Sentiment Analysis](/examples/sentiment_analysis/).
 
 Have fun exploring!

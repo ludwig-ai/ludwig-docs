@@ -3582,24 +3582,10 @@ with the <code>ray</code> backend:</p>
 <p><a href="https://dask.org/">Dask</a> is the default distributed data processing library when using Ludwig on Ray. It executes distributed Pandas operations
 on partitions of the data in parallel. One beneficial property of Dask is that it is executed lazily, which allows it to stream very large datasets
 without needing to hold the entire dataset in distributed memory at once.</p>
-<p>One downside to Dask is that it can require some tuning to get the best performance. There are two knobs we expose in Ludwig for tuning Dask:</p>
+<p>One downside to Dask is that it can require some tuning to get the best performance. There is one knob we expose in Ludwig for tuning Dask:</p>
 <ul>
 <li><code>parallelism</code>: the number of partitions to divide the dataset into (defaults to letting Dask figure this out automatically).</li>
-<li><code>persist</code>: whether intermediate stages of preprocessing should be cached in distributed memory (default: <code>true</code>).</li>
 </ul>
-<p>Increasing <code>parallelism</code> can reduce memory pressure during preprocessing for large datasets and increase parallelism (horizontal scaling). The downside to
-too much parallelism is that there is some overhead for each partition-level operation (serialization and deserialization), which can dominate the runtime
-if set too high.</p>
-<p>Setting <code>persist</code> to <code>false</code> can be useful if the dataset is too large for all the memory and disk of the entire Ray cluster. Only set this to <code>false</code> if you're
-seeing issues running out of memory or disk space.</p>
-<p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span>
-<span class="w">  </span><span class="nt">processor</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dask</span>
-<span class="w">    </span><span class="nt">parallelism</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
-<span class="w">    </span><span class="nt">persist</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-</code></pre></div>
 <h3 id="modin">Modin<a class="headerlink" href="#modin" title="Permanent link">&para;</a></h3>
 <p><a href="https://github.com/modin-project/modin">Modin</a> is an eagerly-executed distributed dataframe library that closely mirrors the behavior of
 Pandas. Because it behaves almost identically to Pandas but is able to distribute the dataset

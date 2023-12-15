@@ -41,28 +41,9 @@ with the `ray` backend:
 on partitions of the data in parallel. One beneficial property of Dask is that it is executed lazily, which allows it to stream very large datasets
 without needing to hold the entire dataset in distributed memory at once.
 
-One downside to Dask is that it can require some tuning to get the best performance. There are two knobs we expose in Ludwig for tuning Dask:
+One downside to Dask is that it can require some tuning to get the best performance. There is one knob we expose in Ludwig for tuning Dask:
 
 - `parallelism`: the number of partitions to divide the dataset into (defaults to letting Dask figure this out automatically).
-- `persist`: whether intermediate stages of preprocessing should be cached in distributed memory (default: `true`).
-
-Increasing `parallelism` can reduce memory pressure during preprocessing for large datasets and increase parallelism (horizontal scaling). The downside to
-too much parallelism is that there is some overhead for each partition-level operation (serialization and deserialization), which can dominate the runtime
-if set too high.
-
-Setting `persist` to `false` can be useful if the dataset is too large for all the memory and disk of the entire Ray cluster. Only set this to `false` if you're
-seeing issues running out of memory or disk space.
-
-Example:
-
-```yaml
-backend:
-  type: ray
-  processor:
-    type: dask
-    parallelism: 100
-    persist: true
-```
 
 ## Modin
 

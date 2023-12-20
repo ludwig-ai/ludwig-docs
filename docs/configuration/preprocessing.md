@@ -86,8 +86,8 @@ should do on unseen data from the future.
 
 For datetime-based splitting, we order the data by date (ascending) and then
 split according to the `split_probabilties`. For example, if
-`split_probabilities: [0.7, 0.1, 0.2]`, then the earliest *70%* of the data will
-be used for training, the middle *10%* used for validation, and the last *20%*
+`split_probabilities: [0.7, 0.1, 0.2]`, then the earliest _70%_ of the data will
+be used for training, the middle _10%_ used for validation, and the last _20%_
 used for testing.
 
 The following config shows how to specify this type of splitting using a
@@ -103,13 +103,13 @@ of a provided "key" column. This is a useful alternative to random splitting whe
 such a key is available for a couple of reasons:
 
 - **To prevent data leakage**:
-For example, imagine you are predicting which users are likely to churn in a given month. If a user
-appears in both the train and test splits, then it may seem that your model is generalizing better than it actually is. In these cases,
-hashing on the user ID column will ensure that every sample for a user is assigned to the same split.
+  For example, imagine you are predicting which users are likely to churn in a given month. If a user
+  appears in both the train and test splits, then it may seem that your model is generalizing better than it actually is. In these cases,
+  hashing on the user ID column will ensure that every sample for a user is assigned to the same split.
 - **To ensure consistent assignment of samples to splits as the underlying dataset evolves over time**:
-Though random splitting is determinstic between runs due to the use of a random seed, if the underlying
-dataset changes (e.g., new samples are added over time), then samples may move into different splits. Hashing on a primary
-key will ensure that all existing samples retain their original splits as new samples are added over time.
+  Though random splitting is determinstic between runs due to the use of a random seed, if the underlying
+  dataset changes (e.g., new samples are added over time), then samples may move into different splits. Hashing on a primary
+  key will ensure that all existing samples retain their original splits as new samples are added over time.
 
 {% set hash_split = get_split_schema("hash") %}
 {{ render_yaml(hash_split, parent="split", updates={"column": "user_id"}) }}
@@ -136,7 +136,7 @@ representation in the overall dataset.
 
 ```yaml
 preprocessing:
-    oversample_minority: 0.5
+  oversample_minority: 0.5
 ```
 
 ## Undersampling
@@ -146,7 +146,7 @@ representation in the overall dataset.
 
 ```yaml
 preprocessing:
-    undersample_majority: 0.7
+  undersample_majority: 0.7
 ```
 
 # Sample Ratio
@@ -162,8 +162,36 @@ you could specify a config like this:
 
 ```yaml
 preprocessing:
-    sample_ratio: 0.3
+  sample_ratio: 0.3
 ```
+
+# Global Max Sequence Length
+
+There are [many factors at play](https://www.youtube.com/watch?v=g68qlo9Izf0&t=2685s)
+when it comes to fine-tuning LLMs efficiently on a single GPU.
+
+One of the most important parameters in your control to keep GPU memory usage in
+check is the choice of the maximum sequence length.
+
+Ludwig provides 3 primary knobs to control max sequence lengths. `global_max_sequence_length` is one such knob.
+It is used to control the maximum length sequence fed to the LLM's forward pass during training. It represents the
+joint total of tokens from your input feature concatenated with the tokens of your output feature that will be fed
+to the model during training for each row in your dataset.
+
+To understand how this parameter, here is an example. Let's say you have an input text feature with a row that has 20 tokens and
+an output text feature with a row that has 15 tokens. Then:
+
+- If you set `global_max_sequence_length` to 35, your entire input + output sequence will be passed into the model during training
+- If you set `global_max_sequence_length` to a value greater than the sum, say 40, it will also ensure that the entire sequence is passed to the model during training
+- If you set `global_max_sequence_length` to 25, then only the first 20 input feature tokens and the first 5 output feature tokens will be passed into the model during training.
+
+For datasets with variable length sequences (which is the case in majority of all real world tasets), this will adjust each row individually during training.
+
+You can explore all 3 options for controlling max sequence lengths and their tradeoffs [here](../configuration/large_language_model.md#max-sequence-lengths)
+
+!!! note
+
+    This parameter only affects models trained using the `llm` model type.
 
 # Feature-specific preprocessing
 

@@ -65,6 +65,7 @@ base_model: meta-llama/Llama-2-7b-hf
 You can also pass in a path to a locally saved Hugging Face model instead of loading from Hugging Face directly.
 
 Example:
+
 ```yaml
 base_model: path/to/local/model/weights
 ```
@@ -128,26 +129,26 @@ configuration options.
 
 In order to use the `category` output feature type, you must provide two additional specifications. The first additional specification is a set of `match` values as part of the decoder configuration. These match values are used to determine which category label to assign to the generated response. This is particularly helpful to mitigate against cases where LLM text generation deviates from the desired response format.
 
-The second additional specification is a fallback label  in `preprocessing.fallback_label`. This label is used both for filling in missing values in the output feature column in your dataset, but also for providing a pre-determined value when the LLM is unable to generate a response that matches any of the categories provided.
+The second additional specification is a fallback label in `preprocessing.fallback_label`. This label is used both for filling in missing values in the output feature column in your dataset, but also for providing a pre-determined value when the LLM is unable to generate a response that matches any of the categories provided.
 
 ```yaml
 output_features:
-- name: label
-  type: category
-  preprocessing:
+  - name: label
+    type: category
+    preprocessing:
       fallback_label: "neutral"
-  decoder:
+    decoder:
       type: category_extractor
       match:
-          "negative":
-              type: contains
-              value: "negative"
-          "neutral":
-              type: contains
-              value: "neutral"
-          "positive":
-              type: contains
-              value: "positive"
+        "negative":
+          type: contains
+          value: "negative"
+        "neutral":
+          type: contains
+          value: "neutral"
+        "positive":
+          type: contains
+          value: "positive"
 ```
 
 # Prompt
@@ -256,8 +257,10 @@ The model parameters section is used to customized LLM model parameters during m
 Currently, the only supported initialization parameter is `rope_scaling`.
 
 ```yaml
+# Defaults
 model_parameters:
   rope_scaling: {}
+  neftune_noise_alpha: 0
 ```
 
 ## RoPE Scaling
@@ -292,6 +295,24 @@ You can enable RoPE Scaling in Ludwig using the following config:
     Typically, you need to fine-tune your LLM for about 1000 steps with RoPE scaling enabled
     to ensure that the performance drop with RoPE scaling is minimal and the model adapts your data
     to the new RoPE embeddings.
+
+## Neftune Noise Alpha
+
+NEFTune is a technique to boost the performance of models during fine-tuning. NEFTune adds noise to the embedding
+vectors during training. The alpha parameter serves as a control mechanism, allowing users to regulate the intensity of noise introduced to embeddings. A higher alpha value corresponds to a greater amount of noise, impacting the embedding vectors during
+the fine-tuning phase.
+
+Standard finetuning of LLaMA-2-7B using Alpaca achieves 29.79% on AlpacaEval, which rises to
+64.69% using noisy embeddings. NEFTune also improves over strong baselines on modern instruction datasets. You can find more information [in the paper](available at https://arxiv.org/pdf/2310.05914.pdf) titled "NEFTune: Noisy Embeddings Improve Instruction Finetuning".
+
+![](images/../../images/neftune_performance.png)
+
+You can enable NEFTune in Ludwig using the following config:
+
+```yaml
+model_parameters:
+  neftune_noise_alpha: 5
+```
 
 # Trainer
 

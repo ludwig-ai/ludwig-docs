@@ -27,7 +27,6 @@ trainer:
   epochs: 3
   optimizer:
     type: paged_adam
-  enable_gradient_checkpointing: true
 ```
 
 This will fine-tune a 4-bit quantized LoRA adapter for `llama-2-7b` model and simultaneously train a classification head. The adapter weights, combiner parameters, and decoder parameters will be saved in the results after fine-tuning/training.

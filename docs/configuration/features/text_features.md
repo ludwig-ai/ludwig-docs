@@ -281,7 +281,7 @@ Parameters:
 {{ render_fields(schema_class_to_fields(hf_encoder, exclude=["type"])) }}
 {% endfor %}
 
-## LLM encoders
+## LLM Encoders
 
 ``` mermaid
 graph LR
@@ -293,18 +293,64 @@ graph LR
 
 The LLM encoder processes text with a pretrained LLM (ex. `llama-2-7b`) passes the last hidden state of the LLM forward to the combiner. Like the [LLM model type](../large_langiage_model.md), adapter-based fine-tuning and quantization can be configured, and any combiner or decoder parameters will be bundled with the adapter weights.
 
-More information about the adapter config can be found [here](../configuration/large_language_model.md#adapter).
+Example config:
 
-More information about quantization parameters can be found [here](../configuration/large_language_model.md#quantization).
-
-More information about the model initialization parameters can be found [here](../configuration/large_language_model.md#model-parameters).
-
-{% set text_encoder = get_encoder_schema("text", "llm") %}
-{{ render_yaml(text_encoder, parent="encoder") }}
+```yaml
+encoder:
+  type: llm
+  base_model: meta-llama/Llama-2-7b-hf
+  adapter:
+    type: lora
+  quantization:
+    bits: 4
+```
 
 Parameters:
 
-{{ render_fields(schema_class_to_fields(text_encoder, exclude=["type"])) }}
+### Base Model
+
+The `base_model` parameter specifies the pretrained large language model to serve
+as the foundation of your custom LLM.
+
+More information about the `base_model` parameter can be found [here](../configuration/large_language_model.md#base-model)
+
+### Adapter
+
+{% set adapter_classes = get_adapter_schemas() %}
+{% for adapter in adapter_classes %}
+
+### {{ adapter.name() }}
+
+{{ adapter.description() }}
+
+{{ render_yaml(adapter, parent="adapter") }}
+
+{{ render_fields(schema_class_to_fields(adapter, exclude=["type"])) }}
+{% endfor %}
+
+More information about the adapter config can be found [here](../configuration/large_language_model.md#adapter).
+
+### Quantization
+
+!!! attention
+
+    Quantized fine-tuning currently requires using `adapter: lora`. In-context
+    learning does not have this restriction.
+
+!!! attention
+
+    Quantization is currently only supported with `backend: local`.
+
+{% set quantization = get_quantization_schema() %}
+{{ render_yaml(quantization, parent="quantization") }}
+
+{{ render_fields(schema_class_to_fields(quantization)) }}
+
+More information about quantization parameters can be found [here](../configuration/large_language_model.md#quantization).
+
+### Model Parameters
+
+More information about the model initialization parameters can be found [here](../configuration/large_language_model.md#model-parameters).
 
 # Output Features
 

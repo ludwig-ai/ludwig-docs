@@ -294,7 +294,7 @@ Parameters:
 graph LR
   A["12\n7\n43\n65\n23\n4\n1"] --> B["Pretrained\n LLM"];
   B --> C["Last\n Hidden\n State"];
-  C --> D...;
+  C --> ...;
 ```
 
 { data-search-exclude }
@@ -307,7 +307,7 @@ More information about quantization parameters can be found [here](../configurat
 
 More information about the model initialization parameters can be found [here](../configuration/large_language_model.md#model-parameters).
 
-{% set text_encoder = get_encoder_schema("text", "transformer") %}
+{% set text_encoder = get_encoder_schema("text", "llm") %}
 {{ render_yaml(text_encoder, parent="encoder") }}
 
 Parameters:

@@ -1535,6 +1535,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#global-max-sequence-length" class="md-nav__link">
+    Global Max Sequence Length
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#feature-specific-preprocessing" class="md-nav__link">
     Feature-specific preprocessing
   </a>
@@ -3584,6 +3591,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#global-max-sequence-length" class="md-nav__link">
+    Global Max Sequence Length
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#feature-specific-preprocessing" class="md-nav__link">
     Feature-specific preprocessing
   </a>
@@ -3713,13 +3727,13 @@ of a provided "key" column. This is a useful alternative to random splitting whe
 such a key is available for a couple of reasons:</p>
 <ul>
 <li><strong>To prevent data leakage</strong>:
-For example, imagine you are predicting which users are likely to churn in a given month. If a user
-appears in both the train and test splits, then it may seem that your model is generalizing better than it actually is. In these cases,
-hashing on the user ID column will ensure that every sample for a user is assigned to the same split.</li>
+  For example, imagine you are predicting which users are likely to churn in a given month. If a user
+  appears in both the train and test splits, then it may seem that your model is generalizing better than it actually is. In these cases,
+  hashing on the user ID column will ensure that every sample for a user is assigned to the same split.</li>
 <li><strong>To ensure consistent assignment of samples to splits as the underlying dataset evolves over time</strong>:
-Though random splitting is determinstic between runs due to the use of a random seed, if the underlying
-dataset changes (e.g., new samples are added over time), then samples may move into different splits. Hashing on a primary
-key will ensure that all existing samples retain their original splits as new samples are added over time.</li>
+  Though random splitting is determinstic between runs due to the use of a random seed, if the underlying
+  dataset changes (e.g., new samples are added over time), then samples may move into different splits. Hashing on a primary
+  key will ensure that all existing samples retain their original splits as new samples are added over time.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="nt">split</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hash</span>
@@ -3746,13 +3760,13 @@ not supported.</p>
 <p>In this example, Ludwig will oversample the minority class to achieve a 50%
 representation in the overall dataset.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">oversample_minority</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+<span class="w">  </span><span class="nt">oversample_minority</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
 </code></pre></div>
 <h3 id="undersampling">Undersampling<a class="headerlink" href="#undersampling" title="Permanent link">&para;</a></h3>
 <p>In this example, Ludwig will undersample the majority class to achieve a 70%
 representation in the overall dataset.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">undersample_majority</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
+<span class="w">  </span><span class="nt">undersample_majority</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
 </code></pre></div>
 <h2 id="sample-ratio">Sample Ratio<a class="headerlink" href="#sample-ratio" title="Permanent link">&para;</a></h2>
 <p>Sometimes users may want to train on a sample of their input training data (maybe
@@ -3763,8 +3777,30 @@ to indicate the ratio of the dataset to use for training.</p>
 used for training. For example, if you only want to use 30% of my input data,
 you could specify a config like this:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">sample_ratio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3</span>
+<span class="w">  </span><span class="nt">sample_ratio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3</span>
 </code></pre></div>
+<h2 id="global-max-sequence-length">Global Max Sequence Length<a class="headerlink" href="#global-max-sequence-length" title="Permanent link">&para;</a></h2>
+<p>There are <a href="https://www.youtube.com/watch?v=g68qlo9Izf0&amp;t=2685s">many factors at play</a>
+when it comes to fine-tuning LLMs efficiently on a single GPU.</p>
+<p>One of the most important parameters in your control to keep GPU memory usage in
+check is the choice of the maximum sequence length.</p>
+<p>Ludwig provides 3 primary knobs to control max sequence lengths. <code>global_max_sequence_length</code> is one such knob.
+It is used to control the maximum length sequence fed to the LLM's forward pass during training. It represents the
+joint total of tokens from your input feature concatenated with the tokens of your output feature that will be fed
+to the model during training for each row in your dataset.</p>
+<p>To understand how this parameter, here is an example. Let's say you have an input text feature with a row that has 20 tokens and
+an output text feature with a row that has 15 tokens. Then:</p>
+<ul>
+<li>If you set <code>global_max_sequence_length</code> to 35, your entire input + output sequence will be passed into the model during training</li>
+<li>If you set <code>global_max_sequence_length</code> to a value greater than the sum, say 40, it will also ensure that the entire sequence is passed to the model during training</li>
+<li>If you set <code>global_max_sequence_length</code> to 25, then only the first 20 input feature tokens and the first 5 output feature tokens will be passed into the model during training.</li>
+</ul>
+<p>For datasets with variable length sequences (which is the case in majority of all real world tasets), this will adjust each row individually during training.</p>
+<p>You can explore all 3 options for controlling max sequence lengths and their tradeoffs <a href="../large_language_model/#max-sequence-lengths">here</a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This parameter only affects models trained using the <code>llm</code> model type.</p>
+</div>
 <h2 id="feature-specific-preprocessing">Feature-specific preprocessing<a class="headerlink" href="#feature-specific-preprocessing" title="Permanent link">&para;</a></h2>
 <p>To configure feature-specific preprocessing, please check
 <a href="../features/supported_data_types">datatype-specific documentation</a>.</p>

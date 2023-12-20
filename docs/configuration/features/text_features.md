@@ -37,7 +37,7 @@ Example text feature entry in the input features list:
 name: text_column_name
 type: text
 tied: null
-encoder: 
+encoder:
     type: bert
     trainable: true
 ```
@@ -64,6 +64,7 @@ graph LR
   B --> C["Aggregation\n Reduce\n Operation"];
   C --> ...;
 ```
+
 { data-search-exclude }
 
 The embed encoder simply maps each token in the input sequence to an embedding, creating a `b x s x h` tensor where `b`
@@ -92,6 +93,7 @@ graph LR
   E3 --> F;
   E4 --> F;
 ```
+
 { data-search-exclude }
 
 The parallel cnn encoder is inspired by
@@ -120,6 +122,7 @@ graph LR
   C --> D["Fully\n Connected\n Layers"];
   D --> ...;
 ```
+
 { data-search-exclude }
 
 The stacked cnn encoder is inspired by [Xiang Zhang at all's Character-level Convolutional Networks for Text Classification](https://arxiv.org/abs/1509.01626).
@@ -156,6 +159,7 @@ graph LR
   F --> G4["1D Conv\n Width 5"] --> H;
   H --> I["Pool"] --> J["Fully\n Connected\n Layers"] --> K["..."];
 ```
+
 { data-search-exclude }
 
 The stacked parallel cnn encoder is a combination of the Parallel CNN and the Stacked CNN encoders where each layer of
@@ -183,6 +187,7 @@ graph LR
   C --> D["Fully\n Connected\n Layers"];
   D --> ...;
 ```
+
 { data-search-exclude }
 
 The rnn encoder works by first mapping the input token sequence `b x s` (where `b` is the batch size and `s` is the
@@ -209,6 +214,7 @@ graph LR
   C2 --> D["Fully\n Connected\n Layers"];
   D --> ...;
 ```
+
 { data-search-exclude }
 
 The `cnnrnn` encoder works by first mapping the input token sequence `b x s` (where `b` is the batch size and `s` is
@@ -234,6 +240,7 @@ graph LR
   C --> D["Fully\n Connected\n Layers"];
   D --> ...;
 ```
+
 { data-search-exclude }
 
 The `transformer` encoder implements a stack of transformer blocks, replicating the architecture introduced in the
@@ -281,6 +288,32 @@ Parameters:
 {{ render_fields(schema_class_to_fields(hf_encoder, exclude=["type"])) }}
 {% endfor %}
 
+## LLM encoders
+
+``` mermaid
+graph LR
+  A["12\n7\n43\n65\n23\n4\n1"] --> B["Pretrained\n LLM"];
+  B --> C["Last\n Hidden\n State"];
+  C --> D...;
+```
+
+{ data-search-exclude }
+
+The LLM encoder processed text with a pretrained LLM (ex. `llama-2-7b`) passes the last hidden state of the LLM forward to the combiner. Like the LLM model type, adapter-based fine-tuning and quantization can be configured, and any combiner or decoder parameters will be bundled with the adapter weights.
+
+More information about the adapter config can be found [here](../configuration/large_language_model.md#adapter).
+
+More information about quantization parameters can be found [here](../configuration/large_language_model.md#quantization).
+
+More information about the model initialization parameters can be found [here](../configuration/large_language_model.md#model-parameters).
+
+{% set text_encoder = get_encoder_schema("text", "transformer") %}
+{{ render_yaml(text_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(text_encoder, exclude=["type"])) }}
+
 # Output Features
 
 Text output features are a special case of [Sequence Features](#sequence-output-features-and-decoders), so all options
@@ -304,7 +337,7 @@ loss:
     robust_lambda: 0
     class_weights: 1
     class_similarities_temperature: 0
-decoder: 
+decoder:
     type: generator
 ```
 
@@ -349,6 +382,7 @@ graph LR
   C3
   end
 ```
+
 { data-search-exclude }
 
 In the case of `generator` the decoder is a (potentially empty) stack of fully connected layers, followed by an RNN that
@@ -389,6 +423,7 @@ graph LR
   A
   end
 ```
+
 { data-search-exclude }
 
 In the case of `tagger` the decoder is a (potentially empty) stack of fully connected layers, followed by a projection

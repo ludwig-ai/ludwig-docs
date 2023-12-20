@@ -1,0 +1,4911 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+  
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Declarative machine learning: End-to-end machine learning pipelines using data-driven configurations.">
+      
+      
+        <meta name="author" content="Piero Molino">
+      
+      
+        <link rel="canonical" href="https://ludwig.ai/latest/configuration/features/image_features/">
+      
+      
+        <link rel="prev" href="../h3_features/">
+      
+      
+        <link rel="next" href="../time_series_features/">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+    
+  <meta content="http://raw.githubusercontent.com/ludwig-ai/ludwig-docs/master/docs/images/og-image.jpg"
+    property="og:image">
+  <meta content="https://raw.githubusercontent.com/ludwig-ai/ludwig-docs/master/docs/images/og-image.jpg"
+    property="og:image:secure_url">
+
+    
+      
+        <title>↑ Image Features - Ludwig</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.35e1ed30.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/monokai.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/colorful.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-H8VVJF9L6G"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-H8VVJF9L6G",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-H8VVJF9L6G",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="deep-orange">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#supported-image-formats" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Ludwig" class="md-header__button md-logo" aria-label="Ludwig" data-md-component="logo">
+      
+<img alt="logo" src="../../../images/ludwig_logo.svg"
+     style="height:1rem;width:4rem;">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Ludwig
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ↑ Image Features
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="deep-orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="deep-orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ludwig-ai/ludwig" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ludwig-ai/ludwig
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Ludwig" class="md-nav__button md-logo" aria-label="Ludwig" data-md-component="logo">
+      
+<img alt="logo" src="../../../images/ludwig_logo.svg"
+     style="height:1rem;width:4rem;">
+
+    </a>
+    Ludwig
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ludwig-ai/ludwig" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ludwig-ai/ludwig
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ludwig
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../getting_started/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    🚀 Getting Started
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            🚀 Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/prepare_data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dataset preparation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/train/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Training
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/evaluate/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Prediction and Evaluation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/hyperopt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hyperopt
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/serve/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serving
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/ray/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Distributed training on Ray
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/llm_finetuning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LLM Fine-tuning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/docker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ludwig with Docker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../user_guide/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    📖 User Guide
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            📖 User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/what_is_ludwig/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What is Ludwig?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/how_ludwig_works/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How Ludwig Works
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/command_line_interface/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Command Line Interface
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python API
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Python API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/api/LudwigModel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LudwigModel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/api/visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visualization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Datasets
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Datasets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/datasets/supported_formats/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Supported Formats
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/datasets/data_preprocessing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Preprocessing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/datasets/data_postprocessing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Postprocessing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/datasets/dataset_zoo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dataset Zoo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../user_guide/llms/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Large Language Models
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            Large Language Models
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/llms/finetuning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fine-Tuning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/llms/in_context_learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    In-Context Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/gpus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GPUs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../user_guide/distributed_training/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Distributed Training
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_9" id="__nav_3_9_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            Distributed Training
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/distributed_training/finetuning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fine-Tuning Pretrained Models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/hyperopt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hyperparameter Optimization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/cloud_storage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cloud Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/automl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AutoML
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/visualizations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visualizations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/model_export/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Model Export
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/serving/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serving
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/integrations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Third-Party Integrations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    📚 Configuration
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            📚 Configuration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../model_type/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Model Types
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../large_language_model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Large Language Models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../preprocessing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preprocessing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Features
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supported_data_types/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Supported Data Types
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../input_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Input Features (↑)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../output_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Output Features (↓)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../binary_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ⇅ Binary Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../number_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ⇅ Number Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../category_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ⇅ Category Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bag_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ⇅ Bag Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../set_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ⇅ Set Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sequence_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ⇅ Sequence Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../text_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ⇅ Text Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vector_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ⇅ Vector Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../audio_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ↑ Audio Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../date_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ↑ Date Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../h3_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ↑ H3 Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    ↑ Image Features
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    ↑ Image Features
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#supported-image-formats" class="md-nav__link">
+    Supported Image Formats
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preprocessing" class="md-nav__link">
+    Preprocessing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-features" class="md-nav__link">
+    Input Features
+  </a>
+  
+    <nav class="md-nav" aria-label="Input Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encoders" class="md-nav__link">
+    Encoders
+  </a>
+  
+    <nav class="md-nav" aria-label="Encoders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#convolutional-stack-encoder-stacked_cnn" class="md-nav__link">
+    Convolutional Stack Encoder (stacked_cnn)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlp-mixer-encoder" class="md-nav__link">
+    MLP-Mixer Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#torchvision-pretrained-model-encoders" class="md-nav__link">
+    TorchVision Pretrained Model Encoders
+  </a>
+  
+    <nav class="md-nav" aria-label="TorchVision Pretrained Model Encoders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alexnet" class="md-nav__link">
+    AlexNet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convnext" class="md-nav__link">
+    ConvNeXt
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#densenet" class="md-nav__link">
+    DenseNet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#efficientnet" class="md-nav__link">
+    EfficientNet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#googlenet" class="md-nav__link">
+    GoogLeNet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inception-v3" class="md-nav__link">
+    Inception V3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maxvit" class="md-nav__link">
+    MaxVit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mnasnet" class="md-nav__link">
+    MNASNet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mobilenet-v2" class="md-nav__link">
+    MobileNet V2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mobilenet-v3" class="md-nav__link">
+    MobileNet V3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regnet" class="md-nav__link">
+    RegNet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resnet" class="md-nav__link">
+    ResNet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resnext" class="md-nav__link">
+    ResNeXt
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shufflenet-v2" class="md-nav__link">
+    ShuffleNet V2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#squeezenet" class="md-nav__link">
+    SqueezeNet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#swintransformer" class="md-nav__link">
+    SwinTransformer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vgg" class="md-nav__link">
+    VGG
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visiontransformer" class="md-nav__link">
+    VisionTransformer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wide-resnet" class="md-nav__link">
+    Wide ResNet
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deprecated-encoders-planned-to-remove-in-v08" class="md-nav__link">
+    Deprecated Encoders (planned to remove in v0.8)
+  </a>
+  
+    <nav class="md-nav" aria-label="Deprecated Encoders (planned to remove in v0.8)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#legacy-resnet-encoder" class="md-nav__link">
+    Legacy ResNet Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#legacy-vision-transformer-encoder" class="md-nav__link">
+    Legacy Vision Transformer Encoder
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#image-augmentation" class="md-nav__link">
+    Image Augmentation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-features" class="md-nav__link">
+    Output Features
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../time_series_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ↑ Time Series Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../defaults/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Defaults
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../combiner/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Combiner
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../trainer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Trainer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hyperparameter_optimization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hyperopt
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Backend
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../examples/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    💡 Examples
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            💡 Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    LLMs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            LLMs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/llms/llm_classification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fine-tuning for classification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/llms/llm_finetuning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Instruction-tuning llama-2-7b
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/llms/llm_finetuning_deepspeed/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Adapter-based encoder fine-tuning for text classification with deepspeed
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/llms/llm_text_generation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Adapter-based fine-tuning for text generation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/llms/llm_zero_shot_text_generation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zero-shot batch inference for text generation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/llms/llm_zero_shot_batch_inference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zero-shot batch inference for text classification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/llms/llm_few_shot_batch_inference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Few-shot batch inference for text classification (RAG)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/llms/llm_tabular_zero_shot_batch_inference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zero-shot batch inference for tabular classification (TabLLM)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/llms/llm_tabular_classification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fine-tuning for tabular classification (TabLLM)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Supervised ML
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            Supervised ML
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/text_classification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Text Classification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/adult_census_income/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tabular Data Classification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/mnist/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Image Classification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/multimodal_classification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multimodal Classification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/hyperopt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hyperparameter Optimization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/gbm_fraud/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fraud with GBMs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/sentiment_analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sentiment Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Use Cases
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            Use Cases
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/ner_tagging/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Named Entity Recognition Tagging
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/nlu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Natural Language Understanding
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/machine_translation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Machine Translation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/seq2seq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chit-Chat Dialogue Modeling through Sequence2Sequence
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/sentiment_analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sentiment Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/oneshot/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    One-shot Learning with Siamese Networks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/visual_qa/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visual Question Answering
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/speech_recognition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spoken Digit Speech Recognition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/speaker_verification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Speaker Verification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/titanic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Binary Classification (Titanic)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/forecasting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Timeseries forecasting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/weather/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Timeseries forecasting (Weather)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/movie_ratings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Movie rating prediction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/multi_label/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multi-label classification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/multi_task/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multi-Task Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/fuel_efficiency/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Simple Regression - Fuel Efficiency Prediction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/fraud/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fraud Detection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../developer_guide/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    🛠️ Developer Guide
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            🛠️ Developer Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/contributing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Contribute
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/codebase_structure/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Codebase Structure
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/api_annotations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ludwig API Guarantees
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_an_encoder/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add an Encoder
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_combiner/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Combiner
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_decoder/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Decoder
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_feature_type/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Feature Type
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_metric/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Metric
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_loss_function/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Loss Function
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_tokenizer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Tokenizer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_hyperopt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Hyperopt Algorithm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_pretrained_model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Pretrained Model
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_an_integration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add an Integration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_dataset/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Dataset
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/style_guidelines_and_tests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Style Guidelines and Tests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/unit_test_design_guidelines/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Unit Test Design Guidelines
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/run_tests_on_gpu_using_ray/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Run Tests on GPU Using Ray
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/release_process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Release Process
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../community/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    👋 Community
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ❓ FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#supported-image-formats" class="md-nav__link">
+    Supported Image Formats
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preprocessing" class="md-nav__link">
+    Preprocessing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-features" class="md-nav__link">
+    Input Features
+  </a>
+  
+    <nav class="md-nav" aria-label="Input Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encoders" class="md-nav__link">
+    Encoders
+  </a>
+  
+    <nav class="md-nav" aria-label="Encoders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#convolutional-stack-encoder-stacked_cnn" class="md-nav__link">
+    Convolutional Stack Encoder (stacked_cnn)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mlp-mixer-encoder" class="md-nav__link">
+    MLP-Mixer Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#torchvision-pretrained-model-encoders" class="md-nav__link">
+    TorchVision Pretrained Model Encoders
+  </a>
+  
+    <nav class="md-nav" aria-label="TorchVision Pretrained Model Encoders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alexnet" class="md-nav__link">
+    AlexNet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convnext" class="md-nav__link">
+    ConvNeXt
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#densenet" class="md-nav__link">
+    DenseNet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#efficientnet" class="md-nav__link">
+    EfficientNet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#googlenet" class="md-nav__link">
+    GoogLeNet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inception-v3" class="md-nav__link">
+    Inception V3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maxvit" class="md-nav__link">
+    MaxVit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mnasnet" class="md-nav__link">
+    MNASNet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mobilenet-v2" class="md-nav__link">
+    MobileNet V2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mobilenet-v3" class="md-nav__link">
+    MobileNet V3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regnet" class="md-nav__link">
+    RegNet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resnet" class="md-nav__link">
+    ResNet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resnext" class="md-nav__link">
+    ResNeXt
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shufflenet-v2" class="md-nav__link">
+    ShuffleNet V2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#squeezenet" class="md-nav__link">
+    SqueezeNet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#swintransformer" class="md-nav__link">
+    SwinTransformer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vgg" class="md-nav__link">
+    VGG
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visiontransformer" class="md-nav__link">
+    VisionTransformer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wide-resnet" class="md-nav__link">
+    Wide ResNet
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deprecated-encoders-planned-to-remove-in-v08" class="md-nav__link">
+    Deprecated Encoders (planned to remove in v0.8)
+  </a>
+  
+    <nav class="md-nav" aria-label="Deprecated Encoders (planned to remove in v0.8)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#legacy-resnet-encoder" class="md-nav__link">
+    Legacy ResNet Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#legacy-vision-transformer-encoder" class="md-nav__link">
+    Legacy Vision Transformer Encoder
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#image-augmentation" class="md-nav__link">
+    Image Augmentation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-features" class="md-nav__link">
+    Output Features
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>↑ Image Features</h1>
+
+<p>Input image features are transformed into a float valued tensors of size <code>N x C x H x W</code> (where <code>N</code> is the size of the
+dataset, <code>C</code> is the number of channels, and <code>H x W</code> is the height and width of the image (can be specified by the user).
+These tensors are added to HDF5 with a key that reflects the name of column in the dataset.</p>
+<p>The column name is added to the JSON file, with an associated dictionary containing preprocessing information about the
+sizes of the resizing.</p>
+<h2 id="supported-image-formats">Supported Image Formats<a class="headerlink" href="#supported-image-formats" title="Permanent link">&para;</a></h2>
+<p>The number of channels in the image is determined by the image format. The following table lists the supported image
+formats and the number of channels.</p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Number of channels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Grayscale</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Grayscale with Alpha</td>
+<td>2</td>
+</tr>
+<tr>
+<td>RGB</td>
+<td>3</td>
+</tr>
+<tr>
+<td>RGB with Alpha</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<h2 id="preprocessing">Preprocessing<a class="headerlink" href="#preprocessing" title="Permanent link">&para;</a></h2>
+<p>During preprocessing, raw image files are transformed into numpy arrays and saved in the hdf5 format.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Images passed to an image encoder are expected to have the same size. If images are different sizes, by default they
+will be resized to the dimensions of the first image in the dataset. Optionally, a <code>resize_method</code> together with a
+target <code>width</code> and <code>height</code> can be specified in the feature preprocessing parameters, in which case all images will
+be resized to the specified target size.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">missing_value_strategy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bfill</span>
+<span class="w">    </span><span class="nt">fill_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">num_channels</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">num_processes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">resize_method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">interpolate</span>
+<span class="w">    </span><span class="nt">infer_image_num_channels</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">infer_image_dimensions</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">infer_image_max_height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
+<span class="w">    </span><span class="nt">infer_image_max_width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
+<span class="w">    </span><span class="nt">infer_image_sample_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">    </span><span class="nt">standardize_image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">in_memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">requires_equal_dimensions</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>missing_value_strategy</code></strong> (default: <code>bfill</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: What strategy to follow when there's a missing value in an image column Options: <code>fill_with_const</code>, <code>fill_with_mode</code>, <code>bfill</code>, <code>ffill</code>, <code>drop_row</code>.</li>
+<li><strong><code>fill_value</code></strong> (default: <code>null</code>): The maximum number of most common tokens to be considered. If the data contains more than this amount, the most infrequent tokens will be treated as unknown.</li>
+<li><strong><code>height</code></strong> (default: <code>null</code>): The image height in pixels. If this parameter is set, images will be resized to the specified height using the resize_method parameter. If None, images will be resized to the size of the first image in the dataset.</li>
+<li><strong><code>width</code></strong> (default: <code>null</code>): The image width in pixels. If this parameter is set, images will be resized to the specified width using the resize_method parameter. If None, images will be resized to the size of the first image in the dataset.</li>
+<li><strong><code>num_channels</code></strong> (default: <code>null</code>): Number of channels in the images. If specified, images will be read in the mode specified by the number of channels. If not specified, the number of channels will be inferred from the image format of the first valid image in the dataset.</li>
+<li><strong><code>num_processes</code></strong> (default: <code>1</code>): Specifies the number of processes to run for preprocessing images.</li>
+<li><strong><code>resize_method</code></strong> (default: <code>interpolate</code>): The method to use for resizing images. Options: <code>crop_or_pad</code>, <code>interpolate</code>.</li>
+<li><strong><code>infer_image_num_channels</code></strong> (default: <code>true</code>): If true, then the number of channels in the dataset is inferred from a sample of the first image in the dataset. Options: <code>true</code>, <code>false</code>.</li>
+<li><strong><code>infer_image_dimensions</code></strong> (default: <code>true</code>): If true, then the height and width of images in the dataset will be inferred from a sample of the first image in the dataset. Each image that doesn't conform to these dimensions will be resized according to resize_method. If set to false, then the height and width of images in the dataset will be specified by the user. Options: <code>true</code>, <code>false</code>.</li>
+<li><strong><code>infer_image_max_height</code></strong> (default: <code>256</code>): If infer_image_dimensions is set, this is used as the maximum height of the images in the dataset.</li>
+<li><strong><code>infer_image_max_width</code></strong> (default: <code>256</code>): If infer_image_dimensions is set, this is used as the maximum width of the images in the dataset.</li>
+<li><strong><code>infer_image_sample_size</code></strong> (default: <code>100</code>): The sample size used for inferring dimensions of images in infer_image_dimensions.</li>
+<li><strong><code>standardize_image</code></strong> (default: <code>null</code>): Standardize image by per channel mean centering and standard deviation scaling . Options: <code>imagenet1k</code>, <code>null</code>.</li>
+<li><strong><code>in_memory</code></strong> (default: <code>true</code>): Defines whether image dataset will reside in memory during the training process or will be dynamically fetched from disk (useful for large datasets). In the latter case a training batch of input images will be fetched from disk each training iteration. Options: <code>true</code>, <code>false</code>.</li>
+<li><strong><code>requires_equal_dimensions</code></strong> (default: <code>false</code>): If true, then width and height must be equal. Options: <code>true</code>, <code>false</code>.</li>
+</ul>
+<p>Preprocessing parameters can also be defined once and applied to all image input features using the <a href="../../defaults/#type-global-preprocessing">Type-Global Preprocessing</a> section.</p>
+<h2 id="input-features">Input Features<a class="headerlink" href="#input-features" title="Permanent link">&para;</a></h2>
+<p>The encoder parameters specified at the feature level are:</p>
+<ul>
+<li><code>tied</code> (default <code>null</code>): name of another input feature to tie the weights of the encoder with. It needs to be the name of
+a feature of the same type and with the same encoder parameters.</li>
+<li><code>augmentation</code> (default <code>False</code>): specifies image data augmentation operations to generate synthetic training data.  More details on image augmentation can be found <a href="#image-augmentation">here</a>.</li>
+</ul>
+<p>Example image feature entry in the input features list:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image_column_name</span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image</span>
+<span class="nt">tied</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stacked_cnn</span>
+</code></pre></div>
+<p>The available encoder parameters are:</p>
+<ul>
+<li><code>type</code> (default <code>stacked_cnn</code>): the possible values are <code>stacked_cnn</code>, <code>resnet</code>, <code>mlp_mixer</code>, <code>vit</code>, and <a href="#torchvision-pretrained-model-encoders">TorchVision Pretrained Image Classification models</a>.</li>
+</ul>
+<p>Encoder type and encoder parameters can also be defined once and applied to all image input features using the <a href="../../defaults/#type-global-encoder">Type-Global Encoder</a> section.</p>
+<h3 id="encoders">Encoders<a class="headerlink" href="#encoders" title="Permanent link">&para;</a></h3>
+<h4 id="convolutional-stack-encoder-stacked_cnn">Convolutional Stack Encoder (<code>stacked_cnn</code>)<a class="headerlink" href="#convolutional-stack-encoder-stacked_cnn" title="Permanent link">&para;</a></h4>
+<p>Stack of 2D convolutional layers with optional normalization, dropout, and down-sampling pooling layers, followed by an
+optional stack of fully connected layers.</p>
+<p>Convolutional Stack Encoder takes the following optional parameters:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stacked_cnn</span>
+<span class="w">    </span><span class="nt">conv_dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+<span class="w">    </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span>
+<span class="w">    </span><span class="nt">num_conv_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">out_channels</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span>
+<span class="w">    </span><span class="nt">conv_norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">fc_norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">fc_norm_params</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">conv_activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span>
+<span class="w">    </span><span class="nt">kernel_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="nt">stride</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">padding_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span>
+<span class="w">    </span><span class="nt">padding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">valid</span>
+<span class="w">    </span><span class="nt">dilation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">groups</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">pool_function</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">max</span>
+<span class="w">    </span><span class="nt">pool_kernel_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">pool_stride</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">pool_padding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">pool_dilation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">conv_norm_params</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">conv_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">fc_dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+<span class="w">    </span><span class="nt">fc_activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span>
+<span class="w">    </span><span class="nt">fc_use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">fc_bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span>
+<span class="w">    </span><span class="nt">fc_weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xavier_uniform</span>
+<span class="w">    </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">num_channels</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">conv_use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>conv_dropout</code></strong> (default: <code>0.0</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Dropout rate</li>
+<li><strong><code>output_size</code></strong> (default: <code>128</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: If output_size is not already specified in fc_layers this is the default output_size that will be used for each layer. It indicates the size of the output of a fully connected layer. </li>
+<li><strong><code>num_conv_layers</code></strong> (default: <code>null</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Number of convolutional layers to use in the encoder. </li>
+<li><strong><code>out_channels</code></strong> (default: <code>32</code>): Indicates the number of filters, and by consequence the output channels of the 2d convolution. If out_channels is not already specified in conv_layers this is the default out_channels that will be used for each layer. </li>
+<li><strong><code>conv_norm</code></strong> (default: <code>null</code>): If a norm is not already specified in conv_layers this is the default norm that will be used for each layer. It indicates the normalization applied to the activations and can be null, batch or layer. Options: <code>batch</code>, <code>layer</code>, <code>null</code>.</li>
+<li><strong><code>fc_norm</code></strong> (default: <code>null</code>): If a norm is not already specified in fc_layers this is the default norm that will be used for each layer. It indicates the norm of the output and can be null, batch or layer. Options: <code>batch</code>, <code>layer</code>, <code>null</code>.</li>
+<li><strong><code>fc_norm_params</code></strong> (default: <code>null</code>): Parameters used if norm is either batch or layer. For information on parameters used with batch see Torch's documentation on batch normalization or for layer see Torch's documentation on layer normalization.</li>
+<li><strong><code>conv_activation</code></strong> (default: <code>relu</code>): If an activation is not already specified in conv_layers this is the default activation that will be used for each layer. It indicates the activation function applied to the output. Options: <code>elu</code>, <code>leakyRelu</code>, <code>logSigmoid</code>, <code>relu</code>, <code>sigmoid</code>, <code>tanh</code>, <code>softmax</code>, <code>null</code>.</li>
+<li><strong><code>kernel_size</code></strong> (default: <code>3</code>): An integer or pair of integers specifying the kernel size. A single integer specifies a square kernel, while a pair of integers specifies the height and width of the kernel in that order (h, w). If a kernel_size is not specified in conv_layers this kernel_size that will be used for each layer.</li>
+<li><strong><code>stride</code></strong> (default: <code>1</code>): An integer or pair of integers specifying the stride of the convolution along the height and width. If a stride is not already specified in conv_layers, specifies the default stride of the 2D convolutional kernel that will be used for each layer.</li>
+<li><strong><code>padding_mode</code></strong> (default: <code>zeros</code>): If padding_mode is not already specified in conv_layers, specifies the default padding_mode of the 2D convolutional kernel that will be used for each layer. Options: <code>zeros</code>, <code>reflect</code>, <code>replicate</code>, <code>circular</code>.</li>
+<li><strong><code>padding</code></strong> (default: <code>valid</code>): An int, pair of ints (h, w), or one of ['valid', 'same'] specifying the padding used forconvolution kernels.</li>
+<li><strong><code>dilation</code></strong> (default: <code>1</code>): An int or pair of ints specifying the dilation rate to use for dilated convolution. If dilation is not already specified in conv_layers, specifies the default dilation of the 2D convolutional kernel that will be used for each layer.</li>
+<li><strong><code>groups</code></strong> (default: <code>1</code>): Groups controls the connectivity between convolution inputs and outputs. When groups = 1, each output channel depends on every input channel. When groups &gt; 1, input and output channels are divided into groups separate groups, where each output channel depends only on the inputs in its respective input channel group. in_channels and out_channels must both be divisible by groups.</li>
+<li><strong><code>pool_function</code></strong> (default: <code>max</code>): Pooling function to use. Options: <code>max</code>, <code>average</code>, <code>avg</code>, <code>mean</code>.</li>
+<li><strong><code>pool_kernel_size</code></strong> (default: <code>2</code>): An integer or pair of integers specifying the pooling size. If pool_kernel_size is not specified in conv_layers this is the default value that will be used for each layer.</li>
+<li><strong><code>pool_stride</code></strong> (default: <code>null</code>): An integer or pair of integers specifying the pooling stride, which is the factor by which the pooling layer downsamples the feature map. Defaults to pool_kernel_size.</li>
+<li><strong><code>pool_padding</code></strong> (default: <code>0</code>): An integer or pair of ints specifying pooling padding (h, w).</li>
+<li><strong><code>pool_dilation</code></strong> (default: <code>1</code>): An integer or pair of ints specifying pooling dilation rate (h, w).</li>
+<li><strong><code>conv_norm_params</code></strong> (default: <code>null</code>): Parameters used if conv_norm is either batch or layer. </li>
+<li><strong><code>conv_layers</code></strong> (default: <code>null</code>): List of convolutional layers to use in the encoder. </li>
+<li><strong><code>fc_dropout</code></strong> (default: <code>0.0</code>): Dropout rate</li>
+<li><strong><code>fc_activation</code></strong> (default: <code>relu</code>): If an activation is not already specified in fc_layers this is the default activation that will be used for each layer. It indicates the activation function applied to the output. Options: <code>elu</code>, <code>leakyRelu</code>, <code>logSigmoid</code>, <code>relu</code>, <code>sigmoid</code>, <code>tanh</code>, <code>softmax</code>, <code>null</code>.</li>
+<li><strong><code>fc_use_bias</code></strong> (default: <code>true</code>): Whether the layer uses a bias vector. Options: <code>true</code>, <code>false</code>.</li>
+<li><strong><code>fc_bias_initializer</code></strong> (default: <code>zeros</code>): Initializer for the bias vector. Options: <code>constant</code>, <code>dirac</code>, <code>eye</code>, <code>identity</code>, <code>kaiming_normal</code>, <code>kaiming_uniform</code>, <code>normal</code>, <code>ones</code>, <code>orthogonal</code>, <code>sparse</code>, <code>uniform</code>, <code>xavier_normal</code>, <code>xavier_uniform</code>, <code>zeros</code>.</li>
+<li><strong><code>fc_weights_initializer</code></strong> (default: <code>xavier_uniform</code>): Initializer for the weights matrix. Options: <code>constant</code>, <code>dirac</code>, <code>eye</code>, <code>identity</code>, <code>kaiming_normal</code>, <code>kaiming_uniform</code>, <code>normal</code>, <code>ones</code>, <code>orthogonal</code>, <code>sparse</code>, <code>uniform</code>, <code>xavier_normal</code>, <code>xavier_uniform</code>, <code>zeros</code>.</li>
+<li><strong><code>num_fc_layers</code></strong> (default: <code>1</code>): The number of stacked fully connected layers.</li>
+<li>
+<p><strong><code>fc_layers</code></strong> (default: <code>null</code>): A list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: activation, dropout, norm, norm_params, output_size, use_bias, bias_initializer and weights_initializer. If any of those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. </p>
+</li>
+<li>
+<p><strong><code>num_channels</code></strong> (default: <code>null</code>): Number of channels to use in the encoder. </p>
+</li>
+<li><strong><code>conv_use_bias</code></strong> (default: <code>true</code>): If bias not already specified in conv_layers, specifies if the 2D convolutional kernel should have a bias term. Options: <code>true</code>, <code>false</code>.</li>
+</ul>
+<h4 id="mlp-mixer-encoder">MLP-Mixer Encoder<a class="headerlink" href="#mlp-mixer-encoder" title="Permanent link">&para;</a></h4>
+<p>Encodes images using MLP-Mixer, as described in <a href="https://arxiv.org/abs/2105.01601">MLP-Mixer: An all-MLP Architecture for Vision</a>.
+MLP-Mixer divides the image into equal-sized patches, applying fully connected layers to each patch to compute per-patch
+representations (tokens) and combining the representations with fully-connected mixer layers.</p>
+<p>The MLP-Mixer Encoder takes the following optional parameters:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mlp_mixer</span>
+<span class="w">    </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+<span class="w">    </span><span class="nt">num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="w">    </span><span class="nt">patch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span>
+<span class="w">    </span><span class="nt">num_channels</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">embed_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512</span>
+<span class="w">    </span><span class="nt">token_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2048</span>
+<span class="w">    </span><span class="nt">channel_dim</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
+<span class="w">    </span><span class="nt">avg_pool</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>dropout</code></strong> (default: <code>0.0</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Dropout rate.</li>
+<li><strong><code>num_layers</code></strong> (default: <code>8</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: The depth of the network (the number of Mixer blocks).</li>
+<li>
+<p><strong><code>patch_size</code></strong> (default: <code>16</code>): The image patch size. Each patch is patch_size² pixels. Must evenly divide the image width and height.</p>
+</li>
+<li>
+<p><strong><code>num_channels</code></strong> (default: <code>null</code>): Number of channels to use in the encoder. </p>
+</li>
+<li><strong><code>embed_size</code></strong> (default: <code>512</code>): The patch embedding size, the output size of the mixer if avg_pool is true.</li>
+<li><strong><code>token_size</code></strong> (default: <code>2048</code>): The per-patch embedding size.</li>
+<li><strong><code>channel_dim</code></strong> (default: <code>256</code>): Number of channels in hidden layer.</li>
+<li><strong><code>avg_pool</code></strong> (default: <code>true</code>): If true, pools output over patch dimension, outputs a vector of shape (embed_size). If false, the output tensor is of shape (n_patches, embed_size), where n_patches is img_height x img_width / patch_size². Options: <code>true</code>, <code>false</code>.</li>
+</ul>
+<h4 id="torchvision-pretrained-model-encoders">TorchVision Pretrained Model Encoders<a class="headerlink" href="#torchvision-pretrained-model-encoders" title="Permanent link">&para;</a></h4>
+<p>Twenty TorchVision pretrained image classification models are available as Ludwig image encoders.  The available models
+are:</p>
+<ul>
+<li><code>AlexNet</code></li>
+<li><code>ConvNeXt</code></li>
+<li><code>DenseNet</code></li>
+<li><code>EfficientNet</code></li>
+<li><code>EfficientNetV2</code></li>
+<li><code>GoogLeNet</code></li>
+<li><code>Inception V3</code></li>
+<li><code>MaxVit</code></li>
+<li><code>MNASNet</code></li>
+<li><code>MobileNet V2</code></li>
+<li><code>MobileNet V3</code></li>
+<li><code>RegNet</code></li>
+<li><code>ResNet</code></li>
+<li><code>ResNeXt</code></li>
+<li><code>ShuffleNet V2</code></li>
+<li><code>SqueezeNet</code></li>
+<li><code>SwinTransformer</code></li>
+<li><code>VGG</code></li>
+<li><code>VisionTransformer</code></li>
+<li><code>Wide ResNet</code></li>
+</ul>
+<p>See <a href="https://pytorch.org/vision/stable/models.html#classification">TorchVison documentation</a> for more details.</p>
+<p>Ludwig encoders parameters for TorchVision pretrained models:</p>
+<h5 id="alexnet">AlexNet<a class="headerlink" href="#alexnet" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alexnet</span>
+<span class="w">    </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">model_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">model_variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">base</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>use_pretrained</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Download model weights from pre-trained model. Options: <code>true</code>, <code>false</code>.</li>
+<li>
+<p><strong><code>trainable</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Is the encoder trainable. Options: <code>true</code>, <code>false</code>.</p>
+</li>
+<li>
+<p><strong><code>model_cache_dir</code></strong> (default: <code>null</code>): Directory path to cache pretrained model weights.</p>
+</li>
+<li>
+<p><strong><code>model_variant</code></strong> (default: <code>base</code>): Pretrained model variant to use. Options: <code>base</code>.</p>
+</li>
+</ul>
+<h5 id="convnext">ConvNeXt<a class="headerlink" href="#convnext" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">convnext</span>
+<span class="w">    </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">model_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">model_variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">base</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>use_pretrained</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Download model weights from pre-trained model. Options: <code>true</code>, <code>false</code>.</li>
+<li>
+<p><strong><code>trainable</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Is the encoder trainable. Options: <code>true</code>, <code>false</code>.</p>
+</li>
+<li>
+<p><strong><code>model_cache_dir</code></strong> (default: <code>null</code>): Directory path to cache pretrained model weights.</p>
+</li>
+<li>
+<p><strong><code>model_variant</code></strong> (default: <code>base</code>): Pretrained model variant to use. Options: <code>tiny</code>, <code>small</code>, <code>base</code>, <code>large</code>.</p>
+</li>
+</ul>
+<h5 id="densenet">DenseNet<a class="headerlink" href="#densenet" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">densenet</span>
+<span class="w">    </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">model_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">model_variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">121</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>use_pretrained</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Download model weights from pre-trained model. Options: <code>true</code>, <code>false</code>.</li>
+<li>
+<p><strong><code>trainable</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Is the encoder trainable. Options: <code>true</code>, <code>false</code>.</p>
+</li>
+<li>
+<p><strong><code>model_cache_dir</code></strong> (default: <code>null</code>): Directory path to cache pretrained model weights.</p>
+</li>
+<li>
+<p><strong><code>model_variant</code></strong> (default: <code>121</code>): Pretrained model variant to use. Options: <code>121</code>, <code>161</code>, <code>169</code>, <code>201</code>.</p>
+</li>
+</ul>
+<h5 id="efficientnet">EfficientNet<a class="headerlink" href="#efficientnet" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">efficientnet</span>
+<span class="w">    </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">model_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">model_variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">b0</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>use_pretrained</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Download model weights from pre-trained model. Options: <code>true</code>, <code>false</code>.</li>
+<li>
+<p><strong><code>trainable</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Is the encoder trainable. Options: <code>true</code>, <code>false</code>.</p>
+</li>
+<li>
+<p><strong><code>model_cache_dir</code></strong> (default: <code>null</code>): Directory path to cache pretrained model weights.</p>
+</li>
+<li>
+<p><strong><code>model_variant</code></strong> (default: <code>b0</code>): Pretrained model variant to use. Options: <code>b0</code>, <code>b1</code>, <code>b2</code>, <code>b3</code>, <code>b4</code>, <code>b5</code>, <code>b6</code>, <code>b7</code>, <code>v2_s</code>, <code>v2_m</code>, <code>v2_l</code>.</p>
+</li>
+</ul>
+<h5 id="googlenet">GoogLeNet<a class="headerlink" href="#googlenet" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">googlenet</span>
+<span class="w">    </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">model_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">model_variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">base</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>use_pretrained</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Download model weights from pre-trained model. Options: <code>true</code>, <code>false</code>.</li>
+<li>
+<p><strong><code>trainable</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Is the encoder trainable. Options: <code>true</code>, <code>false</code>.</p>
+</li>
+<li>
+<p><strong><code>model_cache_dir</code></strong> (default: <code>null</code>): Directory path to cache pretrained model weights.</p>
+</li>
+<li>
+<p><strong><code>model_variant</code></strong> (default: <code>base</code>): Pretrained model variant to use. Options: <code>base</code>.</p>
+</li>
+</ul>
+<h5 id="inception-v3">Inception V3<a class="headerlink" href="#inception-v3" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inceptionv3</span>
+<span class="w">    </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">model_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">model_variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">base</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>use_pretrained</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Download model weights from pre-trained model. Options: <code>true</code>, <code>false</code>.</li>
+<li>
+<p><strong><code>trainable</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Is the encoder trainable. Options: <code>true</code>, <code>false</code>.</p>
+</li>
+<li>
+<p><strong><code>model_cache_dir</code></strong> (default: <code>null</code>): Directory path to cache pretrained model weights.</p>
+</li>
+<li>
+<p><strong><code>model_variant</code></strong> (default: <code>base</code>): Pretrained model variant to use. Options: <code>base</code>.</p>
+</li>
+</ul>
+<h5 id="maxvit">MaxVit<a class="headerlink" href="#maxvit" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">maxvit</span>
+<span class="w">    </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">model_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">model_variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">t</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>use_pretrained</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Download model weights from pre-trained model. Options: <code>true</code>, <code>false</code>.</li>
+<li>
+<p><strong><code>trainable</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Is the encoder trainable. Options: <code>true</code>, <code>false</code>.</p>
+</li>
+<li>
+<p><strong><code>model_cache_dir</code></strong> (default: <code>null</code>): Directory path to cache pretrained model weights.</p>
+</li>
+<li>
+<p><strong><code>model_variant</code></strong> (default: <code>t</code>): Pretrained model variant to use. Options: <code>t</code>.</p>
+</li>
+</ul>
+<h5 id="mnasnet">MNASNet<a class="headerlink" href="#mnasnet" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mnasnet</span>
+<span class="w">    </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">model_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">model_variant</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;0_5&#39;</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>use_pretrained</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Download model weights from pre-trained model. Options: <code>true</code>, <code>false</code>.</li>
+<li>
+<p><strong><code>trainable</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Is the encoder trainable. Options: <code>true</code>, <code>false</code>.</p>
+</li>
+<li>
+<p><strong><code>model_cache_dir</code></strong> (default: <code>null</code>): Directory path to cache pretrained model weights.</p>
+</li>
+<li>
+<p><strong><code>model_variant</code></strong> (default: <code>0_5</code>): Pretrained model variant to use. Options: <code>0_5</code>, <code>0_75</code>, <code>1_0</code>, <code>1_3</code>.</p>
+</li>
+</ul>
+<h5 id="mobilenet-v2">MobileNet V2<a class="headerlink" href="#mobilenet-v2" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mobilenetv2</span>
+<span class="w">    </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">model_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">model_variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">base</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>use_pretrained</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Download model weights from pre-trained model. Options: <code>true</code>, <code>false</code>.</li>
+<li>
+<p><strong><code>trainable</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Is the encoder trainable. Options: <code>true</code>, <code>false</code>.</p>
+</li>
+<li>
+<p><strong><code>model_cache_dir</code></strong> (default: <code>null</code>): Directory path to cache pretrained model weights.</p>
+</li>
+<li>
+<p><strong><code>model_variant</code></strong> (default: <code>base</code>): Pretrained model variant to use. Options: <code>base</code>.</p>
+</li>
+</ul>
+<h5 id="mobilenet-v3">MobileNet V3<a class="headerlink" href="#mobilenet-v3" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mobilenetv3</span>
+<span class="w">    </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">model_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">model_variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">small</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>use_pretrained</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Download model weights from pre-trained model. Options: <code>true</code>, <code>false</code>.</li>
+<li>
+<p><strong><code>trainable</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Is the encoder trainable. Options: <code>true</code>, <code>false</code>.</p>
+</li>
+<li>
+<p><strong><code>model_cache_dir</code></strong> (default: <code>null</code>): Directory path to cache pretrained model weights.</p>
+</li>
+<li>
+<p><strong><code>model_variant</code></strong> (default: <code>small</code>): Pretrained model variant to use. Options: <code>small</code>, <code>large</code>.</p>
+</li>
+</ul>
+<h5 id="regnet">RegNet<a class="headerlink" href="#regnet" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">regnet</span>
+<span class="w">    </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">model_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">model_variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">x_1_6gf</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>use_pretrained</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Download model weights from pre-trained model. Options: <code>true</code>, <code>false</code>.</li>
+<li>
+<p><strong><code>trainable</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Is the encoder trainable. Options: <code>true</code>, <code>false</code>.</p>
+</li>
+<li>
+<p><strong><code>model_cache_dir</code></strong> (default: <code>null</code>): Directory path to cache pretrained model weights.</p>
+</li>
+<li>
+<p><strong><code>model_variant</code></strong> (default: <code>x_1_6gf</code>): Pretrained model variant to use. Options: <code>x_1_6gf</code>, <code>x_16gf</code>, <code>x_32gf</code>, <code>x_3_2gf</code>, <code>x_400mf</code>, <code>x_800mf</code>, <code>x_8gf</code>, <code>y_128gf</code>, <code>y_16gf</code>, <code>y_1_6gf</code>, <code>y_32gf</code>, <code>y_3_2gf</code>, <code>y_400mf</code>, <code>y_800mf</code>, <code>y_8gf</code>.</p>
+</li>
+</ul>
+<h5 id="resnet">ResNet<a class="headerlink" href="#resnet" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resnet</span>
+<span class="w">    </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">model_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">model_variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>use_pretrained</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Download model weights from pre-trained model. Options: <code>true</code>, <code>false</code>.</li>
+<li>
+<p><strong><code>trainable</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Is the encoder trainable. Options: <code>true</code>, <code>false</code>.</p>
+</li>
+<li>
+<p><strong><code>model_cache_dir</code></strong> (default: <code>null</code>): Directory path to cache pretrained model weights.</p>
+</li>
+<li>
+<p><strong><code>model_variant</code></strong> (default: <code>50</code>): Pretrained model variant to use. Options: <code>18</code>, <code>34</code>, <code>50</code>, <code>101</code>, <code>152</code>.</p>
+</li>
+</ul>
+<h5 id="resnext">ResNeXt<a class="headerlink" href="#resnext" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resnext</span>
+<span class="w">    </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">model_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">model_variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50_32x4d</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>use_pretrained</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Download model weights from pre-trained model. Options: <code>true</code>, <code>false</code>.</li>
+<li>
+<p><strong><code>trainable</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Is the encoder trainable. Options: <code>true</code>, <code>false</code>.</p>
+</li>
+<li>
+<p><strong><code>model_cache_dir</code></strong> (default: <code>null</code>): Directory path to cache pretrained model weights.</p>
+</li>
+<li>
+<p><strong><code>model_variant</code></strong> (default: <code>50_32x4d</code>): Pretrained model variant to use. Options: <code>50_32x4d</code>, <code>101_32x8d</code>, <code>101_64x4d</code>.</p>
+</li>
+</ul>
+<h5 id="shufflenet-v2">ShuffleNet V2<a class="headerlink" href="#shufflenet-v2" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">shufflenet_v2</span>
+<span class="w">    </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">model_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">model_variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">x0_5</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>use_pretrained</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Download model weights from pre-trained model. Options: <code>true</code>, <code>false</code>.</li>
+<li>
+<p><strong><code>trainable</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Is the encoder trainable. Options: <code>true</code>, <code>false</code>.</p>
+</li>
+<li>
+<p><strong><code>model_cache_dir</code></strong> (default: <code>null</code>): Directory path to cache pretrained model weights.</p>
+</li>
+<li>
+<p><strong><code>model_variant</code></strong> (default: <code>x0_5</code>): Pretrained model variant to use. Options: <code>x0_5</code>, <code>x1_0</code>, <code>x1_5</code>, <code>x2_0</code>.</p>
+</li>
+</ul>
+<h5 id="squeezenet">SqueezeNet<a class="headerlink" href="#squeezenet" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">squeezenet</span>
+<span class="w">    </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">model_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">model_variant</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1_0&#39;</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>use_pretrained</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Download model weights from pre-trained model. Options: <code>true</code>, <code>false</code>.</li>
+<li>
+<p><strong><code>trainable</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Is the encoder trainable. Options: <code>true</code>, <code>false</code>.</p>
+</li>
+<li>
+<p><strong><code>model_cache_dir</code></strong> (default: <code>null</code>): Directory path to cache pretrained model weights.</p>
+</li>
+<li>
+<p><strong><code>model_variant</code></strong> (default: <code>1_0</code>): Pretrained model variant to use. Options: <code>1_0</code>, <code>1_1</code>.</p>
+</li>
+</ul>
+<h5 id="swintransformer">SwinTransformer<a class="headerlink" href="#swintransformer" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">swin_transformer</span>
+<span class="w">    </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">model_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">model_variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">t</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>use_pretrained</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Download model weights from pre-trained model. Options: <code>true</code>, <code>false</code>.</li>
+<li>
+<p><strong><code>trainable</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Is the encoder trainable. Options: <code>true</code>, <code>false</code>.</p>
+</li>
+<li>
+<p><strong><code>model_cache_dir</code></strong> (default: <code>null</code>): Directory path to cache pretrained model weights.</p>
+</li>
+<li>
+<p><strong><code>model_variant</code></strong> (default: <code>t</code>): Pretrained model variant to use. Options: <code>t</code>, <code>s</code>, <code>b</code>.</p>
+</li>
+</ul>
+<h5 id="vgg">VGG<a class="headerlink" href="#vgg" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vgg</span>
+<span class="w">    </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">model_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">model_variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">11</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>use_pretrained</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Download model weights from pre-trained model. Options: <code>true</code>, <code>false</code>.</li>
+<li>
+<p><strong><code>trainable</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Is the encoder trainable. Options: <code>true</code>, <code>false</code>.</p>
+</li>
+<li>
+<p><strong><code>model_cache_dir</code></strong> (default: <code>null</code>): Directory path to cache pretrained model weights.</p>
+</li>
+<li>
+<p><strong><code>model_variant</code></strong> (default: <code>11</code>): Pretrained model variant to use.</p>
+</li>
+</ul>
+<h5 id="visiontransformer">VisionTransformer<a class="headerlink" href="#visiontransformer" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vit</span>
+<span class="w">    </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">model_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">model_variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">b_16</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>use_pretrained</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Download model weights from pre-trained model. Options: <code>true</code>, <code>false</code>.</li>
+<li>
+<p><strong><code>trainable</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Is the encoder trainable. Options: <code>true</code>, <code>false</code>.</p>
+</li>
+<li>
+<p><strong><code>model_cache_dir</code></strong> (default: <code>null</code>): Directory path to cache pretrained model weights.</p>
+</li>
+<li>
+<p><strong><code>model_variant</code></strong> (default: <code>b_16</code>): Pretrained model variant to use. Options: <code>b_16</code>, <code>b_32</code>, <code>l_16</code>, <code>l_32</code>, <code>h_14</code>.</p>
+</li>
+</ul>
+<h5 id="wide-resnet">Wide ResNet<a class="headerlink" href="#wide-resnet" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wide_resnet</span>
+<span class="w">    </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">model_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">model_variant</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;50_2&#39;</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>use_pretrained</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Download model weights from pre-trained model. Options: <code>true</code>, <code>false</code>.</li>
+<li>
+<p><strong><code>trainable</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Is the encoder trainable. Options: <code>true</code>, <code>false</code>.</p>
+</li>
+<li>
+<p><strong><code>model_cache_dir</code></strong> (default: <code>null</code>): Directory path to cache pretrained model weights.</p>
+</li>
+<li>
+<p><strong><code>model_variant</code></strong> (default: <code>50_2</code>): Pretrained model variant to use. Options: <code>50_2</code>, <code>101_2</code>.</p>
+</li>
+</ul>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>At this time Ludwig supports only the <code>DEFAULT</code> pretrained weights, which are the best available weights for a specific
+model. More details on <code>DEFAULT</code> weights can be found in this
+<a href="https://pytorch.org/blog/introducing-torchvision-new-multi-weight-support-api/">blog post</a>.</li>
+<li>Some TorchVision pretrained models consume large amounts of memory.  These <code>model_variant</code> required more than
+12GB of memory:</li>
+<li><code>efficientnet_torch</code>: <code>b7</code></li>
+<li><code>regnet_torch</code>: <code>y_128gf</code></li>
+<li><code>vit_torch</code>: <code>h_14</code></li>
+</ul>
+<h4 id="deprecated-encoders-planned-to-remove-in-v08">Deprecated Encoders (planned to remove in v0.8)<a class="headerlink" href="#deprecated-encoders-planned-to-remove-in-v08" title="Permanent link">&para;</a></h4>
+<h5 id="legacy-resnet-encoder">Legacy ResNet Encoder<a class="headerlink" href="#legacy-resnet-encoder" title="Permanent link">&para;</a></h5>
+<p>DEPRECATED: This encoder is deprecated and will be removed in a future release. Please use the equivalent
+TorchVision <a href="#resnet">ResNet</a> encoder instead.</p>
+<p>Implements ResNet V2 as described in <a href="https://arxiv.org/abs/1603.05027">Identity Mappings in Deep Residual Networks</a>.</p>
+<p>The ResNet encoder takes the following optional parameters:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">_resnet_legacy</span>
+<span class="w">    </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+<span class="w">    </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span>
+<span class="w">    </span><span class="nt">activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span>
+<span class="w">    </span><span class="nt">norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">first_pool_kernel_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">first_pool_stride</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span>
+<span class="w">    </span><span class="nt">weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xavier_uniform</span>
+<span class="w">    </span><span class="nt">norm_params</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">resnet_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
+<span class="w">    </span><span class="nt">num_channels</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">out_channels</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span>
+<span class="w">    </span><span class="nt">kernel_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="nt">conv_stride</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">batch_norm_momentum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.9</span>
+<span class="w">    </span><span class="nt">batch_norm_epsilon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>dropout</code></strong> (default: <code>0.0</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Dropout rate</li>
+<li><strong><code>output_size</code></strong> (default: <code>128</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: if output_size is not already specified in fc_layers this is the default output_size that will be used for each layer. It indicates the size of the output of a fully connected layer. </li>
+<li><strong><code>activation</code></strong> (default: <code>relu</code>): if an activation is not already specified in fc_layers this is the default activation that will be used for each layer. It indicates the activation function applied to the output. Options: <code>elu</code>, <code>leakyRelu</code>, <code>logSigmoid</code>, <code>relu</code>, <code>sigmoid</code>, <code>tanh</code>, <code>softmax</code>, <code>null</code>.</li>
+<li><strong><code>norm</code></strong> (default: <code>null</code>): if a norm is not already specified in fc_layers this is the default norm that will be used for each layer. It indicates the norm of the output and can be null, batch or layer. Options: <code>batch</code>, <code>layer</code>, <code>null</code>.</li>
+<li><strong><code>first_pool_kernel_size</code></strong> (default: <code>null</code>): Pool size to be used for the first pooling layer. If none, the first pooling layer is skipped.</li>
+<li><strong><code>first_pool_stride</code></strong> (default: <code>null</code>): Stride for first pooling layer. If null, defaults to first_pool_kernel_size.</li>
+<li><strong><code>use_bias</code></strong> (default: <code>true</code>): Whether the layer uses a bias vector. Options: <code>true</code>, <code>false</code>.</li>
+<li><strong><code>bias_initializer</code></strong> (default: <code>zeros</code>): initializer for the bias vector. Options: <code>constant</code>, <code>dirac</code>, <code>eye</code>, <code>identity</code>, <code>kaiming_normal</code>, <code>kaiming_uniform</code>, <code>normal</code>, <code>ones</code>, <code>orthogonal</code>, <code>sparse</code>, <code>uniform</code>, <code>xavier_normal</code>, <code>xavier_uniform</code>, <code>zeros</code>.</li>
+<li><strong><code>weights_initializer</code></strong> (default: <code>xavier_uniform</code>): Initializer for the weights matrix. Options: <code>constant</code>, <code>dirac</code>, <code>eye</code>, <code>identity</code>, <code>kaiming_normal</code>, <code>kaiming_uniform</code>, <code>normal</code>, <code>ones</code>, <code>orthogonal</code>, <code>sparse</code>, <code>uniform</code>, <code>xavier_normal</code>, <code>xavier_uniform</code>, <code>zeros</code>.</li>
+<li><strong><code>norm_params</code></strong> (default: <code>null</code>): parameters used if norm is either batch or layer. For information on parameters used with batch see Torch's documentation on batch normalization or for layer see Torch's documentation on layer normalization.</li>
+<li><strong><code>num_fc_layers</code></strong> (default: <code>1</code>): The number of stacked fully connected layers.</li>
+<li>
+<p><strong><code>fc_layers</code></strong> (default: <code>null</code>): A list of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: activation, dropout, norm, norm_params, output_size, use_bias, bias_initializer and weights_initializer. If any of those values is missing from the dictionary, the default one specified as a parameter of the encoder will be used instead. </p>
+</li>
+<li>
+<p><strong><code>resnet_size</code></strong> (default: <code>50</code>): The size of the ResNet model to use.</p>
+</li>
+<li><strong><code>num_channels</code></strong> (default: <code>null</code>): Number of channels to use in the encoder. </li>
+<li><strong><code>out_channels</code></strong> (default: <code>32</code>): Indicates the number of filters, and by consequence the output channels of the 2d convolution. If out_channels is not already specified in conv_layers this is the default out_channels that will be used for each layer. </li>
+<li><strong><code>kernel_size</code></strong> (default: <code>3</code>): An integer or pair of integers specifying the kernel size. A single integer specifies a square kernel, while a pair of integers specifies the height and width of the kernel in that order (h, w). If a kernel_size is not specified in conv_layers this kernel_size that will be used for each layer.</li>
+<li><strong><code>conv_stride</code></strong> (default: <code>1</code>): An integer or pair of integers specifying the stride of the initial convolutional layer.</li>
+<li><strong><code>batch_norm_momentum</code></strong> (default: <code>0.9</code>): Momentum of the batch norm running statistics.</li>
+<li><strong><code>batch_norm_epsilon</code></strong> (default: <code>0.001</code>): Epsilon of the batch norm.</li>
+</ul>
+<h5 id="legacy-vision-transformer-encoder">Legacy Vision Transformer Encoder<a class="headerlink" href="#legacy-vision-transformer-encoder" title="Permanent link">&para;</a></h5>
+<p>DEPRECATED: This encoder is deprecated and will be removed in a future release. Please use the equivalent
+TorchVision <a href="#visiontransformer">VisionTransformer</a> encoder instead.</p>
+<p>Encodes images using a Vision Transformer as described in
+<a href="https://arxiv.org/abs/2010.11929">An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale</a>.</p>
+<p>Vision Transformer divides the image into equal-sized patches, uses a linear transformation to encode each flattened
+patch, then applies a deep transformer architecture to the sequence of encoded patches.</p>
+<p>The Vision Transformer Encoder takes the following optional parameters:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">_vit_legacy</span>
+<span class="w">    </span><span class="nt">hidden_dropout_prob</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+<span class="w">    </span><span class="nt">attention_probs_dropout_prob</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+<span class="w">    </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">pretrained_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">google/vit-base-patch16-224</span>
+<span class="w">    </span><span class="nt">hidden_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">768</span>
+<span class="w">    </span><span class="nt">hidden_act</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gelu</span>
+<span class="w">    </span><span class="nt">patch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span>
+<span class="w">    </span><span class="nt">initializer_range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.02</span>
+<span class="w">    </span><span class="nt">num_hidden_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12</span>
+<span class="w">    </span><span class="nt">num_attention_heads</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12</span>
+<span class="w">    </span><span class="nt">intermediate_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3072</span>
+<span class="w">    </span><span class="nt">layer_norm_eps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0e-12</span>
+<span class="w">    </span><span class="nt">gradient_checkpointing</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>hidden_dropout_prob</code></strong> (default: <code>0.1</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: The dropout rate for all fully connected layers in the embeddings, encoder, and pooling.</li>
+<li><strong><code>attention_probs_dropout_prob</code></strong> (default: <code>0.1</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: The dropout rate for the attention probabilities.</li>
+<li><strong><code>trainable</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Is the encoder trainable. Options: <code>true</code>, <code>false</code>.</li>
+<li><strong><code>use_pretrained</code></strong> (default: <code>true</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Use pre-trained model weights from Hugging Face. Options: <code>true</code>, <code>false</code>.</li>
+<li><strong><code>pretrained_model</code></strong> (default: <code>google/vit-base-patch16-224</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: The name of the pre-trained model to use.</li>
+<li><strong><code>hidden_size</code></strong> (default: <code>768</code>): Dimensionality of the encoder layers and the pooling layer.</li>
+<li><strong><code>hidden_act</code></strong> (default: <code>gelu</code>): Hidden layer activation, one of gelu, relu, selu or gelu_new. Options: <code>relu</code>, <code>gelu</code>, <code>selu</code>, <code>gelu_new</code>.</li>
+<li><strong><code>patch_size</code></strong> (default: <code>16</code>): The image patch size. Each patch is patch_size² pixels. Must evenly divide the image width and height.</li>
+<li>
+<p><strong><code>initializer_range</code></strong> (default: <code>0.02</code>): The standard deviation of the truncated_normal_initializer for initializing all weight matrices.</p>
+</li>
+<li>
+<p><strong><code>num_hidden_layers</code></strong> (default: <code>12</code>): Number of hidden layers in the Transformer encoder.</p>
+</li>
+<li><strong><code>num_attention_heads</code></strong> (default: <code>12</code>): Number of attention heads in each attention layer.</li>
+<li><strong><code>intermediate_size</code></strong> (default: <code>3072</code>): Dimensionality of the intermediate (i.e., feed-forward) layer in the Transformer encoder.</li>
+<li><strong><code>layer_norm_eps</code></strong> (default: <code>1e-12</code>): The epsilon used by the layer normalization layers.</li>
+<li><strong><code>gradient_checkpointing</code></strong> (default: <code>false</code>):  Options: <code>true</code>, <code>false</code>.</li>
+</ul>
+<h3 id="image-augmentation">Image Augmentation<a class="headerlink" href="#image-augmentation" title="Permanent link">&para;</a></h3>
+<p>Image augmentation is a technique used to increase the diversity of a training dataset by applying random
+transformations to the images. The goal is to train a model that is robust to the variations in the training data.</p>
+<p>Augmentation is specified by the <code>augmentation</code> section in the image feature configuration and can be specified in one of the following ways:</p>
+<p><strong>Boolean: <code>False</code> (Default)</strong> No augmentation is applied to the images.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">augmentation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span>
+</code></pre></div>
+<p><strong>Boolean: <code>True</code></strong> The following augmentation methods are applied to the images: <code>random_horizontal_flip</code> and <code>random_rotate</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">augmentation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+</code></pre></div>
+<p><strong>List of Augmentation Methods</strong> One or more of the following augmentation methods are applied to the images in the order specified by the user: <code>random_horizontal_flip</code>, <code>random_vertical_flip</code>, <code>random_rotate</code>, <code>random_blur</code>, <code>random_brightness</code>, and <code>random_contrast</code>.  The following is an illustrative example.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">augmentation</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random_horizontal_flip</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random_vertical_flip</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random_rotate</span>
+<span class="w">      </span><span class="nt">degree</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random_blur</span>
+<span class="w">      </span><span class="nt">kernel_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random_brightness</span>
+<span class="w">      </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+<span class="w">      </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random_contrast</span>
+<span class="w">      </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+<span class="w">      </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span>
+</code></pre></div>
+<p>Augmentation is applied to the batch of images in the training set only.  The validation and test sets are not augmented.</p>
+<p>Following illustrates how augmentation affects an image:</p>
+<p><img alt="Original Image" src="../augmentation_samples/original.png" /></p>
+<p><strong>Horizontal Flip</strong>: Image is randomly flipped horizontally.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random_horizontal_flip</span>
+</code></pre></div>
+<!-- No parameters for Horizontal Flip
+Parameters:
+
+ -->
+
+<p><img alt="Horizontal Flip" src="../augmentation_samples/horizontal_flip.png" /></p>
+<p><strong>Vertical Flip</strong>:  Image is randomly flipped vertically.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random_vertical_flip</span>
+</code></pre></div>
+<!-- No parameters for Vertical Flip
+Parameters:
+
+ -->
+
+<p><img alt="Vertical Flip" src="../augmentation_samples/vertical_flip.png" /></p>
+<p><strong>Rotate</strong>: Image is randomly rotated by an amount in the range [-degree, +degree].  <code>degree</code> must be a positive integer.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random_rotate</span>
+<span class="nt">degree</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>degree</code></strong> (default: <code>15</code>): Range of angle for random rotation, i.e.,  [-degree, +degree].</li>
+</ul>
+<p>Following shows the effect of rotating an image:</p>
+<p><img alt="Rotate Image" src="../augmentation_samples/rotation.png" /></p>
+<p><strong>Blur</strong>:  Image is randomly blurred using a Gaussian filter with kernel size specified by the user.  The <code>kernel_size</code> must be a positive, odd integer.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random_blur</span>
+<span class="nt">kernel_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>kernel_size</code></strong> (default: <code>3</code>): Kernel size for random blur.</li>
+</ul>
+<p>Following shows the effect of blurring an image with various kernel sizes:</p>
+<p><img alt="Blur Image" src="../augmentation_samples/blur.png" /></p>
+<p><strong>Adjust Brightness</strong>: Image brightness is adjusted by a factor randomly selected in the range [min, max].   Both <code>min</code> and <code>max</code> must be a float greater than 0, with <code>min</code> less than <code>max</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random_brightness</span>
+<span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+<span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>min</code></strong> (default: <code>0.5</code>): Minimum factor for random brightness.</li>
+<li><strong><code>max</code></strong> (default: <code>2.0</code>): Maximum factor for random brightness.</li>
+</ul>
+<p>Following shows the effect of brightness adjustment with various factors:</p>
+<p><img alt="Adjust Brightness" src="../augmentation_samples/brightness.png" /></p>
+<p><strong>Adjust Contrast</strong>: Image contrast is adjusted by a factor randomly selected in the range [min, max].  Both <code>min</code> and <code>max</code> must be a float greater than 0, with <code>min</code> less than <code>max</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random_contrast</span>
+<span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+<span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>min</code></strong> (default: <code>0.5</code>): Minimum factor for random brightness.</li>
+<li><strong><code>max</code></strong> (default: <code>2.0</code>): Maximum factor for random brightness.</li>
+</ul>
+<p>Following shows the effect of contrast adjustment with various factors:</p>
+<p><img alt="Adjust Contrast" src="../augmentation_samples/contrast.png" /></p>
+<p><strong>Illustrative Examples of Image Feature Configuration with Augmentation</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image_column_name</span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image</span>
+<span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resnet</span>
+<span class="w">    </span><span class="nt">model_variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">18</span>
+<span class="w">    </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">pretrained_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">None</span>
+<span class="w">    </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">augmentation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image_column_name</span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image</span>
+<span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stacked_cnn</span>
+<span class="nt">augmentation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image_column_name</span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image</span>
+<span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alexnet</span>
+<span class="nt">augmentation</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random_horizontal_flip</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random_rotate</span>
+<span class="w">      </span><span class="nt">degree</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random_blur</span>
+<span class="w">      </span><span class="nt">kernel_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random_brightness</span>
+<span class="w">      </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+<span class="w">      </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random_contrast</span>
+<span class="w">      </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+<span class="w">      </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random_vertical_flip</span>
+</code></pre></div>
+<h2 id="output-features">Output Features<a class="headerlink" href="#output-features" title="Permanent link">&para;</a></h2>
+<p>There are no image decoders at the moment (WIP), so images cannot be used as output features.</p>
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Footer -->
+<footer class="md-footer">
+
+    <!-- Link to previous and/or next page -->
+    
+    <nav class="md-footer__inner md-grid" aria-label="footer.title">
+
+        <!-- Link to previous page -->
+        
+        
+        <a href="../h3_features/" class="md-footer__link md-footer__link--prev"
+            aria-label="Previous: ↑ H3 Features" rel="prev">
+            <div class="md-footer__button md-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+                <div class="md-ellipsis">
+                    <span class="md-footer__direction">
+                        Previous
+                    </span>
+                    ↑ H3 Features
+                </div>
+            </div>
+        </a>
+        
+
+        <!-- Link to next page -->
+        
+        
+        <a href="../time_series_features/" class="md-footer__link md-footer__link--next"
+            aria-label="Next: ↑ Time Series Features" rel="next">
+            <div class="md-footer__title">
+                <div class="md-ellipsis">
+                    <span class="md-footer__direction">
+                        Next
+                    </span>
+                    ↑ Time Series Features
+                </div>
+            </div>
+            <div class="md-footer__button md-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+        </a>
+        
+    </nav>
+    
+
+    <!-- Further information -->
+    <div class="md-footer-meta md-typeset">
+        <div class="md-footer-meta__inner md-grid">
+            <!--
+  Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Copyright and theme information -->
+<div class="md-copyright">
+    
+    <div class="md-copyright__highlight">
+        Copyright &copy; 2018 - 2020 Uber Technologies Inc., 2021 - 2022 Linux Foundation Data & AI
+    </div>
+    
+    
+
+    Website by <a href="http://w4nderlu.st">w4nderlust</a> powered by
+    <a href="https://www.mkdocs.org" target="_blank" rel="noopener">MkDocs</a>,
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">Material for MkDocs</a>,
+    <a href="http://www.styleshout.com/" target="_blank" rel="noopener">styleshout</a> and
+    <a href="http://cables.gl/" target="_blank" rel="noopener">cables</a>.
+    
+</div>
+
+            <!-- Social links -->
+            
+        </div>
+    </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.indexes", "navigation.tabs.sticky"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.aecac24b.min.js"></script>
+      
+    
+  </body>
+</html>

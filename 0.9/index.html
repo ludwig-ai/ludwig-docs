@@ -1,0 +1,4081 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+  
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Declarative machine learning: End-to-end machine learning pipelines using data-driven configurations.">
+      
+      
+        <meta name="author" content="Piero Molino">
+      
+      
+        <link rel="canonical" href="https://ludwig.ai/latest/">
+      
+      
+      
+        <link rel="next" href="getting_started/">
+      
+      
+      <link rel="icon" href="favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+    
+  <meta content="http://raw.githubusercontent.com/ludwig-ai/ludwig-docs/master/docs/images/og-image.jpg"
+    property="og:image">
+  <meta content="https://raw.githubusercontent.com/ludwig-ai/ludwig-docs/master/docs/images/og-image.jpg"
+    property="og:image:secure_url">
+
+    
+      
+        <title>Ludwig</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.35e1ed30.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="stylesheets/monokai.css">
+    
+      <link rel="stylesheet" href="stylesheets/colorful.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-H8VVJF9L6G"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-H8VVJF9L6G",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-H8VVJF9L6G",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="deep-orange">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#what-is-ludwig" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="Ludwig" class="md-header__button md-logo" aria-label="Ludwig" data-md-component="logo">
+      
+<img alt="logo" src="images/ludwig_logo.svg"
+     style="height:1rem;width:4rem;">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Ludwig
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ludwig
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="deep-orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="deep-orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ludwig-ai/ludwig" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ludwig-ai/ludwig
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Ludwig" class="md-nav__button md-logo" aria-label="Ludwig" data-md-component="logo">
+      
+<img alt="logo" src="images/ludwig_logo.svg"
+     style="height:1rem;width:4rem;">
+
+    </a>
+    Ludwig
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ludwig-ai/ludwig" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ludwig-ai/ludwig
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Ludwig
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Ludwig
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-ludwig" class="md-nav__link">
+    📖 What is Ludwig?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    💾 Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    🏃 Quick Start
+  </a>
+  
+    <nav class="md-nav" aria-label="🏃 Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#large-language-model-fine-tuning" class="md-nav__link">
+    Large Language Model Fine-Tuning
+  </a>
+  
+    <nav class="md-nav" aria-label="Large Language Model Fine-Tuning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running" class="md-nav__link">
+    Running
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supervised-ml" class="md-nav__link">
+    Supervised ML
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-you-should-use-ludwig" class="md-nav__link">
+    ❓ Why you should use Ludwig
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tutorials" class="md-nav__link">
+    📚 Tutorials
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-use-cases" class="md-nav__link">
+    🔬 Example Use Cases
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#more-information" class="md-nav__link">
+    💡 More Information
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#join-the-community-to-build-ludwig-with-us" class="md-nav__link">
+    🤝 Join the community to build Ludwig with us
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-involved" class="md-nav__link">
+    👋 Getting Involved
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="getting_started/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    🚀 Getting Started
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            🚀 Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started/installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started/prepare_data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dataset preparation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started/train/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Training
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started/evaluate/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Prediction and Evaluation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started/hyperopt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hyperopt
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started/serve/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serving
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started/ray/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Distributed training on Ray
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started/llm_finetuning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LLM Fine-tuning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started/docker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ludwig with Docker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="user_guide/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    📖 User Guide
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            📖 User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/what_is_ludwig/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What is Ludwig?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/how_ludwig_works/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How Ludwig Works
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/command_line_interface/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Command Line Interface
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python API
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Python API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/api/LudwigModel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LudwigModel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/api/visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visualization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Datasets
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Datasets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/datasets/supported_formats/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Supported Formats
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/datasets/data_preprocessing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Preprocessing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/datasets/data_postprocessing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Postprocessing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/datasets/dataset_zoo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dataset Zoo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="user_guide/llms/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Large Language Models
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            Large Language Models
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/llms/finetuning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fine-Tuning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/llms/in_context_learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    In-Context Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/gpus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GPUs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="user_guide/distributed_training/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Distributed Training
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_9" id="__nav_3_9_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            Distributed Training
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/distributed_training/finetuning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fine-Tuning Pretrained Models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/hyperopt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hyperparameter Optimization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/cloud_storage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cloud Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/automl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AutoML
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/visualizations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visualizations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/model_export/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Model Export
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/serving/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serving
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="user_guide/integrations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Third-Party Integrations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="configuration/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    📚 Configuration
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            📚 Configuration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/model_type/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Model Types
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/large_language_model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Large Language Models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/preprocessing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preprocessing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Features
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/supported_data_types/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Supported Data Types
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/input_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Input Features (↑)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/output_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Output Features (↓)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/binary_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ⇅ Binary Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/number_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ⇅ Number Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/category_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ⇅ Category Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/bag_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ⇅ Bag Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/set_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ⇅ Set Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/sequence_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ⇅ Sequence Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/text_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ⇅ Text Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/vector_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ⇅ Vector Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/audio_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ↑ Audio Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/date_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ↑ Date Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/h3_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ↑ H3 Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/image_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ↑ Image Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/features/time_series_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ↑ Time Series Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/defaults/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Defaults
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/combiner/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Combiner
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/trainer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Trainer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/hyperparameter_optimization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hyperopt
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/backend/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Backend
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="examples/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    💡 Examples
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            💡 Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    LLMs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            LLMs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/llms/llm_classification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fine-tuning for classification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/llms/llm_finetuning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Instruction-tuning llama-2-7b
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/llms/llm_finetuning_deepspeed/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Adapter-based encoder fine-tuning for text classification with deepspeed
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/llms/llm_text_generation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Adapter-based fine-tuning for text generation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/llms/llm_zero_shot_text_generation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zero-shot batch inference for text generation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/llms/llm_zero_shot_batch_inference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zero-shot batch inference for text classification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/llms/llm_few_shot_batch_inference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Few-shot batch inference for text classification (RAG)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/llms/llm_tabular_zero_shot_batch_inference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zero-shot batch inference for tabular classification (TabLLM)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/llms/llm_tabular_classification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fine-tuning for tabular classification (TabLLM)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Supervised ML
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            Supervised ML
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/text_classification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Text Classification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/adult_census_income/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tabular Data Classification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/mnist/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Image Classification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/multimodal_classification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multimodal Classification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/hyperopt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hyperparameter Optimization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/gbm_fraud/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fraud with GBMs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/sentiment_analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sentiment Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Use Cases
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            Use Cases
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/ner_tagging/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Named Entity Recognition Tagging
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/nlu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Natural Language Understanding
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/machine_translation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Machine Translation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/seq2seq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chit-Chat Dialogue Modeling through Sequence2Sequence
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/sentiment_analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sentiment Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/oneshot/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    One-shot Learning with Siamese Networks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/visual_qa/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visual Question Answering
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/speech_recognition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spoken Digit Speech Recognition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/speaker_verification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Speaker Verification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/titanic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Binary Classification (Titanic)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/forecasting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Timeseries forecasting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/weather/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Timeseries forecasting (Weather)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/movie_ratings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Movie rating prediction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/multi_label/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multi-label classification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/multi_task/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multi-Task Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/fuel_efficiency/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Simple Regression - Fuel Efficiency Prediction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/fraud/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fraud Detection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="developer_guide/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    🛠️ Developer Guide
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            🛠️ Developer Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/contributing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Contribute
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/codebase_structure/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Codebase Structure
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/api_annotations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ludwig API Guarantees
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/add_an_encoder/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add an Encoder
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/add_a_combiner/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Combiner
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/add_a_decoder/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Decoder
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/add_a_feature_type/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Feature Type
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/add_a_metric/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Metric
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/add_a_loss_function/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Loss Function
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/add_a_tokenizer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Tokenizer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/add_a_hyperopt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Hyperopt Algorithm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/add_a_pretrained_model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Pretrained Model
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/add_an_integration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add an Integration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/add_a_dataset/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Dataset
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/style_guidelines_and_tests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Style Guidelines and Tests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/unit_test_design_guidelines/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Unit Test Design Guidelines
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/run_tests_on_gpu_using_ray/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Run Tests on GPU Using Ray
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="developer_guide/release_process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Release Process
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="community/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    👋 Community
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ❓ FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-ludwig" class="md-nav__link">
+    📖 What is Ludwig?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    💾 Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    🏃 Quick Start
+  </a>
+  
+    <nav class="md-nav" aria-label="🏃 Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#large-language-model-fine-tuning" class="md-nav__link">
+    Large Language Model Fine-Tuning
+  </a>
+  
+    <nav class="md-nav" aria-label="Large Language Model Fine-Tuning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running" class="md-nav__link">
+    Running
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supervised-ml" class="md-nav__link">
+    Supervised ML
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-you-should-use-ludwig" class="md-nav__link">
+    ❓ Why you should use Ludwig
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tutorials" class="md-nav__link">
+    📚 Tutorials
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-use-cases" class="md-nav__link">
+    🔬 Example Use Cases
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#more-information" class="md-nav__link">
+    💡 More Information
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#join-the-community-to-build-ludwig-with-us" class="md-nav__link">
+    🤝 Join the community to build Ludwig with us
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-involved" class="md-nav__link">
+    👋 Getting Involved
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>Ludwig</h1>
+
+<p><img alt="Ludwig logo" src="images/ludwig_hero_transparent.png#only-light" />
+<img alt="Ludwig logo" src="images/ludwig_hero_transparent_dark.png#only-dark" /></p>
+<p align="center">
+
+    <em>Declarative deep learning framework built for scale and efficiency.</em>
+
+</p>
+<p align="center">
+
+<a href="https://badge.fury.io/py/ludwig" target="_blank" style="text-decoration: none;">
+    <img src="https://badge.fury.io/py/ludwig.svg" alt="pypi package">
+</a>
+<a href="https://pepy.tech/project/ludwig" target="_blank" style="text-decoration: none;">
+    <img src="https://pepy.tech/badge/ludwig" alt="downloads">
+</a>
+<a href="https://github.com/ludwig-ai/ludwig" alt="Activity" target="_blank" style="text-decoration: none;">
+        <img src="https://img.shields.io/github/commit-activity/m/ludwig-ai/ludwig" /></a>
+<a href="https://github.com/ludwig-ai/ludwig/blob/master/LICENSE" target="_blank" style="text-decoration: none;">
+    <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="license">
+</a>
+<a href="https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ" target="_blank" style="text-decoration: none;">
+    <img src="https://img.shields.io/badge/slack-chat-green.svg?logo=slack" alt="slack">
+</a>
+</p>
+
+<hr />
+<h2 id="what-is-ludwig">📖 What is Ludwig?<a class="headerlink" href="#what-is-ludwig" title="Permanent link">&para;</a></h2>
+<p>Ludwig is a <strong>low-code</strong> framework for building <strong>custom</strong> AI models like <strong>LLMs</strong> and other deep neural networks.</p>
+<p>Key features:</p>
+<ul>
+<li>🛠 <strong>Build custom models with ease:</strong> a declarative YAML configuration file is all you need to train a state-of-the-art LLM on your data. Support for multi-task and multi-modality learning. Comprehensive config validation detects invalid parameter combinations and prevents runtime failures.</li>
+<li>⚡ <strong>Optimized for scale and efficiency:</strong> automatic batch size selection, distributed training (<a href="https://pytorch.org/tutorials/beginner/ddp_series_theory.html">DDP</a>, <a href="https://github.com/microsoft/DeepSpeed">DeepSpeed</a>), parameter efficient fine-tuning (<a href="https://github.com/huggingface/peft">PEFT</a>), 4-bit quantization (QLoRA), and larger-than-memory datasets.</li>
+<li>📐 <strong>Expert level control:</strong> retain full control of your models down to the activation functions. Support for hyperparameter optimization, explainability, and rich metric visualizations.</li>
+<li>🧱 <strong>Modular and extensible:</strong> experiment with different model architectures, tasks, features, and modalities with just a few parameter changes in the config. Think building blocks for deep learning.</li>
+<li>🚢 <strong>Engineered for production:</strong> prebuilt <a href="https://hub.docker.com/u/ludwigai">Docker</a> containers, native support for running with <a href="https://www.ray.io/">Ray</a> on <a href="https://github.com/ray-project/kuberay">Kubernetes</a>, export models to <a href="https://pytorch.org/docs/stable/jit.html">Torchscript</a> and <a href="https://developer.nvidia.com/triton-inference-server">Triton</a>, upload to <a href="https://huggingface.co/models">HuggingFace</a> with one command.</li>
+</ul>
+<p>Ludwig is hosted by the
+<a href="https://lfaidata.foundation/">Linux Foundation AI &amp; Data</a>.</p>
+<p><img alt="img" src="https://raw.githubusercontent.com/ludwig-ai/ludwig-docs/master/docs/images/ludwig_legos_unanimated.gif" /></p>
+<h2 id="installation">💾 Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<p>Install from PyPi. Be aware that Ludwig requires Python 3.8+.</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>ludwig
+</code></pre></div>
+<p>Or install with all optional dependencies:</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>ludwig<span class="o">[</span>full<span class="o">]</span>
+</code></pre></div>
+<h2 id="quick-start">🏃 Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<p>For a full tutorial, check out the official <a href="getting_started/">getting started guide</a>,
+or take a look at end-to-end <a href="examples/">Examples</a>.</p>
+<h3 id="large-language-model-fine-tuning">Large Language Model Fine-Tuning<a class="headerlink" href="#large-language-model-fine-tuning" title="Permanent link">&para;</a></h3>
+<p><a href="https://colab.research.google.com/drive/1c3AO8l_H6V_x37RwQ8V7M6A-RmcBf2tG?usp=sharing"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p>Let's fine-tune a pretrained LLaMA-2-7b large language model to follow instructions like a chatbot ("instruction tuning").</p>
+<h4 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h4>
+<ul>
+<li><a href="https://huggingface.co/docs/hub/security-tokens">HuggingFace API Token</a></li>
+<li>Access approval to <a href="https://huggingface.co/meta-llama/Llama-2-7b-hf">Llama2-7b-hf</a></li>
+<li>GPU with at least 12 GiB of VRAM (in our tests, we used an Nvidia T4)</li>
+</ul>
+<h4 id="running">Running<a class="headerlink" href="#running" title="Permanent link">&para;</a></h4>
+<p>We'll use the <a href="https://crfm.stanford.edu/2023/03/13/alpaca.html">Stanford Alpaca</a> dataset, which will be formatted as a table-like file that looks like this:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">instruction</th>
+<th style="text-align: center;">input</th>
+<th style="text-align: center;">output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Give three tips for staying healthy.</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">1.Eat a balanced diet and make sure to include...</td>
+</tr>
+<tr>
+<td style="text-align: center;">Arrange the items given below in the order to ...</td>
+<td style="text-align: center;">cake, me, eating</td>
+<td style="text-align: center;">I eating cake.</td>
+</tr>
+<tr>
+<td style="text-align: center;">Write an introductory paragraph about a famous...</td>
+<td style="text-align: center;">Michelle Obama</td>
+<td style="text-align: center;">Michelle Obama is an inspirational woman who r...</td>
+</tr>
+<tr>
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+</tr>
+</tbody>
+</table>
+<p>Create a YAML config file named <code>model.yaml</code> with the following:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">model_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llm</span>
+<span class="nt">base_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">meta-llama/Llama-2-7b-hf</span>
+
+<span class="nt">quantization</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">bits</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+
+<span class="nt">adapter</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lora</span>
+
+<span class="nt">prompt</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">    </span><span class="no">### Instruction:</span>
+<span class="w">    </span><span class="no">{instruction}</span>
+
+<span class="w">    </span><span class="no">### Input:</span>
+<span class="w">    </span><span class="no">{input}</span>
+
+<span class="w">    </span><span class="no">### Response:</span>
+
+<span class="nt">input_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prompt</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+
+<span class="nt">output_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+
+<span class="nt">trainer</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">finetune</span>
+<span class="w">  </span><span class="nt">learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0001</span>
+<span class="w">  </span><span class="nt">batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">gradient_accumulation_steps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span>
+<span class="w">  </span><span class="nt">epochs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">  </span><span class="nt">learning_rate_scheduler</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">warmup_fraction</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.01</span>
+
+<span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">sample_ratio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+</code></pre></div>
+<p>And now let's train the model:</p>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>train<span class="w"> </span>--config<span class="w"> </span>model.yaml<span class="w"> </span>--dataset<span class="w"> </span><span class="s2">&quot;ludwig://alpaca&quot;</span>
+</code></pre></div>
+<h3 id="supervised-ml">Supervised ML<a class="headerlink" href="#supervised-ml" title="Permanent link">&para;</a></h3>
+<p>Let's build a neural network that predicts whether a given movie critic's review on <a href="https://www.kaggle.com/stefanoleone992/rotten-tomatoes-movies-and-critic-reviews-dataset">Rotten Tomatoes</a> was positive or negative.</p>
+<p>Our dataset will be a CSV file that looks like this:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">movie_title</th>
+<th style="text-align: center;">content_rating</th>
+<th style="text-align: center;">genres</th>
+<th style="text-align: center;">runtime</th>
+<th>top_critic</th>
+<th>review_content</th>
+<th>recommended</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Deliver Us from Evil</td>
+<td style="text-align: center;">R</td>
+<td style="text-align: center;">Action &amp; Adventure, Horror</td>
+<td style="text-align: center;">117.0</td>
+<td>TRUE</td>
+<td>Director Scott Derrickson and his co-writer, Paul Harris Boardman, deliver a routine procedural with unremarkable frights.</td>
+<td>0</td>
+</tr>
+<tr>
+<td style="text-align: center;">Barbara</td>
+<td style="text-align: center;">PG-13</td>
+<td style="text-align: center;">Art House &amp; International, Drama</td>
+<td style="text-align: center;">105.0</td>
+<td>FALSE</td>
+<td>Somehow, in this stirring narrative, Barbara manages to keep hold of her principles, and her humanity and courage, and battles to save a dissident teenage girl whose life the Communists are trying to destroy.</td>
+<td>1</td>
+</tr>
+<tr>
+<td style="text-align: center;">Horrible Bosses</td>
+<td style="text-align: center;">R</td>
+<td style="text-align: center;">Comedy</td>
+<td style="text-align: center;">98.0</td>
+<td>FALSE</td>
+<td>These bosses cannot justify either murder or lasting comic memories, fatally compromising a farce that could have been great but ends up merely mediocre.</td>
+<td>0</td>
+</tr>
+<tr>
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+<td style="text-align: center;">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+</tbody>
+</table>
+<p>Download a sample of the dataset from <a href="https://ludwig.ai/latest/data/rotten_tomatoes.csv">here</a>.</p>
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://ludwig.ai/latest/data/rotten_tomatoes.csv
+</code></pre></div>
+<p>Next create a YAML config file named <code>model.yaml</code> with the following:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">genres</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">set</span>
+<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">tokenizer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">comma</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">content_rating</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">top_critic</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">runtime</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">review_content</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">embed</span>
+<span class="nt">output_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">recommended</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span>
+</code></pre></div>
+<p>That's it! Now let's train the model:</p>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>train<span class="w"> </span>--config<span class="w"> </span>model.yaml<span class="w"> </span>--dataset<span class="w"> </span>rotten_tomatoes.csv
+</code></pre></div>
+<p><strong>Happy modeling</strong></p>
+<p>Try applying Ludwig to your data. <a href="https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ">Reach out</a>
+if you have any questions.</p>
+<h2 id="why-you-should-use-ludwig">❓ Why you should use Ludwig<a class="headerlink" href="#why-you-should-use-ludwig" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Minimal machine learning boilerplate</strong></li>
+</ul>
+<p>Ludwig takes care of the engineering complexity of machine learning out of
+  the box, enabling research scientists to focus on building models at the
+  highest level of abstraction. Data preprocessing, hyperparameter
+  optimization, device management, and distributed training for
+  <code>torch.nn.Module</code> models come completely free.</p>
+<ul>
+<li><strong>Easily build your benchmarks</strong></li>
+</ul>
+<p>Creating a state-of-the-art baseline and comparing it with a new model is a
+  simple config change.</p>
+<ul>
+<li><strong>Easily apply new architectures to multiple problems and datasets</strong></li>
+</ul>
+<p>Apply new models across the extensive set of tasks and datasets that Ludwig
+  supports. Ludwig includes a
+  <a href="https://arxiv.org/abs/2111.04260">full benchmarking toolkit</a> accessible to
+  any user, for running experiments with multiple models across multiple
+  datasets with just a simple configuration.</p>
+<ul>
+<li><strong>Highly configurable data preprocessing, modeling, and metrics</strong></li>
+</ul>
+<p>Any and all aspects of the model architecture, training loop, hyperparameter
+  search, and backend infrastructure can be modified as additional fields in
+  the declarative configuration to customize the pipeline to meet your
+  requirements. For details on what can be configured, check out
+  <a href="configuration/">Ludwig Configuration</a>
+  docs.</p>
+<ul>
+<li><strong>Multi-modal, multi-task learning out-of-the-box</strong></li>
+</ul>
+<p>Mix and match tabular data, text, images, and even audio into complex model
+  configurations without writing code.</p>
+<ul>
+<li><strong>Rich model exporting and tracking</strong></li>
+</ul>
+<p>Automatically track all trials and metrics with tools like Tensorboard,
+  Comet ML, Weights &amp; Biases, MLFlow, and Aim Stack.</p>
+<ul>
+<li><strong>Automatically scale training to multi-GPU, multi-node clusters</strong></li>
+</ul>
+<p>Go from training on your local machine to the cloud without code changes.</p>
+<ul>
+<li><strong>Low-code interface for state-of-the-art models, including pre-trained Huggingface Transformers</strong></li>
+</ul>
+<p>Ludwig also natively integrates with pre-trained models, such as the ones
+  available in <a href="https://huggingface.co/docs/transformers/index">Huggingface Transformers</a>.
+  Users can choose from a vast collection of state-of-the-art pre-trained
+  PyTorch models to use without needing to write any code at all. For example,
+  training a BERT-based sentiment analysis model with Ludwig is as simple as:</p>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>train<span class="w"> </span>--dataset<span class="w"> </span>sst5<span class="w"> </span>--config_str<span class="w"> </span><span class="s2">&quot;{input_features: [{name: sentence, type: text, encoder: bert}], output_features: [{name: label, type: category}]}&quot;</span>
+</code></pre></div>
+<ul>
+<li><strong>Low-code interface for AutoML</strong></li>
+</ul>
+<p><a href="user_guide/automl/">Ludwig AutoML</a>
+  allows users to obtain trained models by providing just a dataset, the
+  target column, and a time budget.</p>
+<div class="highlight"><pre><span></span><code><span class="n">auto_train_results</span> <span class="o">=</span> <span class="n">ludwig</span><span class="o">.</span><span class="n">automl</span><span class="o">.</span><span class="n">auto_train</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">my_dataset_df</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target_column_name</span><span class="p">,</span> <span class="n">time_limit_s</span><span class="o">=</span><span class="mi">7200</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li><strong>Easy productionisation</strong></li>
+</ul>
+<p>Ludwig makes it easy to serve deep learning models, including on GPUs.
+  Launch a REST API for your trained Ludwig model.</p>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>serve<span class="w"> </span>--model_path<span class="o">=</span>/path/to/model
+</code></pre></div>
+<p>Ludwig supports exporting models to efficient Torchscript bundles.</p>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>export_torchscript<span class="w"> </span>-–model_path<span class="o">=</span>/path/to/model
+</code></pre></div>
+<h2 id="tutorials">📚 Tutorials<a class="headerlink" href="#tutorials" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="./examples/text_classification/">Text Classification</a></li>
+<li><a href="./examples/adult_census_income/">Tabular Data Classification</a></li>
+<li><a href="./examples/mnist/">Image Classification</a></li>
+<li><a href="./examples/multimodal_classification/">Multimodal Classification</a></li>
+</ul>
+<h2 id="example-use-cases">🔬 Example Use Cases<a class="headerlink" href="#example-use-cases" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="./examples/ner_tagging/">Named Entity Recognition Tagging</a></li>
+<li><a href="./examples/nlu/">Natural Language Understanding</a></li>
+<li><a href="./examples/machine_translation/">Machine Translation</a></li>
+<li><a href="./examples/seq2seq/">Chit-Chat Dialogue Modeling through seq2seq</a></li>
+<li><a href="./examples/sentiment_analysis/">Sentiment Analysis</a></li>
+<li><a href="./examples/oneshot/">One-shot Learning with Siamese Networks</a></li>
+<li><a href="./examples/visual_qa/">Visual Question Answering</a></li>
+<li><a href="./examples/speech_recognition/">Spoken Digit Speech Recognition</a></li>
+<li><a href="./examples/speaker_verification/">Speaker Verification</a></li>
+<li><a href="./examples/titanic/">Binary Classification (Titanic)</a></li>
+<li><a href="./examples/forecasting/">Timeseries forecasting</a></li>
+<li><a href="./examples/weather/">Timeseries forecasting (Weather)</a></li>
+<li><a href="./examples/movie_ratings/">Movie rating prediction</a></li>
+<li><a href="./examples/multi_label/">Multi-label classification</a></li>
+<li><a href="./examples/multi_task/">Multi-Task Learning</a></li>
+<li><a href="./examples/fuel_efficiency/">Simple Regression: Fuel Efficiency Prediction</a></li>
+<li><a href="./examples/fraud/">Fraud Detection</a></li>
+</ul>
+<h2 id="more-information">💡 More Information<a class="headerlink" href="#more-information" title="Permanent link">&para;</a></h2>
+<p>Read our publications on <a href="https://arxiv.org/pdf/1909.07930.pdf">Ludwig</a>, <a href="https://arxiv.org/pdf/2107.08148.pdf">declarative ML</a>, and <a href="https://openreview.net/pdf?id=hwjnu6qW7E4">Ludwig’s SoTA benchmarks</a>.</p>
+<p>Learn more about <a href="./user_guide/how_ludwig_works/">how Ludwig works</a>, <a href="./getting_started/">how to get started</a>, and work through more <a href="./examples/">examples</a>.</p>
+<p>If you are interested in <a href="developer_guide/contributing/">contributing</a>, have questions, comments, or thoughts to share, or if you just want to be in the
+know, please consider <a href="https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ">joining the Ludwig Slack</a> and follow us on <a href="https://twitter.com/ludwig_ai">Twitter</a>!</p>
+<h2 id="join-the-community-to-build-ludwig-with-us">🤝 Join the community to build Ludwig with us<a class="headerlink" href="#join-the-community-to-build-ludwig-with-us" title="Permanent link">&para;</a></h2>
+<p>Ludwig is an actively managed open-source project that relies on contributions from folks just like
+you. Consider joining the active group of Ludwig contributors to make Ludwig an even
+more accessible and feature rich framework for everyone to use!</p>
+<p><a href="https://github.com/ludwig-ai/ludwig/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=ludwig-ai/ludwig" />
+</a><br/></p>
+<h2 id="getting-involved">👋 Getting Involved<a class="headerlink" href="#getting-involved" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ">Slack</a></li>
+<li><a href="https://twitter.com/ludwig_ai">Twitter</a></li>
+<li><a href="https://medium.com/ludwig-ai">Medium</a></li>
+<li><a href="https://github.com/ludwig-ai/ludwig/issues">GitHub Issues</a></li>
+</ul>
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Footer -->
+<footer class="md-footer">
+
+    <!-- Link to previous and/or next page -->
+    
+    <nav class="md-footer__inner md-grid" aria-label="footer.title">
+
+        <!-- Link to previous page -->
+        
+
+        <!-- Link to next page -->
+        
+        
+        <a href="getting_started/" class="md-footer__link md-footer__link--next"
+            aria-label="Next: Getting Started" rel="next">
+            <div class="md-footer__title">
+                <div class="md-ellipsis">
+                    <span class="md-footer__direction">
+                        Next
+                    </span>
+                    Getting Started
+                </div>
+            </div>
+            <div class="md-footer__button md-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+        </a>
+        
+    </nav>
+    
+
+    <!-- Further information -->
+    <div class="md-footer-meta md-typeset">
+        <div class="md-footer-meta__inner md-grid">
+            <!--
+  Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Copyright and theme information -->
+<div class="md-copyright">
+    
+    <div class="md-copyright__highlight">
+        Copyright &copy; 2018 - 2020 Uber Technologies Inc., 2021 - 2022 Linux Foundation Data & AI
+    </div>
+    
+    
+
+    Website by <a href="http://w4nderlu.st">w4nderlust</a> powered by
+    <a href="https://www.mkdocs.org" target="_blank" rel="noopener">MkDocs</a>,
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">Material for MkDocs</a>,
+    <a href="http://www.styleshout.com/" target="_blank" rel="noopener">styleshout</a> and
+    <a href="http://cables.gl/" target="_blank" rel="noopener">cables</a>.
+    
+</div>
+
+            <!-- Social links -->
+            
+        </div>
+    </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.indexes", "navigation.tabs.sticky"], "search": "assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.aecac24b.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,4968 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+  
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Declarative machine learning: End-to-end machine learning pipelines using data-driven configurations.">
+      
+      
+        <meta name="author" content="Piero Molino">
+      
+      
+        <link rel="canonical" href="https://ludwig.ai/latest/user_guide/api/LudwigModel/">
+      
+      
+        <link rel="prev" href="../../command_line_interface/">
+      
+      
+        <link rel="next" href="../visualization/">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+    
+  <meta content="http://raw.githubusercontent.com/ludwig-ai/ludwig-docs/master/docs/images/og-image.jpg"
+    property="og:image">
+  <meta content="https://raw.githubusercontent.com/ludwig-ai/ludwig-docs/master/docs/images/og-image.jpg"
+    property="og:image:secure_url">
+
+    
+      
+        <title>LudwigModel - Ludwig</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.35e1ed30.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/monokai.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/colorful.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-H8VVJF9L6G"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-H8VVJF9L6G",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-H8VVJF9L6G",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="deep-orange">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ludwigmodel-class-source" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Ludwig" class="md-header__button md-logo" aria-label="Ludwig" data-md-component="logo">
+      
+<img alt="logo" src="../../../images/ludwig_logo.svg"
+     style="height:1rem;width:4rem;">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Ludwig
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              LudwigModel
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="deep-orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="deep-orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ludwig-ai/ludwig" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ludwig-ai/ludwig
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Ludwig" class="md-nav__button md-logo" aria-label="Ludwig" data-md-component="logo">
+      
+<img alt="logo" src="../../../images/ludwig_logo.svg"
+     style="height:1rem;width:4rem;">
+
+    </a>
+    Ludwig
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ludwig-ai/ludwig" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ludwig-ai/ludwig
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ludwig
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../getting_started/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    🚀 Getting Started
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            🚀 Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/prepare_data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dataset preparation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/train/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Training
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/evaluate/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Prediction and Evaluation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/hyperopt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hyperopt
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/serve/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serving
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/ray/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Distributed training on Ray
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/llm_finetuning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LLM Fine-tuning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/docker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ludwig with Docker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    📖 User Guide
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            📖 User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../what_is_ludwig/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What is Ludwig?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how_ludwig_works/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How Ludwig Works
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../command_line_interface/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Command Line Interface
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python API
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Python API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    LudwigModel
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    LudwigModel
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ludwigmodel-class-source" class="md-nav__link">
+    LudwigModel class [source]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ludwigmodel-methods" class="md-nav__link">
+    LudwigModel methods
+  </a>
+  
+    <nav class="md-nav" aria-label="LudwigModel methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#collect_activations" class="md-nav__link">
+    collect_activations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collect_weights" class="md-nav__link">
+    collect_weights
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create_model" class="md-nav__link">
+    create_model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluate" class="md-nav__link">
+    evaluate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#experiment" class="md-nav__link">
+    experiment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forecast" class="md-nav__link">
+    forecast
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#free_gpu_memory" class="md-nav__link">
+    free_gpu_memory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_merge_and_unload_set" class="md-nav__link">
+    is_merge_and_unload_set
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load" class="md-nav__link">
+    load
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load_weights" class="md-nav__link">
+    load_weights
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#predict" class="md-nav__link">
+    predict
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preprocess" class="md-nav__link">
+    preprocess
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save" class="md-nav__link">
+    save
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save_config" class="md-nav__link">
+    save_config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save_torchscript" class="md-nav__link">
+    save_torchscript
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set_logging_level" class="md-nav__link">
+    set_logging_level
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#to_torchscript" class="md-nav__link">
+    to_torchscript
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#train" class="md-nav__link">
+    train
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#train_online" class="md-nav__link">
+    train_online
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upload_to_hf_hub" class="md-nav__link">
+    upload_to_hf_hub
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-functions" class="md-nav__link">
+    Module functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Module functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kfold_cross_validate" class="md-nav__link">
+    kfold_cross_validate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hyperopt" class="md-nav__link">
+    hyperopt
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../visualization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visualization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Datasets
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Datasets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../datasets/supported_formats/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Supported Formats
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../datasets/data_preprocessing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Preprocessing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../datasets/data_postprocessing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Postprocessing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../datasets/dataset_zoo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dataset Zoo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../llms/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Large Language Models
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            Large Language Models
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../llms/finetuning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fine-Tuning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../llms/in_context_learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    In-Context Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gpus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GPUs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../distributed_training/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Distributed Training
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_9" id="__nav_3_9_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            Distributed Training
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed_training/finetuning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fine-Tuning Pretrained Models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hyperopt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hyperparameter Optimization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cloud_storage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cloud Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../automl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AutoML
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../visualizations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visualizations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../model_export/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Model Export
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../serving/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Serving
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../integrations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Third-Party Integrations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../configuration/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    📚 Configuration
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            📚 Configuration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/model_type/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Model Types
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/large_language_model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Large Language Models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/preprocessing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preprocessing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Features
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/features/supported_data_types/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Supported Data Types
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/features/input_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Input Features (↑)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/features/output_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Output Features (↓)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/features/binary_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ⇅ Binary Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/features/number_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ⇅ Number Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/features/category_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ⇅ Category Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/features/bag_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ⇅ Bag Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/features/set_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ⇅ Set Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/features/sequence_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ⇅ Sequence Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/features/text_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ⇅ Text Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/features/vector_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ⇅ Vector Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/features/audio_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ↑ Audio Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/features/date_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ↑ Date Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/features/h3_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ↑ H3 Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/features/image_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ↑ Image Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/features/time_series_features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ↑ Time Series Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/defaults/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Defaults
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/combiner/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Combiner
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/trainer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Trainer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/hyperparameter_optimization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hyperopt
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/backend/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Backend
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../examples/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    💡 Examples
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            💡 Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    LLMs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            LLMs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/llms/llm_classification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fine-tuning for classification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/llms/llm_finetuning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Instruction-tuning llama-2-7b
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/llms/llm_finetuning_deepspeed/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Adapter-based encoder fine-tuning for text classification with deepspeed
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/llms/llm_text_generation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Adapter-based fine-tuning for text generation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/llms/llm_zero_shot_text_generation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zero-shot batch inference for text generation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/llms/llm_zero_shot_batch_inference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zero-shot batch inference for text classification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/llms/llm_few_shot_batch_inference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Few-shot batch inference for text classification (RAG)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/llms/llm_tabular_zero_shot_batch_inference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zero-shot batch inference for tabular classification (TabLLM)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/llms/llm_tabular_classification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fine-tuning for tabular classification (TabLLM)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Supervised ML
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            Supervised ML
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/text_classification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Text Classification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/adult_census_income/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tabular Data Classification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/mnist/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Image Classification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/multimodal_classification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multimodal Classification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/hyperopt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hyperparameter Optimization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/gbm_fraud/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fraud with GBMs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/sentiment_analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sentiment Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Use Cases
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            Use Cases
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/ner_tagging/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Named Entity Recognition Tagging
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/nlu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Natural Language Understanding
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/machine_translation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Machine Translation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/seq2seq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chit-Chat Dialogue Modeling through Sequence2Sequence
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/sentiment_analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sentiment Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/oneshot/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    One-shot Learning with Siamese Networks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/visual_qa/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visual Question Answering
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/speech_recognition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spoken Digit Speech Recognition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/speaker_verification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Speaker Verification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/titanic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Binary Classification (Titanic)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/forecasting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Timeseries forecasting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/weather/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Timeseries forecasting (Weather)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/movie_ratings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Movie rating prediction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/multi_label/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multi-label classification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/multi_task/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multi-Task Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/fuel_efficiency/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Simple Regression - Fuel Efficiency Prediction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/fraud/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fraud Detection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../developer_guide/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    🛠️ Developer Guide
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            🛠️ Developer Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/contributing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Contribute
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/codebase_structure/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Codebase Structure
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/api_annotations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ludwig API Guarantees
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_an_encoder/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add an Encoder
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_combiner/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Combiner
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_decoder/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Decoder
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_feature_type/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Feature Type
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_metric/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Metric
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_loss_function/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Loss Function
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_tokenizer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Tokenizer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_hyperopt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Hyperopt Algorithm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_pretrained_model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Pretrained Model
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_an_integration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add an Integration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/add_a_dataset/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add a Dataset
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/style_guidelines_and_tests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Style Guidelines and Tests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/unit_test_design_guidelines/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Unit Test Design Guidelines
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/run_tests_on_gpu_using_ray/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Run Tests on GPU Using Ray
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer_guide/release_process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Release Process
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../community/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    👋 Community
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ❓ FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ludwigmodel-class-source" class="md-nav__link">
+    LudwigModel class [source]
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ludwigmodel-methods" class="md-nav__link">
+    LudwigModel methods
+  </a>
+  
+    <nav class="md-nav" aria-label="LudwigModel methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#collect_activations" class="md-nav__link">
+    collect_activations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collect_weights" class="md-nav__link">
+    collect_weights
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create_model" class="md-nav__link">
+    create_model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluate" class="md-nav__link">
+    evaluate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#experiment" class="md-nav__link">
+    experiment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forecast" class="md-nav__link">
+    forecast
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#free_gpu_memory" class="md-nav__link">
+    free_gpu_memory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_merge_and_unload_set" class="md-nav__link">
+    is_merge_and_unload_set
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load" class="md-nav__link">
+    load
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load_weights" class="md-nav__link">
+    load_weights
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#predict" class="md-nav__link">
+    predict
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preprocess" class="md-nav__link">
+    preprocess
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save" class="md-nav__link">
+    save
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save_config" class="md-nav__link">
+    save_config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save_torchscript" class="md-nav__link">
+    save_torchscript
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set_logging_level" class="md-nav__link">
+    set_logging_level
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#to_torchscript" class="md-nav__link">
+    to_torchscript
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#train" class="md-nav__link">
+    train
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#train_online" class="md-nav__link">
+    train_online
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upload_to_hf_hub" class="md-nav__link">
+    upload_to_hf_hub
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-functions" class="md-nav__link">
+    Module functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Module functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kfold_cross_validate" class="md-nav__link">
+    kfold_cross_validate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hyperopt" class="md-nav__link">
+    hyperopt
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>LudwigModel</h1>
+
+<!-- markdownlint-disable -->
+<!-- DO NOT EDIT DIRECTLY: Automatically generated by code_doc_autogen.py. -->
+<h2 id="ludwigmodel-class-source">LudwigModel class <a href="https://github.com/ludwig-ai/ludwig/blob/master/ludwig/api.py">[source]</a><a class="headerlink" href="#ludwigmodel-class-source" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">ludwig</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">LudwigModel</span><span class="p">(</span>
+  <span class="n">config</span><span class="p">,</span>
+  <span class="n">logging_level</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+  <span class="n">backend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">gpus</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">gpu_memory_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">allow_parallel_threads</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+  <span class="n">callbacks</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Class that allows access to high level Ludwig functionalities.</p>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><strong>config</strong> (Union[str, dict]): in-memory representation of
+    config or string path to a YAML config file.</li>
+<li><strong>logging_level</strong> (int): Log level that will be sent to stderr.</li>
+<li><strong>backend</strong> (Union[Backend, str]): <code>Backend</code> or string name
+of backend to use to execute preprocessing / training steps.</li>
+<li><strong>gpus</strong> (Union[str, int, List[int]], default: <code>None</code>): GPUs
+to use (it uses the same syntax of CUDA_VISIBLE_DEVICES)</li>
+<li><strong>gpu_memory_limit</strong> (float: default: <code>None</code>): maximum memory fraction
+[0, 1] allowed to allocate per GPU device.</li>
+<li><strong>allow_parallel_threads</strong> (bool, default: <code>True</code>): allow Torch
+to use multithreading parallelism to improve performance at the
+cost of determinism.</li>
+</ul>
+<p><strong>Example usage:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">ludwig.api</span> <span class="kn">import</span> <span class="n">LudwigModel</span>
+</code></pre></div>
+<p>Train a model:</p>
+<div class="highlight"><pre><span></span><code><span class="n">config</span> <span class="o">=</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
+<span class="n">ludwig_model</span> <span class="o">=</span> <span class="n">LudwigModel</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<span class="n">train_stats</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ludwig_model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">file_path</span><span class="p">)</span>
+</code></pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span><code><span class="n">train_stats</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ludwig_model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">dataframe</span><span class="p">)</span>
+</code></pre></div>
+<p>If you have already trained a model you can load it and use it to predict</p>
+<div class="highlight"><pre><span></span><code><span class="n">ludwig_model</span> <span class="o">=</span> <span class="n">LudwigModel</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span><span class="p">)</span>
+</code></pre></div>
+<p>Predict:</p>
+<div class="highlight"><pre><span></span><code><span class="n">predictions</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ludwig_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">file_path</span><span class="p">)</span>
+</code></pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span><code><span class="n">predictions</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ludwig_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">dataframe</span><span class="p">)</span>
+</code></pre></div>
+<p>Evaluation:</p>
+<div class="highlight"><pre><span></span><code><span class="n">eval_stats</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ludwig_model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">file_path</span><span class="p">)</span>
+</code></pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span><code><span class="n">eval_stats</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ludwig_model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">dataframe</span><span class="p">)</span>
+</code></pre></div>
+<p>PublicAPI: This API is stable across Ludwig releases.</p>
+<hr />
+<h2 id="ludwigmodel-methods">LudwigModel methods<a class="headerlink" href="#ludwigmodel-methods" title="Permanent link">&para;</a></h2>
+<h3 id="collect_activations">collect_activations<a class="headerlink" href="#collect_activations" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">collect_activations</span><span class="p">(</span>
+  <span class="n">layer_names</span><span class="p">,</span>
+  <span class="n">dataset</span><span class="p">,</span>
+  <span class="n">data_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">split</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>
+  <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Loads a pre-trained model model and input data to collect the values of the activations contained in the
+tensors.</p>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><strong>layer_names</strong> (list): list of strings for layer names in the model
+to collect activations.</li>
+<li><strong>dataset</strong> (Union[str, Dict[str, list], pandas.DataFrame]): source
+containing the data to make predictions.</li>
+<li><strong>data_format</strong> (str, default: <code>None</code>): format to interpret data
+sources. Will be inferred automatically if not specified.  Valid
+formats are <code>'auto'</code>, <code>'csv'</code>, <code>'df'</code>, <code>'dict'</code>, <code>'excel'</code>, <code>'feather'</code>,
+<code>'fwf'</code>, <code>'hdf5'</code> (cache file produced during previous training),
+<code>'html'</code> (file containing a single HTML <code>&lt;table&gt;</code>), <code>'json'</code>, <code>'jsonl'</code>,
+<code>'parquet'</code>, <code>'pickle'</code> (pickled Pandas DataFrame), <code>'sas'</code>, <code>'spss'</code>,
+<code>'stata'</code>, <code>'tsv'</code>.</li>
+<li><strong>split</strong> (str, default= <code>'full'</code>):: if the input dataset contains
+a split column, this parameter indicates which split of the data
+to use. Possible values are <code>'full'</code>, <code>'training'</code>, <code>'validation'</code>, <code>'test'</code>.</li>
+<li><strong>batch_size</strong> (int, default: 128): size of batch to use when making
+predictions.</li>
+</ul>
+<p><strong>Return</strong></p>
+<ul>
+<li><strong>return</strong> (list): list of collected tensors.</li>
+</ul>
+<hr />
+<h3 id="collect_weights">collect_weights<a class="headerlink" href="#collect_weights" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">collect_weights</span><span class="p">(</span>
+  <span class="n">tensor_names</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Load a pre-trained model and collect the tensors with a specific name.</p>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><strong>tensor_names</strong> (list, default: <code>None</code>): List of tensor names to collect
+weights</li>
+</ul>
+<p><strong>Return</strong></p>
+<ul>
+<li><strong>return</strong> (list): List of tensors</li>
+</ul>
+<hr />
+<h3 id="create_model">create_model<a class="headerlink" href="#create_model" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">create_model</span><span class="p">(</span>
+  <span class="n">config_obj</span><span class="p">,</span>
+  <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Instantiates BaseModel object.</p>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><strong>config_obj</strong> (Union[Config, dict]): Ludwig config object</li>
+<li><strong>random_seed</strong> (int, default: ludwig default random seed): Random
+seed used for weights initialization,
+splits and any other random function.</li>
+</ul>
+<p><strong>Return</strong></p>
+<ul>
+<li><strong>return</strong> (ludwig.models.BaseModel): Instance of the Ludwig model object.</li>
+</ul>
+<hr />
+<h3 id="evaluate">evaluate<a class="headerlink" href="#evaluate" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">ludwig</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span>
+  <span class="n">dataset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">data_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">split</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>
+  <span class="n">batch_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">skip_save_unprocessed_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+  <span class="n">skip_save_predictions</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+  <span class="n">skip_save_eval_stats</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+  <span class="n">collect_predictions</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">collect_overall_stats</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">output_directory</span><span class="o">=</span><span class="s1">&#39;results&#39;</span><span class="p">,</span>
+  <span class="n">return_type</span><span class="o">=&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="s1">&#39;&gt;</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>This function is used to predict the output variables given the input variables using the trained model
+and compute test statistics like performance measures, confusion matrices and the like.</p>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><strong>dataset</strong> (Union[str, dict, pandas.DataFrame]): source containing
+the entire dataset to be evaluated.</li>
+<li><strong>data_format</strong> (str, default: <code>None</code>): format to interpret data
+sources. Will be inferred automatically if not specified.  Valid
+formats are <code>'auto'</code>, <code>'csv'</code>, <code>'df'</code>, <code>'dict'</code>, <code>'excel'</code>, <code>'feather'</code>,
+<code>'fwf'</code>, <code>'hdf5'</code> (cache file produced during previous training),
+<code>'html'</code> (file containing a single HTML <code>&lt;table&gt;</code>), <code>'json'</code>, <code>'jsonl'</code>,
+<code>'parquet'</code>, <code>'pickle'</code> (pickled Pandas DataFrame), <code>'sas'</code>, <code>'spss'</code>,
+<code>'stata'</code>, <code>'tsv'</code>.</li>
+<li><strong>split</strong> (str, default=<code>'full'</code>):: if the input dataset contains
+a split column, this parameter indicates which split of the data
+to use. Possible values are <code>'full'</code>, <code>'training'</code>, <code>'validation'</code>, <code>'test'</code>.</li>
+<li><strong>batch_size</strong> (int, default: None): size of batch to use when making
+predictions. Defaults to model config eval_batch_size</li>
+<li><strong>skip_save_unprocessed_output</strong> (bool, default: <code>True</code>): if this
+parameter is <code>False</code>, predictions and their probabilities are saved
+in both raw unprocessed numpy files containing tensors and as
+postprocessed CSV files (one for each output feature).
+If this parameter is <code>True</code>, only the CSV ones are saved and the
+numpy ones are skipped.</li>
+<li><strong>skip_save_predictions</strong> (bool, default: <code>True</code>): skips saving
+test predictions CSV files.</li>
+<li><strong>skip_save_eval_stats</strong> (bool, default: <code>True</code>): skips saving
+test statistics JSON file.</li>
+<li><strong>collect_predictions</strong> (bool, default: <code>False</code>): if <code>True</code>
+collects post-processed predictions during eval.</li>
+<li><strong>collect_overall_stats</strong> (bool, default: False): if <code>True</code>
+collects overall stats during eval.</li>
+<li><strong>output_directory</strong> (str, default: <code>'results'</code>): the directory that
+will contain the training statistics, TensorBoard logs, the saved
+model and the training progress files.</li>
+<li><strong>return_type</strong> (Union[str, dict, pd.DataFrame], default: pandas.DataFrame): indicates
+the format to of the returned predictions.</li>
+</ul>
+<p><strong>Return</strong></p>
+<ul>
+<li><strong>return</strong> (<code>evaluation_statistics</code>, <code>predictions</code>, <code>output_directory</code>):
+<code>evaluation_statistics</code> dictionary containing evaluation performance
+    statistics,
+<code>postprocess_predictions</code> contains predicted values,
+<code>output_directory</code> is location where results are stored.</li>
+</ul>
+<hr />
+<h3 id="experiment">experiment<a class="headerlink" href="#experiment" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">experiment</span><span class="p">(</span>
+  <span class="n">dataset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">training_set</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">validation_set</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">test_set</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">training_set_metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">data_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">experiment_name</span><span class="o">=</span><span class="s1">&#39;experiment&#39;</span><span class="p">,</span>
+  <span class="n">model_name</span><span class="o">=</span><span class="s1">&#39;run&#39;</span><span class="p">,</span>
+  <span class="n">model_resume_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">eval_split</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span>
+  <span class="n">skip_save_training_description</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_training_statistics</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_model</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_log</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_processed_input</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_unprocessed_output</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_predictions</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_eval_stats</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_collect_predictions</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_collect_overall_stats</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">output_directory</span><span class="o">=</span><span class="s1">&#39;results&#39;</span><span class="p">,</span>
+  <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Trains a model on a dataset's training and validation splits and uses it to predict on the test split.
+It saves the trained model and the statistics of training and testing.</p>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><strong>dataset</strong> (Union[str, dict, pandas.DataFrame], default: <code>None</code>):
+source containing the entire dataset to be used in the experiment.
+If it has a split column, it will be used for splitting (0 for train,
+1 for validation, 2 for test), otherwise the dataset will be
+randomly split.</li>
+<li><strong>training_set</strong> (Union[str, dict, pandas.DataFrame], default: <code>None</code>):
+source containing training data.</li>
+<li><strong>validation_set</strong> (Union[str, dict, pandas.DataFrame], default: <code>None</code>):
+source containing validation data.</li>
+<li><strong>test_set</strong> (Union[str, dict, pandas.DataFrame], default: <code>None</code>):
+source containing test data.</li>
+<li><strong>training_set_metadata</strong> (Union[str, dict], default: <code>None</code>):
+metadata JSON file or loaded metadata.  Intermediate preprocessed
+structure containing the mappings of the input
+dataset created the first time an input file is used in the same
+directory with the same name and a '.meta.json' extension.</li>
+<li><strong>data_format</strong> (str, default: <code>None</code>): format to interpret data
+sources. Will be inferred automatically if not specified.  Valid
+formats are <code>'auto'</code>, <code>'csv'</code>, <code>'df'</code>, <code>'dict'</code>, <code>'excel'</code>, <code>'feather'</code>,
+<code>'fwf'</code>, <code>'hdf5'</code> (cache file produced during previous training),
+<code>'html'</code> (file containing a single HTML <code>&lt;table&gt;</code>), <code>'json'</code>, <code>'jsonl'</code>,
+<code>'parquet'</code>, <code>'pickle'</code> (pickled Pandas DataFrame), <code>'sas'</code>, <code>'spss'</code>,
+<code>'stata'</code>, <code>'tsv'</code>.</li>
+<li><strong>experiment_name</strong> (str, default: <code>'experiment'</code>): name for
+the experiment.</li>
+<li><strong>model_name</strong> (str, default: <code>'run'</code>): name of the model that is
+being used.</li>
+<li><strong>model_resume_path</strong> (str, default: <code>None</code>): resumes training of
+the model from the path specified. The config is restored.
+In addition to config, training statistics and loss for
+epoch and the state of the optimizer are restored such that
+training can be effectively continued from a previously interrupted
+training process.</li>
+<li><strong>eval_split</strong> (str, default: <code>test</code>): split on which
+to perform evaluation. Valid values are <code>training</code>, <code>validation</code>
+and <code>test</code>.</li>
+<li><strong>skip_save_training_description</strong> (bool, default: <code>False</code>): disables
+saving the description JSON file.</li>
+<li><strong>skip_save_training_statistics</strong> (bool, default: <code>False</code>): disables
+saving training statistics JSON file.</li>
+<li><strong>skip_save_model</strong> (bool, default: <code>False</code>): disables
+saving model weights and hyperparameters each time the model
+improves. By default Ludwig saves model weights after each epoch
+the validation metric improves, but if the model is really big
+that can be time consuming. If you do not want to keep
+the weights and just find out what performance a model can get
+with a set of hyperparameters, use this parameter to skip it,
+but the model will not be loadable later on and the returned model
+will have the weights obtained at the end of training, instead of
+the weights of the epoch with the best validation performance.</li>
+<li><strong>skip_save_progress</strong> (bool, default: <code>False</code>): disables saving
+progress each epoch. By default Ludwig saves weights and stats
+after each epoch for enabling resuming of training, but if
+the model is really big that can be time consuming and will uses
+twice as much space, use this parameter to skip it, but training
+cannot be resumed later on.</li>
+<li><strong>skip_save_log</strong> (bool, default: <code>False</code>): disables saving
+TensorBoard logs. By default Ludwig saves logs for the TensorBoard,
+but if it is not needed turning it off can slightly increase the
+overall speed.</li>
+<li><strong>skip_save_processed_input</strong> (bool, default: <code>False</code>): if input
+dataset is provided it is preprocessed and cached by saving an HDF5
+and JSON files to avoid running the preprocessing again. If this
+parameter is <code>False</code>, the HDF5 and JSON file are not saved.</li>
+<li><strong>skip_save_unprocessed_output</strong> (bool, default: <code>False</code>): by default
+predictions and their probabilities are saved in both raw
+unprocessed numpy files containing tensors and as postprocessed
+CSV files (one for each output feature). If this parameter is True,
+only the CSV ones are saved and the numpy ones are skipped.</li>
+<li><strong>skip_save_predictions</strong> (bool, default: <code>False</code>): skips saving test
+predictions CSV files</li>
+<li><strong>skip_save_eval_stats</strong> (bool, default: <code>False</code>): skips saving test
+statistics JSON file</li>
+<li><strong>skip_collect_predictions</strong> (bool, default: <code>False</code>): skips
+collecting post-processed predictions during eval.</li>
+<li><strong>skip_collect_overall_stats</strong> (bool, default: <code>False</code>): skips
+collecting overall stats during eval.</li>
+<li><strong>output_directory</strong> (str, default: <code>'results'</code>): the directory that
+will contain the training statistics, TensorBoard logs, the saved
+model and the training progress files.</li>
+<li><strong>random_seed</strong> (int: default: 42): random seed used for weights
+initialization, splits and any other random function.</li>
+</ul>
+<p><strong>Return</strong></p>
+<ul>
+<li><strong>return</strong> (Tuple[dict, dict, tuple, str)):
+<code>(evaluation_statistics, training_statistics, preprocessed_data, output_directory)</code>
+<code>evaluation_statistics</code> dictionary with evaluation performance
+    statistics on the test_set,
+<code>training_statistics</code> is a nested dictionary of dataset -&gt; feature_name -&gt; metric_name -&gt; List of metrics.
+    Each metric corresponds to each training checkpoint.
+<code>preprocessed_data</code> tuple containing preprocessed
+<code>(training_set, validation_set, test_set)</code>, <code>output_directory</code>
+filepath string to where results are stored.</li>
+</ul>
+<hr />
+<h3 id="forecast">forecast<a class="headerlink" href="#forecast" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">forecast</span><span class="p">(</span>
+  <span class="n">dataset</span><span class="p">,</span>
+  <span class="n">data_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">horizon</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+  <span class="n">output_directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">output_format</span><span class="o">=</span><span class="s1">&#39;parquet&#39;</span>
+<span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="free_gpu_memory">free_gpu_memory<a class="headerlink" href="#free_gpu_memory" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">free_gpu_memory</span><span class="p">(</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Manually moves the model to CPU to force GPU memory to be freed.</p>
+<p>For more context: https://discuss.pytorch.org/t/how-can-we-release-gpu-memory-cache/14530/35</p>
+<hr />
+<h3 id="is_merge_and_unload_set">is_merge_and_unload_set<a class="headerlink" href="#is_merge_and_unload_set" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">is_merge_and_unload_set</span><span class="p">(</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Check whether the encapsulated model is of type LLM and is configured to merge_and_unload QLoRA weights.</p>
+<p><strong>Return</strong></p>
+<p>:return (bool): whether merge_and_unload should be done.</p>
+<hr />
+<h3 id="load">load<a class="headerlink" href="#load" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">load</span><span class="p">(</span>
+  <span class="n">model_dir</span><span class="p">,</span>
+  <span class="n">logging_level</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+  <span class="n">backend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">gpus</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">gpu_memory_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">allow_parallel_threads</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+  <span class="n">callbacks</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>This function allows for loading pretrained models.</p>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><strong>model_dir</strong> (str): path to the directory containing the model.
+   If the model was trained by the <code>train</code> or <code>experiment</code> command,
+   the model is in <code>results_dir/experiment_dir/model</code>.</li>
+<li><strong>logging_level</strong> (int, default: 40): log level that will be sent to
+stderr.</li>
+<li><strong>backend</strong> (Union[Backend, str]): <code>Backend</code> or string name
+of backend to use to execute preprocessing / training steps.</li>
+<li><strong>gpus</strong> (Union[str, int, List[int]], default: <code>None</code>): GPUs
+to use (it uses the same syntax of CUDA_VISIBLE_DEVICES)</li>
+<li><strong>gpu_memory_limit</strong> (float: default: <code>None</code>): maximum memory fraction
+[0, 1] allowed to allocate per GPU device.</li>
+<li><strong>allow_parallel_threads</strong> (bool, default: <code>True</code>): allow Torch
+to use
+multithreading parallelism to improve performance at the cost of
+determinism.</li>
+<li><strong>callbacks</strong> (list, default: <code>None</code>): a list of
+<code>ludwig.callbacks.Callback</code> objects that provide hooks into the
+Ludwig pipeline.</li>
+</ul>
+<p><strong>Return</strong></p>
+<ul>
+<li><strong>return</strong> (LudwigModel): a LudwigModel object</li>
+</ul>
+<p><strong>Example usage</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">ludwig_model</span> <span class="o">=</span> <span class="n">LudwigModel</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_dir</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="load_weights">load_weights<a class="headerlink" href="#load_weights" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">load_weights</span><span class="p">(</span>
+  <span class="n">model_dir</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Loads weights from a pre-trained model.</p>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><strong>model_dir</strong> (str): filepath string to location of a pre-trained
+model</li>
+</ul>
+<p><strong>Return</strong></p>
+<ul>
+<li><strong>return</strong> ( <code>Non):</code>None`</li>
+</ul>
+<p><strong>Example usage</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">ludwig_model</span><span class="o">.</span><span class="n">load_weights</span><span class="p">(</span><span class="n">model_dir</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="predict">predict<a class="headerlink" href="#predict" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">ludwig</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span>
+  <span class="n">dataset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">data_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">split</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>
+  <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
+  <span class="n">generation_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">skip_save_unprocessed_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+  <span class="n">skip_save_predictions</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+  <span class="n">output_directory</span><span class="o">=</span><span class="s1">&#39;results&#39;</span><span class="p">,</span>
+  <span class="n">return_type</span><span class="o">=&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="s1">&#39;&gt;,</span>
+  <span class="n">callbacks</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Using a trained model, make predictions from the provided dataset.</p>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><strong>dataset</strong> (Union[str, dict, pandas.DataFrame]):: source containing the entire dataset to be evaluated.</li>
+<li><strong>data_format</strong> (str, default: <code>None</code>): format to interpret data sources. Will be inferred automatically
+if not specified.  Valid formats are <code>'auto'</code>, <code>'csv'</code>, <code>'df'</code>, <code>'dict'</code>, <code>'excel'</code>, <code>'feather'</code>,
+<code>'fwf'</code>, <code>'hdf5'</code> (cache file produced during previous training), <code>'html'</code> (file containing a single
+HTML <code>&lt;table&gt;</code>), <code>'json'</code>, <code>'jsonl'</code>, <code>'parquet'</code>, <code>'pickle'</code> (pickled Pandas DataFrame), <code>'sas'</code>,
+<code>'spss'</code>, <code>'stata'</code>, <code>'tsv'</code>.</li>
+<li><strong>split</strong> (str, default= <code>'full'</code>)::  if the input dataset contains a split column, this parameter
+indicates which split of the data to use. Possible values are <code>'full'</code>, <code>'training'</code>, <code>'validation'</code>,
+<code>'test'</code>.</li>
+<li><strong>batch_size</strong> (int, default: 128): size of batch to use when making predictions.</li>
+<li><strong>generation_config</strong> (Dict, default: <code>None</code>): config for the generation of the
+predictions. If <code>None</code>, the config that was used during model training is
+used. This is only used if the model type is LLM. Otherwise, this parameter is
+ignored. See
+<a href="https://ludwig.ai/latest/configuration/large_language_model/#generation">Large Language Models</a> under
+"Generation" for an example generation config.</li>
+<li><strong>skip_save_unprocessed_output</strong> (bool, default: <code>True</code>): if this parameter is <code>False</code>, predictions and
+their probabilities are saved in both raw unprocessed numpy files containing tensors and as
+postprocessed CSV files (one for each output feature). If this parameter is <code>True</code>, only the CSV ones
+are saved and the numpy ones are skipped.</li>
+<li><strong>skip_save_predictions</strong> (bool, default: <code>True</code>): skips saving test predictions CSV files.</li>
+<li><strong>output_directory</strong> (str, default: <code>'results'</code>): the directory that will contain the training
+statistics, TensorBoard logs, the saved model and the training progress files.</li>
+<li><strong>return_type</strong> (Union[str, dict, pandas.DataFrame], default: pd.DataFrame): indicates the format of the
+returned predictions.</li>
+<li><strong>callbacks</strong> (Optional[List[Callback]], default: None): optional list of callbacks to use during this
+predict operation. Any callbacks already registered to the model will be preserved.</li>
+</ul>
+<p><strong>Return</strong></p>
+<p>:return <code>(predictions, output_directory)</code>: (Tuple[Union[dict, pd.DataFrame], str])
+<code>predictions</code> predictions from the provided dataset,
+<code>output_directory</code> filepath string to where data was stored.</p>
+<hr />
+<h3 id="preprocess">preprocess<a class="headerlink" href="#preprocess" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">preprocess</span><span class="p">(</span>
+  <span class="n">dataset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">training_set</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">validation_set</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">test_set</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">training_set_metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">data_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">skip_save_processed_input</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+  <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>This function is used to preprocess data.</p>
+<p><strong>Args:</strong></p>
+<ul>
+<li><strong>dataset</strong> (Union[str, dict, pandas.DataFrame], default: <code>None</code>):
+    source containing the entire dataset to be used in the experiment.
+    If it has a split column, it will be used for splitting
+    (0 for train, 1 for validation, 2 for test),
+    otherwise the dataset will be randomly split.</li>
+<li><strong>training_set</strong> (Union[str, dict, pandas.DataFrame], default: <code>None</code>):
+    source containing training data.</li>
+<li><strong>validation_set</strong> (Union[str, dict, pandas.DataFrame], default: <code>None</code>):
+    source containing validation data.</li>
+<li><strong>test_set</strong> (Union[str, dict, pandas.DataFrame], default: <code>None</code>):
+    source containing test data.</li>
+<li><strong>training_set_metadata</strong> (Union[str, dict], default: <code>None</code>):
+    metadata JSON file or loaded metadata. Intermediate preprocessed
+structure containing the mappings of the input
+    dataset created the first time an input file is used in the same
+    directory with the same name and a '.meta.json' extension.</li>
+<li><strong>data_format</strong> (str, default: <code>None</code>): format to interpret data
+    sources. Will be inferred automatically if not specified.  Valid
+    formats are <code>'auto'</code>, <code>'csv'</code>, <code>'df'</code>, <code>'dict'</code>, <code>'excel'</code>,
+    <code>'feather'</code>, <code>'fwf'</code>,
+    <code>'hdf5'</code> (cache file produced during previous training),
+    <code>'html'</code> (file containing a single HTML <code>&lt;table&gt;</code>),
+    <code>'json'</code>, <code>'jsonl'</code>, <code>'parquet'</code>,
+    <code>'pickle'</code> (pickled Pandas DataFrame),
+    <code>'sas'</code>, <code>'spss'</code>, <code>'stata'</code>, <code>'tsv'</code>.</li>
+<li><strong>skip_save_processed_input</strong> (bool, default: <code>False</code>): if input
+    dataset is provided it is preprocessed and cached by saving an HDF5
+    and JSON files to avoid running the preprocessing again. If this
+    parameter is <code>False</code>, the HDF5 and JSON file are not saved.</li>
+<li><strong>random_seed</strong> (int, default: <code>42</code>): a random seed that will be
+    used anywhere there is a call to a random number generator: data
+    splitting, parameter initialization and training set shuffling</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>__:return__: (PreprocessedDataset) data structure containing
+    <code>(proc_training_set, proc_validation_set, proc_test_set, training_set_metadata)</code>.</li>
+</ul>
+<p><strong>Raises:</strong></p>
+<ul>
+<li><strong>RuntimeError</strong>: An error occured while preprocessing the data. Examples include training dataset
+    being empty after preprocessing, lazy loading not being supported with RayBackend, etc.</li>
+</ul>
+<hr />
+<h3 id="save">save<a class="headerlink" href="#save" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">save</span><span class="p">(</span>
+  <span class="n">save_path</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>This function allows to save models on disk.</p>
+<p><strong>Inputs</strong></p>
+<ul>
+<li>__ save_path__ (str): path to the directory where the model is
+    going to be saved. Both a JSON file containing the model
+    architecture hyperparameters and checkpoints files containing
+    model weights will be saved.</li>
+</ul>
+<p><strong>Return</strong></p>
+<ul>
+<li><strong>return</strong> (None): <code>None</code></li>
+</ul>
+<p><strong>Example usage</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">ludwig_model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">save_path</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="save_config">save_config<a class="headerlink" href="#save_config" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">save_config</span><span class="p">(</span>
+  <span class="n">save_path</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Save config to specified location.</p>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><strong>save_path</strong> (str): filepath string to save config as a
+JSON file.</li>
+</ul>
+<p><strong>Return</strong></p>
+<ul>
+<li><strong>return</strong> ( <code>None):</code>None`</li>
+</ul>
+<hr />
+<h3 id="save_torchscript">save_torchscript<a class="headerlink" href="#save_torchscript" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">save_torchscript</span><span class="p">(</span>
+  <span class="n">save_path</span><span class="p">,</span>
+  <span class="n">model_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">device</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Saves the Torchscript model to disk.</p>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><strong>save_path (str)</strong> (str):: The path to the directory where the model will be saved.</li>
+<li><strong>model_only (bool, optional)</strong> (bool, optional):: If True, only the ECD model will be converted to Torchscript. Else, the
+preprocessing and postprocessing steps will also be converted to Torchscript.</li>
+<li><strong>device (TorchDevice, optional)</strong> (TorchDevice, optional):: If None, the model will be converted to Torchscript on the same device to
+ensure maximum model parity.</li>
+</ul>
+<p><strong>Return</strong></p>
+<ul>
+<li><strong>return</strong> ( <code>None):</code>None`</li>
+</ul>
+<hr />
+<h3 id="set_logging_level">set_logging_level<a class="headerlink" href="#set_logging_level" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">set_logging_level</span><span class="p">(</span>
+  <span class="n">logging_level</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Sets level for log messages.</p>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><strong>logging_level</strong> (int): Set/Update the logging level. Use logging
+constants like <code>logging.DEBUG</code> , <code>logging.INFO</code> and <code>logging.ERROR</code>.</li>
+</ul>
+<p><strong>Return</strong></p>
+<ul>
+<li><strong>return</strong> ( <code>None):</code>None`</li>
+</ul>
+<hr />
+<h3 id="to_torchscript">to_torchscript<a class="headerlink" href="#to_torchscript" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">to_torchscript</span><span class="p">(</span>
+  <span class="n">model_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">device</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Converts the trained model to Torchscript.</p>
+<p><strong>Inputs</strong></p>
+<ul>
+<li>__ model_only (bool, optional)__ (bool, optional):: If True, only the ECD model will be converted to Torchscript. Else,
+preprocessing and postprocessing steps will also be converted to Torchscript.</li>
+<li><strong>device (TorchDevice, optional)</strong> (TorchDevice, optional):: If None, the model will be converted to Torchscript on the same device to
+ensure maximum model parity.</li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li><strong>return</strong> ( A torch.jit.ScriptModule that can be used to predict on a dictionary of inputs): A torch.jit.ScriptModule that can be used to predict on a dictionary of inputs.</li>
+</ul>
+<hr />
+<h3 id="train">train<a class="headerlink" href="#train" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">train</span><span class="p">(</span>
+  <span class="n">dataset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">training_set</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">validation_set</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">test_set</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">training_set_metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">data_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">experiment_name</span><span class="o">=</span><span class="s1">&#39;api_experiment&#39;</span><span class="p">,</span>
+  <span class="n">model_name</span><span class="o">=</span><span class="s1">&#39;run&#39;</span><span class="p">,</span>
+  <span class="n">model_resume_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">skip_save_training_description</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_training_statistics</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_model</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_log</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_processed_input</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">output_directory</span><span class="o">=</span><span class="s1">&#39;results&#39;</span><span class="p">,</span>
+  <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>This function is used to perform a full training of the model on the specified dataset.</p>
+<p>During training if the skip parameters are False
+the model and statistics will be saved in a directory
+<code>[output_dir]/[experiment_name]_[model_name]_n</code> where all variables are
+resolved to user specified ones and <code>n</code> is an increasing number
+starting from 0 used to differentiate among repeated runs.</p>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><strong>dataset</strong> (Union[str, dict, pandas.DataFrame], default: <code>None</code>):
+source containing the entire dataset to be used in the experiment.
+If it has a split column, it will be used for splitting
+(0 for train, 1 for validation, 2 for test),
+otherwise the dataset will be randomly split.</li>
+<li><strong>training_set</strong> (Union[str, dict, pandas.DataFrame], default: <code>None</code>):
+source containing training data.</li>
+<li><strong>validation_set</strong> (Union[str, dict, pandas.DataFrame], default: <code>None</code>):
+source containing validation data.</li>
+<li><strong>test_set</strong> (Union[str, dict, pandas.DataFrame], default: <code>None</code>):
+source containing test data.</li>
+<li><strong>training_set_metadata</strong> (Union[str, dict], default: <code>None</code>):
+metadata JSON file or loaded metadata. Intermediate preprocessed
+structure containing the mappings of the input dataset created the
+first time an input file is used in the same directory with the
+same name and a '.meta.json' extension.</li>
+<li><strong>data_format</strong> (str, default: <code>None</code>): format to interpret data
+sources. Will be inferred automatically if not specified.  Valid
+formats are <code>'auto'</code>, <code>'csv'</code>, <code>'df'</code>, <code>'dict'</code>, <code>'excel'</code>,
+<code>'feather'</code>, <code>'fwf'</code>,
+<code>'hdf5'</code> (cache file produced during previous training),
+<code>'html'</code> (file containing a single HTML <code>&lt;table&gt;</code>),
+<code>'json'</code>, <code>'jsonl'</code>, <code>'parquet'</code>,
+<code>'pickle'</code> (pickled Pandas DataFrame),
+<code>'sas'</code>, <code>'spss'</code>, <code>'stata'</code>, <code>'tsv'</code>.</li>
+<li><strong>experiment_name</strong> (str, default: <code>'experiment'</code>): name for
+the experiment.</li>
+<li><strong>model_name</strong> (str, default: <code>'run'</code>): name of the model that is
+being used.</li>
+<li><strong>model_resume_path</strong> (str, default: <code>None</code>): resumes training of
+the model from the path specified. The config is restored.
+In addition to config, training statistics, loss for each
+epoch and the state of the optimizer are restored such that
+training can be effectively continued from a previously interrupted
+training process.</li>
+<li><strong>skip_save_training_description</strong> (bool, default: <code>False</code>):
+disables saving the description JSON file.</li>
+<li><strong>skip_save_training_statistics</strong> (bool, default: <code>False</code>):
+disables saving training statistics JSON file.</li>
+<li><strong>skip_save_model</strong> (bool, default: <code>False</code>): disables
+saving model weights and hyperparameters each time the model
+improves. By default Ludwig saves model weights after each epoch
+the validation metric improves, but if the model is really big
+that can be time consuming. If you do not want to keep
+the weights and just find out what performance a model can get
+with a set of hyperparameters, use this parameter to skip it,
+but the model will not be loadable later on and the returned model
+will have the weights obtained at the end of training, instead of
+the weights of the epoch with the best validation performance.</li>
+<li><strong>skip_save_progress</strong> (bool, default: <code>False</code>): disables saving
+progress each epoch. By default Ludwig saves weights and stats
+after each epoch for enabling resuming of training, but if
+the model is really big that can be time consuming and will uses
+twice as much space, use this parameter to skip it, but training
+cannot be resumed later on.</li>
+<li><strong>skip_save_log</strong> (bool, default: <code>False</code>): disables saving
+TensorBoard logs. By default Ludwig saves logs for the TensorBoard,
+but if it is not needed turning it off can slightly increase the
+overall speed.</li>
+<li><strong>skip_save_processed_input</strong> (bool, default: <code>False</code>): if input
+dataset is provided it is preprocessed and cached by saving an HDF5
+and JSON files to avoid running the preprocessing again. If this
+parameter is <code>False</code>, the HDF5 and JSON file are not saved.</li>
+<li><strong>output_directory</strong> (str, default: <code>'results'</code>): the directory that
+will contain the training statistics, TensorBoard logs, the saved
+model and the training progress files.</li>
+<li><strong>random_seed</strong> (int, default: <code>42</code>): a random seed that will be
+used anywhere there is a call to a random number generator: data
+splitting, parameter initialization and training set shuffling</li>
+<li><strong>kwargs</strong> (dict, default: {}): a dictionary of optional parameters.</li>
+</ul>
+<p><strong>Return</strong></p>
+<ul>
+<li><strong>return</strong> (Tuple[Dict, Union[Dict, pd.DataFrame], str]): tuple containing
+<code>(training_statistics, preprocessed_data, output_directory)</code>.
+<code>training_statistics</code> is a nested dictionary of dataset -&gt; feature_name -&gt; metric_name -&gt; List of metrics.
+    Each metric corresponds to each training checkpoint.
+<code>preprocessed_data</code> is the tuple containing these three data sets
+<code>(training_set, validation_set, test_set)</code>.
+<code>output_directory</code> filepath to where training results are stored.</li>
+</ul>
+<hr />
+<h3 id="train_online">train_online<a class="headerlink" href="#train_online" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">train_online</span><span class="p">(</span>
+  <span class="n">dataset</span><span class="p">,</span>
+  <span class="n">training_set_metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">data_format</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+  <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Performs one epoch of training of the model on <code>dataset</code>.</p>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><strong>dataset</strong> (Union[str, dict, pandas.DataFrame], default: <code>None</code>):
+source containing the entire dataset to be used in the experiment.
+If it has a split column, it will be used for splitting (0 for train,
+1 for validation, 2 for test), otherwise the dataset will be
+randomly split.</li>
+<li><strong>training_set_metadata</strong> (Union[str, dict], default: <code>None</code>):
+metadata JSON file or loaded metadata.  Intermediate preprocessed
+structure containing the mappings of the input
+dataset created the first time an input file is used in the same
+directory with the same name and a '.meta.json' extension.</li>
+<li><strong>data_format</strong> (str, default: <code>None</code>): format to interpret data
+sources. Will be inferred automatically if not specified.  Valid
+formats are <code>'auto'</code>, <code>'csv'</code>, <code>'df'</code>, <code>'dict'</code>, <code>'excel'</code>, <code>'feather'</code>,
+<code>'fwf'</code>, <code>'hdf5'</code> (cache file produced during previous training),
+<code>'html'</code> (file containing a single HTML <code>&lt;table&gt;</code>), <code>'json'</code>, <code>'jsonl'</code>,
+<code>'parquet'</code>, <code>'pickle'</code> (pickled Pandas DataFrame), <code>'sas'</code>, <code>'spss'</code>,
+<code>'stata'</code>, <code>'tsv'</code>.</li>
+<li><strong>random_seed</strong> (int, default: <code>42</code>): a random seed that is going to be
+   used anywhere there is a call to a random number generator: data
+   splitting, parameter initialization and training set shuffling</li>
+</ul>
+<p><strong>Return</strong></p>
+<ul>
+<li><strong>return</strong> (None): <code>None</code></li>
+</ul>
+<hr />
+<h3 id="upload_to_hf_hub">upload_to_hf_hub<a class="headerlink" href="#upload_to_hf_hub" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">ludwig</span><span class="o">.</span><span class="n">upload_to_hf_hub</span><span class="p">(</span>
+  <span class="n">repo_id</span><span class="p">,</span>
+  <span class="n">model_path</span><span class="p">,</span>
+  <span class="n">repo_type</span><span class="o">=</span><span class="s1">&#39;model&#39;</span><span class="p">,</span>
+  <span class="n">private</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">commit_message</span><span class="o">=</span><span class="s1">&#39;Upload trained [Ludwig](https://ludwig.ai/latest/) model weights&#39;</span><span class="p">,</span>
+  <span class="n">commit_description</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Uploads trained model artifacts to the HuggingFace Hub.</p>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><strong>repo_id (<code>str</code>)</strong> (<code>str</code>)::
+A namespace (user or an organization) and a repo name separated
+by a <code>/</code>.</li>
+<li><strong>model_path (<code>str</code>)</strong> (<code>str</code>)::
+The path of the saved model. This is the top level directory where
+the models weights as well as other associated training artifacts
+are saved.</li>
+<li><strong>private (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>)</strong> (<code>bool</code>, <em>optional</em>, defaults to <code>False</code>)::
+Whether the model repo should be private.</li>
+<li><strong>repo_type (<code>str</code>, <em>optional</em>)</strong> (<code>str</code>, <em>optional</em>)::
+Set to <code>"dataset"</code> or <code>"space"</code> if uploading to a dataset or
+space, <code>None</code> or <code>"model"</code> if uploading to a model. Default is
+<code>None</code>.</li>
+<li><strong>commit_message (<code>str</code>, <em>optional</em>)</strong> (<code>str</code>, <em>optional</em>)::
+The summary / title / first line of the generated commit. Defaults to:
+<code>f"Upload {path_in_repo} with huggingface_hub"</code></li>
+<li><strong>commit_description (<code>str</code> <em>optional</em>)</strong> (<code>str</code> <em>optional</em>)::
+The description of the generated commit</li>
+</ul>
+<p><strong>Returns</strong></p>
+<ul>
+<li><strong>return</strong> (bool): True for success, False for failure.</li>
+</ul>
+<hr />
+<h2 id="module-functions">Module functions<a class="headerlink" href="#module-functions" title="Permanent link">&para;</a></h2>
+<hr />
+<h3 id="kfold_cross_validate">kfold_cross_validate<a class="headerlink" href="#kfold_cross_validate" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">ludwig</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">kfold_cross_validate</span><span class="p">(</span>
+  <span class="n">num_folds</span><span class="p">,</span>
+  <span class="n">config</span><span class="p">,</span>
+  <span class="n">dataset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">data_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">skip_save_training_description</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_training_statistics</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_model</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_log</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_processed_input</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_predictions</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_eval_stats</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_collect_predictions</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_collect_overall_stats</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">output_directory</span><span class="o">=</span><span class="s1">&#39;results&#39;</span><span class="p">,</span>
+  <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+  <span class="n">gpus</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">gpu_memory_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">allow_parallel_threads</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+  <span class="n">backend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">logging_level</span><span class="o">=</span><span class="mi">20</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Performs k-fold cross validation and returns result data structures.</p>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><strong>num_folds</strong> (int): number of folds to create for the cross-validation</li>
+<li><strong>config</strong> (Union[dict, str]): model specification
+   required to build a model. Parameter may be a dictionary or string
+   specifying the file path to a yaml configuration file.  Refer to the
+   <a href="http://ludwig.ai/user_guide/#model-config">User Guide</a>
+   for details.</li>
+<li><strong>dataset</strong> (Union[str, dict, pandas.DataFrame], default: <code>None</code>):
+source containing the entire dataset to be used for k_fold processing.</li>
+<li><strong>data_format</strong> (str, default: <code>None</code>): format to interpret data
+    sources. Will be inferred automatically if not specified.  Valid
+    formats are <code>'auto'</code>, <code>'csv'</code>, <code>'df'</code>, <code>'dict'</code>, <code>'excel'</code>, <code>'feather'</code>,
+    <code>'fwf'</code>,
+    <code>'html'</code> (file containing a single HTML <code>&lt;table&gt;</code>), <code>'json'</code>, <code>'jsonl'</code>,
+    <code>'parquet'</code>, <code>'pickle'</code> (pickled Pandas DataFrame), <code>'sas'</code>, <code>'spss'</code>,
+    <code>'stata'</code>, <code>'tsv'</code>.  Currently <code>hdf5</code> format is not supported for
+    k_fold cross validation.</li>
+<li><strong>skip_save_training_description</strong> (bool, default: <code>False</code>): disables
+    saving the description JSON file.</li>
+<li><strong>skip_save_training_statistics</strong> (bool, default: <code>False</code>): disables
+    saving training statistics JSON file.</li>
+<li><strong>skip_save_model</strong> (bool, default: <code>False</code>): disables
+saving model weights and hyperparameters each time the model
+improves. By default Ludwig saves model weights after each epoch
+the validation metric improves, but if the model is really big
+that can be time consuming. If you do not want to keep
+the weights and just find out what performance a model can get
+with a set of hyperparameters, use this parameter to skip it,
+but the model will not be loadable later on and the returned model
+will have the weights obtained at the end of training, instead of
+the weights of the epoch with the best validation performance.</li>
+<li><strong>skip_save_progress</strong> (bool, default: <code>False</code>): disables saving
+   progress each epoch. By default Ludwig saves weights and stats
+   after each epoch for enabling resuming of training, but if
+   the model is really big that can be time consuming and will uses
+   twice as much space, use this parameter to skip it, but training
+   cannot be resumed later on.</li>
+<li><strong>skip_save_log</strong> (bool, default: <code>False</code>): disables saving TensorBoard
+   logs. By default Ludwig saves logs for the TensorBoard, but if it
+   is not needed turning it off can slightly increase the
+   overall speed.</li>
+<li><strong>skip_save_processed_input</strong> (bool, default: <code>False</code>): if input
+dataset is provided it is preprocessed and cached by saving an HDF5
+and JSON files to avoid running the preprocessing again. If this
+parameter is <code>False</code>, the HDF5 and JSON file are not saved.</li>
+<li><strong>skip_save_predictions</strong> (bool, default: <code>False</code>): skips saving test
+    predictions CSV files.</li>
+<li><strong>skip_save_eval_stats</strong> (bool, default: <code>False</code>): skips saving test
+    statistics JSON file.</li>
+<li><strong>skip_collect_predictions</strong> (bool, default: <code>False</code>): skips collecting
+    post-processed predictions during eval.</li>
+<li><strong>skip_collect_overall_stats</strong> (bool, default: <code>False</code>): skips collecting
+    overall stats during eval.</li>
+<li><strong>output_directory</strong> (str, default: <code>'results'</code>): the directory that
+will contain the training statistics, TensorBoard logs, the saved
+model and the training progress files.</li>
+<li><strong>random_seed</strong> (int, default: <code>42</code>): Random seed
+    used for weights initialization,
+   splits and any other random function.</li>
+<li><strong>gpus</strong> (list, default: <code>None</code>): list of GPUs that are available
+    for training.</li>
+<li><strong>gpu_memory_limit</strong> (float: default: <code>None</code>): maximum memory fraction
+    [0, 1] allowed to allocate per GPU device.</li>
+<li><strong>allow_parallel_threads</strong> (bool, default: <code>True</code>): allow Torch to
+    use multithreading parallelism
+   to improve performance at the cost of determinism.</li>
+<li><strong>backend</strong> (Union[Backend, str]): <code>Backend</code> or string name
+    of backend to use to execute preprocessing / training steps.</li>
+<li><strong>logging_level</strong> (int, default: INFO): log level to send to stderr.</li>
+</ul>
+<p><strong>Return</strong></p>
+<ul>
+<li><strong>return</strong> (tuple(kfold_cv_statistics, kfold_split_indices), dict): a tuple of
+    dictionaries <code>kfold_cv_statistics</code>: contains metrics from cv run.
+     <code>kfold_split_indices</code>: indices to split training data into
+     training fold and test fold.</li>
+</ul>
+<p>PublicAPI: This API is stable across Ludwig releases.</p>
+<hr />
+<h3 id="hyperopt">hyperopt<a class="headerlink" href="#hyperopt" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">ludwig</span><span class="o">.</span><span class="n">hyperopt</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="n">hyperopt</span><span class="p">(</span>
+  <span class="n">config</span><span class="p">,</span>
+  <span class="n">dataset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">training_set</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">validation_set</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">test_set</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">training_set_metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">data_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">experiment_name</span><span class="o">=</span><span class="s1">&#39;hyperopt&#39;</span><span class="p">,</span>
+  <span class="n">model_name</span><span class="o">=</span><span class="s1">&#39;run&#39;</span><span class="p">,</span>
+  <span class="n">resume</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">skip_save_training_description</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_training_statistics</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_model</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_log</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_processed_input</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+  <span class="n">skip_save_unprocessed_output</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_predictions</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_eval_stats</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">skip_save_hyperopt_statistics</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+  <span class="n">output_directory</span><span class="o">=</span><span class="s1">&#39;results&#39;</span><span class="p">,</span>
+  <span class="n">gpus</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">gpu_memory_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">allow_parallel_threads</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+  <span class="n">callbacks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">tune_callbacks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">backend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+  <span class="n">hyperopt_log_verbosity</span><span class="o">=</span><span class="mi">3</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>This method performs an hyperparameter optimization.</p>
+<p><strong>Inputs</strong></p>
+<ul>
+<li><strong>config</strong> (Union[str, dict]): config which defines
+the different parameters of the model, features, preprocessing and
+training.  If <code>str</code>, filepath to yaml configuration file.</li>
+<li><strong>dataset</strong> (Union[str, dict, pandas.DataFrame], default: <code>None</code>):
+source containing the entire dataset to be used in the experiment.
+If it has a split column, it will be used for splitting (0 for train,
+1 for validation, 2 for test), otherwise the dataset will be
+randomly split.</li>
+<li><strong>training_set</strong> (Union[str, dict, pandas.DataFrame], default: <code>None</code>):
+source containing training data.</li>
+<li><strong>validation_set</strong> (Union[str, dict, pandas.DataFrame], default: <code>None</code>):
+source containing validation data.</li>
+<li><strong>test_set</strong> (Union[str, dict, pandas.DataFrame], default: <code>None</code>):
+source containing test data.</li>
+<li><strong>training_set_metadata</strong> (Union[str, dict], default: <code>None</code>):
+metadata JSON file or loaded metadata.  Intermediate preprocessed
+structure containing the mappings of the input
+dataset created the first time an input file is used in the same
+directory with the same name and a '.meta.json' extension.</li>
+<li><strong>data_format</strong> (str, default: <code>None</code>): format to interpret data
+sources. Will be inferred automatically if not specified.  Valid
+formats are <code>'auto'</code>, <code>'csv'</code>, <code>'df'</code>, <code>'dict'</code>, <code>'excel'</code>, <code>'feather'</code>,
+<code>'fwf'</code>, <code>'hdf5'</code> (cache file produced during previous training),
+<code>'html'</code> (file containing a single HTML <code>&lt;table&gt;</code>), <code>'json'</code>, <code>'jsonl'</code>,
+<code>'parquet'</code>, <code>'pickle'</code> (pickled Pandas DataFrame), <code>'sas'</code>, <code>'spss'</code>,
+<code>'stata'</code>, <code>'tsv'</code>.</li>
+<li><strong>experiment_name</strong> (str, default: <code>'experiment'</code>): name for
+the experiment.</li>
+<li><strong>model_name</strong> (str, default: <code>'run'</code>): name of the model that is
+being used.</li>
+<li><strong>resume</strong> (bool): If true, continue hyperopt from the state of the previous
+run in the output directory with the same experiment name. If false, will create
+new trials, ignoring any previous state, even if they exist in the output_directory.
+By default, will attempt to resume if there is already an existing experiment with
+the same name, and will create new trials if not.</li>
+<li><strong>skip_save_training_description</strong> (bool, default: <code>False</code>): disables
+saving the description JSON file.</li>
+<li><strong>skip_save_training_statistics</strong> (bool, default: <code>False</code>): disables
+saving training statistics JSON file.</li>
+<li><strong>skip_save_model</strong> (bool, default: <code>False</code>): disables
+saving model weights and hyperparameters each time the model
+improves. By default Ludwig saves model weights after each epoch
+the validation metric improves, but if the model is really big
+that can be time consuming. If you do not want to keep
+the weights and just find out what performance a model can get
+with a set of hyperparameters, use this parameter to skip it,
+but the model will not be loadable later on and the returned model
+will have the weights obtained at the end of training, instead of
+the weights of the epoch with the best validation performance.</li>
+<li><strong>skip_save_progress</strong> (bool, default: <code>False</code>): disables saving
+progress each epoch. By default Ludwig saves weights and stats
+after each epoch for enabling resuming of training, but if
+the model is really big that can be time consuming and will uses
+twice as much space, use this parameter to skip it, but training
+cannot be resumed later on.</li>
+<li><strong>skip_save_log</strong> (bool, default: <code>False</code>): disables saving
+TensorBoard logs. By default Ludwig saves logs for the TensorBoard,
+but if it is not needed turning it off can slightly increase the
+overall speed.</li>
+<li><strong>skip_save_processed_input</strong> (bool, default: <code>False</code>): if input
+dataset is provided it is preprocessed and cached by saving an HDF5
+and JSON files to avoid running the preprocessing again. If this
+parameter is <code>False</code>, the HDF5 and JSON file are not saved.</li>
+<li><strong>skip_save_unprocessed_output</strong> (bool, default: <code>False</code>): by default
+predictions and their probabilities are saved in both raw
+unprocessed numpy files containing tensors and as postprocessed
+CSV files (one for each output feature). If this parameter is True,
+only the CSV ones are saved and the numpy ones are skipped.</li>
+<li><strong>skip_save_predictions</strong> (bool, default: <code>False</code>): skips saving test
+predictions CSV files.</li>
+<li><strong>skip_save_eval_stats</strong> (bool, default: <code>False</code>): skips saving test
+statistics JSON file.</li>
+<li><strong>skip_save_hyperopt_statistics</strong> (bool, default: <code>False</code>): skips saving
+hyperopt stats file.</li>
+<li><strong>output_directory</strong> (str, default: <code>'results'</code>): the directory that
+will contain the training statistics, TensorBoard logs, the saved
+model and the training progress files.</li>
+<li><strong>gpus</strong> (list, default: <code>None</code>): list of GPUs that are available
+for training.</li>
+<li><strong>gpu_memory_limit</strong> (float: default: <code>None</code>): maximum memory fraction
+[0, 1] allowed to allocate per GPU device.</li>
+<li><strong>allow_parallel_threads</strong> (bool, default: <code>True</code>): allow PyTorch
+to use multithreading parallelism to improve performance at
+the cost of determinism.</li>
+<li><strong>callbacks</strong> (list, default: <code>None</code>): a list of
+<code>ludwig.callbacks.Callback</code> objects that provide hooks into the
+Ludwig pipeline.</li>
+<li><strong>backend</strong> (Union[Backend, str]): <code>Backend</code> or string name
+of backend to use to execute preprocessing / training steps.</li>
+<li><strong>random_seed</strong> (int: default: 42): random seed used for weights
+initialization, splits and any other random function.</li>
+<li><strong>hyperopt_log_verbosity</strong> (int: default: 3): controls verbosity of
+ray tune log messages.  Valid values: 0 = silent, 1 = only status updates,
+2 = status and brief trial results, 3 = status and detailed trial results.</li>
+</ul>
+<p><strong>Return</strong></p>
+<ul>
+<li><strong>return</strong> (List[dict]): List of results for each trial, ordered by
+descending performance on the target metric.</li>
+</ul>
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Footer -->
+<footer class="md-footer">
+
+    <!-- Link to previous and/or next page -->
+    
+    <nav class="md-footer__inner md-grid" aria-label="footer.title">
+
+        <!-- Link to previous page -->
+        
+        
+        <a href="../../command_line_interface/" class="md-footer__link md-footer__link--prev"
+            aria-label="Previous: Command Line Interface" rel="prev">
+            <div class="md-footer__button md-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+                <div class="md-ellipsis">
+                    <span class="md-footer__direction">
+                        Previous
+                    </span>
+                    Command Line Interface
+                </div>
+            </div>
+        </a>
+        
+
+        <!-- Link to next page -->
+        
+        
+        <a href="../visualization/" class="md-footer__link md-footer__link--next"
+            aria-label="Next: Visualization" rel="next">
+            <div class="md-footer__title">
+                <div class="md-ellipsis">
+                    <span class="md-footer__direction">
+                        Next
+                    </span>
+                    Visualization
+                </div>
+            </div>
+            <div class="md-footer__button md-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+        </a>
+        
+    </nav>
+    
+
+    <!-- Further information -->
+    <div class="md-footer-meta md-typeset">
+        <div class="md-footer-meta__inner md-grid">
+            <!--
+  Copyright (c) 2016-2021 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Copyright and theme information -->
+<div class="md-copyright">
+    
+    <div class="md-copyright__highlight">
+        Copyright &copy; 2018 - 2020 Uber Technologies Inc., 2021 - 2022 Linux Foundation Data & AI
+    </div>
+    
+    
+
+    Website by <a href="http://w4nderlu.st">w4nderlust</a> powered by
+    <a href="https://www.mkdocs.org" target="_blank" rel="noopener">MkDocs</a>,
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">Material for MkDocs</a>,
+    <a href="http://www.styleshout.com/" target="_blank" rel="noopener">styleshout</a> and
+    <a href="http://cables.gl/" target="_blank" rel="noopener">cables</a>.
+    
+</div>
+
+            <!-- Social links -->
+            
+        </div>
+    </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.indexes", "navigation.tabs.sticky"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.aecac24b.min.js"></script>
+      
+    
+  </body>
+</html>

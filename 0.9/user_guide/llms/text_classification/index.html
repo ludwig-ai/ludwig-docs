@@ -13,13 +13,13 @@
         <meta name="author" content="Piero Molino">
       
       
-        <link rel="canonical" href="https://ludwig.ai/latest/configuration/features/time_series_features/">
+        <link rel="canonical" href="https://ludwig.ai/latest/user_guide/llms/text_classification/">
       
       
-        <link rel="prev" href="../image_features/">
+        <link rel="prev" href="../in_context_learning/">
       
       
-        <link rel="next" href="../../defaults/">
+        <link rel="next" href="../../gpus/">
       
       
       <link rel="icon" href="../../../favicon.ico">
@@ -32,7 +32,7 @@
 
     
       
-        <title>↑ Time Series Features - Ludwig</title>
+        <title>Text Classification - Ludwig</title>
       
     
     
@@ -103,7 +103,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#preprocessing" class="md-skip">
+        <a href="#example-llm-encoder-config" class="md-skip">
           Skip to content
         </a>
       
@@ -143,7 +143,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ↑ Time Series Features
+              Text Classification
             
           </span>
         </div>
@@ -556,6 +556,8 @@
       
   
   
+    
+  
   
     
     
@@ -598,17 +600,17 @@
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../user_guide/" class="md-nav__link ">
+            <a href="../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -625,7 +627,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             📖 User Guide
@@ -640,7 +642,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/what_is_ludwig/" class="md-nav__link">
+      <a href="../../what_is_ludwig/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -660,7 +662,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/how_ludwig_works/" class="md-nav__link">
+      <a href="../../how_ludwig_works/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -680,7 +682,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/command_line_interface/" class="md-nav__link">
+      <a href="../../command_line_interface/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -742,7 +744,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/api/LudwigModel/" class="md-nav__link">
+      <a href="../../api/LudwigModel/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -762,7 +764,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/api/visualization/" class="md-nav__link">
+      <a href="../../api/visualization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -836,7 +838,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/datasets/supported_formats/" class="md-nav__link">
+      <a href="../../datasets/supported_formats/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -856,7 +858,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/datasets/data_preprocessing/" class="md-nav__link">
+      <a href="../../datasets/data_preprocessing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -876,7 +878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/datasets/data_postprocessing/" class="md-nav__link">
+      <a href="../../datasets/data_postprocessing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -896,7 +898,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/datasets/dataset_zoo/" class="md-nav__link">
+      <a href="../../datasets/dataset_zoo/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -922,6 +924,8 @@
                 
   
   
+    
+  
   
     
     
@@ -940,17 +944,17 @@
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../user_guide/llms/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -967,7 +971,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_7">
             <span class="md-nav__icon md-icon"></span>
             Large Language Models
@@ -982,7 +986,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/llms/finetuning/" class="md-nav__link">
+      <a href="../finetuning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1002,7 +1006,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/llms/in_context_learning/" class="md-nav__link">
+      <a href="../in_context_learning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1020,9 +1024,27 @@
                 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../../user_guide/llms/text_classification/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Text Classification
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1031,6 +1053,31 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example-llm-encoder-config" class="md-nav__link">
+    Example LLM encoder config
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1050,7 +1097,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/gpus/" class="md-nav__link">
+      <a href="../../gpus/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1092,7 +1139,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../user_guide/distributed_training/" class="md-nav__link ">
+            <a href="../../distributed_training/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1124,7 +1171,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/distributed_training/finetuning/" class="md-nav__link">
+      <a href="../../distributed_training/finetuning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1152,7 +1199,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/hyperopt/" class="md-nav__link">
+      <a href="../../hyperopt/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1172,7 +1219,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/cloud_storage/" class="md-nav__link">
+      <a href="../../cloud_storage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1192,7 +1239,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/automl/" class="md-nav__link">
+      <a href="../../automl/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1212,7 +1259,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/visualizations/" class="md-nav__link">
+      <a href="../../visualizations/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1232,7 +1279,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/model_export/" class="md-nav__link">
+      <a href="../../model_export/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1252,7 +1299,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/serving/" class="md-nav__link">
+      <a href="../../serving/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1272,7 +1319,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../user_guide/integrations/" class="md-nav__link">
+      <a href="../../integrations/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1297,8 +1344,6 @@
       
   
   
-    
-  
   
     
     
@@ -1329,17 +1374,17 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../" class="md-nav__link ">
+            <a href="../../../configuration/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1356,7 +1401,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             📚 Configuration
@@ -1371,7 +1416,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../model_type/" class="md-nav__link">
+      <a href="../../../configuration/model_type/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1391,7 +1436,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../large_language_model/" class="md-nav__link">
+      <a href="../../../configuration/large_language_model/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1411,7 +1456,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../preprocessing/" class="md-nav__link">
+      <a href="../../../configuration/preprocessing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1429,8 +1474,6 @@
                 
   
   
-    
-  
   
     
     
@@ -1471,12 +1514,12 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
         
           
           <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
@@ -1490,7 +1533,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4_5">
             <span class="md-nav__icon md-icon"></span>
             Features
@@ -1503,7 +1546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../supported_data_types/" class="md-nav__link">
+      <a href="../../../configuration/features/supported_data_types/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1523,7 +1566,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../input_features/" class="md-nav__link">
+      <a href="../../../configuration/features/input_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1543,7 +1586,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../output_features/" class="md-nav__link">
+      <a href="../../../configuration/features/output_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1563,7 +1606,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../binary_features/" class="md-nav__link">
+      <a href="../../../configuration/features/binary_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1583,7 +1626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../number_features/" class="md-nav__link">
+      <a href="../../../configuration/features/number_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1603,7 +1646,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../category_features/" class="md-nav__link">
+      <a href="../../../configuration/features/category_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1623,7 +1666,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../bag_features/" class="md-nav__link">
+      <a href="../../../configuration/features/bag_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1643,7 +1686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../set_features/" class="md-nav__link">
+      <a href="../../../configuration/features/set_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1663,7 +1706,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../sequence_features/" class="md-nav__link">
+      <a href="../../../configuration/features/sequence_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1683,7 +1726,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../text_features/" class="md-nav__link">
+      <a href="../../../configuration/features/text_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1703,7 +1746,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vector_features/" class="md-nav__link">
+      <a href="../../../configuration/features/vector_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1723,7 +1766,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../audio_features/" class="md-nav__link">
+      <a href="../../../configuration/features/audio_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1743,7 +1786,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../date_features/" class="md-nav__link">
+      <a href="../../../configuration/features/date_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1763,7 +1806,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../h3_features/" class="md-nav__link">
+      <a href="../../../configuration/features/h3_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1783,7 +1826,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../image_features/" class="md-nav__link">
+      <a href="../../../configuration/features/image_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1801,27 +1844,9 @@
                 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    ↑ Time Series Features
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../configuration/features/time_series_features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1830,78 +1855,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#preprocessing" class="md-nav__link">
-    Preprocessing
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#input-features" class="md-nav__link">
-    Input Features
-  </a>
-  
-    <nav class="md-nav" aria-label="Input Features">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#encoders" class="md-nav__link">
-    Encoders
-  </a>
-  
-    <nav class="md-nav" aria-label="Encoders">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#sequence-encoders" class="md-nav__link">
-    Sequence Encoders
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#passthrough-encoder" class="md-nav__link">
-    Passthrough Encoder
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#output-features" class="md-nav__link">
-    Output Features
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1921,7 +1874,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../defaults/" class="md-nav__link">
+      <a href="../../../configuration/defaults/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1941,7 +1894,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../combiner/" class="md-nav__link">
+      <a href="../../../configuration/combiner/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1961,7 +1914,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../trainer/" class="md-nav__link">
+      <a href="../../../configuration/trainer/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1981,7 +1934,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../hyperparameter_optimization/" class="md-nav__link">
+      <a href="../../../configuration/hyperparameter_optimization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2001,7 +1954,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../backend/" class="md-nav__link">
+      <a href="../../../configuration/backend/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3469,55 +3422,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#preprocessing" class="md-nav__link">
-    Preprocessing
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#input-features" class="md-nav__link">
-    Input Features
-  </a>
-  
-    <nav class="md-nav" aria-label="Input Features">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#encoders" class="md-nav__link">
-    Encoders
-  </a>
-  
-    <nav class="md-nav" aria-label="Encoders">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#sequence-encoders" class="md-nav__link">
-    Sequence Encoders
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#passthrough-encoder" class="md-nav__link">
-    Passthrough Encoder
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#output-features" class="md-nav__link">
-    Output Features
+  <a href="#example-llm-encoder-config" class="md-nav__link">
+    Example LLM encoder config
   </a>
   
 </li>
@@ -3540,56 +3446,35 @@
   
 
 
-  <h1>↑ Time Series Features</h1>
+  <h1>Text Classification</h1>
 
-<h2 id="preprocessing">Preprocessing<a class="headerlink" href="#preprocessing" title="Permanent link">&para;</a></h2>
-<p>Timeseries features are handled as sequence features, with the only difference being that the matrix in the HDF5
-preprocessing file uses floats instead of integers.</p>
-<p>Since data is continuous, the JSON file, which typically stores vocabulary mappings, isn't needed.</p>
-<h2 id="input-features">Input Features<a class="headerlink" href="#input-features" title="Permanent link">&para;</a></h2>
-<h3 id="encoders">Encoders<a class="headerlink" href="#encoders" title="Permanent link">&para;</a></h3>
-<h4 id="sequence-encoders">Sequence Encoders<a class="headerlink" href="#sequence-encoders" title="Permanent link">&para;</a></h4>
-<p>Time series encoders are the same as for <a href="../sequence_features#sequence-input-features-and-encoders">Sequence Features</a>, with one exception:</p>
-<p>Time series features don't have an embedding layer at the beginning, so the <code>b x s</code> placeholders (where <code>b</code> is the batch
-size and <code>s</code> is the sequence length) are directly mapped to a <code>b x s x 1</code> tensor and then passed to the different
-sequential encoders.</p>
-<p>The encoder parameters specified at the feature level are:</p>
-<ul>
-<li><code>tied</code> (default <code>null</code>): name of another input feature to tie the weights of the encoder with. It needs to be the name of
-a feature of the same type and with the same encoder parameters.</li>
-</ul>
-<p>Example category feature entry in the input features list:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">timeseries_column_name</span>
-<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">timeseries</span>
-<span class="nt">tied</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
-<span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">parallel_cnn</span>
+<p>Pretrained LLMs are available as text encoders for general text features, and can be included in ECD models for binary or multi-class text classification tasks.</p>
+<p>The LLM encoder shares most of its features with the LLM model type, including base model selection, adapters, quantization, and initialization parameters like RoPE scaling. Unlike the LLM model type, the LLM encoder is part of an ECD architecture and does not generate text directly. Instead the input text is processed by the LLM and the final hidden state is passed forward to the combiner and decoder(s), allowing it to be used for predictive tasks directly.</p>
+<h3 id="example-llm-encoder-config">Example LLM encoder config<a class="headerlink" href="#example-llm-encoder-config" title="Permanent link">&para;</a></h3>
+<p>The <code>agnews</code> dataset contains the examples of news article titles and descriptions, and the task is to classify the examples into one of four section categories. A config to use LLMs to classify article titles may look like the following:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">model_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ecd</span>
+<span class="nt">input_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">title</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llm</span>
+<span class="w">      </span><span class="nt">adapter</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lora</span>
+<span class="w">      </span><span class="nt">base_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">meta-llama/Llama-2-7b-hf</span>
+<span class="w">      </span><span class="nt">quantization</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">bits</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">    </span><span class="nt">column</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">title</span>
+<span class="nt">output_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">class</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span>
+<span class="w">    </span><span class="nt">column</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">class</span>
+<span class="nt">trainer</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">epochs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">  </span><span class="nt">optimizer</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">paged_adam</span>
 </code></pre></div>
-<h4 id="passthrough-encoder">Passthrough Encoder<a class="headerlink" href="#passthrough-encoder" title="Permanent link">&para;</a></h4>
-<p><pre class="mermaid"><code>graph LR
-  A["12\n7\n43\n65\n23\n4\n1"] --&gt; B["Cast float32"];
-  B --&gt; C["Aggregation\n Reduce\n Operation"];
-  C --&gt; ...;</code></pre></p>
-<p>The passthrough encoder simply transforms each input value into a float value and adds a dimension to the input tensor,
-creating a <code>b x s x 1</code> tensor where <code>b</code> is the batch size and <code>s</code> is the length of the sequence.
-The tensor is reduced along the <code>s</code> dimension to obtain a single vector of size <code>h</code> for each element of the batch.
-If you want to output the full <code>b x s x h</code> tensor, you can specify <code>reduce_output: null</code>.
-This encoder is not really useful for <code>sequence</code> or <code>text</code> features, but may be useful for <code>timeseries</code> features, as it
-allows for using them without any processing in later stages of the model, like in a sequence combiner for instance.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">passthrough</span>
-<span class="w">    </span><span class="nt">encoding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
-<span class="w">    </span><span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
-</code></pre></div>
-<p>Parameters:</p>
-<ul>
-<li><strong><code>encoding_size</code></strong> (default: <code>null</code>): The size of the encoding vector, or None if sequence elements are scalars.</li>
-<li><strong><code>reduce_output</code></strong> (default: <code>null</code>): How to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Options: <code>last</code>, <code>sum</code>, <code>mean</code>, <code>avg</code>, <code>max</code>, <code>concat</code>, <code>attention</code>, <code>none</code>, <code>None</code>, <code>null</code>.</li>
-</ul>
-<h2 id="output-features">Output Features<a class="headerlink" href="#output-features" title="Permanent link">&para;</a></h2>
-<p>There are no time series decoders at the moment.</p>
-<p>If this would unlock an interesting use case for your application, please file a GitHub Issue or ping the
-<a href="https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ">Ludwig Slack</a>.</p>
+<p>This will fine-tune a 4-bit quantized LoRA adapter for <code>llama-2-7b</code> model and simultaneously train a classification head. The adapter weights, combiner parameters, and decoder parameters will be saved in the results after fine-tuning/training.</p>
+<p>To learn more about configuring LLMs for text classification, see the <a href="../../../configuration/features/text_features/#llm-encoders">LLM Encoder Reference</a>.</p>
 
 
   
@@ -3638,8 +3523,8 @@ allows for using them without any processing in later stages of the model, like 
         <!-- Link to previous page -->
         
         
-        <a href="../image_features/" class="md-footer__link md-footer__link--prev"
-            aria-label="Previous: ↑ Image Features" rel="prev">
+        <a href="../in_context_learning/" class="md-footer__link md-footer__link--prev"
+            aria-label="Previous: In-Context Learning" rel="prev">
             <div class="md-footer__button md-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
             </div>
@@ -3648,7 +3533,7 @@ allows for using them without any processing in later stages of the model, like 
                     <span class="md-footer__direction">
                         Previous
                     </span>
-                    ↑ Image Features
+                    In-Context Learning
                 </div>
             </div>
         </a>
@@ -3657,14 +3542,14 @@ allows for using them without any processing in later stages of the model, like 
         <!-- Link to next page -->
         
         
-        <a href="../../defaults/" class="md-footer__link md-footer__link--next"
-            aria-label="Next: Defaults" rel="next">
+        <a href="../../gpus/" class="md-footer__link md-footer__link--next"
+            aria-label="Next: GPUs" rel="next">
             <div class="md-footer__title">
                 <div class="md-ellipsis">
                     <span class="md-footer__direction">
                         Next
                     </span>
-                    Defaults
+                    GPUs
                 </div>
             </div>
             <div class="md-footer__button md-icon">

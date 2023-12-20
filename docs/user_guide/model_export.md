@@ -1,7 +1,10 @@
 # Exporting Ludwig Models
 
-There are a number of ways to export models in Ludwig.
+There are a number of ways to export models in Ludwig. However, you may want to consider whether or not model exporting is necessary. Trained model weights are automatically saved locally at the end of training and these weights can be loaded into a LudwigModel directly:
 
+```ludwig_model = LudwigModel.load("results/experiment_run/model")```
+
+See [LudwigModel.load](./api/LudwigModel.md#load) for more details.
 ## TorchScript Export
 
 A subset of Ludwig Models can be exported to Torchscript end-to-end. This means

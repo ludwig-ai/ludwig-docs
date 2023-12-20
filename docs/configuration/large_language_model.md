@@ -142,7 +142,7 @@ output_features:
       match:
         "negative":
           type: contains
-          value: "positive"
+          value: "negative"
         "neutral":
           type: contains
           value: "neutral"

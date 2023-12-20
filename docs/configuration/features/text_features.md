@@ -291,7 +291,7 @@ graph LR
 ```
 { data-search-exclude }
 
-The LLM encoder processed text with a pretrained LLM (ex. `llama-2-7b`) passes the last hidden state of the LLM forward to the combiner. Like the LLM model type, adapter-based fine-tuning and quantization can be configured, and any combiner or decoder parameters will be bundled with the adapter weights.
+The LLM encoder processes text with a pretrained LLM (ex. `llama-2-7b`) passes the last hidden state of the LLM forward to the combiner. Like the [LLM model type](../large_langiage_model.md), adapter-based fine-tuning and quantization can be configured, and any combiner or decoder parameters will be bundled with the adapter weights.
 
 More information about the adapter config can be found [here](../configuration/large_language_model.md#adapter).
 

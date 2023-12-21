@@ -1,3 +1,4 @@
+## File Formats
 Ludwig is able to read UTF-8 encoded data from 14 file formats.
 Supported formats are:
 
@@ -22,3 +23,17 @@ In case a \*SV file is provided, Ludwig tries to identify the separator (general
 The default escape character is `\`.
 For example, if `,` is the column separator and one of your data columns has a `,` in it, Pandas would fail to load the data properly.
 To handle such cases, we expect the values in the columns to be escaped with backslashes (replace `,` in the data with `\,`).
+
+## Hugging Face Datasets
+Ludwig now also supports direct Hugging Face dataset imports with the following syntax (dataset_subset is not always present in Hugging Face datasets, so omit it if necessary).
+
+`"hf://{dataset_name}--{dataset_subset}"`
+
+For example:
+`train_stats, _, _ = ludwig_model.train(dataset="hf://mbpp")`
+`train_stats, _, _ = ludwig_model.train(dataset="hf://Open-Orca/OpenOrca")`
+`train_stats, _, _ = ludwig_model.train(dataset="hf://gsm8k--main")`
+
+Please note that "subset" is not the same as "split". Make sure that you are including the subset name and not the split name when specifying the dataset:
+
+![Alt text](../../images/hf_subset_vs_split.png)

@@ -170,6 +170,33 @@ For the majority of features, NaNs are handled by the preprocessor in the same w
 
 HuggingFace models are not yet supported for TorchScript export, though we are working on it!
 
+## Carton Export
+
+[Carton](https://carton.run/) is a library that allows users to efficiently run ML models from several programming languages (including C, C++, Rust, and more).
+
+A subset of Ludwig Models can be exported to Carton. In addition to the model itself, the preprocessing and postprocessing steps are included in the exported model as well, ensuring that the model can be used for inference in a production environment out-of-the-box.
+
+To get started, simply run the [`export_carton`](/latest/user_guide/command_line_interface/#export_carton) command:
+
+```
+ludwig export_carton -m=results/experiment_run/model
+```
+This will produce a file that can be loaded by Carton from any supported programming language.
+
+For example, from Python, you can load and run the model as follows:
+
+```py
+import cartonml as carton
+
+async def main():
+    model = await carton.load("/path/to/model.carton")
+    output = await model.infer({
+        "x": np.zeros(5)
+    })
+```
+
+See the [Carton quickstart guide](https://carton.run/quickstart) for usage from other programming languages.
+
 ## Triton Export
 
 Coming soon...

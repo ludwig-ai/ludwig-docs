@@ -1352,6 +1352,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#carton-export" class="md-nav__link">
+    Carton Export
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#triton-export" class="md-nav__link">
     Triton Export
   </a>
@@ -3591,6 +3598,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#carton-export" class="md-nav__link">
+    Carton Export
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#triton-export" class="md-nav__link">
     Triton Export
   </a>
@@ -3759,6 +3773,23 @@ that, in addition to the model itself, the preprocessing and postprocessing step
 </ul>
 <h5 id="huggingface-models">HuggingFace Models<a class="headerlink" href="#huggingface-models" title="Permanent link">&para;</a></h5>
 <p>HuggingFace models are not yet supported for TorchScript export, though we are working on it!</p>
+<h3 id="carton-export">Carton Export<a class="headerlink" href="#carton-export" title="Permanent link">&para;</a></h3>
+<p><a href="https://carton.run/">Carton</a> is a library that allows users to efficiently run ML models from several programming languages (including C, C++, Rust, and more).</p>
+<p>A subset of Ludwig Models can be exported to Carton. In addition to the model itself, the preprocessing and postprocessing steps are included in the exported model as well, ensuring that the model can be used for inference in a production environment out-of-the-box.</p>
+<p>To get started, simply run the <a href="/latest/user_guide/command_line_interface/#export_carton"><code>export_carton</code></a> command:</p>
+<p><div class="highlight"><pre><span></span><code>ludwig export_carton -m=results/experiment_run/model
+</code></pre></div>
+This will produce a file that can be loaded by Carton from any supported programming language.</p>
+<p>For example, from Python, you can load and run the model as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">cartonml</span> <span class="k">as</span> <span class="nn">carton</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="k">await</span> <span class="n">carton</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;/path/to/model.carton&quot;</span><span class="p">)</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="k">await</span> <span class="n">model</span><span class="o">.</span><span class="n">infer</span><span class="p">({</span>
+        <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="p">})</span>
+</code></pre></div>
+<p>See the <a href="https://carton.run/quickstart">Carton quickstart guide</a> for usage from other programming languages.</p>
 <h3 id="triton-export">Triton Export<a class="headerlink" href="#triton-export" title="Permanent link">&para;</a></h3>
 <p>Coming soon...</p>
 <h3 id="neuropod-export">Neuropod Export<a class="headerlink" href="#neuropod-export" title="Permanent link">&para;</a></h3>

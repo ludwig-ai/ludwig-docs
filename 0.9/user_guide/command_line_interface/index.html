@@ -835,6 +835,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#export_carton" class="md-nav__link">
+    export_carton
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#export_neuropod" class="md-nav__link">
     export_neuropod
   </a>
@@ -3670,6 +3677,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#export_carton" class="md-nav__link">
+    export_carton
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#export_neuropod" class="md-nav__link">
     export_neuropod
   </a>
@@ -3785,6 +3799,10 @@
 <tr>
 <td><a href="#export_torchscript"><code>export_torchscript</code></a></td>
 <td>Exports Ludwig models to Torchscript</td>
+</tr>
+<tr>
+<td><a href="#export_carton"><code>export_carton</code></a></td>
+<td>Exports Ludwig models to Carton</td>
 </tr>
 <tr>
 <td><a href="#export_neuropod"><code>export_neuropod</code></a></td>
@@ -4564,6 +4582,31 @@ optional arguments:
                         the level of logging to use
 </code></pre></div>
 <p>For more information, see <a href="/user_guide/model_export/#torchscript-export">TorchScript Export</a></p>
+<h2 id="export_carton">export_carton<a class="headerlink" href="#export_carton" title="Permanent link">&para;</a></h2>
+<p>A Ludwig model can be exported as a <a href="https://carton.run/">Carton</a>, which allows it to be run from several programming languages (including C, C++, Rust, and more).</p>
+<p>In order to export a Ludwig model to Carton, first make sure the <code>cartonml</code> package is installed in your environment (<code>pip install cartonml-nightly</code>), then run the following command:</p>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>export_carton<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
+</code></pre></div>
+<p>or with:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>ludwig.export<span class="w"> </span>carton<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
+</code></pre></div>
+<p>These are the available arguments:</p>
+<div class="highlight"><pre><span></span><code>usage: ludwig export_carton [options]
+
+This script loads a pretrained model and saves it as a Carton.
+
+options:
+  -h, --help            show this help message and exit
+  -m MODEL_PATH, --model_path MODEL_PATH
+                        model to load
+  -mn MODEL_NAME, --model_name MODEL_NAME
+                        model name
+  -od OUTPUT_PATH, --output_path OUTPUT_PATH
+                        path where to save the export model
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use
+</code></pre></div>
+<p>For more information, see <a href="/user_guide/model_export/#carton-export">Carton Export</a></p>
 <h2 id="export_neuropod">export_neuropod<a class="headerlink" href="#export_neuropod" title="Permanent link">&para;</a></h2>
 <p>A Ludwig model can be exported as a <a href="https://github.com/uber/neuropod">Neuropod</a>, a mechanism that allows it to be executed in a framework agnostic way.</p>
 <p>In order to export a Ludwig model as a Neuropod, first make sure the <code>neuropod</code> package is installed in your environment together with the appropriate backend (only use Python 3.7+), then run the following command:</p>

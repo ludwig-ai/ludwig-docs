@@ -17,6 +17,7 @@ Ludwig provides several functions through its command line interface.
 | [`collect_weights`](#collect_weights)         | Collects tensors containing a pretrained model weights                            |
 | [`collect_activations`](#collect_activations) | Collects tensors for each datapoint using a pretrained model                      |
 | [`export_torchscript`](#export_torchscript)   | Exports Ludwig models to Torchscript                                              |
+| [`export_carton`](#export_carton)             | Exports Ludwig models to Carton                                                   |
 | [`export_neuropod`](#export_neuropod)         | Exports Ludwig models to Neuropod                                                 |
 | [`export_mlflow`](#export_mlflow)             | Exports Ludwig models to MLflow                                                   |
 | [`preprocess`](#preprocess)                   | Preprocess data and saves it into HDF5 and JSON format                            |
@@ -972,6 +973,43 @@ optional arguments:
 ```
 
 For more information, see [TorchScript Export](/user_guide/model_export/#torchscript-export)
+
+# export_carton
+
+A Ludwig model can be exported as a [Carton](https://carton.run/), which allows it to be run from several programming languages (including C, C++, Rust, and more).
+
+In order to export a Ludwig model to Carton, first make sure the `cartonml` package is installed in your environment (`pip install cartonml-nightly`), then run the following command:
+
+```bash
+ludwig export_carton [options]
+```
+
+or with:
+
+```bash
+python -m ludwig.export carton [options]
+```
+
+These are the available arguments:
+
+```
+usage: ludwig export_carton [options]
+
+This script loads a pretrained model and saves it as a Carton.
+
+options:
+  -h, --help            show this help message and exit
+  -m MODEL_PATH, --model_path MODEL_PATH
+                        model to load
+  -mn MODEL_NAME, --model_name MODEL_NAME
+                        model name
+  -od OUTPUT_PATH, --output_path OUTPUT_PATH
+                        path where to save the export model
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use
+```
+
+For more information, see [Carton Export](/user_guide/model_export/#carton-export)
 
 # export_neuropod
 

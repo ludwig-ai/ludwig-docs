@@ -4173,10 +4173,17 @@ filepath string to where results are stored.</li>
 <h3 id="generate">generate<a class="headerlink" href="#generate" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">generate</span><span class="p">(</span>
   <span class="n">input_strings</span><span class="p">,</span>
-  <span class="n">generation_config</span><span class="o">=</span><span class="kc">None</span>
+  <span class="n">generation_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">streaming</span><span class="o">=</span><span class="kc">False</span>
 <span class="p">)</span>
 </code></pre></div>
 <p>A simple generate() method that directly uses the underlying transformers library to generate text.</p>
+<p>Args:
+input_strings (Union[str, List[str]]): Input text or list of texts to generate from.
+generation_config (Optional[dict]): Configuration for text generation.
+streaming (Optional[bool]): If True, enable streaming output.</p>
+<p>Returns:
+Union[str, List[str]]: Generated text or list of generated texts.</p>
 <hr />
 <h3 id="is_merge_and_unload_set">is_merge_and_unload_set<a class="headerlink" href="#is_merge_and_unload_set" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">is_merge_and_unload_set</span><span class="p">(</span>

@@ -419,12 +419,22 @@ For more context: https://discuss.pytorch.org/t/how-can-we-release-gpu-memory-ca
 ```python
 generate(
   input_strings,
-  generation_config=None
+  generation_config=None,
+  streaming=False
 )
 ```
 
 
 A simple generate() method that directly uses the underlying transformers library to generate text.
+
+Args:
+input_strings (Union[str, List[str]]): Input text or list of texts to generate from.
+generation_config (Optional[dict]): Configuration for text generation.
+streaming (Optional[bool]): If True, enable streaming output.
+
+Returns:
+Union[str, List[str]]: Generated text or list of generated texts.
+
 
 ---
 ## is_merge_and_unload_set

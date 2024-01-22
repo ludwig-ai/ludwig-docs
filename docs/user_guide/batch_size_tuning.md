@@ -1,4 +1,17 @@
-To maximize efficiency, Ludwig performs automatic batch size tuning when the `batch_size` parameter is noet in the configuration in order to best saturate the GPU. Batch size tuning does not occur during CPU training due to the lack of effective parallelization, and Ludwig instead sets the batch size to a fixed value.
+In Ludwig, users have the option to set `batch_size` to a fixed value as part of the training config.
+```
+trainer:
+  batch_size: 128
+```
+If the batch size is unspecified Ludwig sets `batch_size=auto`.
+
+```
+trainer:
+  batch_size: auto
+```
+`auto` enables Ludwig to select an efficient batch size automatically. The actual value of the batch size can be found in training logs and in the model output directory.
+
+Batch size tuning is supported in single-node and multi-node CPU and GPU settings.
 
 ## ECD Models
 

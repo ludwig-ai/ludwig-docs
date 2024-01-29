@@ -130,7 +130,7 @@ PAGES = [
             hyperopt_report,
             hyperopt_hiplot,
         ],
-    }
+    },
     # {
     #     'page': 'api/sequential_encoders.md',
     #     'classes': [

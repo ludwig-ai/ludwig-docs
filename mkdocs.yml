@@ -75,7 +75,7 @@ nav:
           - ↑ Audio Features: configuration/features/audio_features.md
           - ↑ Date Features: configuration/features/date_features.md
           - ↑ H3 Features: configuration/features/h3_features.md
-          - ↑ Image Features: configuration/features/image_features.md
+          - ⇅ Image Features: configuration/features/image_features.md
           - ↑ Time Series Features: configuration/features/time_series_features.md
       - Defaults: configuration/defaults.md
       - Combiner: configuration/combiner.md

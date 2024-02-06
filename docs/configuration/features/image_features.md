@@ -305,6 +305,21 @@ model. More details on `DEFAULT` weights can be found in this
   - `regnet_torch`: `y_128gf`
   - `vit_torch`: `h_14`
 
+### U-Net Encoder
+
+The U-Net encoder is based on
+[U-Net: Convolutional Networks for Biomedical Image Segmentation](https://arxiv.org/abs/1505.04597).
+The encoder implements the contracting downsampling path of the U-Net stack.
+
+U-Net Encoder takes the following optional parameters:
+
+{% set image_encoder = get_encoder_schema("image", "unet") %}
+{{ render_yaml(image_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
+
 ### Deprecated Encoders (planned to remove in v0.8)
 
 #### Legacy ResNet Encoder
@@ -506,4 +521,73 @@ augmentation:
 
 # Output Features
 
-There are no image decoders at the moment (WIP), so images cannot be used as output features.
+Image features can be used when semantic segmentation needs to be performed.
+There is only one decoder available for image features: `unet`.
+
+Example image output feature using default parameters:
+
+```yaml
+name: image_column_name
+type: image
+reduce_input: sum
+dependencies: []
+reduce_dependencies: sum
+loss:
+    type: softmax_cross_entropy
+decoder:
+    type: unet
+```
+
+Parameters:
+
+- **`reduce_input`** (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order
+tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`,
+`max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension).
+- **`dependencies`** (default `[]`): the output features this one is dependent on. For a detailed explanation refer to
+[Output Feature Dependencies](../output_features#output-feature-dependencies).
+- **`reduce_dependencies`** (default `sum`): defines how to reduce the output of a dependent feature that is not a vector,
+but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available
+values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last
+vector of the first dimension).
+- **`loss`** (default `{type: softmax_cross_entropy}`): is a dictionary containing a loss `type`. `softmax_cross_entropy` is
+the only supported loss type for image output features. See [Loss](#loss) for details.
+- **`decoder`** (default: `{"type": "unet"}`): Decoder for the desired task. Options: `unet`. See [Decoder](#decoder) for details.
+
+## Decoders
+
+### U-Net Decoder
+The U-Net decoder is based on
+[U-Net: Convolutional Networks for Biomedical Image Segmentation](https://arxiv.org/abs/1505.04597).
+The decoder implements the expansive upsampling path of the U-Net stack.
+Semantic segmentation supports one input and one output feature. The `num_fc_layers` in the decoder
+and combiner sections must be set to 0 as U-Net does not have any fully connected layers.
+
+U-Net Decoder takes the following optional parameters:
+
+{% set decoder = get_decoder_schema("image", "unet") %}
+{{ render_yaml(decoder, parent="decoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(decoder, exclude=["type"]), details=details) }}
+
+Decoder type and decoder parameters can also be defined once and applied to all image output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
+
+## Loss
+
+### Softmax Cross Entropy
+
+{% set loss = get_loss_schema("softmax_cross_entropy") %}
+{{ render_yaml(loss, parent="loss") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(loss, exclude=["type"]), details=details) }}
+
+Loss and loss related parameters can also be defined once and applied to all image output features using the [Type-Global Loss](../defaults.md#type-global-loss) section.
+
+## Metrics
+
+The measures that are calculated every epoch and are available for image features are the `accuracy` and `loss`.
+You can set either of them as `validation_metric` in the `training` section of the configuration if you set the
+`validation_field` to be the name of a category feature.

@@ -413,6 +413,30 @@ For more context: https://discuss.pytorch.org/t/how-can-we-release-gpu-memory-ca
 
 
 ---
+## generate
+
+
+```python
+generate(
+  input_strings,
+  generation_config=None,
+  streaming=False
+)
+```
+
+
+A simple generate() method that directly uses the underlying transformers library to generate text.
+
+Args:
+input_strings (Union[str, List[str]]): Input text or list of texts to generate from.
+generation_config (Optional[dict]): Configuration for text generation.
+streaming (Optional[bool]): If True, enable streaming output.
+
+Returns:
+Union[str, List[str]]: Generated text or list of generated texts.
+
+
+---
 ## is_merge_and_unload_set
 
 
@@ -699,6 +723,32 @@ __Return__
 
 - __return__ ( `None): `None`
  
+
+---
+## save_dequantized_base_model
+
+
+```python
+save_dequantized_base_model(
+  save_path
+)
+```
+
+
+Upscales quantized weights of a model to fp16 and saves the result in a specified folder.
+
+Args:
+save_path (str): The path to the folder where the upscaled model weights will be saved.
+
+Raises:
+ValueError:
+If the model type is not 'llm' or if quantization is not enabled or the number of bits is not 4 or 8.
+RuntimeError:
+If no GPU is available, as GPU is required for quantized models.
+
+Returns:
+None
+
 
 ---
 ## save_torchscript

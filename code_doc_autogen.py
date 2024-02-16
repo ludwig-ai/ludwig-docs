@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 # -*- coding: utf-8 -*-
 # Copyright (c) 2019 Uber Technologies, Inc.
 #
@@ -21,6 +19,8 @@ Documentation Generator
 This code is a modified and adapted version of Keras' code_doc_autogen.py
 https://github.com/keras-team/keras-autodoc/blob/master/keras_autodoc/autogen.py
 """
+
+from __future__ import annotations
 
 import inspect
 import os

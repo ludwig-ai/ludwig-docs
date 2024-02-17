@@ -20,6 +20,8 @@ This code is a modified and adapted version of Keras' code_doc_autogen.py
 https://github.com/keras-team/keras-autodoc/blob/master/keras_autodoc/autogen.py
 """
 
+from __future__ import annotations
+
 import inspect
 import os
 import re
@@ -106,6 +108,14 @@ PAGES = [
     },
     {
         "page": "user_guide/api/visualization.md",
+        "module_docstring": """
+        In order to use functions in this module, import `visualize` as follows:
+
+        ```python
+        import ludwig
+        from ludwig import visualize
+        ```
+        """,
         "functions": [
             learning_curves,
             compare_performance,
@@ -574,6 +584,9 @@ if __name__ == "__main__":
 
         if functions:
             blocks.append("# Module functions\n")
+            module_docstring: str | None = page_data.get("module_docstring")
+            if module_docstring:
+                blocks.append(process_docstring(module_docstring))
 
         for function in functions:
             blocks.append(render_function(function, _method=False))

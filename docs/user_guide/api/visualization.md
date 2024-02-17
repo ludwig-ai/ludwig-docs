@@ -4,6 +4,16 @@
 
 ---
 
+
+In order to use functions in this module, import `visualize` as follows:
+
+```python
+import ludwig
+from ludwig import visualize
+```
+
+---
+
 ## learning_curves
 
 

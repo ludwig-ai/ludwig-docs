@@ -70,10 +70,10 @@ config = yaml.safe_load(
     """
 )
 
-# Define Ludwig model object that drive model training
+# Define Ludwig model object that drives model training
 model = LudwigModel(config=config, logging_level=logging.INFO)
 
-# Loads the model and performs no training.
+# initiate model training
 (
     train_stats,  # dictionary containing training statistics
     preprocessed_data,  # tuple Ludwig Dataset objects of pre-processed training data

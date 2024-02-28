@@ -94,7 +94,7 @@ output_features:
     """
 )
 
-# Define Ludwig model object that drive model training
+# Define Ludwig model object that drives model training
 model = LudwigModel(config=config, logging_level=logging.INFO)
 
 # initiate model training

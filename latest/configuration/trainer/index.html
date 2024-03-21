@@ -1785,7 +1785,7 @@
         
   
   <span class="md-ellipsis">
-    ↑ Image Features
+    ⇅ Image Features
   </span>
   
 
@@ -4091,7 +4091,6 @@ By default, the ECD trainer is used.</p>
 <span class="w">    </span><span class="nt">early_stop</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
 <span class="w">    </span><span class="nt">learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span>
 <span class="w">    </span><span class="nt">epochs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
-<span class="w">    </span><span class="nt">batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auto</span>
 <span class="w">    </span><span class="nt">optimizer</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adam</span>
 <span class="w">        </span><span class="nt">betas</span><span class="p">:</span>
@@ -4150,6 +4149,7 @@ By default, the ECD trainer is used.</p>
 <span class="w">        </span><span class="nt">t_0</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 <span class="w">        </span><span class="nt">t_mult</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
 <span class="w">        </span><span class="nt">eta_min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
 <span class="w">    </span><span class="nt">eval_batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
 <span class="w">    </span><span class="nt">base_learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
 </code></pre></div>
@@ -4285,7 +4285,6 @@ By default, the ECD trainer is used.</p>
 <li><strong><code>early_stop</code></strong> (default: <code>5</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Number of consecutive rounds of evaluation without any improvement on the <code>validation_metric</code> that triggers training to stop. Can be set to -1, which disables early stopping entirely.</li>
 <li><strong><code>learning_rate</code></strong> (default: <code>0.001</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Controls how much to change the model in response to the estimated error each time the model weights are updated. If 'auto', the optimal learning rate is estimated by choosing the learning rate that produces the smallest non-diverging gradient update.</li>
 <li><strong><code>epochs</code></strong> (default: <code>100</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Number of epochs the algorithm is intended to be run over. Overridden if <code>train_steps</code> is set</li>
-<li><strong><code>batch_size</code></strong> (default: <code>auto</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: The number of training examples utilized in one training step of the model. If ’auto’, the batch size that maximized training throughput (samples / sec) will be used. For CPU training, the tuned batch size is capped at 128 as throughput benefits of large batch sizes are less noticeable without a GPU.</li>
 <li><strong><code>optimizer</code></strong> (default: <code>{"type": "adam"}</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Optimizer type and its parameters. The optimizer is responsble for applying the gradients computed from the loss during backpropagation as updates to the model weights. See <a href="#optimizer-parameters">Optimizer parameters</a> for details.</li>
 <li><strong><code>regularization_type</code></strong> (default: <code>l2</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Type of regularization. Options: <code>l1</code>, <code>l2</code>, <code>l1_l2</code>, <code>null</code>.</li>
 <li><strong><code>use_mixed_precision</code></strong> (default: <code>false</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Enable automatic mixed-precision (AMP) during training. Options: <code>true</code>, <code>false</code>.</li>
@@ -4337,7 +4336,8 @@ By default, the ECD trainer is used.</p>
 <li><strong><code>learning_rate_scheduler.t_0</code></strong> (default: <code>null</code>): Number of steps before the first restart for cosine annealing decay. If not specified, it will be set to <code>steps_per_checkpoint</code>.</li>
 <li><strong><code>learning_rate_scheduler.t_mult</code></strong> (default: <code>1</code>): Period multiplier after each restart for cosine annealing decay. Defaults to 1, i.e., restart every <code>t_0</code> steps. If set to a larger value, the period between restarts increases by that multiplier. For e.g., if t_mult is 2, then the periods would be: t_0, 2<em>t_0, 2^2</em>t_0, 2^3*t_0, etc.</li>
 <li><strong><code>learning_rate_scheduler.eta_min</code></strong> (default: <code>0</code>): Minimum learning rate allowed for cosine annealing decay. Default: 0.</li>
-<li><strong><code>eval_batch_size</code></strong> (default: <code>2</code>): Batch size used for evaluation in the LLM trainer.</li>
+<li><strong><code>batch_size</code></strong> (default: <code>1</code>): The number of training examples utilized in one training step of the model. If <code>auto</code>, the batch size that maximized training throughput (samples / sec) will be used.</li>
+<li><strong><code>eval_batch_size</code></strong> (default: <code>2</code>): Size of batch to pass to the model for evaluation. If it is <code>0</code> or <code>None</code>, the same value of <code>batch_size</code> is used. This is useful to speedup evaluation with a much bigger batch size than training, if enough memory is available. If <code>auto</code>, the biggest batch size (power of 2) that can fit in memory will be used.</li>
 <li><strong><code>base_learning_rate</code></strong> (default: <code>0.0</code>): Base learning rate used for training in the LLM trainer.</li>
 </ul>
 </div>

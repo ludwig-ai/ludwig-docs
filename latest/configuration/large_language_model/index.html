@@ -2050,7 +2050,7 @@
         
   
   <span class="md-ellipsis">
-    ↑ Image Features
+    ⇅ Image Features
   </span>
   
 
@@ -4079,6 +4079,8 @@ available at all.</p>
 <span class="w">    </span><span class="nt">r</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
 <span class="w">    </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span>
 <span class="w">    </span><span class="nt">target_modules</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">use_rslora</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">use_dora</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">    </span><span class="nt">alpha</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span>
 <span class="w">    </span><span class="nt">pretrained_adapter_weights</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 <span class="w">    </span><span class="nt">postprocessor</span><span class="p">:</span>
@@ -4090,6 +4092,8 @@ available at all.</p>
 <li><strong><code>r</code></strong> (default: <code>8</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Lora attention dimension.</li>
 <li><strong><code>dropout</code></strong> (default: <code>0.05</code>): The dropout probability for Lora layers.</li>
 <li><strong><code>target_modules</code></strong> (default: <code>null</code>): List of module names or regex expression of the module names to replace with LoRA. For example, ['q', 'v'] or '.<em>decoder.</em>(SelfAttention|EncDecAttention).*(q|v)$'. Defaults to targeting the query and value matrices of all self-attention and encoder-decoder attention layers.</li>
+<li><strong><code>use_rslora</code></strong> (default: <code>false</code>): When set to True, uses Rank-Stabilized LoRA which sets the adapter scaling factor to lora_alpha/math.sqrt(r), since it was proven to work better. Otherwise, it will use the original default value of lora_alpha/r. Paper: https://arxiv.org/abs/2312.03732. Options: <code>true</code>, <code>false</code>.</li>
+<li><strong><code>use_dora</code></strong> (default: <code>false</code>): Enable 'Weight-Decomposed Low-Rank Adaptation' (DoRA). This technique decomposes the updates of the weights into two parts, magnitude and direction. Direction is handled by normal LoRA, whereas the magnitude is handled by a separate learnable parameter. This can improve the performance of LoRA, especially at low ranks. Right now, DoRA only supports non-quantized linear layers. DoRA introduces a bigger overhead than pure LoRA, so it is recommended to merge weights for inference. For more information, see https://arxiv.org/abs/2402.09353 Options: <code>true</code>, <code>false</code>.</li>
 <li><strong><code>alpha</code></strong> (default: <code>null</code>): The alpha parameter for Lora scaling. Defaults to <code>2 * r</code>.</li>
 <li><strong><code>pretrained_adapter_weights</code></strong> (default: <code>null</code>): Path to pretrained weights.</li>
 <li><strong><code>postprocessor</code></strong> : </li>
@@ -4110,6 +4114,8 @@ that have no training data available at all.</p>
 <span class="w">    </span><span class="nt">r</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
 <span class="w">    </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span>
 <span class="w">    </span><span class="nt">target_modules</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">use_rslora</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">use_dora</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">    </span><span class="nt">alpha</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span>
 <span class="w">    </span><span class="nt">pretrained_adapter_weights</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 <span class="w">    </span><span class="nt">postprocessor</span><span class="p">:</span>
@@ -4131,6 +4137,8 @@ that have no training data available at all.</p>
 <li><strong><code>r</code></strong> (default: <code>8</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Lora attention dimension.</li>
 <li><strong><code>dropout</code></strong> (default: <code>0.05</code>): The dropout probability for Lora layers.</li>
 <li><strong><code>target_modules</code></strong> (default: <code>null</code>): List of module names or regex expression of the module names to replace with LoRA. For example, ['q', 'v'] or '.<em>decoder.</em>(SelfAttention|EncDecAttention).*(q|v)$'. Defaults to targeting the query and value matrices of all self-attention and encoder-decoder attention layers.</li>
+<li><strong><code>use_rslora</code></strong> (default: <code>false</code>): When set to True, uses Rank-Stabilized LoRA which sets the adapter scaling factor to lora_alpha/math.sqrt(r), since it was proven to work better. Otherwise, it will use the original default value of lora_alpha/r. Paper: https://arxiv.org/abs/2312.03732. Options: <code>true</code>, <code>false</code>.</li>
+<li><strong><code>use_dora</code></strong> (default: <code>false</code>): Enable 'Weight-Decomposed Low-Rank Adaptation' (DoRA). This technique decomposes the updates of the weights into two parts, magnitude and direction. Direction is handled by normal LoRA, whereas the magnitude is handled by a separate learnable parameter. This can improve the performance of LoRA, especially at low ranks. Right now, DoRA only supports non-quantized linear layers. DoRA introduces a bigger overhead than pure LoRA, so it is recommended to merge weights for inference. For more information, see https://arxiv.org/abs/2402.09353 Options: <code>true</code>, <code>false</code>.</li>
 <li><strong><code>alpha</code></strong> (default: <code>null</code>): The alpha parameter for Lora scaling. Defaults to <code>2 * r</code>.</li>
 <li><strong><code>pretrained_adapter_weights</code></strong> (default: <code>null</code>): Path to pretrained weights.</li>
 <li><strong><code>postprocessor</code></strong> : </li>

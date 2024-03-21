@@ -32,7 +32,7 @@
 
     
       
-        <title>↑ Image Features - Ludwig</title>
+        <title>⇅ Image Features - Ludwig</title>
       
     
     
@@ -143,7 +143,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ↑ Image Features
+              ⇅ Image Features
             
           </span>
         </div>
@@ -1794,7 +1794,7 @@
           
   
   <span class="md-ellipsis">
-    ↑ Image Features
+    ⇅ Image Features
   </span>
   
 
@@ -1805,7 +1805,7 @@
         
   
   <span class="md-ellipsis">
-    ↑ Image Features
+    ⇅ Image Features
   </span>
   
 
@@ -2015,6 +2015,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#u-net-encoder" class="md-nav__link">
+    U-Net Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#deprecated-encoders-planned-to-remove-in-v08" class="md-nav__link">
     Deprecated Encoders (planned to remove in v0.8)
   </a>
@@ -2062,6 +2069,59 @@
   <a href="#output-features" class="md-nav__link">
     Output Features
   </a>
+  
+    <nav class="md-nav" aria-label="Output Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decoders" class="md-nav__link">
+    Decoders
+  </a>
+  
+    <nav class="md-nav" aria-label="Decoders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#u-net-decoder" class="md-nav__link">
+    U-Net Decoder
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loss" class="md-nav__link">
+    Loss
+  </a>
+  
+    <nav class="md-nav" aria-label="Loss">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#softmax-cross-entropy" class="md-nav__link">
+    Softmax Cross Entropy
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metrics" class="md-nav__link">
+    Metrics
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3846,6 +3906,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#u-net-encoder" class="md-nav__link">
+    U-Net Encoder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#deprecated-encoders-planned-to-remove-in-v08" class="md-nav__link">
     Deprecated Encoders (planned to remove in v0.8)
   </a>
@@ -3894,6 +3961,59 @@
     Output Features
   </a>
   
+    <nav class="md-nav" aria-label="Output Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decoders" class="md-nav__link">
+    Decoders
+  </a>
+  
+    <nav class="md-nav" aria-label="Decoders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#u-net-decoder" class="md-nav__link">
+    U-Net Decoder
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loss" class="md-nav__link">
+    Loss
+  </a>
+  
+    <nav class="md-nav" aria-label="Loss">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#softmax-cross-entropy" class="md-nav__link">
+    Softmax Cross Entropy
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metrics" class="md-nav__link">
+    Metrics
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -3914,7 +4034,7 @@
   
 
 
-  <h1>↑ Image Features</h1>
+  <h1>⇅ Image Features</h1>
 
 <p>Input image features are transformed into a float valued tensors of size <code>N x C x H x W</code> (where <code>N</code> is the size of the
 dataset, <code>C</code> is the number of channels, and <code>H x W</code> is the height and width of the image (can be specified by the user).
@@ -3986,7 +4106,7 @@ be resized to the specified target size.</p>
 <li><strong><code>width</code></strong> (default: <code>null</code>): The image width in pixels. If this parameter is set, images will be resized to the specified width using the resize_method parameter. If None, images will be resized to the size of the first image in the dataset.</li>
 <li><strong><code>num_channels</code></strong> (default: <code>null</code>): Number of channels in the images. If specified, images will be read in the mode specified by the number of channels. If not specified, the number of channels will be inferred from the image format of the first valid image in the dataset.</li>
 <li><strong><code>num_processes</code></strong> (default: <code>1</code>): Specifies the number of processes to run for preprocessing images.</li>
-<li><strong><code>num_classes</code></strong> (default: <code>null</code>): Number of channel classes in the images. If specified, this value will be validated against the inferred number of classes. </li>
+<li><strong><code>num_classes</code></strong> (default: <code>null</code>): Number of channel classes in the images. If specified, this value will be validated against the inferred number of classes. Use 2 to convert grayscale images to binary images.</li>
 <li><strong><code>resize_method</code></strong> (default: <code>interpolate</code>): The method to use for resizing images. Options: <code>crop_or_pad</code>, <code>interpolate</code>.</li>
 <li><strong><code>infer_image_num_channels</code></strong> (default: <code>true</code>): If true, then the number of channels in the dataset is inferred from a sample of the first image in the dataset. Options: <code>true</code>, <code>false</code>.</li>
 <li><strong><code>infer_image_dimensions</code></strong> (default: <code>true</code>): If true, then the height and width of images in the dataset will be inferred from a sample of the first image in the dataset. Each image that doesn't conform to these dimensions will be resized according to resize_method. If set to false, then the height and width of images in the dataset will be specified by the user. Options: <code>true</code>, <code>false</code>.</li>
@@ -4561,6 +4681,19 @@ model. More details on <code>DEFAULT</code> weights can be found in this
 <li><code>regnet_torch</code>: <code>y_128gf</code></li>
 <li><code>vit_torch</code>: <code>h_14</code></li>
 </ul>
+<h4 id="u-net-encoder">U-Net Encoder<a class="headerlink" href="#u-net-encoder" title="Permanent link">&para;</a></h4>
+<p>The U-Net encoder is based on
+<a href="https://arxiv.org/abs/1505.04597">U-Net: Convolutional Networks for Biomedical Image Segmentation</a>.
+The encoder implements the contracting downsampling path of the U-Net stack.</p>
+<p>U-Net Encoder takes the following optional parameters:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unet</span>
+<span class="w">    </span><span class="nt">conv_norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">batch</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>conv_norm</code></strong> (default: <code>batch</code>): This is the default norm that will be used for each double conv layer.It can be null or batch. Options: <code>batch</code>, <code>null</code>.</li>
+</ul>
 <h4 id="deprecated-encoders-planned-to-remove-in-v08">Deprecated Encoders (planned to remove in v0.8)<a class="headerlink" href="#deprecated-encoders-planned-to-remove-in-v08" title="Permanent link">&para;</a></h4>
 <h5 id="legacy-resnet-encoder">Legacy ResNet Encoder<a class="headerlink" href="#legacy-resnet-encoder" title="Permanent link">&para;</a></h5>
 <p>DEPRECATED: This encoder is deprecated and will be removed in a future release. Please use the equivalent
@@ -4787,7 +4920,96 @@ Parameters:
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random_vertical_flip</span>
 </code></pre></div>
 <h2 id="output-features">Output Features<a class="headerlink" href="#output-features" title="Permanent link">&para;</a></h2>
-<p>There are no image decoders at the moment (WIP), so images cannot be used as output features.</p>
+<p>Image features can be used when semantic segmentation needs to be performed.
+There is only one decoder available for image features: <code>unet</code>.</p>
+<p>Example image output feature using default parameters:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image_column_name</span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image</span>
+<span class="nt">reduce_input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sum</span>
+<span class="nt">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="nt">reduce_dependencies</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sum</span>
+<span class="nt">loss</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">softmax_cross_entropy</span>
+<span class="nt">decoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unet</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>reduce_input</code></strong> (default <code>sum</code>): defines how to reduce an input that is not a vector, but a matrix or a higher order
+tensor, on the first dimension (second if you count the batch dimension). Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>,
+<code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension).</li>
+<li><strong><code>dependencies</code></strong> (default <code>[]</code>): the output features this one is dependent on. For a detailed explanation refer to
+<a href="../output_features#output-feature-dependencies">Output Feature Dependencies</a>.</li>
+<li><strong><code>reduce_dependencies</code></strong> (default <code>sum</code>): defines how to reduce the output of a dependent feature that is not a vector,
+but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available
+values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last
+vector of the first dimension).</li>
+<li><strong><code>loss</code></strong> (default <code>{type: softmax_cross_entropy}</code>): is a dictionary containing a loss <code>type</code>. <code>softmax_cross_entropy</code> is
+the only supported loss type for image output features. See <a href="#loss">Loss</a> for details.</li>
+<li><strong><code>decoder</code></strong> (default: <code>{"type": "unet"}</code>): Decoder for the desired task. Options: <code>unet</code>. See <a href="#decoder">Decoder</a> for details.</li>
+</ul>
+<h3 id="decoders">Decoders<a class="headerlink" href="#decoders" title="Permanent link">&para;</a></h3>
+<h4 id="u-net-decoder">U-Net Decoder<a class="headerlink" href="#u-net-decoder" title="Permanent link">&para;</a></h4>
+<p>The U-Net decoder is based on
+<a href="https://arxiv.org/abs/1505.04597">U-Net: Convolutional Networks for Biomedical Image Segmentation</a>.
+The decoder implements the expansive upsampling path of the U-Net stack.
+Semantic segmentation supports one input and one output feature. The <code>num_fc_layers</code> in the decoder
+and combiner sections must be set to 0 as U-Net does not have any fully connected layers.</p>
+<p>U-Net Decoder takes the following optional parameters:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">decoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unet</span>
+<span class="w">    </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">fc_output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
+<span class="w">    </span><span class="nt">fc_norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">fc_dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+<span class="w">    </span><span class="nt">fc_activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span>
+<span class="w">    </span><span class="nt">conv_norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">batch</span>
+<span class="w">    </span><span class="nt">fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">fc_use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">fc_weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xavier_uniform</span>
+<span class="w">    </span><span class="nt">fc_bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span>
+<span class="w">    </span><span class="nt">fc_norm_params</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>num_fc_layers</code></strong> (default: <code>0</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Number of fully-connected layers if <code>fc_layers</code> not specified. Increasing layers adds capacity to the model, enabling it to learn more complex feature interactions.</li>
+<li><strong><code>fc_output_size</code></strong> (default: <code>256</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Output size of fully connected stack.</li>
+<li><strong><code>fc_norm</code></strong> (default: <code>null</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Default normalization applied at the beginnging of fully connected layers. Options: <code>batch</code>, <code>layer</code>, <code>ghost</code>, <code>null</code>.</li>
+<li><strong><code>fc_dropout</code></strong> (default: <code>0.0</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Default dropout rate applied to fully connected layers. Increasing dropout is a common form of regularization to combat overfitting. The dropout is expressed as the probability of an element to be zeroed out (0.0 means no dropout).</li>
+<li><strong><code>fc_activation</code></strong> (default: <code>relu</code>): Default activation function applied to the output of the fully connected layers. Options: <code>elu</code>, <code>leakyRelu</code>, <code>logSigmoid</code>, <code>relu</code>, <code>sigmoid</code>, <code>tanh</code>, <code>softmax</code>, <code>null</code>.</li>
+<li><strong><code>conv_norm</code></strong> (default: <code>batch</code>): This is the default norm that will be used for each double conv layer.It can be null or batch. Options: <code>batch</code>, <code>null</code>.</li>
+<li><strong><code>fc_layers</code></strong> (default: <code>null</code>): List of dictionaries containing the parameters of all the fully connected layers. The length of the list determines the number of stacked fully connected layers and the content of each dictionary determines the parameters for a specific layer. The available parameters for each layer are: <code>activation</code>, <code>dropout</code>, <code>norm</code>, <code>norm_params</code>, <code>output_size</code>, <code>use_bias</code>, <code>bias_initializer</code> and <code>weights_initializer</code>. If any of those values is missing from the dictionary, the default one provided as a standalone parameter will be used instead.</li>
+<li><strong><code>fc_use_bias</code></strong> (default: <code>true</code>): Whether the layer uses a bias vector in the fc_stack. Options: <code>true</code>, <code>false</code>.</li>
+<li><strong><code>fc_weights_initializer</code></strong> (default: <code>xavier_uniform</code>): The weights initializer to use for the layers in the fc_stack</li>
+<li><strong><code>fc_bias_initializer</code></strong> (default: <code>zeros</code>): The bias initializer to use for the layers in the fc_stack</li>
+<li><strong><code>fc_norm_params</code></strong> (default: <code>null</code>): Default parameters passed to the <code>norm</code> module.</li>
+</ul>
+<p>Decoder type and decoder parameters can also be defined once and applied to all image output features using the <a href="../../defaults/#type-global-decoder">Type-Global Decoder</a> section.</p>
+<h3 id="loss">Loss<a class="headerlink" href="#loss" title="Permanent link">&para;</a></h3>
+<h4 id="softmax-cross-entropy">Softmax Cross Entropy<a class="headerlink" href="#softmax-cross-entropy" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="nt">loss</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">softmax_cross_entropy</span>
+<span class="w">    </span><span class="nt">class_weights</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">    </span><span class="nt">robust_lambda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">confidence_penalty</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">class_similarities</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">class_similarities_temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>class_weights</code></strong> (default: <code>null</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.748 1.748 0 0 1 6.69 2Z"/></svg></span>: Weights to apply to each class in the loss. If not specified, all classes are weighted equally. The value can be a vector of weights, one for each class, that is multiplied to the loss of the datapoints that have that class as ground truth. It is an alternative to oversampling in case of unbalanced class distribution. The ordering of the vector follows the category to integer ID mapping in the JSON metadata file (the <code>&lt;UNK&gt;</code> class needs to be included too). Alternatively, the value can be a dictionary with class strings as keys and weights as values, like <code>{class_a: 0.5, class_b: 0.7, ...}</code>.</li>
+<li><strong><code>weight</code></strong> (default: <code>1.0</code>): Weight of the loss.</li>
+<li><strong><code>robust_lambda</code></strong> (default: <code>0</code>): Replaces the loss with <code>(1 - robust_lambda) * loss + robust_lambda / c</code> where <code>c</code> is the number of classes. Useful in case of noisy labels.</li>
+<li><strong><code>confidence_penalty</code></strong> (default: <code>0</code>): Penalizes overconfident predictions (low entropy) by adding an additional term that penalizes too confident predictions by adding a <code>a * (max_entropy - entropy) / max_entropy</code> term to the loss, where a is the value of this parameter. Useful in case of noisy labels.</li>
+<li><strong><code>class_similarities</code></strong> (default: <code>null</code>): If not <code>null</code> it is a <code>c x c</code> matrix in the form of a list of lists that contains the mutual similarity of classes. It is used if <code>class_similarities_temperature</code> is greater than 0. The ordering of the vector follows the category to integer ID mapping in the JSON metadata file (the <code>&lt;UNK&gt;</code> class needs to be included too).</li>
+<li><strong><code>class_similarities_temperature</code></strong> (default: <code>0</code>): The temperature parameter of the softmax that is performed on each row of <code>class_similarities</code>. The output of that softmax is used to determine the supervision vector to provide instead of the one hot vector that would be provided otherwise for each datapoint. The intuition behind it is that errors between similar classes are more tolerable than errors between really different classes.</li>
+</ul>
+<p>Loss and loss related parameters can also be defined once and applied to all image output features using the <a href="../../defaults/#type-global-loss">Type-Global Loss</a> section.</p>
+<h3 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permanent link">&para;</a></h3>
+<p>The measures that are calculated every epoch and are available for image features are the <code>accuracy</code> and <code>loss</code>.
+You can set either of them as <code>validation_metric</code> in the <code>training</code> section of the configuration if you set the
+<code>validation_field</code> to be the name of a category feature.</p>
 
 
   

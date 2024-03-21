@@ -108,7 +108,7 @@ If there are any changes, commit them.
 
 Create a PR.
 
-## 7. For major releases, create an release-X.Y branch
+## 7. For major releases, create a release-X.Y branch
 
 ```bash
 > git checkout master

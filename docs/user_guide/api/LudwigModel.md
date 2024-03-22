@@ -466,7 +466,8 @@ load(
   gpus=None,
   gpu_memory_limit=None,
   allow_parallel_threads=True,
-  callbacks=None
+  callbacks=None,
+  from_checkpoint=False
 )
 ```
 
@@ -494,6 +495,9 @@ determinism.
 - __callbacks__ (list, default: `None`): a list of
 `ludwig.callbacks.Callback` objects that provide hooks into the
 Ludwig pipeline.
+- __from_checkpoint__ (bool, default: `False`): if `True`, the model
+will be loaded from the latest checkpoint (training_checkpoints/)
+instead of the final model weights.
 
 __Return__
 
@@ -515,7 +519,8 @@ ludwig_model = LudwigModel.load(model_dir)
 
 ```python
 load_weights(
-  model_dir
+  model_dir,
+  from_checkpoint=False
 )
 ```
 
@@ -526,6 +531,9 @@ __Inputs__
 
 - __model_dir__ (str): filepath string to location of a pre-trained
 model
+- __from_checkpoint__ (bool, default: `False`): if `True`, the model
+will be loaded from the latest checkpoint (training_checkpoints/)
+instead of the final model weights.
 
 __Return__
 

@@ -4201,7 +4201,8 @@ Union[str, List[str]]: Generated text or list of generated texts.</p>
   <span class="n">gpus</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
   <span class="n">gpu_memory_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
   <span class="n">allow_parallel_threads</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-  <span class="n">callbacks</span><span class="o">=</span><span class="kc">None</span>
+  <span class="n">callbacks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+  <span class="n">from_checkpoint</span><span class="o">=</span><span class="kc">False</span>
 <span class="p">)</span>
 </code></pre></div>
 <p>This function allows for loading pretrained models.</p>
@@ -4225,6 +4226,9 @@ determinism.</li>
 <li><strong>callbacks</strong> (list, default: <code>None</code>): a list of
 <code>ludwig.callbacks.Callback</code> objects that provide hooks into the
 Ludwig pipeline.</li>
+<li><strong>from_checkpoint</strong> (bool, default: <code>False</code>): if <code>True</code>, the model
+will be loaded from the latest checkpoint (training_checkpoints/)
+instead of the final model weights.</li>
 </ul>
 <p><strong>Return</strong></p>
 <ul>
@@ -4236,7 +4240,8 @@ Ludwig pipeline.</li>
 <hr />
 <h3 id="load_weights">load_weights<a class="headerlink" href="#load_weights" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">load_weights</span><span class="p">(</span>
-  <span class="n">model_dir</span>
+  <span class="n">model_dir</span><span class="p">,</span>
+  <span class="n">from_checkpoint</span><span class="o">=</span><span class="kc">False</span>
 <span class="p">)</span>
 </code></pre></div>
 <p>Loads weights from a pre-trained model.</p>
@@ -4244,6 +4249,9 @@ Ludwig pipeline.</li>
 <ul>
 <li><strong>model_dir</strong> (str): filepath string to location of a pre-trained
 model</li>
+<li><strong>from_checkpoint</strong> (bool, default: <code>False</code>): if <code>True</code>, the model
+will be loaded from the latest checkpoint (training_checkpoints/)
+instead of the final model weights.</li>
 </ul>
 <p><strong>Return</strong></p>
 <ul>

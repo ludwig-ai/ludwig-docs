@@ -88,11 +88,15 @@ ludwig train ...
 
 ## Input Features
 
-Currently, the LLM model type only supports a single input feature of type `text`.
+Because of the way LLMs work, their input is always a single chunk of `text`. But this input can be 
+built up from one or more columns of the input dataset and optional interspersed static text. 
+The following two examples illustrate the range of possibilities.
 
-If no `prompt` template is provided, this feature must correspond to a column
-in the input dataset. If a prompt template is provided, the rendered prompt
-will be used as the input feature value during training and inference.
+### Single Dataset Column
+
+If input to the LLM is just the content of a single dataset column (without any other prefixed or
+suffixed text), no `prompt` template should be provided and the `name` of the feature must 
+correspond to a column in the input dataset. See the following example.
 
 ```yaml
 input_features:
@@ -100,8 +104,42 @@ input_features:
     type: text
 ```
 
+The value of the `name` attribute (`input` in the example) is the name of a 
+dataset column. 
+
 See [Text Features](./features/text_features.md) for
 configuration options.
+
+### Multiple Dataset Columns with Interspersed Static Text
+
+If input to the LLM must include content from one or more dataset columns and static text, 
+then a `prompt` template should be provided to specify how the content of the dataset's 
+column(s) should be formatted for the LLM. See the following example.
+
+```yaml
+input_features:
+  - name: context
+    type: text
+  - name: question
+    type: text
+prompt:
+  template: |
+    [INST] <<SYS>>
+    You are a helpful, detailed, and polite AI assistant. 
+    Answer the question using only the provided context.
+    <</SYS>>
+    
+    ### Context:
+    {context}
+    
+    ### Question:
+    {question}
+    [/INST]
+```
+
+Observe that a prompt template can be used even with a single dataset column. 
+But that is necessary only when static text is required to be prefixed and/or 
+suffixed to the content of the dataset column.
 
 ## Output Features
 

@@ -94,9 +94,9 @@ The following two examples illustrate the range of possibilities.
 
 ### Single Dataset Column
 
-If input to the LLM is just the content of a single dataset column (without any other prefixed or
-suffixed text), no `prompt` template should be provided and the `name` of the feature must 
-correspond to a column in the input dataset. See the following example.
+If it is intended for the input to the LLM to be just the content of a single dataset column (without 
+any other prefixed or suffixed text), no `prompt` template should be provided and the `name` of the 
+feature must correspond to that specific column in the input dataset. See the following example.
 
 ```yaml
 input_features:
@@ -117,11 +117,6 @@ then a `prompt` template should be provided to specify how the content of the da
 column(s) should be formatted for the LLM. See the following example.
 
 ```yaml
-input_features:
-  - name: context
-    type: text
-  - name: question
-    type: text
 prompt:
   template: |
     [INST] <<SYS>>
@@ -135,9 +130,21 @@ prompt:
     ### Question:
     {question}
     [/INST]
+
+input_features:
+  - name: prompt
+    type: text
 ```
 
-Observe that a prompt template can be used even with a single dataset column. 
+There are a couple of things to note here:
+- the prompt `template` contains named placeholders (`context` and `question`) for content 
+from the dataset's columns 
+- the `name` of the `input_feature` (`prompt` here) is immaterial, and is not the name 
+of a dataset column as in the previous example. This example uses `prompt` just to 
+emphasize that the formatted output obtained by applying the prompt template to the 
+dataset columns is the input.
+
+Also note that a prompt template can be used even with a single dataset column. 
 But that is necessary only when static text is required to be prefixed and/or 
 suffixed to the content of the dataset column.
 

@@ -88,9 +88,9 @@ ludwig train ...
 
 ## Input Features
 
-Because of the way LLMs work, their input is always a single chunk of `text`. But this input can be 
-built up from one or more columns of the input dataset and optional interspersed static text. 
-The following two examples illustrate the range of possibilities.
+Because of the way LLMs work, they accept exactly one input, which is some amount of `text`. 
+This input can be built up from one or more columns of the input dataset and optional 
+interspersed static text. The following two examples illustrate the range of possibilities.
 
 ### Single Dataset Column
 
@@ -139,7 +139,7 @@ input_features:
 There are a couple of things to note here:
 - the prompt `template` contains named placeholders (`context` and `question`) for content 
 from the dataset's columns 
-- the `name` of the `input_feature` (`prompt` here) is immaterial, and is not the name 
+- the `name` of the `input_feature` (`prompt` here) is immaterial; it is not the name 
 of a dataset column as in the previous example. This example uses `prompt` just to 
 emphasize that the formatted output obtained by applying the prompt template to the 
 dataset columns is the input.

@@ -96,7 +96,7 @@ interspersed static text. The following two examples illustrate the range of pos
 
 If it is intended for the input to the LLM to be just the content of a single dataset column (without 
 any other prefixed or suffixed text), no `prompt` template should be provided and the `name` of the 
-feature must correspond to that specific column in the input dataset. See the following example.
+feature must correspond to that specific dataset column. See the following example.
 
 ```yaml
 input_features:

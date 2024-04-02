@@ -1465,6 +1465,33 @@
     Input Features
   </a>
   
+    <nav class="md-nav" aria-label="Input Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#single-dataset-column-only" class="md-nav__link">
+    Single Dataset Column Only
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-dataset-column-with-additional-text" class="md-nav__link">
+    Single Dataset Column with Additional Text
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-dataset-columns-with-interspersed-static-text" class="md-nav__link">
+    Multiple Dataset Columns with Interspersed Static Text
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -3674,6 +3701,33 @@
     Input Features
   </a>
   
+    <nav class="md-nav" aria-label="Input Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#single-dataset-column-only" class="md-nav__link">
+    Single Dataset Column Only
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-dataset-column-with-additional-text" class="md-nav__link">
+    Single Dataset Column with Additional Text
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-dataset-columns-with-interspersed-static-text" class="md-nav__link">
+    Multiple Dataset Columns with Interspersed Static Text
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -3956,16 +4010,68 @@ ludwig<span class="w"> </span>train<span class="w"> </span>...
 </code></pre></div>
 <h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
 <h3 id="input-features">Input Features<a class="headerlink" href="#input-features" title="Permanent link">&para;</a></h3>
-<p>Currently, the LLM model type only supports a single input feature of type <code>text</code>.</p>
-<p>If no <code>prompt</code> template is provided, this feature must correspond to a column
-in the input dataset. If a prompt template is provided, the rendered prompt
-will be used as the input feature value during training and inference.</p>
+<p>Because of the way LLMs work, they accept exactly one input, which is of type <code>text</code>. 
+This input can be built up from one or more columns of the input dataset and optional 
+interspersed static text. The following three examples illustrate the range of possibilities.</p>
+<h4 id="single-dataset-column-only">Single Dataset Column Only<a class="headerlink" href="#single-dataset-column-only" title="Permanent link">&para;</a></h4>
+<p>If it is intended for the input to the LLM to be just the content of a single dataset column (without 
+any other prefixed or suffixed text), no <code>prompt</code> template should be provided and the <code>name</code> of the 
+feature must correspond to that specific dataset column. See the following example.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">input</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
 </code></pre></div>
-<p>See <a href="../features/text_features/">Text Features</a> for
-configuration options.</p>
+<p>The value of the <code>name</code> attribute (<code>input</code> in the example) is the name of a 
+dataset column. </p>
+<p>See <a href="../features/text_features/">Text Features</a> for configuration options.</p>
+<h4 id="single-dataset-column-with-additional-text">Single Dataset Column with Additional Text<a class="headerlink" href="#single-dataset-column-with-additional-text" title="Permanent link">&para;</a></h4>
+<p>If the input to the LLM must be created by prefixing and/or suffixing some static text 
+to the content of one dataset column, then a <code>prompt</code> <code>template</code> must be provided to specify how 
+the content of the chosen column should be formatted for the LLM. See the following example.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">prompt</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">    </span><span class="no">Translate into French </span>
+<span class="w">    </span><span class="no">Input: {english_input}</span>
+<span class="w">    </span><span class="no">Translation:</span>
+
+<span class="nt">input_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prompt</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+</code></pre></div>
+<p>In the example above <code>english_input</code> is the name of a column in the input dataset. 
+In this case the <code>name</code> of the <code>input_feature</code> (<code>prompt</code>) is not the name of a 
+dataset column (as in the previous example). It is just a placeholder that is replaced 
+by the formatted text obtained by applying the template to the selected dataset column. 
+The actual name used has no significance, so you can choose any name that is intuitive 
+in the context of your application.</p>
+<h4 id="multiple-dataset-columns-with-interspersed-static-text">Multiple Dataset Columns with Interspersed Static Text<a class="headerlink" href="#multiple-dataset-columns-with-interspersed-static-text" title="Permanent link">&para;</a></h4>
+<p>This case is a generalization of the last example to situations that have to process 
+two or more dataset columns. See the example below.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">prompt</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">    </span><span class="no">[INST] &lt;&lt;SYS&gt;&gt;</span>
+<span class="w">    </span><span class="no">You are a helpful, detailed, and polite AI assistant. </span>
+<span class="w">    </span><span class="no">Answer the question using only the provided context.</span>
+<span class="w">    </span><span class="no">&lt;&lt;/SYS&gt;&gt;</span>
+
+<span class="w">    </span><span class="no">### Context:</span>
+<span class="w">    </span><span class="no">{context}</span>
+
+<span class="w">    </span><span class="no">### Question:</span>
+<span class="w">    </span><span class="no">{question}</span>
+
+<span class="w">    </span><span class="no">### Response:</span>
+<span class="w">    </span><span class="no">[/INST]</span>
+
+<span class="nt">input_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prompt</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+</code></pre></div>
+<p>As in the previous example <code>context</code> and <code>question</code> are names of columns in the input dataset. 
+The <code>name</code> of the <code>input_feature</code> (<code>prompt</code> here) is again just a placeholder that will be 
+replaced by formatted text obtained by applying the template to the selected dataset columns. 
+The name used (<code>prompt</code>) is not significant, so any intuitive name could have been used without 
+changing the results obtained.</p>
 <h3 id="output-features">Output Features<a class="headerlink" href="#output-features" title="Permanent link">&para;</a></h3>
 <p>Currently, the LLM model type only supports a single output feature.</p>
 <h4 id="llm-text-output-feature">LLM Text Output Feature<a class="headerlink" href="#llm-text-output-feature" title="Permanent link">&para;</a></h4>

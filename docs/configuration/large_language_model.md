@@ -112,7 +112,7 @@ See [Text Features](./features/text_features.md) for configuration options.
 ### Single Dataset Column with Additional Text
 
 If the input to the LLM must be created by prefixing and/or suffixing some static text 
-to the content of one dataset column, then a `prompt` `template` should be provided to specify how 
+to the content of one dataset column, then a `prompt` `template` must be provided to specify how 
 the content of the chosen column should be formatted for the LLM. See the following example.
 
 ```yaml

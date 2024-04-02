@@ -90,7 +90,7 @@ ludwig train ...
 
 Because of the way LLMs work, they accept exactly one input, which is of type `text`. 
 This input can be built up from one or more columns of the input dataset and optional 
-interspersed static text. The following two examples illustrate the range of possibilities.
+interspersed static text. The following three examples illustrate the range of possibilities.
 
 ### Single Dataset Column Only
 
@@ -118,8 +118,9 @@ the content of the chosen column should be formatted for the LLM. See the follow
 ```yaml
 prompt:
   template: |
-    Translate into French: 
-    {english_input}
+    Translate into French 
+    Input: {english_input}
+    Translation:
 
 input_features:
   - name: prompt

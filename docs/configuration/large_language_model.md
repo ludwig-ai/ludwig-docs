@@ -88,11 +88,11 @@ ludwig train ...
 
 ## Input Features
 
-Because of the way LLMs work, they accept exactly one input, which is some amount of `text`. 
+Because of the way LLMs work, they accept exactly one input, which is of type `text`. 
 This input can be built up from one or more columns of the input dataset and optional 
 interspersed static text. The following two examples illustrate the range of possibilities.
 
-### Single Dataset Column
+### Single Dataset Column Only
 
 If it is intended for the input to the LLM to be just the content of a single dataset column (without 
 any other prefixed or suffixed text), no `prompt` template should be provided and the `name` of the 
@@ -107,14 +107,36 @@ input_features:
 The value of the `name` attribute (`input` in the example) is the name of a 
 dataset column. 
 
-See [Text Features](./features/text_features.md) for
-configuration options.
+See [Text Features](./features/text_features.md) for configuration options.
+
+### Single Dataset Column with Additional Text
+
+If the input to the LLM must be created by prefixing and/or suffixing some static text 
+to the content of one dataset column, then a `prompt` `template` should be provided to specify how 
+the content of the chosen column should be formatted for the LLM. See the following example.
+
+```yaml
+prompt:
+  template: |
+    Translate into French: 
+    {english_input}
+
+input_features:
+  - name: prompt
+    type: text
+```
+
+In the example above `english_input` is the name of a column in the input dataset. 
+In this case the `name` of the `input_feature` (`prompt`) is not the name of a 
+dataset column (as in the previous example). It is just a placeholder that is replaced 
+by the formatted text obtained by applying the template to the selected dataset column. 
+The actual name used has no significance, so you can choose any name that is intuitive 
+in the context of your application.
 
 ### Multiple Dataset Columns with Interspersed Static Text
 
-If input to the LLM must include content from one or more dataset columns and static text, 
-then a `prompt` template should be provided to specify how the content of the dataset's 
-column(s) should be formatted for the LLM. See the following example.
+This case is a generalization of the last example to situations that have to process 
+two or more dataset columns. See the example below.
 
 ```yaml
 prompt:
@@ -129,6 +151,8 @@ prompt:
     
     ### Question:
     {question}
+
+    ### Response:
     [/INST]
 
 input_features:
@@ -136,17 +160,11 @@ input_features:
     type: text
 ```
 
-There are a couple of things to note here:
-- the prompt `template` contains named placeholders (`context` and `question`) for content 
-from the dataset's columns 
-- the `name` of the `input_feature` (`prompt` here) is immaterial; it is not the name 
-of a dataset column as in the previous example. This example uses `prompt` just to 
-emphasize that the formatted output obtained by applying the prompt template to the 
-dataset columns is the input.
-
-Also note that a prompt template can be used even with a single dataset column. 
-But that is necessary only when static text is required to be prefixed and/or 
-suffixed to the content of the dataset column.
+As in the previous example `context` and `question` are names of columns in the input dataset. 
+The `name` of the `input_feature` (`prompt` here) is again just a placeholder that will be 
+replaced by formatted text obtained by applying the template to the selected dataset columns. 
+The name used (`prompt`) is not significant, so any intuitive name could have been used without 
+changing the results obtained.
 
 ## Output Features
 

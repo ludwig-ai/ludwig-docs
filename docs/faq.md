@@ -6,11 +6,11 @@ Smaller feature requests are tracked in [Github Issues](https://github.com/ludwi
 
 We try our best to keep these up to date, but if there's a specific feature or
 model you are interested in, feel free to ping the
-[Ludwig Slack](https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ).
+[Community Discord](https://discord.gg/CBgdrGnZjy).
 
 # How can I help?
 
-Join the [Ludwig Slack](https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ)!
+Join the [Community Discord](https://discord.gg/CBgdrGnZjy)!
 Sometimes we'll organize community fixit, documentation, and bug bash efforts,
 or consider taking on an [easy bug](https://github.com/ludwig-ai/ludwig/labels/easy)
 to start.

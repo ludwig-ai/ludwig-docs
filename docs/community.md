@@ -1,10 +1,9 @@
 # Chat
 
-We use Slack as a chat solution for allowing both Ludwig users and developers to
+We use Discord as a community solution for allowing both Ludwig users and developers to
 interact in a timely, more synchronous way.
 
-[Click here](https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ)
-to receive an invitation.
+[Click here](https://discord.gg/CBgdrGnZjy) to join (we ask that you provide your email address).
 
 # Forum
 

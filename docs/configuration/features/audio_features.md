@@ -54,4 +54,4 @@ Encoder type and encoder parameters can also be defined once and applied to all 
 There are no audio decoders at the moment.
 
 If this unlocks an interesting use case for your application, please file a GitHub Issue or ping the
-[Ludwig Slack](https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ).
+[Community Discord](https://discord.gg/CBgdrGnZjy).

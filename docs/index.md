@@ -19,8 +19,8 @@
 <a href="https://github.com/ludwig-ai/ludwig/blob/master/LICENSE" target="_blank" style="text-decoration: none;">
     <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="license">
 </a>
-<a href="https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ" target="_blank" style="text-decoration: none;">
-    <img src="https://img.shields.io/badge/slack-chat-green.svg?logo=slack" alt="slack">
+<a href="https://discord.gg/CBgdrGnZjy" target="_blank" style="text-decoration: none;">
+    <img src="https://dcbadge.vercel.app/api/server/CBgdrGnZjy?style=flat&theme=discord-inverted" alt="Discord">
 </a>
 </p>
 
@@ -184,7 +184,7 @@ ludwig train --config model.yaml --dataset rotten_tomatoes.csv
 
 **Happy modeling**
 
-Try applying Ludwig to your data. [Reach out](https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ)
+Try applying Ludwig to your data. [Reach out](https://discord.gg/CBgdrGnZjy)
 if you have any questions.
 
 # ❓ Why you should use Ludwig
@@ -304,7 +304,7 @@ Read our publications on [Ludwig](https://arxiv.org/pdf/1909.07930.pdf), [declar
 Learn more about [how Ludwig works](./user_guide/how_ludwig_works/), [how to get started](./getting_started/), and work through more [examples](./examples/).
 
 If you are interested in [contributing](./developer_guide/contributing.md), have questions, comments, or thoughts to share, or if you just want to be in the
-know, please consider [joining the Ludwig Slack](https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ) and follow us on [Twitter](https://twitter.com/ludwig_ai)!
+know, please consider [joining our Community Discord](https://discord.gg/CBgdrGnZjy) and follow us on [X](https://twitter.com/ludwig_ai)!
 
 # 🤝 Join the community to build Ludwig with us
 
@@ -318,7 +318,7 @@ more accessible and feature rich framework for everyone to use!
 
 # 👋 Getting Involved
 
-- [Slack](https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ)
-- [Twitter](https://twitter.com/ludwig_ai)
+- [Discord](https://discord.gg/CBgdrGnZjy)
+- [X](https://twitter.com/ludwig_ai)
 - [Medium](https://medium.com/ludwig-ai)
 - [GitHub Issues](https://github.com/ludwig-ai/ludwig/issues)

@@ -24,8 +24,10 @@
 </a>
 </p>
 
-> \[!IMPORTANT\]
-> Our community has moved to [Discord](https://discord.gg/CBgdrGnZjy) -- please join us!
+---
+**IMPORTANT**
+
+Our community has moved to [Discord](https://discord.gg/CBgdrGnZjy) -- please join us!
 
 ---
 

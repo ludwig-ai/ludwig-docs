@@ -1,6 +1,6 @@
 💡 Hands-on examples are the best way to learn about a new framework.
 
-Here, you'll find several examples of how to build models with Ludwig for a variety of tasks with LLMs, neural networks, and tree-based models. We provide sample datasets, commands, scripts, and Colab notebooks. Please [reach out](https://join.slack.com/t/ludwig-ai/shared_invite/zt-mrxo87w6-DlX5~73T2B4v_g6jj0pJcQ) if you have any questions!
+Here, you'll find several examples of how to build models with Ludwig for a variety of tasks with LLMs, neural networks, and tree-based models. We provide sample datasets, commands, scripts, and Colab notebooks. Please [reach out](https://discord.gg/CBgdrGnZjy) if you have any questions!
 
 💬 The **LLMs** section gives a broad overview of the full breadth of Ludwig's LLM capabilities like [zero-shot batch inference](https://ludwig.ai/latest/examples/llms/llm_zero_shot_text_generation/) and [fine-tuning Llama-2-7b](https://ludwig.ai/latest/examples/llms/llm_finetuning/).
 

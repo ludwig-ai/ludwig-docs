@@ -852,13 +852,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#generate" class="md-nav__link">
-    generate
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#is_merge_and_unload_set" class="md-nav__link">
     is_merge_and_unload_set
   </a>
@@ -903,13 +896,6 @@
           <li class="md-nav__item">
   <a href="#save_config" class="md-nav__link">
     save_config
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#save_dequantized_base_model" class="md-nav__link">
-    save_dequantized_base_model
   </a>
   
 </li>
@@ -3680,13 +3666,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#generate" class="md-nav__link">
-    generate
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#is_merge_and_unload_set" class="md-nav__link">
     is_merge_and_unload_set
   </a>
@@ -3731,13 +3710,6 @@
           <li class="md-nav__item">
   <a href="#save_config" class="md-nav__link">
     save_config
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#save_dequantized_base_model" class="md-nav__link">
-    save_dequantized_base_model
   </a>
   
 </li>
@@ -4170,21 +4142,6 @@ filepath string to where results are stored.</li>
 <p>Manually moves the model to CPU to force GPU memory to be freed.</p>
 <p>For more context: https://discuss.pytorch.org/t/how-can-we-release-gpu-memory-cache/14530/35</p>
 <hr />
-<h3 id="generate">generate<a class="headerlink" href="#generate" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="n">generate</span><span class="p">(</span>
-  <span class="n">input_strings</span><span class="p">,</span>
-  <span class="n">generation_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-  <span class="n">streaming</span><span class="o">=</span><span class="kc">False</span>
-<span class="p">)</span>
-</code></pre></div>
-<p>A simple generate() method that directly uses the underlying transformers library to generate text.</p>
-<p>Args:
-input_strings (Union[str, List[str]]): Input text or list of texts to generate from.
-generation_config (Optional[dict]): Configuration for text generation.
-streaming (Optional[bool]): If True, enable streaming output.</p>
-<p>Returns:
-Union[str, List[str]]: Generated text or list of generated texts.</p>
-<hr />
 <h3 id="is_merge_and_unload_set">is_merge_and_unload_set<a class="headerlink" href="#is_merge_and_unload_set" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">is_merge_and_unload_set</span><span class="p">(</span>
 <span class="p">)</span>
@@ -4201,8 +4158,7 @@ Union[str, List[str]]: Generated text or list of generated texts.</p>
   <span class="n">gpus</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
   <span class="n">gpu_memory_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
   <span class="n">allow_parallel_threads</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-  <span class="n">callbacks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-  <span class="n">from_checkpoint</span><span class="o">=</span><span class="kc">False</span>
+  <span class="n">callbacks</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">)</span>
 </code></pre></div>
 <p>This function allows for loading pretrained models.</p>
@@ -4226,9 +4182,6 @@ determinism.</li>
 <li><strong>callbacks</strong> (list, default: <code>None</code>): a list of
 <code>ludwig.callbacks.Callback</code> objects that provide hooks into the
 Ludwig pipeline.</li>
-<li><strong>from_checkpoint</strong> (bool, default: <code>False</code>): if <code>True</code>, the model
-will be loaded from the latest checkpoint (training_checkpoints/)
-instead of the final model weights.</li>
 </ul>
 <p><strong>Return</strong></p>
 <ul>
@@ -4240,8 +4193,7 @@ instead of the final model weights.</li>
 <hr />
 <h3 id="load_weights">load_weights<a class="headerlink" href="#load_weights" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">load_weights</span><span class="p">(</span>
-  <span class="n">model_dir</span><span class="p">,</span>
-  <span class="n">from_checkpoint</span><span class="o">=</span><span class="kc">False</span>
+  <span class="n">model_dir</span>
 <span class="p">)</span>
 </code></pre></div>
 <p>Loads weights from a pre-trained model.</p>
@@ -4249,9 +4201,6 @@ instead of the final model weights.</li>
 <ul>
 <li><strong>model_dir</strong> (str): filepath string to location of a pre-trained
 model</li>
-<li><strong>from_checkpoint</strong> (bool, default: <code>False</code>): if <code>True</code>, the model
-will be loaded from the latest checkpoint (training_checkpoints/)
-instead of the final model weights.</li>
 </ul>
 <p><strong>Return</strong></p>
 <ul>
@@ -4406,22 +4355,6 @@ JSON file.</li>
 <ul>
 <li><strong>return</strong> ( <code>None):</code>None`</li>
 </ul>
-<hr />
-<h3 id="save_dequantized_base_model">save_dequantized_base_model<a class="headerlink" href="#save_dequantized_base_model" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="n">save_dequantized_base_model</span><span class="p">(</span>
-  <span class="n">save_path</span>
-<span class="p">)</span>
-</code></pre></div>
-<p>Upscales quantized weights of a model to fp16 and saves the result in a specified folder.</p>
-<p>Args:
-save_path (str): The path to the folder where the upscaled model weights will be saved.</p>
-<p>Raises:
-ValueError:
-If the model type is not 'llm' or if quantization is not enabled or the number of bits is not 4 or 8.
-RuntimeError:
-If no GPU is available, as GPU is required for quantized models.</p>
-<p>Returns:
-None</p>
 <hr />
 <h3 id="save_torchscript">save_torchscript<a class="headerlink" href="#save_torchscript" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="n">save_torchscript</span><span class="p">(</span>

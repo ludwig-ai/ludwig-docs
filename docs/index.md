@@ -27,7 +27,7 @@
 ---
 **IMPORTANT**
 
-Our community has moved to [Discord](https://discord.gg/CBgdrGnZjy) -- please join us!
+## :exclamation: The Ludwig community has moved to [Discord](https://discord.gg/CBgdrGnZjy) -- please join us there!
 
 ---
 

@@ -199,7 +199,7 @@ Finally the `--logging_level` argument lets you set the amount of logging that y
 Example:
 
 ```bash
-ludwig train --dataset reuters-allcats.csv --config "{input_features: [{name: text, type: text, encoder: {type: parallel_cnn}}], output_features: [{name: class, type: category}]}"
+ludwig train --dataset reuters-allcats.csv --config_str "{input_features: [{name: text, type: text, encoder: {type: parallel_cnn}}], output_features: [{name: class, type: category}]}"
 ```
 
 # predict
@@ -487,7 +487,7 @@ The output directory will contain the outputs both commands produce.
 Example:
 
 ```bash
-ludwig experiment --dataset reuters-allcats.csv --config "{input_features: [{name: text, type: text, encoder: {type: parallel_cnn}}], output_features: [{name: class, type: category}]}"
+ludwig experiment --dataset reuters-allcats.csv --config_str "{input_features: [{name: text, type: text, encoder: {type: parallel_cnn}}], output_features: [{name: class, type: category}]}"
 ```
 
 # hyperopt

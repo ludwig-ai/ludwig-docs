@@ -26,9 +26,19 @@ You can find an example of predictive fine-tuning [here](https://github.com/ludw
 
 For full details on configuring LLM fine-tuning, see the [Configuration docs](../../configuration/large_language_model.md).
 
+## Loading Fine-Tuned Weights from Local
+
+After a model is fine-tuned, the updated weights are automatically saved locally, and the output directory can be found at the end of the model logs:
+
+![img](../../images/model_weights_location.png)
+
+These weights can then be loaded in directly using [LudwigModel.load](../api/LudwigModel.md#load):
+
+```ludwig_model = LudwigModel.load("results/experiment_run/model")```
+
 ## Uploading to HuggingFace Hub
 
-After fine-tuning an LLM, the output will be updated model weights which can be uploaded directly to HuggingFace and deployed to an endpoint
+Should the weights need to be made public or stored remotely, they can be uploaded directly to HuggingFace and deployed to an endpoint
 or shared with other users even outside of Ludwig.
 
 === "CLI"

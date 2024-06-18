@@ -246,7 +246,7 @@ def define_env(env):
                 ' :octicons-bookmark-fill-24:{ title="High impact parameter" }'
             )
 
-        s = f"- **`{ name }`** {default_str}{impact_badge}: { field.metadata['description'] }"
+        s = f"- **`{name}`** {default_str}{impact_badge}: {field.metadata['description']}"
         if field.validate is not None and hasattr(field.validate, "choices"):
             options = ", ".join(
                 [f"`{dump_value(opt)}`" for opt in field.validate.choices]

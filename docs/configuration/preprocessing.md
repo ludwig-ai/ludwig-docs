@@ -175,7 +175,7 @@ preprocessing:
 ```
 !!! warning
 
-    `sample_size` can only be used when sample ratio is 1.0, which is the default value.
+    `sample_size` can only be used when `sample_ratio` is 1.0, which is the default value.
 
 # Global Max Sequence Length
 

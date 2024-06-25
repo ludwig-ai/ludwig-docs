@@ -1528,8 +1528,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#sample-ratio" class="md-nav__link">
-    Sample Ratio
+  <a href="#sample-ratio-and-size" class="md-nav__link">
+    Sample Ratio and Size
   </a>
   
 </li>
@@ -3584,8 +3584,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#sample-ratio" class="md-nav__link">
-    Sample Ratio
+  <a href="#sample-ratio-and-size" class="md-nav__link">
+    Sample Ratio and Size
   </a>
   
 </li>
@@ -3768,10 +3768,10 @@ representation in the overall dataset.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">undersample_majority</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
 </code></pre></div>
-<h2 id="sample-ratio">Sample Ratio<a class="headerlink" href="#sample-ratio" title="Permanent link">&para;</a></h2>
+<h2 id="sample-ratio-and-size">Sample Ratio and Size<a class="headerlink" href="#sample-ratio-and-size" title="Permanent link">&para;</a></h2>
 <p>Sometimes users may want to train on a sample of their input training data (maybe
 there's too much, and we only need 20%, or we want to try out ideas on a smaller
-subset of our data). In order to achieve this, a user can specify a <code>sample_ratio</code>
+subset of our data). In order to achieve this, a user can specify a <code>sample_ratio</code> or a <code>sample_size</code>
 to indicate the ratio of the dataset to use for training.</p>
 <p>By default, the sample ratio is 1.0, so if not specified, all the data will be
 used for training. For example, if you only want to use 30% of my input data,
@@ -3779,6 +3779,16 @@ you could specify a config like this:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">sample_ratio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3</span>
 </code></pre></div>
+<p>Furthermore, if you want to specify the exact number of samples to use for training, 
+you can use the <code>sample_size</code> parameter. For example, if you want to use 1000 samples for training, 
+you could specify a config like this:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">sample_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><code>sample_size</code> can only be used when <code>sample_ratio</code> is 1.0, which is the default value.</p>
+</div>
 <h2 id="global-max-sequence-length">Global Max Sequence Length<a class="headerlink" href="#global-max-sequence-length" title="Permanent link">&para;</a></h2>
 <p>There are <a href="https://www.youtube.com/watch?v=g68qlo9Izf0&amp;t=2685s">many factors at play</a>
 when it comes to fine-tuning LLMs efficiently on a single GPU.</p>

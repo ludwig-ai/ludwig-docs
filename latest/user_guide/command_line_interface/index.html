@@ -3970,7 +3970,7 @@ If less than all of memory is allocated, Torch will need more GPU memory it will
 <p>If parameter <code>--backend</code> is set, will use the given backend for distributed processing (Horovod or Ray).</p>
 <p>Finally the <code>--logging_level</code> argument lets you set the amount of logging that you want to see during training.</p>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>train<span class="w"> </span>--dataset<span class="w"> </span>reuters-allcats.csv<span class="w"> </span>--config<span class="w"> </span><span class="s2">&quot;{input_features: [{name: text, type: text, encoder: {type: parallel_cnn}}], output_features: [{name: class, type: category}]}&quot;</span>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>train<span class="w"> </span>--dataset<span class="w"> </span>reuters-allcats.csv<span class="w"> </span>--config_str<span class="w"> </span><span class="s2">&quot;{input_features: [{name: text, type: text, encoder: {type: parallel_cnn}}], output_features: [{name: class, type: category}]}&quot;</span>
 </code></pre></div>
 <h2 id="predict">predict<a class="headerlink" href="#predict" title="Permanent link">&para;</a></h2>
 <p>This command lets you use a previously trained model to predict on new data.
@@ -4206,7 +4206,7 @@ optional arguments:
 refer to those sections for an in depth explanation.
 The output directory will contain the outputs both commands produce.</p>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>experiment<span class="w"> </span>--dataset<span class="w"> </span>reuters-allcats.csv<span class="w"> </span>--config<span class="w"> </span><span class="s2">&quot;{input_features: [{name: text, type: text, encoder: {type: parallel_cnn}}], output_features: [{name: class, type: category}]}&quot;</span>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>experiment<span class="w"> </span>--dataset<span class="w"> </span>reuters-allcats.csv<span class="w"> </span>--config_str<span class="w"> </span><span class="s2">&quot;{input_features: [{name: text, type: text, encoder: {type: parallel_cnn}}], output_features: [{name: class, type: category}]}&quot;</span>
 </code></pre></div>
 <h2 id="hyperopt">hyperopt<a class="headerlink" href="#hyperopt" title="Permanent link">&para;</a></h2>
 <p>This command lets you perform an hyperparameter search with a given sampler and parameters.

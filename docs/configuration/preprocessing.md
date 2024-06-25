@@ -149,11 +149,11 @@ preprocessing:
   undersample_majority: 0.7
 ```
 
-# Sample Ratio
+# Sample Ratio and Size
 
 Sometimes users may want to train on a sample of their input training data (maybe
 there's too much, and we only need 20%, or we want to try out ideas on a smaller
-subset of our data). In order to achieve this, a user can specify a `sample_ratio`
+subset of our data). In order to achieve this, a user can specify a `sample_ratio` or a `sample_size`
 to indicate the ratio of the dataset to use for training.
 
 By default, the sample ratio is 1.0, so if not specified, all the data will be
@@ -164,6 +164,18 @@ you could specify a config like this:
 preprocessing:
   sample_ratio: 0.3
 ```
+
+Furthermore, if you want to specify the exact number of samples to use for training, 
+you can use the `sample_size` parameter. For example, if you want to use 1000 samples for training, 
+you could specify a config like this:
+
+```yaml
+preprocessing:
+  sample_size: 1000
+```
+!!! warning
+
+    `sample_size` can only be used when `sample_ratio` is 1.0, which is the default value.
 
 # Global Max Sequence Length
 

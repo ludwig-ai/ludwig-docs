@@ -413,6 +413,30 @@ For more context: https://discuss.pytorch.org/t/how-can-we-release-gpu-memory-ca
 
 
 ---
+## generate
+
+
+```python
+generate(
+  input_strings,
+  generation_config=None,
+  streaming=False
+)
+```
+
+
+A simple generate() method that directly uses the underlying transformers library to generate text.
+
+Args:
+input_strings (Union[str, List[str]]): Input text or list of texts to generate from.
+generation_config (Optional[dict]): Configuration for text generation.
+streaming (Optional[bool]): If True, enable streaming output.
+
+Returns:
+Union[str, List[str]]: Generated text or list of generated texts.
+
+
+---
 ## is_merge_and_unload_set
 
 
@@ -442,7 +466,8 @@ load(
   gpus=None,
   gpu_memory_limit=None,
   allow_parallel_threads=True,
-  callbacks=None
+  callbacks=None,
+  from_checkpoint=False
 )
 ```
 
@@ -470,6 +495,9 @@ determinism.
 - __callbacks__ (list, default: `None`): a list of
 `ludwig.callbacks.Callback` objects that provide hooks into the
 Ludwig pipeline.
+- __from_checkpoint__ (bool, default: `False`): if `True`, the model
+will be loaded from the latest checkpoint (training_checkpoints/)
+instead of the final model weights.
 
 __Return__
 
@@ -491,7 +519,8 @@ ludwig_model = LudwigModel.load(model_dir)
 
 ```python
 load_weights(
-  model_dir
+  model_dir,
+  from_checkpoint=False
 )
 ```
 
@@ -502,6 +531,9 @@ __Inputs__
 
 - __model_dir__ (str): filepath string to location of a pre-trained
 model
+- __from_checkpoint__ (bool, default: `False`): if `True`, the model
+will be loaded from the latest checkpoint (training_checkpoints/)
+instead of the final model weights.
 
 __Return__
 
@@ -699,6 +731,32 @@ __Return__
 
 - __return__ ( `None): `None`
  
+
+---
+## save_dequantized_base_model
+
+
+```python
+save_dequantized_base_model(
+  save_path
+)
+```
+
+
+Upscales quantized weights of a model to fp16 and saves the result in a specified folder.
+
+Args:
+save_path (str): The path to the folder where the upscaled model weights will be saved.
+
+Raises:
+ValueError:
+If the model type is not 'llm' or if quantization is not enabled or the number of bits is not 4 or 8.
+RuntimeError:
+If no GPU is available, as GPU is required for quantized models.
+
+Returns:
+None
+
 
 ---
 ## save_torchscript
@@ -971,23 +1029,23 @@ Uploads trained model artifacts to the HuggingFace Hub.
 __Inputs__
 
 
-- __repo_id (`str`)__ (`str`)::
+- __repo_id__ (`str`):
 A namespace (user or an organization) and a repo name separated
 by a `/`.
-- __model_path (`str`)__ (`str`)::
-The path of the saved model. This is the top level directory where
-the models weights as well as other associated training artifacts
-are saved.
-- __private (`bool`, *optional*, defaults to `False`)__ (`bool`, *optional*, defaults to `False`)::
+- __model_path__ (`str`):
+The path of the saved model. This is either (a) the folder where
+the 'model_weights' folder and the 'model_hyperparameters.json' file
+are stored, or (b) the parent of that folder.
+- __private__ (`bool`, *optional*, defaults to `False`):
 Whether the model repo should be private.
-- __repo_type (`str`, *optional*)__ (`str`, *optional*)::
+- __repo_type__ (`str`, *optional*):
 Set to `"dataset"` or `"space"` if uploading to a dataset or
 space, `None` or `"model"` if uploading to a model. Default is
 `None`.
-- __commit_message (`str`, *optional*)__ (`str`, *optional*)::
+- __commit_message__ (`str`, *optional*):
 The summary / title / first line of the generated commit. Defaults to:
 `f"Upload {path_in_repo} with huggingface_hub"`
-- __commit_description (`str` *optional*)__ (`str` *optional*)::
+- __commit_description__ (`str` *optional*):
 The description of the generated commit
 
 __Returns__

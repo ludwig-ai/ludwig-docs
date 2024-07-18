@@ -96,7 +96,7 @@ Work on your self-assigned issue and eventually create a Pull Request.
    To do that, edit the file `requirements_extra.txt` and comment out the line that begins with `horovod`.  After that,
    please execute the long `pip install` command given in the previous step.  With these work-around provisions, your
    installation should run to completion successfully.  If you are still having difficulty, please reach out with the
-   specifics of your environment in our Discord Community [Discord](https://discord.gg/CBgdrGnZjy).
+   specifics of your environment in the Ludwig Community [Discord](https://discord.gg/CBgdrGnZjy).
 
 1. Develop features on your branch.
 

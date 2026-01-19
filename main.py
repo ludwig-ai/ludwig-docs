@@ -24,7 +24,6 @@ from ludwig.schema.preprocessing import PreprocessingConfig
 from ludwig.schema.split import get_split_cls
 from ludwig.schema.trainer import get_llm_trainer_cls, trainer_schema_registry
 
-
 # Monkey patch the jsonschema check is it's unnedded and leads to inspect errors
 base.check_schema = lambda x: None
 

@@ -302,7 +302,7 @@ if you have any questions.
 
 # 💡 More Information
 
-Read our publications on [Ludwig](https://arxiv.org/pdf/1909.07930.pdf), [declarative ML](https://arxiv.org/pdf/2107.08148.pdf), and [Ludwig’s SoTA benchmarks](https://openreview.net/pdf?id=hwjnu6qW7E4).
+Read our publications on [Ludwig](https://arxiv.org/abs/1909.07930), [declarative ML](https://arxiv.org/abs/2107.08148), and [Ludwig’s SoTA benchmarks](https://openreview.net/forum?id=hwjnu6qW7E4).
 
 Learn more about [how Ludwig works](./user_guide/how_ludwig_works/), [how to get started](./getting_started/), and work through more [examples](./examples/).
 

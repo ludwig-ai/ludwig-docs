@@ -1,6 +1,6 @@
 import json
 import yaml
-from marshmallow import missing
+from pydantic.fields import PydanticUndefined
 
 # Force populate combiner registry:
 from ludwig.constants import MODEL_ECD
@@ -24,7 +24,6 @@ from ludwig.schema.preprocessing import PreprocessingConfig
 from ludwig.schema.split import get_split_cls
 from ludwig.schema.trainer import get_llm_trainer_cls, trainer_schema_registry
 
-
 # Monkey patch the jsonschema check is it's unnedded and leads to inspect errors
 base.check_schema = lambda x: None
 
@@ -37,11 +36,23 @@ def flatten(d, prefix=""):
             key = f"{prefix}.{key}"
         o_dict[key] = v
 
-        if v is not None and hasattr(v, "load_default"):
-            default = v.load_default
-            if callable(default):
-                default = default()
-
+        if (
+            v is not None
+            and hasattr(v, "default_factory")
+            and v.default_factory is not None
+        ):
+            default = v.default_factory()
+            cls = type(default)
+            if hasattr(cls, "get_class_schema"):
+                schema = cls.get_class_schema()()
+                if "type" not in schema.fields:
+                    o_dict.update(flatten(schema.fields, key))
+        elif (
+            v is not None
+            and hasattr(v, "default")
+            and v.default is not PydanticUndefined
+        ):
+            default = v.default
             cls = type(default)
             if hasattr(cls, "get_class_schema"):
                 schema = cls.get_class_schema()()
@@ -55,15 +66,20 @@ def dump_value(v):
     return json.dumps(v).lstrip('"').rstrip('"')
 
 
+def _get_parameter_metadata(field):
+    extra = getattr(field, "json_schema_extra", None) or {}
+    return extra.get("parameter_metadata", {})
+
+
 def is_internal(field):
-    param_meta = field.metadata.get("parameter_metadata", {})
+    param_meta = _get_parameter_metadata(field)
     if param_meta and param_meta.get("internal_only"):
         return True
     return False
 
 
 def expected_impact(field):
-    param_meta = field.metadata.get("parameter_metadata", {})
+    param_meta = _get_parameter_metadata(field)
     if not param_meta:
         return 0
     return param_meta.get("expected_impact", 0)
@@ -98,11 +114,11 @@ def define_env(env):
 
     @env.macro
     def get_input_feature_schema(type: str):
-        return get_input_feature_cls(type)
+        return get_input_feature_cls(MODEL_ECD, type)
 
     @env.macro
     def get_output_feature_schema(type: str):
-        return get_output_feature_cls(type)
+        return get_output_feature_cls(MODEL_ECD, type)
 
     @env.macro
     def get_encoder_schema(feature: str, type: str):
@@ -172,7 +188,7 @@ def define_env(env):
 
     @env.macro
     def get_encoder_schemas(feature: str):
-        return get_encoder_classes(feature)
+        return get_encoder_classes(MODEL_ECD, feature)
 
     @env.macro
     def get_hf_text_encoder_schemas():
@@ -188,7 +204,7 @@ def define_env(env):
 
     @env.macro
     def schema_class_long_description(cls):
-        return cls.get_class_schema()().fields["type"].metadata["description"]
+        return cls.get_class_schema()().fields["type"].description
 
     @env.macro
     def schema_class_to_yaml(cls, sort_by_impact=True, exclude=None, updates=None):
@@ -226,7 +242,9 @@ def define_env(env):
             return ""
 
         has_default = True
-        default_value = field.dump_default
+        default_value = field.default
+        if default_value is PydanticUndefined:
+            default_value = None
         if isinstance(default_value, dict):
             if "type" in default_value:
                 default_value = {"type": default_value["type"]}
@@ -235,8 +253,6 @@ def define_env(env):
 
         default_str = ""
         if has_default:
-            if default_value == missing:
-                default_value = None
             default_str = f"(default: `{dump_value(default_value)}`)"
 
         impact = expected_impact(field)
@@ -246,11 +262,12 @@ def define_env(env):
                 ' :octicons-bookmark-fill-24:{ title="High impact parameter" }'
             )
 
-        s = f"- **`{name}`** {default_str}{impact_badge}: {field.metadata['description']}"
-        if field.validate is not None and hasattr(field.validate, "choices"):
-            options = ", ".join(
-                [f"`{dump_value(opt)}`" for opt in field.validate.choices]
-            )
+        description = field.description or ""
+        s = f"- **`{name}`** {default_str}{impact_badge}: {description}"
+        extra = getattr(field, "json_schema_extra", None) or {}
+        choices = extra.get("enum")
+        if choices:
+            options = ", ".join([f"`{dump_value(opt)}`" for opt in choices])
             s += f" Options: {options}."
 
         if details is not None and name in details:

@@ -291,7 +291,7 @@ graph LR
 ```
 { data-search-exclude }
 
-The LLM encoder processes text with a pretrained LLM (ex. `llama-2-7b`) passes the last hidden state of the LLM forward to the combiner. Like the [LLM model type](../large_langiage_model.md), adapter-based fine-tuning and quantization can be configured, and any combiner or decoder parameters will be bundled with the adapter weights.
+The LLM encoder processes text with a pretrained LLM (ex. `llama-2-7b`) passes the last hidden state of the LLM forward to the combiner. Like the [LLM model type](../large_language_model.md), adapter-based fine-tuning and quantization can be configured, and any combiner or decoder parameters will be bundled with the adapter weights.
 
 Example config:
 
@@ -312,7 +312,7 @@ Parameters:
 The `base_model` parameter specifies the pretrained large language model to serve
 as the foundation of your custom LLM.
 
-More information about the `base_model` parameter can be found [here](../configuration/large_language_model.md#base-model)
+More information about the `base_model` parameter can be found [here](../large_language_model.md#base-model)
 
 ### Adapter
 
@@ -328,7 +328,7 @@ More information about the `base_model` parameter can be found [here](../configu
 {{ render_fields(schema_class_to_fields(adapter, exclude=["type"])) }}
 {% endfor %}
 
-More information about the adapter config can be found [here](../configuration/large_language_model.md#adapter).
+More information about the adapter config can be found [here](../large_language_model.md#adapter).
 
 ### Quantization
 
@@ -346,11 +346,11 @@ More information about the adapter config can be found [here](../configuration/l
 
 {{ render_fields(schema_class_to_fields(quantization)) }}
 
-More information about quantization parameters can be found [here](../configuration/large_language_model.md#quantization).
+More information about quantization parameters can be found [here](../large_language_model.md#quantization).
 
 ### Model Parameters
 
-More information about the model initialization parameters can be found [here](../configuration/large_language_model.md#model-parameters).
+More information about the model initialization parameters can be found [here](../large_language_model.md#model-parameters).
 
 # Output Features
 

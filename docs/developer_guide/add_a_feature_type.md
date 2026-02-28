@@ -195,8 +195,6 @@ Here is an example of how the category feature schema classes are defined:
 ### Input Feature Type
 
 ```python
-from marshmallow_dataclass import dataclass
-
 from ludwig.constants import CATEGORY
 from ludwig.schema import utils as schema_utils
 from ludwig.schema.encoders.base import BaseEncoderConfig
@@ -205,10 +203,11 @@ from ludwig.schema.features.base import BaseInputFeatureConfig
 from ludwig.schema.features.preprocessing.base import BasePreprocessingConfig
 from ludwig.schema.features.preprocessing.utils import PreprocessingDataclassField
 from ludwig.schema.features.utils import input_config_registry, output_config_registry
+from ludwig.schema.utils import ludwig_dataclass
 
 
 @input_config_registry.register(CATEGORY)
-@dataclass
+@ludwig_dataclass
 class CategoryInputFeatureConfig(BaseInputFeatureConfig):
     """CategoryInputFeatureConfig is a dataclass that configures the parameters used for a category input
     feature."""
@@ -234,9 +233,8 @@ well:
 ### Output Feature Type
 
 ```python
-from marshmallow_dataclass import dataclass
-
 from ludwig.schema import utils as schema_utils
+from ludwig.schema.utils import ludwig_dataclass
 from ludwig.constants import CATEGORY, SOFTMAX_CROSS_ENTROPY
 from ludwig.schema.decoders.base import BaseDecoderConfig
 from ludwig.schema.decoders.utils import DecoderDataclassField
@@ -248,7 +246,7 @@ from ludwig.schema.features.preprocessing.utils import PreprocessingDataclassFie
 from ludwig.schema.features.utils import output_config_registry
 
 @output_config_registry.register(CATEGORY)
-@dataclass
+@ludwig_dataclass
 class CategoryOutputFeatureConfig(BaseOutputFeatureConfig):
     """CategoryOutputFeatureConfig is a dataclass that configures the parameters used for a category output
     feature."""

@@ -43,7 +43,7 @@ template. To add a new combiner:
 
 ## 1. Define the combiner's schema
 
-The combiner schema is a `dataclass` (overloaded by the `marshmallow_dataclass` modue) that must extend
+The combiner schema is a `dataclass` (using the `ludwig_dataclass` decorator) that must extend
 `BaseCombinerConfig`. Its attributes are the configuration parameters of the combiner. All fields should have a type
 and a default value. The `ludwig.schema.utils.py` module provides convenient methods for specifying the valid types and
 ranges of a combiner config. For example, the `TransformerCombiner` has the following schema:
@@ -52,11 +52,11 @@ ranges of a combiner config. For example, the `TransformerCombiner` has the foll
 from typing import Optional, List, Dict, Any
 
 # Main imports:
-from marshmallow_dataclass import dataclass
 from ludwig.schema import utils as schema_utils
 from ludwig.schema.combiners.base import BaseCombinerConfig
+from ludwig.schema.utils import ludwig_dataclass
 
-@dataclass
+@ludwig_dataclass
 class TransformerCombinerConfig(BaseCombinerConfig):
     num_layers: int = schema.PositiveInteger(default=1)
     hidden_size: int = schema.NonNegativeInteger(default=256)

@@ -84,21 +84,20 @@ class SequenceGeneratorDecoder(Decoder):
 # 4. Define a schema class
 
 In order to ensure that user config validation for your custom defined decoder functions as desired, we need to define a
-schema class to go along with the newly defined decoder. To do this, we use a marshmallow_dataclass decorator on a class
+schema class to go along with the newly defined decoder. To do this, we use the `ludwig_dataclass` decorator on a class
 definition that contains all the inputs to your custom decoder as attributes. For each attribute, we use utility
 functions from the `ludwig.schema.utils` directory to validate that input. Lastly, we need to put a reference to this
 schema class on the custom decoder class. For example:
 
 ```python
-from marshmallow_dataclass import dataclass
-
 from ludwig.constants import SEQUENCE, TEXT
 from ludwig.schema.decoders.base import BaseDecoderConfig
 from ludwig.schema.decoders.utils import register_decoder_config
 import ludwig.schema.utils as schema_utils
+from ludwig.schema.utils import ludwig_dataclass
 
 @register_decoder_config("generator", [SEQUENCE, TEXT])
-@dataclass
+@ludwig_dataclass
 class SequenceGeneratorDecoderConfig(BaseDecoderConfig):
 
     type: str = schema_utils.StringOptions(options=["generator"], default="generator")

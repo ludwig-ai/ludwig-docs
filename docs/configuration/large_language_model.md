@@ -336,7 +336,7 @@ tasks involving lengthy documents that surpass this context length.
 
 **RoPE Scaling** presents a way to increase the context length of your model at the cost of a slight performance
 penalty using a method called Position Interpolation. You can read more about it in the original paper
-[here](https://arxiv.org/pdf/2306.15595.pdf).
+[here](https://arxiv.org/abs/2306.15595).
 
 There are two parameters to consider for RoPE scaling: `type` and `factor`. The typical rule of thumb is that
 your new context length will be `context_length` \* `factor`. So, if you want to extend LLaMA-2 to have a context
@@ -350,7 +350,7 @@ _Credit to /u/emozilla and /u/kaiokendev on Reddit for their work and this graph
 You can enable RoPE Scaling in Ludwig using the following config:
 
 {% set rs = get_rope_scaling_schema() %}
-{{ render_yaml(rs, parent="rope_scaling", updates={"type": "dynamic", "factor": 2.0}) }}
+{{ render_yaml(rs, parent="rope_scaling", updates={"rope_type": "dynamic", "factor": 2.0}) }}
 
 {{ render_fields(schema_class_to_fields(rs)) }}
 
@@ -367,7 +367,7 @@ vectors during training. The alpha parameter serves as a control mechanism, allo
 the fine-tuning phase.
 
 Standard finetuning of LLaMA-2-7B using Alpaca achieves 29.79% on AlpacaEval, which rises to
-64.69% using noisy embeddings. NEFTune also improves over strong baselines on modern instruction datasets. You can find more information [in the paper](available at https://arxiv.org/pdf/2310.05914.pdf) titled "NEFTune: Noisy Embeddings Improve Instruction Finetuning".
+64.69% using noisy embeddings. NEFTune also improves over strong baselines on modern instruction datasets. You can find more information [in the paper](https://arxiv.org/abs/2310.05914) titled "NEFTune: Noisy Embeddings Improve Instruction Finetuning".
 
 ![](images/../../images/neftune_performance.png)
 

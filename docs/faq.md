@@ -53,7 +53,7 @@ some input to some output.
   (potentially using a model).
 
 Decoder-only, encoder-only, encoder-decoder, vanilla feed-forward, transformers,
-GBMs, and more have all been implemented in Ludwig.
+and more have all been implemented in Ludwig.
 
 # What does Ludwig not support (yet)?
 

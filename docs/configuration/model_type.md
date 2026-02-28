@@ -4,8 +4,6 @@ The following model types are supported:
 
 - `ecd` (default): Encoder-Combiner-Decoder neural network model.
 - `llm`: Large Language Model for text generation.
-- `gbm`: Gradient Boosting Machine tree-based model.
-
 ```yaml
 model_type: ecd
 ```
@@ -34,14 +32,3 @@ The LLM model type supports all pretrained HuggingFace Causal LM models from the
     - only a single text input and text output feature is supported (for now)
     - the `combiner` section is ignored
 
-## Model Type: GBM
-
-The GBM model type is a gradient boosting machine (GBM) tree model. It is a tree model that is trained using a supported tree learner. Currently, the only supported tree learner is LightGBM.
-
-!!! attention
-
-    Selecting the `gbm` model type introduces the following limitations:
-
-    - only binary, category, and number features are supported
-    - only a single output feature is supported
-    - the `combiner` section is ignored

@@ -100,7 +100,6 @@ nav:
           - Image Classification: examples/mnist.md
           - Multimodal Classification: examples/multimodal_classification.md
           - Hyperparameter Optimization: examples/hyperopt.md
-          - Fraud with GBMs: examples/gbm_fraud.md
           - Sentiment Analysis: examples/sentiment_analysis.md
       - Use Cases:
           - Named Entity Recognition Tagging: examples/ner_tagging.md

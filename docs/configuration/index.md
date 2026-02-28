@@ -20,13 +20,13 @@ The config specifies input features, output features, preprocessing, model archi
 search, and backend infrastructure -- everything that's needed to build, train, and evaluate a model:
 
 - [model_type](./model_type.md): the model variant used for training. Defaults to ECD, which is a neural network based architecture. Also supports
-LLM (large language model for text generation) and GBM (gradient-boosted machine, a tree based model).
+LLM (large language model for text generation).
 - [input_features](./features/input_features.md): which columns from your training dataset will be used as inputs to the model, what their
 data types are, how they should be preprocessed, and how they should be encoded.
 - [output_features](./features/output_features.md): the targets we want the model to learn to predict. The data type of the output feature defines
 the task (`number` is a regression task, `category` is a multi-class classification task, etc.).
 - [combiner](./combiner.md): the backbone model architecture that takes as input all encoded input features and transforms them into a single
-embedding vector. The combiner effectively combines individual feature-level models into a model that can accept any number of inputs. GBM models do not make use of the combiner.
+embedding vector. The combiner effectively combines individual feature-level models into a model that can accept any number of inputs.
 - [preprocessing](./preprocessing.md): global preprocessing options including how to split the dataset and how to sample the data.
 - [defaults](./defaults.md) default feature configuration. Useful when you have many input features of the same type, and want to apply the same
 preprocessing, encoders, etc. to all of them. Overridden by the feature-level configuration if provided.

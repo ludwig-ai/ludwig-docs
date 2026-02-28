@@ -18,11 +18,6 @@ By default, the ECD trainer is used.
     {% set llm_trainer = get_trainer_schema("llm") %}
     {{ render_yaml(llm_trainer, parent="trainer") | indent }}
 
-=== "GBM"
-
-    {% set gbm_trainer = get_trainer_schema("gbm") %}
-    {{ render_yaml(gbm_trainer, parent="trainer") | indent }}
-
 ## Trainer parameters
 
 === "ECD"
@@ -32,12 +27,6 @@ By default, the ECD trainer is used.
 === "LLM"
 
     {{ render_fields(schema_class_to_fields(llm_trainer), details=details) | indent }}
-
-=== "GBM"
-
-    See the [LightGBM documentation](https://lightgbm.readthedocs.io/en/latest/Parameters.html) for more details about the available parameters.
-
-    {{ render_fields(schema_class_to_fields(gbm_trainer), details=details) | indent }}
 
 ## Optimizer parameters
 
@@ -67,10 +56,6 @@ By default, the ECD trainer is used.
         clip_value: null
         ```
 
-=== "GBM"
-
-    No optimizer parameters are available for the LightGBM trainer.
-
 # Training length
 
 The length of the training process is configured by:
@@ -82,11 +67,6 @@ The length of the training process is configured by:
     - `train_steps` (default: `None`): The maximum number of steps to train for,
         using one mini-batch per step. By default this is unset, and `epochs` will
         be used to determine training length.
-
-=== "GBM"
-    - `num_boost_round` (default: 100): The number of boosting iterations. By default,
-        `num_boost_round` is 100 which means that the training process will run for
-        a maximum of 100 boosting iterations before terminating.
 
 !!! tip
 

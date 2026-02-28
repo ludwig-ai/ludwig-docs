@@ -4587,18 +4587,18 @@ template. To add a new combiner:</p>
 <li>Add the new combiner to the combiner registry.</li>
 </ol>
 <h3 id="1-define-the-combiners-schema">1. Define the combiner's schema<a class="headerlink" href="#1-define-the-combiners-schema" title="Permanent link">&para;</a></h3>
-<p>The combiner schema is a <code>dataclass</code> (overloaded by the <code>marshmallow_dataclass</code> modue) that must extend
+<p>The combiner schema is a <code>dataclass</code> (using the <code>ludwig_dataclass</code> decorator) that must extend
 <code>BaseCombinerConfig</code>. Its attributes are the configuration parameters of the combiner. All fields should have a type
 and a default value. The <code>ludwig.schema.utils.py</code> module provides convenient methods for specifying the valid types and
 ranges of a combiner config. For example, the <code>TransformerCombiner</code> has the following schema:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
 
 <span class="c1"># Main imports:</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">marshmallow_dataclass</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">utils</span> <span class="k">as</span> <span class="n">schema_utils</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.combiners.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseCombinerConfig</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">ludwig_dataclass</span>
 
-<span class="nd">@dataclass</span>
+<span class="nd">@ludwig_dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">TransformerCombinerConfig</span><span class="p">(</span><span class="n">BaseCombinerConfig</span><span class="p">):</span>
     <span class="n">num_layers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">schema</span><span class="o">.</span><span class="n">PositiveInteger</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">hidden_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">schema</span><span class="o">.</span><span class="n">NonNegativeInteger</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>

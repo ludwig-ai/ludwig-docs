@@ -102,7 +102,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#macro-rendering-error" class="md-skip">
+        <a href="#preprocessing" class="md-skip">
           Skip to content
         </a>
       
@@ -2286,10 +2286,88 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#macro-rendering-error" class="md-nav__link">
+  <a href="#preprocessing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Macro Rendering Error
+        Preprocessing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Input Features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Input Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encoders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Encoders
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Encoders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#embed-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Embed Encoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#weighted-sum-embed-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Weighted Sum Embed Encoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rnn-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RNN Encoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Features
       
     </span>
   </a>
@@ -4410,10 +4488,88 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#macro-rendering-error" class="md-nav__link">
+  <a href="#preprocessing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Macro Rendering Error
+        Preprocessing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Input Features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Input Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encoders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Encoders
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Encoders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#embed-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Embed Encoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#weighted-sum-embed-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Weighted Sum Embed Encoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rnn-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RNN Encoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Features
       
     </span>
   </a>
@@ -4442,32 +4598,159 @@
 
   <h1>↑ H3 Features</h1>
 
-<h2 id="macro-rendering-error"><em>Macro Rendering Error</em><a class="headerlink" href="#macro-rendering-error" title="Permanent link">&para;</a></h2>
-<p><em>File</em>: <code>configuration/features/h3_features.md</code></p>
-<p><em>AttributeError</em>: 'list' object has no attribute 'get'</p>
-<div class="highlight"><pre><span></span><code>Traceback (most recent call last):
-  File &quot;/opt/hostedtoolcache/Python/3.12.12/x64/lib/python3.12/site-packages/mkdocs_macros/plugin.py&quot;, line 703, in render
-    return md_template.render(**page_variables)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/opt/hostedtoolcache/Python/3.12.12/x64/lib/python3.12/site-packages/jinja2/environment.py&quot;, line 1295, in render
-    self.environment.handle_exception()
-  File &quot;/opt/hostedtoolcache/Python/3.12.12/x64/lib/python3.12/site-packages/jinja2/environment.py&quot;, line 942, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File &quot;&lt;template&gt;&quot;, line 14, in top-level template code
-  File &quot;/opt/hostedtoolcache/Python/3.12.12/x64/lib/python3.12/site-packages/jinja2/runtime.py&quot;, line 784, in _invoke
-    rv = self._func(*arguments)
-         ^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/home/runner/work/ludwig-docs/ludwig-docs/docs/macros/includes.md&quot;, line 12, in template
-    {% for line in schema_class_to_yaml(schema, sort_by_impact=sort_by_impact, exclude=exclude, updates=updates).split(&quot;\n&quot;) %}
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/home/runner/work/ludwig-docs/ludwig-docs/main.py&quot;, line 198, in schema_class_to_yaml
-    internal_fields = {n for n, f in schema.fields.items() if is_internal(f)}
-                                                              ^^^^^^^^^^^^^^
-  File &quot;/home/runner/work/ludwig-docs/ludwig-docs/main.py&quot;, line 59, in is_internal
-    param_meta = field.metadata.get(&quot;parameter_metadata&quot;, {})
-                 ^^^^^^^^^^^^^^^^^^
-AttributeError: &#39;list&#39; object has no attribute &#39;get&#39;
+<p>H3 is a indexing system for representing geospatial data.
+For more details about it refer to <a href="https://eng.uber.com/h3">https://eng.uber.com/h3</a>.</p>
+<h2 id="preprocessing">Preprocessing<a class="headerlink" href="#preprocessing" title="Permanent link">&para;</a></h2>
+<p>Ludwig will parse the H3 64bit encoded format automatically.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">missing_value_strategy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fill_with_const</span>
+<span class="w">    </span><span class="nt">fill_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">576495936675512319</span>
 </code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>missing_value_strategy</code></strong> (default: <code>fill_with_const</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: What strategy to follow when there's a missing value in an h3 column Options: <code>fill_with_const</code>, <code>fill_with_mode</code>, <code>bfill</code>, <code>ffill</code>, <code>drop_row</code>. See <a href="../input_features/#missing-value-strategy">Missing Value Strategy</a> for details.</li>
+<li><strong><code>fill_value</code></strong> (default: <code>576495936675512319</code>): The value to replace missing values with in case the missing_value_strategy is fill_with_const</li>
+</ul>
+<p>Preprocessing parameters can also be defined once and applied to all H3 input features using the <a href="../../defaults/#type-global-preprocessing">Type-Global Preprocessing</a> section.</p>
+<h2 id="input-features">Input Features<a class="headerlink" href="#input-features" title="Permanent link">&para;</a></h2>
+<p>Input H3 features are transformed into a int valued tensors of size <code>N x 19</code> (where <code>N</code> is the size of the dataset and the 19 dimensions
+represent 4 H3 resolution parameters (4) - mode, edge, resolution, base cell - and 15 cell coordinate values.</p>
+<p>The encoder parameters specified at the feature level are:</p>
+<ul>
+<li><strong><code>tied</code></strong> (default <code>null</code>): name of another input feature to tie the weights of the encoder with. It needs to be the name of
+a feature of the same type and with the same encoder parameters.</li>
+</ul>
+<p>Example H3 feature entry in the input features list:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">h3_feature_name</span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">h3</span>
+<span class="nt">tied</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">embed</span>
+</code></pre></div>
+<p>The available encoder parameters are:</p>
+<ul>
+<li><strong><code>type</code></strong> (default <code>embed</code>): the possible values are <code>embed</code>, <code>weighted_sum</code>,  and <code>rnn</code>.</li>
+</ul>
+<p>Encoder type and encoder parameters can also be defined once and applied to all H3 input features using
+the <a href="../../defaults/#type-global-encoder">Type-Global Encoder</a> section.</p>
+<h3 id="encoders">Encoders<a class="headerlink" href="#encoders" title="Permanent link">&para;</a></h3>
+<h4 id="embed-encoder">Embed Encoder<a class="headerlink" href="#embed-encoder" title="Permanent link">&para;</a></h4>
+<p>This encoder encodes each component of the H3 representation (mode, edge, resolution, base cell and children cells) with embeddings. Children cells with value <code>0</code> will be masked out. After the embedding, all embeddings are summed and optionally passed through a stack of fully connected layers.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">embed</span>
+<span class="w">    </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+<span class="w">    </span><span class="nt">embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">    </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">    </span><span class="nt">activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span>
+<span class="w">    </span><span class="nt">norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span>
+<span class="w">    </span><span class="nt">weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xavier_uniform</span>
+<span class="w">    </span><span class="nt">embeddings_on_cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sum</span>
+<span class="w">    </span><span class="nt">norm_params</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">skip</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>dropout</code></strong> (default: <code>0.0</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: Dropout probability for the embedding.</li>
+<li><strong><code>embedding_size</code></strong> (default: <code>10</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: The maximum embedding size adopted.</li>
+<li><strong><code>output_size</code></strong> (default: <code>10</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: If an output_size is not already specified in fc_layers this is the default output_size that will be used for each layer. It indicates the size of the output of a fully connected layer.</li>
+<li><strong><code>activation</code></strong> (default: <code>relu</code>): The default activation function that will be used for each layer. Options: <code>elu</code>, <code>leakyRelu</code>, <code>logSigmoid</code>, <code>relu</code>, <code>sigmoid</code>, <code>tanh</code>, <code>softmax</code>, <code>null</code>.</li>
+<li><strong><code>norm</code></strong> (default: <code>null</code>): The default norm that will be used for each layer. Options: <code>batch</code>, <code>layer</code>, <code>null</code>. See <a href="../../combiner/#normalization">Normalization</a> for details.</li>
+<li><strong><code>use_bias</code></strong> (default: <code>true</code>): Whether the layer uses a bias vector.</li>
+<li><strong><code>bias_initializer</code></strong> (default: <code>zeros</code>): Initializer to use for the bias vector. Options: <code>uniform</code>, <code>normal</code>, <code>constant</code>, <code>ones</code>, <code>zeros</code>, <code>eye</code>, <code>dirac</code>, <code>xavier_uniform</code>, <code>xavier_normal</code>, <code>kaiming_uniform</code>, <code>kaiming_normal</code>, <code>orthogonal</code>, <code>sparse</code>, <code>identity</code>.</li>
+<li><strong><code>weights_initializer</code></strong> (default: <code>xavier_uniform</code>): Initializer to use for the weights matrix. Options: <code>uniform</code>, <code>normal</code>, <code>constant</code>, <code>ones</code>, <code>zeros</code>, <code>eye</code>, <code>dirac</code>, <code>xavier_uniform</code>, <code>xavier_normal</code>, <code>kaiming_uniform</code>, <code>kaiming_normal</code>, <code>orthogonal</code>, <code>sparse</code>, <code>identity</code>.</li>
+<li><strong><code>embeddings_on_cpu</code></strong> (default: <code>false</code>): Whether to force the placement of the embedding matrix in regular memory and have the CPU resolve them.</li>
+<li><strong><code>reduce_output</code></strong> (default: <code>sum</code>): How to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Options: <code>last</code>, <code>sum</code>, <code>mean</code>, <code>avg</code>, <code>max</code>, <code>concat</code>, <code>attention</code>, <code>none</code>, <code>None</code>, <code>null</code>.</li>
+<li><strong><code>norm_params</code></strong> (default: <code>null</code>): Parameters used if norm is either <code>batch</code> or <code>layer</code>.</li>
+<li><strong><code>num_fc_layers</code></strong> (default: <code>0</code>): The number of stacked fully connected layers.</li>
+<li><strong><code>fc_layers</code></strong> (default: <code>null</code>): List of dictionaries containing the parameters for each fully connected layer.</li>
+<li><strong><code>skip</code></strong> (default: <code>false</code>): </li>
+</ul>
+<h4 id="weighted-sum-embed-encoder">Weighted Sum Embed Encoder<a class="headerlink" href="#weighted-sum-embed-encoder" title="Permanent link">&para;</a></h4>
+<p>This encoder encodes each component of the H3 representation (mode, edge, resolution, base cell and children cells) with embeddings. Children cells with value <code>0</code> will be masked out. After the embedding, all embeddings are summed with a weighted sum (with learned weights) and optionally passed through a stack of fully connected layers.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">weighted_sum</span>
+<span class="w">    </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+<span class="w">    </span><span class="nt">embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">    </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">    </span><span class="nt">activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span>
+<span class="w">    </span><span class="nt">norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span>
+<span class="w">    </span><span class="nt">weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xavier_uniform</span>
+<span class="w">    </span><span class="nt">embeddings_on_cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">should_softmax</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">norm_params</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">skip</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>dropout</code></strong> (default: <code>0.0</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: Dropout probability for the embedding.</li>
+<li><strong><code>embedding_size</code></strong> (default: <code>10</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: The maximum embedding size adopted.</li>
+<li><strong><code>output_size</code></strong> (default: <code>10</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: If an output_size is not already specified in fc_layers this is the default output_size that will be used for each layer. It indicates the size of the output of a fully connected layer.</li>
+<li><strong><code>activation</code></strong> (default: <code>relu</code>): The default activation function that will be used for each layer. Options: <code>elu</code>, <code>leakyRelu</code>, <code>logSigmoid</code>, <code>relu</code>, <code>sigmoid</code>, <code>tanh</code>, <code>softmax</code>, <code>null</code>.</li>
+<li><strong><code>norm</code></strong> (default: <code>null</code>): The default norm that will be used for each layer. Options: <code>batch</code>, <code>layer</code>, <code>null</code>. See <a href="../../combiner/#normalization">Normalization</a> for details.</li>
+<li><strong><code>use_bias</code></strong> (default: <code>true</code>): Whether the layer uses a bias vector.</li>
+<li><strong><code>bias_initializer</code></strong> (default: <code>zeros</code>): Initializer to use for the bias vector. Options: <code>uniform</code>, <code>normal</code>, <code>constant</code>, <code>ones</code>, <code>zeros</code>, <code>eye</code>, <code>dirac</code>, <code>xavier_uniform</code>, <code>xavier_normal</code>, <code>kaiming_uniform</code>, <code>kaiming_normal</code>, <code>orthogonal</code>, <code>sparse</code>, <code>identity</code>.</li>
+<li><strong><code>weights_initializer</code></strong> (default: <code>xavier_uniform</code>): Initializer to use for the weights matrix. Options: <code>uniform</code>, <code>normal</code>, <code>constant</code>, <code>ones</code>, <code>zeros</code>, <code>eye</code>, <code>dirac</code>, <code>xavier_uniform</code>, <code>xavier_normal</code>, <code>kaiming_uniform</code>, <code>kaiming_normal</code>, <code>orthogonal</code>, <code>sparse</code>, <code>identity</code>.</li>
+<li><strong><code>embeddings_on_cpu</code></strong> (default: <code>false</code>): Whether to force the placement of the embedding matrix in regular memory and have the CPU resolve them.</li>
+<li><strong><code>should_softmax</code></strong> (default: <code>false</code>): Determines if the weights of the weighted sum should be passed though a softmax layer before being used.</li>
+<li><strong><code>norm_params</code></strong> (default: <code>null</code>): Parameters used if norm is either <code>batch</code> or <code>layer</code>.</li>
+<li><strong><code>num_fc_layers</code></strong> (default: <code>0</code>): The number of stacked fully connected layers.</li>
+<li><strong><code>fc_layers</code></strong> (default: <code>null</code>): List of dictionaries containing the parameters for each fully connected layer.</li>
+<li><strong><code>skip</code></strong> (default: <code>false</code>): </li>
+</ul>
+<h4 id="rnn-encoder">RNN Encoder<a class="headerlink" href="#rnn-encoder" title="Permanent link">&para;</a></h4>
+<p>This encoder encodes each component of the H3 representation (mode, edge, resolution, base cell and children cells) with embeddings. Children cells with value <code>0</code> will be masked out. After the embedding, all embeddings are passed through an RNN encoder.</p>
+<p>The intuition behind this is that, starting from the base cell, the sequence of children cells can be seen as a sequence encoding the path in the tree of all H3 hexes.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rnn</span>
+<span class="w">    </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+<span class="w">    </span><span class="nt">cell_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rnn</span>
+<span class="w">    </span><span class="nt">num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">    </span><span class="nt">recurrent_dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+<span class="w">    </span><span class="nt">hidden_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">    </span><span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span>
+<span class="w">    </span><span class="nt">activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tanh</span>
+<span class="w">    </span><span class="nt">recurrent_activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sigmoid</span>
+<span class="w">    </span><span class="nt">unit_forget_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xavier_uniform</span>
+<span class="w">    </span><span class="nt">recurrent_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">orthogonal</span>
+<span class="w">    </span><span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">last</span>
+<span class="w">    </span><span class="nt">embeddings_on_cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">skip</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">bidirectional</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>dropout</code></strong> (default: <code>0.0</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: The dropout rate</li>
+<li><strong><code>cell_type</code></strong> (default: <code>rnn</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: The type of recurrent cell to use. Available values are: <code>rnn</code>, <code>lstm</code>, <code>lstm_block</code>, <code>lstm</code>, <code>ln</code>, <code>lstm_cudnn</code>, <code>gru</code>, <code>gru_block</code>, <code>gru_cudnn</code>. For reference about the differences between the cells please refer to PyTorch's documentation. We suggest to use the <code>block</code> variants on CPU and the <code>cudnn</code> variants on GPU because of their increased speed.  Options: <code>rnn</code>, <code>lstm</code>, <code>lstm_block</code>, <code>ln</code>, <code>lstm_cudnn</code>, <code>gru</code>, <code>gru_block</code>, <code>gru_cudnn</code>.</li>
+<li><strong><code>num_layers</code></strong> (default: <code>1</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: The number of stacked recurrent layers.</li>
+<li><strong><code>embedding_size</code></strong> (default: <code>10</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: The maximum embedding size adopted.</li>
+<li><strong><code>recurrent_dropout</code></strong> (default: <code>0.0</code>): The dropout rate for the recurrent state</li>
+<li><strong><code>hidden_size</code></strong> (default: <code>10</code>): The size of the hidden representation within the transformer block. It is usually the same as the embedding_size, but if the two values are different, a projection layer will be added before the first transformer block.</li>
+<li><strong><code>bias_initializer</code></strong> (default: <code>zeros</code>): Initializer to use for the bias vector. Options: <code>uniform</code>, <code>normal</code>, <code>constant</code>, <code>ones</code>, <code>zeros</code>, <code>eye</code>, <code>dirac</code>, <code>xavier_uniform</code>, <code>xavier_normal</code>, <code>kaiming_uniform</code>, <code>kaiming_normal</code>, <code>orthogonal</code>, <code>sparse</code>, <code>identity</code>.</li>
+<li><strong><code>activation</code></strong> (default: <code>tanh</code>): The activation function to use Options: <code>elu</code>, <code>leakyRelu</code>, <code>logSigmoid</code>, <code>relu</code>, <code>sigmoid</code>, <code>tanh</code>, <code>softmax</code>, <code>null</code>.</li>
+<li><strong><code>recurrent_activation</code></strong> (default: <code>sigmoid</code>): The activation function to use in the recurrent step Options: <code>elu</code>, <code>leakyRelu</code>, <code>logSigmoid</code>, <code>relu</code>, <code>sigmoid</code>, <code>tanh</code>, <code>softmax</code>, <code>null</code>.</li>
+<li><strong><code>unit_forget_bias</code></strong> (default: <code>true</code>): If true, add 1 to the bias of the forget gate at initialization</li>
+<li><strong><code>weights_initializer</code></strong> (default: <code>xavier_uniform</code>): Initializer to use for the weights matrix. Options: <code>uniform</code>, <code>normal</code>, <code>constant</code>, <code>ones</code>, <code>zeros</code>, <code>eye</code>, <code>dirac</code>, <code>xavier_uniform</code>, <code>xavier_normal</code>, <code>kaiming_uniform</code>, <code>kaiming_normal</code>, <code>orthogonal</code>, <code>sparse</code>, <code>identity</code>.</li>
+<li><strong><code>recurrent_initializer</code></strong> (default: <code>orthogonal</code>): The initializer for recurrent matrix weights Options: <code>uniform</code>, <code>normal</code>, <code>constant</code>, <code>ones</code>, <code>zeros</code>, <code>eye</code>, <code>dirac</code>, <code>xavier_uniform</code>, <code>xavier_normal</code>, <code>kaiming_uniform</code>, <code>kaiming_normal</code>, <code>orthogonal</code>, <code>sparse</code>, <code>identity</code>.</li>
+<li><strong><code>reduce_output</code></strong> (default: <code>last</code>): How to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Options: <code>last</code>, <code>sum</code>, <code>mean</code>, <code>avg</code>, <code>max</code>, <code>concat</code>, <code>attention</code>, <code>none</code>, <code>None</code>, <code>null</code>.</li>
+<li><strong><code>embeddings_on_cpu</code></strong> (default: <code>false</code>): Whether to force the placement of the embedding matrix in regular memory and have the CPU resolve them.</li>
+<li><strong><code>skip</code></strong> (default: <code>false</code>): </li>
+<li><strong><code>use_bias</code></strong> (default: <code>true</code>): Whether to use a bias vector.</li>
+<li><strong><code>bidirectional</code></strong> (default: <code>false</code>): If true, two recurrent networks will perform encoding in the forward and backward direction and their outputs will be concatenated.</li>
+</ul>
+<h2 id="output-features">Output Features<a class="headerlink" href="#output-features" title="Permanent link">&para;</a></h2>
+<p>There is currently no support for H3 as an output feature. Consider using the <a href="../../features/text_features"><code>TEXT</code> type</a>.</p>
 
 
 

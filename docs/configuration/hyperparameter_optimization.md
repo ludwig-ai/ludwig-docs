@@ -156,20 +156,20 @@ Read more about nested Ludwig config parameters [here](../user_guide/hyperopt.md
 
 # Search Algorithm
 
-Ray Tune supports its own collection of [search algorithms](https://docs.ray.io/en/master/tune/api_docs/suggestion.html), specified by the `search_alg` section of the hyperopt config:
+Ray Tune supports its own collection of [search algorithms](https://docs.ray.io/en/latest/tune/api_docs/suggestion.html), specified by the `search_alg` section of the hyperopt config:
 
 ```yaml
 search_alg:
   type: variant_generator
 ```
 
-You can find the full list of supported search algorithm names in Ray Tune's [create_searcher](https://github.com/ray-project/ray/blob/master/python/ray/tune/suggest/__init__.py) function. Please note these algorithms require installation of additional packages.  As of this version of Ludwig, Ludwig installs the packages for the search algorithm `hyperopt`.  For all other search algorithms, the user is expected to install the required packages.
+You can find the full list of supported search algorithm names in Ray Tune's [create_searcher](https://github.com/ray-project/ray/blob/main/python/ray/tune/suggest/__init__.py) function. Please note these algorithms require installation of additional packages.  As of this version of Ludwig, Ludwig installs the packages for the search algorithm `hyperopt`.  For all other search algorithms, the user is expected to install the required packages.
 
 # Executor
 
 ## Ray Tune Executor
 
-The `ray` executor is used to enable [Ray Tune](https://docs.ray.io/en/master/tune/index.html) for both local and distributed hyperopt across a cluster of machines.
+The `ray` executor is used to enable [Ray Tune](https://docs.ray.io/en/latest/tune/index.html) for both local and distributed hyperopt across a cluster of machines.
 
 **Parameters:**
 
@@ -183,19 +183,19 @@ The `ray` executor is used to enable [Ray Tune](https://docs.ray.io/en/master/tu
 
 - `cpu_resources_per_trial`: The number of CPU cores allocated to each trial (default: 1).
 - `gpu_resources_per_trial`: The number of GPU devices allocated to each trial (default: 0).
-- `kubernetes_namespace`: When running on Kubernetes, provide the namespace of the Ray cluster to sync results between pods. See the [Ray docs](https://docs.ray.io/en/master/_modules/ray/tune/integration/kubernetes.html) for more info.
+- `kubernetes_namespace`: When running on Kubernetes, provide the namespace of the Ray cluster to sync results between pods. See the [Ray docs](https://docs.ray.io/en/latest/_modules/ray/tune/integration/kubernetes.html) for more info.
 - `time_budget_s`: The number of seconds for the entire hyperopt run.
 - `max_concurrent_trials`: The maximum number of trials to train concurrently. Defaults to `auto` if not specified.
 
     !!! note
         - If you're using a Ray backend, `auto` will infer the max_concurrent_trials that can be set given your cluster configuration to prevent trials from stalling.
-        - If you're using a Local or Horovod backend, `auto` will set max_concurrent_trials to None.
+        - If you're using a Local backend, `auto` will set max_concurrent_trials to None.
 
 ## Scheduler
 
-Ray Tune also allows you to specify a [scheduler](https://docs.ray.io/en/master/tune/api_docs/schedulers.html) to support features like early stopping and other population-based strategies that may pause and resume trials during trainer. Ludwig exposes the complete scheduler API in the `scheduler` section of the `executor` config.
+Ray Tune also allows you to specify a [scheduler](https://docs.ray.io/en/latest/tune/api_docs/schedulers.html) to support features like early stopping and other population-based strategies that may pause and resume trials during trainer. Ludwig exposes the complete scheduler API in the `scheduler` section of the `executor` config.
 
-You can find the full list of supported schedulers in Ray Tune's [create_scheduler](https://github.com/ray-project/ray/blob/master/python/ray/tune/schedulers/__init__.py) function.
+You can find the full list of supported schedulers in Ray Tune's [create_scheduler](https://github.com/ray-project/ray/blob/main/python/ray/tune/schedulers/__init__.py) function.
 
 Example:
 

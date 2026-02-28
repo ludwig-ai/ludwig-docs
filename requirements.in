@@ -1,7 +1,8 @@
-mkdocs
-mkdocs-material
-mike
+mkdocs>=1.6
+mkdocs-material>=9.5
+mike>=2.0
 Markdown>=3.0.1
+pymdown-extensions>=10.0
 mkdocs-macros-plugin
 ptitprince
 wget

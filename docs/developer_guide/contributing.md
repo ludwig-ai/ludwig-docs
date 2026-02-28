@@ -8,7 +8,7 @@ It also helps us if you spread the word: reference the library from blog posts o
 projects it made possible, shout out on X every time it has helped you, or simply star the
 repo to say "thank you".
 
-Check out the official [ludwig docs](https://ludwig-ai.github.io/ludwig-docs/) to get oriented
+Check out the official [ludwig docs](https://ludwig.ai/) to get oriented
 around the codebase, and join the community!
 
 ## Open Issues
@@ -41,7 +41,7 @@ Work on your self-assigned issue and eventually create a Pull Request.
    git checkout -b a-descriptive-name-for-my-changes
    ```
 
-   *Do not*\* work on the `master` branch.
+   *Do not*\* work on the `main` branch.
 
 1. Set up a development environment by running the following command in a virtual environment:
 
@@ -91,13 +91,6 @@ Work on your self-assigned issue and eventually create a Pull Request.
    pre-commit install
    ```
 
-1. Finally, if during the installation of `horovod`, the exception `ModuleNotFoundError: No module named 'packaging'`
-   occurs, you may need to disable `horovod` (that means you will need train with another backend, just not `horovod`).
-   To do that, edit the file `requirements_extra.txt` and comment out the line that begins with `horovod`.  After that,
-   please execute the long `pip install` command given in the previous step.  With these work-around provisions, your
-   installation should run to completion successfully.  If you are still having difficulty, please reach out with the
-   specifics of your environment in the Ludwig Community [Discord](https://discord.gg/CBgdrGnZjy).
-
 1. Develop features on your branch.
 
 1. Format your code by running pre-commits so that your newly added files look nice:
@@ -120,7 +113,7 @@ Work on your self-assigned issue and eventually create a Pull Request.
 
    ```bash
    git fetch upstream
-   git rebase upstream/master
+   git rebase upstream/main
    ```
 
    Push the changes to your account using:
@@ -135,7 +128,7 @@ Work on your self-assigned issue and eventually create a Pull Request.
 ## Other tips
 
 - Add unit tests for any new code you write.
-- Make sure tests pass. See the [Developer Guide](https://ludwig-ai.github.io/ludwig-docs/latest/developer_guide/style_guidelines_and_tests/) for more details.
+- Make sure tests pass. See the [Developer Guide](https://ludwig.ai/latest/developer_guide/style_guidelines_and_tests/) for more details.
 
 ## Attribution
 

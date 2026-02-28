@@ -1,6 +1,6 @@
 It's exciting to see the creative ways Ludwig has been integrated into various data science workflows and products.
 
-To better support the engineers and scientists who use Ludwig as a platform, Ludwig has stability guarantees and expectations defined within the codebase. To make API stability clear in code, we’ve adopted the python decorators below. You can find their python implementations in this [module](https://github.com/ludwig-ai/ludwig/blob/master/ludwig/api_annotations.py) within the Ludwig codebase.
+To better support the engineers and scientists who use Ludwig as a platform, Ludwig has stability guarantees and expectations defined within the codebase. To make API stability clear in code, we’ve adopted the python decorators below. You can find their python implementations in this [module](https://github.com/ludwig-ai/ludwig/blob/main/ludwig/api_annotations.py) within the Ludwig codebase.
 
 # PublicAPI
 

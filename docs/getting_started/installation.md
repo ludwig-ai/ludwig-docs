@@ -20,7 +20,6 @@ Optional Ludwig functionality is separated out into subpackages. Install what yo
 - `ludwig[hyperopt]` for hyperparameter optimization dependencies.
 - `ludwig[distributed]` for distributed training on [Ray](https://www.ray.io/) using [Dask](https://dask.org/).
 - `ludwig[explain]` for prediction explanations.
-- `ludwig[tree]` for LightGBM and tree-based models.
 - `ludwig[test]` for running ludwig's integration and unit tests.
 - `ludwig[benchmarking]` for Ludwig model benchmarking.
 - `ludwig[full]` for the full set of dependencies.
@@ -41,7 +40,7 @@ pip install -e .
 
 # Use devcontainers
 
-Ludwig supports development on [VSCode devcontainers](https://code.visualstudio.com/docs/devcontainers/containers). See Ludwig's [devcontainer files](https://github.com/ludwig-ai/ludwig/tree/master/.devcontainer).
+Ludwig supports development on [VSCode devcontainers](https://code.visualstudio.com/docs/devcontainers/containers). See Ludwig's [devcontainer files](https://github.com/ludwig-ai/ludwig/tree/main/.devcontainer).
 
 # Use pre-build docker images
 

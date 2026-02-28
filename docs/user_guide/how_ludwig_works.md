@@ -120,7 +120,6 @@ Take a look at [Examples](../../examples) to see how you can use Ludwig for seve
 
 By integrating with Ray, Ludwig is able to provide a unified way for doing distributed training:
 
-- Ray enables you to provision a cluster of machines in a single command through its [cluster launcher](https://docs.ray.io/en/releases-0.8.7/cluster/launcher.html).
-- [Horovod on Ray](https://horovod.readthedocs.io/en/stable/ray_include.html) enables you to do distributed training without needing to configure MPI in your environment.
-- [Dask on Ray](https://docs.ray.io/en/latest/data/dask-on-ray.html) enables you to process large datasets that don’t fit in memory on a single machine.
-- [Ray Tune](https://docs.ray.io/en/master/tune/index.html) enables you to easily run distributed hyperparameter search across many machines in parallel.
+- Ray enables you to provision a cluster of machines in a single command through its [cluster launcher](https://docs.ray.io/en/latest/cluster/getting-started.html).
+- [Dask on Ray](https://docs.ray.io/en/latest/ray-more-libs/dask-on-ray.html) enables you to process large datasets that don’t fit in memory on a single machine.
+- [Ray Tune](https://docs.ray.io/en/latest/tune/index.html) enables you to easily run distributed hyperparameter search across many machines in parallel.

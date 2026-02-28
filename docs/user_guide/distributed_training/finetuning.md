@@ -250,6 +250,6 @@ Fine-tuning large pretrained models typically benefit from [distributed training
 requiring a lot of additional hyperparameter tuning. As such, we recommend using the Ray [backend](../../configuration/backend.md)
 in order to take advantage of multi-GPU training and to scale to large datasets.
 
-In most cases, the`ddp` or  `horovod` distributed [strategy](../../configuration/backend.md#trainer) will work well, but if the
+In most cases, the `ddp` distributed [strategy](../../configuration/backend.md#trainer) will work well, but if the
 model is too large for your GPU type, then you should try the `deepspeed` strategy, which allows for sharding model parameters
 across multiple GPUs.

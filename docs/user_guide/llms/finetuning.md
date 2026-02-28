@@ -20,9 +20,9 @@ For such predictive (classification, regression) tasks, the solution is to remov
 
 ![img](../../images/llm-finetuning.png)
 
-You can find an example of generative fine-tuning [here](https://github.com/ludwig-ai/ludwig/tree/master/examples/llama2_7b_finetuning_4bit).
+You can find an example of generative fine-tuning [here](https://github.com/ludwig-ai/ludwig/tree/main/examples/llama2_7b_finetuning_4bit).
 
-You can find an example of predictive fine-tuning [here](https://github.com/ludwig-ai/ludwig/tree/master/examples/llm_finetuning).
+You can find an example of predictive fine-tuning [here](https://github.com/ludwig-ai/ludwig/tree/main/examples/llm_finetuning).
 
 For full details on configuring LLM fine-tuning, see the [Configuration docs](../../configuration/large_language_model.md).
 

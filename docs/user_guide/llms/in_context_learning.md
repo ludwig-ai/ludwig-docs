@@ -6,7 +6,7 @@ Zero-shot learning involves presenting the model with a task description or prom
 
 Concretely, zero-shot learning is the action taken when a user provides a prompt to an LLM that is not explicitly trained to perform the task described by the prompt. For example, if a user provides the prompt `translate from English to French:`, followed by some English text, the LLM will generate French text that is a translation of the English text. The LLM may not have necessarily been trained on this task, but it is able to do so because it has been trained to understand the structure of language.
 
-You can find an example of zero-shot learning [here](https://github.com/ludwig-ai/ludwig/tree/master/examples/llm_zero_shot_learning).
+You can find an example of zero-shot learning [here](https://github.com/ludwig-ai/ludwig/tree/main/examples/llm_zero_shot_learning).
 
 ![img](../../images/icl_zero_shot_learning.png)
 
@@ -16,7 +16,7 @@ Few-shot learning is a variant of zero-shot learning that involves providing a s
 
 This often results in better performance than zero-shot learning, but requires a small amount of labeled data. The amount of data required can range greatly, from a single example to a few hundred. The exact amount of data required depends on the task, the maximum context length of the LLM, and the relative strength of the model.
 
-To implement this in Ludwig, you can use the zero-shot learning [example](https://github.com/ludwig-ai/ludwig/tree/master/examples/llm_zero_shot_learning) and provide a few labeled examples in the `prompt.task` field of the config.
+To implement this in Ludwig, you can use the zero-shot learning [example](https://github.com/ludwig-ai/ludwig/tree/main/examples/llm_zero_shot_learning) and provide a few labeled examples in the `prompt.task` field of the config.
 
 ![img](../../images/icl_few_shot_learning.png)
 
@@ -30,7 +30,7 @@ As an example, assume the user has a dataset of a few hundred English-French tex
 
 It's possible that this performs better than few-shot learning, since the retrieval process can dynamically select the most relevant examples to include in the prompt. However, it requires a larger amount of labeled data, and the retrieval process can be slow.
 
-You can find an example of retrieval-augmented ICL [here](https://github.com/ludwig-ai/ludwig/tree/master/examples/llm_few_shot_learning).
+You can find an example of retrieval-augmented ICL [here](https://github.com/ludwig-ai/ludwig/tree/main/examples/llm_few_shot_learning).
 
 ![img](../../images/icl_retrieval_augmented_icl.png)
 

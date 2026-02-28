@@ -227,7 +227,7 @@ def class_to_source_link(_cls):
     module_name = clean_module_name(_cls.__module__)
     _path = module_name.replace(".", "/")
     _path += ".py"
-    link = "https://github.com/ludwig-ai/" "ludwig/blob/master/" + _path
+    link = "https://github.com/ludwig-ai/" "ludwig/blob/main/" + _path
     return "[[source]](" + link + ")"
 
 
@@ -467,7 +467,7 @@ def download_contributor_guide() -> None:
     It is synchronized for "mkdocs" to serve all documents from local resources.
     """
     source_url: str = (
-        "https://raw.githubusercontent.com/ludwig-ai/ludwig/master/CONTRIBUTING.md"
+        "https://raw.githubusercontent.com/ludwig-ai/ludwig/main/CONTRIBUTING.md"
     )
 
     dest_local_file_path_str: str = "docs/developer_guide/contributing.md"

@@ -82,8 +82,8 @@ the dataset.
 
 Examples of unit tests:
 
-- [Titanic unit test](https://github.com/ludwig-ai/ludwig/tree/master/tests/ludwig/datasets/titanic/test_titanic_workflow.py)
-- [MNIST unit test](https://github.com/ludwig-ai/ludwig/blob/master/tests/ludwig/datasets/mnist/test_mnist_workflow.py)
+- [Titanic unit test](https://github.com/ludwig-ai/ludwig/tree/main/tests/ludwig/datasets/titanic/test_titanic_workflow.py)
+- [MNIST unit test](https://github.com/ludwig-ai/ludwig/blob/main/tests/ludwig/datasets/mnist/test_mnist_workflow.py)
 
 ---
 
@@ -102,5 +102,5 @@ runnable without credentials or internet connectivity.
 
 Consider sharing an example for how users can train models using your dataset, for example:
 
-- [Titanic training script](https://github.com/ludwig-ai/ludwig/tree/master/examples/titanic/simple_model_training.py)
-- [MNIST training script](https://github.com/ludwig-ai/ludwig/tree/master/examples/mnist/simple_model_training.py)
+- [Titanic training script](https://github.com/ludwig-ai/ludwig/tree/main/examples/titanic/simple_model_training.py)
+- [MNIST training script](https://github.com/ludwig-ai/ludwig/tree/main/examples/mnist/simple_model_training.py)

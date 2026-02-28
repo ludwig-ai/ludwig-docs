@@ -60,7 +60,7 @@ cluster_name: <$USER>-ludwig-ray-g4dn
 max_workers: 3
 
 docker:
-  image: "ludwigai/ludwig-ray-gpu:master"
+  image: "ludwigai/ludwig-ray-gpu:main"
   container_name: "ray_container"
   pull_before_run: True
   run_options: # Extra options to pass into "docker run"

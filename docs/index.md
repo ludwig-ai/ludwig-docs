@@ -16,20 +16,13 @@
 </a>
 <a href="https://github.com/ludwig-ai/ludwig" alt="Activity" target="_blank" style="text-decoration: none;">
         <img src="https://img.shields.io/github/commit-activity/m/ludwig-ai/ludwig" /></a>
-<a href="https://github.com/ludwig-ai/ludwig/blob/master/LICENSE" target="_blank" style="text-decoration: none;">
+<a href="https://github.com/ludwig-ai/ludwig/blob/main/LICENSE" target="_blank" style="text-decoration: none;">
     <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="license">
 </a>
 <a href="https://discord.gg/CBgdrGnZjy" target="_blank" style="text-decoration: none;">
     <img src="https://dcbadge.vercel.app/api/server/CBgdrGnZjy?style=flat&theme=discord-inverted" alt="Discord">
 </a>
 </p>
-
----
-**IMPORTANT**
-
-## :exclamation: The Ludwig community has moved to [Discord](https://discord.gg/CBgdrGnZjy) -- please join us there!
-
----
 
 # 📖 What is Ludwig?
 
@@ -46,14 +39,13 @@ Key features:
 Ludwig is hosted by the
 [Linux Foundation AI & Data](https://lfaidata.foundation/).
 
-![img](https://raw.githubusercontent.com/ludwig-ai/ludwig-docs/master/docs/images/ludwig_legos_unanimated.gif)
+**Tech stack:** Python 3.12 | PyTorch 2.6 | Pydantic 2 | Transformers 5 | Ray 2.54
 
-[!IMPORTANT]
-Our community has moved to [Discord](https://discord.gg/CBgdrGnZjy) -- please join us!
+![img](https://raw.githubusercontent.com/ludwig-ai/ludwig-docs/main/docs/images/ludwig_legos_unanimated.gif)
 
 # 💾 Installation
 
-Install from PyPi. Be aware that Ludwig requires Python 3.8+.
+Install from PyPI. Be aware that Ludwig requires Python 3.12+.
 
 ```shell
 pip install ludwig
@@ -74,12 +66,12 @@ or take a look at end-to-end [Examples](./examples/index.md).
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1c3AO8l_H6V_x37RwQ8V7M6A-RmcBf2tG?usp=sharing)
 
-Let's fine-tune a pretrained LLaMA-2-7b large language model to follow instructions like a chatbot ("instruction tuning").
+Let's fine-tune a pretrained LLM to follow instructions like a chatbot ("instruction tuning").
 
 ### Prerequisites
 
 - [HuggingFace API Token](https://huggingface.co/docs/hub/security-tokens)
-- Access approval to [Llama2-7b-hf](https://huggingface.co/meta-llama/Llama-2-7b-hf)
+- Access approval to your chosen base model (e.g., [Llama-3.1-8B](https://huggingface.co/meta-llama/Llama-3.1-8B))
 - GPU with at least 12 GiB of VRAM (in our tests, we used an Nvidia T4)
 
 ### Running
@@ -97,7 +89,7 @@ Create a YAML config file named `model.yaml` with the following:
 
 ```yaml
 model_type: llm
-base_model: meta-llama/Llama-2-7b-hf
+base_model: meta-llama/Llama-3.1-8B
 
 quantization:
   bits: 4
@@ -107,6 +99,9 @@ adapter:
 
 prompt:
   template: |
+    Below is an instruction that describes a task, paired with an input that may provide further context.
+    Write a response that appropriately completes the request.
+
     ### Instruction:
     {instruction}
 

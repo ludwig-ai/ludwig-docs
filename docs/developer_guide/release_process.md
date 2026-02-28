@@ -22,7 +22,7 @@ Inspiration:
 
 ## 2. Update Ludwig versions in code
 
-Create a new branch off of a target_release_branch, e.g. `master` or `release-X.Y`.
+Create a new branch off of a target_release_branch, e.g. `main` or `release-X.Y`.
 
 ```bash
 git checkout <TARGET_RELEASE_BRANCH>
@@ -111,7 +111,7 @@ Create a PR.
 ## 7. For major releases, create a release-X.Y branch
 
 ```bash
-> git checkout master
+> git checkout main
 > git checkout -b release-X.Y
 > git push --set-upstream origin release-X.Y
 ```
@@ -130,7 +130,7 @@ Announce the release on Slack.
 If it's a major version release, consider other forms of publicization like
 coordinating sharing the release on other social media, or writing a blog post.
 
-# Cherrypicking bugfix commits from master to stable release branches
+# Cherrypicking bugfix commits from main to stable release branches
 
 ## 1. Gather a list of commit hashes that should be cherrypicked
 

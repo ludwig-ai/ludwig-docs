@@ -2,20 +2,20 @@ name: Publish Docs
 
 on:
   push:
-    branches: [master]
+    branches: [main]
 
 jobs:
   api-docs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.9"
+          python-version: "3.12"
 
       - name: Setup Linux
         if: runner.os == 'linux'
@@ -52,7 +52,7 @@ jobs:
           git checkout gh-pages
           cp ${{ env.ludwig_version }}/robots.txt robots.txt
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Copying sitemap from version to make it easy for search engines to find our documentation.
           branch: gh-pages

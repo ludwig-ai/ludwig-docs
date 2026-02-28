@@ -3,8 +3,8 @@ dataset.
 
 These interactive notebooks follow the steps of this example:
 
-- Ludwig CLI: [![MNIST Image Classification with Ludwig CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/master/docs/examples/mnist_colab_notebooks/MNIST_Image_Classification_with_Ludwig_CLI.ipynb)
-- Ludwig Python API: [![MNIST Image Classification with Ludwig API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/master/docs/examples/mnist_colab_notebooks/MNIST_Image_Classification_with_Ludwig_Python_API.ipynb)
+- Ludwig CLI: [![MNIST Image Classification with Ludwig CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/main/docs/examples/mnist_colab_notebooks/MNIST_Image_Classification_with_Ludwig_CLI.ipynb)
+- Ludwig Python API: [![MNIST Image Classification with Ludwig API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/main/docs/examples/mnist_colab_notebooks/MNIST_Image_Classification_with_Ludwig_Python_API.ipynb)
 
 ## Download the MNIST dataset
 

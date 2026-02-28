@@ -34,7 +34,7 @@ How to cite:
 
 # Can I use Ludwig models in production?
 
-Yes! Ludwig models can be exported to Neuropod, MLFlow, and Torchscript.
+Yes! Ludwig models can be exported to MLflow and Torchscript.
 `ludwig serve` provides basic POST/GET serving endpoints, powered by FastAPI.
 
 If you are interested in a more sophisticated, hosted cloud infrastructure
@@ -67,16 +67,12 @@ We are actively working on supporting self-supervised learning.
 
 # Do all datasets need to be loaded in memory?
 
-Locally, it depends on the type of feature: image features can be dynamically
-loaded from disk from an opened hdf5 file, while other types of features are
-loaded entirely in memory for speed.
+Ludwig uses a Parquet-based caching pipeline. Image features are loaded
+dynamically from disk, while other types of features are loaded in memory for speed.
 
 Ludwig supports training with very large datasets on Ray using
 [Ray Datasets](https://docs.ray.io/en/latest/data/dataset.html). Read more about
 using [Ludwig on Ray](../user_guide/distributed_training/#ray).
-
-If you are interested in a premium hosted Ludwig infrastructure and APIs, with a
-richer set of APIs to support modeling with large datasets, check out Predibase.
 
 # Who develops Ludwig?
 

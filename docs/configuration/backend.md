@@ -19,7 +19,7 @@ backend:
 
 Parameters:
 
-- `type`: How the job will be distributed, one of `local`, `ray`, `deepspeed`, `horovod`.
+- `type`: How the job will be distributed, one of `local`, `ray`, `deepspeed`.
 - `cache_dir`: Where the preprocessed data will be written on disk, defaults to the location of the input dataset. See [Cloud Storage](../user_guide/cloud_storage.md#remote-dataset-cache) for more details
 - `cache_credentials`: Optional dictionary of credentials (or path to credential JSON file) used to write to the cache. See [Cloud Storage](../user_guide/cloud_storage.md#using-different-cache-and-dataset-filesystems) for more details
 - `processor`: (Ray only) parameters to configure execution of distributed data processing.
@@ -69,14 +69,13 @@ in detail below) with more coming in the future:
 
 - Distributed Data Parallel (DDP)
 - DeepSpeed
-- Horovod
 
 The following parameters can be configured for any distributed strategy:
 
-- `strategy`: one of `horovod`, `ddp`, or `fsdp`.
+- `strategy`: one of `ddp`, `deepspeed`, or `fsdp`.
 - `use_gpu`: whether to use GPUs for training (defaults to `true` when the cluster has at least one GPU).
-- `num_workers`: how many Horovod workers to use for training (defaults to the number of GPUs, or 1 if no GPUs are found).
-- `resources_per_worker`: the Ray resources to assign to each Horovod worker (defaults to 1 CPU and 1 GPU if available).
+- `num_workers`: how many workers to use for training (defaults to the number of GPUs, or 1 if no GPUs are found).
+- `resources_per_worker`: the Ray resources to assign to each worker (defaults to 1 CPU and 1 GPU if available).
 - `logdir`: path to the file directory where logs should be persisted.
 - `max_retries`: number of retries when Ray actors fail (defaults to 3).
 
@@ -122,7 +121,7 @@ are then spread across multiple GPUs during training.
 The primary scenario to use DeepSpeed is when the model you're training is too large to fit into a single GPU
 (e.g., fine-tuning a large language model like Llama-2).
 When the model is small enough to fit in a single GPU, however, benchmarking has shown it's generally better 
-to use a data parallel framework like DDP or Horovod.
+to use a data parallel framework like DDP.
 
 ```yaml
 backend:
@@ -159,23 +158,6 @@ backend:
           pin_memory: true
       bf16:
         enabled: true
-```
-
-## Horovod
-
-[Horovod](https://horovod.ai/) is a distributed data-parallel framework that is optimized for bandwidth-constrained computing
-environments. It makes use of Nvidia's NCCL for fast GPU-to-GPU communication.
-
-In benchmarks, we found DDP and Horovod to perform near identically, so if you're not already using Horovod, DDP is the easiest
-way to get started with distributed training in Ludwig.
-
-Example:
-
-```yaml
-backend:
-  type: ray
-  trainer:
-    strategy: horovod
 ```
 
 # Loader

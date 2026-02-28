@@ -89,4 +89,4 @@ Evaluation performance can be visualized using [`ludwig visualize`](../../user_g
 
 This will return a bar plot comparing the performance of each model on different metrics like the example below.
 
-![Performance Comparison](https://github.com/ludwig-ai/ludwig-docs/blob/master/docs/images/compare_performance.png?raw=true)
+![Performance Comparison](https://github.com/ludwig-ai/ludwig-docs/blob/main/docs/images/compare_performance.png?raw=true)

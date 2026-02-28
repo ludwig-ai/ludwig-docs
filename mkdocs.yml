@@ -7,10 +7,10 @@ site_url: https://ludwig.ai/
 # Repository
 repo_name: ludwig-ai/ludwig
 repo_url: https://github.com/ludwig-ai/ludwig
-edit_uri: https://github.com/ludwig-ai/ludwig-docs/edit/master/docs/
+edit_uri: https://github.com/ludwig-ai/ludwig-docs/edit/main/docs/
 
 # Copyright
-copyright: Copyright &copy; 2018 - 2020 Uber Technologies Inc., 2021 - 2022 Linux Foundation Data & AI
+copyright: Copyright &copy; 2018 - 2026 Linux Foundation AI & Data
 
 # Navigation
 nav:
@@ -169,6 +169,10 @@ theme:
   features:
     - navigation.indexes
     - navigation.tabs.sticky
+    - content.tabs.link
+    - content.code.copy
+    - search.suggest
+    - search.highlight
 
 # Customization
 extra_css:
@@ -204,8 +208,8 @@ markdown_extensions:
   - def_list
   - attr_list
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid

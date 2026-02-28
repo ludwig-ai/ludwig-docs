@@ -1,7 +1,7 @@
 Welcome to this tutorial on training a GBM model for detecting credit card fraud using the creditcard_fraud Ludwig dataset!
 
 Open this example in an interactive notebook:
-[![Detecting Credit Card Fraud with GBM](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/master/docs/examples/gbm/Fraud_Detection_with_GBM.ipynb)
+[![Detecting Credit Card Fraud with GBM](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/main/docs/examples/gbm/Fraud_Detection_with_GBM.ipynb)
 
 ## Load data
 

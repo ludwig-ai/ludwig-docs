@@ -3,7 +3,7 @@
 ├── examples               - Configs demonstrating Ludwig on various tasks
 ├── ludwig                 - Ludwig library source code
 │   ├── automl             - Configurations, defaults, and utilities for AutoML
-│   ├── backend            - Execution backends (local, horovod, ray)
+│   ├── backend            - Execution backends (local, ray)
 │   ├── benchmarking       - Performance benchmarks for training and hyperopt
 │   ├── combiners          - Combiners used in ECD models
 │   ├── contribs           - 3rd-party integrations (MLFlow, WandB, Comet)

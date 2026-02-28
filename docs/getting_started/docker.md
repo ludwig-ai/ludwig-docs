@@ -4,7 +4,7 @@ These images come with a full set of pre-requiste packages to support the capabi
 ### Repositories
 
 The following repositories each contain a version of Ludwig with full features built
-from the `master` branch.
+from the `main` branch.
 
 - `ludwigai/ludwig` Ludwig packaged with PyTorch
 - `ludwigai/ludwig-gpu` Ludwig packaged with gpu-enabled version of PyTorch
@@ -17,14 +17,14 @@ from the `master` branch.
 
 The following are the image tags that can be used when pulling and running the docker images.
 
-- `master` - built from Ludwig's `master` branch
+- `main` - built from Ludwig's `main` branch
 - `nightly` - nightly build of Ludwig's software.
 - `sha-<commit point>` - version of Ludwig software at designated git sha1
   7-character commit point.
 
 ## Running Containers
 
-Here are some examples of using the `ludwigai/ludwig:master` image to:
+Here are some examples of using the `ludwigai/ludwig:main` image to:
 
 - run the `ludwig cli` command or
 - run Python program containing Ludwig api or
@@ -52,7 +52,7 @@ parent_path=/top/level/directory/path
 # map host directory ${parent_path}/src to container /src directory
 docker run -v ${parent_path}/data:/data  \
     -v ${parent_path}/src:/src \
-    ludwigai/ludwig:master \
+    ludwigai/ludwig:main \
     experiment --config /src/config.yaml \
         --dataset /data/train.csv \
         --output_directory /src/results
@@ -76,7 +76,7 @@ docker run  -v ${parent_path}/data:/data  \
     -v ${parent_path}/src:/src \
     -w /src \
     --entrypoint python \
-    ludwigai/ludwig:master /src/ludwig_api_program.py
+    ludwigai/ludwig:main /src/ludwig_api_program.py
 ```
 
 Ludwig results can be found in host

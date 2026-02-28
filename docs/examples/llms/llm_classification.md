@@ -22,7 +22,7 @@ backend:
     strategy: fsdp
 ```
 
-See a demonstration using Ludwig Python API: [![Text Classification using LLMs on Ludwig](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/master/docs/examples/llm/LLM_fine_tuning_for_Text_Classification_with_Ludwig_Python_API.ipynb)
+See a demonstration using Ludwig Python API: [![Text Classification using LLMs on Ludwig](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/main/docs/examples/llm/LLM_fine_tuning_for_Text_Classification_with_Ludwig_Python_API.ipynb)
 
 # Decoder-only fine-tuning with cached encoder embeddings
 

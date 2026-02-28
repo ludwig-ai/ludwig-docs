@@ -2,8 +2,8 @@ This is a complete example of training a model for binary classification.
 
 These interactive notebooks follow the steps of this example:
 
-- Ludwig CLI: [![Adult Census Income Classification with Ludwig CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/master/docs/examples/adult_census_income_colab_notebooks/Adult_Census_Income_Classification_with_Ludwig_CLI.ipynb)
-- Ludwig Python API: [![Adult Census Income Classification with Ludwig API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/master/docs/examples/adult_census_income_colab_notebooks/Adult_Census_Income_Classification_with_Ludwig_API.ipynb)
+- Ludwig CLI: [![Adult Census Income Classification with Ludwig CLI](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/main/docs/examples/adult_census_income_colab_notebooks/Adult_Census_Income_Classification_with_Ludwig_CLI.ipynb)
+- Ludwig Python API: [![Adult Census Income Classification with Ludwig API](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig-docs/blob/main/docs/examples/adult_census_income_colab_notebooks/Adult_Census_Income_Classification_with_Ludwig_API.ipynb)
 
 ## Download The Adult Census Income dataset
 

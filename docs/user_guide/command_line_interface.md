@@ -18,9 +18,8 @@ Ludwig provides several functions through its command line interface.
 | [`collect_activations`](#collect_activations) | Collects tensors for each datapoint using a pretrained model                      |
 | [`export_torchscript`](#export_torchscript)   | Exports Ludwig models to Torchscript                                              |
 | [`export_carton`](#export_carton)             | Exports Ludwig models to Carton                                                   |
-| [`export_neuropod`](#export_neuropod)         | Exports Ludwig models to Neuropod                                                 |
 | [`export_mlflow`](#export_mlflow)             | Exports Ludwig models to MLflow                                                   |
-| [`preprocess`](#preprocess)                   | Preprocess data and saves it into HDF5 and JSON format                            |
+| [`preprocess`](#preprocess)                   | Preprocess data and saves it into cached format                                   |
 | [`synthesize_dataset`](#synthesize_dataset)   | Creates synthetic data for testing purposes                                       |
 | [`upload_to_hf_hub`](#upload_to_hf_hub)       | Push trained model artifacts to HuggingFace Hub                                   |
 
@@ -120,7 +119,7 @@ optional arguments:
                         reproducibility
   -b BACKEND, --backend BACKEND
                         specifies backend to use for parallel / distributed execution,
-                        defaults to local execution or Horovod if called using horovodrun
+                        defaults to local execution
 ```
 
 When Ludwig trains a model it creates two intermediate files, one HDF5 and one JSON.
@@ -192,7 +191,7 @@ You can also specify the maximum amount of GPU memory which will be allocated pe
 By default all of memory is allocated.
 If less than all of memory is allocated, Torch will need more GPU memory it will try to increase this amount.
 
-If parameter `--backend` is set, will use the given backend for distributed processing (Horovod or Ray).
+If parameter `--backend` is set, will use the given backend for distributed processing (Ray).
 
 Finally the `--logging_level` argument lets you set the amount of logging that you want to see during training.
 
@@ -251,7 +250,7 @@ optional arguments:
                         reproducibility
   -b BACKEND, --backend BACKEND
                         specifies backend to use for parallel / distributed execution,
-                        defaults to local execution or Horovod if called using horovodrun
+                        defaults to local execution
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
@@ -338,7 +337,7 @@ optional arguments:
                         reproducibility
   -b BACKEND, --backend BACKEND
                         specifies backend to use for parallel / distributed execution,
-                        defaults to local execution or Horovod if called using horovodrun
+                        defaults to local execution
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
@@ -474,7 +473,7 @@ optional arguments:
                         reproducibility
   -b BACKEND, --backend BACKEND
                         specifies backend to use for parallel / distributed execution,
-                        defaults to local execution or Horovod if called using horovodrun
+                        defaults to local execution
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
@@ -584,7 +583,7 @@ optional arguments:
                         maximum memory in MB to allocate per GPU device
   -b BACKEND, --backend BACKEND
                         specifies backend to use for parallel / distributed execution,
-                        defaults to local execution or Horovod if called using horovodrun
+                        defaults to local execution
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
@@ -923,7 +922,7 @@ optional arguments:
                         for reproducibility
   -b BACKEND, --backend BACKEND
                         specifies backend to use for parallel / distributed execution,
-                        defaults to local execution or Horovod if called using horovodrun
+                        defaults to local execution
   -dbg, --debug         enables debugging mode
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
@@ -1010,43 +1009,6 @@ options:
 ```
 
 For more information, see [Carton Export](/user_guide/model_export/#carton-export)
-
-# export_neuropod
-
-A Ludwig model can be exported as a [Neuropod](https://github.com/uber/neuropod), a mechanism that allows it to be executed in a framework agnostic way.
-
-In order to export a Ludwig model as a Neuropod, first make sure the `neuropod` package is installed in your environment together with the appropriate backend (only use Python 3.7+), then run the following command:
-
-```bash
-ludwig export_neuropod [options]
-```
-
-or with:
-
-```bash
-python -m ludwig.export neuropod [options]
-```
-
-These are the available arguments:
-
-```
-usage: ludwig export_neuropod [options]
-
-This script loads a pretrained model and uses it collect weights.
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -m MODEL_PATH, --model_path MODEL_PATH
-                        model to load
-  -mn MODEL_NAME, --model_name MODEL_NAME
-                        model name
-  -od OUTPUT_PATH, --output_path OUTPUT_PATH
-                        path where to save the export model
-  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
-                        the level of logging to use
-```
-
-This functionality has been tested with `neuropod==0.2.0`.
 
 # export_mlflow
 

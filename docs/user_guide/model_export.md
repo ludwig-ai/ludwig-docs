@@ -201,8 +201,4 @@ See the [Carton quickstart guide](https://carton.run/quickstart) for usage from 
 
 Coming soon...
 
-## Neuropod Export
-
-Coming soon...
-
 ## MLFlow Export

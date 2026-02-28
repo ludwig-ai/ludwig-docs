@@ -42,6 +42,12 @@ jobs:
       - name: Publish docs
         run: mike deploy --push --update-aliases ${{ env.ludwig_version }} latest  --alias-type=copy --title="${{ env.ludwig_version }} (latest)"
 
+      - name: Clean up old version titles
+        run: |
+          mike list | grep '(latest)' | grep -v '\[latest\]' | sed 's/.*(\(.*\)).*/\1/' | while read -r ver; do
+            mike retitle --push "$ver" "$ver"
+          done
+
       - name: Copy sitemap to root
         run: |
           git checkout gh-pages

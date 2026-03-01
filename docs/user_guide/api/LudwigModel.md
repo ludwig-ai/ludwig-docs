@@ -170,12 +170,8 @@ Instantiates BaseModel object.
 __Inputs__
 
 - __config_obj__ (Union[Config, dict]): Ludwig config object
-- __random_seed__ (int, default: ludwig default random seed): Random
-seed used for weights initialization,
-splits and any other random function.
-
-__Return__
-
+- __random_seed__ (int, default: ludwig default random seed): Random seed used for weights initialization,
+splits and any other random function. # Return
 - __return__ (ludwig.models.BaseModel): Instance of the Ludwig model object.
  
 
@@ -195,7 +191,7 @@ ludwig.evaluate(
   collect_predictions=False,
   collect_overall_stats=False,
   output_directory='results',
-  return_type=<class 'pandas.core.frame.DataFrame'>
+  return_type=<class 'pandas.DataFrame'>
 )
 ```
 
@@ -561,7 +557,7 @@ ludwig.predict(
   skip_save_unprocessed_output=True,
   skip_save_predictions=True,
   output_directory='results',
-  return_type=<class 'pandas.core.frame.DataFrame'>,
+  return_type=<class 'pandas.DataFrame'>,
   callbacks=None
 )
 ```
@@ -670,7 +666,7 @@ __Returns:__
 
 __Raises:__
 
-- __RuntimeError__: An error occured while preprocessing the data. Examples include training dataset
+- __RuntimeError__: An error occurred while preprocessing the data. Examples include training dataset
     being empty after preprocessing, lazy loading not being supported with RayBackend, etc.
  
 
@@ -831,9 +827,9 @@ __Inputs__
 
 
 - __ model_only (bool, optional)__ (bool, optional):: If True, only the ECD model will be converted to Torchscript. Else,
-preprocessing and postprocessing steps will also be converted to Torchscript.
-- __device (TorchDevice, optional)__ (TorchDevice, optional):: If None, the model will be converted to Torchscript on the same device to
-ensure maximum model parity.
+preprocessing and postprocessing steps will also be converted to Torchscript. :param device (TorchDevice,
+optional): If None, the model will be converted to Torchscript on the same device to     ensure maximum model
+parity.
 
 __Returns__
 

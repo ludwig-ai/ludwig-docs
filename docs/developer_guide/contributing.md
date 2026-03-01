@@ -8,7 +8,7 @@ It also helps us if you spread the word: reference the library from blog posts o
 projects it made possible, shout out on X every time it has helped you, or simply star the
 repo to say "thank you".
 
-Check out the official [ludwig docs](https://ludwig.ai/) to get oriented
+Check out the official [ludwig docs](https://ludwig-ai.github.io/ludwig-docs/) to get oriented
 around the codebase, and join the community!
 
 ## Open Issues
@@ -41,7 +41,7 @@ Work on your self-assigned issue and eventually create a Pull Request.
    git checkout -b a-descriptive-name-for-my-changes
    ```
 
-   *Do not*\* work on the `main` branch.
+   *Do not*\* work on the `master` branch.
 
 1. Set up a development environment by running the following command in a virtual environment:
 
@@ -49,7 +49,7 @@ Work on your self-assigned issue and eventually create a Pull Request.
    pip install -e .
    ```
 
-   The above command will install only the packages in "requirements.txt" in the developer mode.  If you would like to
+   The above command will install only the packages in "requirements.txt" in the developer mode. If you would like to
    be able to potentially make changes to the overall Ludwig codebase, then use the following command:
 
    ```bash
@@ -113,7 +113,7 @@ Work on your self-assigned issue and eventually create a Pull Request.
 
    ```bash
    git fetch upstream
-   git rebase upstream/main
+   git rebase upstream/master
    ```
 
    Push the changes to your account using:
@@ -128,7 +128,7 @@ Work on your self-assigned issue and eventually create a Pull Request.
 ## Other tips
 
 - Add unit tests for any new code you write.
-- Make sure tests pass. See the [Developer Guide](https://ludwig.ai/latest/developer_guide/style_guidelines_and_tests/) for more details.
+- Make sure tests pass. See the [Developer Guide](https://ludwig-ai.github.io/ludwig-docs/latest/developer_guide/style_guidelines_and_tests/) for more details.
 
 ## Attribution
 

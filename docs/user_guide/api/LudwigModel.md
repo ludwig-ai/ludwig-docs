@@ -195,7 +195,7 @@ ludwig.evaluate(
   collect_predictions=False,
   collect_overall_stats=False,
   output_directory='results',
-  return_type=<class 'pandas.core.frame.DataFrame'>
+  return_type=<class 'pandas.DataFrame'>
 )
 ```
 
@@ -561,7 +561,7 @@ ludwig.predict(
   skip_save_unprocessed_output=True,
   skip_save_predictions=True,
   output_directory='results',
-  return_type=<class 'pandas.core.frame.DataFrame'>,
+  return_type=<class 'pandas.DataFrame'>,
   callbacks=None
 )
 ```
@@ -670,7 +670,7 @@ __Returns:__
 
 __Raises:__
 
-- __RuntimeError__: An error occured while preprocessing the data. Examples include training dataset
+- __RuntimeError__: An error occurred while preprocessing the data. Examples include training dataset
     being empty after preprocessing, lazy loading not being supported with RayBackend, etc.
  
 

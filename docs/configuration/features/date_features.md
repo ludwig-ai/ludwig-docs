@@ -92,4 +92,4 @@ Parameters:
 
 # Output Features
 
-There is currently no support for date as an output feature. Consider using the [`TEXT` type](../../features/text_features).
+There is currently no support for date as an output feature. Consider using the [`TEXT` type](text_features.md).

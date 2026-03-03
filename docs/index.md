@@ -275,36 +275,36 @@ if you have any questions.
 
 # 📚 Tutorials
 
-- [Text Classification](./examples/text_classification/)
-- [Tabular Data Classification](./examples/adult_census_income/)
-- [Image Classification](./examples/mnist/)
-- [Multimodal Classification](./examples/multimodal_classification/)
+- [Text Classification](./examples/text_classification.md)
+- [Tabular Data Classification](./examples/adult_census_income.md)
+- [Image Classification](./examples/mnist.md)
+- [Multimodal Classification](./examples/multimodal_classification.md)
 
 # 🔬 Example Use Cases
 
-- [Named Entity Recognition Tagging](./examples/ner_tagging/)
-- [Natural Language Understanding](./examples/nlu/)
-- [Machine Translation](./examples/machine_translation/)
-- [Chit-Chat Dialogue Modeling through seq2seq](./examples/seq2seq/)
-- [Sentiment Analysis](./examples/sentiment_analysis/)
-- [One-shot Learning with Siamese Networks](./examples/oneshot/)
-- [Visual Question Answering](./examples/visual_qa/)
-- [Spoken Digit Speech Recognition](./examples/speech_recognition/)
-- [Speaker Verification](./examples/speaker_verification/)
-- [Binary Classification (Titanic)](./examples/titanic/)
-- [Timeseries forecasting](./examples/forecasting/)
-- [Timeseries forecasting (Weather)](./examples/weather/)
-- [Movie rating prediction](./examples/movie_ratings/)
-- [Multi-label classification](./examples/multi_label/)
-- [Multi-Task Learning](./examples/multi_task/)
-- [Simple Regression: Fuel Efficiency Prediction](./examples/fuel_efficiency/)
-- [Fraud Detection](./examples/fraud/)
+- [Named Entity Recognition Tagging](./examples/ner_tagging.md)
+- [Natural Language Understanding](./examples/nlu.md)
+- [Machine Translation](./examples/machine_translation.md)
+- [Chit-Chat Dialogue Modeling through seq2seq](./examples/seq2seq.md)
+- [Sentiment Analysis](./examples/sentiment_analysis.md)
+- [One-shot Learning with Siamese Networks](./examples/oneshot.md)
+- [Visual Question Answering](./examples/visual_qa.md)
+- [Spoken Digit Speech Recognition](./examples/speech_recognition.md)
+- [Speaker Verification](./examples/speaker_verification.md)
+- [Binary Classification (Titanic)](./examples/titanic.md)
+- [Timeseries forecasting](./examples/forecasting.md)
+- [Timeseries forecasting (Weather)](./examples/weather.md)
+- [Movie rating prediction](./examples/movie_ratings.md)
+- [Multi-label classification](./examples/multi_label.md)
+- [Multi-Task Learning](./examples/multi_task.md)
+- [Simple Regression: Fuel Efficiency Prediction](./examples/fuel_efficiency.md)
+- [Fraud Detection](./examples/fraud.md)
 
 # 💡 More Information
 
 Read our publications on [Ludwig](https://arxiv.org/abs/1909.07930), [declarative ML](https://arxiv.org/abs/2107.08148), and [Ludwig’s SoTA benchmarks](https://openreview.net/forum?id=hwjnu6qW7E4).
 
-Learn more about [how Ludwig works](./user_guide/how_ludwig_works/), [how to get started](./getting_started/), and work through more [examples](./examples/).
+Learn more about [how Ludwig works](./user_guide/how_ludwig_works.md), [how to get started](./getting_started/index.md), and work through more [examples](./examples/index.md).
 
 If you are interested in [contributing](./developer_guide/contributing.md), have questions, comments, or thoughts to share, or if you just want to be in the
 know, please consider [joining our Community Discord](https://discord.gg/CBgdrGnZjy) and follow us on [X](https://twitter.com/ludwig_ai)!

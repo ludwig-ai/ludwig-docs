@@ -165,7 +165,7 @@ The directory will contain
 The configuration can be provided either as a string (`--config_str`)
 or as YAML file (`--config`).
 
-Details on how to write your configuration are provided in the [Configuration](#configuration) section.
+Details on how to write your configuration are provided in the [Configuration](../configuration/index.md) section.
 
 During training Ludwig saves two sets of weights for the model, one that is the
 weights at the end of the epoch where the best performance on the validation
@@ -479,7 +479,7 @@ optional arguments:
                         the level of logging to use
 ```
 
-The parameters combine parameters from both [train](#train) and [test](#test) so
+The parameters combine parameters from both [train](#train) and [evaluate](#evaluate) so
 refer to those sections for an in depth explanation.
 The output directory will contain the outputs both commands produce.
 
@@ -589,11 +589,11 @@ optional arguments:
                         the level of logging to use
 ```
 
-The parameters combine parameters from both [train](#train) and [test](#test) so refer to those sections for an in depth explanation. The output directory will contain a `hyperopt_statistics.json` file that summarizes the results obtained.
+The parameters combine parameters from both [train](#train) and [evaluate](#evaluate) so refer to those sections for an in depth explanation. The output directory will contain a `hyperopt_statistics.json` file that summarizes the results obtained.
 
 In order to perform an hyperparameter optimization, the `hyperopt` section needs to be provided within the configuration.
 In the `hyperopt` section you will be able to define what metric to optimize, what parameters, what sampler to use to optimize them and how to execute the optimization.
-For details on the `hyperopt` section see the detailed description in the [Hyperparameter Optimization](#hyperparameter-optimization) section.
+For details on the `hyperopt` section see the detailed description in the [Hyperparameter Optimization](#hyperopt) section.
 
 # serve
 
@@ -746,7 +746,7 @@ optional arguments:
 ```
 
 As the `--visualization` parameters suggests, there is a vast number of visualizations readily available.
-Each of them requires a different subset of this command's arguments, so they will be described one by one in the [Visualizations](#visualizations) section.
+Each of them requires a different subset of this command's arguments, so they will be described one by one in the [Visualizations](#visualize) section.
 
 # init_config
 
@@ -971,7 +971,7 @@ optional arguments:
                         the level of logging to use
 ```
 
-For more information, see [TorchScript Export](/user_guide/model_export/#torchscript-export)
+For more information, see [TorchScript Export](model_export.md#torchscript-export)
 
 # export_carton
 
@@ -1008,7 +1008,7 @@ options:
                         the level of logging to use
 ```
 
-For more information, see [Carton Export](/user_guide/model_export/#carton-export)
+For more information, see [Carton Export](model_export.md#carton-export)
 
 # export_mlflow
 

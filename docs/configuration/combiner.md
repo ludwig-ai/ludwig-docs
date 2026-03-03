@@ -151,7 +151,7 @@ The `sequence` combiner stacks a sequence concat combiner with a sequence encode
 All the considerations about input tensor ranks described for the [sequence concat combiner](#sequence-concat-combiner)
 apply also in this case, but the main difference is that this combiner uses the `b x s x h'` output of the sequence
 concat combiner, where `b` is the batch size, `s` is the sequence length and `h'` is the sum of the hidden dimensions of
-all input features, as input for any of the sequence encoders described in the [sequence features encoders section](../features/sequence_features#sequence-input-features-and-encoders).
+all input features, as input for any of the sequence encoders described in the [sequence features encoders section](features/sequence_features.md#input-features).
 Refer to that section for more detailed information about the sequence encoders and their parameters.
 All considerations on the shape of the outputs for the sequence encoders also apply to sequence combiner.
 

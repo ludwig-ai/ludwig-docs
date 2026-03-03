@@ -214,7 +214,7 @@ executor:
 
 **Running Ray Executor:**
 
-See the section on [Running Ludwig with Ray](../../user_guide/distributed_training#ray) for guidance on setting up your
+See the section on [Running Ludwig with Ray](../user_guide/distributed_training/index.md#ray) for guidance on setting up your
 Ray cluster.
 
 # Full hyperparameter optimization example

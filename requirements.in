@@ -4,5 +4,5 @@ mike>=2.0
 Markdown>=3.0.1
 pymdown-extensions>=10.0
 mkdocs-macros-plugin
+mkdocstrings[python]>=0.27
 ptitprince
-wget

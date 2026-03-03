@@ -7,7 +7,7 @@ There are a number of ways to export models in Ludwig.
 A subset of Ludwig Models can be exported to Torchscript end-to-end. This means
 that, in addition to the model itself, the preprocessing and postprocessing steps can be exported to TorchScript as well, ensuring that the model can be used for inference in a production environment out-of-the-box.
 
-To get started, simply run the [`export_torchscript`](/latest/user_guide/command_line_interface/#export_torchscript) command:
+To get started, simply run the [`export_torchscript`](command_line_interface.md#export_torchscript) command:
 
 ```
 ludwig export_torchscript -m=results/experiment_run/model
@@ -176,7 +176,7 @@ HuggingFace models are not yet supported for TorchScript export, though we are w
 
 A subset of Ludwig Models can be exported to Carton. In addition to the model itself, the preprocessing and postprocessing steps are included in the exported model as well, ensuring that the model can be used for inference in a production environment out-of-the-box.
 
-To get started, simply run the [`export_carton`](/latest/user_guide/command_line_interface/#export_carton) command:
+To get started, simply run the [`export_carton`](command_line_interface.md#export_carton) command:
 
 ```
 ludwig export_carton -m=results/experiment_run/model

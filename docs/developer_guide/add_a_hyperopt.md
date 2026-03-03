@@ -1,7 +1,7 @@
 The hyperparameter optimization design in Ludwig is based on two abstract
 interfaces: `HyperoptSampler` and `HyperoptExecutor`.
 
-See [Hyperopt configuration](../../configuration/hyperparameter_optimization)
+See [Hyperopt configuration](../configuration/hyperparameter_optimization.md)
 for examples of how the sampler and executor are configured.
 
 # HyperoptSampler
@@ -41,7 +41,7 @@ is sampled discretely.
 
 !!! note
 
-    Different `HyperoptSampler`s are described [here](../../configuration/hyperparameter_optimization#sampler).
+    Different `HyperoptSampler`s are described [here](../configuration/hyperparameter_optimization.md#search-algorithm).
 
 # HyperoptExecutor
 
@@ -68,11 +68,11 @@ and test statistics.
 
 The returned list is printed and saved to disk, so that it can also be used as
 input to
-[hyperparameter optimization visualizations](../../user_guide/hyperopt).
+[hyperparameter optimization visualizations](../user_guide/hyperopt.md).
 
 !!! note
 
-    Different `HyperoptExecutor`s are described [here](../../configuration/hyperparameter_optimization#executor)
+    Different `HyperoptExecutor`s are described [here](../configuration/hyperparameter_optimization.md#executor)
 
 # Adding a HyperoptSampler
 

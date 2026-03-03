@@ -223,9 +223,34 @@ extra:
     provider: google
     property: G-H8VVJF9L6G
 
+hooks:
+  - hooks/suppress_import_warnings.py
+  - hooks/contributing.py
+
 plugins:
   - search
   - macros
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          options:
+            extensions:
+              - _griffe_ext/ludwig_docstrings.py:LudwigDocstrings
+            docstring_style: sphinx
+            docstring_section_style: spacy
+            show_source: true
+            show_root_heading: true
+            show_root_full_path: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            members_order: source
+            heading_level: 2
+            show_signature_annotations: true
+            separate_signature: true
+            merge_init_into_class: true
+            show_if_no_docstring: false
+            filters: ["!^_"]
   - mike:
       # these fields are all optional; the defaults are as below...
       version_selector: true # set to false to leave out the version selector

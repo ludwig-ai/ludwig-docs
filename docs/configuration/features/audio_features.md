@@ -1,6 +1,6 @@
 {% from './macros/includes.md' import render_fields, render_yaml %}
 {% set mv_details = "See [Missing Value Strategy](./input_features.md#missing-value-strategy) for details." %}
-{% set type = "See explanations for each type [here](audio_features.md#audio-input-features-and-encoders)." %}
+{% set type = "See explanations for each type [here](audio_features.md#input-features)." %}
 {% set details = {"missing_value_strategy": mv_details, "type": type} %}
 
 # Preprocessing
@@ -45,7 +45,7 @@ encoder:
 
 ## Encoders
 
-Audio feature encoders are the same as for [Sequence Features](../sequence_features#sequence-input-features-and-encoders).
+Audio feature encoders are the same as for [Sequence Features](sequence_features.md#input-features).
 
 Encoder type and encoder parameters can also be defined once and applied to all audio input features using the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 

@@ -7,7 +7,7 @@ Any pre-trained model implemented as a `torch.nn.Module` can be used within any
 
 For demonstration purposes, we'll walk through how to implement huggingface's
 pre-trained BERT model as Ludwig text encoder. We recommend reading how to
-[add an encoder](../add_an_encoder) as a first step.
+[add an encoder](add_an_encoder.md) as a first step.
 
 # 1. Import/load the pretrained model
 

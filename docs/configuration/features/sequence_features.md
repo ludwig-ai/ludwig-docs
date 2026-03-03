@@ -290,7 +290,7 @@ Parameters:
 tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`,
 `max`, `concat` (concatenates along the sequence dimension), `last` (returns the last vector of the sequence dimension).
 - **`dependencies`** (default `[]`): the output features this one is dependent on. For a detailed explanation refer to
-[Output Feature Dependencies](../output_features#output-feature-dependencies).
+[Output Feature Dependencies](output_features.md#output-feature-dependencies).
 - **`reduce_dependencies`** (default `sum`): defines how to reduce the output of a dependent feature that is not a vector,
 but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available
 values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the sequence dimension), `last` (returns the
@@ -298,7 +298,7 @@ last vector of the sequence dimension).
 - **`loss`** (default `{type: softmax_cross_entropy, class_similarities_temperature: 0, class_weights: 1,
 confidence_penalty: 0, robust_lambda: 0}`): is a dictionary containing a loss `type`. The only available
 loss `type` for sequences is `softmax_cross_entropy`. See [Loss](#loss) for details.
-- **`decoder`** (default: `{"type": "generator"}`): Decoder for the desired task. Options: `generator`, `tagger`. See [Decoder](#decoder) for details.
+- **`decoder`** (default: `{"type": "generator"}`): Decoder for the desired task. Options: `generator`, `tagger`. See [Decoder](#decoders) for details.
 
 Decoder type and decoder parameters can also be defined once and applied to all sequence output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section. Loss and loss related parameters can also be defined once in the same way.
 

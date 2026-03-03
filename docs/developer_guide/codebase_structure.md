@@ -76,7 +76,7 @@ All test code is in the `tests/` directory. The `tests/integration_tests/` subdi
 to provide end-to-end test coverage of all workflows provided by Ludwig.
 
 The `tests/ludwig/` directory contains unit tests, organized in a subdirectory tree parallel to the `ludwig/` source
-tree. For more details on testing, see [Style Guidelines and Tests](../style_guidelines_and_tests).
+tree. For more details on testing, see [Style Guidelines and Tests](style_guidelines_and_tests.md).
 
 ## Misc
 

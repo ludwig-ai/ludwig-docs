@@ -50,7 +50,7 @@ In this example we have specified a basic hyperopt config with the following spe
   * When optimizing the **optimizer type**, we randomly select the optimizer from *sgd*, *adam*, and *adagrad* optimizers.
   * When optimizing the **embedding_size** of text representation we randomly chose between 128 or 256.
 * We set hyperopt `executor` to use Ray Tune's `variant_generator` search algorithm and generates 10 random hyperparameter combinations from the search space we defined.  The execution will locally run trials in parallel.
-  * Ludwig supports advanced hyperparameter sampling algorithms like Bayesian optimization and genetical algorithms. See [this guide](../../configuration/hyperparameter_optimization/#hyperopt-configuration-parameters) for details.
+  * Ludwig supports advanced hyperparameter sampling algorithms like Bayesian optimization and genetical algorithms. See [this guide](../configuration/hyperparameter_optimization.md#hyperopt-configuration-parameters) for details.
 
 The hyperparameter optimization strategy is run using the ludwig hyperopt command:
 
@@ -76,4 +76,4 @@ The hyperparameter optimization strategy is run using the ludwig hyperopt comman
     docker run -t -i --mount type=bind,source={absolute/path/to/rotten_tomatoes_data},target=/rotten_tomatoes_data ludwigai/ludwig hyperopt --config /rotten_tomatoes_data/rotten_tomatoes.yaml --dataset /rotten_tomatoes_data/rotten_tomatoes.csv
     ```
 
-Every parameter within the config can be tuned using hyperopt. Refer to the full [hyperopt guide](../../configuration/hyperparameter_optimization) to learn more.
+Every parameter within the config can be tuned using hyperopt. Refer to the full [hyperopt guide](../configuration/hyperparameter_optimization.md) to learn more.

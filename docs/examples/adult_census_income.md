@@ -38,17 +38,17 @@ The columns in the dataset are
 
 ## Train
 
-The Ludwig configuration file describes the machine learning task.  There is a vast array of options to control the learning process.  This example only covers a small fraction of the options.  Only the options used in this example are described.  Please refer to the [Configuration Section](../../configuration) for all the details.
+The Ludwig configuration file describes the machine learning task.  There is a vast array of options to control the learning process.  This example only covers a small fraction of the options.  Only the options used in this example are described.  Please refer to the [Configuration Section](../configuration/index.md) for all the details.
 
-First, the [defaults section](../../configuration/defaults) defines the [global preprocessing options](../../configuration/defaults#type-global-preprocessing). All [numeric features](../../configuration/features/number_features) are z-scored normalized, i.e., mean centered and scaled by the standard deviation.  Numeric missing values are filled in with the mean of non-missing values.
+First, the [defaults section](../configuration/defaults.md) defines the [global preprocessing options](../configuration/defaults.md#type-global-preprocessing). All [numeric features](../configuration/features/number_features.md) are z-scored normalized, i.e., mean centered and scaled by the standard deviation.  Numeric missing values are filled in with the mean of non-missing values.
 
-The `input_features` section describes each of the predictor variables, i.e., the column name and type of input variable: [number](../../configuration/features/number_features) or [category](../../configuration/features/category_features/)
+The `input_features` section describes each of the predictor variables, i.e., the column name and type of input variable: [number](../configuration/features/number_features.md) or [category](../configuration/features/category_features.md)
 
-The 'combiner' section defines how the input features are combined to be passed to the output decoder.  This example uses the [`concat` combiner](configuration/combiner/#concat-combiner), which simply concatenates the output of the input feature encoders.  The combined data is passed through a three layer fully connected network of 128 cells in each layer with dropout regularization.
+The 'combiner' section defines how the input features are combined to be passed to the output decoder.  This example uses the [`concat` combiner](../configuration/combiner.md#concat-combiner), which simply concatenates the output of the input feature encoders.  The combined data is passed through a three layer fully connected network of 128 cells in each layer with dropout regularization.
 
-Next the `output_features` are defined.  In this example, there is one response variable called `income`.  This is a [binary feature](../../configuration/features/binary_features/) with two possible values: " <=50K" or " >50K".  Because thes values are not conventional binary values, i.e., "True" and "False", a feature specific preprocessing option is specified to indicate which string (" >50K") is interpreted as "True".  A four layer fully connected decoder of 32 cells in each layer is specified for this output feature.
+Next the `output_features` are defined.  In this example, there is one response variable called `income`.  This is a [binary feature](../configuration/features/binary_features.md) with two possible values: " <=50K" or " >50K".  Because thes values are not conventional binary values, i.e., "True" and "False", a feature specific preprocessing option is specified to indicate which string (" >50K") is interpreted as "True".  A four layer fully connected decoder of 32 cells in each layer is specified for this output feature.
 
-The last section in this configuration file describes options for how the the [`trainer`](../../configuration/trainer/) will operate.  In this example the `trainer` will process the training data for 10 epochs.  The optimizer type is "adam".
+The last section in this configuration file describes options for how the the [`trainer`](../configuration/trainer.md) will operate.  In this example the `trainer` will process the training data for 10 epochs.  The optimizer type is "adam".
 
 === "cli"
 
@@ -112,7 +112,7 @@ The last section in this configuration file describes options for how the the [`
 
 === "python"
 
-    [LudwigModel](../../user_guide/api/LudwigModel/)
+    [LudwigModel](../user_guide/api/LudwigModel.md)
 
     ```python
     # create Ludwig configuration dictionary
@@ -161,7 +161,7 @@ Train the model.
 
 === "cli"
 
-    [`ludwig train` command](../../user_guide/command_line_interface/#train)
+    [`ludwig train` command](../user_guide/command_line_interface.md#train)
 
     ```shell
     ludwig train \
@@ -171,7 +171,7 @@ Train the model.
 
 === "python"
 
-    [train() method](../../user_guide/api/LudwigModel/#train)
+    [train() method](../user_guide/api/LudwigModel.md#ludwig.api.LudwigModel.train)
 
     ```python
     # Trains the model. This cell might take a few minutes.
@@ -183,7 +183,7 @@ Train the model.
 
 === "cli"
 
-    [`ludwig evaluate` command](../../user_guide/command_line_interface/#evaluate)
+    [`ludwig evaluate` command](../user_guide/command_line_interface.md#evaluate)
 
     ```shell
     ludwig evaluate --model_path results/experiment_run/model \
@@ -193,7 +193,7 @@ Train the model.
 
 === "python"
 
-    [evaluate() method](../../user_guide/api/LudwigModel/#evaluate)
+    [evaluate() method](../user_guide/api/LudwigModel.md#ludwig.api.LudwigModel.evaluate)
 
     ```python
     # Generates predictions and performance statistics for the test set.
@@ -214,7 +214,7 @@ Train the model.
 
 === "cli"
 
-    [`ludwig visualize roc_curves` command](../../user_guide/visualizations/#roc_curves)
+    [`ludwig visualize roc_curves` command](../user_guide/visualizations.md#roc_curves)
 
     ```shell
     !ludwig visualize --visualization roc_curves \
@@ -229,7 +229,7 @@ Train the model.
 
 === "python"
 
-    [`visualize.roc_curves()` function](../../user_guide/api/visualization/#roc_curves)
+    [`visualize.roc_curves()` function](../user_guide/api/visualization.md#ludwig.visualize.roc_curves)
 
     ```python
     from ludwig.visualize import roc_curves
@@ -252,7 +252,7 @@ Train the model.
 
 === "cli"
 
-    [`ludwig visualize binary_threshole_vs_metric` command](../../user_guide/visualizations/#binary-threshold-vs-metric)
+    [`ludwig visualize binary_threshole_vs_metric` command](../user_guide/visualizations.md#binary-threshold-vs-metric)
 
     ```shell
     ludwig visualize --visualization binary_threshold_vs_metric \
@@ -269,7 +269,7 @@ Train the model.
 
 === "python"
 
-    [`visualize.binary_threshold_vs_metric()` function](../../user_guide/api/visualization/#binary_threshold_vs_metric)
+    [`visualize.binary_threshold_vs_metric()` function](../user_guide/api/visualization.md#ludwig.visualize.binary_threshold_vs_metric)
 
     ```python
     from ludwig.visualize import binary_threshold_vs_metric
@@ -307,7 +307,7 @@ Train the model.
 
 === "cli"
 
-    [`ludwig predict` command](../../user_guide/command_line_interface/#predict)
+    [`ludwig predict` command](../user_guide/command_line_interface.md#predict)
 
     ```shell
     ludwig predict --model_path results/experiment_run/model \
@@ -317,7 +317,7 @@ Train the model.
 
 === "python"
 
-    [`predict()` method](../../user_guide/api/LudwigModel/#predict)
+    [`predict()` method](../user_guide/api/LudwigModel.md#ludwig.api.LudwigModel.predict)
 
     ```python
     predictions, prediction_results = model.predict(dataset=eval_df, skip_save_predictions=False, output_directory="predictions_results")

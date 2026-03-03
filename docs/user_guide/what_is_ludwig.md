@@ -7,7 +7,7 @@ tasks, and is hosted by the [Linux Foundation AI & Data](https://lfaidata.founda
 
 Ludwig enables you to apply state-of-the-art tabular, natural language
 processing, and computer vision models to your existing data and put them into
-production with just a [few short commands](../command_line_interface).
+production with just a [few short commands](command_line_interface.md).
 
 === "CLI"
 

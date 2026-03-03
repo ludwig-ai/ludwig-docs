@@ -1,5 +1,5 @@
 Metrics are used to report model performance during training and evaluation, and also serve as optimization objectives
-for [hyperparameter optimization](../hyper_parameter_optimization).
+for [hyperparameter optimization](../user_guide/hyperopt.md).
 
 Concretely, metrics are modules which compute a function of the model's output for each batch and aggregate the
 function's result over all batches. A common example of a metric is the `LossMetric`, which computes the average batch

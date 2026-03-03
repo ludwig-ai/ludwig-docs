@@ -77,7 +77,7 @@ adapter:
 
 Adapters can be added to any LLM model type, or any pretrained auto_transformer text encoder in Ludwig with the same parameter options.
 
-In Ludwig v0.8, we’ve added native support for the following PEFT techniques with more to come. Read more about PEFT in Ludwig [here](../../../configuration/large_language_model#adapter).
+In Ludwig v0.8, we’ve added native support for the following PEFT techniques with more to come. Read more about PEFT in Ludwig [here](../../configuration/large_language_model.md#adapter).
 
 - LoRA
 - AdaLoRA

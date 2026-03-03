@@ -39,7 +39,7 @@ Please make sure we are able to replicate the issue by providing the model
 definition + command + data or code + data.
 
 If your data cannot be shared, please use the `synthesize_dataset` [command line
-utility](/latest/user_guide/command_line_interface/#synthesize_dataset) to create
+utility](user_guide/command_line_interface.md#synthesize_dataset) to create
 a synthetic data with the same feature types.
 
 Example:

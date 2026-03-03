@@ -6,7 +6,7 @@
 # Preprocessing
 
 Bag features are expected to be provided as a string of elements separated by whitespace, e.g. "elem5 elem0 elem5 elem1".
-Bags are similar to [set features](../set_features), the only difference being that elements may appear multiple
+Bags are similar to [set features](set_features.md), the only difference being that elements may appear multiple
 times. The bag feature encoder outputs a matrix, similar to a set encoder, except each element of the matrix is a float
 value representing the frequency of the respective element in the bag. Embeddings are aggregated by summation, weighted
 by the frequency of each element.
@@ -58,7 +58,7 @@ embedding is multiplied by its respective element's frequency.
 Inputs are of size `b` while outputs are of size `b x h` where `b` is the batch size and `h` is the dimensionality of
 the embeddings.
 
-The parameters are the same used for [set input features](../set_features#set-input-features-and-encoders) except for
+The parameters are the same used for [set input features](set_features.md#input-features) except for
 `reduce_output` which should not be used because the weighted sum already acts as a reducer.
 
 {% set encoder = get_encoder_schema("bag", "embed") %}

@@ -27,7 +27,7 @@ types of errors, we recommend trying the following in order:
 - Setting `trainer.batch_size=auto` in the config (this is the current default).
 - Manually setting `trainer.max_batch_size`.
 - Trying a smaller model architecture.
-- Splitting the model across multiple GPUs the [Fully Sharded Data Parallel](../configuration/backend.md#fully-sharded-data-parallel-fsdp) strategy.
+- Splitting the model across multiple GPUs the [Fully Sharded Data Parallel](../configuration/backend.md#trainer) strategy.
 
 ### Disabling GPUs
 

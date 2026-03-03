@@ -125,7 +125,7 @@ tensor, on the first dimension (second if you count the batch dimension). Availa
 Calibration uses the validation set to find a scale factor (temperature) which is multiplied with the logits to shift
 output probabilities closer to true likelihoods.
 - **`dependencies`** (default `[]`): the output features this one is dependent on. For a detailed explanation refer to
-[Output Features Dependencies](../output_features#output-feature-dependencies).
+[Output Features Dependencies](output_features.md#output-feature-dependencies).
 - **`reduce_dependencies`** (default `sum`): defines how to reduce the output of a dependent feature that is not a vector,
 but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available
 values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last
@@ -135,7 +135,7 @@ the only supported loss type for category output features. See [Loss](#loss) for
 - **`top_k`** (default `3`): determines the parameter `k`, the number of categories to consider when computing the `top_k`
 measure. It computes accuracy but considering as a match if the true category appears in the first `k` predicted
 categories ranked by decoder's confidence.
-- **`decoder`** (default: `{"type": "classifier"}`): Decoder for the desired task. Options: `classifier`. See [Decoder](#decoder) for details.
+- **`decoder`** (default: `{"type": "classifier"}`): Decoder for the desired task. Options: `classifier`. See [Decoder](#decoders) for details.
 
 Decoder type and decoder parameters can also be defined once and applied to all category output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
 

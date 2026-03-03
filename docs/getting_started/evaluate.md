@@ -37,10 +37,10 @@ Running this command will return model predictions. Your results should look som
 |   3   | [0.022977590560913086, 0.9770224094390869]  |          True           |            0.022978             |            0.977022            |        0.977022         |
 |   4   | [0.9472369104623795, 0.052763089537620544]  |          False          |            0.947237             |            0.052763            |        0.947237         |
 
-A handy [`ludwig experiment`](../../user_guide/api/LudwigModel/#experiment) CLI command is also available. This one command performs training and then prediction using the checkpoint with the best validation metric.
+A handy [`ludwig experiment`](../user_guide/api/LudwigModel.md#ludwig.api.LudwigModel.experiment) CLI command is also available. This one command performs training and then prediction using the checkpoint with the best validation metric.
 
 In addition to predictions, Ludwig also computes a suite of evaluation metrics, depending on the output feature's type.
-The exact metrics that are computed for each output feature type can be found [here](../../configuration/features/supported_data_types).
+The exact metrics that are computed for each output feature type can be found [here](../configuration/features/supported_data_types.md).
 
 !!! note
 
@@ -65,7 +65,7 @@ The exact metrics that are computed for each output feature type can be found [h
     docker run -t -i --mount type=bind,source={absolute/path/to/rotten_tomatoes_data},target=/rotten_tomatoes_data ludwigai/ludwig evaluate --dataset /rotten_tomatoes_data/rotten_tomatoes_test.csv --model_path /rotten_tomatoes_data/results/experiment_run/model
     ```
 
-Evaluation performance can be visualized using [`ludwig visualize`](../../user_guide/api/visualization/). This enables us to visualize metrics like for omparing performances and predictions across different models. For instance, if you have two models which you want to compare evaluation statistics for, you could use the following commands:
+Evaluation performance can be visualized using [`ludwig visualize`](../user_guide/api/visualization.md). This enables us to visualize metrics like for omparing performances and predictions across different models. For instance, if you have two models which you want to compare evaluation statistics for, you could use the following commands:
 
 === "CLI"
 

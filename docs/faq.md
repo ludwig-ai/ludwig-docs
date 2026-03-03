@@ -72,7 +72,7 @@ dynamically from disk, while other types of features are loaded in memory for sp
 
 Ludwig supports training with very large datasets on Ray using
 [Ray Datasets](https://docs.ray.io/en/latest/data/dataset.html). Read more about
-using [Ludwig on Ray](../user_guide/distributed_training/#ray).
+using [Ludwig on Ray](user_guide/distributed_training/index.md#ray).
 
 # Who develops Ludwig?
 

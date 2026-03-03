@@ -18,7 +18,7 @@ The `input_features` section is list of feature definitions. Each feature defini
     }
     ```
 
-`name` is the name of the feature in the dataset. `type` is one of the [supported data types](../supported_data_types).
+`name` is the name of the feature in the dataset. `type` is one of the [supported data types](supported_data_types.md).
 
 # Preprocessing
 

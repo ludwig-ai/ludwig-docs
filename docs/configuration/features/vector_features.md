@@ -106,11 +106,11 @@ decoder:
 Parameters:
 
 - **`reduce_input`** (default `sum`): defines how to reduce an input that is not a vector, but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension).
-- `dependencies` (default `[]`): the output features this one is dependent on. For a detailed explanation refer to [Output Features Dependencies](#output-features-dependencies).
+- `dependencies` (default `[]`): the output features this one is dependent on. For a detailed explanation refer to [Output Features Dependencies](output_features.md#output-feature-dependencies).
 - **`reduce_dependencies`** (default `sum`): defines how to reduce the output of a dependent feature that is not a vector, but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension).
 - **`softmax`** (default `false`): determines if to apply a softmax at the end of the decoder. It is useful for predicting a vector of values that sum up to 1 and can be interpreted as probabilities.
 - **`loss`** (default `{type: mean_squared_error}`): is a dictionary containing a loss `type`. The available loss `type` are `mean_squared_error`, `mean_absolute_error` and `softmax_cross_entropy` (use it only if `softmax` is `true`). See [Loss](#loss) for details.
-- **`decoder`** (default: `{"type": "projector"}`): Decoder for the desired task. Options: `projector`. See [Decoder](#decoder) for details.
+- **`decoder`** (default: `{"type": "projector"}`): Decoder for the desired task. Options: `projector`. See [Decoder](#decoders) for details.
 
 ## Decoders
 

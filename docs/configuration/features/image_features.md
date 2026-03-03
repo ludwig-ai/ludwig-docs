@@ -544,14 +544,14 @@ Parameters:
 tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`,
 `max`, `concat` (concatenates along the first dimension), `last` (returns the last vector of the first dimension).
 - **`dependencies`** (default `[]`): the output features this one is dependent on. For a detailed explanation refer to
-[Output Feature Dependencies](../output_features#output-feature-dependencies).
+[Output Feature Dependencies](output_features.md#output-feature-dependencies).
 - **`reduce_dependencies`** (default `sum`): defines how to reduce the output of a dependent feature that is not a vector,
 but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available
 values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the first dimension), `last` (returns the last
 vector of the first dimension).
 - **`loss`** (default `{type: softmax_cross_entropy}`): is a dictionary containing a loss `type`. `softmax_cross_entropy` is
 the only supported loss type for image output features. See [Loss](#loss) for details.
-- **`decoder`** (default: `{"type": "unet"}`): Decoder for the desired task. Options: `unet`. See [Decoder](#decoder) for details.
+- **`decoder`** (default: `{"type": "unet"}`): Decoder for the desired task. Options: `unet`. See [Decoder](#decoders) for details.
 
 ## Decoders
 

@@ -250,4 +250,4 @@ def test_transformer_combiner(
 
 For examples of combiner tests, see `tests/ludwig/combiners/test_combiners.py`.
 
-For more detail about unit testing in Ludiwg, see also [Unit Test Design Guidelines](../unit_test_design_guidelines).
+For more detail about unit testing in Ludiwg, see also [Unit Test Design Guidelines](unit_test_design_guidelines.md).

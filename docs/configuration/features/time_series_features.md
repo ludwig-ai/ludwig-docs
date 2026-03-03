@@ -13,7 +13,7 @@ Since data is continuous, the JSON file, which typically stores vocabulary mappi
 
 ### Sequence Encoders
 
-Time series encoders are the same as for [Sequence Features](../sequence_features#sequence-input-features-and-encoders), with one exception:
+Time series encoders are the same as for [Sequence Features](sequence_features.md#input-features), with one exception:
 
 Time series features don't have an embedding layer at the beginning, so the `b x s` placeholders (where `b` is the batch
 size and `s` is the sequence length) are directly mapped to a `b x s x 1` tensor and then passed to the different

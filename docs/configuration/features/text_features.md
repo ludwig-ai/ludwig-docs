@@ -4,7 +4,7 @@
 
 # Preprocessing
 
-Text features are an extension of [sequence features](../sequence_features). Text inputs are processed by a tokenizer
+Text features are an extension of [sequence features](sequence_features.md). Text inputs are processed by a tokenizer
 which maps the raw text input into a sequence of tokens. An integer id is assigned to each unique token. Using this
 mapping, each text string is converted first to a sequence of tokens, and next to a sequence of integers.
 
@@ -45,7 +45,7 @@ encoder:
 Parameters:
 
 - **`type`** (default `parallel_cnn`): encoder to use for the input text feature. The available encoders include encoders
-used for [Sequence Features](../sequence_features#sequence-input-features-and-encoders) as well as pre-trained text
+used for [Sequence Features](sequence_features.md#input-features) as well as pre-trained text
 encoders from the
 face transformers library: `albert`, `auto_transformer`, `bert`, `camembert`, `ctrl`,
 `distilbert`, `electra`, `flaubert`, `gpt`, `gpt2`, `longformer`, `roberta`, `t5`, `mt5`, `transformer_xl`, `xlm`,
@@ -354,7 +354,7 @@ More information about the model initialization parameters can be found [here](.
 
 # Output Features
 
-Text output features are a special case of [Sequence Features](#sequence-output-features-and-decoders), so all options
+Text output features are a special case of [Sequence Features](sequence_features.md#output-features), so all options
 of sequence features are available for text features as well.
 
 Text output features can be used for either tagging (classifying each token of an input sequence) or text
@@ -385,7 +385,7 @@ Parameters:
 tensor, on the first dimension (second if you count the batch dimension). Available values are: `sum`, `mean` or `avg`,
 `max`, `concat` (concatenates along the sequence dimension), `last` (returns the last vector of the sequence dimension).
 - **`dependencies`** (default `[]`): the output features this one is dependent on. For a detailed explanation refer to
-[Output Feature Dependencies](../output_features#output-feature-dependencies).
+[Output Feature Dependencies](output_features.md#output-feature-dependencies).
 - **`reduce_dependencies`** (default `sum`): defines how to reduce the output of a dependent feature that is not a vector,
 but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available
 values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the sequence dimension), `last` (returns the
@@ -393,7 +393,7 @@ last vector of the sequence dimension).
 - **`loss`** (default `{type: softmax_cross_entropy, class_similarities_temperature: 0, class_weights: 1,
 confidence_penalty: 0, robust_lambda: 0}`): is a dictionary containing a loss `type`. The only available loss `type` for
 text features is `softmax_cross_entropy`. See [Loss](#loss) for details.
-- **`decoder`** (default: `{"type": "generator"}`): Decoder for the desired task. Options: `generator`, `tagger`. See [Decoder](#decoder) for details.
+- **`decoder`** (default: `{"type": "generator"}`): Decoder for the desired task. Options: `generator`, `tagger`. See [Decoder](#decoders) for details.
 
 Decoder type and decoder parameters can also be defined once and applied to all text output features using
 the [Type-Global Decoder](../defaults.md#type-global-decoder) section. Loss and loss related parameters can
@@ -489,7 +489,7 @@ Parameters:
 
 ## Metrics
 
-The metrics available for text features are the same as for [Sequence Features](../sequence_features#sequence-features-metrics):
+The metrics available for text features are the same as for [Sequence Features](sequence_features.md#metrics):
 
 - `sequence_accuracy` The rate at which the model predicted the correct sequence.
 - `token_accuracy` The number of tokens correctly predicted divided by the total number of tokens in all sequences.

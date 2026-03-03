@@ -1,4 +1,4 @@
-The [Ludwig Dataset Zoo](../../user_guide/datasets/dataset_zoo) is a corpus of various datasets from the web
+The [Ludwig Dataset Zoo](../user_guide/datasets/dataset_zoo.md) is a corpus of various datasets from the web
 conveniently built into Ludwig.
 
 Ludwig datasets automate managing credentials for downloading data from sites like Kaggle, merging multiple files into

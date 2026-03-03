@@ -33,4 +33,4 @@ Since the output feature is a binary type feature, the output from the POST call
 
 !!! note
 
-    Users can also send POST requests to the [`/batch_predict`](../..//user_guide/serving/#batch_predict) endpoint to run inference on multiple examples at once. Read more about [ludwig serve](../../user_guide/serving) to learn more about ludwig deployments.
+    Users can also send POST requests to the [`/batch_predict`](../user_guide/serving.md#batch_predict) endpoint to run inference on multiple examples at once. Read more about [ludwig serve](../user_guide/serving.md) to learn more about ludwig deployments.

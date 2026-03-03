@@ -3,7 +3,7 @@
 We expect contributions to mimic existing patterns in the codebase and demonstrate good practices: the code should be
 concise, readable, [PEP8-compliant](https://peps.python.org/pep-0008/), and limit each line to 120 characters.
 
-See [codebase structure](../codebase_structure) for guidelines on where new modules should be added.
+See [codebase structure](codebase_structure.md) for guidelines on where new modules should be added.
 
 ## pre-commit.ci
 

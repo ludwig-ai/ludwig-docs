@@ -11,8 +11,8 @@ of that feature type, while `decoder` and `loss` configurations will be applied 
 of that feature type.
 
 These parameters can be set for individual features through the
-[input feature configuration](../features/input_features#preprocessing) or
-[output feature configuration](../features/output_features#decoders).
+[input feature configuration](features/input_features.md#preprocessing) or
+[output feature configuration](features/output_features.md#decoders).
 
 !!! Note
     **Feature-specific configurations override global defaults**: When a parameter is defined for a
@@ -91,7 +91,7 @@ defaults:
             fill_value: <UNK>
 ```
 
-The preprocessing parameters that each data type accepts can be found in [datatype-specific documentation](../features/supported_data_types).
+The preprocessing parameters that each data type accepts can be found in [datatype-specific documentation](features/supported_data_types.md).
 
 Note that different features with the same datatype may require different preprocessing. Type-global preprocessing works
 in tandem with feature-specific preprocessing configuration parameters, however, feature-specific configurations override the global settings.
@@ -192,7 +192,7 @@ defaults:
     specific encoders. Only one default encoder can be defined for all features of that particular type.
 
 The encoder types and parameters that each data type accepts can be found in
-[datatype-specific documentation](../features/supported_data_types).
+[datatype-specific documentation](features/supported_data_types.md).
 
 ### Type-Global Decoder
 
@@ -213,7 +213,7 @@ defaults:
     changing the default value for a parameter for the decoder, since the parameters are tied to
     specific decoders. Only one default decoder can be defined for all features of that particular type.
 
-The decoder types and parameters that each data type accepts can be found in [datatype-specific documentation](../features/supported_data_types).
+The decoder types and parameters that each data type accepts can be found in [datatype-specific documentation](features/supported_data_types.md).
 
 ### Type-Global Loss
 
@@ -228,7 +228,7 @@ defaults:
             confidence_penalty: 0.1
 ```
 
-The loss types and parameters that each data type accepts can be found in [datatype-specific documentation](../features/supported_data_types).
+The loss types and parameters that each data type accepts can be found in [datatype-specific documentation](features/supported_data_types.md).
 
 ## Defaults Example
 

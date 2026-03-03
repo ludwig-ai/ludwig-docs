@@ -8,11 +8,11 @@ The following model types are supported:
 model_type: ecd
 ```
 
-Every model type has trainers associated with it. See the [Trainer](../trainer) section for details about the supported training algorithms per model type.
+Every model type has trainers associated with it. See the [Trainer](trainer.md) section for details about the supported training algorithms per model type.
 
 ## Model Type: ECD
 
-See the [ECD documentation](../../user_guide/how_ludwig_works/#ecd-architecture) for details about the Encoder-Combiner-Decoder deep learning architecture.
+See the [ECD documentation](../user_guide/how_ludwig_works.md#ecd-architecture) for details about the Encoder-Combiner-Decoder deep learning architecture.
 
 !!! check
 

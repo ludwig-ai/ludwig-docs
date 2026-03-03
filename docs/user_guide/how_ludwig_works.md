@@ -67,7 +67,7 @@ hyperopt:
       values: [0.01, 0.003, 0.001]
 ```
 
-See [Ludwig configurations](../../configuration) for an in-depth reference.
+See [Ludwig configurations](../configuration/index.md) for an in-depth reference.
 
 # Data type abstractions
 
@@ -93,14 +93,14 @@ Vice versa, every module (preprocessor, encoder, decoder) is registered to a spe
 
 </div>
 
-Read more about [Ludwig's supported feature types](../../configuration/features/supported_data_types).
+Read more about [Ludwig's supported feature types](../configuration/features/supported_data_types.md).
 
 # ECD Architecture
 
 Ludwig’s core modeling architecture is referred to as ECD (encoder-combiner-decoder).
-Multiple input features are encoded and fed through the [Combiner](../../configuration/combiner) model that operates on encoded inputs to combine them.
+Multiple input features are encoded and fed through the [Combiner](../configuration/combiner.md) model that operates on encoded inputs to combine them.
 On the output side, the combiner model's outputs are fed to decoders for each output feature for predictions and post-processing.
-Find out [more](../../configuration/combiner) about Ludwig's Combiner models like [TabNet](https://arxiv.org/abs/1908.07442), Transformer, and Concat ([Wide and Deep learning](https://ai.googleblog.com/2016/06/wide-deep-learning-better-together-with.html)).
+Find out [more](../configuration/combiner.md) about Ludwig's Combiner models like [TabNet](https://arxiv.org/abs/1908.07442), Transformer, and Concat ([Wide and Deep learning](https://ai.googleblog.com/2016/06/wide-deep-learning-better-together-with.html)).
 
 Visualized, the ECD architecture looks like a butterfly and sometimes we refer to it as the “butterfly architecture”.
 
@@ -110,7 +110,7 @@ ECD flexibly handles many different combinations of input and output data types,
 
 ![gif](../images/ludwig_legos.gif)
 
-Take a look at [Examples](../../examples) to see how you can use Ludwig for several many different applications.
+Take a look at [Examples](../examples/index.md) to see how you can use Ludwig for several many different applications.
 
 # Distributed training, data processing, and hyperparameter search with Ray
 

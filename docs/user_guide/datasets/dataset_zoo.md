@@ -176,4 +176,4 @@ Here is the list of the currently available datasets:
 
 ## Adding datasets
 
-To add a dataset to the Ludwig Dataset Zoo, see [Add a Dataset](../../../developer_guide/add_a_dataset).
+To add a dataset to the Ludwig Dataset Zoo, see [Add a Dataset](../../developer_guide/add_a_dataset.md).

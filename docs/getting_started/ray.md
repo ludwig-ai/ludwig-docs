@@ -47,4 +47,4 @@ You can also run a distributed hyperopt job with this command:
 ray submit cluster.yaml ludwig hyperopt --config rotten_tomatoes.yaml --dataset s3://mybucket/rotten_tomatoes.csv
 ```
 
-For more information on using Ray with Ludwig, refer to the [ray configuration guide](../../user_guide/distributed_training).
+For more information on using Ray with Ludwig, refer to the [ray configuration guide](../user_guide/distributed_training/index.md).

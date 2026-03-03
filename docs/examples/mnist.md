@@ -46,13 +46,13 @@ Sample of images with `label`.
 
 ## Train
 
-The Ludwig configuration file describes the machine learning task. This example only uses a small subset of the options provided by Ludwig. Please refer to the [Configuration Section](../../configuration) for all the details.
+The Ludwig configuration file describes the machine learning task. This example only uses a small subset of the options provided by Ludwig. Please refer to the [Configuration Section](../configuration/index.md) for all the details.
 
-First it defines the `input_features`.  For the image feature, the configuration specifies the type of neural network architecture to encode the image.  In this example the encoder is a two layer [Stacked Convolutional Neural Network](../../configuration/features/image_features/#convolutional-stack-encoder-stacked_cnn) followed by a fully connected layer with dropout regularization.
+First it defines the `input_features`.  For the image feature, the configuration specifies the type of neural network architecture to encode the image.  In this example the encoder is a two layer [Stacked Convolutional Neural Network](../configuration/features/image_features.md#convolutional-stack-encoder-stacked_cnn) followed by a fully connected layer with dropout regularization.
 
-Next the `output_features` are defined.  In this case, there is only one output feature called `label`.  This is a [categorical feature](../../configuration/features/category_features/) that indicates the digit the image represents, 0, 1, 2, ..., 9.
+Next the `output_features` are defined.  In this case, there is only one output feature called `label`.  This is a [categorical feature](../configuration/features/category_features.md) that indicates the digit the image represents, 0, 1, 2, ..., 9.
 
-The last section in this configuration file describes options for how the the [`trainer`](../../configuration/trainer/) will operate.  In this example the `trainer` will process the training data for 5 epochs.
+The last section in this configuration file describes options for how the the [`trainer`](../configuration/trainer.md) will operate.  In this example the `trainer` will process the training data for 5 epochs.
 
 === "cli"
 
@@ -87,7 +87,7 @@ The last section in this configuration file describes options for how the the [`
 
 === "python"
 
-    [LudwigModel](../../user_guide/api/LudwigModel/)
+    [LudwigModel](../user_guide/api/LudwigModel.md)
 
     ```python
     # create Ludwig configuration dictionary
@@ -120,7 +120,7 @@ Train the model.
 
 === "cli"
 
-    [`ludwig train` command](../../user_guide/command_line_interface/#train)
+    [`ludwig train` command](../user_guide/command_line_interface.md#train)
 
     ```shell
     ludwig train \
@@ -130,7 +130,7 @@ Train the model.
 
 === "python"
 
-    [train() method](../../user_guide/api/LudwigModel/#train)
+    [train() method](../user_guide/api/LudwigModel.md#ludwig.api.LudwigModel.train)
 
     ```python
     # Trains the model. This cell might take a few minutes.
@@ -143,7 +143,7 @@ Evaluate the trained model.
 
 === "cli"
 
-    [`ludwig evaluate` command](../../user_guide/command_line_interface/#evaluate)
+    [`ludwig evaluate` command](../user_guide/command_line_interface.md#evaluate)
 
     ```shell
     ludwig evaluate --model_path results/experiment_run/model \
@@ -154,7 +154,7 @@ Evaluate the trained model.
 
 === "python"
 
-    [evaluate() method](../../user_guide/api/LudwigModel/#evaluate)
+    [evaluate() method](../user_guide/api/LudwigModel.md#ludwig.api.LudwigModel.evaluate)
 
     ```python
     # Generates predictions and performance statistics for the test set.
@@ -171,7 +171,7 @@ Display Confusion Matrix and Class Entropy plots.
 
 === "cli"
 
-    [`ludwig visualize confusion_matrix` command](../../user_guide/visualizations/#confusion-matrix)
+    [`ludwig visualize confusion_matrix` command](../user_guide/visualizations.md#confusion-matrix)
 
     ```shell
     ludwig visualize --visualization confusion_matrix \
@@ -183,7 +183,7 @@ Display Confusion Matrix and Class Entropy plots.
 
 === "python"
 
-    [`visualize.confusion_matrix()` function](../../user_guide/api/visualization/#confusion_matrix)
+    [`visualize.confusion_matrix()` function](../user_guide/api/visualization.md#ludwig.visualize.confusion_matrix)
 
     ```python
     # Visualizes confusion matrix, which gives an overview of classifier performance
@@ -206,7 +206,7 @@ Display Learning Curves plots.
 
 === "cli"
 
-    [`ludwig visualize learning_curves` command](../../user_guide/visualizations/#learning-curves)
+    [`ludwig visualize learning_curves` command](../user_guide/visualizations.md#learning-curves)
 
     ```shell
     ludwig visualize --visualization learning_curves \
@@ -218,7 +218,7 @@ Display Learning Curves plots.
 
 === "python"
 
-    [`visualize.learning_curves()` function](../../ser_guide/api/visualization/#learning_curves)
+    [`visualize.learning_curves()` function](../user_guide/api/visualization.md#ludwig.visualize.learning_curves)
 
     ```python
     # Visualizes learning curves, which show how performance metrics changed over
@@ -236,7 +236,7 @@ Generate predictions from test dataset.
 
 === "cli"
 
-    [`ludwig predict` command](../../user_guide/command_line_interface/#predict)
+    [`ludwig predict` command](../user_guide/command_line_interface.md#predict)
 
     ```shell
     ludwig predict --model_path results/experiment_run/model \
@@ -247,7 +247,7 @@ Generate predictions from test dataset.
 
 === "python"
 
-    [`predict()` method](../../user_guide/api/LudwigModel/#predict)
+    [`predict()` method](../user_guide/api/LudwigModel.md#ludwig.api.LudwigModel.predict)
 
     ```python
     predictions, output_directory = model.predict(test_df)

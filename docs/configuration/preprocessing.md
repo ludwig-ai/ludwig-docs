@@ -208,4 +208,4 @@ You can explore all 3 options for controlling max sequence lengths and their tra
 # Feature-specific preprocessing
 
 To configure feature-specific preprocessing, please check
-[datatype-specific documentation](../features/supported_data_types).
+[datatype-specific documentation](features/supported_data_types.md).

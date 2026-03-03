@@ -506,4 +506,4 @@ or even use it directly through Ludwig for inference.
 ludwig upload hf_hub --repo_id <repo_id> --model_path </path/to/saved/model>
 ```
 
-To learn more on how to do this, click [here](../user_guide/api/LudwigModel.md#upload_to_hf_hub).
+To learn more on how to do this, click [here](../user_guide/api/LudwigModel.md#ludwig.api.LudwigModel.upload_to_hf_hub).

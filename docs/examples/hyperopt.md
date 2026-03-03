@@ -38,11 +38,11 @@ The columns in the dataset are
 
 ## Setup for hyperparameter optimization run
 
-Hyperparameter optimization is defined with the [`hyperopt` section of the Ludwig configuration specification](../../configuration/hyperparameter_optimization/).  
+Hyperparameter optimization is defined with the [`hyperopt` section of the Ludwig configuration specification](../configuration/hyperparameter_optimization.md).  
 
 === "cli"
 
-    [ludwig hyperopt](../../user_guide/)
+    [ludwig hyperopt](../user_guide/index.md)
 
     ```yaml
     preprocessing:
@@ -203,7 +203,7 @@ Here are example commands/function call to run Ludwig's hyperparameter optimizat
 
 === "cli"
 
-    [`ludwig hyperopt` command](../../user_guide/command_line_interface/#hyperopt)
+    [`ludwig hyperopt` command](../user_guide/command_line_interface.md#hyperopt)
 
     ```shell
     ludwig hyperopt --dataset adult_census_income.csv \
@@ -214,7 +214,7 @@ Here are example commands/function call to run Ludwig's hyperparameter optimizat
 
 === "python"
 
-    [hyperopt() method](../../user_guide/api/LudwigModel/#hyperopt)
+    [hyperopt() method](../user_guide/api/LudwigModel.md#ludwig.hyperopt.run.hyperopt)
 
     ```python
     hyperopt_results = hyperopt(
@@ -229,9 +229,9 @@ Here are example commands/function call to run Ludwig's hyperparameter optimizat
 
 === "cli"
 
-    [`ludwig visualize hyperopt_report` command](../../user_guide/visualizations/#hyperopt_report)
+    [`ludwig visualize hyperopt_report` command](../user_guide/visualizations.md#hyperopt_report)
 
-    [`ludwig visualize hyperopt_hiplot` command](../../user_guide/visualizations/#hyperopt_hiplot)
+    [`ludwig visualize hyperopt_hiplot` command](../user_guide/visualizations.md#hyperopt_hiplot)
 
     ```shell
     # generate visualizations on hyperparameter effects on the metric
@@ -248,9 +248,9 @@ Here are example commands/function call to run Ludwig's hyperparameter optimizat
 
 === "python"
 
-    [`visualize.hyperopt_report()` function](../../user_guide/api/visualization/#hyperopt_report)
+    [`visualize.hyperopt_report()` function](../user_guide/api/visualization.md#ludwig.visualize.hyperopt_report)
 
-    [`visualize.hyperopt_hiplot()` function](../../user_guide/api/visualization/#hyperopt_hiplot)
+    [`visualize.hyperopt_hiplot()` function](../user_guide/api/visualization.md#ludwig.visualize.hyperopt_hiplot)
 
     ```python
 

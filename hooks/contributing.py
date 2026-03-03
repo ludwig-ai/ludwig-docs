@@ -13,9 +13,7 @@ import urllib.request
 
 log = logging.getLogger("mkdocs.hooks.contributing")
 
-_SOURCE_URL = (
-    "https://raw.githubusercontent.com/ludwig-ai/ludwig/main/CONTRIBUTING.md"
-)
+_SOURCE_URL = "https://raw.githubusercontent.com/ludwig-ai/ludwig/main/CONTRIBUTING.md"
 _DEST = pathlib.Path("docs/developer_guide/contributing.md")
 
 
@@ -24,9 +22,7 @@ def on_pre_build(**kwargs) -> None:  # noqa: ARG001
         with urllib.request.urlopen(_SOURCE_URL, timeout=30) as resp:
             text = resp.read().decode()
     except Exception:
-        log.warning(
-            "Failed to download CONTRIBUTING.md; using existing local copy."
-        )
+        log.warning("Failed to download CONTRIBUTING.md; using existing local copy.")
         return
 
     text = text.replace("ludwig-ai.github.io/ludwig-docs/", "ludwig.ai/")

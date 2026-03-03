@@ -20,10 +20,14 @@ import warnings
 def on_startup(**kwargs) -> None:  # noqa: ARG001
     # sentencepiece SWIG wrappers lack __module__
     warnings.filterwarnings("ignore", message="builtin type Swig.*has no __module__")
-    warnings.filterwarnings("ignore", message="builtin type swigvarlink.*has no __module__")
+    warnings.filterwarnings(
+        "ignore", message="builtin type swigvarlink.*has no __module__"
+    )
 
     # bitsandbytes GPU-support warning (irrelevant for doc builds)
-    warnings.filterwarnings("ignore", message=".*bitsandbytes was compiled without GPU support.*")
+    warnings.filterwarnings(
+        "ignore", message=".*bitsandbytes was compiled without GPU support.*"
+    )
 
     # bitsandbytes prints to stdout when compiled without GPU support.
     # Pre-import it with stdout suppressed so the message never reaches the

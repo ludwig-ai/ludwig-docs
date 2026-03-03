@@ -61,6 +61,8 @@
       
     
     
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
       <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
       <link rel="stylesheet" href="../../../stylesheets/monokai.css">
@@ -4583,7 +4585,7 @@ preprocessing file uses floats instead of integers.</p>
 <h2 id="input-features">Input Features<a class="headerlink" href="#input-features" title="Permanent link">&para;</a></h2>
 <h3 id="encoders">Encoders<a class="headerlink" href="#encoders" title="Permanent link">&para;</a></h3>
 <h4 id="sequence-encoders">Sequence Encoders<a class="headerlink" href="#sequence-encoders" title="Permanent link">&para;</a></h4>
-<p>Time series encoders are the same as for <a href="../sequence_features#sequence-input-features-and-encoders">Sequence Features</a>, with one exception:</p>
+<p>Time series encoders are the same as for <a href="../sequence_features/#input-features">Sequence Features</a>, with one exception:</p>
 <p>Time series features don't have an embedding layer at the beginning, so the <code>b x s</code> placeholders (where <code>b</code> is the batch
 size and <code>s</code> is the sequence length) are directly mapped to a <code>b x s x 1</code> tensor and then passed to the different
 sequential encoders.</p>

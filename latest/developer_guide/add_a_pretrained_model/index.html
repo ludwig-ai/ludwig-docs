@@ -61,6 +61,8 @@
       
     
     
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
       <link rel="stylesheet" href="../../stylesheets/monokai.css">
@@ -4491,7 +4493,7 @@ leverage in a Ludwig model, for instance as an encoder.</p>
 <code>LudwigModule</code>, which is itself a <a href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html">torch.nn.Module</a>.</p>
 <p>For demonstration purposes, we'll walk through how to implement huggingface's
 pre-trained BERT model as Ludwig text encoder. We recommend reading how to
-<a href="../add_an_encoder">add an encoder</a> as a first step.</p>
+<a href="../add_an_encoder/">add an encoder</a> as a first step.</p>
 <h2 id="1-importload-the-pretrained-model">1. Import/load the pretrained model<a class="headerlink" href="#1-importload-the-pretrained-model" title="Permanent link">&para;</a></h2>
 <p>Load the pre-trained model in the <code>LudwigModule</code>'s constructor.</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@register_encoder</span><span class="p">(</span><span class="s2">&quot;bert&quot;</span><span class="p">,</span> <span class="n">TEXT</span><span class="p">)</span>

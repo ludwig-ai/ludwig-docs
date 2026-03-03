@@ -61,6 +61,8 @@
       
     
     
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
       <link rel="stylesheet" href="../../stylesheets/monokai.css">
@@ -4723,7 +4725,7 @@
 <h3 id="torchscript-export">TorchScript Export<a class="headerlink" href="#torchscript-export" title="Permanent link">&para;</a></h3>
 <p>A subset of Ludwig Models can be exported to Torchscript end-to-end. This means
 that, in addition to the model itself, the preprocessing and postprocessing steps can be exported to TorchScript as well, ensuring that the model can be used for inference in a production environment out-of-the-box.</p>
-<p>To get started, simply run the <a href="/latest/user_guide/command_line_interface/#export_torchscript"><code>export_torchscript</code></a> command:</p>
+<p>To get started, simply run the <a href="../command_line_interface/#export_torchscript"><code>export_torchscript</code></a> command:</p>
 <div class="highlight"><pre><span></span><code>ludwig export_torchscript -m=results/experiment_run/model
 </code></pre></div>
 <p>As long as <code>--model_only</code> is not specified, then three files are output by this command. The most important are <code>inference_preprocessor.pt</code>, <code>inference_predictor_&lt;DEVICE&gt;.pt</code>, and <code>inference_postprocessor.pt</code>.</p>
@@ -4844,7 +4846,7 @@ that, in addition to the model itself, the preprocessing and postprocessing step
 <h3 id="carton-export">Carton Export<a class="headerlink" href="#carton-export" title="Permanent link">&para;</a></h3>
 <p><a href="https://carton.run/">Carton</a> is a library that allows users to efficiently run ML models from several programming languages (including C, C++, Rust, and more).</p>
 <p>A subset of Ludwig Models can be exported to Carton. In addition to the model itself, the preprocessing and postprocessing steps are included in the exported model as well, ensuring that the model can be used for inference in a production environment out-of-the-box.</p>
-<p>To get started, simply run the <a href="/latest/user_guide/command_line_interface/#export_carton"><code>export_carton</code></a> command:</p>
+<p>To get started, simply run the <a href="../command_line_interface/#export_carton"><code>export_carton</code></a> command:</p>
 <p><div class="highlight"><pre><span></span><code>ludwig export_carton -m=results/experiment_run/model
 </code></pre></div>
 This will produce a file that can be loaded by Carton from any supported programming language.</p>

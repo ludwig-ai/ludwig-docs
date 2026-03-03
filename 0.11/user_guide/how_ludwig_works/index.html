@@ -61,6 +61,8 @@
       
     
     
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
       <link rel="stylesheet" href="../../stylesheets/monokai.css">
@@ -4571,7 +4573,7 @@
 <span class="w">    </span><span class="nt">training.learning_rate</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.01</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.003</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.001</span><span class="p p-Indicator">]</span>
 </code></pre></div>
-<p>See <a href="../../configuration">Ludwig configurations</a> for an in-depth reference.</p>
+<p>See <a href="../../configuration/">Ludwig configurations</a> for an in-depth reference.</p>
 <h2 id="data-type-abstractions">Data type abstractions<a class="headerlink" href="#data-type-abstractions" title="Permanent link">&para;</a></h2>
 <p>Every feature in Ludwig is described by a specific data type.
 Each data type maps to a specific set of modules that handle preprocessing, encoding, decoding, and post-processing for that type.
@@ -4591,17 +4593,17 @@ Vice versa, every module (preprocessor, encoder, decoder) is registered to a spe
 <a class="md-button" href="../../configuration/features/image_features/">Image</a>
 <a class="md-button" href="../../configuration/features/time_series_features/">Timeseries</a></p>
 </div>
-<p>Read more about <a href="../../configuration/features/supported_data_types">Ludwig's supported feature types</a>.</p>
+<p>Read more about <a href="../../configuration/features/supported_data_types/">Ludwig's supported feature types</a>.</p>
 <h2 id="ecd-architecture">ECD Architecture<a class="headerlink" href="#ecd-architecture" title="Permanent link">&para;</a></h2>
 <p>Ludwig’s core modeling architecture is referred to as ECD (encoder-combiner-decoder).
-Multiple input features are encoded and fed through the <a href="../../configuration/combiner">Combiner</a> model that operates on encoded inputs to combine them.
+Multiple input features are encoded and fed through the <a href="../../configuration/combiner/">Combiner</a> model that operates on encoded inputs to combine them.
 On the output side, the combiner model's outputs are fed to decoders for each output feature for predictions and post-processing.
-Find out <a href="../../configuration/combiner">more</a> about Ludwig's Combiner models like <a href="https://arxiv.org/abs/1908.07442">TabNet</a>, Transformer, and Concat (<a href="https://ai.googleblog.com/2016/06/wide-deep-learning-better-together-with.html">Wide and Deep learning</a>).</p>
+Find out <a href="../../configuration/combiner/">more</a> about Ludwig's Combiner models like <a href="https://arxiv.org/abs/1908.07442">TabNet</a>, Transformer, and Concat (<a href="https://ai.googleblog.com/2016/06/wide-deep-learning-better-together-with.html">Wide and Deep learning</a>).</p>
 <p>Visualized, the ECD architecture looks like a butterfly and sometimes we refer to it as the “butterfly architecture”.</p>
 <p><img alt="img" src="../../images/butterfly.png" /></p>
 <p>ECD flexibly handles many different combinations of input and output data types, making the tool well-suited for many different applications.</p>
 <p><img alt="gif" src="../../images/ludwig_legos.gif" /></p>
-<p>Take a look at <a href="../../examples">Examples</a> to see how you can use Ludwig for several many different applications.</p>
+<p>Take a look at <a href="../../examples/">Examples</a> to see how you can use Ludwig for several many different applications.</p>
 <h2 id="distributed-training-data-processing-and-hyperparameter-search-with-ray">Distributed training, data processing, and hyperparameter search with Ray<a class="headerlink" href="#distributed-training-data-processing-and-hyperparameter-search-with-ray" title="Permanent link">&para;</a></h2>
 <p><strong>Ludwig on Ray</strong> enables users to scale their training process from running on their local laptop, to running in the cloud on a GPU instance, to scaling across hundreds of machines in parallel, all without changing a single line of code.</p>
 <p><img alt="img" src="../../images/ludwig_on_ray.png" /></p>

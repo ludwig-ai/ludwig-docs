@@ -61,6 +61,8 @@
       
     
     
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
       <link rel="stylesheet" href="../../stylesheets/monokai.css">
@@ -4916,7 +4918,7 @@ have identical <code>s</code> dimension, otherwise an error will be thrown.</p>
 All the considerations about input tensor ranks described for the <a href="#sequence-concat-combiner">sequence concat combiner</a>
 apply also in this case, but the main difference is that this combiner uses the <code>b x s x h'</code> output of the sequence
 concat combiner, where <code>b</code> is the batch size, <code>s</code> is the sequence length and <code>h'</code> is the sum of the hidden dimensions of
-all input features, as input for any of the sequence encoders described in the <a href="../features/sequence_features#sequence-input-features-and-encoders">sequence features encoders section</a>.
+all input features, as input for any of the sequence encoders described in the <a href="../features/sequence_features/#input-features">sequence features encoders section</a>.
 Refer to that section for more detailed information about the sequence encoders and their parameters.
 All considerations on the shape of the outputs for the sequence encoders also apply to sequence combiner.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">combiner</span><span class="p">:</span>

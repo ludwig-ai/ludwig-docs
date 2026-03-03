@@ -61,6 +61,8 @@
       
     
     
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
       <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
       <link rel="stylesheet" href="../../../stylesheets/monokai.css">
@@ -4864,7 +4866,7 @@ tensor, on the first dimension (second if you count the batch dimension). Availa
 Calibration uses the validation set to find a scale factor (temperature) which is multiplied with the logits to shift
 output probabilities closer to true likelihoods.</li>
 <li><strong><code>dependencies</code></strong> (default <code>[]</code>): the output features this one is dependent on. For a detailed explanation refer to
-<a href="../output_features#output-feature-dependencies">Output Features Dependencies</a>.</li>
+<a href="../output_features/#output-feature-dependencies">Output Features Dependencies</a>.</li>
 <li><strong><code>reduce_dependencies</code></strong> (default <code>sum</code>): defines how to reduce the output of a dependent feature that is not a vector,
 but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available
 values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last
@@ -4874,7 +4876,7 @@ the only supported loss type for category output features. See <a href="#loss">L
 <li><strong><code>top_k</code></strong> (default <code>3</code>): determines the parameter <code>k</code>, the number of categories to consider when computing the <code>top_k</code>
 measure. It computes accuracy but considering as a match if the true category appears in the first <code>k</code> predicted
 categories ranked by decoder's confidence.</li>
-<li><strong><code>decoder</code></strong> (default: <code>{"type": "classifier"}</code>): Decoder for the desired task. Options: <code>classifier</code>. See <a href="#decoder">Decoder</a> for details.</li>
+<li><strong><code>decoder</code></strong> (default: <code>{"type": "classifier"}</code>): Decoder for the desired task. Options: <code>classifier</code>. See <a href="#decoders">Decoder</a> for details.</li>
 </ul>
 <p>Decoder type and decoder parameters can also be defined once and applied to all category output features using the <a href="../../defaults/#type-global-decoder">Type-Global Decoder</a> section.</p>
 <h3 id="decoders">Decoders<a class="headerlink" href="#decoders" title="Permanent link">&para;</a></h3>

@@ -61,6 +61,8 @@
       
     
     
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
       <link rel="stylesheet" href="../../stylesheets/monokai.css">
@@ -4773,10 +4775,10 @@
 </tbody>
 </table>
 <h3 id="train">Train<a class="headerlink" href="#train" title="Permanent link">&para;</a></h3>
-<p>The Ludwig configuration file describes the machine learning task.  There is a vast array of options to control the learning process.  This example only covers a small fraction of the options.  Only the options used in this example are described.  Please refer to the <a href="../../configuration">Configuration Section</a> for all the details.</p>
-<p>First, the <a href="../../configuration/defaults">defaults section</a> defines the <a href="../../configuration/defaults#type-global-preprocessing">global preprocessing options</a>. All <a href="../../configuration/features/number_features">numeric features</a> are z-scored normalized, i.e., mean centered and scaled by the standard deviation.  Numeric missing values are filled in with the mean of non-missing values.</p>
-<p>The <code>input_features</code> section describes each of the predictor variables, i.e., the column name and type of input variable: <a href="../../configuration/features/number_features">number</a> or <a href="../../configuration/features/category_features/">category</a></p>
-<p>The 'combiner' section defines how the input features are combined to be passed to the output decoder.  This example uses the <a href="configuration/combiner/#concat-combiner"><code>concat</code> combiner</a>, which simply concatenates the output of the input feature encoders.  The combined data is passed through a three layer fully connected network of 128 cells in each layer with dropout regularization.</p>
+<p>The Ludwig configuration file describes the machine learning task.  There is a vast array of options to control the learning process.  This example only covers a small fraction of the options.  Only the options used in this example are described.  Please refer to the <a href="../../configuration/">Configuration Section</a> for all the details.</p>
+<p>First, the <a href="../../configuration/defaults/">defaults section</a> defines the <a href="../../configuration/defaults/#type-global-preprocessing">global preprocessing options</a>. All <a href="../../configuration/features/number_features/">numeric features</a> are z-scored normalized, i.e., mean centered and scaled by the standard deviation.  Numeric missing values are filled in with the mean of non-missing values.</p>
+<p>The <code>input_features</code> section describes each of the predictor variables, i.e., the column name and type of input variable: <a href="../../configuration/features/number_features/">number</a> or <a href="../../configuration/features/category_features/">category</a></p>
+<p>The 'combiner' section defines how the input features are combined to be passed to the output decoder.  This example uses the <a href="../../configuration/combiner/#concat-combiner"><code>concat</code> combiner</a>, which simply concatenates the output of the input feature encoders.  The combined data is passed through a three layer fully connected network of 128 cells in each layer with dropout regularization.</p>
 <p>Next the <code>output_features</code> are defined.  In this example, there is one response variable called <code>income</code>.  This is a <a href="../../configuration/features/binary_features/">binary feature</a> with two possible values: " &lt;=50K" or " &gt;50K".  Because thes values are not conventional binary values, i.e., "True" and "False", a feature specific preprocessing option is specified to indicate which string (" &gt;50K") is interpreted as "True".  A four layer fully connected decoder of 32 cells in each layer is specified for this output feature.</p>
 <p>The last section in this configuration file describes options for how the the <a href="../../configuration/trainer/"><code>trainer</code></a> will operate.  In this example the <code>trainer</code> will process the training data for 10 epochs.  The optimizer type is "adam".</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">cli</label><label for="__tabbed_1_2">python</label></div>
@@ -4896,7 +4898,7 @@
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p><a href="../../user_guide/api/LudwigModel/#train">train() method</a></p>
+<p><a href="../../user_guide/api/LudwigModel/#ludwig.api.LudwigModel.train">train() method</a></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Trains the model. This cell might take a few minutes.</span>
 <span class="n">train_stats</span><span class="p">,</span> <span class="n">preprocessed_data</span><span class="p">,</span> <span class="n">output_directory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">training_set</span><span class="o">=</span><span class="n">train_df</span><span class="p">,</span>
                                                                <span class="n">test_set</span><span class="o">=</span><span class="n">test_df</span><span class="p">)</span>
@@ -4915,7 +4917,7 @@
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p><a href="../../user_guide/api/LudwigModel/#evaluate">evaluate() method</a></p>
+<p><a href="../../user_guide/api/LudwigModel/#ludwig.api.LudwigModel.evaluate">evaluate() method</a></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Generates predictions and performance statistics for the test set.</span>
 <span class="n">test_stats</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">output_directory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span>
   <span class="n">eval_df</span><span class="p">,</span>
@@ -4947,7 +4949,7 @@
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p><a href="../../user_guide/api/visualization/#roc_curves"><code>visualize.roc_curves()</code> function</a></p>
+<p><a href="../../user_guide/api/visualization/#ludwig.visualize.roc_curves"><code>visualize.roc_curves()</code> function</a></p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.visualize</span><span class="w"> </span><span class="kn">import</span> <span class="n">roc_curves</span>
 
 <span class="n">roc_curves</span><span class="p">(</span>
@@ -4983,7 +4985,7 @@
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p><a href="../../user_guide/api/visualization/#binary_threshold_vs_metric"><code>visualize.binary_threshold_vs_metric()</code> function</a></p>
+<p><a href="../../user_guide/api/visualization/#ludwig.visualize.binary_threshold_vs_metric"><code>visualize.binary_threshold_vs_metric()</code> function</a></p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.visualize</span><span class="w"> </span><span class="kn">import</span> <span class="n">binary_threshold_vs_metric</span>
 
 <span class="n">binary_threshold_vs_metric</span><span class="p">(</span>
@@ -5020,7 +5022,7 @@
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p><a href="../../user_guide/api/LudwigModel/#predict"><code>predict()</code> method</a></p>
+<p><a href="../../user_guide/api/LudwigModel/#ludwig.api.LudwigModel.predict"><code>predict()</code> method</a></p>
 <div class="highlight"><pre><span></span><code><span class="n">predictions</span><span class="p">,</span> <span class="n">prediction_results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">eval_df</span><span class="p">,</span> <span class="n">skip_save_predictions</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">output_directory</span><span class="o">=</span><span class="s2">&quot;predictions_results&quot;</span><span class="p">)</span>
 </code></pre></div>
 </div>

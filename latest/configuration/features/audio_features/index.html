@@ -61,6 +61,8 @@
       
     
     
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
       <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
       <link rel="stylesheet" href="../../../stylesheets/monokai.css">
@@ -4539,7 +4541,7 @@
 <p>Ludwig supports reading audio files using PyTorch's <a href="https://pytorch.org/audio/stable/index.html">Torchaudio</a> library. This library supports <code>WAV</code>, <code>AMB</code>, <code>MP3</code>, <code>FLAC</code>, <code>OGG/VORBIS</code>, <code>OPUS</code>, <code>SPHERE</code>, and <code>AMR-NB</code> formats.</p>
 <p>Parameters:</p>
 <ul>
-<li><strong><code>type</code></strong> (default: <code>fbank</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: Defines the type of audio feature to be used. Options: <code>fbank</code>, <code>group_delay</code>, <code>raw</code>, <code>stft</code>, <code>stft_phase</code>. See explanations for each type <a href="./#audio-input-features-and-encoders">here</a>.</li>
+<li><strong><code>type</code></strong> (default: <code>fbank</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: Defines the type of audio feature to be used. Options: <code>fbank</code>, <code>group_delay</code>, <code>raw</code>, <code>stft</code>, <code>stft_phase</code>. See explanations for each type <a href="./#input-features">here</a>.</li>
 <li><strong><code>missing_value_strategy</code></strong> (default: <code>bfill</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: What strategy to follow when there's a missing value in an audio column Options: <code>fill_with_const</code>, <code>fill_with_mode</code>, <code>bfill</code>, <code>ffill</code>, <code>drop_row</code>. See <a href="../input_features/#missing-value-strategy">Missing Value Strategy</a> for details.</li>
 <li><strong><code>audio_file_length_limit_in_s</code></strong> (default: <code>7.5</code>): Float value that defines the maximum limit of the audio file in seconds. All files longer than this limit are cut off. All files shorter than this limit are padded with padding_value</li>
 <li><strong><code>fill_value</code></strong> (default: <code>null</code>): The value to replace missing values with in case the missing_value_strategy is fill_with_const</li>
@@ -4575,7 +4577,7 @@ a feature of the same type and with the same encoder parameters.</li>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">parallel_cnn</span>
 </code></pre></div>
 <h3 id="encoders">Encoders<a class="headerlink" href="#encoders" title="Permanent link">&para;</a></h3>
-<p>Audio feature encoders are the same as for <a href="../sequence_features#sequence-input-features-and-encoders">Sequence Features</a>.</p>
+<p>Audio feature encoders are the same as for <a href="../sequence_features/#input-features">Sequence Features</a>.</p>
 <p>Encoder type and encoder parameters can also be defined once and applied to all audio input features using the <a href="../../defaults/#type-global-encoder">Type-Global Encoder</a> section.</p>
 <h2 id="output-features">Output Features<a class="headerlink" href="#output-features" title="Permanent link">&para;</a></h2>
 <p>There are no audio decoders at the moment.</p>

@@ -61,6 +61,8 @@
       
     
     
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
       <link rel="stylesheet" href="../../stylesheets/monokai.css">
@@ -4596,13 +4598,13 @@ git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </s
 </ol>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>a-descriptive-name-for-my-changes
 </code></pre></div>
-<p><em>Do not</em>* work on the <code>main</code> branch.</p>
+<p><em>Do not</em>* work on the <code>master</code> branch.</p>
 <ol>
 <li>Set up a development environment by running the following command in a virtual environment:</li>
 </ol>
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </code></pre></div>
-<p>The above command will install only the packages in "requirements.txt" in the developer mode.  If you would like to
+<p>The above command will install only the packages in "requirements.txt" in the developer mode. If you would like to
    be able to potentially make changes to the overall Ludwig codebase, then use the following command:</p>
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="o">[</span>full<span class="o">]</span>
 </code></pre></div>
@@ -4650,7 +4652,7 @@ git<span class="w"> </span>commit
 <p>It is a good idea to sync your copy of the code with the original repository regularly. This
    way you can quickly account for changes:</p>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>fetch<span class="w"> </span>upstream
-git<span class="w"> </span>rebase<span class="w"> </span>upstream/main
+git<span class="w"> </span>rebase<span class="w"> </span>upstream/master
 </code></pre></div>
 <p>Push the changes to your account using:</p>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>a-descriptive-name-for-my-changes

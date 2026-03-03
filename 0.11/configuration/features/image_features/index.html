@@ -61,6 +61,8 @@
       
     
     
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
       <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
       <link rel="stylesheet" href="../../../stylesheets/monokai.css">
@@ -6193,14 +6195,14 @@ There is only one decoder available for image features: <code>unet</code>.</p>
 tensor, on the first dimension (second if you count the batch dimension). Available values are: <code>sum</code>, <code>mean</code> or <code>avg</code>,
 <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last vector of the first dimension).</li>
 <li><strong><code>dependencies</code></strong> (default <code>[]</code>): the output features this one is dependent on. For a detailed explanation refer to
-<a href="../output_features#output-feature-dependencies">Output Feature Dependencies</a>.</li>
+<a href="../output_features/#output-feature-dependencies">Output Feature Dependencies</a>.</li>
 <li><strong><code>reduce_dependencies</code></strong> (default <code>sum</code>): defines how to reduce the output of a dependent feature that is not a vector,
 but a matrix or a higher order tensor, on the first dimension (second if you count the batch dimension). Available
 values are: <code>sum</code>, <code>mean</code> or <code>avg</code>, <code>max</code>, <code>concat</code> (concatenates along the first dimension), <code>last</code> (returns the last
 vector of the first dimension).</li>
 <li><strong><code>loss</code></strong> (default <code>{type: softmax_cross_entropy}</code>): is a dictionary containing a loss <code>type</code>. <code>softmax_cross_entropy</code> is
 the only supported loss type for image output features. See <a href="#loss">Loss</a> for details.</li>
-<li><strong><code>decoder</code></strong> (default: <code>{"type": "unet"}</code>): Decoder for the desired task. Options: <code>unet</code>. See <a href="#decoder">Decoder</a> for details.</li>
+<li><strong><code>decoder</code></strong> (default: <code>{"type": "unet"}</code>): Decoder for the desired task. Options: <code>unet</code>. See <a href="#decoders">Decoder</a> for details.</li>
 </ul>
 <h3 id="decoders">Decoders<a class="headerlink" href="#decoders" title="Permanent link">&para;</a></h3>
 <h4 id="u-net-decoder">U-Net Decoder<a class="headerlink" href="#u-net-decoder" title="Permanent link">&para;</a></h4>

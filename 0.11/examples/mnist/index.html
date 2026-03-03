@@ -61,6 +61,8 @@
       
     
     
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
       <link rel="stylesheet" href="../../stylesheets/monokai.css">
@@ -4600,7 +4602,7 @@ This will create two pandas DataFrames.  <code>train_df</code> contains file pat
 <p>Sample of images with <code>label</code>.
 <img alt="mnist sample images" src="../mnist_colab_notebooks/images/mnist_sample_digits.png" /></p>
 <h3 id="train">Train<a class="headerlink" href="#train" title="Permanent link">&para;</a></h3>
-<p>The Ludwig configuration file describes the machine learning task. This example only uses a small subset of the options provided by Ludwig. Please refer to the <a href="../../configuration">Configuration Section</a> for all the details.</p>
+<p>The Ludwig configuration file describes the machine learning task. This example only uses a small subset of the options provided by Ludwig. Please refer to the <a href="../../configuration/">Configuration Section</a> for all the details.</p>
 <p>First it defines the <code>input_features</code>.  For the image feature, the configuration specifies the type of neural network architecture to encode the image.  In this example the encoder is a two layer <a href="../../configuration/features/image_features/#convolutional-stack-encoder-stacked_cnn">Stacked Convolutional Neural Network</a> followed by a fully connected layer with dropout regularization.</p>
 <p>Next the <code>output_features</code> are defined.  In this case, there is only one output feature called <code>label</code>.  This is a <a href="../../configuration/features/category_features/">categorical feature</a> that indicates the digit the image represents, 0, 1, 2, ..., 9.</p>
 <p>The last section in this configuration file describes options for how the the <a href="../../configuration/trainer/"><code>trainer</code></a> will operate.  In this example the <code>trainer</code> will process the training data for 5 epochs.</p>
@@ -4675,7 +4677,7 @@ This will create two pandas DataFrames.  <code>train_df</code> contains file pat
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p><a href="../../user_guide/api/LudwigModel/#train">train() method</a></p>
+<p><a href="../../user_guide/api/LudwigModel/#ludwig.api.LudwigModel.train">train() method</a></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Trains the model. This cell might take a few minutes.</span>
 <span class="n">train_stats</span><span class="p">,</span> <span class="n">preprocessed_data</span><span class="p">,</span> <span class="n">output_directory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">train_df</span><span class="p">)</span>
 </code></pre></div>
@@ -4695,7 +4697,7 @@ This will create two pandas DataFrames.  <code>train_df</code> contains file pat
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p><a href="../../user_guide/api/LudwigModel/#evaluate">evaluate() method</a></p>
+<p><a href="../../user_guide/api/LudwigModel/#ludwig.api.LudwigModel.evaluate">evaluate() method</a></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Generates predictions and performance statistics for the test set.</span>
 <span class="n">test_stats</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">output_directory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span>
   <span class="n">test_df</span><span class="p">,</span>
@@ -4720,7 +4722,7 @@ This will create two pandas DataFrames.  <code>train_df</code> contains file pat
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p><a href="../../user_guide/api/visualization/#confusion_matrix"><code>visualize.confusion_matrix()</code> function</a></p>
+<p><a href="../../user_guide/api/visualization/#ludwig.visualize.confusion_matrix"><code>visualize.confusion_matrix()</code> function</a></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Visualizes confusion matrix, which gives an overview of classifier performance</span>
 <span class="c1"># for each class.</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.visualize</span><span class="w"> </span><span class="kn">import</span> <span class="n">confusion_matrix</span>
@@ -4751,7 +4753,7 @@ This will create two pandas DataFrames.  <code>train_df</code> contains file pat
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p><a href="../../ser_guide/api/visualization/#learning_curves"><code>visualize.learning_curves()</code> function</a></p>
+<p><a href="../../user_guide/api/visualization/#ludwig.visualize.learning_curves"><code>visualize.learning_curves()</code> function</a></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Visualizes learning curves, which show how performance metrics changed over</span>
 <span class="c1"># time during training.</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.visualize</span><span class="w"> </span><span class="kn">import</span> <span class="n">learning_curves</span>
@@ -4775,7 +4777,7 @@ This will create two pandas DataFrames.  <code>train_df</code> contains file pat
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p><a href="../../user_guide/api/LudwigModel/#predict"><code>predict()</code> method</a></p>
+<p><a href="../../user_guide/api/LudwigModel/#ludwig.api.LudwigModel.predict"><code>predict()</code> method</a></p>
 <div class="highlight"><pre><span></span><code><span class="n">predictions</span><span class="p">,</span> <span class="n">output_directory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_df</span><span class="p">)</span>
 </code></pre></div>
 </div>

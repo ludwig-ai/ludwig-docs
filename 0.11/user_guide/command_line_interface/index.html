@@ -61,6 +61,8 @@
       
     
     
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
       <link rel="stylesheet" href="../../stylesheets/monokai.css">
@@ -5077,7 +5079,7 @@ The directory will contain</p>
 </ul>
 <p>The configuration can be provided either as a string (<code>--config_str</code>)
 or as YAML file (<code>--config</code>).</p>
-<p>Details on how to write your configuration are provided in the <a href="#configuration">Configuration</a> section.</p>
+<p>Details on how to write your configuration are provided in the <a href="../../configuration/">Configuration</a> section.</p>
 <p>During training Ludwig saves two sets of weights for the model, one that is the
 weights at the end of the epoch where the best performance on the validation
 measure was achieved and one that is the weights at the end of the latest epoch.
@@ -5330,7 +5332,7 @@ optional arguments:
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
 </code></pre></div>
-<p>The parameters combine parameters from both <a href="#train">train</a> and <a href="#test">test</a> so
+<p>The parameters combine parameters from both <a href="#train">train</a> and <a href="#evaluate">evaluate</a> so
 refer to those sections for an in depth explanation.
 The output directory will contain the outputs both commands produce.</p>
 <p>Example:</p>
@@ -5425,10 +5427,10 @@ optional<span class="w"> </span>arguments:
 <span class="w">  </span>-l<span class="w"> </span><span class="o">{</span>critical,error,warning,info,debug,notset<span class="o">}</span>,<span class="w"> </span>--logging_level<span class="w"> </span><span class="o">{</span>critical,error,warning,info,debug,notset<span class="o">}</span>
 <span class="w">                        </span>the<span class="w"> </span>level<span class="w"> </span>of<span class="w"> </span>logging<span class="w"> </span>to<span class="w"> </span>use
 </code></pre></div>
-<p>The parameters combine parameters from both <a href="#train">train</a> and <a href="#test">test</a> so refer to those sections for an in depth explanation. The output directory will contain a <code>hyperopt_statistics.json</code> file that summarizes the results obtained.</p>
+<p>The parameters combine parameters from both <a href="#train">train</a> and <a href="#evaluate">evaluate</a> so refer to those sections for an in depth explanation. The output directory will contain a <code>hyperopt_statistics.json</code> file that summarizes the results obtained.</p>
 <p>In order to perform an hyperparameter optimization, the <code>hyperopt</code> section needs to be provided within the configuration.
 In the <code>hyperopt</code> section you will be able to define what metric to optimize, what parameters, what sampler to use to optimize them and how to execute the optimization.
-For details on the <code>hyperopt</code> section see the detailed description in the <a href="#hyperparameter-optimization">Hyperparameter Optimization</a> section.</p>
+For details on the <code>hyperopt</code> section see the detailed description in the <a href="#hyperopt">Hyperparameter Optimization</a> section.</p>
 <h2 id="serve">serve<a class="headerlink" href="#serve" title="Permanent link">&para;</a></h2>
 <p>This command lets you load a pre-trained model and serve it on an http server.</p>
 <p>You can call it with:</p>
@@ -5542,7 +5544,7 @@ optional arguments:
                         the level of logging to use
 </code></pre></div>
 <p>As the <code>--visualization</code> parameters suggests, there is a vast number of visualizations readily available.
-Each of them requires a different subset of this command's arguments, so they will be described one by one in the <a href="#visualizations">Visualizations</a> section.</p>
+Each of them requires a different subset of this command's arguments, so they will be described one by one in the <a href="#visualize">Visualizations</a> section.</p>
 <h2 id="init_config">init_config<a class="headerlink" href="#init_config" title="Permanent link">&para;</a></h2>
 <p>Initialize a user config from a dataset and targets.</p>
 <div class="highlight"><pre><span></span><code>usage: ludwig init_config [options]
@@ -5709,7 +5711,7 @@ optional arguments:
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
 </code></pre></div>
-<p>For more information, see <a href="/user_guide/model_export/#torchscript-export">TorchScript Export</a></p>
+<p>For more information, see <a href="../model_export/#torchscript-export">TorchScript Export</a></p>
 <h2 id="export_carton">export_carton<a class="headerlink" href="#export_carton" title="Permanent link">&para;</a></h2>
 <p>A Ludwig model can be exported as a <a href="https://carton.run/">Carton</a>, which allows it to be run from several programming languages (including C, C++, Rust, and more).</p>
 <p>In order to export a Ludwig model to Carton, first make sure the <code>cartonml</code> package is installed in your environment (<code>pip install cartonml-nightly</code>), then run the following command:</p>
@@ -5734,7 +5736,7 @@ options:
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
 </code></pre></div>
-<p>For more information, see <a href="/user_guide/model_export/#carton-export">Carton Export</a></p>
+<p>For more information, see <a href="../model_export/#carton-export">Carton Export</a></p>
 <h2 id="export_mlflow">export_mlflow<a class="headerlink" href="#export_mlflow" title="Permanent link">&para;</a></h2>
 <p>A Ludwig model can be exported as an <a href="https://www.mlflow.org/docs/latest/python_api/mlflow.pyfunc.html">mlflow.pyfunc</a> model, which allows it to be executed in a framework agnostic way.</p>
 <p>There are two ways to export a Ludwig model to MLflow:</p>

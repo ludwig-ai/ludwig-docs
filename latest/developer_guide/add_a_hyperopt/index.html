@@ -61,6 +61,8 @@
       
     
     
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
       <link rel="stylesheet" href="../../stylesheets/monokai.css">
@@ -4820,7 +4822,7 @@
 
 <p>The hyperparameter optimization design in Ludwig is based on two abstract
 interfaces: <code>HyperoptSampler</code> and <code>HyperoptExecutor</code>.</p>
-<p>See <a href="../../configuration/hyperparameter_optimization">Hyperopt configuration</a>
+<p>See <a href="../../configuration/hyperparameter_optimization/">Hyperopt configuration</a>
 for examples of how the sampler and executor are configured.</p>
 <h2 id="hyperoptsampler">HyperoptSampler<a class="headerlink" href="#hyperoptsampler" title="Permanent link">&para;</a></h2>
 <p><code>HyperoptSampler</code> dictates how to sample hyperparameters values.</p>
@@ -4852,7 +4854,7 @@ example:</p>
 is sampled discretely.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Different <code>HyperoptSampler</code>s are described <a href="../../configuration/hyperparameter_optimization#sampler">here</a>.</p>
+<p>Different <code>HyperoptSampler</code>s are described <a href="../../configuration/hyperparameter_optimization/#search-algorithm">here</a>.</p>
 </div>
 <h2 id="hyperoptexecutor">HyperoptExecutor<a class="headerlink" href="#hyperoptexecutor" title="Permanent link">&para;</a></h2>
 <p><code>HyperoptExecutor</code> dictates how to execute the hyperparameter optimization,
@@ -4872,10 +4874,10 @@ contain: the sampled parameters, metric scores, and other training, validation,
 and test statistics.</p>
 <p>The returned list is printed and saved to disk, so that it can also be used as
 input to
-<a href="../../user_guide/hyperopt">hyperparameter optimization visualizations</a>.</p>
+<a href="../../user_guide/hyperopt/">hyperparameter optimization visualizations</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Different <code>HyperoptExecutor</code>s are described <a href="../../configuration/hyperparameter_optimization#executor">here</a></p>
+<p>Different <code>HyperoptExecutor</code>s are described <a href="../../configuration/hyperparameter_optimization/#executor">here</a></p>
 </div>
 <h2 id="adding-a-hyperoptsampler">Adding a HyperoptSampler<a class="headerlink" href="#adding-a-hyperoptsampler" title="Permanent link">&para;</a></h2>
 <h3 id="1-add-a-new-sampler-class">1. Add a new sampler class<a class="headerlink" href="#1-add-a-new-sampler-class" title="Permanent link">&para;</a></h3>

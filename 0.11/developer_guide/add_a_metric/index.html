@@ -61,6 +61,8 @@
       
     
     
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
       <link rel="stylesheet" href="../../stylesheets/monokai.css">
@@ -4585,7 +4587,7 @@
   <h1>Add a Metric</h1>
 
 <p>Metrics are used to report model performance during training and evaluation, and also serve as optimization objectives
-for <a href="../hyper_parameter_optimization">hyperparameter optimization</a>.</p>
+for <a href="../../user_guide/hyperopt/">hyperparameter optimization</a>.</p>
 <p>Concretely, metrics are modules which compute a function of the model's output for each batch and aggregate the
 function's result over all batches. A common example of a metric is the <code>LossMetric</code>, which computes the average batch
 loss. Metrics are defined in <code>ludwig/modules/metric_modules.py</code>. Ludwig's metrics are designed to be consistent with

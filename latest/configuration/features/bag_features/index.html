@@ -61,6 +61,8 @@
       
     
     
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
       <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
       <link rel="stylesheet" href="../../../stylesheets/monokai.css">
@@ -4556,7 +4558,7 @@
 
 <h2 id="preprocessing">Preprocessing<a class="headerlink" href="#preprocessing" title="Permanent link">&para;</a></h2>
 <p>Bag features are expected to be provided as a string of elements separated by whitespace, e.g. "elem5 elem0 elem5 elem1".
-Bags are similar to <a href="../set_features">set features</a>, the only difference being that elements may appear multiple
+Bags are similar to <a href="../set_features/">set features</a>, the only difference being that elements may appear multiple
 times. The bag feature encoder outputs a matrix, similar to a set encoder, except each element of the matrix is a float
 value representing the frequency of the respective element in the bag. Embeddings are aggregated by summation, weighted
 by the frequency of each element.</p>
@@ -4602,7 +4604,7 @@ to either dense or sparse embeddings (one-hot encodings). Lastly, embeddings are
 embedding is multiplied by its respective element's frequency.
 Inputs are of size <code>b</code> while outputs are of size <code>b x h</code> where <code>b</code> is the batch size and <code>h</code> is the dimensionality of
 the embeddings.</p>
-<p>The parameters are the same used for <a href="../set_features#set-input-features-and-encoders">set input features</a> except for
+<p>The parameters are the same used for <a href="../set_features/#input-features">set input features</a> except for
 <code>reduce_output</code> which should not be used because the weighted sum already acts as a reducer.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">embed</span>

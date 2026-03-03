@@ -61,6 +61,8 @@
       
     
     
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
       <link rel="stylesheet" href="../../stylesheets/extra.css">
     
       <link rel="stylesheet" href="../../stylesheets/monokai.css">
@@ -4537,7 +4539,7 @@ types of errors, we recommend trying the following in order:</p>
 <li>Setting <code>trainer.batch_size=auto</code> in the config (this is the current default).</li>
 <li>Manually setting <code>trainer.max_batch_size</code>.</li>
 <li>Trying a smaller model architecture.</li>
-<li>Splitting the model across multiple GPUs the <a href="../../configuration/backend/#fully-sharded-data-parallel-fsdp">Fully Sharded Data Parallel</a> strategy.</li>
+<li>Splitting the model across multiple GPUs the <a href="../../configuration/backend/#trainer">Fully Sharded Data Parallel</a> strategy.</li>
 </ul>
 <h4 id="disabling-gpus">Disabling GPUs<a class="headerlink" href="#disabling-gpus" title="Permanent link">&para;</a></h4>
 <p>You can disable GPU acceleration during training by setting <code>CUDA_VISIBLE_DEVICES=""</code> in the environment. This can be useful for debugging runtime failures specific to your GPU hardware.</p>

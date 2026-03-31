@@ -122,7 +122,7 @@ platformdirs==4.9.2
     # via mkdocs-get-deps
 ptitprince==0.3.1
     # via -r requirements.in
-pygments==2.19.2
+pygments==2.20.0
     # via mkdocs-material
 pymdown-extensions==10.21
     # via

@@ -36,11 +36,13 @@ The best normalization techniqe to use depends on the distribution of your data,
 
 # Input Features
 
-Number features have two encoders.
-One encoder (`passthrough`) simply returns the raw numerical values coming from the input placeholders as outputs.
-Inputs are of size `b` while outputs are of size `b x 1` where `b` is the batch size.
-The other encoder (`dense`) passes the raw numerical values through fully connected layers.
-In this case the inputs of size `b` are transformed to size `b x h`.
+Number features have four encoders.
+The `passthrough` encoder simply returns the raw numerical values.
+The `dense` encoder passes values through fully connected layers.
+The `ple` encoder (Piecewise Linear Encoding) computes quantile-based bin edges from training data and produces
+a piecewise-linear interpolation vector, which is the most impactful improvement for tabular deep learning accuracy
+(Gorishniy et al., NeurIPS 2022).
+The `periodic` encoder uses learned sinusoidal features for smooth numerical representations.
 
 The encoder parameters specified at the feature level are:
 
@@ -59,8 +61,11 @@ encoder:
 
 The available encoder parameters:
 
-- **`type`** (default `passthrough`): the possible values are `passthrough`, `dense` and `sparse`. `passthrough` outputs the
-raw integer values unaltered. `dense` randomly initializes a trainable embedding matrix, `sparse` uses one-hot encoding.
+- **`type`** (default `passthrough`): the possible values are `passthrough`, `dense`, `ple`, and `periodic`.
+`passthrough` outputs the raw values unaltered.
+`dense` passes through fully connected layers.
+`ple` uses Piecewise Linear Encoding with quantile bin edges.
+`periodic` uses learned sinusoidal features.
 
 Encoder type and encoder parameters can also be defined once and applied to all number input features using
 the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
@@ -82,6 +87,32 @@ There are no additional parameters for `passthrough` encoder.
 Parameters:
 
 {{ render_fields(schema_class_to_fields(encoder, exclude=["type"]), details=details) }}
+
+### PLE Encoder
+
+Piecewise Linear Encoding computes quantile-based bin edges from training data, then for each input value produces
+a vector where each element is a piecewise-linear interpolation within that bin. A learned linear projection maps
+this to the output embedding space. Based on [Gorishniy et al., NeurIPS 2022](https://arxiv.org/abs/2203.05556).
+
+{% set ple_encoder = get_encoder_schema("number", "ple") %}
+{{ render_yaml(ple_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(ple_encoder, exclude=["type"]), details=details) }}
+
+### Periodic Encoder
+
+Uses learned sinusoidal features: `sin(2*pi*f*x + phi)` where `f` and `phi` are learnable per-frequency parameters.
+A linear projection maps the periodic features to the output embedding space.
+Based on [Gorishniy et al., NeurIPS 2022](https://arxiv.org/abs/2203.05556).
+
+{% set periodic_encoder = get_encoder_schema("number", "periodic") %}
+{{ render_yaml(periodic_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(periodic_encoder, exclude=["type"]), details=details) }}
 
 # Output Features
 

@@ -48,14 +48,11 @@ jobs:
             mike retitle --push "$ver" "$ver"
           done
 
-      - name: Copy sitemap to root
+      - name: Copy sitemap and robots.txt to root
         run: |
+          git stash --include-untracked
           git checkout gh-pages
           cp ${{ env.ludwig_version }}/sitemap.xml sitemap.xml
-
-      - name: Copy robots.txt to root
-        run: |
-          git checkout gh-pages
           cp ${{ env.ludwig_version }}/robots.txt robots.txt
 
       - uses: stefanzweifel/git-auto-commit-action@v5

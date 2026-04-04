@@ -337,6 +337,64 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(comparator_combiner, exclude=["type"]), details=details) }}
 
+### FT-Transformer Combiner
+
+The `ft_transformer` combiner implements the [FT-Transformer](https://arxiv.org/abs/2106.11959) architecture
+(Gorishniy et al., NeurIPS 2021). Each encoder output is projected to a token embedding, a learnable [CLS] token is
+prepended, and the full sequence is passed through a stack of Transformer self-attention layers. The output is the
+[CLS] token embedding, optionally followed by fully connected layers.
+
+This is the recommended combiner for tabular data with 3+ input features, as it learns cross-feature interactions
+through attention while maintaining a fixed-size output via the [CLS] token.
+
+{% set ft_transformer_combiner = get_combiner_schema("ft_transformer") %}
+{{ render_yaml(ft_transformer_combiner, parent="combiner") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(ft_transformer_combiner, exclude=["type"]), details=details) }}
+
+### Cross-Attention Combiner
+
+The `cross_attention` combiner uses pairwise multi-head cross-attention between all input features. Each feature
+selectively queries relevant information from all other features. Research consistently shows 2-10% improvement
+over concatenation when combining heterogeneous modalities (e.g., text + tabular, image + tabular).
+
+{% set cross_attention_combiner = get_combiner_schema("cross_attention") %}
+{{ render_yaml(cross_attention_combiner, parent="combiner") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(cross_attention_combiner, exclude=["type"]), details=details) }}
+
+### Perceiver Combiner
+
+The `perceiver` combiner implements a [Perceiver IO](https://arxiv.org/abs/2107.14795)-style architecture
+(Jaegle et al., ICML 2022). A set of learnable latent tokens cross-attend to all encoder outputs, then
+self-attend among themselves. This provides efficient cross-modal fusion with bounded memory, regardless
+of the number of input features.
+
+{% set perceiver_combiner = get_combiner_schema("perceiver") %}
+{{ render_yaml(perceiver_combiner, parent="combiner") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(perceiver_combiner, exclude=["type"]), details=details) }}
+
+### Gated Fusion Combiner
+
+The `gated_fusion` combiner uses a gating mechanism inspired by [Flamingo](https://arxiv.org/abs/2204.14198)
+(Alayrac et al., NeurIPS 2022). Per-feature gates are initialized near zero, so the model starts with
+simple concatenation and gradually learns cross-modal residual connections as training progresses. This
+provides stable training when combining pretrained and randomly initialized components.
+
+{% set gated_fusion_combiner = get_combiner_schema("gated_fusion") %}
+{{ render_yaml(gated_fusion_combiner, parent="combiner") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(gated_fusion_combiner, exclude=["type"]), details=details) }}
+
 ## Common Parameters
 
 These parameters are used across multiple combiners (and some encoders / decoders) in similar ways.

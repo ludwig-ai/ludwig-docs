@@ -180,3 +180,70 @@ trainer:
 Speeds up training by using float16 parameters where it makes sense. Mixed precision training on GPU can dramatically
 speedup training, with some risks to model convergence. In practice, it works particularly well when fine-tuning
 a pretrained model like a HuggingFace transformer. See blog [here](https://pytorch.org/blog/what-every-user-should-know-about-mixed-precision-training-in-pytorch/) for more details.
+
+## Multi-Task Loss Balancing
+
+When training models with multiple output features, the default behavior is to sum each feature's loss
+with a static weight. The `loss_balancing` parameter enables adaptive strategies that automatically
+balance task losses during training.
+
+=== "ECD"
+
+    ```yaml
+    trainer:
+        loss_balancing: uncertainty  # none, log_transform, uncertainty, famo, gradnorm
+    ```
+
+Available strategies:
+
+- `none` (default): Static weighted sum.
+- `log_transform`: Applies `log(1 + loss)` to compress loss scales before weighting. Simple and always beneficial when task losses have very different magnitudes.
+- `uncertainty`: Learns a log-variance parameter per task (Kendall et al., CVPR 2018). No hyperparameters needed.
+- `famo`: Fast Adaptive Multitask Optimization (Liu et al., NeurIPS 2023). O(1) overhead, competitive with gradient-based methods.
+- `gradnorm`: Gradient normalization across tasks (Chen et al., ICML 2018). Dynamically adjusts weights to normalize gradient magnitudes.
+
+## Modality Dropout
+
+During training, randomly replaces input feature encoder outputs with learnable "missing modality" embeddings.
+This improves robustness when some inputs may be missing at inference time.
+
+=== "ECD"
+
+    ```yaml
+    trainer:
+        modality_dropout: 0.1  # probability per feature, 0.0 to disable
+    ```
+
+## Model Soup
+
+Averages the weights of the top-K checkpoints saved during training for better generalization at
+zero inference cost (Wortsman et al., ICML 2022).
+
+=== "ECD"
+
+    ```yaml
+    trainer:
+        model_soup: uniform  # uniform, greedy, or null to disable
+        model_soup_top_k: 5
+    ```
+
+## Quality Presets
+
+Quality presets auto-configure the combiner, trainer, and other settings for different quality/speed tradeoffs.
+User-specified config values always take precedence over preset defaults.
+
+```yaml
+preset: best_quality  # medium_quality, high_quality, or best_quality
+input_features:
+  - name: feature1
+    type: number
+output_features:
+  - name: target
+    type: category
+```
+
+Available presets:
+
+- `medium_quality`: Concat combiner, 50 epochs, batch_size 256. Fast training.
+- `high_quality`: Transformer combiner, uncertainty loss balancing, 100 epochs.
+- `best_quality`: FT-Transformer combiner, uncertainty loss balancing, model soup, 200 epochs.

@@ -45,9 +45,63 @@ encoder:
 
 ## Encoders
 
-Audio feature encoders are the same as for [Sequence Features](sequence_features.md#input-features).
+Audio feature encoders include all [Sequence Features](sequence_features.md#input-features) encoders as well as the
+pretrained audio encoders described below.
 
 Encoder type and encoder parameters can also be defined once and applied to all audio input features using the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
+
+### Wav2Vec2 Encoder
+
+The Wav2Vec2 encoder (Baevski et al., "wav2vec 2.0: A Framework for Self-Supervised Learning of Speech
+Representations", NeurIPS 2020) processes raw audio waveforms using self-supervised contrastive learning
+over masked latent representations. It produces contextualized speech features suitable for speech
+recognition, audio classification, and speaker identification.
+
+Wav2Vec2 expects raw waveform input at 16kHz sample rate.
+
+Default pretrained model: `facebook/wav2vec2-base`
+
+{% set wav2vec2_encoder = get_encoder_schema("audio", "wav2vec2") %}
+{{ render_yaml(wav2vec2_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(wav2vec2_encoder, exclude=["type"])) }}
+
+### Whisper Encoder
+
+The Whisper encoder (Radford et al., "Robust Speech Recognition via Large-Scale Weak Supervision",
+ICML 2023) is the encoder portion of OpenAI's Whisper model, trained on 680,000 hours of multilingual
+audio data. It excels at noisy and multilingual speech tasks.
+
+Whisper expects log-mel spectrogram input (80 mel bins).
+
+Default pretrained model: `openai/whisper-base`
+
+{% set whisper_encoder = get_encoder_schema("audio", "whisper") %}
+{{ render_yaml(whisper_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(whisper_encoder, exclude=["type"])) }}
+
+### HuBERT Encoder
+
+The HuBERT encoder (Hsu et al., "HuBERT: Self-Supervised Speech Representation Learning by Masked
+Prediction of Hidden Units", IEEE/ACM TASLP 2021) uses self-supervised masked prediction to learn
+speech representations. It is particularly effective for speaker verification, emotion recognition,
+and audio classification tasks.
+
+HuBERT expects raw waveform input at 16kHz sample rate.
+
+Default pretrained model: `facebook/hubert-base-ls960`
+
+{% set hubert_encoder = get_encoder_schema("audio", "hubert") %}
+{{ render_yaml(hubert_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(hubert_encoder, exclude=["type"])) }}
 
 # Output Features
 

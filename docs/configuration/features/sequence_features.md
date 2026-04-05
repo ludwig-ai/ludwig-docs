@@ -62,8 +62,8 @@ encoder:
 The available encoder parameters:
 
 - **`type`** (default `parallel_cnn`): the name of the encoder to use to encode the sequence, one of `embed`,
-`parallel_cnn`, `stacked_cnn`, `stacked_parallel_cnn`, `rnn`, `cnnrnn`, `transformer` and `passthrough` (equivalent to
-`null` or `None`).
+`parallel_cnn`, `stacked_cnn`, `stacked_parallel_cnn`, `rnn`, `cnnrnn`, `transformer`, `mamba` and `passthrough`
+(equivalent to `null` or `None`).
 
 Encoder type and encoder parameters can also be defined once and applied to all sequence input features using the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
@@ -253,12 +253,34 @@ The `transformer` encoder implements a stack of transformer blocks, replicating 
 [Attention is all you need](https://arxiv.org/abs/1706.03762) paper, and adds am optional stack of fully connected
 layers at the end.
 
+The stacked transformer encoder supports Rotary Position Embeddings (RoPE) via the `use_rope`
+parameter. When enabled, absolute positional embeddings are replaced with rotary embeddings that
+encode relative position information directly in the attention computation. RoPE provides better
+length generalization and is used by all modern LLMs (LLaMA, Mistral, etc.).
+
 {% set seq_encoder = get_encoder_schema("sequence", "transformer") %}
 {{ render_yaml(seq_encoder, parent="encoder") }}
 
 Parameters:
 
 {{ render_fields(schema_class_to_fields(seq_encoder, exclude=["type"])) }}
+
+### Mamba Encoder
+
+The Mamba encoder is inspired by selective state space models (Gu & Dao, "Mamba: Linear-Time
+Sequence Modeling with Selective State Spaces", 2024). It uses gated depthwise convolution to
+process sequences in linear time, making it suitable for very long sequences where transformer
+attention is too expensive.
+
+Unlike transformers which have O(n^2) attention complexity, Mamba processes sequences in O(n) time
+and memory, making it practical for sequences of 10,000+ tokens.
+
+{% set mamba_encoder = get_encoder_schema("sequence", "mamba") %}
+{{ render_yaml(mamba_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(mamba_encoder, exclude=["type"])) }}
 
 # Output Features
 

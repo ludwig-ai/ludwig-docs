@@ -47,8 +47,8 @@ Parameters:
 - **`type`** (default `parallel_cnn`): encoder to use for the input text feature. The available encoders include encoders
 used for [Sequence Features](sequence_features.md#input-features) as well as pre-trained text
 encoders from the
-face transformers library: `albert`, `auto_transformer`, `bert`, `camembert`, `ctrl`,
-`distilbert`, `electra`, `flaubert`, `gpt`, `gpt2`, `longformer`, `roberta`, `t5`, `mt5`, `transformer_xl`, `xlm`,
+face transformers library: `albert`, `auto_transformer`, `bert`, `camembert`,
+`distilbert`, `electra`, `gpt`, `gpt2`, `longformer`, `modernbert`, `roberta`, `t5`, `mt5`, `xlm`,
 `xlmroberta`, `xlnet`.
 
 Encoder type and encoder parameters can also be defined once and applied to all text input features using
@@ -246,6 +246,41 @@ layers at the end.
 Parameters:
 
 {{ render_fields(schema_class_to_fields(text_encoder, exclude=["type"])) }}
+
+### ModernBERT Encoder
+
+The ModernBERT encoder (Warner et al., 2024) is the first major architectural upgrade to BERT, incorporating
+Flash Attention 2, Rotary Position Embeddings (RoPE), GeGLU activations, and alternating local/global
+attention patterns. It supports context lengths up to 8192 tokens (compared to BERT's 512), making it
+suitable for longer documents without needing a specialized long-context model like Longformer.
+
+ModernBERT matches or exceeds RoBERTa and DeBERTa on most NLU benchmarks while being significantly faster
+due to Flash Attention and unpadding optimizations. It is the recommended default for new projects.
+
+Default pretrained model: `answerdotai/ModernBERT-base`
+
+{% set modernbert_encoder = get_encoder_schema("text", "modernbert") %}
+{{ render_yaml(modernbert_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(modernbert_encoder, exclude=["type"])) }}
+
+### TF-IDF Encoder
+
+The `tf_idf` encoder computes Term Frequency-Inverse Document Frequency features for text input. This is a
+non-neural baseline that produces sparse, interpretable features. It is useful for very small datasets where
+pretrained transformers may overfit, or when you need a simple baseline for comparison.
+
+The encoder supports n-gram features via `ngram_range` and document frequency filtering via `min_df` and
+`max_df` parameters.
+
+{% set tfidf_encoder = get_encoder_schema("text", "tf_idf") %}
+{{ render_yaml(tfidf_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(tfidf_encoder, exclude=["type"])) }}
 
 ### Huggingface encoders
 

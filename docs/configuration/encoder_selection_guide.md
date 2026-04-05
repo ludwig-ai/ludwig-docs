@@ -59,6 +59,7 @@ unless you have a very specialized domain.
 | `clip` | Zero-shot, multimodal | CLIP data | Text-aligned visual features |
 | `dinov2` | Frozen feature extraction | Self-supervised | No labels needed for pretraining |
 | `siglip` | Scaled multimodal | SigLIP data | Better scaling than CLIP |
+| `convnextv2` | Pure-CNN, high accuracy | FCMAE | GRN + masked autoencoder pretraining |
 | `timm` | Any TIMM model | Various | Access to 700+ architectures |
 | `stacked_cnn` | Small data, custom arch | None | Fully configurable CNN stack |
 
@@ -70,6 +71,7 @@ Image encoder selection:
   Need frozen features, no labels? --> dinov2
   Need max accuracy? --> vit or swin_transformer
   Need efficiency / mobile? --> efficientnet
+  Need pure-CNN, no attention? --> convnextv2
   Need a specific TIMM arch? --> timm
   Training from scratch? --> stacked_cnn or resnet
   Default choice --> resnet or vit

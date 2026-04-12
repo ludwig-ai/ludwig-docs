@@ -4,8 +4,29 @@ operate on separate partitions of the data in parallel.
 
 ![img](../../images/ludwig_on_ray.png)
 
-Ludwig supports distributed execution through the [Ray backend](../../configuration/backend.md), supporting both distributed data
-processing and distributed training with DDP and DeepSpeed.
+Ludwig supports distributed execution through the [Ray backend](../../configuration/backend.md), with distributed data
+processing via Dask and distributed training powered by [HuggingFace Accelerate](https://github.com/huggingface/accelerate).
+
+# Distributed Training Strategy
+
+Ludwig uses [HuggingFace Accelerate](https://github.com/huggingface/accelerate) as its distributed training backend,
+which provides a unified interface for training across DDP, FSDP, and DeepSpeed configurations without requiring
+changes to your Ludwig config.
+
+By default, Ludwig automatically selects the best training strategy for your hardware. You can also specify it
+explicitly in the backend config:
+
+```yaml
+backend:
+  type: ray
+  processor:
+    type: dask
+  trainer:
+    strategy: auto  # auto, ddp, fsdp, or deepspeed
+```
+
+The `auto` strategy (default) will use DDP for most models and FSDP or DeepSpeed when training very large models
+that don't fit in GPU memory.
 
 # Ray
 
@@ -36,8 +57,6 @@ backend:
   type: ray
   processor:
     type: dask
-  trainer:
-    strategy: ddp
 ```
 
 ## Running Ludwig with Ray
@@ -140,21 +159,3 @@ hyperopt:
     max_concurrent_trials: 4
     gpu_resources_per_trial: 1
 ```
-
-# DeepSpeed
-
-You can run using the [DeepSpeed](https://github.com/microsoft/DeepSpeed) launcher, supporting large model training
-on multiple GPUs and multiple machines.
-
-Example:
-
-```bash
-deepspeed --no_python --no_local_rank --num_gpus 4 \
-    ludwig train --config config.yaml --dataset dataset.csv
-```
-
-DeepSpeed can also be used as a distributed strategy when using the `ray` backend. Using the `ray` backend
-allows Ludwig to train with larger-than-memory datasets, at the cost of some coordination overhead. In practice,
-performance is comparable, though Ludwig on Ray has some additional optimization to reduce memory pressure vs
-running with the `deepspeed` CLI.
-

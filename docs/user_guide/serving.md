@@ -6,10 +6,36 @@ Ludwig models can be served using the [serve command](command_line_interface.md#
 ludwig serve --model_path=/path/to/model
 ```
 
-The command will spawn a Rest API using the [FastAPI](https://fastapi.tiangolo.com/) library.
+The command will spawn a REST API using the [FastAPI](https://fastapi.tiangolo.com/) library.
 
 This API has two endpoints: `predict` and `predict_batch`. `predict` should be used to obtain predictions for individual
-examples, while `predict_batch` should be used to obtain predictions for an a batch of examples.
+examples, while `predict_batch` should be used to obtain predictions for a batch of examples.
+
+# LLM Serving with vLLM
+
+For LLM models, Ludwig integrates with [vLLM](https://github.com/vllm-project/vllm) to provide high-throughput,
+memory-efficient inference with continuous batching, PagedAttention, and support for tensor parallelism across
+multiple GPUs.
+
+```bash
+ludwig serve --model_path=/path/to/llm_model --backend vllm
+```
+
+vLLM serving is recommended for production LLM deployments where latency and throughput matter. It supports the
+same Ludwig input/output feature API as the default FastAPI backend, so no client changes are required.
+
+To use vLLM serving, install the vllm extra:
+
+```bash
+pip install ludwig[vllm]
+```
+
+**Key advantages of vLLM serving:**
+
+- **Continuous batching:** dynamically groups requests for much higher GPU utilisation
+- **PagedAttention:** near-zero KV cache memory waste
+- **Tensor parallelism:** split a large model across multiple GPUs with `--num_gpus N`
+- **OpenAI-compatible API:** optionally expose an OpenAI-compatible `/v1/completions` endpoint
 
 Inputs sent to the REST API should be consistent with the feature names and types used to train the model. The output
 structure from the REST API depends on the model's output features and their data types.

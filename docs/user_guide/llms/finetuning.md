@@ -26,6 +26,67 @@ You can find an example of predictive fine-tuning [here](https://github.com/ludw
 
 For full details on configuring LLM fine-tuning, see the [Configuration docs](../../configuration/large_language_model.md).
 
+## Preference Learning / Alignment Fine-Tuning
+
+Beyond standard supervised fine-tuning, Ludwig supports *preference learning* trainers that align models with human
+preferences using ranked feedback data (a "chosen" response vs a "rejected" response for the same prompt).
+
+These trainers are useful after an initial SFT stage to improve response quality, reduce harmful outputs, and make
+models follow instructions more reliably.
+
+### Available alignment trainers
+
+| Trainer | Description |
+|---------|-------------|
+| `dpo` | [Direct Preference Optimization](https://arxiv.org/abs/2305.18290) — directly optimises the policy from preference pairs without a reward model |
+| `kto` | [Kahneman-Tversky Optimization](https://arxiv.org/abs/2402.01306) — works with single-label feedback (good / bad) instead of pairs |
+| `orpo` | [Odds Ratio Preference Optimization](https://arxiv.org/abs/2403.07691) — combines SFT and alignment into a single-stage objective |
+| `grpo` | [Group Relative Policy Optimization](https://arxiv.org/abs/2402.03300) — reinforcement learning style trainer using group-normalised rewards |
+
+### Example: DPO alignment
+
+Your dataset needs `prompt`, `chosen`, and `rejected` columns:
+
+| prompt | chosen | rejected |
+|--------|--------|----------|
+| Explain gravity | Gravity is a force that attracts objects... | IDK lol |
+| Write a poem | Roses are red... | Error 404 |
+
+```yaml
+model_type: llm
+base_model: meta-llama/Llama-3.1-8B
+
+adapter:
+  type: lora
+
+trainer:
+  type: dpo
+  epochs: 1
+  learning_rate: 5.0e-7
+  beta: 0.1  # KL penalty coefficient
+
+input_features:
+  - name: prompt
+    type: text
+
+output_features:
+  - name: chosen
+    type: text
+```
+
+### Example: KTO alignment
+
+KTO requires only a single response column plus a boolean `label` indicating whether it is desirable:
+
+```yaml
+trainer:
+  type: kto
+  epochs: 1
+  learning_rate: 5.0e-7
+  desirable_weight: 1.0
+  undesirable_weight: 1.0
+```
+
 ## Uploading to HuggingFace Hub
 
 After fine-tuning an LLM, the output will be updated model weights which can be uploaded directly to HuggingFace and deployed to an endpoint

@@ -97,6 +97,10 @@
          <lastmod>2026-04-12</lastmod>
     </url>
     <url>
+         <loc>https://ludwig.ai/latest/configuration/features/pretrained_image_encoders/</loc>
+         <lastmod>2026-04-12</lastmod>
+    </url>
+    <url>
          <loc>https://ludwig.ai/latest/configuration/features/sequence_features/</loc>
          <lastmod>2026-04-12</lastmod>
     </url>
@@ -205,6 +209,10 @@
          <lastmod>2026-04-12</lastmod>
     </url>
     <url>
+         <loc>https://ludwig.ai/latest/examples/anomaly_detection/</loc>
+         <lastmod>2026-04-12</lastmod>
+    </url>
+    <url>
          <loc>https://ludwig.ai/latest/examples/forecasting/</loc>
          <lastmod>2026-04-12</lastmod>
     </url>
@@ -257,6 +265,10 @@
          <lastmod>2026-04-12</lastmod>
     </url>
     <url>
+         <loc>https://ludwig.ai/latest/examples/open_set_recognition/</loc>
+         <lastmod>2026-04-12</lastmod>
+    </url>
+    <url>
          <loc>https://ludwig.ai/latest/examples/sentiment_analysis/</loc>
          <lastmod>2026-04-12</lastmod>
     </url>
@@ -286,6 +298,10 @@
     </url>
     <url>
          <loc>https://ludwig.ai/latest/examples/weather/</loc>
+         <lastmod>2026-04-12</lastmod>
+    </url>
+    <url>
+         <loc>https://ludwig.ai/latest/examples/llm/alignment/</loc>
          <lastmod>2026-04-12</lastmod>
     </url>
     <url>
@@ -409,6 +425,10 @@
          <lastmod>2026-04-12</lastmod>
     </url>
     <url>
+         <loc>https://ludwig.ai/latest/user_guide/uncertainty/</loc>
+         <lastmod>2026-04-12</lastmod>
+    </url>
+    <url>
          <loc>https://ludwig.ai/latest/user_guide/visualizations/</loc>
          <lastmod>2026-04-12</lastmod>
     </url>
@@ -458,6 +478,10 @@
     </url>
     <url>
          <loc>https://ludwig.ai/latest/user_guide/llms/in_context_learning/</loc>
+         <lastmod>2026-04-12</lastmod>
+    </url>
+    <url>
+         <loc>https://ludwig.ai/latest/user_guide/llms/structured_output/</loc>
          <lastmod>2026-04-12</lastmod>
     </url>
     <url>

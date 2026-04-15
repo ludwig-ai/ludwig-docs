@@ -320,7 +320,7 @@ last vector of the sequence dimension).
 - **`loss`** (default `{type: softmax_cross_entropy, class_similarities_temperature: 0, class_weights: 1,
 confidence_penalty: 0, robust_lambda: 0}`): is a dictionary containing a loss `type`. The only available
 loss `type` for sequences is `softmax_cross_entropy`. See [Loss](#loss) for details.
-- **`decoder`** (default: `{"type": "generator"}`): Decoder for the desired task. Options: `generator`, `tagger`. See [Decoder](#decoders) for details.
+- **`decoder`** (default: `{"type": "generator"}`): Decoder for the desired task. Options: `generator`, `transformer_generator`, `tagger`. See [Decoder](#decoders) for details.
 
 Decoder type and decoder parameters can also be defined once and applied to all sequence output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section. Loss and loss related parameters can also be defined once in the same way.
 
@@ -368,6 +368,72 @@ during model building.
 Parameters:
 
 {{ render_fields(schema_class_to_fields(decoder, exclude=["type"])) }}
+
+#### Scheduled sampling
+
+By default the generator uses full teacher forcing: the decoder always receives the ground-truth
+previous token during training, which creates a mismatch with inference (where it must feed on
+its own predictions). Ludwig 0.14 exposes the scheduled-sampling curriculum from
+[Bengio et al., NeurIPS 2015](https://arxiv.org/abs/1506.03099), which gradually replaces
+teacher-forced inputs with sampled predictions as training progresses:
+
+```yaml
+decoder:
+  type: generator
+  cell_type: lstm
+  teacher_forcing_decay: linear      # none | linear | exponential
+  teacher_forcing_decay_rate: 0.01
+```
+
+`teacher_forcing_decay_rate` controls how quickly the teacher-forcing probability decays per
+step. Set `teacher_forcing_decay: none` (the default) to disable the curriculum.
+
+#### Beam search
+
+Both the RNN-based `generator` and the `transformer_generator` decoders support length-normalized
+beam search at inference:
+
+```yaml
+decoder:
+  type: generator
+  beam_width: 5
+  beam_length_penalty: 0.8
+```
+
+`beam_width: 1` is equivalent to greedy decoding. `beam_length_penalty > 1` favours shorter
+outputs; `< 1` favours longer ones (sequence score is divided by `length ** penalty`).
+
+### Transformer Generator
+
+The `transformer_generator` decoder replaces the autoregressive RNN with a stack of Transformer
+decoder blocks trained with teacher forcing. It tends to scale much better to long output
+sequences than the RNN decoder and benefits from mixed precision on GPU.
+
+```yaml
+output_features:
+  - name: output_seq
+    type: sequence
+    decoder:
+      type: transformer_generator
+      d_model: 256
+      num_layers: 2
+      num_heads: 8
+      ffn_size: 1024
+      dropout: 0.1
+      beam_width: 3
+      beam_length_penalty: 1.0
+```
+
+{% set decoder = get_decoder_schema("sequence", "transformer_generator") %}
+{{ render_yaml(decoder, parent="decoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(decoder, exclude=["type"])) }}
+
+!!! note
+    `d_model` must be divisible by `num_heads`. The feed-forward width `ffn_size` is usually
+    set to `4 * d_model`.
 
 ### Tagger
 

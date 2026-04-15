@@ -39,6 +39,13 @@ CLI:
 ludwig export_model -m results/experiment_run/model -o exported/ -f torch_export
 ```
 
+!!! note
+    `export_model` accepts an optional `sample_input` dict mapping input-feature names to
+    tensors. When omitted (the default), Ludwig builds a dummy batch from the model's
+    training-set metadata — so the snippet above works as-is. Pass a real example only if
+    you need to trace against specific shapes or dtypes, for example when exporting models
+    that rely on dynamic axes.
+
 ### ONNX
 
 ONNX export uses the dynamo-based exporter (`torch.onnx.export(dynamo=True)`) for cross-platform deployment.
@@ -47,6 +54,9 @@ ONNX export uses the dynamo-based exporter (`torch.onnx.export(dynamo=True)`) fo
 model = LudwigModel.load("results/experiment_run/model")
 model.export_model("exported/", format="onnx")
 ```
+
+As with `torch_export`, `sample_input` is optional and is auto-generated from the training-set
+metadata when omitted.
 
 The exported ONNX model can be loaded with ONNX Runtime:
 

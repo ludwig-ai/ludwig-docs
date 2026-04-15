@@ -215,6 +215,56 @@ output_features:
           value: "positive"
 ```
 
+Ludwig 0.14 expands `category_extractor` with two new match strategies and constrained
+decoding:
+
+| `match.<label>.type` | Use for | `value` |
+|----------------------|---------|---------|
+| `contains` | Simple substring matching | Literal string to look for in the generation |
+| `regex` | Flexible pattern matching | Python regex; the first match selects the label |
+| `json_schema` | LLMs asked to emit structured output | JSON value that must match the parsed JSON response |
+
+```yaml
+decoder:
+  type: category_extractor
+  match:
+    "positive":
+      type: regex
+      value: "(?i)\\bpositive\\b"
+    "negative":
+      type: regex
+      value: "(?i)\\bnegative\\b"
+```
+
+For `json_schema`, Ludwig parses the model's response as JSON and compares the resolved
+value against `value`. This is the recommended strategy when the prompt asks the LLM to
+return a JSON object.
+
+#### Constrained decoding
+
+Setting `constrain_to_vocabulary: true` on `category_extractor` installs a HuggingFace
+`LogitsProcessor` that masks out any token that cannot lead to a valid label prefix. The
+model is then guaranteed to generate one of the configured categories — useful for
+zero-shot classification tasks where parsing failures are unacceptable.
+
+```yaml
+output_features:
+  - name: label
+    type: category
+    decoder:
+      type: category_extractor
+      constrain_to_vocabulary: true
+      match:
+        "positive":
+          type: contains
+          value: "positive"
+        "negative":
+          type: contains
+          value: "negative"
+```
+
+Constrained decoding requires a HuggingFace tokenizer (the default for `llm` models).
+
 # Prompt
 
 One of the unique properties of large language models as compared to more conventional deep learning models is their ability to incorporate context inserted into the “prompt” to generate more specific and accurate responses.

@@ -178,7 +178,7 @@ the only supported loss type for category output features. See [Loss](#loss) for
 - **`top_k`** (default `3`): determines the parameter `k`, the number of categories to consider when computing the `top_k`
 measure. It computes accuracy but considering as a match if the true category appears in the first `k` predicted
 categories ranked by decoder's confidence.
-- **`decoder`** (default: `{"type": "classifier"}`): Decoder for the desired task. Options: `classifier`. See [Decoder](#decoders) for details.
+- **`decoder`** (default: `{"type": "classifier"}`): Decoder for the desired task. Options: `classifier`, `mlp_classifier`. See [Decoder](#decoders) for details.
 
 Decoder type and decoder parameters can also be defined once and applied to all category output features using the [Type-Global Decoder](../defaults.md#type-global-decoder) section.
 
@@ -192,6 +192,67 @@ Decoder type and decoder parameters can also be defined once and applied to all 
 Parameters:
 
 {{ render_fields(schema_class_to_fields(decoder, exclude=["type"]), details=details) }}
+
+### MLP Classifier
+
+`mlp_classifier` adds an explicit stack of hidden layers between the combiner output and the
+final projection. It is useful when the combiner itself is shallow (for example the `concat`
+combiner over tabular features) and the classification head needs more non-linear capacity.
+
+```yaml
+decoder:
+  type: mlp_classifier
+  num_fc_layers: 2
+  output_size: 512
+  activation: relu
+  dropout: 0.2
+```
+
+Setting `num_fc_layers: 0` is equivalent to the plain `classifier`.
+
+{% set decoder = get_decoder_schema("category", "mlp_classifier") %}
+{{ render_yaml(decoder, parent="decoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(decoder, exclude=["type"]), details=details) }}
+
+### Probability calibration (temperature scaling)
+
+Both `classifier` and `mlp_classifier` expose a `calibration` parameter. Set it to
+`temperature_scaling` to learn a single scalar temperature on the validation set that is
+applied as `logits / T` ([Guo et al., ICML 2017](https://arxiv.org/abs/1706.04599)).
+Temperature scaling never changes the argmax prediction; it only reshapes the probability
+distribution so that predicted confidences track empirical accuracy more closely.
+
+```yaml
+decoder:
+  type: classifier
+  calibration: temperature_scaling
+```
+
+Temperature scaling is run automatically at the end of training using the validation split.
+The learned temperature is serialized with the model and applied at inference.
+
+### Monte Carlo dropout uncertainty
+
+Both decoders also expose `mc_dropout_samples` ([Gal & Ghahramani, ICML 2016](https://arxiv.org/abs/1506.02142)).
+When set to a positive integer, Ludwig runs the decoder that many times at inference *with
+dropout enabled* and returns:
+
+- the mean predicted probabilities,
+- an additional `uncertainty` tensor that captures the variance across samples.
+
+```yaml
+decoder:
+  type: mlp_classifier
+  num_fc_layers: 2
+  dropout: 0.2
+  mc_dropout_samples: 20
+```
+
+MC dropout requires `dropout > 0` in the decoder; otherwise the repeated forward passes are
+identical and the uncertainty estimate is always zero.
 
 ## Loss
 

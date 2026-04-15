@@ -56,6 +56,121 @@ By default, the ECD trainer is used.
         clip_value: null
         ```
 
+## Optimizer guidance
+
+Ludwig 0.14 adds five optimizers on top of the existing PyTorch family. Quick picks:
+
+- **`radam`** — Rectified Adam (Liu et al., ICLR 2020). Drop-in replacement for `adam` that
+  removes the need for manual warmup by adaptively rectifying the variance of the adaptive
+  learning rate in the early steps.
+- **`adafactor`** — Adafactor (Shazeer & Stern, ICML 2018). Factorizes the second-moment matrix
+  to cut optimizer memory roughly in half, which makes it a common choice for fine-tuning
+  large transformers. When `relative_step: true` (the default) Adafactor manages its own
+  schedule — **do not combine it with a `learning_rate_scheduler`** and leave `learning_rate`
+  unset on the trainer.
+- **`schedule_free_adamw`** — Schedule-Free AdamW (Defazio et al., 2024). Matches cosine-decay
+  AdamW without needing an LR scheduler at all. The optimizer maintains two iterate states —
+  Ludwig handles the required `optimizer.train()` / `optimizer.eval()` calls automatically at
+  the train/eval boundaries.
+- **`muon`** — Muon (Jordan et al., 2024). Uses momentum plus Newton–Schulz orthogonalization
+  to produce stable, well-conditioned updates. Competitive with AdamW for pretraining and
+  typically uses a **much higher base learning rate than Adam** (default `0.02`).
+- **`soap`** — SOAP (Vyas et al., 2024). Shampoo-style preconditioner stacked on AdamW. Strong
+  empirical results on large-scale training; requires installing the optional `soap-pytorch`
+  package. Registered only when the dependency is available.
+
+!!! note
+    The legacy `ftrl` optimizer was removed in 0.14. Configs that set `optimizer.type: ftrl`
+    will fail validation — use `adagrad` or `sgd` with momentum as replacements.
+
+## Learning rate schedulers
+
+The `learning_rate_scheduler` section of the trainer controls how the learning rate evolves
+during training. Ludwig 0.14 adds four new schedule types on top of `linear`, `exponential`,
+and `cosine`:
+
+| `decay` | Best for | Key parameters |
+|---------|----------|----------------|
+| `one_cycle` | Fast supervised training, "superconvergence" | `max_lr`, `pct_start`, `div_factor`, `final_div_factor` |
+| `inverse_sqrt` | Transformer pretraining ("Noam" schedule) | `inverse_sqrt_warmup_steps` |
+| `polynomial` | Fine-tuning with a smooth ramp-down | `polynomial_power`, `polynomial_end_lr` |
+| `wsd` | Long continued pretraining with annealing | `wsd_warmup_fraction`, `wsd_stable_fraction`, `wsd_decay_fraction` |
+
+### OneCycleLR
+
+Implements Smith's 1-cycle policy: warm up from `initial_lr = max_lr / div_factor` to
+`max_lr` over `pct_start` of the total steps, then anneal down to
+`min_lr = initial_lr / final_div_factor`.
+
+```yaml
+trainer:
+  optimizer:
+    type: adamw
+  learning_rate_scheduler:
+    decay: one_cycle
+    max_lr: 0.001
+    pct_start: 0.3
+    div_factor: 25.0
+    final_div_factor: 10000.0
+```
+
+If `max_lr` is left unset it defaults to the trainer's `learning_rate`.
+
+### Inverse square root (Noam)
+
+After a linear warmup over `inverse_sqrt_warmup_steps`, the learning rate decays as
+`1 / sqrt(step)`. This is the schedule used in the original Transformer paper and is a good
+default for training language models from scratch.
+
+```yaml
+trainer:
+  learning_rate: 0.0005
+  learning_rate_scheduler:
+    decay: inverse_sqrt
+    inverse_sqrt_warmup_steps: 4000
+```
+
+### Polynomial decay
+
+Smoothly decays from the base learning rate to `polynomial_end_lr` over the full training
+run. `polynomial_power: 1.0` is linear decay; `2.0` is quadratic; values `< 1.0` decay
+faster early on.
+
+```yaml
+trainer:
+  learning_rate_scheduler:
+    decay: polynomial
+    polynomial_power: 1.0
+    polynomial_end_lr: 0.0
+```
+
+### Warmup-Stable-Decay (WSD)
+
+WSD splits the run into three phases — a short warmup, a long stable phase at the peak
+learning rate, and a short cooldown. Because the stable phase dominates, you can stop at
+any time and take a clean cooldown snapshot, which is useful for long pretraining runs
+where you want to branch continued training off of intermediate checkpoints.
+
+```yaml
+trainer:
+  learning_rate_scheduler:
+    decay: wsd
+    wsd_warmup_fraction: 0.1
+    wsd_stable_fraction: 0.8
+    wsd_decay_fraction: 0.1
+```
+
+The three fractions should sum to `1.0`.
+
+### Warmup and plateau parameters
+
+All schedules support the shared warmup and reduce-on-plateau knobs:
+
+- `warmup_fraction` / `warmup_evaluations` — linear warmup of the base learning rate.
+- `reduce_on_plateau`, `reduce_on_plateau_patience`, `reduce_on_plateau_rate` — cap the
+  number of on-plateau reductions and the reduction factor. Combine with `reduce_eval_metric`
+  and `reduce_eval_split` to pick which metric triggers the reduction.
+
 # Training length
 
 The length of the training process is configured by:

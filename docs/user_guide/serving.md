@@ -63,9 +63,17 @@ curl http://0.0.0.0:8000/batch_predict -X POST \
 ```python
 from ludwig.serve_v2 import create_app
 
-app = create_app(model_path="path/to/model", timeout_seconds=300)
+app = create_app(
+    model_path="path/to/model",
+    allowed_origins=["*"],
+    prediction_timeout=300.0,
+)
 # Use with uvicorn, gunicorn, or any ASGI server
 ```
+
+The same timeout is exposed as the `--prediction_timeout` flag on `ludwig serve`. Requests
+that exceed the timeout return HTTP 504 and are emitted through the structured-logging
+middleware so they can be aggregated by downstream log collectors.
 
 ## LLM Serving with vLLM
 

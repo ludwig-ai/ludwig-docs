@@ -592,7 +592,7 @@ augmentation:
 # Output Features
 
 Image features can be used when semantic segmentation needs to be performed.
-There is only one decoder available for image features: `unet`.
+Ludwig 0.14 exposes three segmentation decoders: `unet`, `segformer`, and `fpn`.
 
 Example image output feature using default parameters:
 
@@ -621,7 +621,7 @@ values are: `sum`, `mean` or `avg`, `max`, `concat` (concatenates along the firs
 vector of the first dimension).
 - **`loss`** (default `{type: softmax_cross_entropy}`): is a dictionary containing a loss `type`. `softmax_cross_entropy` is
 the only supported loss type for image output features. See [Loss](#loss) for details.
-- **`decoder`** (default: `{"type": "unet"}`): Decoder for the desired task. Options: `unet`. See [Decoder](#decoders) for details.
+- **`decoder`** (default: `{"type": "unet"}`): Decoder for the desired task. Options: `unet`, `segformer`, `fpn`. See [Decoder](#decoders) for details.
 
 ## Decoders
 
@@ -635,6 +635,62 @@ and combiner sections must be set to 0 as U-Net does not have any fully connecte
 U-Net Decoder takes the following optional parameters:
 
 {% set decoder = get_decoder_schema("image", "unet") %}
+{{ render_yaml(decoder, parent="decoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(decoder, exclude=["type"]), details=details) }}
+
+The decoder depth is configurable via `num_stages` (default `4`). Each stage doubles the
+spatial resolution during upsampling, so the combiner output height and width must be
+divisible by `2 ** num_stages`. Deeper stacks capture longer-range spatial context at the
+cost of more parameters.
+
+### SegFormer Decoder
+
+`segformer` implements the lightweight all-MLP decoder from
+[Xie et al., NeurIPS 2021](https://arxiv.org/abs/2105.15203). Instead of transposed
+convolutions it projects all encoder stages into a shared hidden size and fuses them with a
+single MLP — much cheaper than U-Net while remaining competitive on standard segmentation
+benchmarks when paired with a pretrained hierarchical encoder such as Swin or ConvNeXt V2.
+
+```yaml
+output_features:
+  - name: mask
+    type: image
+    decoder:
+      type: segformer
+      hidden_size: 256
+      dropout: 0.1
+      num_classes: 21
+```
+
+{% set decoder = get_decoder_schema("image", "segformer") %}
+{{ render_yaml(decoder, parent="decoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(decoder, exclude=["type"]), details=details) }}
+
+### FPN Decoder
+
+`fpn` implements the Feature Pyramid Network decoder from
+[Lin et al., CVPR 2017](https://arxiv.org/abs/1612.03144). It builds a top-down pyramid with
+lateral connections across multiple encoder stages, producing multi-scale features that are
+useful for dense prediction tasks and for segmenting objects at very different scales.
+
+```yaml
+output_features:
+  - name: mask
+    type: image
+    decoder:
+      type: fpn
+      num_channels: 256
+      num_levels: 4
+      num_classes: 80
+```
+
+{% set decoder = get_decoder_schema("image", "fpn") %}
 {{ render_yaml(decoder, parent="decoder") }}
 
 Parameters:

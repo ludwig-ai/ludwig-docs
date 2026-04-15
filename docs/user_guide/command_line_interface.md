@@ -16,8 +16,7 @@ Ludwig provides several functions through its command line interface.
 | [`collect_summary`](#collect_summary)         | Prints names of weights and layers activations to use with other collect commands |
 | [`collect_weights`](#collect_weights)         | Collects tensors containing a pretrained model weights                            |
 | [`collect_activations`](#collect_activations) | Collects tensors for each datapoint using a pretrained model                      |
-| [`export_torchscript`](#export_torchscript)   | Exports Ludwig models to Torchscript                                              |
-| [`export_carton`](#export_carton)             | Exports Ludwig models to Carton                                                   |
+| [`export_model`](#export_model)               | Exports Ludwig models to SafeTensors, torch.export, or ONNX                      |
 | [`export_mlflow`](#export_mlflow)             | Exports Ludwig models to MLflow                                                   |
 | [`preprocess`](#preprocess)                   | Preprocess data and saves it into cached format                                   |
 | [`synthesize_dataset`](#synthesize_dataset)   | Creates synthetic data for testing purposes                                       |
@@ -936,79 +935,32 @@ The collect-specific arguments, `--model_path`, `--tensors` and
 `--output_directory`, are the same used in [collect_weights](#collect_weights),
 you can refer to that section for an explanation.
 
-# export_torchscript
+# export_model
 
-Exports a pre-trained model to Torch's `torchscript` format.
-
-```bash
-ludwig export_torchscript [options]
-```
-
-or with:
+Exports a trained Ludwig model to SafeTensors, torch.export, or ONNX format.
 
 ```bash
-python -m ludwig.export torchscript [options]
+ludwig export_model [options]
 ```
 
 These are the available arguments:
 
 ```
-usage: ludwig export_torchscript [options]
-
-This script loads a pretrained model and saves it as torchscript.
+usage: ludwig export_model [options]
 
 optional arguments:
   -h, --help            show this help message and exit
   -m MODEL_PATH, --model_path MODEL_PATH
-                        model to load
-  -mo, --model_only     Script and export the model only.
-  -d DEVICE, --device DEVICE
-                        Device to use for torchscript tracing (e.g. "cuda" or "cpu"). Ideally, this is the same as the device used
-                        when the model is loaded.
-  -op OUTPUT_PATH, --output_path OUTPUT_PATH
-                        path where to save the export model. If not specified, defaults to model_path.
+                        path to the trained model
+  -o OUTPUT_PATH, --output_path OUTPUT_PATH
+                        output directory for the exported model
+  -f {safetensors,torch_export,onnx}, --format {safetensors,torch_export,onnx}
+                        export format (default: safetensors)
   -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
                         the level of logging to use
 ```
 
-For more information, see [TorchScript Export](model_export.md#torchscript-export)
-
-# export_carton
-
-A Ludwig model can be exported as a [Carton](https://carton.run/), which allows it to be run from several programming languages (including C, C++, Rust, and more).
-
-In order to export a Ludwig model to Carton, first make sure the `cartonml` package is installed in your environment (`pip install cartonml-nightly`), then run the following command:
-
-```bash
-ludwig export_carton [options]
-```
-
-or with:
-
-```bash
-python -m ludwig.export carton [options]
-```
-
-These are the available arguments:
-
-```
-usage: ludwig export_carton [options]
-
-This script loads a pretrained model and saves it as a Carton.
-
-options:
-  -h, --help            show this help message and exit
-  -m MODEL_PATH, --model_path MODEL_PATH
-                        model to load
-  -mn MODEL_NAME, --model_name MODEL_NAME
-                        model name
-  -od OUTPUT_PATH, --output_path OUTPUT_PATH
-                        path where to save the export model
-  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
-                        the level of logging to use
-```
-
-For more information, see [Carton Export](model_export.md#carton-export)
+For more information, see [Model Export](model_export.md).
 
 # export_mlflow
 

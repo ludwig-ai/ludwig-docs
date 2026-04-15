@@ -247,3 +247,83 @@ Available presets:
 - `medium_quality`: Concat combiner, 50 epochs, batch_size 256. Fast training.
 - `high_quality`: Transformer combiner, uncertainty loss balancing, 100 epochs.
 - `best_quality`: FT-Transformer combiner, uncertainty loss balancing, model soup, 200 epochs.
+
+## Preference-Based LLM Training
+
+Ludwig supports several preference optimization trainers for LLMs that align model outputs with human
+preferences. These trainers are available when using `model_type: llm`.
+
+### DPO Trainer
+
+Direct Preference Optimization (Rafailov et al., NeurIPS 2023) trains a model to prefer chosen completions
+over rejected ones without a separate reward model. DPO reformulates the RLHF objective as a simple
+classification loss on preference pairs.
+
+Requires data with a prompt column, the output column (containing chosen completions), and a `rejected`
+column (containing rejected completions).
+
+```yaml
+model_type: llm
+trainer:
+    type: dpo
+    dpo_beta: 0.1
+    dpo_loss_type: sigmoid  # sigmoid or ipo
+    dpo_label_smoothing: 0.0
+    rejected_column: rejected
+```
+
+Parameters:
+
+- **`dpo_beta`** (default `0.1`): Temperature parameter controlling how much the policy can deviate from
+  the reference model. Lower values keep the policy closer to the reference. Typical range: 0.05 to 0.5.
+- **`dpo_loss_type`** (default `sigmoid`): DPO loss variant. `sigmoid` is the standard DPO loss.
+  `ipo` is Identity Preference Optimization which uses a squared loss.
+- **`dpo_label_smoothing`** (default `0.0`): Label smoothing for DPO preference targets. 0 means no smoothing.
+- **`rejected_column`** (default `rejected`): Name of the column containing rejected completions.
+
+### KTO Trainer
+
+Kahneman-Tversky Optimization (Ethayarajh et al., 2024) is a preference optimization method that works
+with binary feedback (good/bad) rather than requiring paired preferences. This makes it practical when
+paired preference data is unavailable.
+
+```yaml
+model_type: llm
+trainer:
+    type: kto
+    kto_beta: 0.1
+    rejected_column: rejected
+```
+
+### ORPO Trainer
+
+Odds Ratio Preference Optimization (Hong et al., 2024) combines supervised fine-tuning with preference
+optimization in a single training step, eliminating the need for a reference model.
+
+```yaml
+model_type: llm
+trainer:
+    type: orpo
+    orpo_beta: 0.1
+    rejected_column: rejected
+```
+
+### GRPO Trainer
+
+Group Relative Policy Optimization (Shao et al., 2024) generates multiple completions per prompt and
+uses group-relative rewards to optimize the policy. This is the method used to train DeepSeek-R1.
+
+```yaml
+model_type: llm
+trainer:
+    type: grpo
+    grpo_beta: 0.04
+    grpo_epsilon: 0.2
+    grpo_num_generations: 4
+```
+
+Parameters:
+
+- **`grpo_beta`** (default `0.04`): KL penalty coefficient.
+- **`grpo_epsilon`** (default `0.2`): PPO clipping parameter.
+- **`grpo_num_generations`** (default `4`): Number of completions to generate per prompt.

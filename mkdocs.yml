@@ -80,6 +80,7 @@ nav:
       - Defaults: configuration/defaults.md
       - Combiner: configuration/combiner.md
       - Trainer: configuration/trainer.md
+      - Encoder Selection Guide: configuration/encoder_selection_guide.md
       - Hyperopt: configuration/hyperparameter_optimization.md
       - Backend: configuration/backend.md
   - 💡 Examples:

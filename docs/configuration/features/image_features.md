@@ -58,7 +58,7 @@ encoder:
 
 The available encoder parameters are:
 
-- `type` (default `stacked_cnn`): the possible values are `stacked_cnn`, `resnet`, `mlp_mixer`, `vit`, and [TorchVision Pretrained Image Classification models](#torchvision-pretrained-model-encoders).
+- `type` (default `stacked_cnn`): the possible values are `stacked_cnn`, `resnet`, `mlp_mixer`, `vit`, `clip`, `dinov2`, `siglip`, `convnextv2`, and [TorchVision Pretrained Image Classification models](#torchvision-pretrained-model-encoders).
 
 Encoder type and encoder parameters can also be defined once and applied to all image input features using the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
 
@@ -319,6 +319,76 @@ U-Net Encoder takes the following optional parameters:
 Parameters:
 
 {{ render_fields(schema_class_to_fields(image_encoder, exclude=["type"])) }}
+
+### CLIP Encoder
+
+The CLIP image encoder (Radford et al., "Learning Transferable Visual Models From Natural Language
+Supervision", ICML 2021) encodes images using CLIP's vision transformer. The resulting embeddings are
+aligned with text in a shared latent space, enabling zero-shot classification and multimodal tasks.
+
+Use CLIP when you need visual features that are semantically aligned with text -- for example, when
+combining image and text inputs for multimodal classification, or when you want zero-shot image
+classification without task-specific fine-tuning.
+
+Default pretrained model: `openai/clip-vit-base-patch32`
+
+{% set clip_encoder = get_encoder_schema("image", "clip") %}
+{{ render_yaml(clip_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(clip_encoder, exclude=["type"])) }}
+
+### DINOv2 Encoder
+
+The DINOv2 encoder (Oquab et al., "DINOv2: Learning Robust Visual Features without Supervision",
+TMLR 2024) produces self-supervised visual features that work well as frozen backbones. Unlike CLIP,
+DINOv2 does not require text alignment -- it learns visual features purely from images using
+self-distillation.
+
+Use DINOv2 when you want a general-purpose frozen feature extractor, especially for dense prediction
+tasks (segmentation, depth estimation) or when you want to avoid fine-tuning the vision backbone.
+
+Default pretrained model: `facebook/dinov2-base`
+
+{% set dinov2_encoder = get_encoder_schema("image", "dinov2") %}
+{{ render_yaml(dinov2_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(dinov2_encoder, exclude=["type"])) }}
+
+### SigLIP Encoder
+
+The SigLIP encoder (Zhai et al., "Sigmoid Loss for Language Image Pre-Training", ICCV 2023) uses
+sigmoid loss instead of softmax for image-text pre-training. This enables better scaling to larger
+batch sizes and more efficient training compared to CLIP, while maintaining similar zero-shot
+capabilities.
+
+Default pretrained model: `google/siglip-base-patch16-224`
+
+{% set siglip_encoder = get_encoder_schema("image", "siglip") %}
+{{ render_yaml(siglip_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(siglip_encoder, exclude=["type"])) }}
+
+### ConvNeXt V2 Encoder
+
+The ConvNeXt V2 encoder (Woo et al., "ConvNeXt V2: Co-designing and Scaling ConvNets with Masked
+Autoencoders", CVPR 2023) improves on ConvNeXt with Global Response Normalization (GRN) and fully
+convolutional masked autoencoder (FCMAE) pre-training. It is a pure-CNN architecture that matches or
+exceeds vision transformers on ImageNet.
+
+Available via TIMM with model variants from atto (3.7M params) to huge (660M params).
+
+{% set convnextv2_encoder = get_encoder_schema("image", "convnextv2") %}
+{{ render_yaml(convnextv2_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(convnextv2_encoder, exclude=["type"])) }}
 
 ### Deprecated Encoders (planned to remove in v0.8)
 

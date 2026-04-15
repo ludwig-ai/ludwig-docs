@@ -51,8 +51,10 @@ encoder:
 
 The available encoder parameters are:
 
-- **`type`** (default `dense`): the possible values are `passthrough`, `dense` and `sparse`. `passthrough` outputs the
-raw integer values unaltered. `dense` randomly initializes a trainable embedding matrix, `sparse` uses one-hot encoding.
+- **`type`** (default `dense`): the possible values are `passthrough`, `dense`, `sparse`, `onehot`, `target` and `hash`.
+`passthrough` outputs the raw integer values unaltered. `dense` randomly initializes a trainable embedding matrix,
+`sparse` uses one-hot encoding, `onehot` produces a one-hot vector, `target` uses mean target encoding, and `hash`
+uses feature hashing for fixed-memory encoding of high-cardinality categories.
 
 Encoder type and encoder parameters can also be defined once and applied to all category input features using
 the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
@@ -76,6 +78,47 @@ Parameters:
 Parameters:
 
 {{ render_fields(schema_class_to_fields(encoder, exclude=["type"]), details=details) }}
+
+### OneHot Encoder
+
+The `onehot` encoder produces a one-hot vector representation of the category. Each category is mapped to a
+binary vector of size equal to the vocabulary size, with a single 1 at the position corresponding to the
+category's index.
+
+{% set onehot_encoder = get_encoder_schema("category", "onehot") %}
+{{ render_yaml(onehot_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(onehot_encoder, exclude=["type"]), details=details) }}
+
+### Target Encoder
+
+The `target` encoder replaces each category with the mean of the target variable for that category
+(also known as mean target encoding). This is effective for high-cardinality categorical features where
+a standard embedding table would be very large. Ludwig handles target leakage internally using
+cross-fitting on the training data.
+
+{% set target_encoder = get_encoder_schema("category", "target") %}
+{{ render_yaml(target_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(target_encoder, exclude=["type"]), details=details) }}
+
+### Hash Encoder
+
+The `hash` encoder uses feature hashing (the "hashing trick") to map categories to a fixed-size
+embedding vector. This provides a constant memory footprint regardless of vocabulary size, handles
+unseen categories gracefully, and works well for extremely high-cardinality features or streaming
+data where the full vocabulary is not known in advance.
+
+{% set hash_encoder = get_encoder_schema("category", "hash") %}
+{{ render_yaml(hash_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(hash_encoder, exclude=["type"]), details=details) }}
 
 # Output Features
 

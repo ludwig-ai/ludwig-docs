@@ -61,11 +61,12 @@ encoder:
 
 The available encoder parameters:
 
-- **`type`** (default `passthrough`): the possible values are `passthrough`, `dense`, `ple`, and `periodic`.
+- **`type`** (default `passthrough`): the possible values are `passthrough`, `dense`, `ple`, `periodic`, and `bins`.
 `passthrough` outputs the raw values unaltered.
 `dense` passes through fully connected layers.
 `ple` uses Piecewise Linear Encoding with quantile bin edges.
 `periodic` uses learned sinusoidal features.
+`bins` discretizes values into bins and produces an embedding.
 
 Encoder type and encoder parameters can also be defined once and applied to all number input features using
 the [Type-Global Encoder](../defaults.md#type-global-encoder) section.
@@ -113,6 +114,19 @@ Based on [Gorishniy et al., NeurIPS 2022](https://arxiv.org/abs/2203.05556).
 Parameters:
 
 {{ render_fields(schema_class_to_fields(periodic_encoder, exclude=["type"]), details=details) }}
+
+### Bins Encoder
+
+The `bins` encoder discretizes numerical values into fixed bins and maps each bin to a learned embedding.
+This is a simple approach to numerical feature encoding that converts continuous values into categorical-like
+representations. It works well as a fast baseline for tabular data.
+
+{% set bins_encoder = get_encoder_schema("number", "bins") %}
+{{ render_yaml(bins_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(bins_encoder, exclude=["type"]), details=details) }}
 
 # Output Features
 

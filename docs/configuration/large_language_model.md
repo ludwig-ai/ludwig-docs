@@ -215,7 +215,7 @@ output_features:
           value: "positive"
 ```
 
-Ludwig 0.14 expands `category_extractor` with two new match strategies and constrained
+Ludwig 0.15 expands `category_extractor` with two new match strategies and constrained
 decoding:
 
 | `match.<label>.type` | Use for | `value` |
@@ -364,6 +364,109 @@ on a single commodity GPU with minimal performance penalties.
 {{ render_yaml(quantization, parent="quantization") }}
 
 {{ render_fields(schema_class_to_fields(quantization)) }}
+
+## torchao quantization
+
+Ludwig 0.15 adds a second quantization backend — [torchao](https://github.com/pytorch/ao) — that
+uses PyTorch-native kernels instead of bitsandbytes. torchao quantization supports four modes and
+also enables **Quantization-Aware Training (QAT)**.
+
+```yaml
+quantization:
+  backend: torchao
+  mode: int4_weight_only   # int4_weight_only | int8_weight_only | int8_dynamic | float8
+  qat: false               # set true to enable QAT
+```
+
+Supported modes:
+
+| `mode` | Description |
+|--------|-------------|
+| `int4_weight_only` | 4-bit weight-only quantization (activations stay in fp16/bf16) |
+| `int8_weight_only` | 8-bit weight-only quantization |
+| `int8_dynamic` | 8-bit dynamic per-forward-pass activation quantization |
+| `float8` | fp8 storage — best on H100+ hardware |
+
+### Quantization-Aware Training (QAT)
+
+Setting `qat: true` inserts fake-quantization observers into the model *before* training. The
+model trains in the target low-precision numerical regime and is converted to actually-quantized
+weights at save time. This usually recovers 1–2 perplexity points versus post-training
+quantization (PTQ) for aggressive quantization levels like 4-bit.
+
+```yaml
+quantization:
+  backend: torchao
+  mode: int4_weight_only
+  qat: true
+adapter:
+  type: lora
+trainer:
+  type: finetune
+  epochs: 3
+```
+
+!!! note
+    QAT requires `backend: torchao`. The bitsandbytes backend does not support QAT.
+
+## Multi-Adapter PEFT
+
+Ludwig 0.15 adds support for training and deploying multiple named PEFT adapters on the same base
+model. Use the `adapters:` config field (note the plural form) instead of the singular `adapter:`.
+
+```yaml
+model_type: llm
+base_model: meta-llama/Llama-3.1-8B
+
+adapters:
+  adapters:
+    task_a:
+      type: lora
+      r: 8
+      alpha: 16
+    task_b:
+      type: lora
+      r: 16
+      alpha: 32
+  active: task_a  # which adapter is active at inference time
+```
+
+`adapter:` and `adapters:` are mutually exclusive — use one or the other. Existing configs
+that use `adapter:` continue to work without changes.
+
+### Merging adapters
+
+After training, multiple adapters can be merged into a single adapter using PEFT's
+`add_weighted_adapter()` via the `adapters.merge:` section:
+
+```yaml
+adapters:
+  adapters:
+    task_a:
+      type: lora
+      r: 8
+    task_b:
+      type: lora
+      r: 8
+  merge:
+    name: merged
+    sources: [task_a, task_b]
+    weights: [0.5, 0.5]
+    combination_type: ties  # linear | svd | ties | dare_linear | dare_ties | magnitude_prune
+    density: 0.7
+  active: merged
+```
+
+Combination types:
+
+| `combination_type` | Description |
+|--------------------|-------------|
+| `linear` | Plain weighted sum of weight deltas |
+| `svd` | SVD-based merge |
+| `ties` | Resolves sign conflicts before merging (Yadav et al., NeurIPS 2023) |
+| `dare_linear` | DARE sparse pruning + linear merge (Yu et al., ICML 2024) |
+| `dare_ties` | DARE sparse pruning + TIES merge |
+| `magnitude_prune` | Prunes by delta magnitude before merging |
 
 # Model Parameters
 

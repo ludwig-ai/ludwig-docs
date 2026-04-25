@@ -1,6 +1,6 @@
 # Loss Functions
 
-This page documents the loss functions added in Ludwig 0.14. Each loss is registered for a
+This page documents the loss functions available in Ludwig 0.15. Each loss is registered for a
 specific set of feature types and is selected by setting `loss.type` on the output feature.
 
 For the complete loss catalog (including classic cross-entropy, MSE, MAE, and sequence
@@ -135,7 +135,7 @@ example so that every batch contains an even number of rows ordered as pairs.
 Registered on: `category`, `text`, `sequence`.
 
 `entmax_1.5_loss` was already implemented in earlier versions but is first registered for
-configuration use in 0.14. It trains the model under the sparse `entmax-1.5` projection
+configuration use in 0.15. It trains the model under the sparse `entmax-1.5` projection
 ([Peters et al., ACL 2019](https://arxiv.org/abs/1905.05702)), which sits between softmax
 and sparsemax and often yields more interpretable, sparse output distributions for
 classification tasks with many labels.

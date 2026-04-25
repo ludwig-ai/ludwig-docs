@@ -155,7 +155,8 @@ with open("config_deep_svdd.yaml") as f:
     config = yaml.safe_load(f)
 
 model = LudwigModel(config, logging_level=30)
-train_stats, _, _ = model.train(dataset=train_df)
+results = model.train(dataset=train_df)
+train_stats = results.train_stats
 
 # Predict — returns a DataFrame; anomaly scores are in the
 # 'anomaly_anomaly_score_predictions' column

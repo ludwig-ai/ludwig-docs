@@ -73,7 +73,8 @@ from ludwig.datasets import titanic
 
 training_set, test_set, _, = titanic.load(split=True)
 model = LudwigModel(config="model_config.yaml", logging_level=logging.INFO)
-train_stats, _, _ = model.train(training_set=training_set, test_set=test_set, model_name="titanic_model")
+results = model.train(training_set=training_set, test_set=test_set, model_name="titanic_model")
+train_stats = results.train_stats
 ```
 
 If you have added a custom loader, please also a unit test to ensure that your loader works with future versions.

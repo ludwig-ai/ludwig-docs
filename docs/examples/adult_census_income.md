@@ -175,8 +175,9 @@ Train the model.
 
     ```python
     # Trains the model. This cell might take a few minutes.
-    train_stats, preprocessed_data, output_directory = model.train(training_set=train_df,
-                                                                   test_set=test_df)
+    results = model.train(training_set=train_df, test_set=test_df)
+    train_stats = results.train_stats
+    output_directory = results.output_directory
     ```
 
 ## Evaluate

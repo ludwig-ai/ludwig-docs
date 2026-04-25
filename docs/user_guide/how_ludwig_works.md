@@ -63,7 +63,7 @@ hyperopt:
     title.encoder.num_layers:
       lower: 1
       upper: 5
-    training.learning_rate:
+    trainer.learning_rate:
       values: [0.01, 0.003, 0.001]
 ```
 

@@ -195,26 +195,24 @@ Here is an example of how the category feature schema classes are defined:
 ### Input Feature Type
 
 ```python
-from ludwig.constants import CATEGORY
+from ludwig.constants import CATEGORY, MODEL_ECD
 from ludwig.schema import utils as schema_utils
 from ludwig.schema.encoders.base import BaseEncoderConfig
 from ludwig.schema.encoders.utils import EncoderDataclassField
 from ludwig.schema.features.base import BaseInputFeatureConfig
 from ludwig.schema.features.preprocessing.base import BasePreprocessingConfig
 from ludwig.schema.features.preprocessing.utils import PreprocessingDataclassField
-from ludwig.schema.features.utils import input_config_registry, output_config_registry
-from ludwig.schema.utils import ludwig_dataclass
+from ludwig.schema.features.utils import ecd_input_config_registry
 
 
-@input_config_registry.register(CATEGORY)
-@ludwig_dataclass
+@ecd_input_config_registry.register(CATEGORY)
 class CategoryInputFeatureConfig(BaseInputFeatureConfig):
-    """CategoryInputFeatureConfig is a dataclass that configures the parameters used for a category input
-    feature."""
+    """CategoryInputFeatureConfig configures the parameters used for a category input feature."""
 
     preprocessing: BasePreprocessingConfig = PreprocessingDataclassField(feature_type=CATEGORY)
 
     encoder: BaseEncoderConfig = EncoderDataclassField(
+        MODEL_ECD,
         feature_type=CATEGORY,
         default="dense",
     )
@@ -233,9 +231,8 @@ well:
 ### Output Feature Type
 
 ```python
+from ludwig.constants import CATEGORY, MODEL_ECD, SOFTMAX_CROSS_ENTROPY
 from ludwig.schema import utils as schema_utils
-from ludwig.schema.utils import ludwig_dataclass
-from ludwig.constants import CATEGORY, SOFTMAX_CROSS_ENTROPY
 from ludwig.schema.decoders.base import BaseDecoderConfig
 from ludwig.schema.decoders.utils import DecoderDataclassField
 from ludwig.schema.features.base import BaseOutputFeatureConfig
@@ -243,13 +240,11 @@ from ludwig.schema.features.loss.loss import BaseLossConfig
 from ludwig.schema.features.loss.utils import LossDataclassField
 from ludwig.schema.features.preprocessing.base import BasePreprocessingConfig
 from ludwig.schema.features.preprocessing.utils import PreprocessingDataclassField
-from ludwig.schema.features.utils import output_config_registry
+from ludwig.schema.features.utils import ecd_output_config_registry
 
-@output_config_registry.register(CATEGORY)
-@ludwig_dataclass
+@ecd_output_config_registry.register(CATEGORY)
 class CategoryOutputFeatureConfig(BaseOutputFeatureConfig):
-    """CategoryOutputFeatureConfig is a dataclass that configures the parameters used for a category output
-    feature."""
+    """CategoryOutputFeatureConfig configures the parameters used for a category output feature."""
 
     preprocessing: BasePreprocessingConfig = PreprocessingDataclassField(feature_type="category_output")
 
@@ -259,6 +254,7 @@ class CategoryOutputFeatureConfig(BaseOutputFeatureConfig):
     )
 
     decoder: BaseDecoderConfig = DecoderDataclassField(
+        MODEL_ECD,
         feature_type=CATEGORY,
         default="classifier",
     )

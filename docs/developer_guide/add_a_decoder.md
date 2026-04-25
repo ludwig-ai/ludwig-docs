@@ -84,22 +84,19 @@ class SequenceGeneratorDecoder(Decoder):
 # 4. Define a schema class
 
 In order to ensure that user config validation for your custom defined decoder functions as desired, we need to define a
-schema class to go along with the newly defined decoder. To do this, we use the `ludwig_dataclass` decorator on a class
-definition that contains all the inputs to your custom decoder as attributes. For each attribute, we use utility
-functions from the `ludwig.schema.utils` directory to validate that input. Lastly, we need to put a reference to this
-schema class on the custom decoder class. For example:
+schema class to go along with the newly defined decoder. Config classes are pydantic models that inherit from a base
+config class. The class attributes define all the inputs to your custom decoder, and for each attribute we use utility
+functions from `ludwig.schema.utils` to specify valid types, ranges, and defaults. Lastly, we need to put a reference
+to this schema class on the custom decoder class. For example:
 
 ```python
 from ludwig.constants import SEQUENCE, TEXT
 from ludwig.schema.decoders.base import BaseDecoderConfig
 from ludwig.schema.decoders.utils import register_decoder_config
 import ludwig.schema.utils as schema_utils
-from ludwig.schema.utils import ludwig_dataclass
 
 @register_decoder_config("generator", [SEQUENCE, TEXT])
-@ludwig_dataclass
 class SequenceGeneratorDecoderConfig(BaseDecoderConfig):
-
     type: str = schema_utils.StringOptions(options=["generator"], default="generator")
     vocab_size: int = schema_utils.Integer(default=None, description="")
     max_sequence_length: int = schema_utils.Integer(default=None, description="")
@@ -107,11 +104,7 @@ class SequenceGeneratorDecoderConfig(BaseDecoderConfig):
     input_size: int = schema_utils.Integer(default=256, description="")
     reduce_input: str = schema_utils.ReductionOptions(default="sum")
     num_layers: int = schema_utils.Integer(default=1, description="")
-```
 
-And lastly you should add a reference to the schema class on the custom decoder:
-
-```python
     @staticmethod
     def get_schema_cls():
         return SequenceGeneratorDecoderConfig

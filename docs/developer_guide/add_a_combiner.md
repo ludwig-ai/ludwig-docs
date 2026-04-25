@@ -34,7 +34,7 @@ sequence length, type, or dimension, and validate their input features.
 In this guide we'll outline how to extend Ludwig by adding a new combiner, using the `transformer` combiner as a
 template. To add a new combiner:
 
-1. Define a dataclass to represent the combiner schema.
+1. Define a pydantic model class to represent the combiner schema.
 2. Create a new combiner class inheriting from `ludwig.combiners.Combiner` or one of its subclasses.
 3. Allocate all layers and state in the `__init__` method.
 4. Implement your combiner's forward pass in `def forward(self, inputs: Dict):`.
@@ -43,40 +43,41 @@ template. To add a new combiner:
 
 ## 1. Define the combiner's schema
 
-The combiner schema is a `dataclass` (using the `ludwig_dataclass` decorator) that must extend
-`BaseCombinerConfig`. Its attributes are the configuration parameters of the combiner. All fields should have a type
-and a default value. The `ludwig.schema.utils.py` module provides convenient methods for specifying the valid types and
-ranges of a combiner config. For example, the `TransformerCombiner` has the following schema:
+The combiner schema is a pydantic model that must extend `BaseCombinerConfig`. Its attributes are the configuration
+parameters of the combiner. All fields should have a type and a default value. The `ludwig.schema.utils` module
+provides convenient methods for specifying the valid types and ranges of a combiner config. For example, the
+`TransformerCombiner` has the following schema:
 
 ```python
-from typing import Optional, List, Dict, Any
+from typing import Dict, List, Optional, Union
 
-# Main imports:
 from ludwig.schema import utils as schema_utils
 from ludwig.schema.combiners.base import BaseCombinerConfig
-from ludwig.schema.utils import ludwig_dataclass
+from ludwig.schema.combiners.utils import register_combiner_config
 
-@ludwig_dataclass
+@register_combiner_config("transformer")
 class TransformerCombinerConfig(BaseCombinerConfig):
-    num_layers: int = schema.PositiveInteger(default=1)
-    hidden_size: int = schema.NonNegativeInteger(default=256)
-    num_heads: int = schema.NonNegativeInteger(default=8)
-    transformer_output_size: int = schema.NonNegativeInteger(default=256)
-    dropout: float = schema.FloatRange(default=0.1, min=0, max=1)
-    fc_layers: Optional[List[Dict[str, Any]]] = schema.DictList()
-    num_fc_layers: int = schema.NonNegativeInteger(default=0)
-    output_size: int = schema.PositiveInteger(default=256)
+    num_layers: int = schema_utils.PositiveInteger(default=1)
+    hidden_size: int = schema_utils.NonNegativeInteger(default=256)
+    num_heads: int = schema_utils.NonNegativeInteger(default=8)
+    transformer_output_size: int = schema_utils.NonNegativeInteger(default=256)
+    dropout: float = schema_utils.FloatRange(default=0.1, min=0, max=1)
+    fc_layers: Optional[List[Dict]] = schema_utils.DictList()
+    num_fc_layers: int = schema_utils.NonNegativeInteger(default=0)
+    output_size: int = schema_utils.PositiveInteger(default=256)
     use_bias: bool = True
-    weights_initializer: Union[str, Dict] = \
-        schema.InitializerOrDict(default="xavier_uniform")
-    bias_initializer: Union[str, Dict] = \
-        schema.InitializerOrDict(default="zeros")
-    norm: Optional[str] = schema.StringOptions(["batch", "layer"])
-    norm_params: Optional[dict] = schema.Dict()
-    fc_activation: str = "relu"
-    fc_dropout: float = schema.FloatRange(default=0.0, min=0, max=1)
+    weights_initializer: Union[str, Dict] = schema_utils.InitializerOrDict(default="xavier_uniform")
+    bias_initializer: Union[str, Dict] = schema_utils.InitializerOrDict(default="zeros")
+    norm: Optional[str] = schema_utils.StringOptions(options=["batch", "layer"], default=None, allow_none=True)
+    norm_params: Optional[dict] = schema_utils.Dict()
+    fc_activation: str = schema_utils.ActivationOptions(default="relu")
+    fc_dropout: float = schema_utils.FloatRange(default=0.0, min=0, max=1)
     fc_residual: bool = False
-    reduce_output: Optional[str] = schema.ReductionOptions(default="mean")
+    reduce_output: Optional[str] = schema_utils.ReductionOptions(default="mean")
+
+    @staticmethod
+    def get_schema_cls():
+        return TransformerCombinerConfig
 ```
 
 This schema should live in its own file inside `ludwig/schema/combiners/`. So that it is more convenient to import

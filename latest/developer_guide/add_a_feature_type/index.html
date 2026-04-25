@@ -5042,26 +5042,24 @@ we need to create schema classes that will autogenerate the json schema required
 <p>If the new feature type will just function as an input feature, you only need to define an input feature schema class.
 Here is an example of how the category feature schema classes are defined:</p>
 <h4 id="input-feature-type">Input Feature Type<a class="headerlink" href="#input-feature-type" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">CATEGORY</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">CATEGORY</span><span class="p">,</span> <span class="n">MODEL_ECD</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">utils</span> <span class="k">as</span> <span class="n">schema_utils</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.encoders.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseEncoderConfig</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.encoders.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">EncoderDataclassField</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseInputFeatureConfig</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.preprocessing.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BasePreprocessingConfig</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.preprocessing.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">PreprocessingDataclassField</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">input_config_registry</span><span class="p">,</span> <span class="n">output_config_registry</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">ludwig_dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">ecd_input_config_registry</span>
 
 
-<span class="nd">@input_config_registry</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">CATEGORY</span><span class="p">)</span>
-<span class="nd">@ludwig_dataclass</span>
+<span class="nd">@ecd_input_config_registry</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">CATEGORY</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">CategoryInputFeatureConfig</span><span class="p">(</span><span class="n">BaseInputFeatureConfig</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;CategoryInputFeatureConfig is a dataclass that configures the parameters used for a category input</span>
-<span class="sd">    feature.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;CategoryInputFeatureConfig configures the parameters used for a category input feature.&quot;&quot;&quot;</span>
 
     <span class="n">preprocessing</span><span class="p">:</span> <span class="n">BasePreprocessingConfig</span> <span class="o">=</span> <span class="n">PreprocessingDataclassField</span><span class="p">(</span><span class="n">feature_type</span><span class="o">=</span><span class="n">CATEGORY</span><span class="p">)</span>
 
     <span class="n">encoder</span><span class="p">:</span> <span class="n">BaseEncoderConfig</span> <span class="o">=</span> <span class="n">EncoderDataclassField</span><span class="p">(</span>
+        <span class="n">MODEL_ECD</span><span class="p">,</span>
         <span class="n">feature_type</span><span class="o">=</span><span class="n">CATEGORY</span><span class="p">,</span>
         <span class="n">default</span><span class="o">=</span><span class="s2">&quot;dense&quot;</span><span class="p">,</span>
     <span class="p">)</span>
@@ -5076,9 +5074,8 @@ Here is an example of how the category feature schema classes are defined:</p>
 <p>If the new feature type can also be an output feature type, you will need to define an output feature schema class as
 well:</p>
 <h4 id="output-feature-type">Output Feature Type<a class="headerlink" href="#output-feature-type" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">utils</span> <span class="k">as</span> <span class="n">schema_utils</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">ludwig_dataclass</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">CATEGORY</span><span class="p">,</span> <span class="n">SOFTMAX_CROSS_ENTROPY</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">CATEGORY</span><span class="p">,</span> <span class="n">MODEL_ECD</span><span class="p">,</span> <span class="n">SOFTMAX_CROSS_ENTROPY</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">utils</span> <span class="k">as</span> <span class="n">schema_utils</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.decoders.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseDecoderConfig</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.decoders.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecoderDataclassField</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseOutputFeatureConfig</span>
@@ -5086,13 +5083,11 @@ well:</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.loss.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">LossDataclassField</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.preprocessing.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BasePreprocessingConfig</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.preprocessing.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">PreprocessingDataclassField</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">output_config_registry</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">ecd_output_config_registry</span>
 
-<span class="nd">@output_config_registry</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">CATEGORY</span><span class="p">)</span>
-<span class="nd">@ludwig_dataclass</span>
+<span class="nd">@ecd_output_config_registry</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">CATEGORY</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">CategoryOutputFeatureConfig</span><span class="p">(</span><span class="n">BaseOutputFeatureConfig</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;CategoryOutputFeatureConfig is a dataclass that configures the parameters used for a category output</span>
-<span class="sd">    feature.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;CategoryOutputFeatureConfig configures the parameters used for a category output feature.&quot;&quot;&quot;</span>
 
     <span class="n">preprocessing</span><span class="p">:</span> <span class="n">BasePreprocessingConfig</span> <span class="o">=</span> <span class="n">PreprocessingDataclassField</span><span class="p">(</span><span class="n">feature_type</span><span class="o">=</span><span class="s2">&quot;category_output&quot;</span><span class="p">)</span>
 
@@ -5102,6 +5097,7 @@ well:</p>
     <span class="p">)</span>
 
     <span class="n">decoder</span><span class="p">:</span> <span class="n">BaseDecoderConfig</span> <span class="o">=</span> <span class="n">DecoderDataclassField</span><span class="p">(</span>
+        <span class="n">MODEL_ECD</span><span class="p">,</span>
         <span class="n">feature_type</span><span class="o">=</span><span class="n">CATEGORY</span><span class="p">,</span>
         <span class="n">default</span><span class="o">=</span><span class="s2">&quot;classifier&quot;</span><span class="p">,</span>
     <span class="p">)</span>

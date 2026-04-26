@@ -30,9 +30,9 @@ Ludwig now also supports direct Hugging Face dataset imports with the following 
 `"hf://{dataset_name}--{dataset_subset}"`
 
 For example:
-`train_stats, _, _ = ludwig_model.train(dataset="hf://mbpp")`
-`train_stats, _, _ = ludwig_model.train(dataset="hf://Open-Orca/OpenOrca")`
-`train_stats, _, _ = ludwig_model.train(dataset="hf://gsm8k--main")`
+`results = ludwig_model.train(dataset="hf://mbpp")`
+`results = ludwig_model.train(dataset="hf://Open-Orca/OpenOrca")`
+`results = ludwig_model.train(dataset="hf://gsm8k--main")`
 
 Please note that "subset" is not the same as "split". Make sure that you are including the subset name and not the split name when specifying the dataset:
 

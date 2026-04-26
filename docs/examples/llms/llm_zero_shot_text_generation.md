@@ -74,17 +74,14 @@ config = yaml.safe_load(
 model = LudwigModel(config=config, logging_level=logging.INFO)
 
 # initiate model training
-(
-    train_stats,  # dictionary containing training statistics
-    preprocessed_data,  # tuple Ludwig Dataset objects of pre-processed training data
-    output_directory,  # location of training results stored on disk
-) = model.train(
+results = model.train(
     dataset=df, experiment_name="simple_experiment", model_name="simple_model", skip_save_processed_input=True
 )
-
-training_set, val_set, test_set, _ = preprocessed_data
+train_stats = results.train_stats
+preprocessed_data = results.preprocessed_data
+output_directory = results.output_directory
 
 # batch prediction
-preds, _ = model.predict(test_set, skip_save_predictions=False)
+preds, _ = model.predict(preprocessed_data.test_set, skip_save_predictions=False)
 print(preds)
 ```

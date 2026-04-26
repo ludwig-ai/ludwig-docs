@@ -99,7 +99,7 @@ Example:
 ```python
 goal = "minimize"
 parameters = {
-    "training.learning_rate": {
+    "trainer.learning_rate": {
         "type": "float",
         "low": 0.001,
         "high": 0.1,
@@ -130,7 +130,7 @@ If `finished()` returns `True`, calling `sample` would return a `IndexError`.
 Example returned value:
 
 ```python
-{'training.learning_rate': 0.005, 'combiner.num_fc_layers': 2, 'utterance.cell_type': 'gru'}
+{'trainer.learning_rate': 0.005, 'combiner.num_fc_layers': 2, 'utterance.cell_type': 'gru'}
 ```
 
 ### `sample_batch`
@@ -145,7 +145,7 @@ If `finished()` returns `True`, calling `sample_batch` would return a `IndexErro
 Example returned value:
 
 ```python
-[{'training.learning_rate': 0.005, 'combiner.num_fc_layers': 2, 'utterance.cell_type': 'gru'}, {'training.learning_rate': 0.015, 'combiner.num_fc_layers': 3, 'utterance.cell_type': 'lstm'}]
+[{'trainer.learning_rate': 0.005, 'combiner.num_fc_layers': 2, 'utterance.cell_type': 'gru'}, {'trainer.learning_rate': 0.015, 'combiner.num_fc_layers': 3, 'utterance.cell_type': 'lstm'}]
 ```
 
 ### `update`
@@ -169,7 +169,7 @@ Example:
 
 ```python
 sampled_parameters = {
-    'training.learning_rate': 0.005,
+    'trainer.learning_rate': 0.005,
     'combiner.num_fc_layers': 2,
     'utterance.cell_type': 'gru'
 }
@@ -198,12 +198,12 @@ Example:
 ```python
 sampled_parameters = [
     {
-        'training.learning_rate': 0.005,
+        'trainer.learning_rate': 0.005,
         'combiner.num_fc_layers': 2,
         'utterance.cell_type': 'gru'
     },
     {
-        'training.learning_rate': 0.015,
+        'trainer.learning_rate': 0.015,
         'combiner.num_fc_layers': 5,
         'utterance.cell_type': 'lstm'
     }
@@ -269,7 +269,7 @@ Example:
 ```python
 goal = "minimize"
 parameters = {
-    "training.learning_rate": {
+    "trainer.learning_rate": {
         "type": "float",
         "low": 0.001,
         "high": 0.1,

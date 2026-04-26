@@ -88,7 +88,8 @@ training_set, test_set, _ = mnist.load(split=True)
 mnist.export(".")
 
 # Runs model training
-train_stats, _, _ = model.train(training_set=training_set, test_set=test_set, model_name="mnist_model")
+results = model.train(training_set=training_set, test_set=test_set, model_name="mnist_model")
+train_stats = results.train_stats
 ```
 
 ## Dataset Splits

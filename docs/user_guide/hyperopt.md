@@ -1,5 +1,5 @@
-Ludwig supports hyperparameter optimization using [Ray Tune](https://docs.ray.io/en/latest/tune/index.html) or a local
-executor.
+Ludwig supports hyperparameter optimization using [Ray Tune](https://docs.ray.io/en/latest/tune/index.html),
+[Optuna](https://optuna.org/), or a local executor.
 
 The hyperparameter optimization strategy is specified as part of the Ludwig configuration and run using
 the `ludwig hyperopt` command. Every parameter within the config can be tuned using hyperopt.
@@ -18,7 +18,7 @@ hyperopt:
     title.num_filters:
       space: choice
       categories: [128, 256, 512]
-    training.learning_rate:
+    trainer.learning_rate:
       space: loguniform
       lower: 0.0001
       upper: 0.1

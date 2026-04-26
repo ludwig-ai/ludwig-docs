@@ -66,15 +66,12 @@ code, just configuration.
     model = LudwigModel(config=config, logging_level=logging.INFO)
 
     # initiate model training
-    (
-        train_stats,  # dictionary containing training statistics
-        preprocessed_data,  # tuple Ludwig Dataset objects of pre-processed training data
-        output_directory,  # location of training results stored on disk
-    ) = model.train(
+    results = model.train(
         dataset="ludwig://imdb",
         experiment_name="imdb_sentiment",
         model_name="bloom3b",
     )
+    output_directory = results.output_directory
 
     # list contents of output directory
     print("contents of output directory:", output_directory)

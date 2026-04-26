@@ -224,7 +224,9 @@ predict.
     model = LudwigModel(config, logging_level=logging.INFO)
 
     # Trains the model. This cell might take a few minutes.
-    train_stats, preprocessed_data, output_directory = model.train(dataset=dataset_df)
+    results = model.train(dataset=dataset_df)
+    train_stats = results.train_stats
+    output_directory = results.output_directory
     ```
 
 ## Evaluate

@@ -167,6 +167,63 @@ You can find the full list of supported search algorithm names in Ray Tune's [cr
 
 # Executor
 
+## Native Optuna Executor
+
+Ludwig 0.15 adds a native Optuna executor that runs hyperparameter optimization directly without
+requiring Ray Tune as an intermediary. This is the simplest option for single-machine hyperopt.
+
+```yaml
+hyperopt:
+  executor:
+    type: optuna
+    num_samples: 50
+    sampler: auto       # auto | gp | tpe | cmaes | random
+    pruner: null        # null | median | hyperband | sha | nop
+    storage: null       # null or a SQLite/PostgreSQL URL for persistence
+  goal: minimize
+  metric: loss
+  parameters:
+    trainer.learning_rate:
+      space: loguniform
+      lower: 0.0001
+      upper: 0.01
+```
+
+**Parameters:**
+
+- `num_samples`: Number of trials to run.
+- `sampler`: Optuna sampler algorithm.
+    - `auto` — Optuna's `AutoSampler` (selects the best algorithm for the search space).
+    - `gp` — Gaussian-process Bayesian optimization (`GPSampler`). High quality but slow on large spaces.
+    - `tpe` — Tree-structured Parzen Estimator (default when `auto` is unavailable).
+    - `cmaes` — Covariance Matrix Adaptation Evolution Strategy. Effective for continuous spaces.
+    - `random` — Random search baseline.
+- `pruner`: Early-stopping strategy for unpromising trials.
+    - `null` (default) — no pruning.
+    - `median` — prune trials worse than the median at each step.
+    - `hyperband` — HyperbandPruner.
+    - `sha` — Successive Halving.
+    - `nop` — no pruning (explicit no-op).
+- `storage`: Optuna storage URL for persistence and resumability. Use a SQLite URL like
+  `sqlite:///hyperopt.db` to save trial results to disk so runs can be resumed after
+  interruption. Supports PostgreSQL (`postgresql://user:pass@host/db`) for multi-process
+  parallelism.
+
+**Example: SQLite-backed resumable run**
+
+```yaml
+hyperopt:
+  executor:
+    type: optuna
+    num_samples: 100
+    sampler: tpe
+    pruner: median
+    storage: sqlite:///hyperopt.db
+```
+
+!!! note
+    Install the `optuna` package before using this executor: `pip install optuna`.
+
 ## Ray Tune Executor
 
 The `ray` executor is used to enable [Ray Tune](https://docs.ray.io/en/latest/tune/index.html) for both local and distributed hyperopt across a cluster of machines.

@@ -26,11 +26,11 @@ hyperopt:
   metric: accuracy
   split: validation
   parameters:
-    training.learning_rate:
+    trainer.learning_rate:
       space: loguniform
       lower: 0.0001
       upper: 0.1
-    training.optimizer.type:
+    trainer.optimizer.type:
       space: choice
       categories: [sgd, adam, adagrad]
     review_content.embedding_size:

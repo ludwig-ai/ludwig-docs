@@ -131,7 +131,9 @@ Here, for simplicity, we'll try to predict **class** from **title**.
     model = LudwigModel(config, logging_level=logging.INFO)
 
     # Trains the model. This cell might take a few minutes.
-    train_stats, preprocessed_data, output_directory = model.train(dataset=train_df)
+    results = model.train(dataset=train_df)
+    train_stats = results.train_stats
+    output_directory = results.output_directory
     ```
 
 ## Evaluate

@@ -176,7 +176,9 @@ pd.DataFrame(kto_rows).to_csv("train_kto.csv", index=False)
     """)
 
     model = LudwigModel(config=config, logging_level=logging.INFO)
-    train_stats, _, output_dir = model.train(dataset="data/train.csv")
+    results = model.train(dataset="data/train.csv")
+    train_stats = results.train_stats
+    output_dir = results.output_directory
     ```
 
 ### KTO

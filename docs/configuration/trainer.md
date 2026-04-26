@@ -58,7 +58,7 @@ By default, the ECD trainer is used.
 
 ## Optimizer guidance
 
-Ludwig 0.14 adds five optimizers on top of the existing PyTorch family. Quick picks:
+Ludwig 0.15 includes five optimizers on top of the existing PyTorch family. Quick picks:
 
 - **`radam`** — Rectified Adam (Liu et al., ICLR 2020). Drop-in replacement for `adam` that
   removes the need for manual warmup by adaptively rectifying the variance of the adaptive
@@ -83,10 +83,14 @@ Ludwig 0.14 adds five optimizers on top of the existing PyTorch family. Quick pi
     The legacy `ftrl` optimizer was removed in 0.14. Configs that set `optimizer.type: ftrl`
     will fail validation — use `adagrad` or `sgd` with momentum as replacements.
 
+!!! note
+    New in 0.15: `muon` and `schedule_free_adamw` optimizers are now stable and recommended
+    for large-scale pretraining and fine-tuning respectively.
+
 ## Learning rate schedulers
 
 The `learning_rate_scheduler` section of the trainer controls how the learning rate evolves
-during training. Ludwig 0.14 adds four new schedule types on top of `linear`, `exponential`,
+during training. Ludwig 0.15 supports four additional schedule types on top of `linear`, `exponential`,
 and `cosine`:
 
 | `decay` | Best for | Key parameters |

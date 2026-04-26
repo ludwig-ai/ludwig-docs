@@ -373,7 +373,7 @@ Parameters:
 
 By default the generator uses full teacher forcing: the decoder always receives the ground-truth
 previous token during training, which creates a mismatch with inference (where it must feed on
-its own predictions). Ludwig 0.14 exposes the scheduled-sampling curriculum from
+its own predictions). Ludwig 0.15 exposes the scheduled-sampling curriculum from
 [Bengio et al., NeurIPS 2015](https://arxiv.org/abs/1506.03099), which gradually replaces
 teacher-forced inputs with sampled predictions as training progresses:
 

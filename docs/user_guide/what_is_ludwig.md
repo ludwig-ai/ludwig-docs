@@ -51,7 +51,9 @@ production with just a [few short commands](command_line_interface.md).
     }
     model = LudwigModel(config)
     data = pd.read_csv("data.csv")
-    train_stats, _, model_dir = model.train(data)
+    results = model.train(data)
+    train_stats = results.train_stats
+    model_dir = results.output_directory
 
     # or load a model
     model = LudwigModel.load(model_dir)
@@ -171,7 +173,7 @@ hyperopt:
     title.num_layers:
       lower: 1
       upper: 5
-    training.learning_rate:
+    trainer.learning_rate:
       values: [0.01, 0.003, 0.001]
 ```
 

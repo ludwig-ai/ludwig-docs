@@ -592,7 +592,7 @@ augmentation:
 # Output Features
 
 Image features can be used when semantic segmentation needs to be performed.
-Ludwig 0.14 exposes three segmentation decoders: `unet`, `segformer`, and `fpn`.
+Ludwig 0.15 exposes three segmentation decoders: `unet`, `segformer`, and `fpn`.
 
 Example image output feature using default parameters:
 

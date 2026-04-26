@@ -4955,7 +4955,7 @@ input to
 <p>Example:</p>
 <div class="highlight"><pre><span></span><code><span class="n">goal</span> <span class="o">=</span> <span class="s2">&quot;minimize&quot;</span>
 <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;training.learning_rate&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;trainer.learning_rate&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;float&quot;</span><span class="p">,</span>
         <span class="s2">&quot;low&quot;</span><span class="p">:</span> <span class="mf">0.001</span><span class="p">,</span>
         <span class="s2">&quot;high&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
@@ -4979,7 +4979,7 @@ input to
 It returns a set of parameters names and their values.
 If <code>finished()</code> returns <code>True</code>, calling <code>sample</code> would return a <code>IndexError</code>.</p>
 <p>Example returned value:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="s1">&#39;training.learning_rate&#39;</span><span class="p">:</span> <span class="mf">0.005</span><span class="p">,</span> <span class="s1">&#39;combiner.num_fc_layers&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;utterance.cell_type&#39;</span><span class="p">:</span> <span class="s1">&#39;gru&#39;</span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="s1">&#39;trainer.learning_rate&#39;</span><span class="p">:</span> <span class="mf">0.005</span><span class="p">,</span> <span class="s1">&#39;combiner.num_fc_layers&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;utterance.cell_type&#39;</span><span class="p">:</span> <span class="s1">&#39;gru&#39;</span><span class="p">}</span>
 </code></pre></div>
 <h4 id="sample_batch"><code>sample_batch</code><a class="headerlink" href="#sample_batch" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">sample_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
@@ -4987,7 +4987,7 @@ If <code>finished()</code> returns <code>True</code>, calling <code>sample</code
 <p><code>sample_batch</code> method returns a list of sampled parameters of length equal to or less than <code>batch_size</code>.
 If <code>finished()</code> returns <code>True</code>, calling <code>sample_batch</code> would return a <code>IndexError</code>.</p>
 <p>Example returned value:</p>
-<div class="highlight"><pre><span></span><code><span class="p">[{</span><span class="s1">&#39;training.learning_rate&#39;</span><span class="p">:</span> <span class="mf">0.005</span><span class="p">,</span> <span class="s1">&#39;combiner.num_fc_layers&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;utterance.cell_type&#39;</span><span class="p">:</span> <span class="s1">&#39;gru&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;training.learning_rate&#39;</span><span class="p">:</span> <span class="mf">0.015</span><span class="p">,</span> <span class="s1">&#39;combiner.num_fc_layers&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;utterance.cell_type&#39;</span><span class="p">:</span> <span class="s1">&#39;lstm&#39;</span><span class="p">}]</span>
+<div class="highlight"><pre><span></span><code><span class="p">[{</span><span class="s1">&#39;trainer.learning_rate&#39;</span><span class="p">:</span> <span class="mf">0.005</span><span class="p">,</span> <span class="s1">&#39;combiner.num_fc_layers&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;utterance.cell_type&#39;</span><span class="p">:</span> <span class="s1">&#39;gru&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;trainer.learning_rate&#39;</span><span class="p">:</span> <span class="mf">0.015</span><span class="p">,</span> <span class="s1">&#39;combiner.num_fc_layers&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;utterance.cell_type&#39;</span><span class="p">:</span> <span class="s1">&#39;lstm&#39;</span><span class="p">}]</span>
 </code></pre></div>
 <h4 id="update"><code>update</code><a class="headerlink" href="#update" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span>
@@ -5004,7 +5004,7 @@ If <code>finished()</code> returns <code>True</code>, calling <code>sample_batch
 <p>It is not needed for stateless strategies like grid and random, but is needed for stateful strategies like bayesian and evolutionary ones.</p>
 <p>Example:</p>
 <div class="highlight"><pre><span></span><code><span class="n">sampled_parameters</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;training.learning_rate&#39;</span><span class="p">:</span> <span class="mf">0.005</span><span class="p">,</span>
+    <span class="s1">&#39;trainer.learning_rate&#39;</span><span class="p">:</span> <span class="mf">0.005</span><span class="p">,</span>
     <span class="s1">&#39;combiner.num_fc_layers&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
     <span class="s1">&#39;utterance.cell_type&#39;</span><span class="p">:</span> <span class="s1">&#39;gru&#39;</span>
 <span class="p">}</span>
@@ -5026,12 +5026,12 @@ If <code>finished()</code> returns <code>True</code>, calling <code>sample_batch
 <p>Example:</p>
 <div class="highlight"><pre><span></span><code><span class="n">sampled_parameters</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">{</span>
-        <span class="s1">&#39;training.learning_rate&#39;</span><span class="p">:</span> <span class="mf">0.005</span><span class="p">,</span>
+        <span class="s1">&#39;trainer.learning_rate&#39;</span><span class="p">:</span> <span class="mf">0.005</span><span class="p">,</span>
         <span class="s1">&#39;combiner.num_fc_layers&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
         <span class="s1">&#39;utterance.cell_type&#39;</span><span class="p">:</span> <span class="s1">&#39;gru&#39;</span>
     <span class="p">},</span>
     <span class="p">{</span>
-        <span class="s1">&#39;training.learning_rate&#39;</span><span class="p">:</span> <span class="mf">0.015</span><span class="p">,</span>
+        <span class="s1">&#39;trainer.learning_rate&#39;</span><span class="p">:</span> <span class="mf">0.015</span><span class="p">,</span>
         <span class="s1">&#39;combiner.num_fc_layers&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
         <span class="s1">&#39;utterance.cell_type&#39;</span><span class="p">:</span> <span class="s1">&#39;lstm&#39;</span>
     <span class="p">}</span>
@@ -5079,7 +5079,7 @@ be defined in the module.</p>
 <p>Example:</p>
 <div class="highlight"><pre><span></span><code><span class="n">goal</span> <span class="o">=</span> <span class="s2">&quot;minimize&quot;</span>
 <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;training.learning_rate&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;trainer.learning_rate&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;float&quot;</span><span class="p">,</span>
         <span class="s2">&quot;low&quot;</span><span class="p">:</span> <span class="mf">0.001</span><span class="p">,</span>
         <span class="s2">&quot;high&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>

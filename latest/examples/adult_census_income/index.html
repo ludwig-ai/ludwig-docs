@@ -4960,8 +4960,9 @@
 <div class="tabbed-block">
 <p><a href="../../user_guide/api/LudwigModel/#ludwig.api.LudwigModel.train">train() method</a></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Trains the model. This cell might take a few minutes.</span>
-<span class="n">train_stats</span><span class="p">,</span> <span class="n">preprocessed_data</span><span class="p">,</span> <span class="n">output_directory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">training_set</span><span class="o">=</span><span class="n">train_df</span><span class="p">,</span>
-                                                               <span class="n">test_set</span><span class="o">=</span><span class="n">test_df</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">training_set</span><span class="o">=</span><span class="n">train_df</span><span class="p">,</span> <span class="n">test_set</span><span class="o">=</span><span class="n">test_df</span><span class="p">)</span>
+<span class="n">train_stats</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">train_stats</span>
+<span class="n">output_directory</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">output_directory</span>
 </code></pre></div>
 </div>
 </div>

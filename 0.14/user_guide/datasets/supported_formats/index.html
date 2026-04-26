@@ -4554,9 +4554,9 @@ To handle such cases, we expect the values in the columns to be escaped with bac
 <p>Ludwig now also supports direct Hugging Face dataset imports with the following syntax (dataset_subset is not always present in Hugging Face datasets, so omit it if necessary).</p>
 <p><code>"hf://{dataset_name}--{dataset_subset}"</code></p>
 <p>For example:
-<code>train_stats, _, _ = ludwig_model.train(dataset="hf://mbpp")</code>
-<code>train_stats, _, _ = ludwig_model.train(dataset="hf://Open-Orca/OpenOrca")</code>
-<code>train_stats, _, _ = ludwig_model.train(dataset="hf://gsm8k--main")</code></p>
+<code>results = ludwig_model.train(dataset="hf://mbpp")</code>
+<code>results = ludwig_model.train(dataset="hf://Open-Orca/OpenOrca")</code>
+<code>results = ludwig_model.train(dataset="hf://gsm8k--main")</code></p>
 <p>Please note that "subset" is not the same as "split". Make sure that you are including the subset name and not the split name when specifying the dataset:</p>
 <p><img alt="Alt text" src="../../../images/hf_subset_vs_split.png" /></p>
 

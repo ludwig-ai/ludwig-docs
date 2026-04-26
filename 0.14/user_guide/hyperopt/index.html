@@ -4580,8 +4580,8 @@
 
   <h1>Hyperparameter Optimization</h1>
 
-<p>Ludwig supports hyperparameter optimization using <a href="https://docs.ray.io/en/latest/tune/index.html">Ray Tune</a> or a local
-executor.</p>
+<p>Ludwig supports hyperparameter optimization using <a href="https://docs.ray.io/en/latest/tune/index.html">Ray Tune</a>,
+<a href="https://optuna.org/">Optuna</a>, or a local executor.</p>
 <p>The hyperparameter optimization strategy is specified as part of the Ludwig configuration and run using
 the <code>ludwig hyperopt</code> command. Every parameter within the config can be tuned using hyperopt.</p>
 <h2 id="hyperopt-configuration">Hyperopt Configuration<a class="headerlink" href="#hyperopt-configuration" title="Permanent link">&para;</a></h2>
@@ -4594,7 +4594,7 @@ the <code>ludwig hyperopt</code> command. Every parameter within the config can 
 <span class="w">    </span><span class="nt">title.num_filters</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span>
 <span class="w">      </span><span class="nt">categories</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">128</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">256</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">512</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="nt">training.learning_rate</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">trainer.learning_rate</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loguniform</span>
 <span class="w">      </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0001</span>
 <span class="w">      </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>

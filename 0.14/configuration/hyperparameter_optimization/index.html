@@ -2645,6 +2645,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#native-optuna-executor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Native Optuna Executor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#ray-tune-executor" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4743,6 +4754,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#native-optuna-executor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Native Optuna Executor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#ray-tune-executor" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4937,6 +4959,61 @@ Read more about nested Ludwig config parameters <a href="../../user_guide/hypero
 </code></pre></div>
 <p>You can find the full list of supported search algorithm names in Ray Tune's <a href="https://github.com/ray-project/ray/blob/main/python/ray/tune/suggest/__init__.py">create_searcher</a> function. Please note these algorithms require installation of additional packages.  As of this version of Ludwig, Ludwig installs the packages for the search algorithm <code>hyperopt</code>.  For all other search algorithms, the user is expected to install the required packages.</p>
 <h2 id="executor">Executor<a class="headerlink" href="#executor" title="Permanent link">&para;</a></h2>
+<h3 id="native-optuna-executor">Native Optuna Executor<a class="headerlink" href="#native-optuna-executor" title="Permanent link">&para;</a></h3>
+<p>Ludwig 0.15 adds a native Optuna executor that runs hyperparameter optimization directly without
+requiring Ray Tune as an intermediary. This is the simplest option for single-machine hyperopt.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">hyperopt</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">executor</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">optuna</span>
+<span class="w">    </span><span class="nt">num_samples</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
+<span class="w">    </span><span class="nt">sampler</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auto</span><span class="w">       </span><span class="c1"># auto | gp | tpe | cmaes | random</span>
+<span class="w">    </span><span class="nt">pruner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w">        </span><span class="c1"># null | median | hyperband | sha | nop</span>
+<span class="w">    </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w">       </span><span class="c1"># null or a SQLite/PostgreSQL URL for persistence</span>
+<span class="w">  </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">minimize</span>
+<span class="w">  </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loss</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">trainer.learning_rate</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loguniform</span>
+<span class="w">      </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0001</span>
+<span class="w">      </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.01</span>
+</code></pre></div>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>num_samples</code>: Number of trials to run.</li>
+<li><code>sampler</code>: Optuna sampler algorithm.<ul>
+<li><code>auto</code> — Optuna's <code>AutoSampler</code> (selects the best algorithm for the search space).</li>
+<li><code>gp</code> — Gaussian-process Bayesian optimization (<code>GPSampler</code>). High quality but slow on large spaces.</li>
+<li><code>tpe</code> — Tree-structured Parzen Estimator (default when <code>auto</code> is unavailable).</li>
+<li><code>cmaes</code> — Covariance Matrix Adaptation Evolution Strategy. Effective for continuous spaces.</li>
+<li><code>random</code> — Random search baseline.</li>
+</ul>
+</li>
+<li><code>pruner</code>: Early-stopping strategy for unpromising trials.<ul>
+<li><code>null</code> (default) — no pruning.</li>
+<li><code>median</code> — prune trials worse than the median at each step.</li>
+<li><code>hyperband</code> — HyperbandPruner.</li>
+<li><code>sha</code> — Successive Halving.</li>
+<li><code>nop</code> — no pruning (explicit no-op).</li>
+</ul>
+</li>
+<li><code>storage</code>: Optuna storage URL for persistence and resumability. Use a SQLite URL like
+  <code>sqlite:///hyperopt.db</code> to save trial results to disk so runs can be resumed after
+  interruption. Supports PostgreSQL (<code>postgresql://user:pass@host/db</code>) for multi-process
+  parallelism.</li>
+</ul>
+<p><strong>Example: SQLite-backed resumable run</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nt">hyperopt</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">executor</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">optuna</span>
+<span class="w">    </span><span class="nt">num_samples</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">    </span><span class="nt">sampler</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tpe</span>
+<span class="w">    </span><span class="nt">pruner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">median</span>
+<span class="w">    </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sqlite:///hyperopt.db</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Install the <code>optuna</code> package before using this executor: <code>pip install optuna</code>.</p>
+</div>
 <h3 id="ray-tune-executor">Ray Tune Executor<a class="headerlink" href="#ray-tune-executor" title="Permanent link">&para;</a></h3>
 <p>The <code>ray</code> executor is used to enable <a href="https://docs.ray.io/en/latest/tune/index.html">Ray Tune</a> for both local and distributed hyperopt across a cluster of machines.</p>
 <p><strong>Parameters:</strong></p>

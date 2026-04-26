@@ -4702,15 +4702,12 @@ code, just configuration.</p>
 <span class="n">model</span> <span class="o">=</span> <span class="n">LudwigModel</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">logging_level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
 
 <span class="c1"># initiate model training</span>
-<span class="p">(</span>
-    <span class="n">train_stats</span><span class="p">,</span>  <span class="c1"># dictionary containing training statistics</span>
-    <span class="n">preprocessed_data</span><span class="p">,</span>  <span class="c1"># tuple Ludwig Dataset objects of pre-processed training data</span>
-    <span class="n">output_directory</span><span class="p">,</span>  <span class="c1"># location of training results stored on disk</span>
-<span class="p">)</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span>
     <span class="n">dataset</span><span class="o">=</span><span class="s2">&quot;ludwig://imdb&quot;</span><span class="p">,</span>
     <span class="n">experiment_name</span><span class="o">=</span><span class="s2">&quot;imdb_sentiment&quot;</span><span class="p">,</span>
     <span class="n">model_name</span><span class="o">=</span><span class="s2">&quot;bloom3b&quot;</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="n">output_directory</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">output_directory</span>
 
 <span class="c1"># list contents of output directory</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;contents of output directory:&quot;</span><span class="p">,</span> <span class="n">output_directory</span><span class="p">)</span>

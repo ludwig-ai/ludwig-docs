@@ -4732,7 +4732,8 @@ ludwig<span class="w"> </span>train<span class="w"> </span><span class="se">\</s
     <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">LudwigModel</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">logging_level</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
-<span class="n">train_stats</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">train_df</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">train_df</span><span class="p">)</span>
+<span class="n">train_stats</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">train_stats</span>
 
 <span class="c1"># Predict — returns a DataFrame; anomaly scores are in the</span>
 <span class="c1"># &#39;anomaly_anomaly_score_predictions&#39; column</span>

@@ -103,6 +103,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#forecasting" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -3528,6 +3533,24 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Timeseries forecasting
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -3544,6 +3567,184 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#forecasting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Forecasting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Forecasting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data formats
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#column-major-example-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Column-major example (recommended)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Column-major example (recommended)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dataset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Config
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#training" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Training
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forecasting_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Forecasting
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#row-major-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Row-major example
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Row-major example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dataset_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dataset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#config_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Config
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choosing-an-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing an encoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cli-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI evaluation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -4414,6 +4615,175 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#forecasting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Forecasting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Forecasting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data formats
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#column-major-example-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Column-major example (recommended)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Column-major example (recommended)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dataset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Config
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#training" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Training
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forecasting_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Forecasting
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#row-major-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Row-major example
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Row-major example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dataset_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dataset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#config_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Config
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choosing-an-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing an encoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cli-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI evaluation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -4434,72 +4804,203 @@
 
   <h1>Timeseries forecasting</h1>
 
-<p>While direct timeseries prediction is a work in progress Ludwig can ingest timeseries input feature data and make number predictions. Below is an example of a model trained to forecast timeseries at five different horizons.</p>
+<h2 id="forecasting">Forecasting<a class="headerlink" href="#forecasting" title="Permanent link">&para;</a></h2>
+<p>Ludwig supports timeseries forecasting end-to-end: training a model on historical data, evaluating it, and
+generating multi-step predictions with <code>model.forecast()</code>.</p>
+<h3 id="data-formats">Data formats<a class="headerlink" href="#data-formats" title="Permanent link">&para;</a></h3>
+<p>Ludwig accepts two data layouts:</p>
+<p><strong>Row-major</strong> — each row is already a pre-embedded window (space-separated floats). Use this when you have
+already computed sliding windows externally.</p>
 <table>
 <thead>
 <tr>
-<th>timeseries_data</th>
-<th>y1</th>
-<th>y2</th>
-<th>y3</th>
-<th>y4</th>
-<th>y5</th>
+<th>timeseries_window</th>
+<th>next_value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>15.07 14.89 14.45 ...</td>
-<td>16.92</td>
-<td>16.67</td>
-<td>16.48</td>
-<td>17.00</td>
-<td>17.02</td>
+<td>15.07 14.89 14.45 14.30</td>
+<td>14.12</td>
 </tr>
 <tr>
-<td>14.89 14.45 14.30 ...</td>
-<td>16.67</td>
-<td>16.48</td>
-<td>17.00</td>
-<td>17.02</td>
-<td>16.48</td>
-</tr>
-<tr>
-<td>14.45 14.3 14.94 ...</td>
-<td>16.48</td>
-<td>17.00</td>
-<td>17.02</td>
-<td>16.48</td>
-<td>15.82</td>
+<td>14.89 14.45 14.30 14.12</td>
+<td>13.97</td>
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre><span></span><code>ludwig experiment \
---dataset timeseries_data.csv \
-  --config config.yaml
+<p><strong>Column-major</strong> — each row is one scalar observation. Ludwig converts to windows automatically via
+<code>window_size</code> (inputs) and <code>horizon</code> (outputs).</p>
+<table>
+<thead>
+<tr>
+<th>timestamp</th>
+<th>temperature</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2024-01-01</td>
+<td>15.07</td>
+</tr>
+<tr>
+<td>2024-01-02</td>
+<td>14.89</td>
+</tr>
+<tr>
+<td>2024-01-03</td>
+<td>14.45</td>
+</tr>
+<tr>
+<td>...</td>
+<td>...</td>
+</tr>
+</tbody>
+</table>
+<p>Column-major is the most common format for real-world timeseries data and is the recommended starting point.</p>
+<h3 id="column-major-example-recommended">Column-major example (recommended)<a class="headerlink" href="#column-major-example-recommended" title="Permanent link">&para;</a></h3>
+<h4 id="dataset">Dataset<a class="headerlink" href="#dataset" title="Permanent link">&para;</a></h4>
+<p>A CSV where each row is one observation:</p>
+<div class="highlight"><pre><span></span><code>timestamp,temperature
+2024-01-01,15.07
+2024-01-02,14.89
+2024-01-03,14.45
+...
 </code></pre></div>
-<p>With <code>config.yaml</code>:</p>
+<p>The <code>timestamp</code> column is not required by Ludwig — only the numeric series column is needed.</p>
+<h4 id="config">Config<a class="headerlink" href="#config" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span>
-<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">timeseries_data</span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">timeseries</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">temperature</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">timeseries</span>
+<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">window_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">24</span><span class="w">      </span><span class="c1"># look back 24 steps</span>
+<span class="w">      </span><span class="nt">padding_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
 
 <span class="nt">output_features</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span>
-<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">y1</span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
-<span class="w">    </span><span class="p p-Indicator">-</span>
-<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">y2</span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
-<span class="w">    </span><span class="p p-Indicator">-</span>
-<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">y3</span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
-<span class="w">    </span><span class="p p-Indicator">-</span>
-<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">y4</span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
-<span class="w">    </span><span class="p p-Indicator">-</span>
-<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">y5</span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">temperature</span><span class="w">       </span><span class="c1"># same column name — Ludwig aligns input windows with output targets</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">timeseries</span>
+<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">horizon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span><span class="w">            </span><span class="c1"># predict 6 steps ahead</span>
+<span class="w">    </span><span class="nt">decoder</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">projector</span>
+<span class="w">    </span><span class="nt">loss</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">huber</span>
+
+<span class="nt">trainer</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">epochs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
+<span class="w">  </span><span class="nt">batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span>
+<span class="w">  </span><span class="nt">optimizer</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adam</span>
+<span class="w">    </span><span class="nt">lr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span>
 </code></pre></div>
+<h4 id="training">Training<a class="headerlink" href="#training" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>train<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--dataset<span class="w"> </span>temperature.csv<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--config<span class="w"> </span>config.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output_directory<span class="w"> </span>results
+</code></pre></div>
+<p>Or with the Python API:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">LudwigModel</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;temperature.csv&quot;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LudwigModel</span><span class="p">(</span><span class="s2">&quot;config.yaml&quot;</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Model saved to </span><span class="si">{</span><span class="n">results</span><span class="o">.</span><span class="n">output_directory</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="forecasting_1">Forecasting<a class="headerlink" href="#forecasting_1" title="Permanent link">&para;</a></h4>
+<p>After training, generate future predictions from a seed dataset:</p>
+<div class="highlight"><pre><span></span><code><span class="n">model</span> <span class="o">=</span> <span class="n">LudwigModel</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;results/experiment_run/model&quot;</span><span class="p">)</span>
+
+<span class="c1"># Seed: any DataFrame with the input column. Only the last window_size rows are used.</span>
+<span class="n">seed</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;recent_observations.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Forecast 48 steps ahead</span>
+<span class="n">forecast_df</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">forecast</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">horizon</span><span class="o">=</span><span class="mi">48</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">forecast_df</span><span class="p">)</span>
+<span class="c1">#    temperature</span>
+<span class="c1"># 0    14.23</span>
+<span class="c1"># 1    14.01</span>
+<span class="c1"># ...</span>
+</code></pre></div>
+<p>The forecast iteratively slides the prediction window: each predicted value is fed back as the next input,
+so you can forecast arbitrarily far ahead beyond the trained <code>horizon</code>. Preprocessing runs once for the
+initial window and then updates in O(1) per step.</p>
+<h3 id="row-major-example">Row-major example<a class="headerlink" href="#row-major-example" title="Permanent link">&para;</a></h3>
+<p>Use this when you have pre-computed windows, or when training and predicting on windows that don't come
+from a contiguous series (e.g., independent samples with known context windows).</p>
+<h4 id="dataset_1">Dataset<a class="headerlink" href="#dataset_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>timeseries_window,horizon_values
+15.07 14.89 14.45 14.30,14.12 13.97 13.80
+14.89 14.45 14.30 14.12,13.97 13.80 13.65
+</code></pre></div>
+<h4 id="config_1">Config<a class="headerlink" href="#config_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">timeseries_window</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">timeseries</span>
+<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">transformer</span>
+<span class="w">      </span><span class="nt">num_heads</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">      </span><span class="nt">num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+
+<span class="nt">output_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">horizon_values</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">timeseries</span>
+<span class="w">    </span><span class="nt">decoder</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">projector</span>
+
+<span class="nt">trainer</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">epochs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="w">  </span><span class="nt">batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span>
+</code></pre></div>
+<h3 id="choosing-an-encoder">Choosing an encoder<a class="headerlink" href="#choosing-an-encoder" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Encoder</th>
+<th>When to use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>parallel_cnn</code></td>
+<td>Fast training, captures local patterns, good baseline</td>
+</tr>
+<tr>
+<td><code>stacked_cnn</code></td>
+<td>Longer-range dependencies than parallel_cnn</td>
+</tr>
+<tr>
+<td><code>rnn</code></td>
+<td>Sequential dependencies, moderate sequence length</td>
+</tr>
+<tr>
+<td><code>transformer</code></td>
+<td>Best accuracy on complex patterns, slower to train</td>
+</tr>
+<tr>
+<td><code>passthrough</code></td>
+<td>Pass raw window to the combiner without encoding</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cli-evaluation">CLI evaluation<a class="headerlink" href="#cli-evaluation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>evaluate<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--model_path<span class="w"> </span>results/experiment_run/model<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--dataset<span class="w"> </span>test.csv<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output_directory<span class="w"> </span>evaluation
+</code></pre></div>
+<h3 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Direct multi-step forecasting</strong>: the decoder predicts all <code>horizon</code> steps simultaneously in one forward
+  pass. This is fast and works well for short horizons. For long-horizon forecasting, <code>model.forecast()</code> with
+  iterative stepping is the recommended approach.</li>
+<li><strong>Input/output column alignment</strong>: when the output feature <code>name</code> matches the input feature <code>name</code>, Ludwig
+  uses predicted values as inputs for subsequent forecast steps. If they differ, the input window is padded
+  with <code>padding_value</code> for steps beyond the seed data.</li>
+<li><strong>Minimum seed length</strong>: <code>model.forecast()</code> needs at least <code>window_size</code> rows in the seed DataFrame to
+  fill the initial context window. Shorter seeds are padded automatically.</li>
+</ul>
 
 
 

@@ -66,7 +66,7 @@
     
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Emoji:wght@400;700&display=swap">
   <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
 
     
@@ -12099,8 +12099,36 @@ plots. If not specified, plots will be displayed in a window.</p>
       <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.indexes", "navigation.tabs.sticky", "content.tabs.link", "content.code.copy", "search.suggest", "search.highlight"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
+  
       <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
+  <script>
+  (function () {
+    var EMOJI_RE = /^(\p{Emoji_Presentation}|\p{Extended_Pictographic})️?/u;
+    function wrapEmoji(root) {
+      var targets = root.querySelectorAll(
+        '.md-nav__link, .md-typeset h1, .md-typeset h2, .md-typeset h3'
+      );
+      targets.forEach(function (el) {
+        Array.from(el.childNodes).forEach(function (node) {
+          if (node.nodeType !== 3) return;
+          var m = node.textContent.match(EMOJI_RE);
+          if (!m) return;
+          var span = document.createElement('span');
+          span.className = 'site-emoji';
+          span.textContent = m[0];
+          span.setAttribute('aria-hidden', 'true');
+          var rest = document.createTextNode(node.textContent.slice(m[0].length));
+          node.parentNode.insertBefore(span, node);
+          node.parentNode.insertBefore(rest, node);
+          node.parentNode.removeChild(node);
+        });
+      });
+    }
+    document.addEventListener('DOMContentLoaded', function () { wrapEmoji(document); });
+  })();
+  </script>
+
   </body>
 </html>

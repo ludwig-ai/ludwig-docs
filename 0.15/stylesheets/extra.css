@@ -179,3 +179,12 @@ code, pre, kbd {
     /* padding: 10px */
     margin-bottom: 5px;
 }
+
+/* Noto Emoji — monochrome, green, bold */
+.site-emoji {
+    font-family: 'Noto Emoji', sans-serif;
+    font-variant-emoji: text;
+    color: #52c97c;
+    font-weight: 700;
+    font-style: normal;
+}

@@ -84,11 +84,30 @@
 /* Body font: Inter to match landing page */
 body, .md-content, .md-typeset {
     font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* Headings: Space Mono to match landing page display font */
 .md-typeset h1, .md-typeset h2, .md-typeset h3 {
     font-family: 'Space Mono', monospace;
+}
+
+/* Code / mono: match landing page rendering */
+.md-typeset code, .md-typeset pre, .md-typeset kbd,
+code, pre, kbd {
+    font-family: 'JetBrains Mono', 'Space Mono', monospace;
+    font-size: .85em;
+    -webkit-font-smoothing: subpixel-antialiased;
+    font-variant-ligatures: none;
+}
+
+/* Selection color — override Material's palette-driven ::selection */
+::selection,
+[data-md-color-scheme="slate"] ::selection,
+[data-md-color-scheme="default"] ::selection {
+    background: #52c97c !important;
+    color: #0a1a10 !important;
 }
 
 [data-md-color-scheme="slate"] .md-typeset a {

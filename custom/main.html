@@ -1,7 +1,20 @@
 {% extends "base.html" %}
 
+{% block fonts %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+{% endblock %}
+
 {% block site_meta %}
   {{ super() }}
+
+  {%- set og_title = (page.title ~ " | Ludwig") if page and page.title else "Ludwig — Declarative Deep Learning Framework" %}
+  {%- set og_desc = (page.meta.description if page and page.meta and page.meta.description else
+      "Ludwig is an open-source declarative deep learning framework. Train, fine-tune, and deploy models for tabular, text, image, audio, and LLMs using a simple YAML config file.") %}
+
+  <meta property="og:title" content="{{ og_title }}">
+  <meta property="og:description" content="{{ og_desc }}">
   <meta property="og:image" content="https://ludwig.ai/latest/images/og-image.jpg">
   <meta property="og:image:secure_url" content="https://ludwig.ai/latest/images/og-image.jpg">
   <meta property="og:image:width" content="1200">
@@ -9,13 +22,10 @@
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:site_name" content="Ludwig">
   <meta property="og:type" content="website">
+
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@ludwig_ai">
+  <meta name="twitter:title" content="{{ og_title }}">
+  <meta name="twitter:description" content="{{ og_desc }}">
   <meta name="twitter:image" content="https://ludwig.ai/latest/images/og-image.jpg">
-{% endblock %}
-
-{% block fonts %}
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
 {% endblock %}

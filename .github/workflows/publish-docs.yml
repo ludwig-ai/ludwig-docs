@@ -25,37 +25,11 @@ jobs:
 
       - name: Install Ludwig
         run: |
-          pip install ludwig
-          pip install ludwig[viz]
+          pip install "git+https://github.com/ludwig-ai/ludwig.git@main#egg=ludwig[viz]"
 
       - name: Set Ludwig version env
         run: |
           echo "ludwig_version=$(python -c "import ludwig; print('.'.join(ludwig.__version__.split('.')[:2]))")" >> $GITHUB_ENV
-
-      - name: Patch Ludwig docstrings
-        run: |
-          python - <<'EOF'
-          import site, os, re
-          for sp in site.getsitepackages():
-              api_path = os.path.join(sp, 'ludwig', 'api.py')
-              if os.path.exists(api_path):
-                  with open(api_path, 'r') as f:
-                      content = f.read()
-                  # Fix bad indentation in preprocess docstring (12-space indent → 16-space)
-                  fixed = content.replace(
-                      '            structure containing the mappings of the input\n'
-                      '                dataset created the first time an input file is used in the same',
-                      '                structure containing the mappings of the input\n'
-                      '                dataset created the first time an input file is used in the same',
-                  )
-                  if fixed != content:
-                      with open(api_path, 'w') as f:
-                          f.write(fixed)
-                      print(f'Patched {api_path}')
-                  else:
-                      print('Pattern not found — already fixed or changed; skipping patch')
-                  break
-          EOF
 
       - name: Install dependencies
         run: pip install -r requirements.in

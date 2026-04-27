@@ -89,15 +89,11 @@ body, .md-content, .md-typeset {
 
 /* Headings: Space Mono bold, matching landing page exactly.
    !important overrides Material's font-weight: 300/400 on .md-typeset h1/h2.
-   Disable ligatures — Material inherits "liga" from body which distorts Space Mono. */
+   No font-feature-settings override — let Space Mono render naturally (same as landing page). */
 .md-typeset h1, .md-typeset h2, .md-typeset h3 {
     font-family: 'Space Mono', monospace !important;
     font-weight: 700 !important;
-    font-feature-settings: "kern" 1, "liga" 0, "clig" 0, "calt" 0 !important;
-    font-variant-ligatures: none !important;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    letter-spacing: -0.01em;
 }
 
 /* Code / mono: match landing page rendering */

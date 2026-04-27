@@ -1,3 +1,6 @@
+/* ── Google Fonts: match landing page typography ── */
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
 [data-md-color-scheme="slate"] .md-container {
     background-color: #1e1f20;
 }
@@ -66,30 +69,46 @@
     --md-primary-fg-color: #2B2C2F;
     --md-default-bg-color: #1E1F20;
     --md-typeset-a-color: var(--md-default-fg-color);
+    --md-accent-fg-color: #52c97c;
+    --md-accent-fg-color--transparent: rgba(82,201,124,0.10);
+    --md-code-font-family: 'JetBrains Mono', 'Space Mono', monospace;
 }
 
 [data-md-color-scheme="default"] {
     --md-primary-fg-color: #6a6c74;
+    --md-accent-fg-color: #3db868;
+    --md-accent-fg-color--transparent: rgba(61,184,104,0.10);
+    --md-code-font-family: 'JetBrains Mono', 'Space Mono', monospace;
+}
+
+/* Body font: Inter to match landing page */
+body, .md-content, .md-typeset {
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Headings: Space Mono to match landing page display font */
+.md-typeset h1, .md-typeset h2, .md-typeset h3 {
+    font-family: 'Space Mono', monospace;
 }
 
 [data-md-color-scheme="slate"] .md-typeset a {
-    color: #eb8b76;
+    color: #52c97c;
     text-decoration: underline;
 }
 
 [data-md-color-scheme="default"] .md-typeset a {
-    color: #E25637;
+    color: #3db868;
     text-decoration: underline;
 }
 
 [data-md-color-scheme="slate"] .md-nav__link:active,
 [data-md-color-scheme="slate"] .md-nav__link--active {
-    color: #eb8b76;
+    color: #52c97c;
 }
 
 [data-md-color-scheme="default"] .md-nav__link:active,
 [data-md-color-scheme="default"] .md-nav__link--active {
-    color: #E25637;
+    color: #3db868;
 }
 
 [data-md-color-scheme="slate"] html body .md-typeset .headerlink {

@@ -14,7 +14,7 @@ copyright: Copyright &copy; 2018 - 2026 Linux Foundation AI & Data
 
 # Navigation
 nav:
-  - Ludwig: index.md
+  - Introduction: index.md
   - 🚀 Getting Started:
       - Getting Started: getting_started/index.md
       - Installation: getting_started/installation.md

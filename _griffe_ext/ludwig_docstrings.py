@@ -16,7 +16,7 @@ from typing import Any
 import griffe
 
 _STRIP_HEADERS = re.compile(
-    r"^\s*#\s*(?:Inputs|Return|Returns|Raises|Args|String)\s*$",
+    r"^\s*#\s*(?:Inputs|Return|Returns|Raises|Args|String)\s*:?\s*$",
     re.MULTILINE,
 )
 

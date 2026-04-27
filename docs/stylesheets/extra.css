@@ -70,14 +70,14 @@
     --md-typeset-a-color: var(--md-default-fg-color);
     --md-accent-fg-color: #52c97c;
     --md-accent-fg-color--transparent: rgba(82,201,124,0.10);
-    --md-code-font-family: 'JetBrains Mono', 'Space Mono', monospace;
+    --md-code-font-family: 'JetBrains Mono', 'Geist Mono', monospace;
 }
 
 [data-md-color-scheme="default"] {
     --md-primary-fg-color: #6a6c74;
     --md-accent-fg-color: #3db868;
     --md-accent-fg-color--transparent: rgba(61,184,104,0.10);
-    --md-code-font-family: 'JetBrains Mono', 'Space Mono', monospace;
+    --md-code-font-family: 'JetBrains Mono', 'Geist Mono', monospace;
 }
 
 /* Body font: Inter to match landing page */
@@ -87,19 +87,20 @@ body, .md-content, .md-typeset {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Headings: Space Mono bold, matching landing page exactly.
-   !important overrides Material's font-weight: 300/400 on .md-typeset h1/h2.
-   No font-feature-settings override — let Space Mono render naturally (same as landing page). */
+/* Headings: Geist Mono bold. !important overrides Material's font-weight: 300/400 on h1/h2. */
 .md-typeset h1, .md-typeset h2, .md-typeset h3 {
-    font-family: 'Space Mono', monospace !important;
+    font-family: 'Geist Mono', monospace !important;
     font-weight: 700 !important;
+    letter-spacing: 0 !important;
+    font-kerning: none !important;
+    font-feature-settings: normal !important; /* body inherits "kern","liga" which distorts monospace */
     -webkit-font-smoothing: antialiased;
 }
 
 /* Code / mono: match landing page rendering */
 .md-typeset code, .md-typeset pre, .md-typeset kbd,
 code, pre, kbd {
-    font-family: 'JetBrains Mono', 'Space Mono', monospace;
+    font-family: 'JetBrains Mono', 'Geist Mono', monospace;
     font-size: .85em;
     -webkit-font-smoothing: subpixel-antialiased;
     font-variant-ligatures: none;

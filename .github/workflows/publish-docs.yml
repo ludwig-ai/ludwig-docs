@@ -56,6 +56,7 @@ jobs:
           cp landing/ludwig_waves.mp4 /tmp/ludwig_waves.mp4
           cp landing/favicon.ico /tmp/landing_favicon.ico
           cp landing/js/patch.js /tmp/cables_patch.js
+          cp landing/og-image.jpg /tmp/og-image.jpg
           git stash --include-untracked
           git checkout gh-pages
           cp ${{ env.ludwig_version }}/sitemap.xml sitemap.xml
@@ -64,6 +65,7 @@ jobs:
           cp /tmp/ludwig_logo.svg ludwig_logo.svg
           cp /tmp/ludwig_waves.mp4 ludwig_waves.mp4
           cp /tmp/landing_favicon.ico favicon.ico
+          cp /tmp/og-image.jpg og-image.jpg
           mkdir -p js
           cp /tmp/cables_patch.js js/patch.js
 

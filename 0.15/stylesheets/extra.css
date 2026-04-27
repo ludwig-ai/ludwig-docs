@@ -88,9 +88,14 @@ body, .md-content, .md-typeset {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Headings: Space Mono to match landing page display font */
+/* Headings: Space Mono bold to match landing page display font.
+   !important needed to beat Material's .md-typeset h1 { font-weight: 300/400 } rules */
 .md-typeset h1, .md-typeset h2, .md-typeset h3 {
-    font-family: 'Space Mono', monospace;
+    font-family: 'Space Mono', monospace !important;
+    font-weight: 700 !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.01em;
 }
 
 /* Code / mono: match landing page rendering */

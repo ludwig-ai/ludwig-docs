@@ -27,7 +27,7 @@
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
 
-  <meta property="og:title" content="Ludwig | Ludwig">
+  <meta property="og:title" content="Introduction | Ludwig">
   <meta property="og:description" content="Ludwig is an open-source declarative deep learning framework. Train, fine-tune, and deploy models for tabular, text, image, audio, and LLMs using a simple YAML config file.">
   <meta property="og:image" content="https://ludwig.ai/latest/images/og-image.jpg">
   <meta property="og:image:secure_url" content="https://ludwig.ai/latest/images/og-image.jpg">
@@ -39,7 +39,7 @@
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@ludwig_ai">
-  <meta name="twitter:title" content="Ludwig | Ludwig">
+  <meta name="twitter:title" content="Introduction | Ludwig">
   <meta name="twitter:description" content="Ludwig is an open-source declarative deep learning framework. Train, fine-tune, and deploy models for tabular, text, image, audio, and LLMs using a simple YAML config file.">
   <meta name="twitter:image" content="https://ludwig.ai/latest/images/og-image.jpg">
 
@@ -64,7 +64,7 @@
     
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Emoji:wght@400;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Emoji:wght@400;700&display=swap">
   <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
 
     
@@ -151,7 +151,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Ludwig
+              Introduction
             
           </span>
         </div>
@@ -313,7 +313,7 @@
   <span class="md-ellipsis">
     
   
-    Ludwig
+    Introduction
   
 
     
@@ -331,7 +331,7 @@
   <span class="md-ellipsis">
     
   
-    Ludwig
+    Introduction
   
 
     
@@ -4793,7 +4793,7 @@
   
 
 
-  <h1>Ludwig</h1>
+  <h1>Introduction</h1>
 
 <p><img alt="Ludwig logo" src="images/ludwig_hero_transparent.png#only-light" />
 <img alt="Ludwig logo" src="images/ludwig_hero_transparent_dark.png#only-dark" /></p>
@@ -5281,21 +5281,27 @@ more accessible and feature rich framework for everyone to use!</p>
   (function () {
     var EMOJI_RE = /^(\p{Emoji_Presentation}|\p{Extended_Pictographic})️?/u;
     function wrapEmoji(root) {
+      /* Material wraps nav text in <span class="md-ellipsis"> — query both that and headings */
       var targets = root.querySelectorAll(
-        '.md-nav__link, .md-typeset h1, .md-typeset h2, .md-typeset h3'
+        '.md-nav__link .md-ellipsis, .md-typeset h1, .md-typeset h2, .md-typeset h3'
       );
       targets.forEach(function (el) {
+        /* Walk only direct text-node children; text nodes may have leading whitespace */
         Array.from(el.childNodes).forEach(function (node) {
           if (node.nodeType !== 3) return;
-          var m = node.textContent.match(EMOJI_RE);
+          var trimmed = node.textContent.trimStart();
+          var m = trimmed.match(EMOJI_RE);
           if (!m) return;
+          var emoji = m[0];
+          var leading = node.textContent.slice(0, node.textContent.length - trimmed.length);
+          var after = trimmed.slice(emoji.length);
           var span = document.createElement('span');
           span.className = 'site-emoji';
-          span.textContent = m[0];
+          span.textContent = emoji.replace(/️/g, ''); /* strip VS-16 so CSS controls presentation */
           span.setAttribute('aria-hidden', 'true');
-          var rest = document.createTextNode(node.textContent.slice(m[0].length));
+          node.parentNode.insertBefore(document.createTextNode(leading), node);
           node.parentNode.insertBefore(span, node);
-          node.parentNode.insertBefore(rest, node);
+          node.parentNode.insertBefore(document.createTextNode(after), node);
           node.parentNode.removeChild(node);
         });
       });

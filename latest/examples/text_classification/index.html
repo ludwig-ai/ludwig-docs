@@ -66,7 +66,7 @@
     
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Emoji:wght@400;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Emoji:wght@400;700&display=swap">
   <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
 
     
@@ -308,7 +308,7 @@
   <span class="md-ellipsis">
     
   
-    Ludwig
+    Introduction
   
 
     
@@ -5147,21 +5147,27 @@ as the psuedo-probabilities for each class:</p>
   (function () {
     var EMOJI_RE = /^(\p{Emoji_Presentation}|\p{Extended_Pictographic})️?/u;
     function wrapEmoji(root) {
+      /* Material wraps nav text in <span class="md-ellipsis"> — query both that and headings */
       var targets = root.querySelectorAll(
-        '.md-nav__link, .md-typeset h1, .md-typeset h2, .md-typeset h3'
+        '.md-nav__link .md-ellipsis, .md-typeset h1, .md-typeset h2, .md-typeset h3'
       );
       targets.forEach(function (el) {
+        /* Walk only direct text-node children; text nodes may have leading whitespace */
         Array.from(el.childNodes).forEach(function (node) {
           if (node.nodeType !== 3) return;
-          var m = node.textContent.match(EMOJI_RE);
+          var trimmed = node.textContent.trimStart();
+          var m = trimmed.match(EMOJI_RE);
           if (!m) return;
+          var emoji = m[0];
+          var leading = node.textContent.slice(0, node.textContent.length - trimmed.length);
+          var after = trimmed.slice(emoji.length);
           var span = document.createElement('span');
           span.className = 'site-emoji';
-          span.textContent = m[0];
+          span.textContent = emoji.replace(/️/g, ''); /* strip VS-16 so CSS controls presentation */
           span.setAttribute('aria-hidden', 'true');
-          var rest = document.createTextNode(node.textContent.slice(m[0].length));
+          node.parentNode.insertBefore(document.createTextNode(leading), node);
           node.parentNode.insertBefore(span, node);
-          node.parentNode.insertBefore(rest, node);
+          node.parentNode.insertBefore(document.createTextNode(after), node);
           node.parentNode.removeChild(node);
         });
       });

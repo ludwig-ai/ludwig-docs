@@ -155,14 +155,14 @@ theme:
   palette:
     - media: "(prefers-color-scheme: light)" # (1)!
       scheme: default
-      accent: deep orange
+      accent: green
       primary: grey
       toggle:
         icon: material/toggle-switch-off-outline
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)" # (2)!
       scheme: slate
-      accent: deep orange
+      accent: green
       primary: grey
       toggle:
         icon: material/toggle-switch

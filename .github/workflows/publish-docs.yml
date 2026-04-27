@@ -25,7 +25,7 @@ jobs:
 
       - name: Install Ludwig
         run: |
-          pip install "git+https://github.com/ludwig-ai/ludwig.git@main#egg=ludwig[viz]"
+          pip install "ludwig[viz] @ git+https://github.com/ludwig-ai/ludwig.git@main"
 
       - name: Set Ludwig version env
         run: |

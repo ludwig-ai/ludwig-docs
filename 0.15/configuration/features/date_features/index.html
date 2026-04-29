@@ -113,7 +113,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#macro-rendering-error" class="md-skip">
+        <a href="#preprocessing" class="md-skip">
           Skip to content
         </a>
       
@@ -2273,10 +2273,77 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#macro-rendering-error" class="md-nav__link">
+  <a href="#preprocessing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Macro Rendering Error
+        Preprocessing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Input Features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Input Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encoders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Encoders
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Encoders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#embed-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Embed Encoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wave-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wave Encoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Features
       
     </span>
   </a>
@@ -4481,10 +4548,77 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#macro-rendering-error" class="md-nav__link">
+  <a href="#preprocessing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Macro Rendering Error
+        Preprocessing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Input Features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Input Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encoders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Encoders
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Encoders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#embed-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Embed Encoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wave-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wave Encoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Features
       
     </span>
   </a>
@@ -4513,31 +4647,128 @@
 
   <h1>↑ Date Features</h1>
 
-<h2 id="macro-rendering-error"><em>Macro Rendering Error</em><a class="headerlink" href="#macro-rendering-error" title="Permanent link">&para;</a></h2>
-<p><em>File</em>: <code>configuration/features/date_features.md</code></p>
-<p><em>AttributeError</em>: get_class_schema</p>
-<div class="highlight"><pre><span></span><code>Traceback (most recent call last):
-  File &quot;/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/mkdocs_macros/plugin.py&quot;, line 703, in render
-    return md_template.render(**page_variables)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/jinja2/environment.py&quot;, line 1295, in render
-    self.environment.handle_exception()
-  File &quot;/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/jinja2/environment.py&quot;, line 942, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File &quot;&lt;template&gt;&quot;, line 14, in top-level template code
-  File &quot;/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/jinja2/runtime.py&quot;, line 784, in _invoke
-    rv = self._func(*arguments)
-         ^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/home/runner/work/ludwig-docs/ludwig-docs/docs/macros/includes.md&quot;, line 12, in template
-    {% for line in schema_class_to_yaml(schema, sort_by_impact=sort_by_impact, exclude=exclude, updates=updates).split(&quot;\n&quot;) %}
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/home/runner/work/ludwig-docs/ludwig-docs/main.py&quot;, line 213, in schema_class_to_yaml
-    schema = cls.get_class_schema()()
-             ^^^^^^^^^^^^^^^^^^^^
-  File &quot;/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/ludwig/schema/utils.py&quot;, line 321, in __getattr__
-    raise AttributeError(name)
-AttributeError: get_class_schema
+<p>Date features are like <code>2023-06-25 15:00:00</code>, <code>2023-06-25</code>, <code>6-25-2023</code>, or <code>6/25/2023</code>.</p>
+<h2 id="preprocessing">Preprocessing<a class="headerlink" href="#preprocessing" title="Permanent link">&para;</a></h2>
+<p>Ludwig will try to infer the date format automatically, but a specific format can be provided. The date string spec is
+the same as the one described in python's <a href="https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior">datetime</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">missing_value_strategy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fill_with_const</span>
+<span class="w">    </span><span class="nt">fill_value</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;&#39;</span>
+<span class="w">    </span><span class="nt">datetime_format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 </code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">date_feature_name</span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">date</span>
+<span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">missing_value_strategy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fill_with_const</span>
+<span class="w">  </span><span class="nt">fill_value</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;&#39;</span>
+<span class="w">  </span><span class="nt">datetime_format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;%d</span><span class="nv"> </span><span class="s">%b</span><span class="nv"> </span><span class="s">%Y&quot;</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>missing_value_strategy</code></strong> (default: <code>fill_with_const</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: What strategy to follow when there's a missing value in a date column Options: <code>fill_with_const</code>, <code>bfill</code>, <code>ffill</code>, <code>drop_row</code>. See <a href="../input_features/#missing-value-strategy">Missing Value Strategy</a> for details.</li>
+<li><strong><code>fill_value</code></strong> (default: ``): The value to replace missing values with in case the missing_value_strategy is fill_with_const</li>
+<li><strong><code>datetime_format</code></strong> (default: <code>null</code>): This parameter can either be a datetime format string, or null, in which case the datetime format will be inferred automatically.</li>
+</ul>
+<p>Preprocessing parameters can also be defined once and applied to all date input features using the <a href="../../defaults/#type-global-preprocessing">Type-Global Preprocessing</a> section.</p>
+<h2 id="input-features">Input Features<a class="headerlink" href="#input-features" title="Permanent link">&para;</a></h2>
+<p>Input date features are transformed into a int tensors of size <code>N x 9</code> (where <code>N</code> is the size of the dataset and the 9 dimensions contain year, month, day, weekday, yearday, hour, minute, second, and second of day).</p>
+<p>For example, the date <code>2022-06-25 09:30:59</code> would be deconstructed into:</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+  <span class="mi">2022</span><span class="p">,</span>   <span class="c1"># Year</span>
+  <span class="mi">6</span><span class="p">,</span>      <span class="c1"># June</span>
+  <span class="mi">25</span><span class="p">,</span>     <span class="c1"># 25th day of the month</span>
+  <span class="mi">5</span><span class="p">,</span>      <span class="c1"># Weekday: Saturday</span>
+  <span class="mi">176</span><span class="p">,</span>    <span class="c1"># 176th day of the year</span>
+  <span class="mi">9</span><span class="p">,</span>      <span class="c1"># Hour</span>
+  <span class="mi">30</span><span class="p">,</span>     <span class="c1"># Minute</span>
+  <span class="mi">59</span><span class="p">,</span>     <span class="c1"># Seconds</span>
+  <span class="mi">34259</span><span class="p">,</span>  <span class="c1"># 34259th second of the day</span>
+<span class="p">]</span>
+</code></pre></div>
+<p>The encoder parameters specified at the feature level are:</p>
+<ul>
+<li><strong><code>tied</code></strong> (default <code>null</code>): name of another input feature to tie the weights of the encoder with. It needs to be the name of
+a feature of the same type and with the same encoder parameters.</li>
+</ul>
+<p>Currently there are two encoders supported for dates: <code>DateEmbed</code> (default) and <code>DateWave</code>. The encoder can be set by specifying <code>embed</code> or <code>wave</code> in the feature's <code>encoder</code> parameter in the input feature's configuration.</p>
+<p>Example date feature entry in the input features list:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">date_feature_name</span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">date</span>
+<span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">embed</span>
+</code></pre></div>
+<p>Encoder type and encoder parameters can also be defined once and applied to all date input features using the <a href="../../defaults/#type-global-encoder">Type-Global Encoder</a> section.</p>
+<h3 id="encoders">Encoders<a class="headerlink" href="#encoders" title="Permanent link">&para;</a></h3>
+<h4 id="embed-encoder">Embed Encoder<a class="headerlink" href="#embed-encoder" title="Permanent link">&para;</a></h4>
+<p>This encoder passes the year through a fully connected layer of one neuron and embeds all other elements for the date, concatenates them and passes the concatenated representation through fully connected layers.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">embed</span>
+<span class="w">    </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+<span class="w">    </span><span class="nt">embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">    </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">    </span><span class="nt">activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span>
+<span class="w">    </span><span class="nt">norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span>
+<span class="w">    </span><span class="nt">weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xavier_uniform</span>
+<span class="w">    </span><span class="nt">embeddings_on_cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">norm_params</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">skip</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">adapter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>dropout</code></strong> (default: <code>0.0</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: Dropout probability for the embedding.</li>
+<li><strong><code>embedding_size</code></strong> (default: <code>10</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: The maximum embedding size adopted.</li>
+<li><strong><code>output_size</code></strong> (default: <code>10</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: If an output_size is not already specified in fc_layers this is the default output_size that will be used for each layer. It indicates the size of the output of a fully connected layer.</li>
+<li><strong><code>activation</code></strong> (default: <code>relu</code>): The default activation function that will be used for each layer. Options: <code>elu</code>, <code>leakyRelu</code>, <code>logSigmoid</code>, <code>relu</code>, <code>sigmoid</code>, <code>tanh</code>, <code>softmax</code>, <code>gelu</code>, <code>silu</code>, <code>swish</code>, <code>mish</code>, <code>selu</code>, <code>prelu</code>, <code>relu6</code>, <code>hardswish</code>, <code>hardsigmoid</code>, <code>softplus</code>, <code>celu</code>, <code>swiglu</code>, <code>geglu</code>, <code>reglu</code>, <code>sparsemax</code>, <code>entmax15</code>, <code>null</code>.</li>
+<li><strong><code>norm</code></strong> (default: <code>null</code>): The default norm that will be used for each layer. Options: <code>batch</code>, <code>layer</code>, <code>null</code>. See <a href="../../combiner/#normalization">Normalization</a> for details.</li>
+<li><strong><code>use_bias</code></strong> (default: <code>true</code>): Whether the layer uses a bias vector.</li>
+<li><strong><code>bias_initializer</code></strong> (default: <code>zeros</code>): Initializer to use for the bias vector. Options: <code>uniform</code>, <code>normal</code>, <code>constant</code>, <code>ones</code>, <code>zeros</code>, <code>eye</code>, <code>dirac</code>, <code>xavier_uniform</code>, <code>xavier_normal</code>, <code>kaiming_uniform</code>, <code>kaiming_normal</code>, <code>orthogonal</code>, <code>sparse</code>, <code>identity</code>.</li>
+<li><strong><code>weights_initializer</code></strong> (default: <code>xavier_uniform</code>): Initializer to use for the weights matrix. Options: <code>uniform</code>, <code>normal</code>, <code>constant</code>, <code>ones</code>, <code>zeros</code>, <code>eye</code>, <code>dirac</code>, <code>xavier_uniform</code>, <code>xavier_normal</code>, <code>kaiming_uniform</code>, <code>kaiming_normal</code>, <code>orthogonal</code>, <code>sparse</code>, <code>identity</code>.</li>
+<li><strong><code>embeddings_on_cpu</code></strong> (default: <code>false</code>): Whether to force the placement of the embedding matrix in regular memory and have the CPU resolve them.</li>
+<li><strong><code>norm_params</code></strong> (default: <code>null</code>): Parameters used if norm is either <code>batch</code> or <code>layer</code>. See <a href="../../combiner/#normalization">Normalization</a> for details.</li>
+<li><strong><code>num_fc_layers</code></strong> (default: <code>0</code>): The number of stacked fully connected layers.</li>
+<li><strong><code>fc_layers</code></strong> (default: <code>null</code>): List of dictionaries containing the parameters for each fully connected layer.</li>
+<li><strong><code>skip</code></strong> (default: <code>false</code>): </li>
+<li><strong><code>adapter</code></strong> (default: <code>null</code>): </li>
+</ul>
+<h4 id="wave-encoder">Wave Encoder<a class="headerlink" href="#wave-encoder" title="Permanent link">&para;</a></h4>
+<p>This encoder passes the year through a fully connected layer of one neuron and represents all other elements for the date by taking the cosine of their value with a different period (12 for months, 31 for days, etc.), concatenates them and passes the concatenated representation through fully connected layers.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wave</span>
+<span class="w">    </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+<span class="w">    </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">    </span><span class="nt">activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span>
+<span class="w">    </span><span class="nt">norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span>
+<span class="w">    </span><span class="nt">weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xavier_uniform</span>
+<span class="w">    </span><span class="nt">norm_params</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">skip</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">adapter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>dropout</code></strong> (default: <code>0.0</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: Dropout probability for the embedding.</li>
+<li><strong><code>output_size</code></strong> (default: <code>10</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: If an output_size is not already specified in fc_layers this is the default output_size that will be used for each layer. It indicates the size of the output of a fully connected layer.</li>
+<li><strong><code>activation</code></strong> (default: <code>relu</code>): The default activation function that will be used for each layer. Options: <code>elu</code>, <code>leakyRelu</code>, <code>logSigmoid</code>, <code>relu</code>, <code>sigmoid</code>, <code>tanh</code>, <code>softmax</code>, <code>gelu</code>, <code>silu</code>, <code>swish</code>, <code>mish</code>, <code>selu</code>, <code>prelu</code>, <code>relu6</code>, <code>hardswish</code>, <code>hardsigmoid</code>, <code>softplus</code>, <code>celu</code>, <code>swiglu</code>, <code>geglu</code>, <code>reglu</code>, <code>sparsemax</code>, <code>entmax15</code>, <code>null</code>.</li>
+<li><strong><code>norm</code></strong> (default: <code>null</code>): The default norm that will be used for each layer. Options: <code>batch</code>, <code>layer</code>, <code>null</code>. See <a href="../../combiner/#normalization">Normalization</a> for details.</li>
+<li><strong><code>use_bias</code></strong> (default: <code>true</code>): Whether the layer uses a bias vector.</li>
+<li><strong><code>bias_initializer</code></strong> (default: <code>zeros</code>): Initializer to use for the bias vector. Options: <code>uniform</code>, <code>normal</code>, <code>constant</code>, <code>ones</code>, <code>zeros</code>, <code>eye</code>, <code>dirac</code>, <code>xavier_uniform</code>, <code>xavier_normal</code>, <code>kaiming_uniform</code>, <code>kaiming_normal</code>, <code>orthogonal</code>, <code>sparse</code>, <code>identity</code>.</li>
+<li><strong><code>weights_initializer</code></strong> (default: <code>xavier_uniform</code>): Initializer to use for the weights matrix. Options: <code>uniform</code>, <code>normal</code>, <code>constant</code>, <code>ones</code>, <code>zeros</code>, <code>eye</code>, <code>dirac</code>, <code>xavier_uniform</code>, <code>xavier_normal</code>, <code>kaiming_uniform</code>, <code>kaiming_normal</code>, <code>orthogonal</code>, <code>sparse</code>, <code>identity</code>.</li>
+<li><strong><code>norm_params</code></strong> (default: <code>null</code>): Parameters used if norm is either <code>batch</code> or <code>layer</code>. See <a href="../../combiner/#normalization">Normalization</a> for details.</li>
+<li><strong><code>num_fc_layers</code></strong> (default: <code>1</code>): The number of stacked fully connected layers.</li>
+<li><strong><code>fc_layers</code></strong> (default: <code>null</code>): List of dictionaries containing the parameters for each fully connected layer.</li>
+<li><strong><code>skip</code></strong> (default: <code>false</code>): </li>
+<li><strong><code>adapter</code></strong> (default: <code>null</code>): </li>
+</ul>
+<h2 id="output-features">Output Features<a class="headerlink" href="#output-features" title="Permanent link">&para;</a></h2>
+<p>There is currently no support for date as an output feature. Consider using the <a href="../text_features/"><code>TEXT</code> type</a>.</p>
 
 
 

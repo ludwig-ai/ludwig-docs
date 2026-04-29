@@ -4515,7 +4515,7 @@
 
 <h2 id="macro-rendering-error"><em>Macro Rendering Error</em><a class="headerlink" href="#macro-rendering-error" title="Permanent link">&para;</a></h2>
 <p><em>File</em>: <code>configuration/features/image_features.md</code></p>
-<p><em>AttributeError</em>: get_class_schema</p>
+<p><em>KeyError</em>: '_resnet_legacy'</p>
 <div class="highlight"><pre><span></span><code>Traceback (most recent call last):
   File &quot;/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/mkdocs_macros/plugin.py&quot;, line 703, in render
     return md_template.render(**page_variables)
@@ -4524,19 +4524,14 @@
     self.environment.handle_exception()
   File &quot;/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/jinja2/environment.py&quot;, line 942, in handle_exception
     raise rewrite_traceback_stack(source=source)
-  File &quot;&lt;template&gt;&quot;, line 33, in top-level template code
-  File &quot;/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/jinja2/runtime.py&quot;, line 784, in _invoke
-    rv = self._func(*arguments)
-         ^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/home/runner/work/ludwig-docs/ludwig-docs/docs/macros/includes.md&quot;, line 12, in template
-    {% for line in schema_class_to_yaml(schema, sort_by_impact=sort_by_impact, exclude=exclude, updates=updates).split(&quot;\n&quot;) %}
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/home/runner/work/ludwig-docs/ludwig-docs/main.py&quot;, line 213, in schema_class_to_yaml
-    schema = cls.get_class_schema()()
-             ^^^^^^^^^^^^^^^^^^^^
-  File &quot;/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/ludwig/schema/utils.py&quot;, line 321, in __getattr__
-    raise AttributeError(name)
-AttributeError: get_class_schema
+  File &quot;&lt;template&gt;&quot;, line 404, in top-level template code
+  File &quot;/home/runner/work/ludwig-docs/ludwig-docs/main.py&quot;, line 123, in get_encoder_schema
+    return get_encoder_cls(MODEL_ECD, feature, type)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/ludwig/schema/encoders/utils.py&quot;, line 40, in get_encoder_cls
+    return encoder_config_registry[(model_type, feature)][name]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+KeyError: &#39;_resnet_legacy&#39;
 </code></pre></div>
 
 

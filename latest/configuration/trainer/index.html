@@ -4513,7 +4513,7 @@
 
 <h2 id="macro-rendering-error"><em>Macro Rendering Error</em><a class="headerlink" href="#macro-rendering-error" title="Permanent link">&para;</a></h2>
 <p><em>File</em>: <code>configuration/trainer.md</code></p>
-<p><em>AttributeError</em>: get_class_schema</p>
+<p><em>ImportError</em>: The 'schedule_free_adamw' optimizer requires the <code>schedulefree</code> package. Install it with: pip install schedulefree</p>
 <div class="highlight"><pre><span></span><code>Traceback (most recent call last):
   File &quot;/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/mkdocs_macros/plugin.py&quot;, line 703, in render
     return md_template.render(**page_variables)
@@ -4522,19 +4522,24 @@
     self.environment.handle_exception()
   File &quot;/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/jinja2/environment.py&quot;, line 942, in handle_exception
     raise rewrite_traceback_stack(source=source)
-  File &quot;&lt;template&gt;&quot;, line 14, in top-level template code
+  File &quot;&lt;template&gt;&quot;, line 45, in top-level template code
   File &quot;/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/jinja2/runtime.py&quot;, line 784, in _invoke
     rv = self._func(*arguments)
          ^^^^^^^^^^^^^^^^^^^^^^
   File &quot;/home/runner/work/ludwig-docs/ludwig-docs/docs/macros/includes.md&quot;, line 12, in template
     {% for line in schema_class_to_yaml(schema, sort_by_impact=sort_by_impact, exclude=exclude, updates=updates).split(&quot;\n&quot;) %}
     ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/home/runner/work/ludwig-docs/ludwig-docs/main.py&quot;, line 213, in schema_class_to_yaml
-    schema = cls.get_class_schema()()
-             ^^^^^^^^^^^^^^^^^^^^
-  File &quot;/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/ludwig/schema/utils.py&quot;, line 321, in __getattr__
-    raise AttributeError(name)
-AttributeError: get_class_schema
+  File &quot;/home/runner/work/ludwig-docs/ludwig-docs/main.py&quot;, line 216, in schema_class_to_yaml
+    for k, v in cls(**updates).to_dict().items()
+                ^^^^^^^^^^^^^^
+  File &quot;/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/pydantic/main.py&quot;, line 263, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/ludwig/schema/utils.py&quot;, line 470, in model_post_init
+    post_init(self)
+  File &quot;/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/ludwig/schema/optimizers.py&quot;, line 1012, in __post_init__
+    raise ImportError(
+ImportError: The &#39;schedule_free_adamw&#39; optimizer requires the `schedulefree` package. Install it with: pip install schedulefree
 </code></pre></div>
 
 

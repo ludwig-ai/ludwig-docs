@@ -113,7 +113,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#macro-rendering-error" class="md-skip">
+        <a href="#preprocessing" class="md-skip">
           Skip to content
         </a>
       
@@ -2245,10 +2245,88 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#macro-rendering-error" class="md-nav__link">
+  <a href="#preprocessing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Macro Rendering Error
+        Preprocessing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Input Features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Input Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encoders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Encoders
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Encoders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wav2vec2-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wav2Vec2 Encoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whisper-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Whisper Encoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hubert-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HuBERT Encoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Features
       
     </span>
   </a>
@@ -4481,10 +4559,88 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#macro-rendering-error" class="md-nav__link">
+  <a href="#preprocessing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Macro Rendering Error
+        Preprocessing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Input Features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Input Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encoders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Encoders
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Encoders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wav2vec2-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wav2Vec2 Encoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whisper-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Whisper Encoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hubert-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HuBERT Encoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Features
       
     </span>
   </a>
@@ -4513,31 +4669,148 @@
 
   <h1>↑ Audio Features</h1>
 
-<h2 id="macro-rendering-error"><em>Macro Rendering Error</em><a class="headerlink" href="#macro-rendering-error" title="Permanent link">&para;</a></h2>
-<p><em>File</em>: <code>configuration/features/audio_features.md</code></p>
-<p><em>AttributeError</em>: get_class_schema</p>
-<div class="highlight"><pre><span></span><code>Traceback (most recent call last):
-  File &quot;/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/mkdocs_macros/plugin.py&quot;, line 703, in render
-    return md_template.render(**page_variables)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/jinja2/environment.py&quot;, line 1295, in render
-    self.environment.handle_exception()
-  File &quot;/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/jinja2/environment.py&quot;, line 942, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File &quot;&lt;template&gt;&quot;, line 11, in top-level template code
-  File &quot;/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/jinja2/runtime.py&quot;, line 784, in _invoke
-    rv = self._func(*arguments)
-         ^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/home/runner/work/ludwig-docs/ludwig-docs/docs/macros/includes.md&quot;, line 12, in template
-    {% for line in schema_class_to_yaml(schema, sort_by_impact=sort_by_impact, exclude=exclude, updates=updates).split(&quot;\n&quot;) %}
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;/home/runner/work/ludwig-docs/ludwig-docs/main.py&quot;, line 213, in schema_class_to_yaml
-    schema = cls.get_class_schema()()
-             ^^^^^^^^^^^^^^^^^^^^
-  File &quot;/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/ludwig/schema/utils.py&quot;, line 321, in __getattr__
-    raise AttributeError(name)
-AttributeError: get_class_schema
+<h2 id="preprocessing">Preprocessing<a class="headerlink" href="#preprocessing" title="Permanent link">&para;</a></h2>
+<p>Example of a preprocessing specification (assuming the audio files have a sample rate of 16000):</p>
+<div class="highlight"><pre><span></span><code><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fbank</span>
+<span class="w">    </span><span class="nt">missing_value_strategy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bfill</span>
+<span class="w">    </span><span class="nt">audio_file_length_limit_in_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7.5</span>
+<span class="w">    </span><span class="nt">fill_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">window_length_in_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.04</span>
+<span class="w">    </span><span class="nt">window_shift_in_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.02</span>
+<span class="w">    </span><span class="nt">window_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hamming</span>
+<span class="w">    </span><span class="nt">in_memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">padding_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+<span class="w">    </span><span class="nt">num_fft_points</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">num_filter_bands</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
 </code></pre></div>
+<p>Ludwig supports reading audio files using PyTorch's <a href="https://pytorch.org/audio/stable/index.html">Torchaudio</a> library. This library supports <code>WAV</code>, <code>AMB</code>, <code>MP3</code>, <code>FLAC</code>, <code>OGG/VORBIS</code>, <code>OPUS</code>, <code>SPHERE</code>, and <code>AMR-NB</code> formats.</p>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>type</code></strong> (default: <code>fbank</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: Defines the type of audio feature to be used. Options: <code>fbank</code>, <code>group_delay</code>, <code>raw</code>, <code>stft</code>, <code>stft_phase</code>. See explanations for each type <a href="./#input-features">here</a>.</li>
+<li><strong><code>missing_value_strategy</code></strong> (default: <code>bfill</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: What strategy to follow when there's a missing value in an audio column Options: <code>fill_with_const</code>, <code>fill_with_mode</code>, <code>bfill</code>, <code>ffill</code>, <code>drop_row</code>. See <a href="../input_features/#missing-value-strategy">Missing Value Strategy</a> for details.</li>
+<li><strong><code>audio_file_length_limit_in_s</code></strong> (default: <code>7.5</code>): Float value that defines the maximum limit of the audio file in seconds. All files longer than this limit are cut off. All files shorter than this limit are padded with padding_value</li>
+<li><strong><code>fill_value</code></strong> (default: <code>null</code>): The value to replace missing values with in case the missing_value_strategy is fill_with_const</li>
+<li><strong><code>norm</code></strong> (default: <code>null</code>): Normalization strategy for the audio files. If None, no normalization is performed. If per_file, z-norm is applied on a 'per file' level Options: <code>per_file</code>, <code>null</code>.</li>
+<li><strong><code>window_length_in_s</code></strong> (default: <code>0.04</code>): Defines the window length used for the short time Fourier transformation. This is only needed if the audio_feature_type is 'raw'.</li>
+<li><strong><code>window_shift_in_s</code></strong> (default: <code>0.02</code>): Defines the window shift used for the short time Fourier transformation (also called hop_length). This is only needed if the audio_feature_type is 'raw'. </li>
+<li><strong><code>window_type</code></strong> (default: <code>hamming</code>): Defines the type window the signal is weighted before the short time Fourier transformation. Options: <code>bartlett</code>, <code>blackman</code>, <code>hamming</code>, <code>hann</code>.</li>
+<li><strong><code>in_memory</code></strong> (default: <code>true</code>): Defines whether the audio dataset will reside in memory during the training process or will be dynamically fetched from disk (useful for large datasets). In the latter case a training batch of input audio will be fetched from disk each training iteration.</li>
+<li><strong><code>padding_value</code></strong> (default: <code>0.0</code>): Float value that is used for padding.</li>
+<li><strong><code>num_fft_points</code></strong> (default: <code>null</code>): Defines the number of fft points used for the short time Fourier transformation</li>
+<li><strong><code>num_filter_bands</code></strong> (default: <code>80</code>): Defines the number of filters used in the filterbank. Only needed if audio_feature_type is 'fbank'</li>
+</ul>
+<p>Preprocessing parameters can also be defined once and applied to all audio input features using the <a href="../../defaults/#type-global-preprocessing">Type-Global Preprocessing</a> section.</p>
+<h2 id="input-features">Input Features<a class="headerlink" href="#input-features" title="Permanent link">&para;</a></h2>
+<p>Audio files are transformed into one of the following types according to <code>type</code> under the <code>preprocessing</code> configuration.</p>
+<ul>
+<li><strong><code>raw</code></strong>: Audio file is transformed into a float valued tensor of size <code>N x L x W</code> (where <code>N</code> is the size of the dataset and <code>L</code> corresponds to <code>audio_file_length_limit_in_s * sample_rate</code> and <code>W = 1</code>).</li>
+<li><strong><code>stft</code></strong>: Audio is transformed to the <code>stft</code> magnitude. Audio file is transformed into a float valued tensor of size <code>N x L x W</code> (where <code>N</code> is the size of the dataset, <code>L</code> corresponds to <code>ceil(audio_file_length_limit_in_s * sample_rate - window_length_in_s * sample_rate + 1/ window_shift_in_s * sample_rate) + 1</code> and <code>W</code> corresponds to <code>num_fft_points / 2</code>).</li>
+<li><strong><code>fbank</code></strong>: Audio file is transformed to FBANK features (also called log Mel-filter bank values). FBANK features are implemented according to their definition in the <a href="http://www.inf.u-szeged.hu/~tothl/speech/htkbook.pdf">HTK Book</a>: Raw Signal -&gt; Preemphasis -&gt; DC mean removal -&gt; <code>stft</code> magnitude -&gt; Power spectrum: <code>stft^2</code> -&gt; mel-filter bank values: triangular filters equally spaced on a Mel-scale are applied -&gt; log-compression: <code>log()</code>. Overall the audio file is transformed into a float valued tensor of size <code>N x L x W</code> with <code>N,L</code> being equal to the ones in <code>stft</code> and <code>W</code> being equal to <code>num_filter_bands</code>.</li>
+<li><strong><code>stft_phase</code></strong>: The phase information for each stft bin is appended to the <code>stft</code> magnitude so that the audio file is transformed into a float valued tensor of size <code>N x L x 2W</code> with <code>N,L,W</code> being equal to the ones in <code>stft</code>.</li>
+<li><strong><code>group_delay</code></strong>: Audio is transformed to group delay features according to Equation (23) in this <a href="https://www.ias.ac.in/article/fullyext/sadh/036/05/0745-0782">paper</a>. Group_delay features has the same tensor size as <code>stft</code>.</li>
+</ul>
+<p>The encoder parameters specified at the feature level are:</p>
+<ul>
+<li><strong><code>tied</code></strong> (default <code>null</code>): name of another input feature to tie the weights of the encoder with. It needs to be the name of
+a feature of the same type and with the same encoder parameters.</li>
+</ul>
+<p>Example audio feature entry in the input features list:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio_column_name</span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio</span>
+<span class="nt">tied</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">parallel_cnn</span>
+</code></pre></div>
+<h3 id="encoders">Encoders<a class="headerlink" href="#encoders" title="Permanent link">&para;</a></h3>
+<p>Audio feature encoders include all <a href="../sequence_features/#input-features">Sequence Features</a> encoders as well as the
+pretrained audio encoders described below.</p>
+<p>Encoder type and encoder parameters can also be defined once and applied to all audio input features using the <a href="../../defaults/#type-global-encoder">Type-Global Encoder</a> section.</p>
+<h4 id="wav2vec2-encoder">Wav2Vec2 Encoder<a class="headerlink" href="#wav2vec2-encoder" title="Permanent link">&para;</a></h4>
+<p>The Wav2Vec2 encoder (Baevski et al., "wav2vec 2.0: A Framework for Self-Supervised Learning of Speech
+Representations", NeurIPS 2020) processes raw audio waveforms using self-supervised contrastive learning
+over masked latent representations. It produces contextualized speech features suitable for speech
+recognition, audio classification, and speaker identification.</p>
+<p>Wav2Vec2 expects raw waveform input at 16kHz sample rate.</p>
+<p>Default pretrained model: <code>facebook/wav2vec2-base</code></p>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wav2vec2</span>
+<span class="w">    </span><span class="nt">skip</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">adapter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">saved_weights_in_checkpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mean</span>
+<span class="w">    </span><span class="nt">pretrained_model_name_or_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">facebook/wav2vec2-base</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>skip</code></strong> (default: <code>false</code>): </li>
+<li><strong><code>adapter</code></strong> (default: <code>null</code>): </li>
+<li><strong><code>use_pretrained</code></strong> (default: <code>true</code>): </li>
+<li><strong><code>saved_weights_in_checkpoint</code></strong> (default: <code>false</code>): </li>
+<li><strong><code>trainable</code></strong> (default: <code>true</code>): </li>
+<li><strong><code>reduce_output</code></strong> (default: <code>mean</code>): </li>
+<li><strong><code>pretrained_model_name_or_path</code></strong> (default: <code>facebook/wav2vec2-base</code>): Name or path of the pretrained model. Can be a HuggingFace model hub identifier (e.g. 'facebook/wav2vec2-base', 'facebook/wav2vec2-large-xlsr-53') or a local path to a saved model directory.</li>
+</ul>
+<h4 id="whisper-encoder">Whisper Encoder<a class="headerlink" href="#whisper-encoder" title="Permanent link">&para;</a></h4>
+<p>The Whisper encoder (Radford et al., "Robust Speech Recognition via Large-Scale Weak Supervision",
+ICML 2023) is the encoder portion of OpenAI's Whisper model, trained on 680,000 hours of multilingual
+audio data. It excels at noisy and multilingual speech tasks.</p>
+<p>Whisper expects log-mel spectrogram input (80 mel bins).</p>
+<p>Default pretrained model: <code>openai/whisper-base</code></p>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">whisper</span>
+<span class="w">    </span><span class="nt">skip</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">adapter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">saved_weights_in_checkpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mean</span>
+<span class="w">    </span><span class="nt">pretrained_model_name_or_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai/whisper-base</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>skip</code></strong> (default: <code>false</code>): </li>
+<li><strong><code>adapter</code></strong> (default: <code>null</code>): </li>
+<li><strong><code>use_pretrained</code></strong> (default: <code>true</code>): </li>
+<li><strong><code>saved_weights_in_checkpoint</code></strong> (default: <code>false</code>): </li>
+<li><strong><code>trainable</code></strong> (default: <code>true</code>): </li>
+<li><strong><code>reduce_output</code></strong> (default: <code>mean</code>): </li>
+<li><strong><code>pretrained_model_name_or_path</code></strong> (default: <code>openai/whisper-base</code>): Name or path of the pretrained model. Can be a HuggingFace model hub identifier (e.g. 'openai/whisper-base', 'openai/whisper-small', 'openai/whisper-medium', 'openai/whisper-large-v3') or a local path to a saved model directory.</li>
+</ul>
+<h4 id="hubert-encoder">HuBERT Encoder<a class="headerlink" href="#hubert-encoder" title="Permanent link">&para;</a></h4>
+<p>The HuBERT encoder (Hsu et al., "HuBERT: Self-Supervised Speech Representation Learning by Masked
+Prediction of Hidden Units", IEEE/ACM TASLP 2021) uses self-supervised masked prediction to learn
+speech representations. It is particularly effective for speaker verification, emotion recognition,
+and audio classification tasks.</p>
+<p>HuBERT expects raw waveform input at 16kHz sample rate.</p>
+<p>Default pretrained model: <code>facebook/hubert-base-ls960</code></p>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hubert</span>
+<span class="w">    </span><span class="nt">skip</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">adapter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">saved_weights_in_checkpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mean</span>
+<span class="w">    </span><span class="nt">pretrained_model_name_or_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">facebook/hubert-base-ls960</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>skip</code></strong> (default: <code>false</code>): </li>
+<li><strong><code>adapter</code></strong> (default: <code>null</code>): </li>
+<li><strong><code>use_pretrained</code></strong> (default: <code>true</code>): </li>
+<li><strong><code>saved_weights_in_checkpoint</code></strong> (default: <code>false</code>): </li>
+<li><strong><code>trainable</code></strong> (default: <code>true</code>): </li>
+<li><strong><code>reduce_output</code></strong> (default: <code>mean</code>): </li>
+<li><strong><code>pretrained_model_name_or_path</code></strong> (default: <code>facebook/hubert-base-ls960</code>): Name or path of the pretrained model. Can be a HuggingFace model hub identifier (e.g. 'facebook/hubert-base-ls960', 'facebook/hubert-large-ls960-ft') or a local path to a saved model directory.</li>
+</ul>
+<h2 id="output-features">Output Features<a class="headerlink" href="#output-features" title="Permanent link">&para;</a></h2>
+<p>There are no audio decoders at the moment.</p>
+<p>If this unlocks an interesting use case for your application, please file a GitHub Issue or ping the
+<a href="https://discord.gg/CBgdrGnZjy">Community Discord</a>.</p>
 
 
 

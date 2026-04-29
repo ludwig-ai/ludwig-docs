@@ -200,7 +200,8 @@
     }
     #cables-container {
       position: absolute; inset: 0; width: 100%; height: 100%;
-      z-index: 1; pointer-events: none; overflow: hidden; opacity: .82;
+      z-index: 1; pointer-events: none; overflow: hidden; opacity: 0;
+      transition: opacity 1s ease;
     }
     #glcanvas {
       display: block; touch-action: none; user-select: none;
@@ -1545,6 +1546,9 @@ document.addEventListener('CABLES.jsLoaded', function () {
       if (c) c.style.display = 'none';
     },
     onFinishedLoading: function () {
+      /* fade in the WebGL canvas */
+      var c = document.getElementById('cables-container');
+      if (c) c.style.opacity = '0.82';
       /* fade out, then fully unload video so the decoder releases memory */
       if (v) {
         v.style.opacity = '0';

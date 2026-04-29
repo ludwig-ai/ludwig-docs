@@ -35,7 +35,7 @@ jobs:
         run: pip install -r requirements.in
 
       - name: Test macros
-        run: pip install pytest && pytest tests/ -v
+        run: pip install pytest && PYTHONPATH=. pytest tests/ -v
 
       - name: Setup doc deploy
         run: |

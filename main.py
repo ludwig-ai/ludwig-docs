@@ -43,10 +43,9 @@ def flatten(d, prefix=""):
         ):
             default = v.default_factory()
             cls = type(default)
-            if hasattr(cls, "get_class_schema"):
-                schema = cls.get_class_schema()()
-                if "type" not in schema.fields:
-                    o_dict.update(flatten(schema.fields, key))
+            if hasattr(cls, "model_fields"):
+                if "type" not in cls.model_fields:
+                    o_dict.update(flatten(cls.model_fields, key))
         elif (
             v is not None
             and hasattr(v, "default")
@@ -54,10 +53,9 @@ def flatten(d, prefix=""):
         ):
             default = v.default
             cls = type(default)
-            if hasattr(cls, "get_class_schema"):
-                schema = cls.get_class_schema()()
-                if "type" not in schema.fields:
-                    o_dict.update(flatten(schema.fields, key))
+            if hasattr(cls, "model_fields"):
+                if "type" not in cls.model_fields:
+                    o_dict.update(flatten(cls.model_fields, key))
 
     return o_dict
 
@@ -204,14 +202,15 @@ def define_env(env):
 
     @env.macro
     def schema_class_long_description(cls):
-        return cls.get_class_schema()().fields["type"].description
+        field = cls.model_fields.get("type")
+        return field.description if field else ""
 
     @env.macro
     def schema_class_to_yaml(cls, sort_by_impact=True, exclude=None, updates=None):
         updates = updates or {}
 
-        schema = cls.get_class_schema()()
-        internal_fields = {n for n, f in schema.fields.items() if is_internal(f)}
+        schema_fields = cls.model_fields
+        internal_fields = {n for n, f in schema_fields.items() if is_internal(f)}
         d = {
             k: v
             for k, v in cls(**updates).to_dict().items()
@@ -219,7 +218,7 @@ def define_env(env):
         }
 
         if sort_by_impact:
-            sorted_fields = flatten(sort_fields(schema.fields))
+            sorted_fields = flatten(sort_fields(schema_fields))
             d = {k: d[k] for k in sorted_fields.keys() if k in d}
 
         exclude = exclude or []
@@ -232,8 +231,8 @@ def define_env(env):
     @env.macro
     def schema_class_to_fields(cls, exclude=None):
         exclude = exclude or []
-        schema = cls.get_class_schema()()
-        d = flatten(sort_fields(schema.fields))
+        schema_fields = cls.model_fields
+        d = flatten(sort_fields(schema_fields))
         return {k: v for k, v in d.items() if k not in exclude}
 
     @env.macro

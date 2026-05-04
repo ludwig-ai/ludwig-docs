@@ -390,6 +390,117 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(convnextv2_encoder, exclude=["type"])) }}
 
+### Generic TIMM Encoder
+
+The `timm` encoder exposes the full [pytorch-image-models](https://github.com/huggingface/pytorch-image-models) library
+as a single configurable encoder.  Over 1,000 pretrained vision models are available, including all MetaFormer
+variants, EfficientFormer V2, DaViT, FastViT, and many more.
+
+Install TIMM before using this encoder:
+
+```sh
+pip install timm
+```
+
+```yaml
+encoder:
+  type: timm
+  model_name: caformer_s18.sail_in22k_ft_in1k
+  use_pretrained: true
+  trainable: true
+```
+
+Browse available model names at [timm.fast.ai](https://timm.fast.ai/).
+
+{% set timm_encoder = get_encoder_schema("image", "timm") %}
+{{ render_yaml(timm_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(timm_encoder, exclude=["type"])) }}
+
+### CAFormer Encoder
+
+CAFormer (Yu et al., "MetaFormer Baselines for Vision", TPAMI 2024) is a **hybrid MetaFormer** that uses
+depthwise separable convolutions in the lower stages and self-attention in the upper stages. It achieves
+state-of-the-art accuracy/efficiency trade-offs on ImageNet.
+
+| Variant | Params | ImageNet top-1 |
+|---------|--------|----------------|
+| `caformer_s18` | 26 M | 83.6 % |
+| `caformer_s36` | 39 M | 84.5 % |
+| `caformer_m36` | 56 M | 85.2 % |
+| `caformer_b36` | 99 M | 85.5 % |
+
+```yaml
+encoder:
+  type: caformer
+  model_name: caformer_s18.sail_in22k_ft_in1k
+  use_pretrained: true
+```
+
+{% set caformer_encoder = get_encoder_schema("image", "caformer") %}
+{{ render_yaml(caformer_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(caformer_encoder, exclude=["type"])) }}
+
+### ConvFormer Encoder
+
+ConvFormer replaces the attention token-mixer with a large-kernel depthwise convolution, making it a
+**pure-CNN MetaFormer** that outperforms ConvNeXt while being fully convolutional (no positional embeddings,
+any resolution input).
+
+| Variant | Params | ImageNet top-1 |
+|---------|--------|----------------|
+| `convformer_s18` | 27 M | 83.0 % |
+| `convformer_s36` | 40 M | 84.1 % |
+| `convformer_m36` | 57 M | 84.5 % |
+| `convformer_b36` | 100 M | 84.8 % |
+
+```yaml
+encoder:
+  type: convformer
+  model_name: convformer_s18.sail_in22k_ft_in1k
+  use_pretrained: true
+```
+
+{% set convformer_encoder = get_encoder_schema("image", "convformer") %}
+{{ render_yaml(convformer_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(convformer_encoder, exclude=["type"])) }}
+
+### PoolFormer Encoder
+
+PoolFormer uses simple **average pooling** as the token mixer — proving that the MetaFormer architecture
+itself (not the specific mixer) is responsible for the strong performance of modern vision transformers.
+PoolFormerV2 adds grouped-normalization and extra depth to further close the gap with attention-based models.
+
+| Variant | Params | ImageNet top-1 |
+|---------|--------|----------------|
+| `poolformerv2_s12` | 12 M | 80.3 % |
+| `poolformerv2_s24` | 21 M | 82.0 % |
+| `poolformerv2_s36` | 31 M | 82.7 % |
+| `poolformerv2_m36` | 56 M | 83.5 % |
+| `poolformerv2_m48` | 73 M | 83.8 % |
+
+```yaml
+encoder:
+  type: poolformer
+  model_name: poolformerv2_s12
+  use_pretrained: true
+```
+
+{% set poolformer_encoder = get_encoder_schema("image", "poolformer") %}
+{{ render_yaml(poolformer_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(poolformer_encoder, exclude=["type"])) }}
+
 ### Deprecated Encoders (planned to remove in v0.8)
 
 #### Legacy ResNet Encoder

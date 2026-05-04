@@ -274,3 +274,62 @@ The measures that are calculated every epoch and are available for category feat
 decoder's confidence) and the `loss` itself.
 You can set either of them as `validation_metric` in the `training` section of the configuration if you set the
 `validation_field` to be the name of a category feature.
+
+---
+
+# Category Distribution Output Feature
+
+`category_distribution` is a specialised output feature type for datasets where each target row is a **soft probability
+distribution over categories** rather than a single hard label.  Typical use cases include:
+
+- Label smoothing targets generated from an ensemble or teacher model
+- Crowd-sourced annotations summarised as empirical agreement rates
+- Reading comprehension tasks with partial-credit labels
+
+The feature type is `category_distribution`.  Because the targets are probability vectors, the column values must be
+parseable as JSON arrays of floats whose length equals the number of classes.
+
+## Configuration
+
+```yaml
+output_features:
+  - name: label_distribution
+    type: category_distribution
+    vocab: [class_a, class_b, class_c]
+    preprocessing:
+      missing_value_strategy: drop_row
+    decoder:
+      type: classifier
+    loss:
+      type: softmax_cross_entropy
+```
+
+### Required parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `vocab` | list[str] | Ordered list of class names.  **Required** — `category_distribution` has no way to infer the vocabulary from the soft-label vectors. |
+
+### Preprocessing
+
+{% set preprocessing = get_feature_preprocessing_schema("category_distribution_output") %}
+{{ render_yaml(preprocessing, parent="preprocessing") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(preprocessing), details=details) }}
+
+### Decoders
+
+`category_distribution` reuses the same `classifier` and `mlp_classifier` decoders as the standard `category` output
+feature.  See [Decoders](#decoders) above for parameter details.
+
+### Loss
+
+`category_distribution` targets are treated as probability distributions, so the recommended loss is
+`softmax_cross_entropy` with label smoothing disabled (smoothing is already encoded in the targets).
+
+### Metrics
+
+The same metrics as `category` are reported: `accuracy` (argmax of the predicted distribution vs. argmax of the target
+distribution), `hits_at_k`, and `loss`.

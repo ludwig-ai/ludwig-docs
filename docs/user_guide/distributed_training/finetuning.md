@@ -23,6 +23,7 @@ defaults:
   text:
     encoder:
       type: bert
+      pretrained_model_name_or_path: answerdotai/ModernBERT-base
       trainable: true
 trainer:
   epochs: 5
@@ -51,6 +52,7 @@ tradeoff some potential performance in favor of large speedups to the training t
 type: text
 encoder:
   type: bert
+  pretrained_model_name_or_path: answerdotai/ModernBERT-base
   use_pretrained: true
 ```
 
@@ -102,6 +104,7 @@ name: sentence
 type: text
 encoder:
   type: bert
+  pretrained_model_name_or_path: answerdotai/ModernBERT-base
   trainable: false
 preprocessing:
   cache_encoder_embeddings: true

@@ -27,6 +27,7 @@ input_features:
   type: text
   encoder: 
       type: bert
+      pretrained_model_name_or_path: answerdotai/ModernBERT-base
 -
   name: cover
   type: image

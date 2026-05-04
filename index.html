@@ -953,13 +953,14 @@
         <div class="code-block">
           <div class="cb-header">
             <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
-            <span class="cb-title">text_classifier.yaml — sentiment analysis with BERT</span>
+            <span class="cb-title">text_classifier.yaml — sentiment analysis with ModernBERT</span>
           </div>
           <pre><code><span class="yk">input_features</span>:
   - <span class="yk">name</span>: <span class="ys">review_content</span>
     <span class="yk">type</span>: <span class="yt">text</span>
     <span class="yk">encoder</span>:
-      <span class="yk">type</span>: <span class="yt">bert</span>   <span class="yc"># or: embed, roberta, deberta, xlnet…</span>
+      <span class="yk">type</span>: <span class="yt">bert</span>
+      <span class="yk">pretrained_model_name_or_path</span>: <span class="ys">answerdotai/ModernBERT-base</span>   <span class="yc"># or: roberta-base, deberta-v3-base…</span>
 
 <span class="yk">output_features</span>:
   - <span class="yk">name</span>: <span class="ys">recommended</span>
@@ -1029,7 +1030,7 @@
             <span class="cb-title">grpo.yaml — reward-model-free RL alignment (new in v0.15)</span>
           </div>
           <pre><code><span class="yk">model_type</span>: <span class="yt">llm</span>
-<span class="yk">base_model</span>: <span class="ys">Qwen/Qwen2.5-7B-Instruct</span>
+<span class="yk">base_model</span>: <span class="ys">Qwen/Qwen3-8B</span>
 
 <span class="yk">adapter</span>:
   <span class="yk">type</span>: <span class="yt">lora</span>
@@ -1075,6 +1076,7 @@
     <span class="yk">type</span>: <span class="yt">text</span>
     <span class="yk">encoder</span>:
       <span class="yk">type</span>: <span class="yt">bert</span>
+      <span class="yk">pretrained_model_name_or_path</span>: <span class="ys">answerdotai/ModernBERT-base</span>
 
   - <span class="yk">name</span>: <span class="ys">price</span>
     <span class="yk">type</span>: <span class="yt">number</span>
@@ -1101,14 +1103,13 @@
         <div class="code-block">
           <div class="cb-header">
             <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
-            <span class="cb-title">image_classifier.yaml — image classification with EfficientNet</span>
+            <span class="cb-title">image_classifier.yaml — image classification with DINOv2</span>
           </div>
           <pre><code><span class="yk">input_features</span>:
   - <span class="yk">name</span>: <span class="ys">image_path</span>
     <span class="yk">type</span>: <span class="yt">image</span>
     <span class="yk">encoder</span>:
-      <span class="yk">type</span>: <span class="yt">efficientnet</span>  <span class="yc"># or: resnet, vit, dinov2, stacked_cnn</span>
-      <span class="yk">model_variant</span>: <span class="ys">b4</span>
+      <span class="yk">type</span>: <span class="yt">dinov2</span>         <span class="yc"># or: vit, efficientnet, resnet</span>
       <span class="yk">use_pretrained</span>: <span class="yv">true</span>
       <span class="yk">trainable</span>: <span class="yv">true</span>
 
@@ -1201,10 +1202,10 @@
         <div class="code-block">
           <div class="cb-header">
             <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
-            <span class="cb-title">distributed.yaml — multi-GPU FSDP training on Ray</span>
+            <span class="cb-title">distributed.yaml — multi-GPU FSDP training on Ray (Qwen3-72B)</span>
           </div>
           <pre><code><span class="yk">model_type</span>: <span class="yt">llm</span>
-<span class="yk">base_model</span>: <span class="ys">mistralai/Mistral-7B-v0.3</span>
+<span class="yk">base_model</span>: <span class="ys">Qwen/Qwen3-72B</span>
 
 <span class="yk">adapter</span>:
   <span class="yk">type</span>: <span class="yt">lora</span>
@@ -1248,7 +1249,7 @@
 config = {
     <span class="ys">"input_features"</span>: [
         {<span class="ys">"name"</span>: <span class="ys">"text"</span>, <span class="ys">"type"</span>: <span class="ys">"text"</span>,
-         <span class="ys">"encoder"</span>: {<span class="ys">"type"</span>: <span class="ys">"bert"</span>}}
+         <span class="ys">"encoder"</span>: {<span class="ys">"type"</span>: <span class="ys">"bert"</span>, <span class="ys">"pretrained_model_name_or_path"</span>: <span class="ys">"answerdotai/ModernBERT-base"</span>}}
     ],
     <span class="ys">"output_features"</span>: [
         {<span class="ys">"name"</span>: <span class="ys">"label"</span>, <span class="ys">"type"</span>: <span class="ys">"category"</span>}

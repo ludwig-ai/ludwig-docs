@@ -39,9 +39,14 @@ def _make_env():
 @requires_ludwig
 def test_define_env_registers_macros():
     from main import define_env
+
     env = _make_env()
     define_env(env)
-    for name in ("schema_class_to_yaml", "schema_class_to_fields", "schema_class_long_description"):
+    for name in (
+        "schema_class_to_yaml",
+        "schema_class_to_fields",
+        "schema_class_long_description",
+    ):
         assert name in env._macros, f"macro {name!r} not registered"
 
 
@@ -49,6 +54,7 @@ def test_define_env_registers_macros():
 def test_schema_class_to_yaml():
     from main import define_env
     from ludwig.schema.preprocessing import PreprocessingConfig
+
     env = _make_env()
     define_env(env)
     result = env._macros["schema_class_to_yaml"](PreprocessingConfig)
@@ -60,6 +66,7 @@ def test_schema_class_to_yaml():
 def test_schema_class_to_fields():
     from main import define_env
     from ludwig.schema.preprocessing import PreprocessingConfig
+
     env = _make_env()
     define_env(env)
     result = env._macros["schema_class_to_fields"](PreprocessingConfig)
@@ -71,6 +78,7 @@ def test_schema_class_to_fields():
 def test_schema_class_long_description():
     from main import define_env
     from ludwig.schema.combiners.utils import get_combiner_registry
+
     env = _make_env()
     define_env(env)
     # Use a combiner that has a 'type' field
@@ -82,8 +90,11 @@ def test_schema_class_long_description():
 def test_no_get_class_schema_calls():
     """Ensure main.py never calls get_class_schema (removed in pydantic v2)."""
     import ast, pathlib
+
     src = pathlib.Path(__file__).parent.parent / "main.py"
     tree = ast.parse(src.read_text())
     for node in ast.walk(tree):
         if isinstance(node, ast.Attribute) and node.attr == "get_class_schema":
-            pytest.fail(f"main.py calls get_class_schema at line {node.lineno} — use model_fields instead")
+            pytest.fail(
+                f"main.py calls get_class_schema at line {node.lineno} — use model_fields instead"
+            )

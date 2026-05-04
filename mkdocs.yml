@@ -42,8 +42,12 @@ nav:
       - Large Language Models:
           - Large Language Models: user_guide/llms/index.md
           - Fine-Tuning: user_guide/llms/finetuning.md
+          - VLM Fine-Tuning: user_guide/llms/vlm_finetuning.md
+          - Multi-Adapter PEFT: user_guide/llms/multi_adapter.md
           - In-Context Learning: user_guide/llms/in_context_learning.md
           - Text Classification: user_guide/llms/text_classification.md
+          - Structured Output: user_guide/llms/structured_output.md
+          - Config Generation: user_guide/llms/config_generation.md
       - GPUs: user_guide/gpus.md
       - Distributed Training:
           - Distributed Training: user_guide/distributed_training/index.md
@@ -52,6 +56,7 @@ nav:
       - Cloud Storage: user_guide/cloud_storage.md
       - AutoML: user_guide/automl.md
       - Visualizations: user_guide/visualizations.md
+      - Model Inspector: user_guide/model_inspector.md
       - Model Export: user_guide/model_export.md
       - Serving: user_guide/serving.md
       - Third-Party Integrations: user_guide/integrations.md
@@ -96,6 +101,9 @@ nav:
           - Few-shot batch inference for text classification (RAG): examples/llms/llm_few_shot_batch_inference.md
           - Zero-shot batch inference for tabular classification (TabLLM): examples/llms/llm_tabular_zero_shot_batch_inference.md
           - Fine-tuning for tabular classification (TabLLM): examples/llms/llm_tabular_classification.md
+          - VLM Fine-Tuning: examples/vlm_finetuning.md
+          - Multi-Adapter PEFT: examples/multi_adapter.md
+          - LLM Config Generation: examples/config_generation.md
       - Supervised ML:
           - Text Classification: examples/text_classification.md
           - Tabular Data Classification: examples/adult_census_income.md
@@ -119,6 +127,8 @@ nav:
           - Movie rating prediction: examples/movie_ratings.md
           - Multi-label classification: examples/multi_label.md
           - Multi-Task Learning: examples/multi_task.md
+          - HyperNetwork Combiner: examples/hypernetwork.md
+          - Ray Serve and KServe: examples/ray_serve.md
           - Simple Regression - Fuel Efficiency Prediction: examples/fuel_efficiency.md
           - Fraud Detection: examples/fraud.md
   - 🛠️ Developer Guide:

@@ -1,3 +1,7 @@
+---
+description: Quickstart guide to fine-tuning Llama 2 with QLoRA in Ludwig. Run 4-bit LLM fine-tuning locally with a single YAML config — no custom PyTorch code needed.
+---
+
 # Llama2-7b Fine-Tuning 4bit (QLoRA)
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1c3AO8l_H6V_x37RwQ8V7M6A-RmcBf2tG?usp=sharing)

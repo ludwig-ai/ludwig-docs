@@ -1,3 +1,7 @@
+---
+description: Install Ludwig via pip, Docker, or from source. Supports optional dependency groups for LLMs, distributed training on Ray, audio, and more.
+---
+
 # Use pip
 
 For users familiar with Python, we recommend installing with [`pip`](https://pip.pypa.io/en/stable/) within an isolated

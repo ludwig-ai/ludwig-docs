@@ -1,3 +1,7 @@
+---
+description: Step-by-step guide to training your first model with Ludwig. Define input/output features in a YAML config and run ludwig train — no custom code needed.
+---
+
 To train a model with Ludwig, we first need to create a [Ludwig configuration](./../configuration/index.md). The config specifies input features, output features, preprocessing, model architecture, training loop, hyperparameter search, and backend infrastructure -- everything that's needed to build, train, and evaluate a model.
 
 At a minimum, the config must specify the model's input and output features.

@@ -1,3 +1,7 @@
+---
+description: Ludwig is an open-source declarative deep learning framework. Train, fine-tune, and deploy models for text, image, tabular, audio, and LLMs using a simple YAML config file — no custom code required.
+---
+
 ![Ludwig logo](images/ludwig_hero_transparent.png#only-light)
 ![Ludwig logo](images/ludwig_hero_transparent_dark.png#only-dark)
 

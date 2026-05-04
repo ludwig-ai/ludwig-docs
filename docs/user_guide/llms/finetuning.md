@@ -1,3 +1,7 @@
+---
+description: Fine-tune LLMs with Ludwig using LoRA, QLoRA, or full fine-tuning. Covers SFT, PEFT adapters, quantization, and pushing trained adapters to Hugging Face Hub.
+---
+
 Fine-tuning is the process of modifying the weights of a Large Language Model to help it
 perform better on a specific task or set of tasks.
 

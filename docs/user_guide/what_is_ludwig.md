@@ -1,3 +1,7 @@
+---
+description: Learn what Ludwig is — a declarative ML framework that lets you train, fine-tune, and deploy deep learning models with a YAML config file. Covers core concepts, supported data types, and the encoder-combiner-decoder architecture.
+---
+
 # Introduction
 
 Ludwig is an open-source, [declarative machine learning framework](#why-declarative-machine-learning-systems)

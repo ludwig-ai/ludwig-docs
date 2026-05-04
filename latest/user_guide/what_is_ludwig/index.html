@@ -4995,7 +4995,9 @@ configuration to customize the pipeline to meet your requirements:</p>
 <span class="w">      </span><span class="nt">most_common</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">description</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
-<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bert</span>
+<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bert</span>
+<span class="w">      </span><span class="nt">pretrained_model_name_or_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">answerdotai/ModernBERT-base</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cover</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image</span>
 <span class="w">    </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resnet</span>
@@ -5087,8 +5089,8 @@ multiple datasets with just a simple configuration.</p>
 available in <a href="https://huggingface.co/docs/transformers/index">Huggingface Transformers</a>.
 Users can choose from a vast collection of state-of-the-art pre-trained PyTorch
 models to use without needing to write any code at all. For example, training a
-BERT-based sentiment analysis model with Ludwig is as simple as:</p>
-<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>train<span class="w"> </span>--dataset<span class="w"> </span>sst5<span class="w"> </span>-–config_str<span class="w"> </span>“<span class="o">{</span>input_features:<span class="w"> </span><span class="o">[{</span>name:<span class="w"> </span>sentence,<span class="w"> </span>type:<span class="w"> </span>text,<span class="w"> </span>encoder:<span class="w"> </span>bert<span class="o">}]</span>,<span class="w"> </span>output_features:<span class="w"> </span><span class="o">[{</span>name:<span class="w"> </span>label,<span class="w"> </span>type:<span class="w"> </span>category<span class="o">}]}</span>”
+ModernBERT-based sentiment analysis model with Ludwig is as simple as:</p>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>train<span class="w"> </span>--dataset<span class="w"> </span>sst5<span class="w"> </span>-–config_str<span class="w"> </span>“<span class="o">{</span>input_features:<span class="w"> </span><span class="o">[{</span>name:<span class="w"> </span>sentence,<span class="w"> </span>type:<span class="w"> </span>text,<span class="w"> </span>encoder:<span class="w"> </span><span class="o">{</span>type:<span class="w"> </span>bert,<span class="w"> </span>pretrained_model_name_or_path:<span class="w"> </span>answerdotai/ModernBERT-base<span class="o">}}]</span>,<span class="w"> </span>output_features:<span class="w"> </span><span class="o">[{</span>name:<span class="w"> </span>label,<span class="w"> </span>type:<span class="w"> </span>category<span class="o">}]}</span>”
 </code></pre></div>
 <h3 id="low-code-interface-for-automl">Low-code interface for AutoML<a class="headerlink" href="#low-code-interface-for-automl" title="Permanent link">&para;</a></h3>
 <p><a href="https://ludwig.ai/latest/user_guide/automl/">Ludwig AutoML</a>

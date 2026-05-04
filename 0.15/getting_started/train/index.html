@@ -4503,7 +4503,7 @@ docker<span class="w"> </span>run<span class="w"> </span>-t<span class="w"> </sp
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In this example, we encoded the text feature with an <code>embed</code> encoder, which assigns an embedding for each word and sums
-them. Ludwig provides many options for <a href="../../configuration/defaults/#tokenizers">tokenizing</a> and <a href="../../configuration/features/sequence_features/#input-features">embedding</a> text like with CNNs, RNNs, Transformers, and pretrained models such as BERT or GPT-2 (provided through <a href="https://huggingface.co/docs/transformers/index">huggingface</a>). Using a different text encoder is simple as changing encoder option in the config from <code>embed</code> to <code>bert</code>. Give it a try!</p>
+them. Ludwig provides many options for <a href="../../configuration/defaults/#tokenizers">tokenizing</a> and <a href="../../configuration/features/sequence_features/#input-features">embedding</a> text like with CNNs, RNNs, Transformers, and pretrained models such as ModernBERT or GPT-2 (provided through <a href="https://huggingface.co/docs/transformers/index">huggingface</a>). Using a different text encoder is as simple as changing the encoder option in the config from <code>embed</code> to <code>bert</code> with a modern pretrained model. Give it a try!</p>
 <div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">genres</span>
 <span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">set</span>
@@ -4519,6 +4519,7 @@ them. Ludwig provides many options for <a href="../../configuration/defaults/#to
 <span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
 <span class="w">      </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
 <span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bert</span>
+<span class="w">          </span><span class="nt">pretrained_model_name_or_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">answerdotai/ModernBERT-base</span>
 <span class="nt">output_features</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">recommended</span>
 <span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span>

@@ -5067,8 +5067,8 @@ if you have any questions.</p>
   available in <a href="https://huggingface.co/docs/transformers/index">Huggingface Transformers</a>.
   Users can choose from a vast collection of state-of-the-art pre-trained
   PyTorch models to use without needing to write any code at all. For example,
-  training a BERT-based sentiment analysis model with Ludwig is as simple as:</p>
-<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>train<span class="w"> </span>--dataset<span class="w"> </span>sst5<span class="w"> </span>--config_str<span class="w"> </span><span class="s2">&quot;{input_features: [{name: sentence, type: text, encoder: bert}], output_features: [{name: label, type: category}]}&quot;</span>
+  training a ModernBERT-based sentiment analysis model with Ludwig is as simple as:</p>
+<div class="highlight"><pre><span></span><code>ludwig<span class="w"> </span>train<span class="w"> </span>--dataset<span class="w"> </span>sst5<span class="w"> </span>--config_str<span class="w"> </span><span class="s2">&quot;{input_features: [{name: sentence, type: text, encoder: {type: bert, pretrained_model_name_or_path: answerdotai/ModernBERT-base}}], output_features: [{name: label, type: category}]}&quot;</span>
 </code></pre></div>
 <ul>
 <li><strong>Low-code interface for AutoML</strong></li>

@@ -4966,6 +4966,7 @@ trainable weights, batch size set to maximize throughput, and learning rate warm
 <span class="w">  </span><span class="nt">text</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">encoder</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bert</span>
+<span class="w">      </span><span class="nt">pretrained_model_name_or_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">answerdotai/ModernBERT-base</span>
 <span class="w">      </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="nt">trainer</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">epochs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
@@ -4988,6 +4989,7 @@ tradeoff some potential performance in favor of large speedups to the training t
 <div class="highlight"><pre><span></span><code><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
 <span class="nt">encoder</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bert</span>
+<span class="w">  </span><span class="nt">pretrained_model_name_or_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">answerdotai/ModernBERT-base</span>
 <span class="w">  </span><span class="nt">use_pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </code></pre></div>
 <p>All of the <a href="../../../configuration/features/text_features/#huggingface-encoders">HuggingFace encoders</a> in Ludwig can be used for fine-tuning when
@@ -5027,6 +5029,7 @@ We cover some useful techniques to help prevent this in the <a href="#trainer">T
 <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
 <span class="nt">encoder</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bert</span>
+<span class="w">  </span><span class="nt">pretrained_model_name_or_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">answerdotai/ModernBERT-base</span>
 <span class="w">  </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="nt">preprocessing</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">cache_encoder_embeddings</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>

@@ -4,7 +4,6 @@ These catch breakage when Ludwig's schema API changes (e.g. get_class_schema
 removed in pydantic-v2 migration) before it reaches the CI docs build.
 """
 
-import sys
 import pytest
 
 # Ludwig's schema metaclass is incompatible with pydantic 2.13 on Python 3.14+.
@@ -89,7 +88,8 @@ def test_schema_class_long_description():
 
 def test_no_get_class_schema_calls():
     """Ensure main.py never calls get_class_schema (removed in pydantic v2)."""
-    import ast, pathlib
+    import ast
+    import pathlib
 
     src = pathlib.Path(__file__).parent.parent / "main.py"
     tree = ast.parse(src.read_text())

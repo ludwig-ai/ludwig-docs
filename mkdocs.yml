@@ -121,6 +121,11 @@ nav:
           - Multi-Task Learning: examples/multi_task.md
           - Simple Regression - Fuel Efficiency Prediction: examples/fuel_efficiency.md
           - Fraud Detection: examples/fraud.md
+          - Semantic Segmentation: examples/semantic_segmentation.md
+      - Guides:
+          - Optimizer Comparison: examples/optimizer_comparison.md
+          - Probability Calibration: examples/calibration.md
+          - K-Fold Cross-Validation: examples/kfold_cv.md
   - 🛠️ Developer Guide:
       - Developer Guide: developer_guide/index.md
       - How to Contribute: developer_guide/contributing.md

@@ -395,6 +395,83 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(gated_fusion_combiner, exclude=["type"]), details=details) }}
 
+### Project Aggregate Combiner
+
+The `project_aggregate` combiner projects all encoder outputs to the same width, sums them
+element-wise (aggregation), then passes the result through fully connected layers. It is a
+lightweight alternative to `concat` when the number of input features is large, since it avoids
+growing the hidden size linearly with the number of features.
+
+```yaml
+combiner:
+  type: project_aggregate
+  projection_size: 128  # All inputs projected to this width before aggregation
+  output_size: 128      # Output size of FC layers after aggregation
+  num_fc_layers: 2
+  norm: layer           # Normalization applied to projection and FC layers
+  residual: true        # Residual skip connections through FC stack
+  dropout: 0.0
+  activation: relu
+```
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `projection_size` | 128 | Each encoder output is projected to this width before aggregation |
+| `output_size` | 128 | Output size of FC layers after aggregation |
+| `num_fc_layers` | 2 | Number of FC layers after aggregation |
+| `norm` | `layer` | Normalization: `null`, `batch`, `layer` |
+| `residual` | `true` | Add residual skip connections through FC stack |
+| `dropout` | 0.0 | Dropout rate |
+| `activation` | `relu` | Activation function |
+
+{% set project_aggregate_combiner = get_combiner_schema("project_aggregate") %}
+{{ render_yaml(project_aggregate_combiner, parent="combiner") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(project_aggregate_combiner, exclude=["type"]), details=details) }}
+
+### TabPFN v2 Combiner
+
+The `tabpfn_v2` combiner wraps the pretrained [TabPFN v2](https://github.com/PriorLabs/TabPFN)
+foundation model as the ECD fusion block. TabPFN v2 uses in-context learning — it treats the
+training set as context and makes predictions without gradient-based fine-tuning, similar to how
+GPT-4 does few-shot learning.
+
+**When to use**: Small tabular datasets (≤ 10k rows) where gradient-based fine-tuning tends to
+overfit. TabPFN v2 consistently outperforms tuned gradient boosting and neural networks on
+small tabular benchmarks. For large datasets, use `concat`, `ft_transformer`, or `tabnet` instead.
+
+```bash
+pip install tabpfn  # optional dependency
+```
+
+```yaml
+combiner:
+  type: tabpfn_v2
+  output_size: 128      # Width of the learnable projection head on top of TabPFN
+  n_estimators: 4       # Ensemble members (higher = better accuracy, slower inference)
+  device: auto          # auto | cpu | cuda
+```
+
+!!! note
+    TabPFN v2 requires the optional `tabpfn` package. The combiner will raise a clear
+    `ImportError` with install instructions if the package is not found.
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `output_size` | 128 | Width of the learnable projection head on top of TabPFN's encoder |
+| `tabpfn_hidden_size` | 512 | TabPFN v2's internal hidden width |
+| `n_estimators` | 4 | Number of ensemble members used during prediction |
+| `device` | `auto` | Device for TabPFN inference: `auto`, `cpu`, `cuda` |
+
+{% set tabpfn_combiner = get_combiner_schema("tabpfn_v2") %}
+{{ render_yaml(tabpfn_combiner, parent="combiner") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(tabpfn_combiner, exclude=["type"]), details=details) }}
+
 ## Common Parameters
 
 These parameters are used across multiple combiners (and some encoders / decoders) in similar ways.

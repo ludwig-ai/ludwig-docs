@@ -340,6 +340,213 @@ the `adapter` config parameter.
 {{ render_fields(schema_class_to_fields(adapter, exclude=["type"])) }}
 {% endfor %}
 
+## Advanced LoRA initializers
+
+By default LoRA initializes `A` randomly (Kaiming uniform) and `B` to zero so that the adapter starts as a
+no-op. PR #4146 adds four alternative initializers that can dramatically improve convergence speed and final
+quality, especially at low rank.
+
+Set them via the `init_lora_weights` field on the `lora` adapter:
+
+```yaml
+adapter:
+  type: lora
+  r: 16
+  alpha: 32
+  init_lora_weights: pissa   # pissa | eva | corda | loftq | true (default)
+```
+
+### PiSSA (`init_lora_weights: pissa`)
+
+**Principal Singular Values and Singular Vectors Adaptation.** Initializes `A` and `B` from the top-`r`
+singular components of the weight matrix `W`. The residual `W - AB` is kept frozen. This aligns the
+trainable subspace with the directions of greatest variance in the pretrained weights and consistently
+outperforms standard LoRA at the same rank.
+
+```yaml
+adapter:
+  type: lora
+  r: 16
+  alpha: 16
+  init_lora_weights: pissa
+```
+
+### EVA (`init_lora_weights: eva`)
+
+**Explained Variance Adaptation.** Data-driven initialization that selects the rank-`r` subspace that
+explains the most variance across a small calibration batch. Requires an `eva_config` sub-config.
+
+```yaml
+adapter:
+  type: lora
+  r: 8
+  alpha: 8
+  init_lora_weights: eva
+  eva_config:
+    n_samples: 128    # calibration samples used to compute the subspace
+```
+
+### CorDA (`init_lora_weights: corda`)
+
+**Correlation-Driven LoRA Adaptation.** Initializes the adapter using activation correlations to align the
+low-rank subspace with the most task-relevant directions. Like EVA, this is a data-driven approach that works
+well when a small in-domain calibration set is available.
+
+```yaml
+adapter:
+  type: lora
+  r: 16
+  alpha: 16
+  init_lora_weights: corda
+```
+
+### LoftQ (`init_lora_weights: loftq`)
+
+**LoRA-Fine-Tuning-aware Quantization.** Jointly optimizes the quantized backbone and the LoRA initialization
+so that the quantization error is minimized from the start. Particularly useful when combining 4-bit
+quantization with LoRA (QLoRA). Requires a `loftq_config` sub-config.
+
+```yaml
+adapter:
+  type: lora
+  r: 16
+  alpha: 16
+  init_lora_weights: loftq
+  loftq_config:
+    loftq_bits: 4       # quantization bits (4 or 8)
+    loftq_iter: 1       # number of alternating optimization iterations
+quantization:
+  bits: 4
+```
+
+## Per-module rank and alpha overrides
+
+`rank_pattern` and `alpha_pattern` allow different modules to use different ranks or scaling factors without
+needing separate adapter configs:
+
+```yaml
+adapter:
+  type: lora
+  r: 8
+  alpha: 16
+  rank_pattern:
+    q_proj: 16     # higher rank for query projection
+    v_proj: 16     # higher rank for value projection
+  alpha_pattern:
+    q_proj: 32
+    v_proj: 32
+```
+
+Keys are matched by substring against the module names in the model. Modules that do not match any key use
+the top-level `r` and `alpha` values.
+
+## Layer replication
+
+`layer_replication` instructs PEFT to duplicate specific layers of the backbone before attaching adapters.
+This is a cheap way to increase model capacity without adding many parameters:
+
+```yaml
+adapter:
+  type: lora
+  r: 8
+  layer_replication:
+    - [0, 4]    # replicate layers 0–3 (exclusive end)
+    - [2, 5]    # replicate layers 2–4
+```
+
+## New adapter types (PR #4146)
+
+In addition to LoRA, Ludwig supports the following adapter types introduced in PR #4146.
+
+### TinyLoRA (`type: tinylora`)
+
+A compact variant of LoRA that performs a learned rank search across layers, allocating rank budget where it
+matters most. Useful when parameter count is the binding constraint.
+
+```yaml
+adapter:
+  type: tinylora
+  r: 8
+  alpha: 16
+```
+
+### Orthogonal Fine-Tuning (`type: oft`)
+
+OFT constrains weight updates to orthogonal transformations, preserving the hyperspherical geometry of the
+pretrained weight space. This maintains the relative angles between activation vectors and is particularly
+effective for tasks where the pretrained model's geometric structure is important (e.g. image generation,
+semantic consistency tasks).
+
+```yaml
+adapter:
+  type: oft
+  r: 8
+  module_dropout: 0.0
+```
+
+### Householder Reflection Adaptation (`type: hra`)
+
+HRA parameterizes updates as a product of Householder reflections, which are inherently orthogonal. Fewer
+parameters than OFT for the same effective rank, at the cost of slightly less expressiveness.
+
+```yaml
+adapter:
+  type: hra
+  r: 8
+```
+
+### WaveFT (`type: waveft`)
+
+WaveFT applies updates in the wavelet domain, concentrating parameter budget on the frequency components most
+affected by fine-tuning. Works well on vision and audio features where frequency structure is meaningful.
+
+```yaml
+adapter:
+  type: waveft
+  r: 8
+  alpha: 16
+```
+
+### Layer Normalization Tuning (`type: ln_tuning`)
+
+Trains only the `weight` and `bias` parameters of LayerNorm (and RMSNorm) layers while freezing everything
+else. Extremely lightweight — typically fewer than 0.1% of backbone parameters — yet surprisingly effective
+for domain adaptation of instruction-tuned models.
+
+```yaml
+adapter:
+  type: ln_tuning
+```
+
+No rank or alpha parameters are needed; the trainable set is determined entirely by the LayerNorm layers
+present in the model.
+
+### Vector-Bank LoRA (`type: vblora`)
+
+VBLoRA replaces the per-layer `B` matrix with a shared global vector bank. Each layer selects and linearly
+combines vectors from the bank, reducing total parameter count when many layers share similar update
+directions.
+
+```yaml
+adapter:
+  type: vblora
+  r: 4
+  num_vectors: 256    # size of the shared vector bank
+  vector_length: 256  # dimension of each bank vector
+```
+
+### C3A (`type: c3a`)
+
+Block-sparse adapter with a configurable block size. Each block of weights is updated with a small dense
+matrix, concentrating capacity where it is most needed while keeping the overall parameter count low.
+
+```yaml
+adapter:
+  type: c3a
+  r: 8
+  block_size: 4   # size of the dense update blocks
+```
+
 # Quantization
 
 Quantization allows you to load model parameters, which are typically stored

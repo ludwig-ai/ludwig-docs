@@ -96,6 +96,7 @@ nav:
           - Few-shot batch inference for text classification (RAG): examples/llms/llm_few_shot_batch_inference.md
           - Zero-shot batch inference for tabular classification (TabLLM): examples/llms/llm_tabular_zero_shot_batch_inference.md
           - Fine-tuning for tabular classification (TabLLM): examples/llms/llm_tabular_classification.md
+          - Advanced PEFT Adapters: examples/llms/peft_advanced.md
       - Supervised ML:
           - Text Classification: examples/text_classification.md
           - Tabular Data Classification: examples/adult_census_income.md

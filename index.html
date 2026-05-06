@@ -37,7 +37,7 @@
     "operatingSystem": "Linux, macOS, Windows",
     "url": "https://ludwig.ai",
     "downloadUrl": "https://pypi.org/project/ludwig/",
-    "softwareVersion": "0.15",
+    "softwareVersion": "0.16",
     "license": "https://www.apache.org/licenses/LICENSE-2.0",
     "description": "Ludwig is a declarative deep learning framework built for scale and efficiency. Train custom models for tabular, text, image, audio, and LLMs using a simple YAML configuration file.",
     "keywords": "deep learning, machine learning, LLM fine-tuning, LoRA, declarative ML, PyTorch, Ray",
@@ -563,7 +563,7 @@
     <img src="ludwig_logo.svg" alt="Ludwig" style="height:52px;width:auto;margin:0 auto 2rem;opacity:.92;" />
     <div class="hero-badge">
       <span class="hero-badge-dot"></span>
-      v0.15 — GRPO, torchao, multi-adapter PEFT
+      v0.16 — PatchTST, N-BEATS, advanced PEFT, Nash-MTL
     </div>
     <h1 class="hero-title">
       Train anything.<br><span class="hl">One config file.</span>
@@ -777,7 +777,7 @@
         <span class="section-label">LLM Fine-tuning</span>
         <h2>Fine-tune any LLM.<br>No GPU expertise needed.</h2>
         <p>Ludwig gives you the complete alignment stack — from supervised instruction tuning to reward-model-free RL — in a single YAML file. Run Llama, Mistral, Qwen, or any HuggingFace model with 4-bit QLoRA on a single consumer GPU.</p>
-        <p>New in v0.15: <strong style="color:var(--text-bright)">GRPO</strong> (Group Relative Policy Optimization) for reward-model-free RLHF. Train policy models directly from rule-based or custom reward signals.</p>
+        <p>New in v0.15: <strong style="color:var(--text-bright)">GRPO</strong> (Group Relative Policy Optimization) for reward-model-free RLHF. v0.16 adds PatchTST &amp; N-BEATS for state-of-the-art timeseries forecasting, Nash-MTL/Pareto-MTL for multi-task loss balancing, and LLM-powered config generation.</p>
         <div class="technique-grid">
           <span class="technique-item">Supervised Fine-Tuning</span>
           <span class="technique-item">DPO</span>
@@ -1027,7 +1027,7 @@
         <div class="code-block">
           <div class="cb-header">
             <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
-            <span class="cb-title">grpo.yaml — reward-model-free RL alignment (new in v0.15)</span>
+            <span class="cb-title">grpo.yaml — reward-model-free RL alignment (v0.15+)</span>
           </div>
           <pre><code><span class="yk">model_type</span>: <span class="yt">llm</span>
 <span class="yk">base_model</span>: <span class="ys">Qwen/Qwen3-8B</span>
@@ -1353,7 +1353,7 @@ model.export_savedmodel(<span class="ys">"./my_model_export"</span>)</code></pre
           <h4>Does Ludwig support LLM fine-tuning?</h4>
           <svg class="faq-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
         </div>
-        <div class="faq-a"><div class="faq-a-inner">Yes, comprehensively. Ludwig supports SFT, DPO, KTO, ORPO, and GRPO (v0.15). Parameter-efficient methods include LoRA, DoRA, VeRA, and LoRA+. 4-bit QLoRA via <code>torchao</code> means you can fine-tune a 7B model on a single consumer GPU. You can also merge multiple trained adapters using TIES, DARE, or SVD.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes, comprehensively. Ludwig supports SFT, DPO, KTO, ORPO, and GRPO. Parameter-efficient methods include LoRA, DoRA, VeRA, LoRA+, PiSSA, EVA, CorDA, OFT, HRA, WaveFT, VBLoRA, and more (v0.16). 4-bit QLoRA via <code>torchao</code> means you can fine-tune a 7B model on a single consumer GPU. You can also merge multiple trained adapters using TIES, DARE, or SVD.</div></div>
       </div>
 
       <div class="faq-item">
@@ -1401,7 +1401,7 @@ model.export_savedmodel(<span class="ys">"./my_model_export"</span>)</code></pre
           <h4>Who maintains Ludwig? Is it actively developed?</h4>
           <svg class="faq-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
         </div>
-        <div class="faq-a"><div class="faq-a-inner">Ludwig is an active open-source project hosted by the <a href="https://lfai.foundation" target="_blank" rel="noopener">Linux Foundation AI &amp; Data</a>. It was created by <a href="https://w4nderlu.st" target="_blank" rel="noopener">Piero Molino</a> while at Uber and continues to be actively developed and maintained by him alongside a growing open-source community. The latest release (v0.15) added GRPO alignment, torchao quantization, and native Optuna support.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Ludwig is an active open-source project hosted by the <a href="https://lfai.foundation" target="_blank" rel="noopener">Linux Foundation AI &amp; Data</a>. It was created by <a href="https://w4nderlu.st" target="_blank" rel="noopener">Piero Molino</a> while at Uber and continues to be actively developed and maintained by him alongside a growing open-source community. The latest release (v0.16) added PatchTST &amp; N-BEATS timeseries forecasting, advanced PEFT adapters (PiSSA, OFT, HRA, WaveFT, VBLoRA), Nash-MTL/Pareto-MTL multi-task loss balancing, and LLM-powered config generation.</div></div>
       </div>
 
     </div>

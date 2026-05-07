@@ -237,9 +237,7 @@ plugins:
       handlers:
         python:
           options:
-            extensions:
-              - _griffe_ext/ludwig_docstrings.py:LudwigDocstrings
-            docstring_style: sphinx
+            docstring_style: google
             docstring_section_style: spacy
             show_source: true
             show_root_heading: true

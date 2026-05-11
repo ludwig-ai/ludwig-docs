@@ -756,6 +756,8 @@
       
         
       
+        
+      
     
     
     
@@ -1204,6 +1206,14 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -1288,6 +1298,62 @@
   
   
     <li class="md-nav__item">
+      <a href="vlm_finetuning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VLM Fine-Tuning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="multi_adapter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Adapter PEFT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="in_context_learning/" class="md-nav__link">
         
   
@@ -1324,6 +1390,62 @@
     
   
     Text Classification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="structured_output/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Structured Output
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="config_generation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Config Generation
   
 
     
@@ -1572,6 +1694,34 @@
     
   
     Visualizations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model_inspector/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Inspector
   
 
     
@@ -2679,6 +2829,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -2971,6 +3127,90 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/vlm_finetuning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VLM Fine-Tuning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/multi_adapter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Adapter PEFT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/config_generation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Config Generation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3224,6 +3464,10 @@
   
     
     
+      
+        
+      
+        
       
         
       
@@ -3706,6 +3950,62 @@
     
   
     Multi-Task Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/hypernetwork/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HyperNetwork Combiner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/ray_serve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ray Serve and KServe
   
 
     
@@ -4516,6 +4816,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#additional-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Topics
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4580,6 +4891,13 @@ usually recommended to first see if in-context learning is sufficient to solve t
 <p>In-context learning doesn't require any training in order to make use of it, so it's a natural place to start when applying an LLM to a task. The primarily limitation of ICL is the context length of the LLM itself (how many "tokens" can be put into the prompt). It should be noted that even for models
 that accept very long contexts, there is often a degradation in performance as the prompt increases in length (see: <a href="https://arxiv.org/abs/2307.03172">Lost in the Middle: How Language Models Use Long Contexts</a>). As such, if the the context needed to respond to the prompt is very large, it may be worth
 exploring fine-tuning instead.</p>
+<h3 id="additional-topics">Additional Topics<a class="headerlink" href="#additional-topics" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="vlm_finetuning/"><strong>VLM Fine-Tuning</strong></a> — Fine-tune Vision-Language Models (Qwen2-VL, LLaVA) on image+text tasks</li>
+<li><a href="multi_adapter/"><strong>Multi-Adapter PEFT</strong></a> — Merge multiple LoRA adapters with TIES, DARE, or linear combining</li>
+<li><a href="config_generation/"><strong>LLM Config Generation</strong></a> — Generate a valid Ludwig config from a plain-English task description</li>
+<li><a href="structured_output/"><strong>Structured Output</strong></a> — Constrained decoding for guaranteed valid category and JSON output</li>
+</ul>
 
 
 

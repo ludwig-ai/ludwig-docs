@@ -395,6 +395,54 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(gated_fusion_combiner, exclude=["type"]), details=details) }}
 
+### HyperNetwork Combiner
+
+The `hypernetwork` combiner implements a **data-dependent feature fusion** strategy based on
+[HyperFusion](https://arxiv.org/abs/2403.13319) (2024). Rather than treating all features
+symmetrically, a designated "context" feature generates the transformation weights that process
+all other features. This means each context value gets its own custom learned transformation —
+instead of concatenating features and learning one shared transformation.
+
+**When to use it**: The HyperNetworkCombiner shines when a categorical context feature (e.g.
+sensor type, task ID, language, domain) fundamentally changes how other features should be
+interpreted. A standard `concat` combiner sees the context as just another feature; the
+HyperNetworkCombiner uses the context to rewrite the transformation applied to every other
+feature.
+
+```yaml
+combiner:
+  type: hypernetwork
+  hidden_size: 128       # Projection size for each input feature
+  hyper_hidden_size: 64  # Intermediate size of the hypernetwork generator MLP
+  output_size: 128       # Output dimension of the combined representation
+  num_fc_layers: 1       # FC layers after hypernetwork combination
+  dropout: 0.1
+  activation: relu
+```
+
+**Architecture**: The first input feature's representation is fed into a small MLP (the
+"hypernetwork") that outputs weight matrices. Those weight matrices are then used to linearly
+transform all other input features before they are combined. The hypernetwork parameters are
+learned jointly with the rest of the model.
+
+**Comparison with concat**:
+
+| | `concat` | `hypernetwork` |
+|---|---|---|
+| Context sensitivity | Context treated as any other feature | Context generates custom weights |
+| Expressiveness | Fixed transformation for all contexts | Per-context learned transformation |
+| Parameter count | Lower | Higher (hypernetwork MLP) |
+| Best for | Homogeneous features | Context-dependent multi-modal fusion |
+
+{% set hypernetwork_combiner = get_combiner_schema("hypernetwork") %}
+{{ render_yaml(hypernetwork_combiner, parent="combiner") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(hypernetwork_combiner, exclude=["type"]), details=details) }}
+
+See the [HyperNetworkCombiner example](../examples/hypernetwork.md) for a complete walkthrough.
+
 ## Common Parameters
 
 These parameters are used across multiple combiners (and some encoders / decoders) in similar ways.

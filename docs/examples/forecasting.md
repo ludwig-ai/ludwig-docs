@@ -150,14 +150,100 @@ trainer:
   batch_size: 64
 ```
 
+## State-of-the-art encoders
+
+Ludwig includes two modern time-series-specific encoders — PatchTST and N-BEATS — that typically outperform
+generic sequence encoders on forecasting benchmarks.
+
+### PatchTST
+
+PatchTST segments the input window into short overlapping patches and encodes them with a Transformer. It
+is particularly effective on longer input windows (96+ timesteps) and multi-step horizons.
+
+```yaml
+input_features:
+  - name: temperature
+    type: timeseries
+    preprocessing:
+      window_size: 96
+    encoder:
+      type: patchtst
+      patch_size: 16
+      patch_stride: 8
+      d_model: 128
+      num_heads: 8
+      num_layers: 3
+      output_size: 256
+
+output_features:
+  - name: temperature
+    type: timeseries
+    preprocessing:
+      horizon: 24
+    loss:
+      type: huber
+
+trainer:
+  epochs: 100
+  optimizer:
+    type: adamw
+    lr: 1e-4
+```
+
+### N-BEATS
+
+N-BEATS is a pure MLP with doubly-residual stacking. It is fast to train, requires no positional encoding,
+and matches Transformer-based models on many univariate benchmarks.
+
+```yaml
+input_features:
+  - name: temperature
+    type: timeseries
+    preprocessing:
+      window_size: 96
+    encoder:
+      type: nbeats
+      num_stacks: 2
+      num_blocks: 3
+      layer_size: 256
+      output_size: 256
+
+output_features:
+  - name: temperature
+    type: timeseries
+    preprocessing:
+      horizon: 24
+
+trainer:
+  epochs: 100
+  optimizer:
+    type: adamw
+    lr: 1e-4
+```
+
+### Scale-free validation metrics
+
+Use `mean_absolute_scaled_error` (MASE) or `symmetric_mean_absolute_percentage_error` (sMAPE) as validation
+metrics when comparing models trained on datasets with different scales, or when interpretable percentage-based
+error is preferred.
+
+```yaml
+output_features:
+  - name: temperature
+    type: timeseries
+    validation_metric: mean_absolute_scaled_error
+```
+
 ## Choosing an encoder
 
 | Encoder | When to use |
 |---------|-------------|
+| `patchtst` | Best accuracy on longer windows (96+), multi-step horizons |
+| `nbeats` | Fast training, strong univariate baseline, no positional encoding needed |
+| `transformer` | Good accuracy on complex patterns, generic architecture |
 | `parallel_cnn` | Fast training, captures local patterns, good baseline |
 | `stacked_cnn` | Longer-range dependencies than parallel_cnn |
 | `rnn` | Sequential dependencies, moderate sequence length |
-| `transformer` | Best accuracy on complex patterns, slower to train |
 | `passthrough` | Pass raw window to the combiner without encoding |
 
 ## CLI evaluation

@@ -101,6 +101,7 @@ nav:
           - Few-shot batch inference for text classification (RAG): examples/llms/llm_few_shot_batch_inference.md
           - Zero-shot batch inference for tabular classification (TabLLM): examples/llms/llm_tabular_zero_shot_batch_inference.md
           - Fine-tuning for tabular classification (TabLLM): examples/llms/llm_tabular_classification.md
+          - Advanced PEFT Adapters: examples/llms/peft_advanced.md
           - VLM Fine-Tuning: examples/vlm_finetuning.md
           - Multi-Adapter PEFT: examples/multi_adapter.md
           - LLM Config Generation: examples/config_generation.md

@@ -282,6 +282,74 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(tfidf_encoder, exclude=["type"])) }}
 
+### Mamba-2 Encoder
+
+[Mamba-2](https://arxiv.org/abs/2405.21060) (Dao & Gu, 2024) is a linear-time selective State
+Space Model (SSM) encoder. It processes sequences in O(L) time instead of O(L²) for attention,
+making it efficient for long texts. Ludwig's Mamba-2 encoder is a pure-PyTorch implementation
+requiring no special CUDA kernels.
+
+**When to use**: Long text sequences (>1k tokens) where Transformer attention becomes a
+bottleneck. Mamba-2 is 2-4× faster than equivalent Transformer encoders on sequences >512 tokens.
+
+```yaml
+input_features:
+  - name: article_text
+    type: text
+    encoder:
+      type: mamba2
+      d_model: 256        # Hidden width of each Mamba-2 block
+      n_layers: 4         # Number of stacked Mamba-2 blocks
+      num_heads: 8        # Number of SSD heads (d_model * expand_factor must be divisible by num_heads)
+      d_conv: 4           # Width of the depthwise 1D convolution
+      expand_factor: 2    # Inner expansion factor
+      output_size: 256    # Output feature width
+      reduce_output: mean # How to reduce the sequence dimension
+```
+
+{% set mamba2_text_encoder = get_encoder_schema("text", "mamba2") %}
+
+{{ render_yaml(mamba2_text_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(mamba2_text_encoder, exclude=["type"])) }}
+
+### Jamba Encoder
+
+[Jamba](https://arxiv.org/abs/2403.19887) (Lieber et al., 2024) is a hybrid encoder that
+interleaves Mamba-2 SSM blocks with Transformer attention blocks. Every `attention_every_k`-th
+layer is a Transformer attention layer; the rest are Mamba-2 SSM layers. This gives better
+stability and accuracy than pure Mamba while retaining much of the efficiency gain.
+
+**When to use**: Long text where you want some of the efficiency of Mamba-2 but better
+accuracy than pure SSM. The 1:3 default attention:SSM ratio is a good starting point.
+
+```yaml
+input_features:
+  - name: article_text
+    type: text
+    encoder:
+      type: jamba
+      d_model: 256
+      n_layers: 8          # Total layers (SSM + attention combined)
+      attention_every_k: 4 # Every 4th layer is attention (1:3 ratio)
+      num_heads: 8
+      ffn_size: 1024       # Feed-forward size inside attention blocks
+      d_conv: 4
+      expand_factor: 2
+      output_size: 256
+      reduce_output: mean
+```
+
+{% set jamba_text_encoder = get_encoder_schema("text", "jamba") %}
+
+{{ render_yaml(jamba_text_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(jamba_text_encoder, exclude=["type"])) }}
+
 ### Huggingface encoders
 
 All huggingface-based text encoders are configured with the following parameters:

@@ -282,6 +282,57 @@ Parameters:
 
 {{ render_fields(schema_class_to_fields(mamba_encoder, exclude=["type"])) }}
 
+### Mamba-2 Encoder
+
+[Mamba-2](https://arxiv.org/abs/2405.21060) (Dao & Gu, 2024) extends Mamba-1 with multi-head
+structured state space duality (SSD). It is faster than Mamba-1 on modern hardware and supports
+a wider range of sequence lengths. Uses pure-PyTorch kernels — no special CUDA installation required.
+
+```yaml
+input_features:
+  - name: seq_feature
+    type: sequence
+    encoder:
+      type: mamba2
+      d_model: 256
+      n_layers: 4
+      num_heads: 8
+      output_size: 256
+      reduce_output: mean
+```
+
+{% set mamba2_seq_encoder = get_encoder_schema("sequence", "mamba2") %}
+{{ render_yaml(mamba2_seq_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(mamba2_seq_encoder, exclude=["type"])) }}
+
+### Jamba Encoder
+
+[Jamba](https://arxiv.org/abs/2403.19887) (Lieber et al., 2024) alternates between Mamba-2 SSM
+blocks and Transformer attention blocks. The ratio is controlled by `attention_every_k`.
+
+```yaml
+input_features:
+  - name: seq_feature
+    type: sequence
+    encoder:
+      type: jamba
+      d_model: 256
+      n_layers: 8
+      attention_every_k: 4
+      output_size: 256
+      reduce_output: mean
+```
+
+{% set jamba_seq_encoder = get_encoder_schema("sequence", "jamba") %}
+{{ render_yaml(jamba_seq_encoder, parent="encoder") }}
+
+Parameters:
+
+{{ render_fields(schema_class_to_fields(jamba_seq_encoder, exclude=["type"])) }}
+
 # Output Features
 
 Sequence output features can be used for either tagging (classifying each element of an input sequence) or

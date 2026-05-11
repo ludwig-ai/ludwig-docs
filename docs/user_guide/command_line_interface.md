@@ -21,6 +21,12 @@ Ludwig provides several functions through its command line interface.
 | [`preprocess`](#preprocess)                   | Preprocess data and saves it into cached format                                   |
 | [`synthesize_dataset`](#synthesize_dataset)   | Creates synthetic data for testing purposes                                       |
 | [`upload_to_hf_hub`](#upload_to_hf_hub)       | Push trained model artifacts to HuggingFace Hub                                   |
+| [`forecast`](#forecast)                       | Forecast future values in a time series using a pretrained model                  |
+| [`benchmark`](#benchmark)                     | Run experiments on a set of datasets and configs and export artifacts             |
+| [`datasets`](#datasets)                       | Download and list Ludwig-ready datasets from the dataset zoo                      |
+| [`generate_config`](#generate_config)         | Generate a Ludwig config from a natural language task description using an LLM    |
+| [`export_schema`](#export_schema)             | Export the Ludwig config JSON schema                                              |
+| [`check_install`](#check_install)             | Verify that Ludwig is correctly installed by running a quick synthetic training   |
 
 These are described in detail below.
 
@@ -1219,3 +1225,247 @@ ludwig upload hf_hub --repo_id ludwig/test_model --model_path ~/trained_models/m
 ```
 
 This will upload the fine-tuned weights in ` ~/trained_models/my_model` to `ludwig/test_model` on HuggingFace Hub.
+
+# forecast
+
+Load a pretrained Ludwig time series model and forecast the next `n` data points beyond the end of the dataset.
+
+```
+ludwig forecast [options]
+```
+
+These are the available arguments:
+
+```
+usage: ludwig forecast [options]
+
+This script loads a pretrained model and uses it to forecast
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -n HORIZON, --horizon HORIZON
+                        horizon, or number of steps in the future to forecast (default: 1)
+  --dataset DATASET     input data file path
+  --data_format {auto,csv,excel,feather,fwf,hdf5,html,tables,json,jsonl,parquet,pickle,sas,spss,stata,tsv}
+                        format of the input data
+  -m MODEL_PATH, --model_path MODEL_PATH
+                        model to load
+  -od OUTPUT_DIRECTORY, --output_directory OUTPUT_DIRECTORY
+                        directory that contains the results (default: results)
+  -of {csv,parquet}, --output_format {csv,parquet}
+                        format to write the output dataset (default: parquet)
+  -b {local,ray}, --backend {local,ray}
+                        specifies backend to use for parallel / distributed execution
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use
+```
+
+Example:
+
+```sh
+ludwig forecast \
+  --dataset weather.csv \
+  --model_path results/experiment_run/model \
+  --horizon 7 \
+  --output_directory forecasts
+```
+
+# benchmark
+
+Run Ludwig experiments on a collection of datasets and configs, tracking performance and exporting artifacts.
+This is useful for comparing model configurations or measuring regression across Ludwig versions.
+
+```
+ludwig benchmark [options]
+```
+
+These are the available arguments:
+
+```
+usage: ludwig benchmark [options]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --benchmarking_config BENCHMARKING_CONFIG
+                        path to the benchmarking config YAML file
+```
+
+The benchmarking config is a YAML file that specifies which datasets to run on and which Ludwig configs to use.
+Example benchmarking config:
+
+```yaml
+export_artifacts: true
+output_directory: benchmark_results
+experiments:
+  - dataset: adult_census_income
+    config_path: configs/adult_baseline.yaml
+  - dataset: titanic
+    config_path: configs/titanic_baseline.yaml
+```
+
+Example:
+
+```sh
+ludwig benchmark --benchmarking_config my_benchmark.yaml
+```
+
+# datasets
+
+Download and list Ludwig-ready datasets from the built-in [dataset zoo](../datasets/dataset_zoo.md).
+
+```
+ludwig datasets <command> [options]
+```
+
+Subcommands:
+
+| Subcommand  | Description                              |
+|-------------|------------------------------------------|
+| `list`      | List all available datasets              |
+| `describe`  | Print description and metadata for a dataset |
+| `download`  | Download a dataset to a local directory  |
+
+```
+usage: ludwig datasets [options]
+
+optional arguments:
+  -h, --help  show this help message and exit
+
+subcommands:
+  list                  list datasets
+  download DATASET [-o OUTPUT_DIR]
+                        download a dataset to OUTPUT_DIR (default: .)
+  describe DATASET      describe a dataset
+```
+
+Examples:
+
+```sh
+# List all datasets
+ludwig datasets list
+
+# Download the Titanic dataset to ./data
+ludwig datasets download titanic -o data/
+
+# Describe the adult_census_income dataset
+ludwig datasets describe adult_census_income
+```
+
+# generate_config
+
+Generate a Ludwig YAML configuration from a plain-English description of the ML task using an LLM (Claude or GPT-4).
+
+```
+ludwig generate_config [options] "description"
+```
+
+These are the available arguments:
+
+```
+usage: ludwig generate_config [options]
+
+Generate a Ludwig config from a natural language task description
+
+positional arguments:
+  description           Natural language description of the ML task
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --model MODEL         LLM model to use (default: claude-sonnet-4-20250514)
+  --api_key API_KEY     API key for the LLM provider (reads from ANTHROPIC_API_KEY or OPENAI_API_KEY by default)
+  -o OUTPUT, --output OUTPUT
+                        Output file path. Prints to stdout if not specified.
+  --no-validate         Skip config validation
+```
+
+The command reads an `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` environment variable unless `--api_key` is provided.
+If no description argument is given, it reads from stdin.
+
+Examples:
+
+```sh
+# Print generated config to stdout
+ludwig generate_config "Predict house prices from square footage, location, and number of bedrooms"
+
+# Save to a file and then train
+ludwig generate_config \
+  "Classify customer reviews as positive or negative" \
+  -o my_config.yaml
+
+ludwig train --config my_config.yaml --dataset reviews.csv
+```
+
+# export_schema
+
+Export the Ludwig config JSON schema to a file or stdout.  The schema can be used with IDE plugins, `jsonschema`
+validators, or OpenAPI tooling to validate Ludwig config files programmatically.
+
+```
+ludwig export_schema [options]
+```
+
+These are the available arguments:
+
+```
+usage: ludwig export_schema [options]
+
+Export Ludwig config JSON schema
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --model-type {ecd,llm,combined}
+                        model type to export schema for (default: combined)
+  -o OUTPUT, --output OUTPUT
+                        output file (default: stdout)
+  --full                include parameter_metadata in the output (stripped by default)
+```
+
+Examples:
+
+```sh
+# Export combined ECD + LLM schema to a file
+ludwig export_schema -o ludwig_schema.json
+
+# Export only the LLM model schema
+ludwig export_schema --model-type llm -o llm_schema.json
+
+# Validate a config against the schema using Python
+python -c "
+import json, jsonschema, yaml
+schema = json.load(open('ludwig_schema.json'))
+config = yaml.safe_load(open('my_config.yaml'))
+jsonschema.validate(config, schema)
+print('Config is valid')
+"
+```
+
+# check_install
+
+Verify that Ludwig is correctly installed by running a short training run on synthetic data.
+This is useful after installation or when debugging environment issues.
+
+```
+ludwig check_install [options]
+```
+
+These are the available arguments:
+
+```
+usage: ludwig check_install [options]
+
+This command checks Ludwig installation on a synthetic dataset.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -l {critical,error,warning,info,debug,notset}, --logging_level {critical,error,warning,info,debug,notset}
+                        the level of logging to use (default: warning)
+```
+
+Example:
+
+```sh
+ludwig check_install
+```
+
+If Ludwig is correctly installed the command exits with code `0` and prints a success message.
+Any missing dependency or CUDA misconfiguration will surface as an error here before you run a real job.

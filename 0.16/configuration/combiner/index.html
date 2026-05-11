@@ -2753,6 +2753,28 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#project-aggregate-combiner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Aggregate Combiner
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tabpfn-v2-combiner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TabPFN v2 Combiner
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#hypernetwork-combiner" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3002,6 +3024,8 @@
       
         
           
+        
+      
         
       
         
@@ -3760,6 +3784,8 @@
       
         
       
+        
+      
     
     
     
@@ -4319,6 +4345,181 @@
     
   
     Fraud Detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/semantic_segmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Semantic Segmentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/optimizer_comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer Comparison
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/calibration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability Calibration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/kfold_cv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    K-Fold Cross-Validation
   
 
     
@@ -5161,6 +5362,28 @@
     <span class="md-ellipsis">
       
         Gated Fusion Combiner
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#project-aggregate-combiner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Aggregate Combiner
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tabpfn-v2-combiner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TabPFN v2 Combiner
       
     </span>
   </a>
@@ -6012,6 +6235,163 @@ initializer, see <a href="https://pytorch.org/docs/stable/nn.init.html">torch.nn
 <li><strong><code>dropout</code></strong> (default: <code>0.1</code>): Dropout rate for the gating layers.</li>
 <li><strong><code>output_size</code></strong> (default: <code>256</code>): Output size of the fully connected layer after gated fusion.</li>
 <li><strong><code>use_bias</code></strong> (default: <code>true</code>): Whether the layer uses a bias vector.</li>
+</ul>
+<h4 id="project-aggregate-combiner">Project Aggregate Combiner<a class="headerlink" href="#project-aggregate-combiner" title="Permanent link">&para;</a></h4>
+<p>The <code>project_aggregate</code> combiner projects all encoder outputs to the same width, sums them
+element-wise (aggregation), then passes the result through fully connected layers. It is a
+lightweight alternative to <code>concat</code> when the number of input features is large, since it avoids
+growing the hidden size linearly with the number of features.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">combiner</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">project_aggregate</span>
+<span class="w">  </span><span class="nt">projection_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span><span class="w">  </span><span class="c1"># All inputs projected to this width before aggregation</span>
+<span class="w">  </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span><span class="w">      </span><span class="c1"># Output size of FC layers after aggregation</span>
+<span class="w">  </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="nt">norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">layer</span><span class="w">           </span><span class="c1"># Normalization applied to projection and FC layers</span>
+<span class="w">  </span><span class="nt">residual</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">        </span><span class="c1"># Residual skip connections through FC stack</span>
+<span class="w">  </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+<span class="w">  </span><span class="nt">activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>projection_size</code></td>
+<td>128</td>
+<td>Each encoder output is projected to this width before aggregation</td>
+</tr>
+<tr>
+<td><code>output_size</code></td>
+<td>128</td>
+<td>Output size of FC layers after aggregation</td>
+</tr>
+<tr>
+<td><code>num_fc_layers</code></td>
+<td>2</td>
+<td>Number of FC layers after aggregation</td>
+</tr>
+<tr>
+<td><code>norm</code></td>
+<td><code>layer</code></td>
+<td>Normalization: <code>null</code>, <code>batch</code>, <code>layer</code></td>
+</tr>
+<tr>
+<td><code>residual</code></td>
+<td><code>true</code></td>
+<td>Add residual skip connections through FC stack</td>
+</tr>
+<tr>
+<td><code>dropout</code></td>
+<td>0.0</td>
+<td>Dropout rate</td>
+</tr>
+<tr>
+<td><code>activation</code></td>
+<td><code>relu</code></td>
+<td>Activation function</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="nt">combiner</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">project_aggregate</span>
+<span class="w">    </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+<span class="w">    </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span>
+<span class="w">    </span><span class="nt">norm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">layer</span>
+<span class="w">    </span><span class="nt">activation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">relu</span>
+<span class="w">    </span><span class="nt">projection_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span>
+<span class="w">    </span><span class="nt">residual</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">norm_params</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">use_bias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">bias_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zeros</span>
+<span class="w">    </span><span class="nt">weights_initializer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xavier_uniform</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>dropout</code></strong> (default: <code>0.0</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: Dropout rate to apply to each fully connected layer.</li>
+<li><strong><code>num_fc_layers</code></strong> (default: <code>2</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: Number of fully connected layers after aggregation.</li>
+<li><strong><code>output_size</code></strong> (default: <code>128</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: Output size of each layer of the stack of fully connected layers.</li>
+<li><strong><code>norm</code></strong> (default: <code>layer</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: Normalization to apply to each projection and fully connected layer. Options: <code>batch</code>, <code>layer</code>. See <a href="#normalization">Normalization</a> for details.</li>
+<li><strong><code>activation</code></strong> (default: <code>relu</code>): Activation to apply to each fully connected layer. Options: <code>elu</code>, <code>leakyRelu</code>, <code>logSigmoid</code>, <code>relu</code>, <code>sigmoid</code>, <code>tanh</code>, <code>softmax</code>, <code>gelu</code>, <code>silu</code>, <code>swish</code>, <code>mish</code>, <code>selu</code>, <code>prelu</code>, <code>relu6</code>, <code>hardswish</code>, <code>hardsigmoid</code>, <code>softplus</code>, <code>celu</code>, <code>swiglu</code>, <code>geglu</code>, <code>reglu</code>, <code>sparsemax</code>, <code>entmax15</code>, <code>null</code>.</li>
+<li><strong><code>projection_size</code></strong> (default: <code>128</code>): All combiner inputs are projected to this size before being aggregated.</li>
+<li><strong><code>residual</code></strong> (default: <code>true</code>): Whether to add residual skip connection between the fully connected layers in the stack.</li>
+<li><strong><code>norm_params</code></strong> (default: <code>null</code>): Parameters of the normalization to apply to each projection and fully connected layer. See <a href="#normalization">Normalization</a> for details.</li>
+<li><strong><code>fc_layers</code></strong> (default: <code>null</code>): Full specification of the fully connected layers after the aggregation. It should be a list of dict, each dict representing one layer of the fully connected layer stack. </li>
+<li><strong><code>use_bias</code></strong> (default: <code>true</code>): Whether the layers use a bias vector.</li>
+<li><strong><code>bias_initializer</code></strong> (default: <code>zeros</code>): Initializer to use for the bias of the projection and for the fully connected layers.</li>
+<li><strong><code>weights_initializer</code></strong> (default: <code>xavier_uniform</code>): Initializer to use for the weights of the projection and for the fully connected layers.</li>
+</ul>
+<h4 id="tabpfn-v2-combiner">TabPFN v2 Combiner<a class="headerlink" href="#tabpfn-v2-combiner" title="Permanent link">&para;</a></h4>
+<p>The <code>tabpfn_v2</code> combiner wraps the pretrained <a href="https://github.com/PriorLabs/TabPFN">TabPFN v2</a>
+foundation model as the ECD fusion block. TabPFN v2 uses in-context learning — it treats the
+training set as context and makes predictions without gradient-based fine-tuning, similar to how
+GPT-4 does few-shot learning.</p>
+<p><strong>When to use</strong>: Small tabular datasets (≤ 10k rows) where gradient-based fine-tuning tends to
+overfit. TabPFN v2 consistently outperforms tuned gradient boosting and neural networks on
+small tabular benchmarks. For large datasets, use <code>concat</code>, <code>ft_transformer</code>, or <code>tabnet</code> instead.</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>tabpfn<span class="w">  </span><span class="c1"># optional dependency</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">combiner</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tabpfn_v2</span>
+<span class="w">  </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span><span class="w">      </span><span class="c1"># Width of the learnable projection head on top of TabPFN</span>
+<span class="w">  </span><span class="nt">n_estimators</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w">       </span><span class="c1"># Ensemble members (higher = better accuracy, slower inference)</span>
+<span class="w">  </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auto</span><span class="w">          </span><span class="c1"># auto | cpu | cuda</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>TabPFN v2 requires the optional <code>tabpfn</code> package. The combiner will raise a clear
+<code>ImportError</code> with install instructions if the package is not found.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>output_size</code></td>
+<td>128</td>
+<td>Width of the learnable projection head on top of TabPFN's encoder</td>
+</tr>
+<tr>
+<td><code>tabpfn_hidden_size</code></td>
+<td>512</td>
+<td>TabPFN v2's internal hidden width</td>
+</tr>
+<tr>
+<td><code>n_estimators</code></td>
+<td>4</td>
+<td>Number of ensemble members used during prediction</td>
+</tr>
+<tr>
+<td><code>device</code></td>
+<td><code>auto</code></td>
+<td>Device for TabPFN inference: <code>auto</code>, <code>cpu</code>, <code>cuda</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="nt">combiner</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tabpfn_v2</span>
+<span class="w">    </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span>
+<span class="w">    </span><span class="nt">tabpfn_hidden_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512</span>
+<span class="w">    </span><span class="nt">n_estimators</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">    </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auto</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>output_size</code></strong> (default: <code>128</code>): Width of the learnable projection head applied to TabPFN's encoder output.</li>
+<li><strong><code>tabpfn_hidden_size</code></strong> (default: <code>512</code>): TabPFN v2's internal hidden width. The v2 default is 512; only change this if loading a variant.</li>
+<li><strong><code>n_estimators</code></strong> (default: <code>4</code>): Number of TabPFN ensemble members to use during prediction. Higher values improve accuracy at the cost of inference latency.</li>
+<li><strong><code>device</code></strong> (default: <code>auto</code>): Device used for TabPFN inference. 'auto' picks CUDA if available. Options: <code>auto</code>, <code>cpu</code>, <code>cuda</code>.</li>
 </ul>
 <h4 id="hypernetwork-combiner">HyperNetwork Combiner<a class="headerlink" href="#hypernetwork-combiner" title="Permanent link">&para;</a></h4>
 <p>The <code>hypernetwork</code> combiner implements a <strong>data-dependent feature fusion</strong> strategy based on

@@ -221,6 +221,10 @@
          <lastmod>2026-05-11</lastmod>
     </url>
     <url>
+         <loc>https://ludwig.ai/latest/examples/calibration/</loc>
+         <lastmod>2026-05-11</lastmod>
+    </url>
+    <url>
          <loc>https://ludwig.ai/latest/examples/config_generation/</loc>
          <lastmod>2026-05-11</lastmod>
     </url>
@@ -242,6 +246,10 @@
     </url>
     <url>
          <loc>https://ludwig.ai/latest/examples/hyperopt/</loc>
+         <lastmod>2026-05-11</lastmod>
+    </url>
+    <url>
+         <loc>https://ludwig.ai/latest/examples/kfold_cv/</loc>
          <lastmod>2026-05-11</lastmod>
     </url>
     <url>
@@ -289,7 +297,15 @@
          <lastmod>2026-05-11</lastmod>
     </url>
     <url>
+         <loc>https://ludwig.ai/latest/examples/optimizer_comparison/</loc>
+         <lastmod>2026-05-11</lastmod>
+    </url>
+    <url>
          <loc>https://ludwig.ai/latest/examples/ray_serve/</loc>
+         <lastmod>2026-05-11</lastmod>
+    </url>
+    <url>
+         <loc>https://ludwig.ai/latest/examples/semantic_segmentation/</loc>
          <lastmod>2026-05-11</lastmod>
     </url>
     <url>

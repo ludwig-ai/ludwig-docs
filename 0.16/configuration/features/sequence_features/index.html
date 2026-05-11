@@ -2484,6 +2484,28 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#mamba-2-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mamba-2 Encoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jamba-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jamba Encoder
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3055,6 +3077,8 @@
       
         
           
+        
+      
         
       
         
@@ -3813,6 +3837,8 @@
       
         
       
+        
+      
     
     
     
@@ -4372,6 +4398,181 @@
     
   
     Fraud Detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/semantic_segmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Semantic Segmentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/optimizer_comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizer Comparison
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/calibration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability Calibration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/kfold_cv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    K-Fold Cross-Validation
   
 
     
@@ -5204,6 +5405,28 @@
     <span class="md-ellipsis">
       
         Mamba Encoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mamba-2-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mamba-2 Encoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jamba-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jamba Encoder
       
     </span>
   </a>
@@ -6198,6 +6421,123 @@ initializer, see <a href="https://pytorch.org/docs/stable/nn.init.html">torch.nn
 <li><strong><code>should_embed</code></strong> (default: <code>true</code>): If True the input sequence is expected to be made of integers and will be mapped into embeddings.</li>
 <li><strong><code>pretrained_embeddings</code></strong> (default: <code>null</code>): Path to a file containing pretrained embeddings. By default <code>dense</code> embeddings are initialized randomly, but this parameter allows to specify a path to a file containing embeddings in the <a href="https://nlp.stanford.edu/projects/glove/">GloVe format</a>. When the file containing the embeddings is loaded, only the embeddings with labels present in the vocabulary are kept, the others are discarded. If the vocabulary contains strings that have no match in the embeddings file, their embeddings are initialized with the average of all other embedding plus some random noise to make them different from each other. This parameter has effect only if <code>representation</code> is <code>dense</code>.</li>
 <li><strong><code>output_size</code></strong> (default: <code>256</code>): The default output_size that will be used for each FC layer.</li>
+</ul>
+<h4 id="mamba-2-encoder">Mamba-2 Encoder<a class="headerlink" href="#mamba-2-encoder" title="Permanent link">&para;</a></h4>
+<p><a href="https://arxiv.org/abs/2405.21060">Mamba-2</a> (Dao &amp; Gu, 2024) extends Mamba-1 with multi-head
+structured state space duality (SSD). It is faster than Mamba-1 on modern hardware and supports
+a wider range of sequence lengths. Uses pure-PyTorch kernels — no special CUDA installation required.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">seq_feature</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sequence</span>
+<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mamba2</span>
+<span class="w">      </span><span class="nt">d_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
+<span class="w">      </span><span class="nt">n_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">      </span><span class="nt">num_heads</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="w">      </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
+<span class="w">      </span><span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mean</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mamba2</span>
+<span class="w">    </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+<span class="w">    </span><span class="nt">embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
+<span class="w">    </span><span class="nt">representation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dense</span>
+<span class="w">    </span><span class="nt">embeddings_on_cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">embeddings_trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mean</span>
+<span class="w">    </span><span class="nt">skip</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">adapter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">pretrained_embeddings</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">should_embed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">d_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
+<span class="w">    </span><span class="nt">n_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">    </span><span class="nt">num_heads</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="w">    </span><span class="nt">d_conv</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">    </span><span class="nt">expand_factor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>dropout</code></strong> (default: <code>0.1</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: Dropout rate. Increasing dropout is a common form of regularization to combat overfitting. The dropout is expressed as the probability of an element to be zeroed out (0.0 means no dropout).</li>
+<li><strong><code>embedding_size</code></strong> (default: <code>256</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: The maximum embedding size. The actual size will be <code>min(vocabulary_size, embedding_size)</code> for <code>dense</code> representations and exactly <code>vocabulary_size</code> for the <code>sparse</code> encoding, where <code>vocabulary_size</code> is the number of unique strings appearing in the training set input column plus the number of special tokens (<code>&lt;UNK&gt;</code>, <code>&lt;PAD&gt;</code>, <code>&lt;SOS&gt;</code>, <code>&lt;EOS&gt;</code>).</li>
+<li><strong><code>representation</code></strong> (default: <code>dense</code>): Representation of the embedding. <code>dense</code> means the embeddings are initialized randomly, <code>sparse</code> means they are initialized to be one-hot encodings. Options: <code>dense</code>, <code>sparse</code>.</li>
+<li><strong><code>embeddings_on_cpu</code></strong> (default: <code>false</code>): Whether to force the placement of the embedding matrix in regular memory and have the CPU resolve them. By default embedding matrices are stored on GPU memory if a GPU is used, as it allows for faster access, but in some cases the embedding matrix may be too large. This parameter forces the placement of the embedding matrix in regular memory and the CPU is used for embedding lookup, slightly slowing down the process as a result of data transfer between CPU and GPU memory.</li>
+<li><strong><code>embeddings_trainable</code></strong> (default: <code>true</code>): If <code>true</code> embeddings are trained during the training process, if <code>false</code> embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter has effect only when <code>representation</code> is <code>dense</code>; <code>sparse</code> one-hot encodings are not trainable.</li>
+<li><strong><code>reduce_output</code></strong> (default: <code>mean</code>): How to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Options: <code>last</code>, <code>sum</code>, <code>mean</code>, <code>avg</code>, <code>max</code>, <code>concat</code>, <code>attention</code>, <code>attention_pooling</code>, <code>none</code>, <code>None</code>, <code>null</code>.</li>
+<li><strong><code>skip</code></strong> (default: <code>false</code>): </li>
+<li>
+<p><strong><code>adapter</code></strong> (default: <code>null</code>): </p>
+</li>
+<li>
+<p><strong><code>pretrained_embeddings</code></strong> (default: <code>null</code>): Path to a file containing pretrained embeddings. By default <code>dense</code> embeddings are initialized randomly, but this parameter allows to specify a path to a file containing embeddings in the <a href="https://nlp.stanford.edu/projects/glove/">GloVe format</a>. When the file containing the embeddings is loaded, only the embeddings with labels present in the vocabulary are kept, the others are discarded. If the vocabulary contains strings that have no match in the embeddings file, their embeddings are initialized with the average of all other embedding plus some random noise to make them different from each other. This parameter has effect only if <code>representation</code> is <code>dense</code>.</p>
+</li>
+<li><strong><code>should_embed</code></strong> (default: <code>true</code>): If True the input sequence is expected to be made of integers and will be mapped into embeddings.</li>
+<li><strong><code>d_model</code></strong> (default: <code>256</code>): Hidden width of each Mamba-2 block.</li>
+<li><strong><code>n_layers</code></strong> (default: <code>4</code>): Number of stacked Mamba-2 blocks.</li>
+<li><strong><code>num_heads</code></strong> (default: <code>8</code>): Number of SSD heads. <code>d_model * expand_factor</code> must be divisible by <code>num_heads</code>.</li>
+<li><strong><code>d_conv</code></strong> (default: <code>4</code>): Width of the depthwise 1D convolution inside each block.</li>
+<li><strong><code>expand_factor</code></strong> (default: <code>2</code>): Inner expansion factor for each block.</li>
+<li><strong><code>output_size</code></strong> (default: <code>256</code>): Output feature width emitted by the encoder.</li>
+</ul>
+<h4 id="jamba-encoder">Jamba Encoder<a class="headerlink" href="#jamba-encoder" title="Permanent link">&para;</a></h4>
+<p><a href="https://arxiv.org/abs/2403.19887">Jamba</a> (Lieber et al., 2024) alternates between Mamba-2 SSM
+blocks and Transformer attention blocks. The ratio is controlled by <code>attention_every_k</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">seq_feature</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sequence</span>
+<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jamba</span>
+<span class="w">      </span><span class="nt">d_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
+<span class="w">      </span><span class="nt">n_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="w">      </span><span class="nt">attention_every_k</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">      </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
+<span class="w">      </span><span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mean</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jamba</span>
+<span class="w">    </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+<span class="w">    </span><span class="nt">embedding_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
+<span class="w">    </span><span class="nt">representation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dense</span>
+<span class="w">    </span><span class="nt">embeddings_on_cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">embeddings_trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mean</span>
+<span class="w">    </span><span class="nt">skip</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">adapter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">pretrained_embeddings</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">    </span><span class="nt">should_embed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">d_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
+<span class="w">    </span><span class="nt">n_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="w">    </span><span class="nt">attention_every_k</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">    </span><span class="nt">num_heads</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="w">    </span><span class="nt">ffn_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1024</span>
+<span class="w">    </span><span class="nt">d_conv</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">    </span><span class="nt">expand_factor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
+</code></pre></div>
+<p>Parameters:</p>
+<ul>
+<li><strong><code>dropout</code></strong> (default: <code>0.1</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: Dropout rate. Increasing dropout is a common form of regularization to combat overfitting. The dropout is expressed as the probability of an element to be zeroed out (0.0 means no dropout).</li>
+<li><strong><code>embedding_size</code></strong> (default: <code>256</code>) <span class="twemoji" title="High impact parameter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.69 2h10.56c.966 0 1.75.784 1.75 1.75v17.5a.75.75 0 0 1-1.218.585L12 17.21l-5.781 4.626A.75.75 0 0 1 5 21.253L4.94 3.756A1.75 1.75 0 0 1 6.69 2"/></svg></span>: The maximum embedding size. The actual size will be <code>min(vocabulary_size, embedding_size)</code> for <code>dense</code> representations and exactly <code>vocabulary_size</code> for the <code>sparse</code> encoding, where <code>vocabulary_size</code> is the number of unique strings appearing in the training set input column plus the number of special tokens (<code>&lt;UNK&gt;</code>, <code>&lt;PAD&gt;</code>, <code>&lt;SOS&gt;</code>, <code>&lt;EOS&gt;</code>).</li>
+<li><strong><code>representation</code></strong> (default: <code>dense</code>): Representation of the embedding. <code>dense</code> means the embeddings are initialized randomly, <code>sparse</code> means they are initialized to be one-hot encodings. Options: <code>dense</code>, <code>sparse</code>.</li>
+<li><strong><code>embeddings_on_cpu</code></strong> (default: <code>false</code>): Whether to force the placement of the embedding matrix in regular memory and have the CPU resolve them. By default embedding matrices are stored on GPU memory if a GPU is used, as it allows for faster access, but in some cases the embedding matrix may be too large. This parameter forces the placement of the embedding matrix in regular memory and the CPU is used for embedding lookup, slightly slowing down the process as a result of data transfer between CPU and GPU memory.</li>
+<li><strong><code>embeddings_trainable</code></strong> (default: <code>true</code>): If <code>true</code> embeddings are trained during the training process, if <code>false</code> embeddings are fixed. It may be useful when loading pretrained embeddings for avoiding finetuning them. This parameter has effect only when <code>representation</code> is <code>dense</code>; <code>sparse</code> one-hot encodings are not trainable.</li>
+<li><strong><code>reduce_output</code></strong> (default: <code>mean</code>): How to reduce the output tensor along the <code>s</code> sequence length dimension if the rank of the tensor is greater than 2. Options: <code>last</code>, <code>sum</code>, <code>mean</code>, <code>avg</code>, <code>max</code>, <code>concat</code>, <code>attention</code>, <code>attention_pooling</code>, <code>none</code>, <code>None</code>, <code>null</code>.</li>
+<li><strong><code>skip</code></strong> (default: <code>false</code>): </li>
+<li>
+<p><strong><code>adapter</code></strong> (default: <code>null</code>): </p>
+</li>
+<li>
+<p><strong><code>pretrained_embeddings</code></strong> (default: <code>null</code>): Path to a file containing pretrained embeddings. By default <code>dense</code> embeddings are initialized randomly, but this parameter allows to specify a path to a file containing embeddings in the <a href="https://nlp.stanford.edu/projects/glove/">GloVe format</a>. When the file containing the embeddings is loaded, only the embeddings with labels present in the vocabulary are kept, the others are discarded. If the vocabulary contains strings that have no match in the embeddings file, their embeddings are initialized with the average of all other embedding plus some random noise to make them different from each other. This parameter has effect only if <code>representation</code> is <code>dense</code>.</p>
+</li>
+<li><strong><code>should_embed</code></strong> (default: <code>true</code>): If True the input sequence is expected to be made of integers and will be mapped into embeddings.</li>
+<li><strong><code>d_model</code></strong> (default: <code>256</code>): Hidden width of every block — SSM and attention share the same d_model.</li>
+<li><strong><code>n_layers</code></strong> (default: <code>8</code>): Total number of stacked blocks (SSM + attention combined).</li>
+<li><strong><code>attention_every_k</code></strong> (default: <code>4</code>): Every <code>attention_every_k</code>-th block is attention, the remainder are SSM. Default 4 gives a 1:3 attention:SSM ratio matching the Jamba paper.</li>
+<li><strong><code>num_heads</code></strong> (default: <code>8</code>): Number of attention heads (and SSD heads, shared).</li>
+<li><strong><code>ffn_size</code></strong> (default: <code>1024</code>): Feed-forward width inside each attention block.</li>
+<li><strong><code>d_conv</code></strong> (default: <code>4</code>): Width of the depthwise 1D convolution inside each SSM block.</li>
+<li><strong><code>expand_factor</code></strong> (default: <code>2</code>): Inner expansion factor inside each SSM block.</li>
+<li><strong><code>output_size</code></strong> (default: <code>256</code>): Output feature width emitted by the encoder.</li>
 </ul>
 <h2 id="output-features">Output Features<a class="headerlink" href="#output-features" title="Permanent link">&para;</a></h2>
 <p>Sequence output features can be used for either tagging (classifying each element of an input sequence) or

@@ -2835,6 +2835,8 @@
       
         
       
+        
+      
     
     
     
@@ -3114,6 +3116,34 @@
     
   
     Fine-tuning for tabular classification (TabLLM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../llms/peft_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced PEFT Adapters
   
 
     
@@ -4001,6 +4031,56 @@
     <span class="md-ellipsis">
       
         Config
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#state-of-the-art-encoders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State-of-the-art encoders
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="State-of-the-art encoders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#patchtst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PatchTST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#n-beats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        N-BEATS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scale-free-validation-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scale-free validation metrics
       
     </span>
   </a>
@@ -5284,6 +5364,56 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#state-of-the-art-encoders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State-of-the-art encoders
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="State-of-the-art encoders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#patchtst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PatchTST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#n-beats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        N-BEATS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scale-free-validation-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scale-free validation metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#choosing-an-encoder" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5492,6 +5622,76 @@ from a contiguous series (e.g., independent samples with known context windows).
 <span class="w">  </span><span class="nt">epochs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
 <span class="w">  </span><span class="nt">batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span>
 </code></pre></div>
+<h3 id="state-of-the-art-encoders">State-of-the-art encoders<a class="headerlink" href="#state-of-the-art-encoders" title="Permanent link">&para;</a></h3>
+<p>Ludwig includes two modern time-series-specific encoders — PatchTST and N-BEATS — that typically outperform
+generic sequence encoders on forecasting benchmarks.</p>
+<h4 id="patchtst">PatchTST<a class="headerlink" href="#patchtst" title="Permanent link">&para;</a></h4>
+<p>PatchTST segments the input window into short overlapping patches and encodes them with a Transformer. It
+is particularly effective on longer input windows (96+ timesteps) and multi-step horizons.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">temperature</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">timeseries</span>
+<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">window_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">96</span>
+<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">patchtst</span>
+<span class="w">      </span><span class="nt">patch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span>
+<span class="w">      </span><span class="nt">patch_stride</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="w">      </span><span class="nt">d_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span>
+<span class="w">      </span><span class="nt">num_heads</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="w">      </span><span class="nt">num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">      </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
+
+<span class="nt">output_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">temperature</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">timeseries</span>
+<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">horizon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">24</span>
+<span class="w">    </span><span class="nt">loss</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">huber</span>
+
+<span class="nt">trainer</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">epochs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">  </span><span class="nt">optimizer</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adamw</span>
+<span class="w">    </span><span class="nt">lr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1e-4</span>
+</code></pre></div>
+<h4 id="n-beats">N-BEATS<a class="headerlink" href="#n-beats" title="Permanent link">&para;</a></h4>
+<p>N-BEATS is a pure MLP with doubly-residual stacking. It is fast to train, requires no positional encoding,
+and matches Transformer-based models on many univariate benchmarks.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">temperature</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">timeseries</span>
+<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">window_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">96</span>
+<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nbeats</span>
+<span class="w">      </span><span class="nt">num_stacks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">      </span><span class="nt">num_blocks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">      </span><span class="nt">layer_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
+<span class="w">      </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
+
+<span class="nt">output_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">temperature</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">timeseries</span>
+<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">horizon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">24</span>
+
+<span class="nt">trainer</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">epochs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">  </span><span class="nt">optimizer</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adamw</span>
+<span class="w">    </span><span class="nt">lr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1e-4</span>
+</code></pre></div>
+<h4 id="scale-free-validation-metrics">Scale-free validation metrics<a class="headerlink" href="#scale-free-validation-metrics" title="Permanent link">&para;</a></h4>
+<p>Use <code>mean_absolute_scaled_error</code> (MASE) or <code>symmetric_mean_absolute_percentage_error</code> (sMAPE) as validation
+metrics when comparing models trained on datasets with different scales, or when interpretable percentage-based
+error is preferred.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">output_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">temperature</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">timeseries</span>
+<span class="w">    </span><span class="nt">validation_metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mean_absolute_scaled_error</span>
+</code></pre></div>
 <h3 id="choosing-an-encoder">Choosing an encoder<a class="headerlink" href="#choosing-an-encoder" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5501,6 +5701,18 @@ from a contiguous series (e.g., independent samples with known context windows).
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><code>patchtst</code></td>
+<td>Best accuracy on longer windows (96+), multi-step horizons</td>
+</tr>
+<tr>
+<td><code>nbeats</code></td>
+<td>Fast training, strong univariate baseline, no positional encoding needed</td>
+</tr>
+<tr>
+<td><code>transformer</code></td>
+<td>Good accuracy on complex patterns, generic architecture</td>
+</tr>
 <tr>
 <td><code>parallel_cnn</code></td>
 <td>Fast training, captures local patterns, good baseline</td>
@@ -5512,10 +5724,6 @@ from a contiguous series (e.g., independent samples with known context windows).
 <tr>
 <td><code>rnn</code></td>
 <td>Sequential dependencies, moderate sequence length</td>
-</tr>
-<tr>
-<td><code>transformer</code></td>
-<td>Best accuracy on complex patterns, slower to train</td>
 </tr>
 <tr>
 <td><code>passthrough</code></td>

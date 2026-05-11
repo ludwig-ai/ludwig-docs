@@ -2632,6 +2632,28 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#patchtst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PatchTST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#n-beats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        N-BEATS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#passthrough-encoder" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2709,6 +2731,56 @@
     <span class="md-ellipsis">
       
         Projector
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metrics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mean-absolute-scaled-error-mase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mean Absolute Scaled Error (MASE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symmetric-mean-absolute-percentage-error-smape" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symmetric Mean Absolute Percentage Error (sMAPE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#available-metrics-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Available metrics summary
       
     </span>
   </a>
@@ -3070,6 +3142,8 @@
       
         
       
+        
+      
     
     
     
@@ -3349,6 +3423,34 @@
     
   
     Fine-tuning for tabular classification (TabLLM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/llms/peft_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced PEFT Adapters
   
 
     
@@ -5264,6 +5366,28 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#patchtst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PatchTST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#n-beats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        N-BEATS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#passthrough-encoder" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5341,6 +5465,56 @@
     <span class="md-ellipsis">
       
         Projector
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metrics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mean-absolute-scaled-error-mase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mean Absolute Scaled Error (MASE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symmetric-mean-absolute-percentage-error-smape" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symmetric Mean Absolute Percentage Error (sMAPE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#available-metrics-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Available metrics summary
       
     </span>
   </a>
@@ -5464,6 +5638,126 @@ a feature of the same type and with the same encoder parameters.</li>
 <span class="nt">encoder</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">parallel_cnn</span>
 </code></pre></div>
+<h4 id="patchtst">PatchTST<a class="headerlink" href="#patchtst" title="Permanent link">&para;</a></h4>
+<p>PatchTST (<code>type: patchtst</code>) splits the time series into fixed-length overlapping patches, projects each patch to a
+learned embedding, and encodes the sequence of patch embeddings with a Transformer. Processing is
+channel-independent: each variate is encoded separately before being combined by the combiner.</p>
+<p>Reference: Nie et al., "A Time Series is Worth 64 Words: Long-term Forecasting with Transformers", ICLR 2023.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">patchtst</span>
+<span class="w">  </span><span class="nt">patch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span><span class="w">        </span><span class="c1"># length of each patch in timesteps</span>
+<span class="w">  </span><span class="nt">patch_stride</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span><span class="w">       </span><span class="c1"># step between consecutive patches (overlap when &lt; patch_size)</span>
+<span class="w">  </span><span class="nt">d_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span><span class="w">          </span><span class="c1"># patch embedding dimension</span>
+<span class="w">  </span><span class="nt">num_heads</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span><span class="w">          </span><span class="c1"># number of Transformer attention heads</span>
+<span class="w">  </span><span class="nt">num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">         </span><span class="c1"># number of Transformer encoder layers</span>
+<span class="w">  </span><span class="nt">ffn_dim</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w">          </span><span class="c1"># feed-forward hidden dimension</span>
+<span class="w">  </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w">      </span><span class="c1"># size of the final encoder output vector</span>
+<span class="w">  </span><span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mean</span><span class="w">   </span><span class="c1"># how to aggregate patch outputs: mean | last | first</span>
+</code></pre></div>
+<p>Parameters:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>patch_size</code></td>
+<td><code>16</code></td>
+<td>Length of each patch in timesteps</td>
+</tr>
+<tr>
+<td><code>patch_stride</code></td>
+<td><code>8</code></td>
+<td>Step between consecutive patch start positions. Set equal to <code>patch_size</code> for non-overlapping patches</td>
+</tr>
+<tr>
+<td><code>d_model</code></td>
+<td><code>128</code></td>
+<td>Dimension of the patch embedding and Transformer hidden states</td>
+</tr>
+<tr>
+<td><code>num_heads</code></td>
+<td><code>8</code></td>
+<td>Number of multi-head attention heads</td>
+</tr>
+<tr>
+<td><code>num_layers</code></td>
+<td><code>3</code></td>
+<td>Number of Transformer encoder layers</td>
+</tr>
+<tr>
+<td><code>ffn_dim</code></td>
+<td><code>256</code></td>
+<td>Hidden dimension of the Transformer feed-forward sub-layer</td>
+</tr>
+<tr>
+<td><code>output_size</code></td>
+<td><code>256</code></td>
+<td>Dimension of the final output vector</td>
+</tr>
+<tr>
+<td><code>reduce_output</code></td>
+<td><code>mean</code></td>
+<td>Aggregation strategy across patch outputs: <code>mean</code>, <code>last</code>, or <code>first</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="n-beats">N-BEATS<a class="headerlink" href="#n-beats" title="Permanent link">&para;</a></h4>
+<p>N-BEATS (<code>type: nbeats</code>) is a pure MLP architecture with doubly-residual stacking. Each block produces a
+backcast (subtracts its modeled portion from the input) and a forecast contribution. Contributions from all
+blocks are summed to produce the final output. The design requires no time-series-specific inductive biases
+and achieves strong results on univariate forecasting benchmarks.</p>
+<p>Reference: Oreshkin et al., "N-BEATS: Neural basis expansion analysis for interpretable time series forecasting",
+ICLR 2020.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nbeats</span>
+<span class="w">  </span><span class="nt">num_stacks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w">         </span><span class="c1"># number of stacks (groups of blocks)</span>
+<span class="w">  </span><span class="nt">num_blocks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">         </span><span class="c1"># number of blocks per stack</span>
+<span class="w">  </span><span class="nt">num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w">         </span><span class="c1"># number of FC layers inside each block</span>
+<span class="w">  </span><span class="nt">layer_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w">       </span><span class="c1"># hidden dimension of each FC layer</span>
+<span class="w">  </span><span class="nt">output_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span><span class="w">      </span><span class="c1"># size of the final encoder output vector</span>
+</code></pre></div>
+<p>Parameters:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>num_stacks</code></td>
+<td><code>2</code></td>
+<td>Number of stacks (each stack is a group of residual blocks)</td>
+</tr>
+<tr>
+<td><code>num_blocks</code></td>
+<td><code>3</code></td>
+<td>Number of blocks per stack</td>
+</tr>
+<tr>
+<td><code>num_layers</code></td>
+<td><code>4</code></td>
+<td>Number of fully-connected layers inside each block</td>
+</tr>
+<tr>
+<td><code>layer_size</code></td>
+<td><code>256</code></td>
+<td>Hidden dimension of each fully-connected layer</td>
+</tr>
+<tr>
+<td><code>output_size</code></td>
+<td><code>256</code></td>
+<td>Dimension of the final output vector</td>
+</tr>
+</tbody>
+</table>
 <h4 id="passthrough-encoder">Passthrough Encoder<a class="headerlink" href="#passthrough-encoder" title="Permanent link">&para;</a></h4>
 <p><pre class="mermaid"><code>graph LR
   A["12\n7\n43\n65\n23\n4\n1"] --&gt; B["Cast float32"];
@@ -5549,6 +5843,58 @@ vector of size <code>horizon</code>. This is the recommended decoder for timeser
 <span class="w">    </span><span class="nt">decoder</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">projector</span>
 </code></pre></div>
+<h3 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permanent link">&para;</a></h3>
+<p>Ludwig computes the following metrics for timeseries output features during training and evaluation.</p>
+<h4 id="mean-absolute-scaled-error-mase">Mean Absolute Scaled Error (MASE)<a class="headerlink" href="#mean-absolute-scaled-error-mase" title="Permanent link">&para;</a></h4>
+<p>MASE normalizes the mean absolute error by the mean absolute error of the in-sample naive one-step forecast
+(i.e. the mean absolute difference between consecutive observations). Because the scale cancels out, MASE is
+comparable across datasets with different units or magnitudes. A MASE of 1.0 means the model performs
+identically to the naive baseline; values below 1.0 indicate the model outperforms it.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">output_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">temperature</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">timeseries</span>
+<span class="w">    </span><span class="nt">validation_metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mean_absolute_scaled_error</span>
+</code></pre></div>
+<h4 id="symmetric-mean-absolute-percentage-error-smape">Symmetric Mean Absolute Percentage Error (sMAPE)<a class="headerlink" href="#symmetric-mean-absolute-percentage-error-smape" title="Permanent link">&para;</a></h4>
+<p>sMAPE computes the percentage error symmetrically, using the average of the absolute predicted and actual
+values as the denominator. This avoids the asymmetry of standard MAPE (which penalises over-forecasts more
+than under-forecasts) and is bounded between 0% and 200%.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">output_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">temperature</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">timeseries</span>
+<span class="w">    </span><span class="nt">validation_metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">symmetric_mean_absolute_percentage_error</span>
+</code></pre></div>
+<h4 id="available-metrics-summary">Available metrics summary<a class="headerlink" href="#available-metrics-summary" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Metric key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mean_squared_error</code></td>
+<td>Mean squared error</td>
+</tr>
+<tr>
+<td><code>mean_absolute_error</code></td>
+<td>Mean absolute error</td>
+</tr>
+<tr>
+<td><code>mean_absolute_scaled_error</code></td>
+<td>Scale-free MAE normalised by naive baseline</td>
+</tr>
+<tr>
+<td><code>symmetric_mean_absolute_percentage_error</code></td>
+<td>Symmetric percentage error (0–200%)</td>
+</tr>
+<tr>
+<td><code>r2</code></td>
+<td>Coefficient of determination</td>
+</tr>
+</tbody>
+</table>
 <h3 id="loss">Loss<a class="headerlink" href="#loss" title="Permanent link">&para;</a></h3>
 <p>The default loss for timeseries output features is Huber loss, which is robust to outliers compared to MSE.
 You can override it:</p>

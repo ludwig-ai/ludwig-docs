@@ -48,3 +48,10 @@ In-context learning is most commonly useful in the following situations:
 In-context learning doesn't require any training in order to make use of it, so it's a natural place to start when applying an LLM to a task. The primarily limitation of ICL is the context length of the LLM itself (how many "tokens" can be put into the prompt). It should be noted that even for models
 that accept very long contexts, there is often a degradation in performance as the prompt increases in length (see: [Lost in the Middle: How Language Models Use Long Contexts](https://arxiv.org/abs/2307.03172)). As such, if the the context needed to respond to the prompt is very large, it may be worth
 exploring fine-tuning instead.
+
+## Additional Topics
+
+- [**VLM Fine-Tuning**](vlm_finetuning.md) — Fine-tune Vision-Language Models (Qwen2-VL, LLaVA) on image+text tasks
+- [**Multi-Adapter PEFT**](multi_adapter.md) — Merge multiple LoRA adapters with TIES, DARE, or linear combining
+- [**LLM Config Generation**](config_generation.md) — Generate a valid Ludwig config from a plain-English task description
+- [**Structured Output**](structured_output.md) — Constrained decoding for guaranteed valid category and JSON output

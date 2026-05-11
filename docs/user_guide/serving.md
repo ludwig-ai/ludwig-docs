@@ -149,3 +149,103 @@ response = client.chat.completions.create(
 )
 print(response.choices[0].message.content)
 ```
+
+---
+
+## Ray Serve
+
+[Ray Serve](https://docs.ray.io/en/latest/serve/index.html) provides autoscaling multi-replica
+serving on a Ray cluster. Use this for production deployments where you need horizontal scaling
+or traffic splitting.
+
+### Install
+
+```bash
+pip install "ludwig[distributed]"
+```
+
+### Deploy
+
+```python
+import ray
+from ludwig.serve_ray_serve import deploy_ludwig_model
+
+ray.init(ignore_reinit_error=True)
+
+handle = deploy_ludwig_model(
+    model_path="results/experiment_run/model",
+    name="sentiment",
+    num_replicas=2,
+    ray_actor_options={"num_gpus": 1},  # omit for CPU
+)
+```
+
+Or via the CLI helper:
+
+```bash
+python examples/serving/ray_serve/deploy.py \
+    --model_path ./results/my_model \
+    --num_replicas 2 \
+    --gpu \
+    --block
+```
+
+### Send predictions
+
+```bash
+curl -X POST http://localhost:8000/sentiment \
+  -H "Content-Type: application/json" \
+  -d '{"text": "I love this product!"}'
+
+# Batch (list of records)
+curl -X POST http://localhost:8000/sentiment \
+  -H "Content-Type: application/json" \
+  -d '[{"text": "great"}, {"text": "terrible"}]'
+```
+
+---
+
+## KServe
+
+[KServe](https://kserve.github.io) is the standard for Kubernetes ML inference, implementing
+the Open Inference Protocol v2. Use this for cloud/Kubernetes production deployments.
+
+### Install
+
+```bash
+pip install kserve
+```
+
+### Serve locally
+
+```bash
+python -m ludwig.serve_kserve \
+    --model_name sentiment \
+    --model_path results/experiment_run/model
+```
+
+### Send v2 protocol requests
+
+```bash
+curl -X POST http://localhost:8080/v2/models/sentiment/infer \
+  -H "Content-Type: application/json" \
+  -d '{
+    "inputs": [
+      {"name": "text", "shape": [1], "datatype": "BYTES", "data": ["I love this!"]}
+    ]
+  }'
+```
+
+For full deployment examples (autoscaling, A/B testing, Kubernetes manifests) see the
+[Ray Serve and KServe example](../examples/ray_serve.md).
+
+---
+
+## Choosing a serving option
+
+| Option | Scale | Protocol | Best for |
+|--------|-------|----------|----------|
+| `ludwig serve` (FastAPI) | Single process | REST JSON | Development, simple APIs |
+| Ray Serve | Multi-replica, autoscaling | REST JSON | Production on Ray clusters |
+| KServe | Kubernetes-native | OIP v2 | Enterprise Kubernetes |
+| `ludwig serve` (vLLM) | GPU-optimized | OpenAI-compatible | LLM serving |

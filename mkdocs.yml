@@ -116,12 +116,20 @@ nav:
           - Named Entity Recognition Tagging: examples/ner_tagging.md
           - Natural Language Understanding: examples/nlu.md
           - Machine Translation: examples/machine_translation.md
+          - Text Summarization: examples/text_summarization.md
+          - Text Regression - Rating Prediction: examples/text_regression.md
+          - Question Answering: examples/question_answering.md
           - Chit-Chat Dialogue Modeling through Sequence2Sequence: examples/seq2seq.md
           - Sentiment Analysis: examples/sentiment_analysis.md
+          - Content Safety & Toxicity Detection: examples/content_safety.md
+          - Multilingual NLP: examples/multilingual_nlp.md
+          - Code Intelligence: examples/code_intelligence.md
           - One-shot Learning with Siamese Networks: examples/oneshot.md
           - Visual Question Answering: examples/visual_qa.md
+          - Document Understanding: examples/document_understanding.md
           - Spoken Digit Speech Recognition: examples/speech_recognition.md
           - Speaker Verification: examples/speaker_verification.md
+          - Audio Classification: examples/audio_classification.md
           - Binary Classification (Titanic): examples/titanic.md
           - Timeseries forecasting: examples/forecasting.md
           - Timeseries forecasting (Weather): examples/weather.md

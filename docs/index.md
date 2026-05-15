@@ -277,6 +277,429 @@ if you have any questions.
   ludwig export_torchscript -–model_path=/path/to/model
   ```
 
+# 🗂️ Task Gallery
+
+Ludwig ships with **500+ built-in datasets** covering every major ML task.  Each dataset can be
+loaded with a single command: `ludwig datasets download <name>` or `from ludwig.datasets import <name>`.
+Pick a task below to see the config.
+
+=== "Text Classification"
+
+    Classify text into categories — topics, intents, sentiments, or arbitrary labels.
+
+    ```yaml
+    # Dataset: amazon_massive_intent — multilingual intent classification (51 languages, 60 intents)
+    # ludwig datasets download amazon_massive_intent
+    input_features:
+      - name: utt
+        type: text
+    output_features:
+      - name: intent
+        type: category
+    ```
+
+    Other datasets: `agnews`, `clinc_oos`, `banking77`, `aegis_safety`, `go_emotions`
+
+=== "Text Regression"
+
+    Predict a continuous numeric score from text — star ratings, quality scores, relevance.
+
+    ```yaml
+    # Dataset: app_reviews — predict 1-5 star rating from mobile app review text (288K examples)
+    # ludwig datasets download app_reviews
+    input_features:
+      - name: review
+        type: text
+        encoder:
+          type: bert
+          trainable: true
+    output_features:
+      - name: star
+        type: number
+    trainer:
+      epochs: 5
+      learning_rate: 1.0e-5
+    ```
+
+    Other datasets: `amazon_reviews_2023`, `civil_comments` (toxicity), `bookprice_prediction`
+
+=== "Text Summarization"
+
+    Generate a concise summary from a long document or article.
+
+    ```yaml
+    # Dataset: cnn_dailymail — news article → bullet-point highlights (287K examples)
+    # ludwig datasets download cnn_dailymail
+    input_features:
+      - name: article
+        type: text
+        encoder:
+          type: auto_transformer
+          pretrained_model_name_or_path: facebook/bart-base
+          trainable: true
+          max_sequence_length: 512
+    output_features:
+      - name: highlights
+        type: text
+        decoder:
+          type: generator
+          max_new_tokens: 128
+    trainer:
+      epochs: 3
+      batch_size: 4
+      gradient_accumulation_steps: 8
+      learning_rate: 5.0e-5
+    ```
+
+    Other datasets: `arxiv_summarization`, `big_patent`, `aeslc`, `billsum`
+
+=== "Named Entity Recognition"
+
+    Tag each token in a sentence with its entity type (person, organisation, location, …).
+
+    ```yaml
+    # Dataset: wikiann_en — Wikipedia-derived NER in English (IOB2 tags)
+    # ludwig datasets download wikiann_en
+    input_features:
+      - name: sentence
+        type: text
+    output_features:
+      - name: ner_tags
+        type: sequence
+    ```
+
+    Other datasets: `wikiann_de`, `multinerd`, `few_nerd`, `pii_masking`
+
+=== "Question Answering"
+
+    Given a passage and a question, extract or generate the answer.
+
+    ```yaml
+    # Dataset: drop — Discrete Reasoning Over Paragraphs (77K reading-comprehension examples)
+    # ludwig datasets download drop
+    input_features:
+      - name: passage
+        type: text
+        encoder:
+          type: auto_transformer
+          pretrained_model_name_or_path: google-bert/bert-base-uncased
+          trainable: true
+      - name: question
+        type: text
+        encoder:
+          type: auto_transformer
+          pretrained_model_name_or_path: google-bert/bert-base-uncased
+          trainable: true
+    output_features:
+      - name: answers_spans
+        type: text
+        decoder:
+          type: generator
+          max_new_tokens: 32
+    combiner:
+      type: concat
+    trainer:
+      epochs: 5
+      learning_rate: 2.0e-5
+    ```
+
+    Other datasets: `ambig_qa`, `nq_open`, `boolq`, `arc_challenge`, `arc_easy`, `cmrc2018`
+
+=== "Code Intelligence"
+
+    Work with source code as input — detect bugs, generate docstrings, search code.
+
+    ```yaml
+    # Dataset: code_defect_detection — binary bug classification for C/C++ functions (21K examples)
+    # ludwig datasets download code_defect_detection
+    input_features:
+      - name: func
+        type: text
+        encoder:
+          type: auto_transformer
+          pretrained_model_name_or_path: microsoft/codebert-base
+          trainable: true
+    output_features:
+      - name: target
+        type: binary
+    trainer:
+      epochs: 10
+      learning_rate: 2.0e-5
+      batch_size: 32
+    ```
+
+    Other datasets: `codexglue_code_to_text`, `code_search_net`, `code_contests`, `code_alpaca`
+
+=== "Audio Classification"
+
+    Classify audio clips by emotion, sound type, intent, or speaker characteristics.
+
+    ```yaml
+    # Dataset: emodb — Berlin Emotional Speech Database; 7 emotion classes (535 clips)
+    # ludwig datasets download emodb
+    input_features:
+      - name: audio
+        type: audio
+        encoder:
+          type: stacked_cnn
+    output_features:
+      - name: emotion
+        type: category
+    trainer:
+      epochs: 20
+      batch_size: 16
+    ```
+
+    Other datasets: `esc50` (50 environmental sounds), `minds14` (banking intent), `speech_massive`, `abjad_kids`
+
+=== "Speech Recognition"
+
+    Transcribe spoken audio to text.
+
+    ```yaml
+    # Dataset: ami_asr — AMI Meeting Corpus audio transcription (108K train examples)
+    # ludwig datasets download ami_asr
+    input_features:
+      - name: audio
+        type: audio
+        encoder:
+          type: auto_transformer
+          pretrained_model_name_or_path: facebook/wav2vec2-base
+          trainable: true
+    output_features:
+      - name: text
+        type: text
+        decoder:
+          type: generator
+    trainer:
+      epochs: 10
+      learning_rate: 1.0e-5
+    ```
+
+    Other datasets: `librispeech`, `peoples_speech`, `voxpopuli`, `mls_german`, `cantonese_asr`
+
+=== "Image Classification"
+
+    Assign a category label to an image.
+
+    ```yaml
+    # Dataset: eurosat_rgb — Sentinel-2 satellite image land-use classification (10 classes, 27K examples)
+    # ludwig datasets download eurosat_rgb
+    input_features:
+      - name: image
+        type: image
+        encoder:
+          type: vit
+          use_pretrained: true
+    output_features:
+      - name: label
+        type: category
+    trainer:
+      epochs: 10
+      learning_rate: 1.0e-4
+    ```
+
+    Other datasets: `cifar10`, `cifar100`, `food101`, `fashion_mnist`, `gtsrb`, `beans`, `resisc45`
+
+=== "Document Understanding"
+
+    Answer questions about a document image — invoices, receipts, forms, research papers.
+
+    ```yaml
+    # Dataset: docvqa — DocVQA: document image + question → answer
+    # ludwig datasets download docvqa
+    input_features:
+      - name: image_path
+        type: image
+        encoder:
+          type: vit
+          trainable: true
+      - name: question
+        type: text
+        encoder:
+          type: bert
+          trainable: true
+    output_features:
+      - name: answer
+        type: text
+        decoder:
+          type: generator
+          max_new_tokens: 64
+    combiner:
+      type: concat
+    trainer:
+      epochs: 5
+      batch_size: 8
+      learning_rate: 1.0e-5
+    ```
+
+    Other datasets: `cord_v2`, `invoice_data`, `textvqa`, `merit`, `vqa_rad`
+
+=== "Content Safety"
+
+    Detect harmful, toxic, or unsafe content in text or model outputs.
+
+    ```yaml
+    # Dataset: aegis_safety — NVIDIA Aegis 2.0; 30K prompt+response safety labels
+    # ludwig datasets download aegis_safety
+    input_features:
+      - name: prompt
+        type: text
+        encoder:
+          type: bert
+          pretrained_model_name_or_path: answerdotai/ModernBERT-base
+          trainable: true
+      - name: response
+        type: text
+        encoder:
+          type: bert
+          pretrained_model_name_or_path: answerdotai/ModernBERT-base
+          trainable: true
+    output_features:
+      - name: safety_label
+        type: category
+    trainer:
+      epochs: 5
+      learning_rate: 2.0e-5
+      batch_size: 32
+    ```
+
+    Other datasets: `civil_comments` (toxicity), `beavertails`, `jigsaw_toxicity_pred`, `factcheck`
+
+=== "Multilingual NLP"
+
+    Train a single model on data from dozens of languages simultaneously.
+
+    ```yaml
+    # Dataset: amazon_massive_intent — 60-intent classification across 51 languages (106K train examples)
+    # ludwig datasets download amazon_massive_intent
+    input_features:
+      - name: utt
+        type: text
+        encoder:
+          type: auto_transformer
+          pretrained_model_name_or_path: google-bert/bert-base-multilingual-cased
+          trainable: true
+    output_features:
+      - name: intent
+        type: category
+    trainer:
+      epochs: 10
+      learning_rate: 2.0e-5
+      batch_size: 64
+    ```
+
+    Other datasets: `amazon_massive_scenario`, `wikiann_de`, `belebele`, `bornholm_bitext`, `mls_german`
+
+=== "Tabular Classification"
+
+    Predict a category from structured numeric and categorical columns.
+
+    ```yaml
+    # Dataset: iris_sklearn — classic 3-class flower classification (150 examples)
+    # ludwig datasets download iris_sklearn
+    input_features:
+      - name: sepal length (cm)
+        type: number
+      - name: sepal width (cm)
+        type: number
+      - name: petal length (cm)
+        type: number
+      - name: petal width (cm)
+        type: number
+    output_features:
+      - name: target
+        type: category
+    ```
+
+    Other datasets: `adult_census_income`, `forest_cover`, `otto_group_product`, `mushroom_edibility`
+
+=== "Tabular Regression"
+
+    Predict a continuous value from structured data.
+
+    ```yaml
+    # Dataset: ames_housing — predict house sale price from 80 features (1460 examples)
+    # ludwig datasets download ames_housing
+    input_features:
+      - name: GrLivArea
+        type: number
+      - name: BedroomAbvGr
+        type: number
+      - name: FullBath
+        type: number
+      - name: YearBuilt
+        type: number
+      - name: Neighborhood
+        type: category
+    output_features:
+      - name: SalePrice
+        type: number
+    ```
+
+    Other datasets: `california_housing`, `allstate_claims_severity`, `mercedes_benz_greener`
+
+=== "Multi-label Classification"
+
+    Assign multiple labels simultaneously to a single input.
+
+    ```yaml
+    # Dataset: go_emotions — 28-emotion multi-label classification from Reddit comments (58K examples)
+    # ludwig datasets download go_emotions
+    input_features:
+      - name: text
+        type: text
+        encoder:
+          type: bert
+          trainable: true
+    output_features:
+      - name: labels
+        type: set
+    trainer:
+      epochs: 10
+      learning_rate: 2.0e-5
+    ```
+
+    Other datasets: `lex_glue_ecthr`, `lex_glue_eurlex`, `go_emotions_multiclass`
+
+=== "Instruction Tuning"
+
+    Fine-tune an LLM to follow natural language instructions.
+
+    ```yaml
+    # Dataset: alpaca_gpt4 — 52K GPT-4-generated instruction-following examples
+    # ludwig datasets download alpaca_gpt4
+    model_type: llm
+    base_model: meta-llama/Llama-3.1-8B
+    quantization:
+      bits: 4
+    adapter:
+      type: lora
+    prompt:
+      template: |
+        ### Instruction:
+        {instruction}
+
+        ### Input:
+        {input}
+
+        ### Response:
+    input_features:
+      - name: prompt
+        type: text
+    output_features:
+      - name: output
+        type: text
+    trainer:
+      type: finetune
+      epochs: 3
+      learning_rate: 1.0e-4
+      batch_size: 1
+      gradient_accumulation_steps: 16
+    ```
+
+    Other datasets: `alpaca`, `alpaca_cleaned`, `databricks_dolly_15k`, `code_alpaca`, `coig_cqia`
+
 # 📚 Tutorials
 
 - [Text Classification](./examples/text_classification.md)
@@ -289,12 +712,20 @@ if you have any questions.
 - [Named Entity Recognition Tagging](./examples/ner_tagging.md)
 - [Natural Language Understanding](./examples/nlu.md)
 - [Machine Translation](./examples/machine_translation.md)
+- [Text Summarization](./examples/text_summarization.md)
+- [Text Regression: Rating Prediction](./examples/text_regression.md)
 - [Chit-Chat Dialogue Modeling through seq2seq](./examples/seq2seq.md)
+- [Question Answering](./examples/question_answering.md)
 - [Sentiment Analysis](./examples/sentiment_analysis.md)
+- [Content Safety & Toxicity Detection](./examples/content_safety.md)
+- [Multilingual NLP](./examples/multilingual_nlp.md)
+- [Code Intelligence](./examples/code_intelligence.md)
 - [One-shot Learning with Siamese Networks](./examples/oneshot.md)
 - [Visual Question Answering](./examples/visual_qa.md)
+- [Document Understanding](./examples/document_understanding.md)
 - [Spoken Digit Speech Recognition](./examples/speech_recognition.md)
 - [Speaker Verification](./examples/speaker_verification.md)
+- [Audio Classification](./examples/audio_classification.md)
 - [Binary Classification (Titanic)](./examples/titanic.md)
 - [Timeseries forecasting](./examples/forecasting.md)
 - [Timeseries forecasting (Weather)](./examples/weather.md)

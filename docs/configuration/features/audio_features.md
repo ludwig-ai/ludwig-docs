@@ -18,6 +18,119 @@ Parameters:
 
 Preprocessing parameters can also be defined once and applied to all audio input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 
+## Lazy Preprocessing
+
+By default (`lazy: true`), Ludwig does **not** decode audio files during the preprocessing phase.
+Instead, it stores file paths in the processed dataset and decodes audio clips on-the-fly, one batch
+at a time, during training. This approach has significant memory advantages for large audio datasets.
+
+### Why Lazy Preprocessing?
+
+The traditional eager approach decodes every audio file upfront and stores the resulting tensors in
+the processed dataset (Parquet file). For a dataset of N clips each lasting L seconds at sampling
+rate S, the peak preprocessing memory is roughly:
+
+```
+N × L × S × 4 bytes  (float32)
+```
+
+For 100,000 clips at 5 seconds / 16 kHz, that is ~32 GB — likely exceeding available RAM before
+training even starts.
+
+With lazy preprocessing, peak memory during preprocessing drops to near zero for the audio tensors
+(only paths are stored). During training, only one batch of decoded audio lives in memory at a time,
+so peak memory is:
+
+```
+batch_size × L × S × 4 bytes
+```
+
+Decoding happens in a `ThreadPoolExecutor` that runs in parallel with the GPU forward pass, so
+throughput is not meaningfully affected compared to the eager path.
+
+### Configuration
+
+```yaml
+input_features:
+  - name: audio
+    type: audio
+    preprocessing:
+      lazy: true               # default; set to false to decode everything upfront
+      lazy_cache_dir: null     # default; set to a path to control where files are cached
+      audio_file_length_limit_in_s: 7.5
+      type: fbank
+      num_filter_bands: 80
+```
+
+### Lazy Preprocessing with HuggingFace Datasets
+
+When loading a HuggingFace dataset (e.g. `datasets.load_dataset(...)`), audio columns are delivered
+as Python dicts — not file paths:
+
+```python
+{
+    "array": np.ndarray,          # decoded waveform, shape (samples,)
+    "sampling_rate": 16000,       # sample rate in Hz
+    "path": "/path/to/cache.wav"  # optional: HF's local cache path
+}
+```
+
+Ludwig handles this transparently:
+
+1. **If `path` points to an existing file on disk** (HuggingFace's local cache), Ludwig reuses that
+   file directly — no copy is made.
+2. **Otherwise**, Ludwig writes the waveform to a WAV file in `lazy_cache_dir` and uses that path.
+
+This means that for most HuggingFace audio datasets, the first run caches files to
+`~/.cache/ludwig/lazy_media/<feature_name>/` and subsequent runs skip the write step entirely
+(the cache is persistent and idempotent).
+
+### Controlling the Cache Directory
+
+By default, cached WAV files are written to:
+
+```
+~/.cache/ludwig/lazy_media/<feature_name>/
+```
+
+To use a different location — for example, a fast NVMe drive or a shared network path — set
+`lazy_cache_dir` in the preprocessing config:
+
+```yaml
+input_features:
+  - name: speech
+    type: audio
+    preprocessing:
+      lazy: true
+      lazy_cache_dir: /fast/nvme/my_project/audio_cache
+```
+
+The per-feature subdirectory is created automatically. If multiple audio features share the same
+`lazy_cache_dir`, each feature gets its own subdirectory named after the feature.
+
+### When to Disable Lazy Preprocessing
+
+Set `lazy: false` when:
+
+- Your dataset is small enough to fit in memory and you want the fastest possible training start.
+- You are running on a system without a persistent filesystem (e.g. some ephemeral cloud environments)
+  and cannot write a cache.
+- You are using a remote dataset backend that cannot deliver paths to local files.
+
+```yaml
+input_features:
+  - name: audio
+    type: audio
+    preprocessing:
+      lazy: false   # decode everything at preprocessing time
+```
+
+### Bare Tensor Inputs
+
+If your dataset delivers bare `torch.Tensor` objects (shape `(channels, samples)` or `(samples,)`)
+instead of dicts, Ludwig treats them the same as the in-memory dict case: tensors are written to WAV
+files in `lazy_cache_dir` using the sample rate recorded in the feature metadata.
+
 # Input Features
 
 Audio files are transformed into one of the following types according to `type` under the `preprocessing` configuration.

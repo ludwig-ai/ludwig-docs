@@ -177,9 +177,141 @@ in the processed dataset file does not have integer values, but float values. Th
 
 ## Image features
 
-`Image` features are transformed into a int8 valued tensor of size `n x h x w x c` (where `n` is the size of the dataset
-and `h x w` is a specific resizing of the image that can be set, and `c` is the number of color channels) and added to
-processed dataset with a key that reflects the name of column in the dataset.
+`Image` features are transformed into a float32 valued tensor of size `n x c x h x w` (where `n` is the size of the
+dataset, `c` is the number of color channels, and `h x w` is the height and width) and added to the processed dataset
+with a key that reflects the name of column in the dataset.
 
 The column name is added to the JSON file, with an associated dictionary containing preprocessing information about the
 sizes of the resizing.
+
+By default, Ludwig uses **lazy preprocessing** for image features: instead of decoding and storing all images upfront,
+only file paths are stored in the processed dataset. Images are decoded on-the-fly per batch during training.
+See [Lazy Preprocessing](#lazy-preprocessing-for-audio-and-image) below for details.
+
+## Audio features
+
+`Audio` features are transformed into float32 tensors whose shape depends on the configured feature type (raw waveform,
+STFT magnitude, FBANK filterbank, etc.) and added to the processed dataset.
+
+By default, Ludwig uses **lazy preprocessing** for audio features: file paths are stored instead of decoded tensors,
+and audio is decoded per batch during training.
+See [Lazy Preprocessing](#lazy-preprocessing-for-audio-and-image) below for details.
+
+# Lazy Preprocessing for Audio and Image
+
+Ludwig's lazy preprocessing mode fundamentally changes *when* audio and image data are decoded:
+
+| | Eager (legacy) | Lazy (default) |
+|---|---|---|
+| **Decode time** | Preprocessing phase | Per batch during training |
+| **Peak memory** | O(N × file_size) | O(batch_size × file_size) |
+| **Preprocessing speed** | Slow (reads all files) | Fast (copies paths only) |
+| **Subsequent runs** | Uses Parquet cache | Uses Parquet cache + file cache |
+| **HF streaming datasets** | Not supported | Supported via local cache |
+
+## How It Works
+
+During preprocessing, Ludwig stores file paths (strings) in the processed dataset instead of decoded
+tensors.  When training begins, `PandasDataset` wraps each path column in a `LazyColumn` — an
+array-compatible object that decodes a batch of files in a `ThreadPoolExecutor` whenever
+`__getitem__` is called.  The thread pool runs concurrently with the GPU forward pass, so I/O
+and compute overlap automatically.
+
+```
+Preprocessing                Training (per step)
+─────────────────            ────────────────────────────────────────────
+CSV / HF dataset             LazyColumn.__getitem__(batch_indices)
+     │                            │
+     ▼                            ├─ thread 1: torchaudio.load(path_0) ──┐
+store paths in Parquet       │   ├─ thread 2: torchaudio.load(path_1) ──┤ → stacked
+(< 1 KB per sample)          │   └─ thread N: torchaudio.load(path_N) ──┘   tensor
+```
+
+## Memory Savings in Practice
+
+The table below compares peak heap usage for preprocessing 1,000 synthetic samples measured with
+tracemalloc on a single machine:
+
+| Modality | Eager peak | Lazy peak | Reduction |
+|---|---|---|---|
+| Images (64×64 RGB PNG) | ~600 MB | ~2 MB | **281×** |
+| Audio (2 s / 16 kHz WAV) | ~15 MB | ~14 MB | ~1× |
+
+Audio savings during preprocessing are modest because fbank/STFT features are compact — the main
+benefit for audio is that the *training* memory footprint stays bounded, which matters when clips are
+long (> 10 s) or the dataset is very large (> 100 k samples).
+
+## HuggingFace Streaming Datasets
+
+HuggingFace audio and image columns deliver in-memory objects rather than paths:
+
+- **Audio**: `{"array": np.ndarray, "sampling_rate": int, "path": str | None}`
+- **Image**: `PIL.Image.Image` (with or without `.filename`)
+
+Ludwig handles both cases transparently. If the dict or PIL image already points to an existing
+local file (HF's disk cache), that path is reused directly. Otherwise, Ludwig writes a WAV or PNG
+file to the lazy cache directory before training:
+
+```
+~/.cache/ludwig/lazy_media/<feature_name>/
+```
+
+The cache is persistent and idempotent — re-running with the same dataset skips the write step.
+
+### Supported In-Memory Input Types
+
+| Type | How Ludwig handles it |
+|---|---|
+| `dict` with existing `"path"` | Reuses the existing file |
+| `dict` with `"array"` / `"sampling_rate"` | Writes WAV to cache |
+| `torch.Tensor` (audio) | Writes WAV to cache using feature's sample rate |
+| `PIL.Image` with `.filename` | Reuses the existing file |
+| `PIL.Image` without `.filename` | Writes PNG to cache |
+| `bytes` (encoded image) | Decodes and writes PNG to cache |
+| `np.ndarray` HWC or CHW | Writes PNG to cache |
+| HF Image dict with `"bytes"` | Decodes and writes PNG to cache |
+| HF Image dict with `"path"` | Reuses the existing file |
+
+## Controlling the Cache Directory
+
+The default cache directory is `~/.cache/ludwig/lazy_media/`. To override it per feature:
+
+```yaml
+input_features:
+  - name: speech
+    type: audio
+    preprocessing:
+      lazy: true
+      lazy_cache_dir: /fast/nvme/my_project/audio_cache
+
+  - name: photo
+    type: image
+    preprocessing:
+      lazy: true
+      lazy_cache_dir: /fast/nvme/my_project/image_cache
+```
+
+Each feature gets its own subdirectory (`<lazy_cache_dir>/<feature_name>/`) so that multiple
+features sharing the same root never collide.
+
+## Disabling Lazy Preprocessing
+
+Set `lazy: false` to fall back to the eager path and decode everything during preprocessing:
+
+```yaml
+input_features:
+  - name: audio
+    type: audio
+    preprocessing:
+      lazy: false
+
+  - name: image
+    type: image
+    preprocessing:
+      lazy: false
+```
+
+!!! note
+    Lazy preprocessing is automatically disabled for image features that use a **TorchVision
+    pretrained encoder** (e.g. `resnet`, `efficientnet`, `vit`). Those encoders apply their own
+    normalization pipeline which requires images to be decoded upfront.

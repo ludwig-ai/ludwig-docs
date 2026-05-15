@@ -209,3 +209,39 @@ You can explore all 3 options for controlling max sequence lengths and their tra
 
 To configure feature-specific preprocessing, please check
 [datatype-specific documentation](features/supported_data_types.md).
+
+# Lazy Preprocessing for Audio and Image
+
+Audio and image features support **lazy preprocessing** — decoding files on-the-fly per batch
+during training instead of decoding everything upfront.  This is the default behaviour
+(`lazy: true`) and is strongly recommended for large datasets.
+
+Key benefits:
+
+- **Bounded peak memory**: only `batch_size` decoded samples live in memory at once, regardless
+  of dataset size.
+- **Faster preprocessing**: the preprocessing phase only copies paths, not decoded tensors.
+- **HuggingFace streaming support**: in-memory PIL Images and audio dicts (from `datasets.load_dataset`)
+  are cached to a local directory so the same lazy path is used for training.
+
+Configure lazy preprocessing per feature:
+
+```yaml
+input_features:
+  - name: audio
+    type: audio
+    preprocessing:
+      lazy: true              # default
+      lazy_cache_dir: null    # default: ~/.cache/ludwig/lazy_media/<feature_name>/
+
+  - name: image
+    type: image
+    preprocessing:
+      lazy: true
+      lazy_cache_dir: /fast/nvme/my_project/cache
+```
+
+For a full explanation of how lazy preprocessing works, the memory trade-offs, supported input
+types (HF dicts, PIL Images, numpy arrays, raw bytes), and cache directory configuration, see
+[Lazy Preprocessing for Audio and Image](../user_guide/datasets/data_preprocessing.md#lazy-preprocessing-for-audio-and-image)
+in the User Guide.

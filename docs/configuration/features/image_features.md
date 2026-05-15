@@ -38,6 +38,111 @@ Parameters:
 
 Preprocessing parameters can also be defined once and applied to all image input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 
+## Lazy Preprocessing
+
+By default (`lazy: true`), Ludwig does **not** decode image files during the preprocessing phase.
+Instead, it stores file paths in the processed dataset and decodes images on-the-fly, one batch
+at a time, during training. This approach dramatically reduces peak memory usage for large image
+datasets.
+
+### Why Lazy Preprocessing?
+
+The traditional eager approach decodes every image upfront and stores the resulting tensors in
+the processed dataset (Parquet file). For a dataset of N images at H×W resolution with C channels,
+the peak preprocessing memory is roughly:
+
+```
+N × C × H × W × 4 bytes  (float32)
+```
+
+For 1 million 224×224 RGB images, that is ~600 GB — completely impractical. With lazy preprocessing,
+only file paths are stored during preprocessing (essentially zero additional memory), and only
+`batch_size` decoded images live in memory at any one time during training.
+
+Decoding happens in a `ThreadPoolExecutor` that overlaps with the GPU forward pass, matching the
+throughput of the existing eager decode path.
+
+### Configuration
+
+```yaml
+input_features:
+  - name: image
+    type: image
+    preprocessing:
+      lazy: true              # default; set to false to decode everything upfront
+      lazy_cache_dir: null    # default; set to a path to control where files are cached
+      height: 224
+      width: 224
+      num_channels: 3
+      resize_method: interpolate
+```
+
+!!! note
+    Lazy preprocessing is automatically **disabled** when using a TorchVision pretrained encoder
+    (e.g. `resnet`, `efficientnet`, `vit`). Those encoders apply their own normalization pipeline
+    which requires images to be decoded upfront. Set `lazy: false` explicitly or switch to a
+    non-pretrained encoder to control this behavior.
+
+### Lazy Preprocessing with HuggingFace Datasets
+
+When loading a HuggingFace dataset, image columns are delivered as `PIL.Image.Image` objects — not
+file paths. Ludwig handles this transparently based on what the PIL Image carries:
+
+1. **PIL Image opened from disk** — PIL sets a `.filename` attribute pointing to the source file.
+   Ludwig detects this and reuses that path directly (no copy).
+2. **In-memory PIL Image** (no `.filename`) — Ludwig saves the image as a PNG file in
+   `lazy_cache_dir` and uses that path going forward.
+
+HuggingFace may also deliver images as dicts:
+```python
+{"bytes": b"...", "path": "/path/to/cached.jpg"}  # HF Image column format
+```
+
+Ludwig will reuse `"path"` if the file exists, otherwise decode `"bytes"` and save to cache.
+
+Raw `bytes` and `numpy.ndarray` inputs (both HWC and CHW channel orderings) are also supported.
+
+The cache is persistent and idempotent: subsequent runs with the same dataset skip the write step
+entirely.
+
+### Controlling the Cache Directory
+
+By default, cached PNG files are written to:
+
+```
+~/.cache/ludwig/lazy_media/<feature_name>/
+```
+
+To use a different location:
+
+```yaml
+input_features:
+  - name: photo
+    type: image
+    preprocessing:
+      lazy: true
+      lazy_cache_dir: /fast/nvme/my_project/image_cache
+```
+
+The per-feature subdirectory is created automatically. Multiple image features each get their own
+subdirectory named after the feature, even if they share the same `lazy_cache_dir`.
+
+### When to Disable Lazy Preprocessing
+
+Set `lazy: false` when:
+
+- Your dataset is small enough to fit in memory and you want the fastest possible training start.
+- You are using a TorchVision pretrained encoder (lazy is disabled automatically in this case).
+- You are running on a system without a persistent local filesystem and cannot write a cache.
+
+```yaml
+input_features:
+  - name: image
+    type: image
+    preprocessing:
+      lazy: false   # decode everything at preprocessing time
+```
+
 # Input Features
 
 The encoder parameters specified at the feature level are:

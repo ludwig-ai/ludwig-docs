@@ -5396,7 +5396,7 @@ be used for a certain data type. This can be found in <a href="../supported_data
 <span class="w">    </span><span class="p p-Indicator">-</span>
 <span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">french</span>
 <span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
-<span class="w">        </span><span class="nt">decoder</span><span class="p">:</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">decoder</span><span class="p">:</span>
 <span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">generator</span>
 <span class="w">            </span><span class="nt">cell_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lstm</span>
 <span class="w">            </span><span class="nt">num_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
@@ -5409,12 +5409,7 @@ be used for a certain data type. This can be found in <a href="../supported_data
         <span class="p">{</span>
             <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;french&quot;</span><span class="p">,</span>
             <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;decoder&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;generator&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;cell_type&quot;</span><span class="p">:</span> <span class="s2">&quot;lstm&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;num_layers&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-                <span class="s2">&quot;max_sequence_length&quot;</span><span class="p">:</span> <span class="mi">256</span>
-            <span class="p">}</span>
+            <span class="s2">&quot;decoder&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;generator&quot;</span><span class="p">,</span> <span class="s2">&quot;cell_type&quot;</span><span class="p">:</span> <span class="s2">&quot;lstm&quot;</span><span class="p">,</span> <span class="s2">&quot;num_layers&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;max_sequence_length&quot;</span><span class="p">:</span> <span class="mi">256</span><span class="p">},</span>
         <span class="p">}</span>
     <span class="p">]</span>
 <span class="p">}</span>
@@ -5460,20 +5455,8 @@ individual output feature.</p>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
     <span class="s2">&quot;output_features&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;category&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;loss&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="mf">1.5</span>
-            <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;number&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;loss&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="mf">0.8</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
+        <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;category&quot;</span><span class="p">,</span> <span class="s2">&quot;loss&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="mf">1.5</span><span class="p">}},</span>
+        <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="s2">&quot;loss&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">}},</span>
     <span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>

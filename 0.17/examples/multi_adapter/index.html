@@ -5517,28 +5517,49 @@ combination. The merged model handles both tasks without any accuracy degradatio
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="c1"># Sentiment dataset: text → positive/negative/neutral</span>
-<span class="n">sentiment_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;This product is amazing!&quot;</span><span class="p">,</span> <span class="s2">&quot;Terrible experience.&quot;</span><span class="p">,</span> <span class="s2">&quot;It&#39;s okay, nothing special.&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Best purchase I&#39;ve ever made!&quot;</span><span class="p">,</span> <span class="s2">&quot;Very disappointed.&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Decent quality for the price.&quot;</span><span class="p">,</span> <span class="s2">&quot;Absolutely love it!&quot;</span><span class="p">,</span> <span class="s2">&quot;Would not buy again.&quot;</span><span class="p">,</span>
-    <span class="p">]</span> <span class="o">*</span> <span class="mi">50</span><span class="p">,</span>
-    <span class="s2">&quot;sentiment&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;positive&quot;</span><span class="p">,</span> <span class="s2">&quot;negative&quot;</span><span class="p">,</span> <span class="s2">&quot;neutral&quot;</span><span class="p">,</span> <span class="s2">&quot;positive&quot;</span><span class="p">,</span> <span class="s2">&quot;negative&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;neutral&quot;</span><span class="p">,</span> <span class="s2">&quot;positive&quot;</span><span class="p">,</span> <span class="s2">&quot;negative&quot;</span><span class="p">,</span>
-    <span class="p">]</span> <span class="o">*</span> <span class="mi">50</span><span class="p">,</span>
-<span class="p">})</span>
+<span class="n">sentiment_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;This product is amazing!&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Terrible experience.&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;It&#39;s okay, nothing special.&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Best purchase I&#39;ve ever made!&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Very disappointed.&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Decent quality for the price.&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Absolutely love it!&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Would not buy again.&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="o">*</span> <span class="mi">50</span><span class="p">,</span>
+        <span class="s2">&quot;sentiment&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;positive&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;negative&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;neutral&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;positive&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;negative&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;neutral&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;positive&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;negative&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="o">*</span> <span class="mi">50</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">)</span>
 <span class="n">sentiment_data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;sentiment.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="c1"># Topic dataset: text → tech/sports/politics</span>
-<span class="n">topic_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;The new GPU delivers record performance.&quot;</span><span class="p">,</span> <span class="s2">&quot;The team won the championship.&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Parliament passed the new bill.&quot;</span><span class="p">,</span> <span class="s2">&quot;AI model breaks benchmark records.&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;The quarterback threw for 400 yards.&quot;</span><span class="p">,</span> <span class="s2">&quot;New tax legislation signed into law.&quot;</span><span class="p">,</span>
-    <span class="p">]</span> <span class="o">*</span> <span class="mi">50</span><span class="p">,</span>
-    <span class="s2">&quot;topic&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;tech&quot;</span><span class="p">,</span> <span class="s2">&quot;sports&quot;</span><span class="p">,</span> <span class="s2">&quot;politics&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span>
-<span class="p">})</span>
+<span class="n">topic_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;The new GPU delivers record performance.&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;The team won the championship.&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Parliament passed the new bill.&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;AI model breaks benchmark records.&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;The quarterback threw for 400 yards.&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;New tax legislation signed into law.&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="o">*</span> <span class="mi">50</span><span class="p">,</span>
+        <span class="s2">&quot;topic&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;tech&quot;</span><span class="p">,</span> <span class="s2">&quot;sports&quot;</span><span class="p">,</span> <span class="s2">&quot;politics&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">)</span>
 <span class="n">topic_data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;topics.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </code></pre></div>
 <hr />

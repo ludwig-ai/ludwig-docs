@@ -5437,9 +5437,7 @@
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="s2">&quot;input_features&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Pclass&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;category&quot;</span><span class="p">}]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="s2">&quot;input_features&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Pclass&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;category&quot;</span><span class="p">}]}</span>
 </code></pre></div>
 </div>
 </div>
@@ -5461,17 +5459,7 @@
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="s2">&quot;input_features&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Fare&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;number&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;preprocessing&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;missing_value_strategy&quot;</span><span class="p">:</span> <span class="s2">&quot;fill_with_mean&quot;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="s2">&quot;input_features&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Fare&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="s2">&quot;preprocessing&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;missing_value_strategy&quot;</span><span class="p">:</span> <span class="s2">&quot;fill_with_mean&quot;</span><span class="p">}}]}</span>
 </code></pre></div>
 </div>
 </div>
@@ -5517,7 +5505,7 @@ specify a specific encoder config for an input feature:</p>
 <span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
 <span class="w">        </span><span class="nt">preprocessing</span><span class="p">:</span>
 <span class="w">            </span><span class="nt">tokenizer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">space</span>
-<span class="w">        </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">encoder</span><span class="p">:</span>
 <span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bert</span>
 <span class="w">            </span><span class="nt">reduce_output</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 <span class="w">            </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
@@ -5530,14 +5518,12 @@ specify a specific encoder config for an input feature:</p>
             <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
             <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
             <span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;word&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;preprocessing&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;word_tokenizer&quot;</span><span class="p">:</span> <span class="s2">&quot;space&quot;</span>
-            <span class="p">},</span>
+            <span class="s2">&quot;preprocessing&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;word_tokenizer&quot;</span><span class="p">:</span> <span class="s2">&quot;space&quot;</span><span class="p">},</span>
             <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;bert&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;reduce_output&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
                 <span class="s2">&quot;trainable&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="p">}</span>
+            <span class="p">},</span>
         <span class="p">}</span>
     <span class="p">]</span>
 <span class="p">}</span>
@@ -5575,19 +5561,7 @@ example:</p>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="s2">&quot;input_features&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;sentence1&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;sentence2&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;tied&quot;</span><span class="p">:</span> <span class="s2">&quot;sentence1&quot;</span>
-        <span class="p">}</span>
-    <span class="p">]</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="s2">&quot;input_features&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;sentence1&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;sentence2&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;tied&quot;</span><span class="p">:</span> <span class="s2">&quot;sentence1&quot;</span><span class="p">}]}</span>
 </code></pre></div>
 </div>
 </div>

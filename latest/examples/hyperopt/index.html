@@ -5588,7 +5588,7 @@
 </tbody>
 </table>
 <h3 id="setup-for-hyperparameter-optimization-run">Setup for hyperparameter optimization run<a class="headerlink" href="#setup-for-hyperparameter-optimization-run" title="Permanent link">&para;</a></h3>
-<p>Hyperparameter optimization is defined with the <a href="../../configuration/hyperparameter_optimization/"><code>hyperopt</code> section of the Ludwig configuration specification</a>.  </p>
+<p>Hyperparameter optimization is defined with the <a href="../../configuration/hyperparameter_optimization/"><code>hyperopt</code> section of the Ludwig configuration specification</a>.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">cli</label><label for="__tabbed_1_2">python</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -5606,7 +5606,7 @@
 <span class="nt">defaults</span><span class="p">:</span>
 <span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
 
-<span class="c1"># hyperopt specification </span>
+<span class="c1"># hyperopt specification</span>
 <span class="nt">hyperopt</span><span class="p">:</span>
 <span class="w">    </span><span class="c1"># specify parameters for the Ray Tune to executor to run the hyperparameter optimization</span>
 <span class="w">    </span><span class="nt">executor</span><span class="p">:</span>
@@ -5635,7 +5635,7 @@
     <span class="s1">&#39;trainer&#39;</span><span class="p">:</span> <span class="o">...</span> <span class="p">,</span>
     <span class="s1">&#39;defaults&#39;</span><span class="p">:</span> <span class="o">...</span> <span class="p">,</span>
 
-    <span class="c1"># hyperopt specification </span>
+    <span class="c1"># hyperopt specification</span>
     <span class="s1">&#39;hyperopt&#39;</span><span class="p">:</span>  <span class="p">{</span>
         <span class="c1"># specify parameters for the Ray Tune to executor to run the hyperparameter optimization</span>
         <span class="s1">&#39;executor&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ray&#39;</span><span class="p">,</span> <span class="o">...</span> <span class="p">},</span>
@@ -5667,8 +5667,8 @@
 <span class="w">    </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">maximize</span>
 <span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">roc_auc</span>
 <span class="w">    </span><span class="nt">output_feature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">income</span>
-<span class="w">    </span><span class="nt">parameters</span><span class="p">:</span><span class="w"> </span>
-<span class="w">        </span><span class="nt">income.decoder.num_fc_layers</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">income.decoder.num_fc_layers</span><span class="p">:</span>
 <span class="w">            </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">randint</span>
 <span class="w">            </span><span class="nt">lower</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
 <span class="w">            </span><span class="nt">upper</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9</span>
@@ -5714,8 +5714,8 @@
 <span class="w">    </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">maximize</span>
 <span class="w">    </span><span class="nt">metric</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">roc_auc</span>
 <span class="w">    </span><span class="nt">output_feature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">income</span>
-<span class="w">    </span><span class="nt">parameters</span><span class="p">:</span><span class="w"> </span>
-<span class="w">        </span><span class="nt">income.decoder.num_fc_layers</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">income.decoder.num_fc_layers</span><span class="p">:</span>
 <span class="w">            </span><span class="nt">space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grid_search</span>
 <span class="w">            </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">6</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">8</span><span class="p p-Indicator">]</span>
 <span class="w">        </span><span class="nt">trainer.learning_rate</span><span class="p">:</span>
@@ -5755,12 +5755,7 @@
 </div>
 <div class="tabbed-block">
 <p><a href="../../user_guide/api/LudwigModel/#ludwig.hyperopt.run.hyperopt">hyperopt() method</a></p>
-<div class="highlight"><pre><span></span><code><span class="n">hyperopt_results</span> <span class="o">=</span> <span class="n">hyperopt</span><span class="p">(</span>
-    <span class="n">config</span><span class="p">,</span> 
-    <span class="n">dataset</span><span class="o">=</span><span class="n">adult_census_df</span><span class="p">,</span> 
-    <span class="n">output_directory</span><span class="o">=</span><span class="s2">&quot;results&quot;</span><span class="p">,</span> 
-    <span class="n">hyperopt_log_verbosity</span><span class="o">=</span><span class="mi">1</span>
-<span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">hyperopt_results</span> <span class="o">=</span> <span class="n">hyperopt</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="n">adult_census_df</span><span class="p">,</span> <span class="n">output_directory</span><span class="o">=</span><span class="s2">&quot;results&quot;</span><span class="p">,</span> <span class="n">hyperopt_log_verbosity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </code></pre></div>
 </div>
 </div>

@@ -5703,26 +5703,19 @@ a function or method fulfills a requirement and will be called from outside the 
 <p>Use <code>@pytest.mark.parameterize</code> to test combinations of parameters that drive through all code paths, to ensure
 correct behavior of the function under a variety of situations.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># test combinations of parameters to exercise all code paths</span>
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parameterize</span><span class="p">(</span>
-    <span class="s1">&#39;num_total_blocks, num_shared_blocks&#39;</span><span class="p">,</span>
-    <span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
-<span class="p">)</span>
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parameterize</span><span class="p">(</span><span class="s1">&#39;virtual_batch_size&#39;</span><span class="p">,</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parameterize</span><span class="p">(</span><span class="s1">&#39;size&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">])</span>
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parameterize</span><span class="p">(</span><span class="s1">&#39;input_size&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parameterize</span><span class="p">(</span><span class="s2">&quot;num_total_blocks, num_shared_blocks&quot;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parameterize</span><span class="p">(</span><span class="s2">&quot;virtual_batch_size&quot;</span><span class="p">,</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parameterize</span><span class="p">(</span><span class="s2">&quot;size&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">])</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parameterize</span><span class="p">(</span><span class="s2">&quot;input_size&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">test_feature_transformer</span><span class="p">(</span>
-    <span class="n">input_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">virtual_batch_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
-    <span class="n">num_total_blocks</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">num_shared_blocks</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">input_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">virtual_batch_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">num_total_blocks</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">num_shared_blocks</span><span class="p">:</span> <span class="nb">int</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">feature_transformer</span> <span class="o">=</span> <span class="n">FeatureTransformer</span><span class="p">(</span>
         <span class="n">input_size</span><span class="p">,</span>
         <span class="n">size</span><span class="p">,</span>
         <span class="n">bn_virtual_bs</span><span class="o">=</span><span class="n">virtual_batch_size</span><span class="p">,</span>
         <span class="n">num_total_blocks</span><span class="o">=</span><span class="n">num_total_blocks</span><span class="p">,</span>
-        <span class="n">num_shared_blocks</span><span class="o">=</span><span class="n">num_shared_blocks</span>
+        <span class="n">num_shared_blocks</span><span class="o">=</span><span class="n">num_shared_blocks</span><span class="p">,</span>
     <span class="p">)</span>
 </code></pre></div>
 <h4 id="test-edge-cases">Test edge cases<a class="headerlink" href="#test-edge-cases" title="Permanent link">&para;</a></h4>
@@ -5738,18 +5731,17 @@ tensors are of correct shape and type. This provides minimal assurance that the 
 <span class="n">combiner_output</span> <span class="o">=</span> <span class="n">combiner</span><span class="p">(</span><span class="n">input_features</span><span class="p">)</span>
 
 <span class="c1"># check for required attributes in the generated output</span>
-<span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">combiner</span><span class="p">,</span> <span class="s1">&#39;input_dtype&#39;</span><span class="p">)</span>
-<span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">combiner</span><span class="p">,</span> <span class="s1">&#39;output_shape&#39;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">combiner</span><span class="p">,</span> <span class="s2">&quot;input_dtype&quot;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">combiner</span><span class="p">,</span> <span class="s2">&quot;output_shape&quot;</span><span class="p">)</span>
 
 <span class="c1"># check for correct data type</span>
 <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">combiner_output</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
 
 <span class="c1"># required key present</span>
-<span class="k">assert</span> <span class="s1">&#39;combiner_output&#39;</span> <span class="ow">in</span> <span class="n">combiner_output</span>
+<span class="k">assert</span> <span class="s2">&quot;combiner_output&quot;</span> <span class="ow">in</span> <span class="n">combiner_output</span>
 
 <span class="c1"># check for correct output shape</span>
-<span class="k">assert</span> <span class="p">(</span><span class="n">combiner_output</span><span class="p">[</span><span class="s1">&#39;combiner_output&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
-       <span class="o">==</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">*</span><span class="n">combiner</span><span class="o">.</span><span class="n">output_shape</span><span class="p">))</span>
+<span class="k">assert</span> <span class="n">combiner_output</span><span class="p">[</span><span class="s2">&quot;combiner_output&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">*</span><span class="n">combiner</span><span class="o">.</span><span class="n">output_shape</span><span class="p">)</span>
 </code></pre></div>
 <h4 id="trainable-modules">Trainable Modules<a class="headerlink" href="#trainable-modules" title="Permanent link">&para;</a></h4>
 <p>When testing a trainable module (layer, encoder, decoder, combiner or model), make sure that all the variables / weights
@@ -5817,9 +5809,7 @@ docs.</p>
 <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;in_memory&quot;</span><span class="p">,</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
 <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;image_source&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="s2">&quot;tensor&quot;</span><span class="p">])</span>
 <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;num_channels&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">test_basic_image_feature</span><span class="p">(</span>
-        <span class="n">num_channels</span><span class="p">,</span> <span class="n">image_source</span><span class="p">,</span> <span class="n">in_memory</span><span class="p">,</span> <span class="n">skip_save_processed_input</span><span class="p">,</span> <span class="n">tmpdir</span>
-<span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_basic_image_feature</span><span class="p">(</span><span class="n">num_channels</span><span class="p">,</span> <span class="n">image_source</span><span class="p">,</span> <span class="n">in_memory</span><span class="p">,</span> <span class="n">skip_save_processed_input</span><span class="p">,</span> <span class="n">tmpdir</span><span class="p">):</span>
     <span class="c1"># Image Inputs</span>
     <span class="n">image_dest_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="s2">&quot;generated_images&quot;</span><span class="p">)</span>
 </code></pre></div>
@@ -5860,12 +5850,12 @@ parameters during the sequence of forward pass-backward pass-optimize step.</p>
 <p><strong>Step 1</strong>:</p>
 <p>Set the random seed for repeatability.  Partially implement the parameter update test to print the counts of
 parameters, e.g.,</p>
-<div class="highlight"><pre><span></span><code>    <span class="c1"># check for parameter updating</span>
-    <span class="n">target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-    <span class="n">fpc</span><span class="p">,</span> <span class="n">tpc</span><span class="p">,</span> <span class="n">upc</span><span class="p">,</span> <span class="n">not_updated</span> <span class="o">=</span> <span class="n">check_module_parameters_updated</span><span class="p">(</span><span class="n">sequence_rnn_decoder</span><span class="p">,</span> <span class="p">(</span><span class="n">combiner_outputs</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">target</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">fpc</span><span class="p">,</span> <span class="n">tpc</span><span class="p">,</span> <span class="n">upc</span><span class="p">,</span> <span class="n">not_updated</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># check for parameter updating</span>
+<span class="n">target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">fpc</span><span class="p">,</span> <span class="n">tpc</span><span class="p">,</span> <span class="n">upc</span><span class="p">,</span> <span class="n">not_updated</span> <span class="o">=</span> <span class="n">check_module_parameters_updated</span><span class="p">(</span><span class="n">sequence_rnn_decoder</span><span class="p">,</span> <span class="p">(</span><span class="n">combiner_outputs</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">target</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fpc</span><span class="p">,</span> <span class="n">tpc</span><span class="p">,</span> <span class="n">upc</span><span class="p">,</span> <span class="n">not_updated</span><span class="p">)</span>
 </code></pre></div>
-<p><code>target</code> is a tensor with synthetic data that is used to in computing the loss after the forward pass.  </p>
+<p><code>target</code> is a tensor with synthetic data that is used to in computing the loss after the forward pass.</p>
 <p><code>fpc</code> is the count of frozen parameters.  <code>tpc</code> is the count of trainable parameters.  <code>upc</code> is the updated parameter
 count, i.e., the number of parameters that were updated during the cycle of forward pass-backward pass-optimize step.
 Inspect the values for correctness, such as</p>
@@ -5882,7 +5872,7 @@ with a single training example or conditional processing in the <code>forward()<
 list.  Whenever <code>upc</code> &lt; <code>tpc</code>, the developer should confirm that the counts are correct for the situation.</p>
 <details class="note">
 <summary>Tips and Tricks to Understand Ludwig Module Parameter Structure</summary>
-<p>While working in <strong>Step 1</strong>, these code fragments may be temporarily used to gain insight into the structure 
+<p>While working in <strong>Step 1</strong>, these code fragments may be temporarily used to gain insight into the structure
 and parameters in a Ludwig module.</p>
 <p>The <code>print()</code> will display the layers that make up a Ludwig module.  From the output the developer can confirm
 the correct structure and configuration values.</p>
@@ -5945,23 +5935,23 @@ of the PyTorch <code>Parameter</code> object.  In the following example there ar
 <p><strong>Step 2</strong>:</p>
 <p>Once all the differences between <code>tpc</code> and <code>upc</code> are accounted for then replace the <code>print()</code> statement with the
 appropriate set of <code>assert</code> statements.  Here are some examples:</p>
-<div class="highlight"><pre><span></span><code>    <span class="c1"># check for parameter updating</span>
-    <span class="n">target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-    <span class="n">fpc</span><span class="p">,</span> <span class="n">tpc</span><span class="p">,</span> <span class="n">upc</span><span class="p">,</span> <span class="n">not_updated</span> <span class="o">=</span> <span class="n">check_module_parameters_updated</span><span class="p">(</span><span class="n">sequence_rnn_decoder</span><span class="p">,</span> <span class="p">(</span><span class="n">combiner_outputs</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">target</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">upc</span> <span class="o">==</span> <span class="n">tpc</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Failed to update parameters.  Parameters not update: </span><span class="si">{</span><span class="n">not_updated</span><span class="si">}</span><span class="s2">&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># check for parameter updating</span>
+<span class="n">target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">fpc</span><span class="p">,</span> <span class="n">tpc</span><span class="p">,</span> <span class="n">upc</span><span class="p">,</span> <span class="n">not_updated</span> <span class="o">=</span> <span class="n">check_module_parameters_updated</span><span class="p">(</span><span class="n">sequence_rnn_decoder</span><span class="p">,</span> <span class="p">(</span><span class="n">combiner_outputs</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">target</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">upc</span> <span class="o">==</span> <span class="n">tpc</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Failed to update parameters.  Parameters not update: </span><span class="si">{</span><span class="n">not_updated</span><span class="si">}</span><span class="s2">&quot;</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>    <span class="n">target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">conv1_stack</span><span class="o">.</span><span class="n">output_shape</span><span class="p">)</span>
-    <span class="n">fpc</span><span class="p">,</span> <span class="n">tpc</span><span class="p">,</span> <span class="n">upc</span><span class="p">,</span> <span class="n">not_updated</span> <span class="o">=</span> <span class="n">check_module_parameters_updated</span><span class="p">(</span><span class="n">conv1_stack</span><span class="p">,</span> <span class="p">(</span><span class="nb">input</span><span class="p">,),</span> <span class="n">target</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">dropout</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="c1"># all trainable parameters should be updated</span>
-        <span class="k">assert</span> <span class="n">tpc</span> <span class="o">==</span> <span class="n">upc</span><span class="p">,</span> <span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;All parameter not updated. Parameters not updated: </span><span class="si">{</span><span class="n">not_updated</span><span class="si">}</span><span class="s2">&quot;</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Module structure:</span><span class="se">\n</span><span class="si">{</span><span class="n">conv1_stack</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># with specified config and random seed, non-zero dropout update parameter count could take different values</span>
-        <span class="k">assert</span> <span class="p">(</span><span class="n">tpc</span> <span class="o">==</span> <span class="n">upc</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">upc</span> <span class="o">==</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;All parameter not updated. Parameters not updated: </span><span class="si">{</span><span class="n">not_updated</span><span class="si">}</span><span class="s2">&quot;</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Module structure:</span><span class="se">\n</span><span class="si">{</span><span class="n">conv1_stack</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">conv1_stack</span><span class="o">.</span><span class="n">output_shape</span><span class="p">)</span>
+<span class="n">fpc</span><span class="p">,</span> <span class="n">tpc</span><span class="p">,</span> <span class="n">upc</span><span class="p">,</span> <span class="n">not_updated</span> <span class="o">=</span> <span class="n">check_module_parameters_updated</span><span class="p">(</span><span class="n">conv1_stack</span><span class="p">,</span> <span class="p">(</span><span class="nb">input</span><span class="p">,),</span> <span class="n">target</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">dropout</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="c1"># all trainable parameters should be updated</span>
+    <span class="k">assert</span> <span class="n">tpc</span> <span class="o">==</span> <span class="n">upc</span><span class="p">,</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;All parameter not updated. Parameters not updated: </span><span class="si">{</span><span class="n">not_updated</span><span class="si">}</span><span class="s2">&quot;</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Module structure:</span><span class="se">\n</span><span class="si">{</span><span class="n">conv1_stack</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># with specified config and random seed, non-zero dropout update parameter count could take different values</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">tpc</span> <span class="o">==</span> <span class="n">upc</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">upc</span> <span class="o">==</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;All parameter not updated. Parameters not updated: </span><span class="si">{</span><span class="n">not_updated</span><span class="si">}</span><span class="s2">&quot;</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Module structure:</span><span class="se">\n</span><span class="si">{</span><span class="n">conv1_stack</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
 </code></pre></div>
 <p><strong>Example of a full test with parameter update checking</strong>:</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;cell_type&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;rnn&quot;</span><span class="p">,</span> <span class="s2">&quot;gru&quot;</span><span class="p">])</span>

@@ -5502,6 +5502,7 @@
 <p>A <strong>reliability diagram</strong> plots predicted probability (x-axis) against empirical accuracy (y-axis). A perfectly calibrated model lies on the diagonal.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
+
 <span class="k">def</span><span class="w"> </span><span class="nf">expected_calibration_error</span><span class="p">(</span><span class="n">probabilities</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
     <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">n_bins</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">ece</span> <span class="o">=</span> <span class="mf">0.0</span>

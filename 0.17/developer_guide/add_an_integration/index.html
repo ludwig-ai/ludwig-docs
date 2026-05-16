@@ -5415,333 +5415,351 @@ with the third-party system it integrates with, matching its file name.</p>
 <h2 id="3-implement-callback-methods">3. Implement callback methods<a class="headerlink" href="#3-implement-callback-methods" title="Permanent link">&para;</a></h2>
 <p>Ludwig provides the following callbacks which you can implement to add functionality to Ludwig. All the following
 methods are optional:</p>
-<div class="highlight"><pre><span></span><code> <span class="k">def</span><span class="w"> </span><span class="nf">on_cmdline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called when Ludwig is run on the command line with the callback enabled.</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_cmdline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called when Ludwig is run on the command line with the callback enabled.</span>
 
-<span class="sd">     :param cmd: The Ludwig subcommand being run, ex.</span>
-<span class="sd">                 &quot;train&quot;, &quot;evaluate&quot;, &quot;predict&quot;, ...</span>
-<span class="sd">     :param args: The full list of command-line arguments (sys.argv).</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
+<span class="sd">    :param cmd: The Ludwig subcommand being run, ex.</span>
+<span class="sd">                &quot;train&quot;, &quot;evaluate&quot;, &quot;predict&quot;, ...</span>
+<span class="sd">    :param args: The full list of command-line arguments (sys.argv).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_preprocess_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called before preprocessing starts.</span>
 
-<span class="sd">     :param config: The config dictionary.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_preprocess_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called before preprocessing starts.</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_preprocess_end</span><span class="p">(</span>
-         <span class="bp">self</span><span class="p">,</span>
-         <span class="n">training_set</span><span class="p">,</span>
-         <span class="n">validation_set</span><span class="p">,</span>
-         <span class="n">test_set</span><span class="p">,</span>
-         <span class="n">training_set_metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
-    <span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called after preprocessing ends.</span>
+<span class="sd">    :param config: The config dictionary.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
 
-<span class="sd">     :param training_set: The training set.</span>
-<span class="sd">     :type training_set: ludwig.dataset.base.Dataset</span>
-<span class="sd">     :param validation_set: The validation set.</span>
-<span class="sd">     :type validation_set: ludwig.dataset.base.Dataset</span>
-<span class="sd">     :param test_set: The test set.</span>
-<span class="sd">     :type test_set: ludwig.dataset.base.Dataset</span>
-<span class="sd">     :param training_set_metadata: Values inferred from the training set,</span>
-<span class="sd">            including preprocessing settings, vocabularies, feature statistics,</span>
-<span class="sd">            etc. Same as training_set_metadata.json.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
 
-     <span class="k">pass</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_preprocess_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">training_set</span><span class="p">,</span> <span class="n">validation_set</span><span class="p">,</span> <span class="n">test_set</span><span class="p">,</span> <span class="n">training_set_metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called after preprocessing ends.</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_hyperopt_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called to initialize state before hyperparameter optimization begins.</span>
+<span class="sd">    :param training_set: The training set.</span>
+<span class="sd">    :type training_set: ludwig.dataset.base.Dataset</span>
+<span class="sd">    :param validation_set: The validation set.</span>
+<span class="sd">    :type validation_set: ludwig.dataset.base.Dataset</span>
+<span class="sd">    :param test_set: The test set.</span>
+<span class="sd">    :type test_set: ludwig.dataset.base.Dataset</span>
+<span class="sd">    :param training_set_metadata: Values inferred from the training set,</span>
+<span class="sd">           including preprocessing settings, vocabularies, feature statistics,</span>
+<span class="sd">           etc. Same as training_set_metadata.json.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-<span class="sd">     :param experiment_name: The name of the current experiment.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
+    <span class="k">pass</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_hyperopt_preprocessing_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called before data preprocessing for hyperparameter optimization begins.</span>
 
-<span class="sd">     :param experiment_name: The name of the current experiment.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_hyperopt_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called to initialize state before hyperparameter optimization begins.</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_hyperopt_preprocessing_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called after data preprocessing for hyperparameter optimization is</span>
-<span class="sd">     completed.</span>
+<span class="sd">    :param experiment_name: The name of the current experiment.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
 
-<span class="sd">     :param experiment_name: The name of the current experiment.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_hyperopt_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called before any hyperparameter optimization trials are started.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_hyperopt_preprocessing_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called before data preprocessing for hyperparameter optimization begins.</span>
 
-<span class="sd">     :param experiment_name: The name of the current experiment.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
+<span class="sd">    :param experiment_name: The name of the current experiment.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_hyperopt_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called after all hyperparameter optimization trials are completed.</span>
 
-<span class="sd">     :param experiment_name: The name of the current experiment.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_hyperopt_preprocessing_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called after data preprocessing for hyperparameter optimization is</span>
+<span class="sd">    completed.</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_hyperopt_trial_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called before the start of each hyperparameter optimization trial.</span>
+<span class="sd">    :param experiment_name: The name of the current experiment.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
 
-<span class="sd">     :param parameters: The complete dictionary of parameters for this</span>
-<span class="sd">            hyperparameter optimization experiment.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_hyperopt_trial_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called after the end of each hyperparameter optimization trial.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_hyperopt_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called before any hyperparameter optimization trials are started.</span>
 
-<span class="sd">     :param parameters: The complete dictionary of parameters for this</span>
-<span class="sd">            hyperparameter optimization experiment.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
+<span class="sd">    :param experiment_name: The name of the current experiment.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_train_init</span><span class="p">(</span>
-     <span class="bp">self</span><span class="p">,</span>
-     <span class="n">base_config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
-     <span class="n">experiment_directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-     <span class="n">experiment_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-     <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-     <span class="n">output_directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-     <span class="n">resume</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
- <span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called after preprocessing, but before the creation of the model and</span>
-<span class="sd">     trainer objects.</span>
 
-<span class="sd">     :param base_config: The user-specified config, before the insertion of</span>
-<span class="sd">            defaults or inferred values.</span>
-<span class="sd">     :param experiment_directory: The experiment directory, same as</span>
-<span class="sd">            output_directory if no experiment specified.</span>
-<span class="sd">     :param experiment_name: The experiment name.</span>
-<span class="sd">     :param model_name: The model name.</span>
-<span class="sd">     :param output_directory: file path to where training results are stored.</span>
-<span class="sd">     :param resume: model directory to resume training from, or None.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_hyperopt_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called after all hyperparameter optimization trials are completed.</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_train_start</span><span class="p">(</span>
-     <span class="bp">self</span><span class="p">,</span>
-     <span class="n">model</span><span class="p">,</span>
-     <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
-     <span class="n">config_fp</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
- <span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called after creation of trainer, before the start of training.</span>
+<span class="sd">    :param experiment_name: The name of the current experiment.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
 
-<span class="sd">     :param model: The ludwig model.</span>
-<span class="sd">     :type model: ludwig.utils.torch_utils.LudwigModule</span>
-<span class="sd">     :param config: The config dictionary.</span>
-<span class="sd">     :param config_fp: The file path to the config, or none if config was passed</span>
-<span class="sd">            to stdin.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_train_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called at the end of training, before the model is saved.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_hyperopt_trial_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called before the start of each hyperparameter optimization trial.</span>
 
-<span class="sd">     :param output_directory: file path to where training results are stored.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
+<span class="sd">    :param parameters: The complete dictionary of parameters for this</span>
+<span class="sd">           hyperparameter optimization experiment.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_trainer_train_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">is_coordinator</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called in every trainer (distributed or local) before training starts.</span>
 
-<span class="sd">     :param trainer: The trainer instance.</span>
-<span class="sd">     :type trainer: trainer: ludwig.models.Trainer</span>
-<span class="sd">     :param save_path: The path to the directory model is saved in.</span>
-<span class="sd">     :param is_coordinator: Is this trainer the coordinator.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_hyperopt_trial_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called after the end of each hyperparameter optimization trial.</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_trainer_train_teardown</span><span class="p">(</span>
-         <span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">is_coordinator</span><span class="p">:</span> <span class="nb">bool</span>
-     <span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called in every trainer (distributed or local) after training completes.</span>
+<span class="sd">    :param parameters: The complete dictionary of parameters for this</span>
+<span class="sd">           hyperparameter optimization experiment.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
 
-<span class="sd">     :param trainer: The trainer instance.</span>
-<span class="sd">     :type trainer: ludwig.models.trainer.Trainer</span>
-<span class="sd">     :param progress_tracker: An object which tracks training progress.</span>
-<span class="sd">     :type progress_tracker: ludwig.models.trainer.ProgressTracker</span>
-<span class="sd">     :param is_coordinator: Is this trainer the coordinator.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_batch_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called on coordinator only before each batch.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_train_init</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">base_config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+    <span class="n">experiment_directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">experiment_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">output_directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">resume</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called after preprocessing, but before the creation of the model and</span>
+<span class="sd">    trainer objects.</span>
 
-<span class="sd">     :param trainer: The trainer instance.</span>
-<span class="sd">     :type trainer: ludwig.models.trainer.Trainer</span>
-<span class="sd">     :param progress_tracker: An object which tracks training progress.</span>
-<span class="sd">     :type progress_tracker: ludwig.models.trainer.ProgressTracker</span>
-<span class="sd">     :param save_path: The path to the directory model is saved in.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
+<span class="sd">    :param base_config: The user-specified config, before the insertion of</span>
+<span class="sd">           defaults or inferred values.</span>
+<span class="sd">    :param experiment_directory: The experiment directory, same as</span>
+<span class="sd">           output_directory if no experiment specified.</span>
+<span class="sd">    :param experiment_name: The experiment name.</span>
+<span class="sd">    :param model_name: The model name.</span>
+<span class="sd">    :param output_directory: file path to where training results are stored.</span>
+<span class="sd">    :param resume: model directory to resume training from, or None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_batch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called on coordinator only after each batch.</span>
 
-<span class="sd">     :param trainer: The trainer instance.</span>
-<span class="sd">     :type trainer: ludwig.models.trainer.Trainer</span>
-<span class="sd">     :param progress_tracker: An object which tracks training progress.</span>
-<span class="sd">     :type progress_tracker: ludwig.models.trainer.ProgressTracker</span>
-<span class="sd">     :param save_path: The path to the directory model is saved in.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_train_start</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">,</span>
+    <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+    <span class="n">config_fp</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called after creation of trainer, before the start of training.</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_epoch_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called on coordinator only before the start of each epoch.</span>
+<span class="sd">    :param model: The ludwig model.</span>
+<span class="sd">    :type model: ludwig.utils.torch_utils.LudwigModule</span>
+<span class="sd">    :param config: The config dictionary.</span>
+<span class="sd">    :param config_fp: The file path to the config, or none if config was passed</span>
+<span class="sd">           to stdin.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
 
-<span class="sd">     :param trainer: The trainer instance.</span>
-<span class="sd">     :type trainer: ludwig.models.trainer.Trainer</span>
-<span class="sd">     :param progress_tracker: An object which tracks training progress.</span>
-<span class="sd">     :type progress_tracker: ludwig.models.trainer.ProgressTracker</span>
-<span class="sd">     :param save_path: The path to the directory model is saved in.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called on coordinator only after the end of each epoch.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_train_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called at the end of training, before the model is saved.</span>
 
-<span class="sd">     :param trainer: The trainer instance.</span>
-<span class="sd">     :type trainer: ludwig.models.trainer.Trainer</span>
-<span class="sd">     :param progress_tracker: An object which tracks training progress.</span>
-<span class="sd">     :type progress_tracker: ludwig.models.trainer.ProgressTracker</span>
-<span class="sd">     :param save_path: The path to the directory model is saved in.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
+<span class="sd">    :param output_directory: file path to where training results are stored.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_validation_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called on coordinator before validation starts.</span>
 
-<span class="sd">     :param trainer: The trainer instance.</span>
-<span class="sd">     :type trainer: ludwig.models.trainer.Trainer</span>
-<span class="sd">     :param progress_tracker: An object which tracks training progress.</span>
-<span class="sd">     :type progress_tracker: ludwig.models.trainer.ProgressTracker</span>
-<span class="sd">     :param save_path: The path to the directory model is saved in.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_trainer_train_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">is_coordinator</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called in every trainer (distributed or local) before training starts.</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_validation_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called on coordinator after validation is complete.</span>
+<span class="sd">    :param trainer: The trainer instance.</span>
+<span class="sd">    :type trainer: trainer: ludwig.models.Trainer</span>
+<span class="sd">    :param save_path: The path to the directory model is saved in.</span>
+<span class="sd">    :param is_coordinator: Is this trainer the coordinator.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
 
-<span class="sd">     :param trainer: The trainer instance.</span>
-<span class="sd">     :type trainer: ludwig.models.trainer.Trainer</span>
-<span class="sd">     :param progress_tracker: An object which tracks training progress.</span>
-<span class="sd">     :type progress_tracker: ludwig.models.trainer.ProgressTracker</span>
-<span class="sd">     :param save_path: The path to the directory model is saved in.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_test_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called on coordinator before testing starts.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_trainer_train_teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">is_coordinator</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called in every trainer (distributed or local) after training completes.</span>
 
-<span class="sd">     :param trainer: The trainer instance.</span>
-<span class="sd">     :type trainer: ludwig.models.trainer.Trainer</span>
-<span class="sd">     :param progress_tracker: An object which tracks training progress.</span>
-<span class="sd">     :type progress_tracker: ludwig.models.trainer.ProgressTracker</span>
-<span class="sd">     :param save_path: The path to the directory model is saved in.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
+<span class="sd">    :param trainer: The trainer instance.</span>
+<span class="sd">    :type trainer: ludwig.models.trainer.Trainer</span>
+<span class="sd">    :param progress_tracker: An object which tracks training progress.</span>
+<span class="sd">    :type progress_tracker: ludwig.models.trainer.ProgressTracker</span>
+<span class="sd">    :param is_coordinator: Is this trainer the coordinator.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_test_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called on coordinator after testing ends.</span>
 
-<span class="sd">     :param trainer: The trainer instance.</span>
-<span class="sd">     :type trainer: ludwig.models.trainer.Trainer</span>
-<span class="sd">     :param progress_tracker: An object which tracks training progress.</span>
-<span class="sd">     :type progress_tracker: ludwig.models.trainer.ProgressTracker</span>
-<span class="sd">     :param save_path: The path to the directory model is saved in.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_batch_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called on coordinator only before each batch.</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_build_metadata_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called before building metadata for dataset.</span>
+<span class="sd">    :param trainer: The trainer instance.</span>
+<span class="sd">    :type trainer: ludwig.models.trainer.Trainer</span>
+<span class="sd">    :param progress_tracker: An object which tracks training progress.</span>
+<span class="sd">    :type progress_tracker: ludwig.models.trainer.ProgressTracker</span>
+<span class="sd">    :param save_path: The path to the directory model is saved in.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
 
-<span class="sd">     :param df: The dataset.</span>
-<span class="sd">     :type df: pd.DataFrame</span>
-<span class="sd">     :param mode: &quot;prediction&quot;, &quot;training&quot;, or None.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_build_metadata_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called after building dataset metadata.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_batch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called on coordinator only after each batch.</span>
 
-<span class="sd">     :param df: The dataset.</span>
-<span class="sd">     :type df: pd.DataFrame</span>
-<span class="sd">     :param mode: &quot;prediction&quot;, &quot;training&quot;, or None.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
+<span class="sd">    :param trainer: The trainer instance.</span>
+<span class="sd">    :type trainer: ludwig.models.trainer.Trainer</span>
+<span class="sd">    :param progress_tracker: An object which tracks training progress.</span>
+<span class="sd">    :type progress_tracker: ludwig.models.trainer.ProgressTracker</span>
+<span class="sd">    :param save_path: The path to the directory model is saved in.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_build_data_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called before build_data, which does preprocessing, handling missing</span>
-<span class="sd">     values, adding metadata to training_set_metadata.</span>
 
-<span class="sd">     :param df: The dataset.</span>
-<span class="sd">     :type df: pd.DataFrame</span>
-<span class="sd">     :param mode: &quot;prediction&quot;, &quot;training&quot;, or None.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_epoch_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called on coordinator only before the start of each epoch.</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_build_data_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called after build_data completes.</span>
+<span class="sd">    :param trainer: The trainer instance.</span>
+<span class="sd">    :type trainer: ludwig.models.trainer.Trainer</span>
+<span class="sd">    :param progress_tracker: An object which tracks training progress.</span>
+<span class="sd">    :type progress_tracker: ludwig.models.trainer.ProgressTracker</span>
+<span class="sd">    :param save_path: The path to the directory model is saved in.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
 
-<span class="sd">     :param df: The dataset.</span>
-<span class="sd">     :type df: pd.DataFrame</span>
-<span class="sd">     :param mode: &quot;prediction&quot;, &quot;training&quot;, or None.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_evaluation_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called before preprocessing for evaluation.&quot;&quot;&quot;</span>
-     <span class="k">pass</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called on coordinator only after the end of each epoch.</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_evaluation_end</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called after evaluation is complete.&quot;&quot;&quot;</span>
-     <span class="k">pass</span>
+<span class="sd">    :param trainer: The trainer instance.</span>
+<span class="sd">    :type trainer: ludwig.models.trainer.Trainer</span>
+<span class="sd">    :param progress_tracker: An object which tracks training progress.</span>
+<span class="sd">    :type progress_tracker: ludwig.models.trainer.ProgressTracker</span>
+<span class="sd">    :param save_path: The path to the directory model is saved in.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">on_visualize_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fig</span><span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Called after a visualization is generated.</span>
 
-<span class="sd">     :param fig: The figure.</span>
-<span class="sd">     :type fig: matplotlib.figure.Figure</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_validation_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called on coordinator before validation starts.</span>
 
- <span class="k">def</span><span class="w"> </span><span class="nf">prepare_ray_tune</span><span class="p">(</span>
-         <span class="bp">self</span><span class="p">,</span>
-         <span class="n">train_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
-         <span class="n">tune_config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
-         <span class="n">tune_callbacks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span>
-     <span class="p">):</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Configures Ray Tune callback and config.</span>
+<span class="sd">    :param trainer: The trainer instance.</span>
+<span class="sd">    :type trainer: ludwig.models.trainer.Trainer</span>
+<span class="sd">    :param progress_tracker: An object which tracks training progress.</span>
+<span class="sd">    :type progress_tracker: ludwig.models.trainer.ProgressTracker</span>
+<span class="sd">    :param save_path: The path to the directory model is saved in.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
 
-<span class="sd">     :param train_fn: The function which runs the experiment trial.</span>
-<span class="sd">     :param tune_config: The ray tune configuration dictionary.</span>
-<span class="sd">     :param tune_callbacks: List of callbacks (not used yet).</span>
 
-<span class="sd">     :returns: Tuple[Callable, Dict] The train_fn and tune_config, which will be</span>
-<span class="sd">               passed to ray tune.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">return</span> <span class="n">train_fn</span><span class="p">,</span> <span class="n">tune_config</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_validation_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called on coordinator after validation is complete.</span>
 
- <span class="nd">@staticmethod</span>
- <span class="k">def</span><span class="w"> </span><span class="nf">preload</span><span class="p">():</span>
-<span class="w">     </span><span class="sd">&quot;&quot;&quot;Will always be called when Ludwig CLI is invoked, preload gives the</span>
-<span class="sd">     callback an opportunity to import or create any shared resources.</span>
+<span class="sd">    :param trainer: The trainer instance.</span>
+<span class="sd">    :type trainer: ludwig.models.trainer.Trainer</span>
+<span class="sd">    :param progress_tracker: An object which tracks training progress.</span>
+<span class="sd">    :type progress_tracker: ludwig.models.trainer.ProgressTracker</span>
+<span class="sd">    :param save_path: The path to the directory model is saved in.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
 
-<span class="sd">     Importing required 3rd-party libraries should be done here i.e. import wandb.</span>
-<span class="sd">     preload is guaranteed to be called before any other callback method, and will</span>
-<span class="sd">     only be called once per process.</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-     <span class="k">pass</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">on_test_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called on coordinator before testing starts.</span>
+
+<span class="sd">    :param trainer: The trainer instance.</span>
+<span class="sd">    :type trainer: ludwig.models.trainer.Trainer</span>
+<span class="sd">    :param progress_tracker: An object which tracks training progress.</span>
+<span class="sd">    :type progress_tracker: ludwig.models.trainer.ProgressTracker</span>
+<span class="sd">    :param save_path: The path to the directory model is saved in.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">on_test_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">progress_tracker</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called on coordinator after testing ends.</span>
+
+<span class="sd">    :param trainer: The trainer instance.</span>
+<span class="sd">    :type trainer: ludwig.models.trainer.Trainer</span>
+<span class="sd">    :param progress_tracker: An object which tracks training progress.</span>
+<span class="sd">    :type progress_tracker: ludwig.models.trainer.ProgressTracker</span>
+<span class="sd">    :param save_path: The path to the directory model is saved in.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">on_build_metadata_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called before building metadata for dataset.</span>
+
+<span class="sd">    :param df: The dataset.</span>
+<span class="sd">    :type df: pd.DataFrame</span>
+<span class="sd">    :param mode: &quot;prediction&quot;, &quot;training&quot;, or None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">on_build_metadata_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called after building dataset metadata.</span>
+
+<span class="sd">    :param df: The dataset.</span>
+<span class="sd">    :type df: pd.DataFrame</span>
+<span class="sd">    :param mode: &quot;prediction&quot;, &quot;training&quot;, or None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">on_build_data_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called before build_data, which does preprocessing, handling missing</span>
+<span class="sd">    values, adding metadata to training_set_metadata.</span>
+
+<span class="sd">    :param df: The dataset.</span>
+<span class="sd">    :type df: pd.DataFrame</span>
+<span class="sd">    :param mode: &quot;prediction&quot;, &quot;training&quot;, or None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">on_build_data_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called after build_data completes.</span>
+
+<span class="sd">    :param df: The dataset.</span>
+<span class="sd">    :type df: pd.DataFrame</span>
+<span class="sd">    :param mode: &quot;prediction&quot;, &quot;training&quot;, or None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">on_evaluation_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called before preprocessing for evaluation.&quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">on_evaluation_end</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called after evaluation is complete.&quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">on_visualize_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fig</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called after a visualization is generated.</span>
+
+<span class="sd">    :param fig: The figure.</span>
+<span class="sd">    :type fig: matplotlib.figure.Figure</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">prepare_ray_tune</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">tune_config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">tune_callbacks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Callable</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Configures Ray Tune callback and config.</span>
+
+<span class="sd">    :param train_fn: The function which runs the experiment trial.</span>
+<span class="sd">    :param tune_config: The ray tune configuration dictionary.</span>
+<span class="sd">    :param tune_callbacks: List of callbacks (not used yet).</span>
+
+<span class="sd">    :returns: Tuple[Callable, Dict] The train_fn and tune_config, which will be</span>
+<span class="sd">              passed to ray tune.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">train_fn</span><span class="p">,</span> <span class="n">tune_config</span>
+
+
+<span class="nd">@staticmethod</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">preload</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Will always be called when Ludwig CLI is invoked, preload gives the</span>
+<span class="sd">    callback an opportunity to import or create any shared resources.</span>
+
+<span class="sd">    Importing required 3rd-party libraries should be done here i.e. import wandb.</span>
+<span class="sd">    preload is guaranteed to be called before any other callback method, and will</span>
+<span class="sd">    only be called once per process.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
 </code></pre></div>
 <p>If you would like to add additional actions not already handled by the above:</p>
 <ol>

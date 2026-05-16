@@ -5532,9 +5532,9 @@ in <code>ludiwg.schema.features.loss.loss.py</code>. This example adds a schema 
 </code></pre></div>
 <p>Lastly, we need to add a reference to this schema class on the loss class. For example, on the <code>MAELoss</code> class defined
 above, we would add:</p>
-<div class="highlight"><pre><span></span><code>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_schema_cls</span><span class="p">():</span>
-        <span class="k">return</span> <span class="n">MAELossConfig</span>
+<div class="highlight"><pre><span></span><code><span class="nd">@staticmethod</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_schema_cls</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">MAELossConfig</span>
 </code></pre></div>
 
 

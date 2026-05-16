@@ -5253,9 +5253,9 @@
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="c1"># This step can be skipped if you are working in a notebook, and you can simply</span>
 <span class="c1"># re-use the model created in the training section.</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">LudwigModel</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;results/experiment_run/model&#39;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LudwigModel</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;results/experiment_run/model&quot;</span><span class="p">)</span>
 
-<span class="n">predictions</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="s1">&#39;rotten_tomatoes_test.csv&#39;</span><span class="p">)</span>
+<span class="n">predictions</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="s2">&quot;rotten_tomatoes_test.csv&quot;</span><span class="p">)</span>
 <span class="n">predictions</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </code></pre></div>
 </div>
@@ -5334,7 +5334,7 @@ The exact metrics that are computed for each output feature type can be found <a
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">eval_stats</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="s1">&#39;rotten_tomatoes_test.csv&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">eval_stats</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="s2">&quot;rotten_tomatoes_test.csv&quot;</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">

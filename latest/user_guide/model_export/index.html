@@ -5510,6 +5510,7 @@ that rely on dynamic axes.</p>
 metadata when omitted.</p>
 <p>The exported ONNX model can be loaded with ONNX Runtime:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">onnxruntime</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ort</span>
+
 <span class="n">session</span> <span class="o">=</span> <span class="n">ort</span><span class="o">.</span><span class="n">InferenceSession</span><span class="p">(</span><span class="s2">&quot;exported/model.onnx&quot;</span><span class="p">)</span>
 </code></pre></div>
 <p>CLI:

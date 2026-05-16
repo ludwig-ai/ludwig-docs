@@ -5468,6 +5468,7 @@ provides convenient methods for specifying the valid types and ranges of a combi
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.combiners.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseCombinerConfig</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.combiners.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">register_combiner_config</span>
 
+
 <span class="nd">@register_combiner_config</span><span class="p">(</span><span class="s2">&quot;transformer&quot;</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">TransformerCombinerConfig</span><span class="p">(</span><span class="n">BaseCombinerConfig</span><span class="p">):</span>
     <span class="n">num_layers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">PositiveInteger</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -5534,27 +5535,22 @@ layers and state.</p>
 the inputs accessible. This may determine what resources the combiner needs to allocate. For example, the <code>transformer</code>
 combiner treats its input features as a sequence, where the sequence length is the number of features. We can determine
 the sequence length here as <code>self.sequence_size = len(self.input_features)</code>.</p>
-<div class="highlight"><pre><span></span><code>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">input_features</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">InputFeature</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">config</span><span class="p">:</span> <span class="n">TransformerCombinerConfig</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span>
-    <span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">input_features</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;TransformerCombiner&quot;</span>
-        <span class="c1"># ...</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sequence_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_features</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_features</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">InputFeature</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">TransformerCombinerConfig</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">input_features</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;TransformerCombiner&quot;</span>
+    <span class="c1"># ...</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">sequence_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_features</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">transformer_stack</span> <span class="o">=</span> <span class="n">TransformerStack</span><span class="p">(</span>
-            <span class="n">input_size</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span>
-            <span class="n">sequence_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sequence_size</span><span class="p">,</span>
-            <span class="n">hidden_size</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span>
-            <span class="n">num_heads</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span>
-            <span class="n">output_size</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">transformer_output_size</span><span class="p">,</span>
-            <span class="n">num_layers</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">num_layers</span><span class="p">,</span>
-            <span class="n">dropout</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">dropout</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="c1"># ...</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">transformer_stack</span> <span class="o">=</span> <span class="n">TransformerStack</span><span class="p">(</span>
+        <span class="n">input_size</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span>
+        <span class="n">sequence_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sequence_size</span><span class="p">,</span>
+        <span class="n">hidden_size</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span>
+        <span class="n">num_heads</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span>
+        <span class="n">output_size</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">transformer_output_size</span><span class="p">,</span>
+        <span class="n">num_layers</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">num_layers</span><span class="p">,</span>
+        <span class="n">dropout</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">dropout</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># ...</span>
 </code></pre></div>
 <h2 id="4-implement-forward-method">4. Implement <code>forward</code> method<a class="headerlink" href="#4-implement-forward-method" title="Permanent link">&para;</a></h2>
 <p>The <code>forward</code> method of the combiner should combine the input feature representations into a single output tensor, which
@@ -5566,34 +5562,28 @@ return additional values that might be useful for output feature decoding, loss 
 example, <code>TabNetCombiner</code> returns its sparse attention masks (<code>attention_masks</code>, and <code>aggregated_attention_masks</code>) which
 are useful to see which input features were attended to in each prediction step.</p>
 <p>For example, the following is a simplified version of <code>TransformerCombiner</code>'s forward method:</p>
-<div class="highlight"><pre><span></span><code>    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]]</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
-        <span class="n">encoder_outputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">inputs</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="s2">&quot;encoder_output&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
+    <span class="n">encoder_outputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">inputs</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="s2">&quot;encoder_output&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">]</span>
 
-        <span class="c1"># ================ Flatten ================</span>
-        <span class="n">batch_size</span> <span class="o">=</span> <span class="n">encoder_outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">encoder_outputs</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">torch</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">eo</span><span class="p">,</span> <span class="p">[</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">eo</span> <span class="ow">in</span> <span class="n">encoder_outputs</span>
-        <span class="p">]</span>
+    <span class="c1"># ================ Flatten ================</span>
+    <span class="n">batch_size</span> <span class="o">=</span> <span class="n">encoder_outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">encoder_outputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">eo</span><span class="p">,</span> <span class="p">[</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">eo</span> <span class="ow">in</span> <span class="n">encoder_outputs</span><span class="p">]</span>
 
-        <span class="c1"># ================ Project &amp; Concat ================</span>
-        <span class="n">projected</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">projectors</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="n">eo</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">eo</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">encoder_outputs</span><span class="p">)</span>
-        <span class="p">]</span>
-        <span class="n">hidden</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">projected</span><span class="p">)</span>
-        <span class="n">hidden</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="n">hidden</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="c1"># ================ Project &amp; Concat ================</span>
+    <span class="n">projected</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">projectors</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="n">eo</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">eo</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">encoder_outputs</span><span class="p">)]</span>
+    <span class="n">hidden</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">projected</span><span class="p">)</span>
+    <span class="n">hidden</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="n">hidden</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 
-        <span class="c1"># ================ Transformer Layers ================</span>
-        <span class="n">hidden</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformer_stack</span><span class="p">(</span><span class="n">hidden</span><span class="p">)</span>
+    <span class="c1"># ================ Transformer Layers ================</span>
+    <span class="n">hidden</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformer_stack</span><span class="p">(</span><span class="n">hidden</span><span class="p">)</span>
 
-        <span class="c1"># ================ Sequence Reduction ================</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduce_output</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">hidden</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduce_sequence</span><span class="p">(</span><span class="n">hidden</span><span class="p">)</span>
-            <span class="n">hidden</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc_stack</span><span class="p">(</span><span class="n">hidden</span><span class="p">)</span>
+    <span class="c1"># ================ Sequence Reduction ================</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduce_output</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">hidden</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduce_sequence</span><span class="p">(</span><span class="n">hidden</span><span class="p">)</span>
+        <span class="n">hidden</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc_stack</span><span class="p">(</span><span class="n">hidden</span><span class="p">)</span>
 
-        <span class="n">return_data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;combiner_output&quot;</span><span class="p">:</span> <span class="n">hidden</span><span class="p">}</span>
-        <span class="k">return</span> <span class="n">return_data</span>
+    <span class="n">return_data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;combiner_output&quot;</span><span class="p">:</span> <span class="n">hidden</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">return_data</span>
 </code></pre></div>
 <p><strong>Inputs</strong></p>
 <ul>
@@ -5626,10 +5616,7 @@ feature types.)</li>
 <p>Use <code>@pytest.mark.parametrize</code> to parameterize your test with different configurations, also test edge cases:</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;output_size&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">16</span><span class="p">])</span>
 <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;transformer_output_size&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">])</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">test_transformer_combiner</span><span class="p">(</span>
-        <span class="n">encoder_outputs</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span>
-        <span class="n">transformer_output_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-        <span class="n">output_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_transformer_combiner</span><span class="p">(</span><span class="n">encoder_outputs</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">transformer_output_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">output_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">encoder_outputs_dict</span><span class="p">,</span> <span class="n">input_feature_dict</span> <span class="o">=</span> <span class="n">encoder_outputs</span>
 </code></pre></div>
 <p>For examples of combiner tests, see <code>tests/ludwig/combiners/test_combiners.py</code>.</p>

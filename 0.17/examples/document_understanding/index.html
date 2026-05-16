@@ -5823,42 +5823,42 @@
 <div class="tabbed-block">
 <p>With config defined in a Python dict:</p>
 <div class="highlight"><pre><span></span><code><span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s2">&quot;input_features&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;image_path&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;vit&quot;</span><span class="p">,</span>       <span class="c1"># Vision Transformer: reads document patches</span>
-        <span class="s2">&quot;trainable&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-      <span class="p">}</span>
+    <span class="s2">&quot;input_features&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;image_path&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;vit&quot;</span><span class="p">,</span>  <span class="c1"># Vision Transformer: reads document patches</span>
+                <span class="s2">&quot;trainable&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;question&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;bert&quot;</span><span class="p">,</span>  <span class="c1"># BERT encodes the question</span>
+                <span class="s2">&quot;trainable&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">},</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;output_features&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;answer&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;decoder&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;generator&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;max_new_tokens&quot;</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span>  <span class="c1"># Most DocVQA answers are short (&lt; 10 words)</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;combiner&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;concat&quot;</span><span class="p">,</span>  <span class="c1"># Concatenate image and text representations</span>
     <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;question&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;bert&quot;</span><span class="p">,</span>      <span class="c1"># BERT encodes the question</span>
-        <span class="s2">&quot;trainable&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="s2">&quot;output_features&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;answer&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;decoder&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;generator&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;max_new_tokens&quot;</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span>  <span class="c1"># Most DocVQA answers are short (&lt; 10 words)</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="s2">&quot;combiner&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;concat&quot;</span><span class="p">,</span>  <span class="c1"># Concatenate image and text representations</span>
-  <span class="p">},</span>
-  <span class="s2">&quot;trainer&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-    <span class="s2">&quot;batch_size&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
-    <span class="s2">&quot;learning_rate&quot;</span><span class="p">:</span> <span class="mf">1e-5</span><span class="p">,</span>
-  <span class="p">}</span>
+    <span class="s2">&quot;trainer&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="s2">&quot;batch_size&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s2">&quot;learning_rate&quot;</span><span class="p">:</span> <span class="mf">1e-5</span><span class="p">,</span>
+    <span class="p">},</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -5957,18 +5957,20 @@
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="n">documents_to_query</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">&quot;image_path&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;/path/to/invoice.png&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;/path/to/contract.png&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;/path/to/report.png&quot;</span><span class="p">,</span>
-    <span class="p">],</span>
-    <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;What is the invoice number?&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;What is the effective date of the agreement?&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Who are the authors listed on the title page?&quot;</span><span class="p">,</span>
-    <span class="p">]</span>
-<span class="p">})</span>
+<span class="n">documents_to_query</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;image_path&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;/path/to/invoice.png&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/path/to/contract.png&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/path/to/report.png&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;What is the invoice number?&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;What is the effective date of the agreement?&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Who are the authors listed on the title page?&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span>
 
 <span class="n">predictions</span><span class="p">,</span> <span class="n">output_directory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">documents_to_query</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">predictions</span><span class="p">[[</span><span class="s2">&quot;answer_predictions&quot;</span><span class="p">]])</span>

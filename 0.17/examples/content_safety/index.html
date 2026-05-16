@@ -5815,37 +5815,37 @@
 <div class="tabbed-block">
 <p>With config defined in a Python dict:</p>
 <div class="highlight"><pre><span></span><code><span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s2">&quot;input_features&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;prompt&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;auto_transformer&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;pretrained_model_name_or_path&quot;</span><span class="p">:</span> <span class="s2">&quot;answerdotai/ModernBERT-base&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;trainable&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-      <span class="p">}</span>
+    <span class="s2">&quot;input_features&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;prompt&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;auto_transformer&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;pretrained_model_name_or_path&quot;</span><span class="p">:</span> <span class="s2">&quot;answerdotai/ModernBERT-base&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;trainable&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;response&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;auto_transformer&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;pretrained_model_name_or_path&quot;</span><span class="p">:</span> <span class="s2">&quot;answerdotai/ModernBERT-base&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;trainable&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">},</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;output_features&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;safety_label&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;category&quot;</span><span class="p">,</span>  <span class="c1"># Safe, Unsafe, or specific harm category</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;trainer&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="s2">&quot;learning_rate&quot;</span><span class="p">:</span> <span class="mf">2e-5</span><span class="p">,</span>
+        <span class="s2">&quot;batch_size&quot;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
     <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;response&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;auto_transformer&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;pretrained_model_name_or_path&quot;</span><span class="p">:</span> <span class="s2">&quot;answerdotai/ModernBERT-base&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;trainable&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="s2">&quot;output_features&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;safety_label&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;category&quot;</span><span class="p">,</span>  <span class="c1"># Safe, Unsafe, or specific harm category</span>
-    <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="s2">&quot;trainer&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-    <span class="s2">&quot;learning_rate&quot;</span><span class="p">:</span> <span class="mf">2e-5</span><span class="p">,</span>
-    <span class="s2">&quot;batch_size&quot;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
-  <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -5966,18 +5966,20 @@
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="n">conversations_to_check</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;How do I reset my password?&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Write a poem about sunshine.&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Explain how to bypass parental controls.&quot;</span><span class="p">,</span>
-    <span class="p">],</span>
-    <span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;Click Forgot Password on the login page and follow the instructions.&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;The golden rays of morning light...&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;I can help you with that. First, go to the settings menu...&quot;</span><span class="p">,</span>
-    <span class="p">]</span>
-<span class="p">})</span>
+<span class="n">conversations_to_check</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;How do I reset my password?&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Write a poem about sunshine.&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Explain how to bypass parental controls.&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;Click Forgot Password on the login page and follow the instructions.&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;The golden rays of morning light...&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;I can help you with that. First, go to the settings menu...&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span>
 
 <span class="n">predictions</span><span class="p">,</span> <span class="n">output_directory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">conversations_to_check</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">predictions</span><span class="p">[[</span><span class="s2">&quot;safety_label_predictions&quot;</span><span class="p">,</span> <span class="s2">&quot;safety_label_probability&quot;</span><span class="p">]])</span>

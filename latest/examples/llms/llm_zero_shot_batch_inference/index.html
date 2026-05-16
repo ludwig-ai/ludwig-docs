@@ -5298,42 +5298,40 @@ regex-based post-processing, specified in the Ludwig configuration.</p>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">review_label_pairs</span><span class="p">)</span>
 
-<span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">model_type: llm</span>
-<span class="sd">base_model: facebook/opt-350m</span>
-<span class="sd">generation:</span>
-<span class="sd">    temperature: 0.1</span>
-<span class="sd">    top_p: 0.75</span>
-<span class="sd">    top_k: 40</span>
-<span class="sd">    num_beams: 4</span>
-<span class="sd">    max_new_tokens: 64</span>
-<span class="sd">prompt:</span>
-<span class="sd">    task: &quot;Classify the sample input as either negative, neutral, or positive.&quot;</span>
-<span class="sd">input_features:</span>
-<span class="sd">-</span>
-<span class="sd">    name: review</span>
-<span class="sd">    type: text</span>
-<span class="sd">output_features:</span>
-<span class="sd">-</span>
-<span class="sd">    name: label</span>
-<span class="sd">    type: category</span>
-<span class="sd">    preprocessing:</span>
-<span class="sd">        fallback_label: &quot;neutral&quot;</span>
-<span class="sd">    decoder:</span>
-<span class="sd">        type: category_extractor</span>
-<span class="sd">        match:</span>
-<span class="sd">            &quot;negative&quot;:</span>
-<span class="sd">                type: contains</span>
-<span class="sd">                value: &quot;positive&quot;</span>
-<span class="sd">            &quot;neutral&quot;:</span>
-<span class="sd">                type: contains</span>
-<span class="sd">                value: &quot;neutral&quot;</span>
-<span class="sd">            &quot;positive&quot;:</span>
-<span class="sd">                type: contains</span>
-<span class="sd">                value: &quot;positive&quot;</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-<span class="p">)</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">model_type: llm</span>
+<span class="s2">base_model: facebook/opt-350m</span>
+<span class="s2">generation:</span>
+<span class="s2">    temperature: 0.1</span>
+<span class="s2">    top_p: 0.75</span>
+<span class="s2">    top_k: 40</span>
+<span class="s2">    num_beams: 4</span>
+<span class="s2">    max_new_tokens: 64</span>
+<span class="s2">prompt:</span>
+<span class="s2">    task: &quot;Classify the sample input as either negative, neutral, or positive.&quot;</span>
+<span class="s2">input_features:</span>
+<span class="s2">-</span>
+<span class="s2">    name: review</span>
+<span class="s2">    type: text</span>
+<span class="s2">output_features:</span>
+<span class="s2">-</span>
+<span class="s2">    name: label</span>
+<span class="s2">    type: category</span>
+<span class="s2">    preprocessing:</span>
+<span class="s2">        fallback_label: &quot;neutral&quot;</span>
+<span class="s2">    decoder:</span>
+<span class="s2">        type: category_extractor</span>
+<span class="s2">        match:</span>
+<span class="s2">            &quot;negative&quot;:</span>
+<span class="s2">                type: contains</span>
+<span class="s2">                value: &quot;positive&quot;</span>
+<span class="s2">            &quot;neutral&quot;:</span>
+<span class="s2">                type: contains</span>
+<span class="s2">                value: &quot;neutral&quot;</span>
+<span class="s2">            &quot;positive&quot;:</span>
+<span class="s2">                type: contains</span>
+<span class="s2">                value: &quot;positive&quot;</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="p">)</span>
 
 <span class="c1"># Define Ludwig model object that drives model training</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">LudwigModel</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">logging_level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>

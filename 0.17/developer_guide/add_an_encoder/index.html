@@ -5443,11 +5443,11 @@ For example the <code>StackedRNN</code> encoder takes the following list of para
 <h2 id="2-implement-forward-input_shape-and-output_shape">2. Implement <code>forward</code>, <code>input_shape</code>, and <code>output_shape</code><a class="headerlink" href="#2-implement-forward-input_shape-and-output_shape" title="Permanent link">&para;</a></h2>
 <p>Actual computation of activations takes place inside the <code>forward</code> method of the encoder.
 All encoders should have the following signature:</p>
-<div class="highlight"><pre><span></span><code>    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">mask</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="c1"># perform forward pass</span>
-        <span class="c1"># ...</span>
-        <span class="c1"># output_tensor = result of forward pass</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;encoder_output&quot;</span><span class="p">:</span> <span class="n">output_tensor</span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">mask</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="c1"># perform forward pass</span>
+    <span class="c1"># ...</span>
+    <span class="c1"># output_tensor = result of forward pass</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;encoder_output&quot;</span><span class="p">:</span> <span class="n">output_tensor</span><span class="p">}</span>
 </code></pre></div>
 <p><strong>Inputs</strong></p>
 <ul>
@@ -5462,13 +5462,14 @@ mask is not required, and is not implemented for most encoder types.</li>
 </ul>
 <p>The <code>input_shape</code> and <code>output_shape</code> properties must return the fully-specified shape of the encoder's expected input
 and output, without batch dimension:</p>
-<div class="highlight"><pre><span></span><code>    <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">input_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">max_sequence_length</span><span class="p">])</span>
+<div class="highlight"><pre><span></span><code><span class="nd">@property</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">input_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">max_sequence_length</span><span class="p">])</span>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">output_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">recurrent_stack</span><span class="o">.</span><span class="n">output_shape</span>
+
+<span class="nd">@property</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">output_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">recurrent_stack</span><span class="o">.</span><span class="n">output_shape</span>
 </code></pre></div>
 <h2 id="3-add-the-new-encoder-class-to-the-encoder-registry">3. Add the new encoder class to the encoder registry<a class="headerlink" href="#3-add-the-new-encoder-class-to-the-encoder-registry" title="Permanent link">&para;</a></h2>
 <p>Mapping between encoder names in the model definition and encoder classes is made by registering the class in an encoder
@@ -5489,6 +5490,7 @@ to this schema class on the custom encoder class. For example:</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.encoders.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">register_encoder_config</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">ludwig.schema.utils</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">schema_utils</span>
 
+
 <span class="nd">@register_encoder_config</span><span class="p">(</span><span class="s2">&quot;stacked_rnn&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">SEQUENCE</span><span class="p">,</span> <span class="n">TEXT</span><span class="p">])</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">StackedRNNConfig</span><span class="p">(</span><span class="n">BaseEncoderConfig</span><span class="p">):</span>
     <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">StringOptions</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;stacked_rnn&quot;</span><span class="p">],</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;stacked_rnn&quot;</span><span class="p">)</span>
@@ -5504,7 +5506,8 @@ to this schema class on the custom encoder class. For example:</p>
     <span class="n">state_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
     <span class="n">cell_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">StringOptions</span><span class="p">(</span>
         <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;rnn&quot;</span><span class="p">,</span> <span class="s2">&quot;lstm&quot;</span><span class="p">,</span> <span class="s2">&quot;lstm_block&quot;</span><span class="p">,</span> <span class="s2">&quot;ln&quot;</span><span class="p">,</span> <span class="s2">&quot;lstm_cudnn&quot;</span><span class="p">,</span> <span class="s2">&quot;gru&quot;</span><span class="p">,</span> <span class="s2">&quot;gru_block&quot;</span><span class="p">,</span> <span class="s2">&quot;gru_cudnn&quot;</span><span class="p">],</span>
-        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;rnn&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;rnn&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">bidirectional</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
     <span class="n">activation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">ActivationOptions</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;tanh&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>

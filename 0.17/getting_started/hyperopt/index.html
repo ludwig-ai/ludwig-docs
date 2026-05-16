@@ -5255,7 +5255,7 @@ better?</p>
 <span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">review_content</span>
 <span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
-<span class="w">      </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
+<span class="w">      </span><span class="nt">encoder</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">embed</span>
 <span class="nt">output_features</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">recommended</span>
@@ -5302,8 +5302,8 @@ better?</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.hyperopt.run</span><span class="w"> </span><span class="kn">import</span> <span class="n">hyperopt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span>
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;rotten_tomatoes.csv&#39;</span><span class="p">)</span>
-<span class="n">results</span> <span class="o">=</span> <span class="n">hyperopt</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="s1">&#39;rotten_tomatoes.yaml&#39;</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;rotten_tomatoes.csv&quot;</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">hyperopt</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="s2">&quot;rotten_tomatoes.yaml&quot;</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">

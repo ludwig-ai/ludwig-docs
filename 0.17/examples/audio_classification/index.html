@@ -5800,24 +5800,24 @@
 <div class="tabbed-block">
 <p>With config defined in a Python dict:</p>
 <div class="highlight"><pre><span></span><code><span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s2">&quot;input_features&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;audio&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;audio&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;stacked_cnn&quot;</span><span class="p">,</span>  <span class="c1"># 1-D CNN over mel-spectrogram frames</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="s2">&quot;output_features&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;emotion&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;category&quot;</span><span class="p">,</span>  <span class="c1"># 7-class classification</span>
-    <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="s2">&quot;trainer&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
-  <span class="p">}</span>
+    <span class="s2">&quot;input_features&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;audio&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;audio&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;stacked_cnn&quot;</span><span class="p">,</span>  <span class="c1"># 1-D CNN over mel-spectrogram frames</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;output_features&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;emotion&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;category&quot;</span><span class="p">,</span>  <span class="c1"># 7-class classification</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;trainer&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="p">},</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -5944,13 +5944,15 @@
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="n">new_audio</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">&quot;audio&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;/path/to/recording1.wav&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;/path/to/recording2.wav&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;/path/to/recording3.wav&quot;</span><span class="p">,</span>
-    <span class="p">]</span>
-<span class="p">})</span>
+<span class="n">new_audio</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;audio&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;/path/to/recording1.wav&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/path/to/recording2.wav&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;/path/to/recording3.wav&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">)</span>
 
 <span class="n">predictions</span><span class="p">,</span> <span class="n">output_directory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">new_audio</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">predictions</span><span class="p">[[</span><span class="s2">&quot;emotion_predictions&quot;</span><span class="p">,</span> <span class="s2">&quot;emotion_probability&quot;</span><span class="p">]])</span>

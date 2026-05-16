@@ -5801,34 +5801,34 @@
 <div class="tabbed-block">
 <p>With config defined in a Python dict:</p>
 <div class="highlight"><pre><span></span><code><span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s2">&quot;input_features&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;article&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;auto_transformer&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;pretrained_model_name_or_path&quot;</span><span class="p">:</span> <span class="s2">&quot;facebook/bart-base&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;trainable&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>            <span class="c1"># Fine-tune the full encoder</span>
-        <span class="s2">&quot;max_sequence_length&quot;</span><span class="p">:</span> <span class="mi">512</span><span class="p">,</span>   <span class="c1"># Truncate articles longer than 512 tokens</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="s2">&quot;output_features&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;highlights&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;decoder&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;generator&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;max_new_tokens&quot;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>  <span class="c1"># Maximum length of generated summary</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="s2">&quot;trainer&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-    <span class="s2">&quot;batch_size&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-    <span class="s2">&quot;gradient_accumulation_steps&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>  <span class="c1"># Effective batch size = 32</span>
-    <span class="s2">&quot;learning_rate&quot;</span><span class="p">:</span> <span class="mf">5e-5</span><span class="p">,</span>
-  <span class="p">}</span>
+    <span class="s2">&quot;input_features&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;article&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;auto_transformer&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;pretrained_model_name_or_path&quot;</span><span class="p">:</span> <span class="s2">&quot;facebook/bart-base&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;trainable&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Fine-tune the full encoder</span>
+                <span class="s2">&quot;max_sequence_length&quot;</span><span class="p">:</span> <span class="mi">512</span><span class="p">,</span>  <span class="c1"># Truncate articles longer than 512 tokens</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;output_features&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;highlights&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;decoder&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;generator&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;max_new_tokens&quot;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>  <span class="c1"># Maximum length of generated summary</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;trainer&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s2">&quot;batch_size&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="s2">&quot;gradient_accumulation_steps&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>  <span class="c1"># Effective batch size = 32</span>
+        <span class="s2">&quot;learning_rate&quot;</span><span class="p">:</span> <span class="mf">5e-5</span><span class="p">,</span>
+    <span class="p">},</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -5929,12 +5929,14 @@
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="n">articles_to_summarize</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">&quot;article&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;Scientists at MIT have developed a new battery technology that could store ten times more energy...&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;The Federal Reserve raised interest rates by 25 basis points on Wednesday...&quot;</span><span class="p">,</span>
-    <span class="p">]</span>
-<span class="p">})</span>
+<span class="n">articles_to_summarize</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;article&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;Scientists at MIT have developed a new battery technology that could store ten times more energy...&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;The Federal Reserve raised interest rates by 25 basis points on Wednesday...&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">)</span>
 
 <span class="n">predictions</span><span class="p">,</span> <span class="n">output_directory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">articles_to_summarize</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">predictions</span><span class="p">[[</span><span class="s2">&quot;highlights_predictions&quot;</span><span class="p">]])</span>

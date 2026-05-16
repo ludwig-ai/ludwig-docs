@@ -5943,14 +5943,16 @@
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="n">new_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">&quot;utt&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;set an alarm for 8am&quot;</span><span class="p">,</span>          <span class="c1"># English</span>
-        <span class="s2">&quot;stell einen wecker für 8 uhr&quot;</span><span class="p">,</span>   <span class="c1"># German</span>
-        <span class="s2">&quot;设置八点的闹钟&quot;</span><span class="p">,</span>                   <span class="c1"># Chinese</span>
-        <span class="s2">&quot;fija una alarma para las 8&quot;</span><span class="p">,</span>     <span class="c1"># Spanish</span>
-    <span class="p">]</span>
-<span class="p">})</span>
+<span class="n">new_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;utt&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;set an alarm for 8am&quot;</span><span class="p">,</span>  <span class="c1"># English</span>
+            <span class="s2">&quot;stell einen wecker für 8 uhr&quot;</span><span class="p">,</span>  <span class="c1"># German</span>
+            <span class="s2">&quot;设置八点的闹钟&quot;</span><span class="p">,</span>  <span class="c1"># Chinese</span>
+            <span class="s2">&quot;fija una alarma para las 8&quot;</span><span class="p">,</span>  <span class="c1"># Spanish</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">)</span>
 
 <span class="n">predictions</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">new_data</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">predictions</span><span class="p">[[</span><span class="s2">&quot;utt_predictions&quot;</span><span class="p">,</span> <span class="s2">&quot;utt_probabilities&quot;</span><span class="p">]])</span>

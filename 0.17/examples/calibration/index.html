@@ -5520,6 +5520,7 @@ with the model.  The learned temperature is applied transparently at inference.<
 across probability buckets.  Lower is better; a perfectly calibrated model has ECE = 0.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
+
 <span class="k">def</span><span class="w"> </span><span class="nf">ece</span><span class="p">(</span><span class="n">confidences</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">15</span><span class="p">):</span>
     <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_bins</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">ece</span> <span class="o">=</span> <span class="mf">0.0</span>
@@ -5531,6 +5532,7 @@ across probability buckets.  Lower is better; a perfectly calibrated model has E
         <span class="n">conf</span> <span class="o">=</span> <span class="n">confidences</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
         <span class="n">ece</span> <span class="o">+=</span> <span class="n">mask</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="nb">abs</span><span class="p">(</span><span class="n">acc</span> <span class="o">-</span> <span class="n">conf</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">ece</span>
+
 
 <span class="c1"># Extract max probability from Ludwig predictions</span>
 <span class="n">confs</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;label_probabilities&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">max</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>

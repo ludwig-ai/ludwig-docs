@@ -5772,28 +5772,28 @@
 <div class="tabbed-block">
 <p>With config defined in a Python dict:</p>
 <div class="highlight"><pre><span></span><code><span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s2">&quot;input_features&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;func&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;auto_transformer&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;pretrained_model_name_or_path&quot;</span><span class="p">:</span> <span class="s2">&quot;microsoft/codebert-base&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;trainable&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Fine-tune CodeBERT weights</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="s2">&quot;output_features&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;target&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;binary&quot;</span><span class="p">,</span>  <span class="c1"># Binary classification: defective vs. clean</span>
-    <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="s2">&quot;trainer&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-    <span class="s2">&quot;learning_rate&quot;</span><span class="p">:</span> <span class="mf">2e-5</span><span class="p">,</span>
-    <span class="s2">&quot;batch_size&quot;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
-  <span class="p">}</span>
+    <span class="s2">&quot;input_features&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;func&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;auto_transformer&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;pretrained_model_name_or_path&quot;</span><span class="p">:</span> <span class="s2">&quot;microsoft/codebert-base&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;trainable&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Fine-tune CodeBERT weights</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;output_features&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;target&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;binary&quot;</span><span class="p">,</span>  <span class="c1"># Binary classification: defective vs. clean</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;trainer&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s2">&quot;learning_rate&quot;</span><span class="p">:</span> <span class="mf">2e-5</span><span class="p">,</span>
+        <span class="s2">&quot;batch_size&quot;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
+    <span class="p">},</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -5916,12 +5916,14 @@
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="n">functions_to_check</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">&quot;func&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;int read_buffer(char *buf, int size) { return fread(buf, 1, size, stdin); }&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;void safe_copy(char *dst, const char *src, size_t n) { strncpy(dst, src, n); dst[n-1] = &#39;</span><span class="se">\\</span><span class="s2">0&#39;; }&quot;</span><span class="p">,</span>
-    <span class="p">]</span>
-<span class="p">})</span>
+<span class="n">functions_to_check</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;func&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;int read_buffer(char *buf, int size) { return fread(buf, 1, size, stdin); }&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;void safe_copy(char *dst, const char *src, size_t n) { strncpy(dst, src, n); dst[n-1] = &#39;</span><span class="se">\\</span><span class="s2">0&#39;; }&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">)</span>
 
 <span class="n">predictions</span><span class="p">,</span> <span class="n">output_directory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">functions_to_check</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">predictions</span><span class="p">[[</span><span class="s2">&quot;target_predictions&quot;</span><span class="p">,</span> <span class="s2">&quot;target_probability&quot;</span><span class="p">]])</span>

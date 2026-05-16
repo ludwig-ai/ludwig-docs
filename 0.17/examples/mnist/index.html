@@ -5482,7 +5482,7 @@ This will create two pandas DataFrames.  <code>train_df</code> contains file pat
 <span class="nt">input_features</span><span class="p">:</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image_path</span>
 <span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image</span>
-<span class="w">  </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
+<span class="w">  </span><span class="nt">encoder</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stacked_cnn</span>
 <span class="w">      </span><span class="nt">conv_layers</span><span class="p">:</span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">num_filters</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span>
@@ -5571,9 +5571,7 @@ This will create two pandas DataFrames.  <code>train_df</code> contains file pat
 <p><a href="../../user_guide/api/LudwigModel/#ludwig.api.LudwigModel.evaluate">evaluate() method</a></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Generates predictions and performance statistics for the test set.</span>
 <span class="n">test_stats</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">output_directory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span>
-  <span class="n">test_df</span><span class="p">,</span>
-  <span class="n">collect_predictions</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-  <span class="n">collect_overall_stats</span><span class="o">=</span><span class="kc">True</span>
+    <span class="n">test_df</span><span class="p">,</span> <span class="n">collect_predictions</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">collect_overall_stats</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">)</span>
 </code></pre></div>
 </div>
@@ -5599,12 +5597,12 @@ This will create two pandas DataFrames.  <code>train_df</code> contains file pat
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.visualize</span><span class="w"> </span><span class="kn">import</span> <span class="n">confusion_matrix</span>
 
 <span class="n">confusion_matrix</span><span class="p">(</span>
-  <span class="p">[</span><span class="n">test_stats</span><span class="p">],</span>
-  <span class="n">model</span><span class="o">.</span><span class="n">training_set_metadata</span><span class="p">,</span>
-  <span class="s1">&#39;label&#39;</span><span class="p">,</span>
-  <span class="n">top_n_classes</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
-  <span class="n">model_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">],</span>
-  <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">[</span><span class="n">test_stats</span><span class="p">],</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">training_set_metadata</span><span class="p">,</span>
+    <span class="s2">&quot;label&quot;</span><span class="p">,</span>
+    <span class="n">top_n_classes</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+    <span class="n">model_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">],</span>
+    <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>
 </div>
@@ -5629,7 +5627,7 @@ This will create two pandas DataFrames.  <code>train_df</code> contains file pat
 <span class="c1"># time during training.</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.visualize</span><span class="w"> </span><span class="kn">import</span> <span class="n">learning_curves</span>
 
-<span class="n">learning_curves</span><span class="p">(</span><span class="n">train_stats</span><span class="p">,</span> <span class="n">output_feature_name</span><span class="o">=</span><span class="s1">&#39;label&#39;</span><span class="p">)</span>
+<span class="n">learning_curves</span><span class="p">(</span><span class="n">train_stats</span><span class="p">,</span> <span class="n">output_feature_name</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">)</span>
 </code></pre></div>
 </div>
 </div>

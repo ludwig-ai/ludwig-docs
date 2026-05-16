@@ -5566,12 +5566,12 @@ specific feature and also modified via defaults, the feature specific configurat
 the value set in the defaults section for that particular parameter.</p>
 </div>
 <div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">title</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
 <span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">most_common</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">summary</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
 <span class="l l-Scalar l-Scalar-Plain">....</span>
@@ -5634,12 +5634,12 @@ the title and <code>2000</code> for the body, but we want both features to share
 <p>The way to do this is by adding a <code>preprocessing</code> key inside the title <code>input_feature</code> dictionary and one in the <code>body</code> input feature
 dictionary containing the desired parameter and value.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w">   </span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">title</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
 <span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">max_sequence_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w">   </span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">body</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
 <span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
@@ -5738,13 +5738,13 @@ certain data type. For example:</p>
 <h3 id="defaults-example">Defaults Example<a class="headerlink" href="#defaults-example" title="Permanent link">&para;</a></h3>
 <p>Following is a full example of a Ludwig configuration with type-global defaults.</p>
 <div class="highlight"><span class="filename">config.yaml</span><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">title</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">body</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">num_characters</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number</span>
 <span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
@@ -5753,7 +5753,7 @@ certain data type. For example:</p>
 <span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">concat</span>
 <span class="w">  </span><span class="nt">num_fc_layers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
 <span class="nt">output_features</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">spam</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">category</span>
 <span class="nt">defaults</span><span class="p">:</span>

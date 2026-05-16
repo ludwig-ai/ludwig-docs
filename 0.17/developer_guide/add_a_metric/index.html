@@ -5482,8 +5482,7 @@ computes average accuracy over sequences.</p>
 <h3 id="get_current_value">get_current_value<a class="headerlink" href="#get_current_value" title="Permanent link">&para;</a></h3>
 <p>If using <code>MeanMetric</code>, compute the value of the metric given a batch of feature outputs and target values in
 <code>get_current_value</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_current_value</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">preds</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_current_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preds</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
     <span class="c1"># Compute metric over a batch of predictions (preds) and truth values (target).</span>
     <span class="c1"># Aggregate metric over batch.</span>
     <span class="k">return</span> <span class="n">metric_value</span>

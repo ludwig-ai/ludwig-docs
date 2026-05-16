@@ -5474,15 +5474,15 @@ the same as the one described in python's <a href="https://docs.python.org/3/lib
 <p>Input date features are transformed into a int tensors of size <code>N x 9</code> (where <code>N</code> is the size of the dataset and the 9 dimensions contain year, month, day, weekday, yearday, hour, minute, second, and second of day).</p>
 <p>For example, the date <code>2022-06-25 09:30:59</code> would be deconstructed into:</p>
 <div class="highlight"><pre><span></span><code><span class="p">[</span>
-  <span class="mi">2022</span><span class="p">,</span>   <span class="c1"># Year</span>
-  <span class="mi">6</span><span class="p">,</span>      <span class="c1"># June</span>
-  <span class="mi">25</span><span class="p">,</span>     <span class="c1"># 25th day of the month</span>
-  <span class="mi">5</span><span class="p">,</span>      <span class="c1"># Weekday: Saturday</span>
-  <span class="mi">176</span><span class="p">,</span>    <span class="c1"># 176th day of the year</span>
-  <span class="mi">9</span><span class="p">,</span>      <span class="c1"># Hour</span>
-  <span class="mi">30</span><span class="p">,</span>     <span class="c1"># Minute</span>
-  <span class="mi">59</span><span class="p">,</span>     <span class="c1"># Seconds</span>
-  <span class="mi">34259</span><span class="p">,</span>  <span class="c1"># 34259th second of the day</span>
+    <span class="mi">2022</span><span class="p">,</span>  <span class="c1"># Year</span>
+    <span class="mi">6</span><span class="p">,</span>  <span class="c1"># June</span>
+    <span class="mi">25</span><span class="p">,</span>  <span class="c1"># 25th day of the month</span>
+    <span class="mi">5</span><span class="p">,</span>  <span class="c1"># Weekday: Saturday</span>
+    <span class="mi">176</span><span class="p">,</span>  <span class="c1"># 176th day of the year</span>
+    <span class="mi">9</span><span class="p">,</span>  <span class="c1"># Hour</span>
+    <span class="mi">30</span><span class="p">,</span>  <span class="c1"># Minute</span>
+    <span class="mi">59</span><span class="p">,</span>  <span class="c1"># Seconds</span>
+    <span class="mi">34259</span><span class="p">,</span>  <span class="c1"># 34259th second of the day</span>
 <span class="p">]</span>
 </code></pre></div>
 <p>The encoder parameters specified at the feature level are:</p>
@@ -5494,7 +5494,7 @@ a feature of the same type and with the same encoder parameters.</li>
 <p>Example date feature entry in the input features list:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">date_feature_name</span>
 <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">date</span>
-<span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
+<span class="nt">encoder</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">embed</span>
 </code></pre></div>
 <p>Encoder type and encoder parameters can also be defined once and applied to all date input features using the <a href="../../defaults/#type-global-encoder">Type-Global Encoder</a> section.</p>

@@ -5733,7 +5733,7 @@ a feature of the same type and with the same encoder parameters.</li>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vector_column_name</span>
 <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vector</span>
 <span class="nt">tied</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
-<span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
+<span class="nt">encoder</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dense</span>
 </code></pre></div>
 <p>The available encoder parameters are:</p>
@@ -5752,7 +5752,7 @@ raw vector values unaltered. <code>dense</code> uses a stack of fully connected 
 </code></pre></div>
 <p>There are no additional parameters for <code>passthrough</code> encoder.</p>
 <h4 id="dense-encoder">Dense Encoder<a class="headerlink" href="#dense-encoder" title="Permanent link">&para;</a></h4>
-<p>For vector features, a dense encoder (stack of fully connected layers) can be used to encode the vector.  </p>
+<p>For vector features, a dense encoder (stack of fully connected layers) can be used to encode the vector.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">encoder</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dense</span>
 <span class="w">    </span><span class="nt">dropout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>

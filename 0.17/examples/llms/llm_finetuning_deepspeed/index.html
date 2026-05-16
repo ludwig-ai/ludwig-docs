@@ -5472,40 +5472,38 @@ code, just configuration.</p>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">LudwigModel</span>
 
-<span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">input_features:</span>
-<span class="sd">- name: review</span>
-<span class="sd">    type: text</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">input_features:</span>
+<span class="s2">- name: review</span>
+<span class="s2">    type: text</span>
 
-<span class="sd">    encoder:</span>
-<span class="sd">    type: auto_transformer</span>
-<span class="sd">    pretrained_model_name_or_path: bigscience/bloom-3b</span>
-<span class="sd">    trainable: true</span>
-<span class="sd">    adapter:</span>
-<span class="sd">        type: lora</span>
+<span class="s2">    encoder:</span>
+<span class="s2">    type: auto_transformer</span>
+<span class="s2">    pretrained_model_name_or_path: bigscience/bloom-3b</span>
+<span class="s2">    trainable: true</span>
+<span class="s2">    adapter:</span>
+<span class="s2">        type: lora</span>
 
-<span class="sd">output_features:</span>
-<span class="sd">- name: sentiment</span>
-<span class="sd">    type: category</span>
+<span class="s2">output_features:</span>
+<span class="s2">- name: sentiment</span>
+<span class="s2">    type: category</span>
 
-<span class="sd">trainer:</span>
-<span class="sd">batch_size: 4</span>
-<span class="sd">epochs: 3</span>
+<span class="s2">trainer:</span>
+<span class="s2">batch_size: 4</span>
+<span class="s2">epochs: 3</span>
 
-<span class="sd">backend:</span>
-<span class="sd">type: ray</span>
-<span class="sd">trainer:</span>
-<span class="sd">    use_gpu: true</span>
-<span class="sd">    strategy:</span>
-<span class="sd">    type: deepspeed</span>
-<span class="sd">    zero_optimization:</span>
-<span class="sd">        stage: 3</span>
-<span class="sd">        offload_optimizer:</span>
-<span class="sd">        device: cpu</span>
-<span class="sd">        pin_memory: true</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="p">)</span>
+<span class="s2">backend:</span>
+<span class="s2">type: ray</span>
+<span class="s2">trainer:</span>
+<span class="s2">    use_gpu: true</span>
+<span class="s2">    strategy:</span>
+<span class="s2">    type: deepspeed</span>
+<span class="s2">    zero_optimization:</span>
+<span class="s2">        stage: 3</span>
+<span class="s2">        offload_optimizer:</span>
+<span class="s2">        device: cpu</span>
+<span class="s2">        pin_memory: true</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
 
 <span class="c1"># Define Ludwig model object that drive model training</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">LudwigModel</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">logging_level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>

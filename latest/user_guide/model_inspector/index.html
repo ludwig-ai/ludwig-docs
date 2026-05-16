@@ -5624,9 +5624,7 @@ weight analysis, debugging gradient flow, or building custom interpretability to
 <span class="c1">#  &#39;dtype&#39;: &#39;torch.float32&#39;, &#39;requires_grad&#39;: True, &#39;num_elements&#39;: 32768}</span>
 
 <span class="c1"># Specific parameters by name</span>
-<span class="n">encoder_weights</span> <span class="o">=</span> <span class="n">inspector</span><span class="o">.</span><span class="n">collect_weights</span><span class="p">(</span>
-    <span class="n">tensor_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;input_features.text.encoder.weight&quot;</span><span class="p">]</span>
-<span class="p">)</span>
+<span class="n">encoder_weights</span> <span class="o">=</span> <span class="n">inspector</span><span class="o">.</span><span class="n">collect_weights</span><span class="p">(</span><span class="n">tensor_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;input_features.text.encoder.weight&quot;</span><span class="p">])</span>
 </code></pre></div>
 <p>Each entry is a dict with:</p>
 <table>

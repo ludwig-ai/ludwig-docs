@@ -5465,7 +5465,7 @@ opposed to needing to specify config params individually and search over all com
 <div class="highlight"><pre><span></span><code><span class="nt">hyperopt</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">parameters</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">.:  space</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">choice</span>
-<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">categories</span><span class="p p-Indicator">:</span><span class="w"> </span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">categories</span><span class="p p-Indicator">:</span>
 <span class="w">                </span><span class="p p-Indicator">-</span><span class="w">   </span><span class="nt">combiner</span><span class="p">:</span><span class="w"> </span><span class="c1"># Ludwig config subsection 1</span>
 <span class="w">                        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tabnet</span>
 <span class="w">                    </span><span class="nt">trainer</span><span class="p">:</span>
@@ -5486,7 +5486,7 @@ used to update the Ludwig config for each trial based on which of the two choice
 <div class="highlight"><pre><span></span><code><span class="c1"># Trial 1</span>
 <span class="w">  </span><span class="nt">combiner</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tabnet</span>
-<span class="w">  </span><span class="nt">trainer</span><span class="p">:</span><span class="w"> </span>
+<span class="w">  </span><span class="nt">trainer</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span>
 <span class="w">  </span><span class="nt">batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span>
 <span class="w">  </span><span class="nt">decay_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.02</span>
@@ -5494,7 +5494,7 @@ used to update the Ludwig config for each trial based on which of the two choice
 <span class="c1"># Trial 2</span>
 <span class="w">  </span><span class="nt">combiner</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tabnet</span>
-<span class="w">  </span><span class="nt">trainer</span><span class="p">:</span><span class="w"> </span>
+<span class="w">  </span><span class="nt">trainer</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span>
 <span class="w">    </span><span class="nt">batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span>
 <span class="w">    </span><span class="nt">decay_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span>
@@ -5502,7 +5502,7 @@ used to update the Ludwig config for each trial based on which of the two choice
 <span class="c1"># Trial 3</span>
 <span class="w">  </span><span class="nt">combiner</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">concat</span>
-<span class="w">  </span><span class="nt">trainer</span><span class="p">:</span><span class="w"> </span>
+<span class="w">  </span><span class="nt">trainer</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span>
 <span class="w">    </span><span class="nt">decay_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span>
 </code></pre></div>

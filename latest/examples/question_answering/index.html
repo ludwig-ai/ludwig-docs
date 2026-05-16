@@ -5869,14 +5869,12 @@
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="n">new_questions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">&quot;passage&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;The Eiffel Tower is located in Paris, France. It was built in 1889.&quot;</span>
-    <span class="p">],</span>
-    <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;In what year was the Eiffel Tower built?&quot;</span>
-    <span class="p">],</span>
-<span class="p">})</span>
+<span class="n">new_questions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;passage&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;The Eiffel Tower is located in Paris, France. It was built in 1889.&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;In what year was the Eiffel Tower built?&quot;</span><span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span>
 
 <span class="n">predictions</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">new_questions</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;answers_spans_predictions&quot;</span><span class="p">])</span>

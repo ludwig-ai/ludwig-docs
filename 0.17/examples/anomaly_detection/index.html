@@ -5534,7 +5534,7 @@ ludwig<span class="w"> </span>train<span class="w"> </span><span class="se">\</s
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">LudwigModel</span>
 
 <span class="n">train_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;/tmp/sensors_train.csv&quot;</span><span class="p">)</span>
-<span class="n">test_df</span>  <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;/tmp/sensors_test.csv&quot;</span><span class="p">)</span>
+<span class="n">test_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;/tmp/sensors_test.csv&quot;</span><span class="p">)</span>
 
 <span class="c1"># Load config from file (or pass a dict directly)</span>
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;config_deep_svdd.yaml&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -5564,9 +5564,7 @@ a <strong>threshold</strong>:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="c1"># Compute threshold from normal validation scores</span>
-<span class="n">normal_val_scores</span> <span class="o">=</span> <span class="n">predictions</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
-    <span class="n">test_df</span><span class="p">[</span><span class="s2">&quot;anomaly&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;anomaly_anomaly_score_predictions&quot;</span>
-<span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">normal_val_scores</span> <span class="o">=</span> <span class="n">predictions</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">test_df</span><span class="p">[</span><span class="s2">&quot;anomaly&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;anomaly_anomaly_score_predictions&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
 <span class="n">threshold</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">normal_val_scores</span><span class="p">,</span> <span class="mi">95</span><span class="p">)</span>
 
 <span class="n">is_anomaly</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;anomaly_anomaly_score_predictions&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">threshold</span>

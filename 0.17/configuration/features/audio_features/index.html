@@ -5791,9 +5791,9 @@ for a full comparison.</p>
 <p>When loading a HuggingFace dataset (e.g. <code>datasets.load_dataset(...)</code>), audio columns are delivered
 as Python dicts — not file paths:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="s2">&quot;array&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>          <span class="c1"># decoded waveform, shape (samples,)</span>
-    <span class="s2">&quot;sampling_rate&quot;</span><span class="p">:</span> <span class="mi">16000</span><span class="p">,</span>       <span class="c1"># sample rate in Hz</span>
-    <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/path/to/cache.wav&quot;</span>  <span class="c1"># optional: HF&#39;s local cache path</span>
+    <span class="s2">&quot;array&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>  <span class="c1"># decoded waveform, shape (samples,)</span>
+    <span class="s2">&quot;sampling_rate&quot;</span><span class="p">:</span> <span class="mi">16000</span><span class="p">,</span>  <span class="c1"># sample rate in Hz</span>
+    <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/path/to/cache.wav&quot;</span><span class="p">,</span>  <span class="c1"># optional: HF&#39;s local cache path</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Ludwig handles this transparently:</p>
@@ -5837,7 +5837,7 @@ a feature of the same type and with the same encoder parameters.</li>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio_column_name</span>
 <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio</span>
 <span class="nt">tied</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
-<span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
+<span class="nt">encoder</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">parallel_cnn</span>
 </code></pre></div>
 <h3 id="encoders">Encoders<a class="headerlink" href="#encoders" title="Permanent link">&para;</a></h3>

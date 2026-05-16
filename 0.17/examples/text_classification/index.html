@@ -5541,7 +5541,7 @@ optionally specifies the model type and hyperparameters.</p>
 <span class="w">    </span><span class="p p-Indicator">-</span>
 <span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">title</span>
 <span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
-<span class="w">        </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">encoder</span><span class="p">:</span>
 <span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">parallel_cnn</span>
 <span class="nt">output_features</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span>
@@ -5554,25 +5554,23 @@ optionally specifies the model type and hyperparameters.</p>
 <div class="tabbed-block">
 <p>With config defined in a python dict:</p>
 <div class="highlight"><pre><span></span><code><span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s2">&quot;input_features&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;title&quot;</span><span class="p">,</span>            <span class="c1"># The name of the input column</span>
-      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>             <span class="c1"># Data type of the input column</span>
-      <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;parallel_cnn&quot;</span>
-       <span class="p">}</span>                          <span class="c1"># The model architecture we should use for encoding this column</span>
-    <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="s2">&quot;output_features&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;class&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;category&quot;</span><span class="p">,</span>
-    <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="s2">&quot;trainer&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>  <span class="c1"># We&#39;ll train for three epochs. Training longer might give</span>
-                  <span class="c1"># better performance.</span>
-  <span class="p">}</span>
+    <span class="s2">&quot;input_features&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;title&quot;</span><span class="p">,</span>  <span class="c1"># The name of the input column</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>  <span class="c1"># Data type of the input column</span>
+            <span class="s2">&quot;encoder&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;parallel_cnn&quot;</span><span class="p">},</span>  <span class="c1"># The model architecture we should use for encoding this column</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;output_features&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;class&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;category&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;trainer&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>  <span class="c1"># We&#39;ll train for three epochs. Training longer might give</span>
+        <span class="c1"># better performance.</span>
+    <span class="p">},</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -5612,9 +5610,7 @@ optionally specifies the model type and hyperparameters.</p>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="c1"># Generates predictions and performance statistics for the test set.</span>
 <span class="n">test_stats</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">output_directory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span>
-  <span class="n">test_df</span><span class="p">,</span>
-  <span class="n">collect_predictions</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-  <span class="n">collect_overall_stats</span><span class="o">=</span><span class="kc">True</span>
+    <span class="n">test_df</span><span class="p">,</span> <span class="n">collect_predictions</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">collect_overall_stats</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">)</span>
 </code></pre></div>
 </div>
@@ -5637,12 +5633,12 @@ optionally specifies the model type and hyperparameters.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.visualize</span><span class="w"> </span><span class="kn">import</span> <span class="n">confusion_matrix</span>
 
 <span class="n">confusion_matrix</span><span class="p">(</span>
-  <span class="p">[</span><span class="n">test_stats</span><span class="p">],</span>
-  <span class="n">model</span><span class="o">.</span><span class="n">training_set_metadata</span><span class="p">,</span>
-  <span class="s1">&#39;class&#39;</span><span class="p">,</span>
-  <span class="n">top_n_classes</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
-  <span class="n">model_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">],</span>
-  <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">[</span><span class="n">test_stats</span><span class="p">],</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">training_set_metadata</span><span class="p">,</span>
+    <span class="s2">&quot;class&quot;</span><span class="p">,</span>
+    <span class="n">top_n_classes</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+    <span class="n">model_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">],</span>
+    <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>
 </div>
@@ -5679,7 +5675,7 @@ optionally specifies the model type and hyperparameters.</p>
 <span class="c1"># time during training.</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.visualize</span><span class="w"> </span><span class="kn">import</span> <span class="n">learning_curves</span>
 
-<span class="n">learning_curves</span><span class="p">(</span><span class="n">train_stats</span><span class="p">,</span> <span class="n">output_feature_name</span><span class="o">=</span><span class="s1">&#39;class&#39;</span><span class="p">)</span>
+<span class="n">learning_curves</span><span class="p">(</span><span class="n">train_stats</span><span class="p">,</span> <span class="n">output_feature_name</span><span class="o">=</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
 </code></pre></div>
 </div>
 </div>
@@ -5722,13 +5718,15 @@ How the pandemic housing market spurred buyer&#39;s remorse across America
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">text_to_predict</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-  <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="s2">&quot;Google may spur cloud cybersecurity M&amp;A with $5.4B Mandiant buy&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Europe struggles to meet mounting needs of Ukraine&#39;s fleeing millions&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;How the pandemic housing market spurred buyer&#39;s remorse across America&quot;</span><span class="p">,</span>
-  <span class="p">]</span>
-<span class="p">})</span>
+<div class="highlight"><pre><span></span><code><span class="n">text_to_predict</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;Google may spur cloud cybersecurity M&amp;A with $5.4B Mandiant buy&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Europe struggles to meet mounting needs of Ukraine&#39;s fleeing millions&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;How the pandemic housing market spurred buyer&#39;s remorse across America&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">)</span>
 
 <span class="n">predictions</span><span class="p">,</span> <span class="n">output_directory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">text_to_predict</span><span class="p">)</span>
 </code></pre></div>

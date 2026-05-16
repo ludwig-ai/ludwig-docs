@@ -5599,7 +5599,7 @@ library that does not require installing any additional packages to use. It is t
 are then spread across multiple GPUs during training.</p>
 <p>The primary scenario to use DeepSpeed is when the model you're training is too large to fit into a single GPU
 (e.g., fine-tuning a large language model like Llama-2).
-When the model is small enough to fit in a single GPU, however, benchmarking has shown it's generally better 
+When the model is small enough to fit in a single GPU, however, benchmarking has shown it's generally better
 to use a data parallel framework like DDP.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span>

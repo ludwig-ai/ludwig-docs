@@ -45,7 +45,7 @@ Example category feature entry in the input features list:
 name: category_column_name
 type: category
 tied: null
-encoder: 
+encoder:
     type: dense
 ```
 

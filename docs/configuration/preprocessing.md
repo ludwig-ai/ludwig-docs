@@ -165,8 +165,8 @@ preprocessing:
   sample_ratio: 0.3
 ```
 
-Furthermore, if you want to specify the exact number of samples to use for training, 
-you can use the `sample_size` parameter. For example, if you want to use 1000 samples for training, 
+Furthermore, if you want to specify the exact number of samples to use for training,
+you can use the `sample_size` parameter. For example, if you want to use 1000 samples for training,
 you could specify a config like this:
 
 ```yaml

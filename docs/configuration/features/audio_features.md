@@ -88,9 +88,9 @@ as Python dicts — not file paths:
 
 ```python
 {
-    "array": np.ndarray,          # decoded waveform, shape (samples,)
-    "sampling_rate": 16000,       # sample rate in Hz
-    "path": "/path/to/cache.wav"  # optional: HF's local cache path
+    "array": np.ndarray,  # decoded waveform, shape (samples,)
+    "sampling_rate": 16000,  # sample rate in Hz
+    "path": "/path/to/cache.wav",  # optional: HF's local cache path
 }
 ```
 
@@ -146,7 +146,7 @@ Example audio feature entry in the input features list:
 name: audio_column_name
 type: audio
 tied: null
-encoder: 
+encoder:
     type: parallel_cnn
 ```
 

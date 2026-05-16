@@ -73,11 +73,11 @@ Actual computation of activations takes place inside the `forward` method of the
 All encoders should have the following signature:
 
 ```python
-    def forward(self, inputs: torch.Tensor, mask: Optional[torch.Tensor] = None):
-        # perform forward pass
-        # ...
-        # output_tensor = result of forward pass
-        return {"encoder_output": output_tensor}
+def forward(self, inputs: torch.Tensor, mask: Optional[torch.Tensor] = None):
+    # perform forward pass
+    # ...
+    # output_tensor = result of forward pass
+    return {"encoder_output": output_tensor}
 ```
 
 __Inputs__
@@ -95,13 +95,14 @@ The `input_shape` and `output_shape` properties must return the fully-specified 
 and output, without batch dimension:
 
 ```python
-    @property
-    def input_shape(self) -> torch.Size:
-        return torch.Size([self.max_sequence_length])
+@property
+def input_shape(self) -> torch.Size:
+    return torch.Size([self.max_sequence_length])
 
-    @property
-    def output_shape(self) -> torch.Size:
-        return self.recurrent_stack.output_shape
+
+@property
+def output_shape(self) -> torch.Size:
+    return self.recurrent_stack.output_shape
 ```
 
 # 3. Add the new encoder class to the encoder registry
@@ -130,6 +131,7 @@ from ludwig.schema.encoders.base import BaseEncoderConfig
 from ludwig.schema.encoders.utils import register_encoder_config
 import ludwig.schema.utils as schema_utils
 
+
 @register_encoder_config("stacked_rnn", [SEQUENCE, TEXT])
 class StackedRNNConfig(BaseEncoderConfig):
     type: str = schema_utils.StringOptions(options=["stacked_rnn"], default="stacked_rnn")
@@ -145,7 +147,8 @@ class StackedRNNConfig(BaseEncoderConfig):
     state_size: int = schema_utils.Integer(default=256, description="")
     cell_type: str = schema_utils.StringOptions(
         options=["rnn", "lstm", "lstm_block", "ln", "lstm_cudnn", "gru", "gru_block", "gru_cudnn"],
-        default="rnn", description=""
+        default="rnn",
+        description="",
     )
     bidirectional: bool = schema_utils.Boolean(default=False, description="")
     activation: str = schema_utils.ActivationOptions(default="tanh", description="")

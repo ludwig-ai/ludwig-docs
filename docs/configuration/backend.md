@@ -120,7 +120,7 @@ are then spread across multiple GPUs during training.
 
 The primary scenario to use DeepSpeed is when the model you're training is too large to fit into a single GPU
 (e.g., fine-tuning a large language model like Llama-2).
-When the model is small enough to fit in a single GPU, however, benchmarking has shown it's generally better 
+When the model is small enough to fit in a single GPU, however, benchmarking has shown it's generally better
 to use a data parallel framework like DDP.
 
 ```yaml

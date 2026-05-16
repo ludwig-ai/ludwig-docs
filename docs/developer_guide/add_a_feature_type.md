@@ -119,7 +119,7 @@ depends on other outputs.
 Computes feature logits from the combiner output (and any features this feature depends on).
 
 ```python
-def logits(self, inputs: Dict[str, torch.Tensor],  **kwargs):
+def logits(self, inputs: Dict[str, torch.Tensor], **kwargs):
     hidden = inputs[HIDDEN]
     # logits = results of decoder operation
     return logits
@@ -242,6 +242,7 @@ from ludwig.schema.features.preprocessing.base import BasePreprocessingConfig
 from ludwig.schema.features.preprocessing.utils import PreprocessingDataclassField
 from ludwig.schema.features.utils import ecd_output_config_registry
 
+
 @ecd_output_config_registry.register(CATEGORY)
 class CategoryOutputFeatureConfig(BaseOutputFeatureConfig):
     """CategoryOutputFeatureConfig configures the parameters used for a category output feature."""
@@ -286,7 +287,6 @@ class CategoryOutputFeatureConfig(BaseOutputFeatureConfig):
         default=False,
         description="Calibrate the model's output probabilities using temperature scaling.",
     )
-
 ```
 
 Lastly, you need to add a reference to the schema class definitions on your input feature type definitions. So for

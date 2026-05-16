@@ -55,6 +55,7 @@ from ludwig.schema import utils as schema_utils
 from ludwig.schema.combiners.base import BaseCombinerConfig
 from ludwig.schema.combiners.utils import register_combiner_config
 
+
 @register_combiner_config("transformer")
 class TransformerCombinerConfig(BaseCombinerConfig):
     num_layers: int = schema_utils.PositiveInteger(default=1)
@@ -135,27 +136,22 @@ combiner treats its input features as a sequence, where the sequence length is t
 the sequence length here as `self.sequence_size = len(self.input_features)`.
 
 ```python
-    def __init__(
-        self,
-        input_features: Dict[str, InputFeature] = None,
-        config: TransformerCombinerConfig = None,
-        **kwargs
-    ):
-        super().__init__(input_features)
-        self.name = "TransformerCombiner"
-        # ...
-        self.sequence_size = len(self.input_features)
+def __init__(self, input_features: Dict[str, InputFeature] = None, config: TransformerCombinerConfig = None, **kwargs):
+    super().__init__(input_features)
+    self.name = "TransformerCombiner"
+    # ...
+    self.sequence_size = len(self.input_features)
 
-        self.transformer_stack = TransformerStack(
-            input_size=config.hidden_size,
-            sequence_size=self.sequence_size,
-            hidden_size=config.hidden_size,
-            num_heads=config.num_heads,
-            output_size=config.transformer_output_size,
-            num_layers=config.num_layers,
-            dropout=config.dropout,
-        )
-        # ...
+    self.transformer_stack = TransformerStack(
+        input_size=config.hidden_size,
+        sequence_size=self.sequence_size,
+        hidden_size=config.hidden_size,
+        num_heads=config.num_heads,
+        output_size=config.transformer_output_size,
+        num_layers=config.num_layers,
+        dropout=config.dropout,
+    )
+    # ...
 ```
 
 # 4. Implement `forward` method
@@ -173,34 +169,28 @@ are useful to see which input features were attended to in each prediction step.
 For example, the following is a simplified version of `TransformerCombiner`'s forward method:
 
 ```python
-    def forward(
-        self, inputs: Dict[str, Dict[str, torch.Tensor]]
-    ) -> Dict[str, torch.Tensor]:
-        encoder_outputs = [inputs[k]["encoder_output"] for k in inputs]
+def forward(self, inputs: Dict[str, Dict[str, torch.Tensor]]) -> Dict[str, torch.Tensor]:
+    encoder_outputs = [inputs[k]["encoder_output"] for k in inputs]
 
-        # ================ Flatten ================
-        batch_size = encoder_outputs[0].shape[0]
-        encoder_outputs = [
-            torch.reshape(eo, [batch_size, -1]) for eo in encoder_outputs
-        ]
+    # ================ Flatten ================
+    batch_size = encoder_outputs[0].shape[0]
+    encoder_outputs = [torch.reshape(eo, [batch_size, -1]) for eo in encoder_outputs]
 
-        # ================ Project & Concat ================
-        projected = [
-            self.projectors[i](eo) for i, eo in enumerate(encoder_outputs)
-        ]
-        hidden = torch.stack(projected)
-        hidden = torch.permute(hidden, (1, 0, 2))
+    # ================ Project & Concat ================
+    projected = [self.projectors[i](eo) for i, eo in enumerate(encoder_outputs)]
+    hidden = torch.stack(projected)
+    hidden = torch.permute(hidden, (1, 0, 2))
 
-        # ================ Transformer Layers ================
-        hidden = self.transformer_stack(hidden)
+    # ================ Transformer Layers ================
+    hidden = self.transformer_stack(hidden)
 
-        # ================ Sequence Reduction ================
-        if self.reduce_output is not None:
-            hidden = self.reduce_sequence(hidden)
-            hidden = self.fc_stack(hidden)
+    # ================ Sequence Reduction ================
+    if self.reduce_output is not None:
+        hidden = self.reduce_sequence(hidden)
+        hidden = self.fc_stack(hidden)
 
-        return_data = {"combiner_output": hidden}
-        return return_data
+    return_data = {"combiner_output": hidden}
+    return return_data
 ```
 
 __Inputs__
@@ -242,10 +232,7 @@ Use `@pytest.mark.parametrize` to parameterize your test with different configur
 ```python
 @pytest.mark.parametrize("output_size", [8, 16])
 @pytest.mark.parametrize("transformer_output_size", [4, 12])
-def test_transformer_combiner(
-        encoder_outputs: tuple,
-        transformer_output_size: int,
-        output_size: int) -> None:
+def test_transformer_combiner(encoder_outputs: tuple, transformer_output_size: int, output_size: int) -> None:
     encoder_outputs_dict, input_feature_dict = encoder_outputs
 ```
 

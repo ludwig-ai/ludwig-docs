@@ -91,7 +91,7 @@ For example, one can define a hyperopt search space like the one below and sampl
 hyperopt:
     parameters:
         .:  space: choice
-            categories: 
+            categories:
                 -   combiner: # Ludwig config subsection 1
                         type: tabnet
                     trainer:
@@ -116,7 +116,7 @@ This config above will create hyperopt samples that look like the following:
 # Trial 1
   combiner:
     type: tabnet
-  trainer: 
+  trainer:
   learning_rate: 0.001
   batch_size: 64
   decay_rate: 0.02
@@ -124,7 +124,7 @@ This config above will create hyperopt samples that look like the following:
 # Trial 2
   combiner:
     type: tabnet
-  trainer: 
+  trainer:
     learning_rate: 0.001
     batch_size: 64
     decay_rate: 0.001
@@ -132,7 +132,7 @@ This config above will create hyperopt samples that look like the following:
 # Trial 3
   combiner:
     type: concat
-  trainer: 
+  trainer:
     batch_size: 64
     decay_rate: 0.001
 ```

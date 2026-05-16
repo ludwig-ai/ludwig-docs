@@ -38,7 +38,7 @@ Example vector feature entry in the input features list:
 name: vector_column_name
 type: vector
 tied: null
-encoder: 
+encoder:
     type: dense
 ```
 
@@ -61,7 +61,7 @@ There are no additional parameters for `passthrough` encoder.
 
 ### Dense Encoder
 
-For vector features, a dense encoder (stack of fully connected layers) can be used to encode the vector.  
+For vector features, a dense encoder (stack of fully connected layers) can be used to encode the vector.
 
 {% set encoder = get_encoder_schema("vector", "dense") %}
 {{ render_yaml(encoder, parent="encoder") }}

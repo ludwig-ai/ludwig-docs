@@ -38,26 +38,19 @@ correct behavior of the function under a variety of situations.
 
 ```python
 # test combinations of parameters to exercise all code paths
-@pytest.mark.parameterize(
-    'num_total_blocks, num_shared_blocks',
-    [(4, 2), (6, 4), (3, 1)]
-)
-@pytest.mark.parameterize('virtual_batch_size', [None, 7])
-@pytest.mark.parameterize('size', [4, 12])
-@pytest.mark.parameterize('input_size', [2, 6])
+@pytest.mark.parameterize("num_total_blocks, num_shared_blocks", [(4, 2), (6, 4), (3, 1)])
+@pytest.mark.parameterize("virtual_batch_size", [None, 7])
+@pytest.mark.parameterize("size", [4, 12])
+@pytest.mark.parameterize("input_size", [2, 6])
 def test_feature_transformer(
-    input_size: int,
-    size: int,
-    virtual_batch_size: Optional[int],
-    num_total_blocks: int,
-    num_shared_blocks: int
+    input_size: int, size: int, virtual_batch_size: Optional[int], num_total_blocks: int, num_shared_blocks: int
 ) -> None:
     feature_transformer = FeatureTransformer(
         input_size,
         size,
         bn_virtual_bs=virtual_batch_size,
         num_total_blocks=num_total_blocks,
-        num_shared_blocks=num_shared_blocks
+        num_shared_blocks=num_shared_blocks,
     )
 ```
 
@@ -81,18 +74,17 @@ tensors are of correct shape and type. This provides minimal assurance that the 
 combiner_output = combiner(input_features)
 
 # check for required attributes in the generated output
-assert hasattr(combiner, 'input_dtype')
-assert hasattr(combiner, 'output_shape')
+assert hasattr(combiner, "input_dtype")
+assert hasattr(combiner, "output_shape")
 
 # check for correct data type
 assert isinstance(combiner_output, dict)
 
 # required key present
-assert 'combiner_output' in combiner_output
+assert "combiner_output" in combiner_output
 
 # check for correct output shape
-assert (combiner_output['combiner_output'].shape
-       == (batch_size, *combiner.output_shape))
+assert combiner_output["combiner_output"].shape == (batch_size, *combiner.output_shape)
 ```
 
 ### Trainable Modules
@@ -178,9 +170,7 @@ Example:
 @pytest.mark.parametrize("in_memory", [True, False])
 @pytest.mark.parametrize("image_source", ["file", "tensor"])
 @pytest.mark.parametrize("num_channels", [1, 3])
-def test_basic_image_feature(
-        num_channels, image_source, in_memory, skip_save_processed_input, tmpdir
-):
+def test_basic_image_feature(num_channels, image_source, in_memory, skip_save_processed_input, tmpdir):
     # Image Inputs
     image_dest_folder = os.path.join(tmpdir, "generated_images")
 ```
@@ -236,13 +226,13 @@ Set the random seed for repeatability.  Partially implement the parameter update
 parameters, e.g.,
 
 ```python
-    # check for parameter updating
-    target = torch.randn(output.shape)
-    fpc, tpc, upc, not_updated = check_module_parameters_updated(sequence_rnn_decoder, (combiner_outputs, None), target)
-    print(fpc, tpc, upc, not_updated)
+# check for parameter updating
+target = torch.randn(output.shape)
+fpc, tpc, upc, not_updated = check_module_parameters_updated(sequence_rnn_decoder, (combiner_outputs, None), target)
+print(fpc, tpc, upc, not_updated)
 ```
 
-`target` is a tensor with synthetic data that is used to in computing the loss after the forward pass.  
+`target` is a tensor with synthetic data that is used to in computing the loss after the forward pass.
 
 `fpc` is the count of frozen parameters.  `tpc` is the count of trainable parameters.  `upc` is the updated parameter
 count, i.e., the number of parameters that were updated during the cycle of forward pass-backward pass-optimize step.
@@ -262,7 +252,7 @@ list.  Whenever `upc` < `tpc`, the developer should confirm that the counts are 
 
 ??? note "Tips and Tricks to Understand Ludwig Module Parameter Structure"
 
-    While working in **Step 1**, these code fragments may be temporarily used to gain insight into the structure 
+    While working in **Step 1**, these code fragments may be temporarily used to gain insight into the structure
     and parameters in a Ludwig module.
 
     The `print()` will display the layers that make up a Ludwig module.  From the output the developer can confirm
@@ -334,25 +324,25 @@ Once all the differences between `tpc` and `upc` are accounted for then replace 
 appropriate set of `assert` statements.  Here are some examples:
 
 ```python
-    # check for parameter updating
-    target = torch.randn(output.shape)
-    fpc, tpc, upc, not_updated = check_module_parameters_updated(sequence_rnn_decoder, (combiner_outputs, None), target)
-    assert upc == tpc, f"Failed to update parameters.  Parameters not update: {not_updated}"
+# check for parameter updating
+target = torch.randn(output.shape)
+fpc, tpc, upc, not_updated = check_module_parameters_updated(sequence_rnn_decoder, (combiner_outputs, None), target)
+assert upc == tpc, f"Failed to update parameters.  Parameters not update: {not_updated}"
 ```
 
 ```python
-    target = torch.randn(conv1_stack.output_shape)
-    fpc, tpc, upc, not_updated = check_module_parameters_updated(conv1_stack, (input,), target)
-    if dropout == 0:
-        # all trainable parameters should be updated
-        assert tpc == upc, (
-            f"All parameter not updated. Parameters not updated: {not_updated}" f"\nModule structure:\n{conv1_stack}"
-        )
-    else:
-        # with specified config and random seed, non-zero dropout update parameter count could take different values
-        assert (tpc == upc) or (upc == 1), (
-            f"All parameter not updated. Parameters not updated: {not_updated}" f"\nModule structure:\n{conv1_stack}"
-        )
+target = torch.randn(conv1_stack.output_shape)
+fpc, tpc, upc, not_updated = check_module_parameters_updated(conv1_stack, (input,), target)
+if dropout == 0:
+    # all trainable parameters should be updated
+    assert tpc == upc, (
+        f"All parameter not updated. Parameters not updated: {not_updated}" f"\nModule structure:\n{conv1_stack}"
+    )
+else:
+    # with specified config and random seed, non-zero dropout update parameter count could take different values
+    assert (tpc == upc) or (upc == 1), (
+        f"All parameter not updated. Parameters not updated: {not_updated}" f"\nModule structure:\n{conv1_stack}"
+    )
 ```
 
 **Example of a full test with parameter update checking**:

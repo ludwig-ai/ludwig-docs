@@ -36,15 +36,15 @@ For example, the date `2022-06-25 09:30:59` would be deconstructed into:
 
 ```python
 [
-  2022,   # Year
-  6,      # June
-  25,     # 25th day of the month
-  5,      # Weekday: Saturday
-  176,    # 176th day of the year
-  9,      # Hour
-  30,     # Minute
-  59,     # Seconds
-  34259,  # 34259th second of the day
+    2022,  # Year
+    6,  # June
+    25,  # 25th day of the month
+    5,  # Weekday: Saturday
+    176,  # 176th day of the year
+    9,  # Hour
+    30,  # Minute
+    59,  # Seconds
+    34259,  # 34259th second of the day
 ]
 ```
 
@@ -60,7 +60,7 @@ Example date feature entry in the input features list:
 ```yaml
 name: date_feature_name
 type: date
-encoder: 
+encoder:
     type: embed
 ```
 

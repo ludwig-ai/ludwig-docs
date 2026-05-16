@@ -84,34 +84,34 @@ We use gradient accumulation (`gradient_accumulation_steps: 8`) with a small bat
 
     ```python
     config = {
-      "input_features": [
-        {
-          "name": "article",
-          "type": "text",
-          "encoder": {
-            "type": "auto_transformer",
-            "pretrained_model_name_or_path": "facebook/bart-base",
-            "trainable": True,            # Fine-tune the full encoder
-            "max_sequence_length": 512,   # Truncate articles longer than 512 tokens
-          }
-        }
-      ],
-      "output_features": [
-        {
-          "name": "highlights",
-          "type": "text",
-          "decoder": {
-            "type": "generator",
-            "max_new_tokens": 128,  # Maximum length of generated summary
-          }
-        }
-      ],
-      "trainer": {
-        "epochs": 3,
-        "batch_size": 4,
-        "gradient_accumulation_steps": 8,  # Effective batch size = 32
-        "learning_rate": 5e-5,
-      }
+        "input_features": [
+            {
+                "name": "article",
+                "type": "text",
+                "encoder": {
+                    "type": "auto_transformer",
+                    "pretrained_model_name_or_path": "facebook/bart-base",
+                    "trainable": True,  # Fine-tune the full encoder
+                    "max_sequence_length": 512,  # Truncate articles longer than 512 tokens
+                },
+            }
+        ],
+        "output_features": [
+            {
+                "name": "highlights",
+                "type": "text",
+                "decoder": {
+                    "type": "generator",
+                    "max_new_tokens": 128,  # Maximum length of generated summary
+                },
+            }
+        ],
+        "trainer": {
+            "epochs": 3,
+            "batch_size": 4,
+            "gradient_accumulation_steps": 8,  # Effective batch size = 32
+            "learning_rate": 5e-5,
+        },
     }
     ```
 
@@ -221,12 +221,14 @@ Ludwig reports ROUGE-1, ROUGE-2, and ROUGE-L for text generation outputs. These 
     ```python
     import pandas as pd
 
-    articles_to_summarize = pd.DataFrame({
-        "article": [
-            "Scientists at MIT have developed a new battery technology that could store ten times more energy...",
-            "The Federal Reserve raised interest rates by 25 basis points on Wednesday...",
-        ]
-    })
+    articles_to_summarize = pd.DataFrame(
+        {
+            "article": [
+                "Scientists at MIT have developed a new battery technology that could store ten times more energy...",
+                "The Federal Reserve raised interest rates by 25 basis points on Wednesday...",
+            ]
+        }
+    )
 
     predictions, output_directory = model.predict(articles_to_summarize)
     print(predictions[["highlights_predictions"]])

@@ -15,7 +15,7 @@ input_features:
       type: number
     - name: review_content
       type: text
-      encoder: 
+      encoder:
         type: embed
 output_features:
     - name: recommended
@@ -66,8 +66,8 @@ The hyperparameter optimization strategy is run using the ludwig hyperopt comman
     from ludwig.hyperopt.run import hyperopt
     import pandas
 
-    df = pandas.read_csv('rotten_tomatoes.csv')
-    results = hyperopt(config='rotten_tomatoes.yaml', dataset=df)
+    df = pandas.read_csv("rotten_tomatoes.csv")
+    results = hyperopt(config="rotten_tomatoes.yaml", dataset=df)
     ```
 
 === "Docker CLI"

@@ -51,11 +51,13 @@ rows = []
 for i, item in enumerate(ds):
     img_path = img_dir / f"{i}.jpg"
     item["image"].save(img_path)
-    rows.append({
-        "image_path": str(img_path),
-        "question": item["question"],
-        "answer": item["multiple_choice_answer"],
-    })
+    rows.append(
+        {
+            "image_path": str(img_path),
+            "question": item["question"],
+            "answer": item["multiple_choice_answer"],
+        }
+    )
 
 df = pd.DataFrame(rows)
 df.to_csv("vqa_dataset.csv", index=False)
@@ -147,10 +149,12 @@ from ludwig.api import LudwigModel
 
 model = LudwigModel.load("results/experiment_run/model")
 
-questions = pd.DataFrame([
-    {"image_path": "test1.jpg", "question": "What color is the car?"},
-    {"image_path": "test2.jpg", "question": "How many people are visible?"},
-])
+questions = pd.DataFrame(
+    [
+        {"image_path": "test1.jpg", "question": "What color is the car?"},
+        {"image_path": "test2.jpg", "question": "How many people are visible?"},
+    ]
+)
 
 predictions, _ = model.predict(dataset=questions)
 for q, a in zip(questions["question"], predictions["answer_predictions"]):

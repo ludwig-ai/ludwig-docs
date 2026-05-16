@@ -21,12 +21,12 @@ These parameters can be set for individual features through the
 
 ```yaml
 input_features:
-  - 
+  -
     name: title
     type: text
     preprocessing:
         most_common: 10
-  - 
+  -
     name: summary
     type: text
 ....
@@ -106,12 +106,12 @@ dictionary containing the desired parameter and value.
 
 ```yaml
 input_features:
-  -   
+  -
     name: title
     type: text
     preprocessing:
         max_sequence_length: 20
-  -   
+  -
     name: body
     type: text
     preprocessing:
@@ -236,13 +236,13 @@ Following is a full example of a Ludwig configuration with type-global defaults.
 
 ```yaml title="config.yaml"
 input_features:
-  - 
+  -
     name: title
     type: text
-  - 
+  -
     name: body
     type: text
-  - 
+  -
     name: num_characters
     type: number
     preprocessing:
@@ -251,7 +251,7 @@ combiner:
   type: concat
   num_fc_layers: 1
 output_features:
-  - 
+  -
     name: spam
     type: category
 defaults:

@@ -17,19 +17,19 @@ input_features:
     -
         name: image_path
         type: image
-        encoder: 
+        encoder:
             type: stacked_cnn
     -
         name: question
         type: text
-        encoder: 
+        encoder:
             type: parallel_cnn
 
 output_features:
     -
         name: answer
         type: text
-        decoder: 
+        decoder:
             type: generator
             cell_type: lstm
         loss:

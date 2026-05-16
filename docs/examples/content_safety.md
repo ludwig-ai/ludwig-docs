@@ -85,37 +85,37 @@ We use ModernBERT (`answerdotai/ModernBERT-base`) for both encoders — a recent
 
     ```python
     config = {
-      "input_features": [
-        {
-          "name": "prompt",
-          "type": "text",
-          "encoder": {
-            "type": "auto_transformer",
-            "pretrained_model_name_or_path": "answerdotai/ModernBERT-base",
-            "trainable": True,
-          }
+        "input_features": [
+            {
+                "name": "prompt",
+                "type": "text",
+                "encoder": {
+                    "type": "auto_transformer",
+                    "pretrained_model_name_or_path": "answerdotai/ModernBERT-base",
+                    "trainable": True,
+                },
+            },
+            {
+                "name": "response",
+                "type": "text",
+                "encoder": {
+                    "type": "auto_transformer",
+                    "pretrained_model_name_or_path": "answerdotai/ModernBERT-base",
+                    "trainable": True,
+                },
+            },
+        ],
+        "output_features": [
+            {
+                "name": "safety_label",
+                "type": "category",  # Safe, Unsafe, or specific harm category
+            }
+        ],
+        "trainer": {
+            "epochs": 5,
+            "learning_rate": 2e-5,
+            "batch_size": 32,
         },
-        {
-          "name": "response",
-          "type": "text",
-          "encoder": {
-            "type": "auto_transformer",
-            "pretrained_model_name_or_path": "answerdotai/ModernBERT-base",
-            "trainable": True,
-          }
-        }
-      ],
-      "output_features": [
-        {
-          "name": "safety_label",
-          "type": "category",  # Safe, Unsafe, or specific harm category
-        }
-      ],
-      "trainer": {
-        "epochs": 5,
-        "learning_rate": 2e-5,
-        "batch_size": 32,
-      }
     }
     ```
 
@@ -250,18 +250,20 @@ Visualize the confusion matrix to see which safety categories are most often con
     ```python
     import pandas as pd
 
-    conversations_to_check = pd.DataFrame({
-        "prompt": [
-            "How do I reset my password?",
-            "Write a poem about sunshine.",
-            "Explain how to bypass parental controls.",
-        ],
-        "response": [
-            "Click Forgot Password on the login page and follow the instructions.",
-            "The golden rays of morning light...",
-            "I can help you with that. First, go to the settings menu...",
-        ]
-    })
+    conversations_to_check = pd.DataFrame(
+        {
+            "prompt": [
+                "How do I reset my password?",
+                "Write a poem about sunshine.",
+                "Explain how to bypass parental controls.",
+            ],
+            "response": [
+                "Click Forgot Password on the login page and follow the instructions.",
+                "The golden rays of morning light...",
+                "I can help you with that. First, go to the settings menu...",
+            ],
+        }
+    )
 
     predictions, output_directory = model.predict(conversations_to_check)
     print(predictions[["safety_label_predictions", "safety_label_probability"]])

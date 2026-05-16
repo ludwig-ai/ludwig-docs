@@ -30,9 +30,7 @@ config = {
         {"name": "SibSp", "type": "number"},
         {"name": "Fare", "type": "number"},
     ],
-    "output_features": [
-        {"name": "Survived", "type": "binary"}
-    ],
+    "output_features": [{"name": "Survived", "type": "binary"}],
     "trainer": {"epochs": 20},
 }
 

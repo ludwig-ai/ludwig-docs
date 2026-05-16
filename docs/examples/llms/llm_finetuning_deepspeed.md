@@ -27,8 +27,7 @@ code, just configuration.
 
     from ludwig.api import LudwigModel
 
-    config = yaml.safe_load(
-        """
+    config = yaml.safe_load("""
     input_features:
     - name: review
         type: text
@@ -59,8 +58,7 @@ code, just configuration.
             offload_optimizer:
             device: cpu
             pin_memory: true
-    """
-    )
+    """)
 
     # Define Ludwig model object that drive model training
     model = LudwigModel(config=config, logging_level=logging.INFO)
@@ -77,7 +75,6 @@ code, just configuration.
     print("contents of output directory:", output_directory)
     for item in os.listdir(output_directory):
         print("\t", item)
-
     ```
 
 === "imdb_deepspeed_zero3.yaml"

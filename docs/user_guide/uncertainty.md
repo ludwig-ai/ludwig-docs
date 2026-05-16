@@ -71,6 +71,7 @@ A **reliability diagram** plots predicted probability (x-axis) against empirical
 ```python
 import numpy as np
 
+
 def expected_calibration_error(probabilities, labels, n_bins=10):
     bins = np.linspace(0.0, 1.0, n_bins + 1)
     ece = 0.0

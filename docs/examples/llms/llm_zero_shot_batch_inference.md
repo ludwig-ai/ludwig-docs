@@ -57,8 +57,7 @@ review_label_pairs = [
 
 df = pd.DataFrame(review_label_pairs)
 
-config = yaml.safe_load(
-    """
+config = yaml.safe_load("""
 model_type: llm
 base_model: facebook/opt-350m
 generation:
@@ -91,8 +90,7 @@ output_features:
             "positive":
                 type: contains
                 value: "positive"
-    """
-)
+    """)
 
 # Define Ludwig model object that drives model training
 model = LudwigModel(config=config, logging_level=logging.INFO)

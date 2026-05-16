@@ -256,7 +256,7 @@ The frequency of checkpoint-evaluation can be configured using:
 
 !!! tip
 
-    Running evaluation once per epoch is an appropriate fit for small datasets 
+    Running evaluation once per epoch is an appropriate fit for small datasets
     that fit in memory and train quickly. However, this can be a poor fit for
     unstructured datasets, which tend to be much larger, and train more slowly
     due to larger models.
@@ -265,7 +265,7 @@ The frequency of checkpoint-evaluation can be configured using:
     not frequently enough can be uninformative. In large-scale training runs,
     it's common for evaluation to be configured to run on a sub-epoch time
     scale, or every few thousand steps.
-    
+
     We recommend configuring evaluation such that new evaluation results are
     available at least several times an hour. In general, it is not necessary
     for models to train over the entirety of a dataset, nor evaluate over the

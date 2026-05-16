@@ -106,7 +106,7 @@ Lastly, we need to add a reference to this schema class on the loss class. For e
 above, we would add:
 
 ```python
-    @staticmethod
-    def get_schema_cls():
-        return MAELossConfig
+@staticmethod
+def get_schema_cls():
+    return MAELossConfig
 ```

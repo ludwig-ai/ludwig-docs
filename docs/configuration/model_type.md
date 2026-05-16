@@ -31,4 +31,3 @@ The LLM model type supports all pretrained HuggingFace Causal LM models from the
 
     - only a single text input and text output feature is supported (for now)
     - the `combiner` section is ignored
-

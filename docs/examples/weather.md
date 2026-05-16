@@ -56,7 +56,7 @@ input_features:
     -
         name: temperature_feature
         type: timeseries
-        encoder: 
+        encoder:
             type: rnn
             embedding_size: 32
             state_size: 32

@@ -35,7 +35,7 @@ Example H3 feature entry in the input features list:
 name: h3_feature_name
 type: h3
 tied: null
-encoder: 
+encoder:
     type: embed
 ```
 

@@ -78,7 +78,7 @@ Here, for simplicity, we'll try to predict **class** from **title**.
         -
             name: title
             type: text
-            encoder: 
+            encoder:
                 type: parallel_cnn
     output_features:
         -
@@ -94,25 +94,23 @@ Here, for simplicity, we'll try to predict **class** from **title**.
 
     ```python
     config = {
-      "input_features": [
-        {
-          "name": "title",            # The name of the input column
-          "type": "text",             # Data type of the input column
-          "encoder": {
-                "type": "parallel_cnn"
-           }                          # The model architecture we should use for encoding this column
-        }
-      ],
-      "output_features": [
-        {
-          "name": "class",
-          "type": "category",
-        }
-      ],
-      "trainer": {
-        "epochs": 3,  # We'll train for three epochs. Training longer might give
-                      # better performance.
-      }
+        "input_features": [
+            {
+                "name": "title",  # The name of the input column
+                "type": "text",  # Data type of the input column
+                "encoder": {"type": "parallel_cnn"},  # The model architecture we should use for encoding this column
+            }
+        ],
+        "output_features": [
+            {
+                "name": "class",
+                "type": "category",
+            }
+        ],
+        "trainer": {
+            "epochs": 3,  # We'll train for three epochs. Training longer might give
+            # better performance.
+        },
     }
     ```
 
@@ -155,9 +153,7 @@ Generates predictions and performance statistics for the test set.
     ```python
     # Generates predictions and performance statistics for the test set.
     test_stats, predictions, output_directory = model.evaluate(
-      test_df,
-      collect_predictions=True,
-      collect_overall_stats=True
+        test_df, collect_predictions=True, collect_overall_stats=True
     )
     ```
 
@@ -182,12 +178,12 @@ Visualizes confusion matrix, which gives an overview of classifier performance f
     from ludwig.visualize import confusion_matrix
 
     confusion_matrix(
-      [test_stats],
-      model.training_set_metadata,
-      'class',
-      top_n_classes=[5],
-      model_names=[''],
-      normalize=True,
+        [test_stats],
+        model.training_set_metadata,
+        "class",
+        top_n_classes=[5],
+        model_names=[""],
+        normalize=True,
     )
     ```
 
@@ -215,7 +211,7 @@ Visualizes learning curves, which show how performance metrics changed over time
     # time during training.
     from ludwig.visualize import learning_curves
 
-    learning_curves(train_stats, output_feature_name='class')
+    learning_curves(train_stats, output_feature_name="class")
     ```
 
 | Losses                                                                | Metrics                                                    |
@@ -251,13 +247,15 @@ the newly trained model classifies them.
 === "python"
 
     ```python
-    text_to_predict = pd.DataFrame({
-      "title": [
-        "Google may spur cloud cybersecurity M&A with $5.4B Mandiant buy",
-        "Europe struggles to meet mounting needs of Ukraine's fleeing millions",
-        "How the pandemic housing market spurred buyer's remorse across America",
-      ]
-    })
+    text_to_predict = pd.DataFrame(
+        {
+            "title": [
+                "Google may spur cloud cybersecurity M&A with $5.4B Mandiant buy",
+                "Europe struggles to meet mounting needs of Ukraine's fleeing millions",
+                "How the pandemic housing market spurred buyer's remorse across America",
+            ]
+        }
+    )
 
     predictions, output_directory = model.predict(text_to_predict)
     ```

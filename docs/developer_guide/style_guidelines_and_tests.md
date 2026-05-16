@@ -37,10 +37,7 @@ in the function signature wherever possible, and should use the most specific ty
 Example:
 
 ```python
-def load_processed_dataset(
-        self,
-        split
-) -> Union[pd.DataFrame, Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]]:
+def load_processed_dataset(self, split) -> Union[pd.DataFrame, Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]]:
     """Loads the processed Parquet into a dataframe.
 
     :param split: Splits along 'split' column if present.

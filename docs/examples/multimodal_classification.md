@@ -133,74 +133,74 @@ predict.
 
     ```python
     config = {
-      "input_features": [
-        {
-          "name": "default_profile",
-          "type": "binary",
-        },
-        {
-          "name": "default_profile_image",
-          "type": "binary",
-        },
-        {
-          "name": "description",
-          "type": "text",
-        },
-        {
-          "name": "favourites_count",
-          "type": "number",
-        },
-        {
-          "name": "followers_count",
-          "type": "number",
-        },
-        {
-          "name": "friends_count",
-          "type": "number",
-        },
-        {
-          "name": "geo_enabled",
-          "type": "binary",
-        },
-        {
-          "name": "lang",
-          "type": "category",
-        },
-        {
-          "name": "location",
-          "type": "category",
-        },
-        {
-          "name": "profile_background_image_path",
-          "type": "category",
-        },
-        {
-          "name": "profile_image_path",
-          "type": "image",
-        },
-        {
-          "name": "statuses_count",
-          "type": "number",
-        },
-        {
-          "name": "verified",
-          "type": "binary",
-        },
-        {
-          "name": "average_tweets_per_day",
-          "type": "number",
-        },
-        {
-          "name": "account_age_days",
-          "type": "number",
-        },
-      ],
-      "output_features": [
-        {
-          "name": "account_type",
-          "type": "binary",
-        }
-      ]
+        "input_features": [
+            {
+                "name": "default_profile",
+                "type": "binary",
+            },
+            {
+                "name": "default_profile_image",
+                "type": "binary",
+            },
+            {
+                "name": "description",
+                "type": "text",
+            },
+            {
+                "name": "favourites_count",
+                "type": "number",
+            },
+            {
+                "name": "followers_count",
+                "type": "number",
+            },
+            {
+                "name": "friends_count",
+                "type": "number",
+            },
+            {
+                "name": "geo_enabled",
+                "type": "binary",
+            },
+            {
+                "name": "lang",
+                "type": "category",
+            },
+            {
+                "name": "location",
+                "type": "category",
+            },
+            {
+                "name": "profile_background_image_path",
+                "type": "category",
+            },
+            {
+                "name": "profile_image_path",
+                "type": "image",
+            },
+            {
+                "name": "statuses_count",
+                "type": "number",
+            },
+            {
+                "name": "verified",
+                "type": "binary",
+            },
+            {
+                "name": "average_tweets_per_day",
+                "type": "number",
+            },
+            {
+                "name": "account_age_days",
+                "type": "number",
+            },
+        ],
+        "output_features": [
+            {
+                "name": "account_type",
+                "type": "binary",
+            }
+        ],
     }
     ```
 
@@ -248,9 +248,7 @@ Generates predictions and performance statistics for the test set.
     ```python
     # Generates predictions and performance statistics for the test set.
     test_stats, predictions, output_directory = model.evaluate(
-      dataset_df[dataset_df.split == 1],
-      collect_predictions=True,
-      collect_overall_stats=True
+        dataset_df[dataset_df.split == 1], collect_predictions=True, collect_overall_stats=True
     )
     ```
 
@@ -275,12 +273,12 @@ Visualizes confusion matrix, which gives an overview of classifier performance f
     from ludwig.visualize import confusion_matrix
 
     confusion_matrix(
-      [test_stats],
-      model.training_set_metadata,
-      'account_type',
-      top_n_classes=[2],
-      model_names=[''],
-      normalize=True,
+        [test_stats],
+        model.training_set_metadata,
+        "account_type",
+        top_n_classes=[2],
+        model_names=[""],
+        normalize=True,
     )
     ```
 
@@ -307,7 +305,7 @@ Visualizes learning curves, which show how performance metrics changed over time
     # Visualizes learning curves, which show how performance metrics changed over time during training.
     from ludwig.visualize import learning_curves
 
-    learning_curves(train_stats, output_feature_name='account_type')
+    learning_curves(train_stats, output_feature_name="account_type")
     ```
 
 | Losses                                                                              | Metrics                                                          |

@@ -19,7 +19,7 @@ input_features:
     -
         name: sentence
         type: sequence
-        encoder: 
+        encoder:
             type: rnn
             cell: lstm
             bidirectional: true
@@ -29,16 +29,16 @@ output_features:
     -
         name: chunks
         type: sequence
-        decoder: 
+        decoder:
             type: tagger
     -
         name: part_of_speech
         type: sequence
-        decoder: 
+        decoder:
             type: tagger
     -
         name: named_entities
         type: sequence
-        decoder: 
+        decoder:
             type: tagger
 ```

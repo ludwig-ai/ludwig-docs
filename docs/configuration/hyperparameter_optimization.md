@@ -9,7 +9,7 @@ hyperopt:
   split: validation
   parameters:
     title.encoder.cell_type: ... # title is a text feature type
-    title.encoder.num_layers: ... 
+    title.encoder.num_layers: ...
     combiner.num_fc_layers: ...
     section.encoder.embedding_size: ...
     preprocessing.text.vocab_size: ...
@@ -285,7 +285,7 @@ input_features:
   -
     name: title
     type: text
-    encoder: 
+    encoder:
         type: rnn
         cell_type: lstm
         num_layers: 2

@@ -98,8 +98,7 @@ class BERTEncoder(Encoder):
 # 2. Call the pre-trained model in the `LudwigModule`'s forward pass
 
 ```python
-def forward(self, inputs: torch.Tensor,
-            mask: Optional[torch.Tensor] = None) -> Dict[str, torch.Tensor]:
+def forward(self, inputs: torch.Tensor, mask: Optional[torch.Tensor] = None) -> Dict[str, torch.Tensor]:
     if mask is not None:
         mask = mask.to(torch.int32)
     transformer_outputs = self.transformer(

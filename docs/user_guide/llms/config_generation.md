@@ -45,6 +45,7 @@ config = generate_config(
 
 # config is a validated dict you can pass directly to LudwigModel
 from ludwig.api import LudwigModel
+
 model = LudwigModel(config=config)
 ```
 
@@ -71,8 +72,7 @@ config = generate_config(
 **Text classification:**
 ```python
 config = generate_config(
-    "I have product reviews (text) and want to classify sentiment "
-    "as positive, negative, or neutral (category)."
+    "I have product reviews (text) and want to classify sentiment " "as positive, negative, or neutral (category)."
 )
 ```
 
@@ -132,9 +132,7 @@ import pandas as pd
 from ludwig.api import LudwigModel
 from ludwig.config_generation import generate_config
 
-config = generate_config(
-    "predict customer churn from age, income, num_purchases, days_since_last_purchase"
-)
+config = generate_config("predict customer churn from age, income, num_purchases, days_since_last_purchase")
 
 df = pd.read_csv("customers.csv")
 model = LudwigModel(config=config)

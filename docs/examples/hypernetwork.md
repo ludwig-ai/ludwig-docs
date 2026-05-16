@@ -41,6 +41,7 @@ RNG = np.random.default_rng(42)
 N_PER_TYPE = 600
 SENSOR_TYPES = ["temperature", "pressure", "humidity"]
 
+
 def make_samples(sensor_type, n, rng):
     if sensor_type == "temperature":
         a = rng.normal(0.0, 1.0, n)
@@ -57,8 +58,8 @@ def make_samples(sensor_type, n, rng):
         b = rng.normal(-1.0, 0.9, n)
         c = rng.normal(-1.0, 0.9, n)
         label = ((a + b + c) > 0).astype(int)
-    return pd.DataFrame({"sensor_a": a, "sensor_b": b, "sensor_c": c,
-                         "sensor_type": sensor_type, "anomaly": label})
+    return pd.DataFrame({"sensor_a": a, "sensor_b": b, "sensor_c": c, "sensor_type": sensor_type, "anomaly": label})
+
 
 df = pd.concat([make_samples(t, N_PER_TYPE, RNG) for t in SENSOR_TYPES])
 df = df.sample(frac=1, random_state=42).reset_index(drop=True)
@@ -151,8 +152,7 @@ import pandas as pd
 
 df = pd.read_csv("sensor_data.csv")
 
-for name, config_path in [("Concat", "config_concat.yaml"),
-                           ("HyperNetwork", "config_hypernetwork.yaml")]:
+for name, config_path in [("Concat", "config_concat.yaml"), ("HyperNetwork", "config_hypernetwork.yaml")]:
     model = LudwigModel(config=config_path, logging_level=30)
     results = model.train(dataset=df)
 

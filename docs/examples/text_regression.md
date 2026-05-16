@@ -80,27 +80,27 @@ Using a pretrained transformer encoder like BERT allows the model to leverage kn
 
     ```python
     config = {
-      "input_features": [
-        {
-          "name": "review",
-          "type": "text",
-          "encoder": {
-            "type": "bert",       # Use BERT for text encoding
-            "trainable": True,    # Fine-tune BERT weights
-          }
-        }
-      ],
-      "output_features": [
-        {
-          "name": "star",
-          "type": "number",       # Predict a continuous number (regression)
-        }
-      ],
-      "trainer": {
-        "epochs": 5,
-        "learning_rate": 1e-5,   # Small LR for fine-tuning pretrained weights
-        "batch_size": 32,
-      }
+        "input_features": [
+            {
+                "name": "review",
+                "type": "text",
+                "encoder": {
+                    "type": "bert",  # Use BERT for text encoding
+                    "trainable": True,  # Fine-tune BERT weights
+                },
+            }
+        ],
+        "output_features": [
+            {
+                "name": "star",
+                "type": "number",  # Predict a continuous number (regression)
+            }
+        ],
+        "trainer": {
+            "epochs": 5,
+            "learning_rate": 1e-5,  # Small LR for fine-tuning pretrained weights
+            "batch_size": 32,
+        },
     }
     ```
 
@@ -212,13 +212,15 @@ For number outputs Ludwig reports:
     ```python
     import pandas as pd
 
-    reviews_to_rate = pd.DataFrame({
-        "review": [
-            "The app crashes every time I open it. Terrible.",
-            "Really useful for tracking workouts. Love the interface.",
-            "It's okay. Nothing special but it works.",
-        ]
-    })
+    reviews_to_rate = pd.DataFrame(
+        {
+            "review": [
+                "The app crashes every time I open it. Terrible.",
+                "Really useful for tracking workouts. Love the interface.",
+                "It's okay. Nothing special but it works.",
+            ]
+        }
+    )
 
     predictions, output_directory = model.predict(reviews_to_rate)
     print(predictions[["star_predictions"]])

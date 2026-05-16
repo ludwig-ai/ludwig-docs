@@ -32,7 +32,7 @@ Example binary feature entry in the input features list:
 name: binary_column_name
 type: binary
 tied: null
-encoder: 
+encoder:
     type: dense
 ```
 

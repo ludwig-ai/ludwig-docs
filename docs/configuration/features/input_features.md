@@ -13,9 +13,7 @@ The `input_features` section is list of feature definitions. Each feature defini
 === "Python Dict"
 
     ```python
-    {
-        "input_features": [{"name": "Pclass", "type": "category"}]
-    }
+    {"input_features": [{"name": "Pclass", "type": "category"}]}
     ```
 
 `name` is the name of the feature in the dataset. `type` is one of the [supported data types](supported_data_types.md).
@@ -42,17 +40,7 @@ Each input feature can specify its own preprocessing via the `preprocessing` sub
 === "Python Dict"
 
     ```python
-    {
-        "input_features": [
-            {
-                "name": "Fare",
-                "type": "number",
-                "preprocessing": {
-                    "missing_value_strategy": "fill_with_mean"
-                }
-            }
-        ]
-    }
+    {"input_features": [{"name": "Fare", "type": "number", "preprocessing": {"missing_value_strategy": "fill_with_mean"}}]}
     ```
 
 It's also possible to specify preprocessing rules for all features of a certain type. See
@@ -106,7 +94,7 @@ specify a specific encoder config for an input feature:
             type: text
             preprocessing:
                 tokenizer: space
-            encoder: 
+            encoder:
                 type: bert
                 reduce_output: null
                 trainable: true
@@ -121,14 +109,12 @@ specify a specific encoder config for an input feature:
                 "name": "text",
                 "type": "text",
                 "level": "word",
-                "preprocessing": {
-                    "word_tokenizer": "space"
-                },
+                "preprocessing": {"word_tokenizer": "space"},
                 "encoder": {
                     "type": "bert",
                     "reduce_output": None,
                     "trainable": True,
-                }
+                },
             }
         ]
     }
@@ -172,19 +158,7 @@ example:
 === "Python Dict"
 
     ```python
-    {
-        "input_features": [
-            {
-                "name": "sentence1",
-                "type": "text"
-            },
-            {
-                "name": "sentence2",
-                "type": "text",
-                "tied": "sentence1"
-            }
-        ]
-    }
+    {"input_features": [{"name": "sentence1", "type": "text"}, {"name": "sentence2", "type": "text", "tied": "sentence1"}]}
     ```
 
 Specifying a name of a non-existent input feature will result in an error. Also, in order to be able to have tied

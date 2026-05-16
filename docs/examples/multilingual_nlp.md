@@ -221,14 +221,16 @@ The key to good multilingual performance is using a multilingual pre-trained enc
     ```python
     import pandas as pd
 
-    new_data = pd.DataFrame({
-        "utt": [
-            "set an alarm for 8am",          # English
-            "stell einen wecker für 8 uhr",   # German
-            "设置八点的闹钟",                   # Chinese
-            "fija una alarma para las 8",     # Spanish
-        ]
-    })
+    new_data = pd.DataFrame(
+        {
+            "utt": [
+                "set an alarm for 8am",  # English
+                "stell einen wecker für 8 uhr",  # German
+                "设置八点的闹钟",  # Chinese
+                "fija una alarma para las 8",  # Spanish
+            ]
+        }
+    )
 
     predictions, _ = model.predict(new_data)
     print(predictions[["utt_predictions", "utt_probabilities"]])

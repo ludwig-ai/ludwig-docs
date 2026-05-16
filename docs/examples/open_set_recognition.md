@@ -44,26 +44,23 @@ from torchvision import datasets, transforms
 from PIL import Image
 
 DATA_DIR = Path("mnist_data")
-IMG_DIR  = Path("mnist_images")
-KNOWN_CLASSES   = list(range(8))
+IMG_DIR = Path("mnist_images")
+KNOWN_CLASSES = list(range(8))
 UNKNOWN_CLASSES = [8, 9]
 
-mnist_train = datasets.MNIST(str(DATA_DIR), train=True,  download=True,
-                              transform=transforms.ToTensor())
-mnist_test  = datasets.MNIST(str(DATA_DIR), train=False, download=True,
-                              transform=transforms.ToTensor())
+mnist_train = datasets.MNIST(str(DATA_DIR), train=True, download=True, transform=transforms.ToTensor())
+mnist_test = datasets.MNIST(str(DATA_DIR), train=False, download=True, transform=transforms.ToTensor())
+
 
 def save_image(tensor, split, digit, idx):
     folder = IMG_DIR / split / str(digit)
     folder.mkdir(parents=True, exist_ok=True)
     fpath = folder / f"{idx:05d}.png"
-    Image.fromarray(
-        (tensor.squeeze(0).numpy() * 255).astype("uint8"), mode="L"
-    ).save(fpath)
+    Image.fromarray((tensor.squeeze(0).numpy() * 255).astype("uint8"), mode="L").save(fpath)
     return str(fpath)
 
-def build_csv(dataset, csv_path, split, max_known=500, max_unknown=500,
-              label_unknown_as_background=True):
+
+def build_csv(dataset, csv_path, split, max_known=500, max_unknown=500, label_unknown_as_background=True):
     counts_known = defaultdict(int)
     counts_unknown = defaultdict(int)
     rows = []
@@ -72,13 +69,13 @@ def build_csv(dataset, csv_path, split, max_known=500, max_unknown=500,
         if digit in KNOWN_CLASSES:
             if counts_known[digit] >= max_known:
                 continue
-            path  = save_image(img, split, digit, global_idx)
+            path = save_image(img, split, digit, global_idx)
             label = str(digit)
             counts_known[digit] += 1
         elif digit in UNKNOWN_CLASSES:
             if counts_unknown[digit] >= max_unknown:
                 continue
-            path  = save_image(img, split, digit, global_idx)
+            path = save_image(img, split, digit, global_idx)
             label = "background" if label_unknown_as_background else str(digit)
             counts_unknown[digit] += 1
         else:
@@ -89,8 +86,9 @@ def build_csv(dataset, csv_path, split, max_known=500, max_unknown=500,
         writer.writeheader()
         writer.writerows(rows)
 
+
 build_csv(mnist_train, "train.csv", "train", label_unknown_as_background=True)
-build_csv(mnist_test,  "test.csv",  "test",  label_unknown_as_background=False)
+build_csv(mnist_test, "test.csv", "test", label_unknown_as_background=False)
 ```
 
 The resulting `train.csv` has labels `"0"` through `"7"` for known digits and `"background"` for
@@ -221,18 +219,16 @@ preds, _ = model.predict(dataset=test_df)
 
 # Ludwig writes the winning class probability into "<feature>_probability"
 max_probs = preds["label_probability"]
-is_unknown = max_probs < 0.5   # tune on validation set
+is_unknown = max_probs < 0.5  # tune on validation set
 ```
 
 ### Logit norm (Objectosphere)
 
 ```python
 # Collect logits before the softmax
-acts = model.collect_activations(
-    layer_names=["label/decoder/logits"], dataset=test_df
-)
+acts = model.collect_activations(layer_names=["label/decoder/logits"], dataset=test_df)
 logit_norms = acts["label/decoder/logits"].norm(dim=-1)
-is_unknown = logit_norms < 3.0   # tune on validation set
+is_unknown = logit_norms < 3.0  # tune on validation set
 ```
 
 ---

@@ -55,7 +55,7 @@ Example number feature entry in the input features list:
 name: number_column_name
 type: number
 tied: null
-encoder: 
+encoder:
     type: dense
 ```
 

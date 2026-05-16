@@ -61,7 +61,7 @@ The last section in this configuration file describes options for how the the [`
     input_features:
     - name: image_path
       type: image
-      encoder: 
+      encoder:
           type: stacked_cnn
           conv_layers:
             - num_filters: 32
@@ -161,9 +161,7 @@ Evaluate the trained model.
     ```python
     # Generates predictions and performance statistics for the test set.
     test_stats, predictions, output_directory = model.evaluate(
-      test_df,
-      collect_predictions=True,
-      collect_overall_stats=True
+        test_df, collect_predictions=True, collect_overall_stats=True
     )
     ```
 
@@ -193,12 +191,12 @@ Display Confusion Matrix and Class Entropy plots.
     from ludwig.visualize import confusion_matrix
 
     confusion_matrix(
-      [test_stats],
-      model.training_set_metadata,
-      'label',
-      top_n_classes=[5],
-      model_names=[''],
-      normalize=True,
+        [test_stats],
+        model.training_set_metadata,
+        "label",
+        top_n_classes=[5],
+        model_names=[""],
+        normalize=True,
     )
     ```
 
@@ -227,7 +225,7 @@ Display Learning Curves plots.
     # time during training.
     from ludwig.visualize import learning_curves
 
-    learning_curves(train_stats, output_feature_name='label')
+    learning_curves(train_stats, output_feature_name="label")
     ```
 
 ![confusion learning curves](mnist_colab_notebooks/images/mnist_learning_curves.png)

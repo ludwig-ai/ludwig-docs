@@ -50,12 +50,12 @@ Actual computation of activations takes place inside the `forward` method of the
 All decoders should have the following signature:
 
 ```python
-    def forward(self, combiner_outputs, **kwargs):
-        # perform forward pass
-        # combiner_hidden_output = combiner_outputs[HIDDEN]
-        # ...
-        # logits = result of decoder forward pass
-        return {LOGITS: logits}
+def forward(self, combiner_outputs, **kwargs):
+    # perform forward pass
+    # combiner_hidden_output = combiner_outputs[HIDDEN]
+    # ...
+    # logits = result of decoder forward pass
+    return {LOGITS: logits}
 ```
 
 __Inputs__
@@ -94,6 +94,7 @@ from ludwig.constants import SEQUENCE, TEXT
 from ludwig.schema.decoders.base import BaseDecoderConfig
 from ludwig.schema.decoders.utils import register_decoder_config
 import ludwig.schema.utils as schema_utils
+
 
 @register_decoder_config("generator", [SEQUENCE, TEXT])
 class SequenceGeneratorDecoderConfig(BaseDecoderConfig):

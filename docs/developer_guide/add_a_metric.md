@@ -37,8 +37,7 @@ If using `MeanMetric`, compute the value of the metric given a batch of feature 
 `get_current_value`.
 
 ```python
-def get_current_value(
-        self, preds: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
+def get_current_value(self, preds: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
     # Compute metric over a batch of predictions (preds) and truth values (target).
     # Aggregate metric over batch.
     return metric_value

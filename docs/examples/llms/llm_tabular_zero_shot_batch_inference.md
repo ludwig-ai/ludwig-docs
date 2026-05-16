@@ -22,7 +22,7 @@ Prompts:
 Tabular datasets can be fed directly to an LLM by using brackets to refer to
 column names. Ludwig takes care of formatting row values automatically.
 
-For example, here's a configuration that can be used to perform binary classification 
+For example, here's a configuration that can be used to perform binary classification
 in a zero-shot setting for a tabular dataset with the following column names:
 
 - `Recency -- months since last donation`

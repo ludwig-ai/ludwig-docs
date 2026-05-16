@@ -1,3 +1,4 @@
+# ruff: noqa: E402
 import json
 import os
 import sys
@@ -12,7 +13,7 @@ if os.path.isdir(_ludwig_src) and _ludwig_src not in sys.path:
     sys.path.insert(0, _ludwig_src)
 
 # Force populate combiner registry:
-from ludwig.constants import MODEL_ECD
+from ludwig.constants import MODEL_ECD  # noqa: E402
 from ludwig.schema.combiners.utils import get_combiner_registry
 from ludwig.schema.decoders.utils import get_decoder_cls
 from ludwig.schema.encoders.text_encoders import HFEncoderConfig

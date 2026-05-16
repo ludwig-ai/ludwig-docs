@@ -22,7 +22,7 @@ input_features:
       type: number
     - name: review_content
       type: text
-      encoder: 
+      encoder:
           type: embed
 output_features:
     - name: recommended
@@ -55,8 +55,8 @@ Once you've created the `rotten_tomatoes.yaml` file with the contents above, you
     from ludwig.api import LudwigModel
     import pandas
 
-    df = pandas.read_csv('rotten_tomatoes.csv')
-    model = LudwigModel(config='rotten_tomatoes.yaml')
+    df = pandas.read_csv("rotten_tomatoes.csv")
+    model = LudwigModel(config="rotten_tomatoes.yaml")
     results = model.train(dataset=df)
     ```
 
@@ -88,7 +88,7 @@ Once you've created the `rotten_tomatoes.yaml` file with the contents above, you
           type: number
         - name: review_content
           type: text
-          encoder: 
+          encoder:
               type: bert
               pretrained_model_name_or_path: answerdotai/ModernBERT-base
     output_features:

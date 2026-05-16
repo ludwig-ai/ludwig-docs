@@ -17,7 +17,7 @@ input_features:
     -
         name: image_path
         type: image
-        encoder: 
+        encoder:
             type: stacked_cnn
 
 output_features:

@@ -75,28 +75,28 @@ We use CodeBERT (`microsoft/codebert-base`), a pretrained transformer model trai
 
     ```python
     config = {
-      "input_features": [
-        {
-          "name": "func",
-          "type": "text",
-          "encoder": {
-            "type": "auto_transformer",
-            "pretrained_model_name_or_path": "microsoft/codebert-base",
-            "trainable": True,  # Fine-tune CodeBERT weights
-          }
-        }
-      ],
-      "output_features": [
-        {
-          "name": "target",
-          "type": "binary",  # Binary classification: defective vs. clean
-        }
-      ],
-      "trainer": {
-        "epochs": 10,
-        "learning_rate": 2e-5,
-        "batch_size": 32,
-      }
+        "input_features": [
+            {
+                "name": "func",
+                "type": "text",
+                "encoder": {
+                    "type": "auto_transformer",
+                    "pretrained_model_name_or_path": "microsoft/codebert-base",
+                    "trainable": True,  # Fine-tune CodeBERT weights
+                },
+            }
+        ],
+        "output_features": [
+            {
+                "name": "target",
+                "type": "binary",  # Binary classification: defective vs. clean
+            }
+        ],
+        "trainer": {
+            "epochs": 10,
+            "learning_rate": 2e-5,
+            "batch_size": 32,
+        },
     }
     ```
 
@@ -232,12 +232,14 @@ Generates predictions and binary classification metrics (accuracy, F1, ROC-AUC) 
     ```python
     import pandas as pd
 
-    functions_to_check = pd.DataFrame({
-        "func": [
-            "int read_buffer(char *buf, int size) { return fread(buf, 1, size, stdin); }",
-            "void safe_copy(char *dst, const char *src, size_t n) { strncpy(dst, src, n); dst[n-1] = '\\0'; }",
-        ]
-    })
+    functions_to_check = pd.DataFrame(
+        {
+            "func": [
+                "int read_buffer(char *buf, int size) { return fread(buf, 1, size, stdin); }",
+                "void safe_copy(char *dst, const char *src, size_t n) { strncpy(dst, src, n); dst[n-1] = '\\0'; }",
+            ]
+        }
+    )
 
     predictions, output_directory = model.predict(functions_to_check)
     print(predictions[["target_predictions", "target_probability"]])

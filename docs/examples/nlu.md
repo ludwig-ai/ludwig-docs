@@ -17,7 +17,7 @@ input_features:
     -
         name: utterance
         type: text
-        encoder: 
+        encoder:
             type: rnn
             cell_type: lstm
             bidirectional: true
@@ -37,6 +37,6 @@ output_features:
     -
         name: slots
         type: sequence
-        decoder: 
+        decoder:
             type: tagger
 ```

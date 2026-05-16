@@ -199,13 +199,13 @@ Train the model.
     ```python
     # Generates predictions and performance statistics for the test set.
     test_stats, predictions, output_directory = model.evaluate(
-      eval_df,
-      collect_predictions=True,
-      collect_overall_stats=True,
-      skip_save_eval_stats=False,
-      skip_save_predictions=False,
-      output_directory="test_results",
-      return_type="dict"
+        eval_df,
+        collect_predictions=True,
+        collect_overall_stats=True,
+        skip_save_eval_stats=False,
+        skip_save_predictions=False,
+        output_directory="test_results",
+        return_type="dict",
     )
     ```
 
@@ -236,14 +236,14 @@ Train the model.
     from ludwig.visualize import roc_curves
 
     roc_curves(
-        [predictions['income']['probabilities']],
-        eval_df['income'],
+        [predictions["income"]["probabilities"]],
+        eval_df["income"],
         preprocessed_data[-1],
-        'income',
-        '1',
+        "income",
+        "1",
         model_names=["Adult Census Income"],
-        output_directory='visualization',
-        file_format='png'
+        output_directory="visualization",
+        file_format="png",
     )
     ```
 
@@ -321,7 +321,9 @@ Train the model.
     [`predict()` method](../user_guide/api/LudwigModel.md#ludwig.api.LudwigModel.predict)
 
     ```python
-    predictions, prediction_results = model.predict(dataset=eval_df, skip_save_predictions=False, output_directory="predictions_results")
+    predictions, prediction_results = model.predict(
+        dataset=eval_df, skip_save_predictions=False, output_directory="predictions_results"
+    )
     ```
 
 Sample predictions

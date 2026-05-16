@@ -55,7 +55,7 @@ a feature of the same type and with the same encoder parameters.
 name: set_column_name
 type: set
 tied: null
-encoder: 
+encoder:
     type: embed
 ```
 

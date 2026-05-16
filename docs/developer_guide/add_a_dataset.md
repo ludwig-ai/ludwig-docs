@@ -71,7 +71,11 @@ For example:
 from ludwig.api import LudwigModel
 from ludwig.datasets import titanic
 
-training_set, test_set, _, = titanic.load(split=True)
+(
+    training_set,
+    test_set,
+    _,
+) = titanic.load(split=True)
 model = LudwigModel(config="model_config.yaml", logging_level=logging.INFO)
 results = model.train(training_set=training_set, test_set=test_set, model_name="titanic_model")
 train_stats = results.train_stats

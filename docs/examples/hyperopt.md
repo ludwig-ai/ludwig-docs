@@ -38,7 +38,7 @@ The columns in the dataset are
 
 ## Setup for hyperparameter optimization run
 
-Hyperparameter optimization is defined with the [`hyperopt` section of the Ludwig configuration specification](../configuration/hyperparameter_optimization.md).  
+Hyperparameter optimization is defined with the [`hyperopt` section of the Ludwig configuration specification](../configuration/hyperparameter_optimization.md).
 
 === "cli"
 
@@ -58,7 +58,7 @@ Hyperparameter optimization is defined with the [`hyperopt` section of the Ludwi
     defaults:
         ...
 
-    # hyperopt specification 
+    # hyperopt specification
     hyperopt:
         # specify parameters for the Ray Tune to executor to run the hyperparameter optimization
         executor:
@@ -88,8 +88,8 @@ Hyperparameter optimization is defined with the [`hyperopt` section of the Ludwi
         'preprocessing': ...,
         'trainer': ... ,
         'defaults': ... ,
-    
-        # hyperopt specification 
+
+        # hyperopt specification
         'hyperopt':  {
             # specify parameters for the Ray Tune to executor to run the hyperparameter optimization
             'executor': {'type': 'ray', ... },
@@ -122,8 +122,8 @@ For this example, we want to determine the effect of Ludwig's Trainer's `learnin
         goal: maximize
         metric: roc_auc
         output_feature: income
-        parameters: 
-            income.decoder.num_fc_layers: 
+        parameters:
+            income.decoder.num_fc_layers:
                 space: randint
                 lower: 2
                 upper: 9
@@ -170,8 +170,8 @@ For this example, we want to determine the effect of Ludwig's Trainer's `learnin
         goal: maximize
         metric: roc_auc
         output_feature: income
-        parameters: 
-            income.decoder.num_fc_layers: 
+        parameters:
+            income.decoder.num_fc_layers:
                 space: grid_search
                 values: [2, 4, 6, 8]
             trainer.learning_rate:
@@ -217,12 +217,7 @@ Here are example commands/function call to run Ludwig's hyperparameter optimizat
     [hyperopt() method](../user_guide/api/LudwigModel.md#ludwig.hyperopt.run.hyperopt)
 
     ```python
-    hyperopt_results = hyperopt(
-        config, 
-        dataset=adult_census_df, 
-        output_directory="results", 
-        hyperopt_log_verbosity=1
-    )
+    hyperopt_results = hyperopt(config, dataset=adult_census_df, output_directory="results", hyperopt_log_verbosity=1)
     ```
 
 ## Visualize Hyperparameter Optimization Results
@@ -253,7 +248,6 @@ Here are example commands/function call to run Ludwig's hyperparameter optimizat
     [`visualize.hyperopt_hiplot()` function](../user_guide/api/visualization.md#ludwig.visualize.hyperopt_hiplot)
 
     ```python
-
     hyperopt_report("./rs_output/hyperopt_statistics.json")
 
     hyperopt_hiplot("./rs_output/hyperopt_statistics.json", output_directory="visualizations")

@@ -160,7 +160,7 @@ Example image feature entry in the input features list:
 name: image_column_name
 type: image
 tied: null
-encoder: 
+encoder:
     type: stacked_cnn
 ```
 
@@ -771,7 +771,7 @@ Following shows the effect of contrast adjustment with various factors:
 ```yaml
 name: image_column_name
 type: image
-encoder: 
+encoder:
     type: resnet
     model_variant: 18
     use_pretrained: true
@@ -783,7 +783,7 @@ augmentation: false
 ```yaml
 name: image_column_name
 type: image
-encoder: 
+encoder:
     type: stacked_cnn
 augmentation: true
 ```
@@ -791,7 +791,7 @@ augmentation: true
 ```yaml
 name: image_column_name
 type: image
-encoder: 
+encoder:
     type: alexnet
 augmentation:
     - type: random_horizontal_flip

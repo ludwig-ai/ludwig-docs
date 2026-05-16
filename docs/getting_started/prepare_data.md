@@ -17,7 +17,7 @@ Let's take a look at the first 5 rows to see how the data is arranged:
     ``` python
     import pandas as pd
 
-    df = pd.read_csv('rotten_tomatoes.csv')
+    df = pd.read_csv("rotten_tomatoes.csv")
     df.head()
     ```
 

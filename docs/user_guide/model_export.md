@@ -62,6 +62,7 @@ The exported ONNX model can be loaded with ONNX Runtime:
 
 ```python
 import onnxruntime as ort
+
 session = ort.InferenceSession("exported/model.onnx")
 ```
 

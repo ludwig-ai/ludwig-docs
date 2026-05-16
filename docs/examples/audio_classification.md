@@ -79,24 +79,24 @@ For this example we predict **emotion** from the raw **audio** signal using a st
 
     ```python
     config = {
-      "input_features": [
-        {
-          "name": "audio",
-          "type": "audio",
-          "encoder": {
-            "type": "stacked_cnn",  # 1-D CNN over mel-spectrogram frames
-          }
-        }
-      ],
-      "output_features": [
-        {
-          "name": "emotion",
-          "type": "category",  # 7-class classification
-        }
-      ],
-      "trainer": {
-        "epochs": 20,
-      }
+        "input_features": [
+            {
+                "name": "audio",
+                "type": "audio",
+                "encoder": {
+                    "type": "stacked_cnn",  # 1-D CNN over mel-spectrogram frames
+                },
+            }
+        ],
+        "output_features": [
+            {
+                "name": "emotion",
+                "type": "category",  # 7-class classification
+            }
+        ],
+        "trainer": {
+            "epochs": 20,
+        },
     }
     ```
 
@@ -235,13 +235,15 @@ Once the model is trained, generate predictions for new audio files.
     ```python
     import pandas as pd
 
-    new_audio = pd.DataFrame({
-        "audio": [
-            "/path/to/recording1.wav",
-            "/path/to/recording2.wav",
-            "/path/to/recording3.wav",
-        ]
-    })
+    new_audio = pd.DataFrame(
+        {
+            "audio": [
+                "/path/to/recording1.wav",
+                "/path/to/recording2.wav",
+                "/path/to/recording3.wav",
+            ]
+        }
+    )
 
     predictions, output_directory = model.predict(new_audio)
     print(predictions[["emotion_predictions", "emotion_probability"]])

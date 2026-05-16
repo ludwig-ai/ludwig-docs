@@ -33,7 +33,7 @@ Example bag feature entry in the input features list:
 name: bag_column_name
 type: bag
 tied: null
-encoder: 
+encoder:
     type: embed
 ```
 

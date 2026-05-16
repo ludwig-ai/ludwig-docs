@@ -72,9 +72,7 @@ for w in weights[:5]:
 #  'dtype': 'torch.float32', 'requires_grad': True, 'num_elements': 32768}
 
 # Specific parameters by name
-encoder_weights = inspector.collect_weights(
-    tensor_names=["input_features.text.encoder.weight"]
-)
+encoder_weights = inspector.collect_weights(tensor_names=["input_features.text.encoder.weight"])
 ```
 
 Each entry is a dict with:

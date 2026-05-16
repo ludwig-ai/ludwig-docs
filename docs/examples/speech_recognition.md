@@ -49,7 +49,7 @@ input_features:
     -
         name: audio_path
         type: audio
-        encoder: 
+        encoder:
             type: stacked_cnn
             reduce_output: concat
             conv_layers:

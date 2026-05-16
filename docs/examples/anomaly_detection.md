@@ -148,7 +148,7 @@ import yaml
 from ludwig.api import LudwigModel
 
 train_df = pd.read_csv("/tmp/sensors_train.csv")
-test_df  = pd.read_csv("/tmp/sensors_test.csv")
+test_df = pd.read_csv("/tmp/sensors_test.csv")
 
 # Load config from file (or pass a dict directly)
 with open("config_deep_svdd.yaml") as f:
@@ -181,9 +181,7 @@ a **threshold**:
 import numpy as np
 
 # Compute threshold from normal validation scores
-normal_val_scores = predictions.loc[
-    test_df["anomaly"] == 0, "anomaly_anomaly_score_predictions"
-].values
+normal_val_scores = predictions.loc[test_df["anomaly"] == 0, "anomaly_anomaly_score_predictions"].values
 threshold = np.percentile(normal_val_scores, 95)
 
 is_anomaly = predictions["anomaly_anomaly_score_predictions"] > threshold

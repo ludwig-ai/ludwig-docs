@@ -55,7 +55,7 @@ Example sequence feature entry in the input features list:
 name: sequence_column_name
 type: sequence
 tied: null
-encoder: 
+encoder:
     type: stacked_cnn
 ```
 
@@ -353,7 +353,7 @@ loss:
     robust_lambda: 0
     class_weights: 1
     class_similarities_temperature: 0
-decoder: 
+decoder:
     type: generator
 ```
 

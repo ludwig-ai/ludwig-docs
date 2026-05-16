@@ -42,7 +42,7 @@ be used for a certain data type. This can be found in [each data type's document
         -
             name: french
             type: text
-            decoder: 
+            decoder:
                 type: generator
                 cell_type: lstm
                 num_layers: 2
@@ -57,12 +57,7 @@ be used for a certain data type. This can be found in [each data type's document
             {
                 "name": "french",
                 "type": "text",
-                "decoder": {
-                    "type": "generator",
-                    "cell_type": "lstm",
-                    "num_layers": 2,
-                    "max_sequence_length": 256
-                }
+                "decoder": {"type": "generator", "cell_type": "lstm", "num_layers": 2, "max_sequence_length": 256},
             }
         ]
     }
@@ -117,20 +112,8 @@ For example, given a `category` feature `A` and `number` feature `B`, in order t
     ```python
     {
         "output_features": [
-            {
-                "name": "A",
-                "type": "category",
-                "loss": {
-                    "weight": 1.5
-                }
-            },
-            {
-                "name": "A",
-                "type": "number",
-                "loss": {
-                    "weight": 0.8
-                }
-            }
+            {"name": "A", "type": "category", "loss": {"weight": 1.5}},
+            {"name": "A", "type": "number", "loss": {"weight": 0.8}},
         ]
     }
     ```

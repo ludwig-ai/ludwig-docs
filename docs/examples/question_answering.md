@@ -215,14 +215,12 @@ The following config fine-tunes a pre-trained BERT encoder on both the passage a
     ```python
     import pandas as pd
 
-    new_questions = pd.DataFrame({
-        "passage": [
-            "The Eiffel Tower is located in Paris, France. It was built in 1889."
-        ],
-        "question": [
-            "In what year was the Eiffel Tower built?"
-        ],
-    })
+    new_questions = pd.DataFrame(
+        {
+            "passage": ["The Eiffel Tower is located in Paris, France. It was built in 1889."],
+            "question": ["In what year was the Eiffel Tower built?"],
+        }
+    )
 
     predictions, _ = model.predict(dataset=new_questions)
     print(predictions["answers_spans_predictions"])

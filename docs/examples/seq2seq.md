@@ -17,7 +17,7 @@ input_features:
     -
         name: user1
         type: text
-        encoder: 
+        encoder:
             type: rnn
             cell_type: lstm
             reduce_output: null
@@ -26,7 +26,7 @@ output_features:
     -
         name: user2
         type: text
-        decoder: 
+        decoder:
             type: generator
             cell_type: lstm
             attention: bahdanau

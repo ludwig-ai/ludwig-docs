@@ -89,42 +89,42 @@ We use a Vision Transformer (`vit`) encoder for the image, which divides the doc
 
     ```python
     config = {
-      "input_features": [
-        {
-          "name": "image_path",
-          "type": "image",
-          "encoder": {
-            "type": "vit",       # Vision Transformer: reads document patches
-            "trainable": True,
-          }
+        "input_features": [
+            {
+                "name": "image_path",
+                "type": "image",
+                "encoder": {
+                    "type": "vit",  # Vision Transformer: reads document patches
+                    "trainable": True,
+                },
+            },
+            {
+                "name": "question",
+                "type": "text",
+                "encoder": {
+                    "type": "bert",  # BERT encodes the question
+                    "trainable": True,
+                },
+            },
+        ],
+        "output_features": [
+            {
+                "name": "answer",
+                "type": "text",
+                "decoder": {
+                    "type": "generator",
+                    "max_new_tokens": 64,  # Most DocVQA answers are short (< 10 words)
+                },
+            }
+        ],
+        "combiner": {
+            "type": "concat",  # Concatenate image and text representations
         },
-        {
-          "name": "question",
-          "type": "text",
-          "encoder": {
-            "type": "bert",      # BERT encodes the question
-            "trainable": True,
-          }
-        }
-      ],
-      "output_features": [
-        {
-          "name": "answer",
-          "type": "text",
-          "decoder": {
-            "type": "generator",
-            "max_new_tokens": 64,  # Most DocVQA answers are short (< 10 words)
-          }
-        }
-      ],
-      "combiner": {
-        "type": "concat",  # Concatenate image and text representations
-      },
-      "trainer": {
-        "epochs": 5,
-        "batch_size": 8,
-        "learning_rate": 1e-5,
-      }
+        "trainer": {
+            "epochs": 5,
+            "batch_size": 8,
+            "learning_rate": 1e-5,
+        },
     }
     ```
 
@@ -233,18 +233,20 @@ DocVQA is traditionally evaluated with Average Normalized Levenshtein Similarity
     ```python
     import pandas as pd
 
-    documents_to_query = pd.DataFrame({
-        "image_path": [
-            "/path/to/invoice.png",
-            "/path/to/contract.png",
-            "/path/to/report.png",
-        ],
-        "question": [
-            "What is the invoice number?",
-            "What is the effective date of the agreement?",
-            "Who are the authors listed on the title page?",
-        ]
-    })
+    documents_to_query = pd.DataFrame(
+        {
+            "image_path": [
+                "/path/to/invoice.png",
+                "/path/to/contract.png",
+                "/path/to/report.png",
+            ],
+            "question": [
+                "What is the invoice number?",
+                "What is the effective date of the agreement?",
+                "Who are the authors listed on the title page?",
+            ],
+        }
+    )
 
     predictions, output_directory = model.predict(documents_to_query)
     print(predictions[["answer_predictions"]])

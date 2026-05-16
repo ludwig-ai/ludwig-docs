@@ -30,28 +30,49 @@ We use two small classification datasets. Each becomes its own fine-tuning task.
 import pandas as pd
 
 # Sentiment dataset: text → positive/negative/neutral
-sentiment_data = pd.DataFrame({
-    "text": [
-        "This product is amazing!", "Terrible experience.", "It's okay, nothing special.",
-        "Best purchase I've ever made!", "Very disappointed.",
-        "Decent quality for the price.", "Absolutely love it!", "Would not buy again.",
-    ] * 50,
-    "sentiment": [
-        "positive", "negative", "neutral", "positive", "negative",
-        "neutral", "positive", "negative",
-    ] * 50,
-})
+sentiment_data = pd.DataFrame(
+    {
+        "text": [
+            "This product is amazing!",
+            "Terrible experience.",
+            "It's okay, nothing special.",
+            "Best purchase I've ever made!",
+            "Very disappointed.",
+            "Decent quality for the price.",
+            "Absolutely love it!",
+            "Would not buy again.",
+        ]
+        * 50,
+        "sentiment": [
+            "positive",
+            "negative",
+            "neutral",
+            "positive",
+            "negative",
+            "neutral",
+            "positive",
+            "negative",
+        ]
+        * 50,
+    }
+)
 sentiment_data.to_csv("sentiment.csv", index=False)
 
 # Topic dataset: text → tech/sports/politics
-topic_data = pd.DataFrame({
-    "text": [
-        "The new GPU delivers record performance.", "The team won the championship.",
-        "Parliament passed the new bill.", "AI model breaks benchmark records.",
-        "The quarterback threw for 400 yards.", "New tax legislation signed into law.",
-    ] * 50,
-    "topic": ["tech", "sports", "politics"] * 100,
-})
+topic_data = pd.DataFrame(
+    {
+        "text": [
+            "The new GPU delivers record performance.",
+            "The team won the championship.",
+            "Parliament passed the new bill.",
+            "AI model breaks benchmark records.",
+            "The quarterback threw for 400 yards.",
+            "New tax legislation signed into law.",
+        ]
+        * 50,
+        "topic": ["tech", "sports", "politics"] * 100,
+    }
+)
 topic_data.to_csv("topics.csv", index=False)
 ```
 

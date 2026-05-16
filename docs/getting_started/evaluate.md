@@ -15,9 +15,9 @@ Let's make some predictions on the test dataset!
     ``` python
     # This step can be skipped if you are working in a notebook, and you can simply
     # re-use the model created in the training section.
-    model = LudwigModel.load('results/experiment_run/model')
+    model = LudwigModel.load("results/experiment_run/model")
 
-    predictions, _ = model.predict(dataset='rotten_tomatoes_test.csv')
+    predictions, _ = model.predict(dataset="rotten_tomatoes_test.csv")
     predictions.head()
     ```
 
@@ -55,7 +55,7 @@ The exact metrics that are computed for each output feature type can be found [h
 === "Python"
 
     ``` python
-    eval_stats, _, _ = model.evaluate(dataset='rotten_tomatoes_test.csv')
+    eval_stats, _, _ = model.evaluate(dataset="rotten_tomatoes_test.csv")
     ```
 
 === "Docker CLI"

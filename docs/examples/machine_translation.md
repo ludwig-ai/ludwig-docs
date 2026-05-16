@@ -17,7 +17,7 @@ input_features:
     -
         name: english
         type: text
-        encoder: 
+        encoder:
             type: rnn
             cell_type: lstm
             reduce_output: null
@@ -28,7 +28,7 @@ output_features:
     -
         name: italian
         type: text
-        decoder: 
+        decoder:
             type: generator
             cell_type: lstm
             attention: bahdanau

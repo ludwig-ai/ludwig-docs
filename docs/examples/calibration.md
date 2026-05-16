@@ -83,6 +83,7 @@ across probability buckets.  Lower is better; a perfectly calibrated model has E
 ```python
 import numpy as np
 
+
 def ece(confidences, labels, n_bins=15):
     bins = np.linspace(0, 1, n_bins + 1)
     ece = 0.0
@@ -94,6 +95,7 @@ def ece(confidences, labels, n_bins=15):
         conf = confidences[mask].mean()
         ece += mask.mean() * abs(acc - conf)
     return ece
+
 
 # Extract max probability from Ludwig predictions
 confs = predictions["label_probabilities"].apply(max).values

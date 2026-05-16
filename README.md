@@ -21,7 +21,7 @@ theme, deployed using [Mike](https://github.com/jimporter/mike).
     ```
     python code_doc_autogen.py
     ```
-    
+
     in order to download it into `docs/developer_guide/contributing.md` in this
     repository (since all documentation content is served from local files).  Be
     sure to commit the new version of the contributor guide into the repository.

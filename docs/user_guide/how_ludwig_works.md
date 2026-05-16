@@ -8,7 +8,7 @@ input_features:
 -
   name: title
   type: text
-  encoder: 
+  encoder:
       type: rnn
       cell: lstm
       num_layers: 2
@@ -18,20 +18,20 @@ input_features:
 -
   name: author
   type: category
-  encoder: 
+  encoder:
       embedding_size: 128
   preprocessing:
     most_common: 10000
 -
   name: description
   type: text
-  encoder: 
+  encoder:
       type: bert
       pretrained_model_name_or_path: answerdotai/ModernBERT-base
 -
   name: cover
   type: image
-  encoder: 
+  encoder:
       type: resnet
       num_layers: 18
 

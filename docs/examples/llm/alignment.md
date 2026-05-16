@@ -122,7 +122,7 @@ Expand each preference pair into two rows with a boolean `label`:
 ```python
 kto_rows = []
 for _, row in df.iterrows():
-    kto_rows.append({"prompt": row["prompt"], "response": row["chosen"],   "label": True})
+    kto_rows.append({"prompt": row["prompt"], "response": row["chosen"], "label": True})
     kto_rows.append({"prompt": row["prompt"], "response": row["rejected"], "label": False})
 
 pd.DataFrame(kto_rows).to_csv("train_kto.csv", index=False)

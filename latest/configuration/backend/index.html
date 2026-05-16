@@ -2846,6 +2846,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Loader">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lazy-media-decoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lazy Media Decoding
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -3667,6 +3684,22 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -3798,6 +3831,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../../examples/text_summarization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Text Summarization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/text_regression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Text Regression - Rating Prediction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/question_answering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Question Answering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../examples/seq2seq/" class="md-nav__link">
         
   
@@ -3834,6 +3951,90 @@
     
   
     Sentiment Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/content_safety/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Content Safety & Toxicity Detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/multilingual_nlp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multilingual NLP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/code_intelligence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Intelligence
   
 
     
@@ -3910,6 +4111,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../examples/document_understanding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Document Understanding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../examples/speech_recognition/" class="md-nav__link">
         
   
@@ -3946,6 +4175,34 @@
     
   
     Speaker Verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/audio_classification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audio Classification
   
 
     
@@ -5203,6 +5460,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Loader">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lazy-media-decoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lazy Media Decoding
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -5375,6 +5649,34 @@ improve throughput:</p>
 <span class="w">    </span><span class="nt">fully_executed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">    </span><span class="nt">window_size_bytes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500000000</span>
 </code></pre></div>
+<h3 id="lazy-media-decoding">Lazy Media Decoding<a class="headerlink" href="#lazy-media-decoding" title="Permanent link">&para;</a></h3>
+<p>For audio and image features, Ludwig stores file paths in the processed Parquet dataset and decodes
+them per batch during training (see <a href="../../user_guide/datasets/data_preprocessing/#lazy-preprocessing-with-the-ray-backend">Lazy Preprocessing</a>).
+This keeps the Ray object store footprint proportional to the number of samples (&lt; 1 KB per path)
+rather than the decoded tensor size.</p>
+<p>The decode step runs inside each Ray worker via a <code>map_batches</code> transform:</p>
+<ul>
+<li>One <code>ThreadPoolExecutor</code> per block decodes files in parallel, overlapping I/O with the GPU
+  forward pass from the previous batch.</li>
+<li>Worker memory usage is bounded to <code>batch_size × media_size</code>, not <code>dataset_size × media_size</code>.</li>
+</ul>
+<p>For multi-node clusters, audio and image files must be readable from every worker node.
+Use a shared filesystem or cloud storage and set <code>lazy_cache_dir</code> (per feature) to a path that
+all nodes can access:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ray</span>
+<span class="w">  </span><span class="nt">cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3://my-bucket/preprocessed</span>
+
+<span class="nt">input_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio_clip</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio</span>
+<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">lazy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">lazy_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/shared/nfs/audio_cache</span>
+</code></pre></div>
+<p>To force upfront decoding (e.g., when the file system is fast and cluster memory is plentiful),
+set <code>lazy: false</code>. Note that with <code>lazy: false</code>, decoded tensors are stored in the Ray object
+store and replicated to each worker, which can consume significant memory for large datasets.</p>
 
 
 

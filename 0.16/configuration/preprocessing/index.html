@@ -2170,6 +2170,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#lazy-preprocessing-for-audio-and-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lazy Preprocessing for Audio and Image
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3722,6 +3733,22 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -3853,6 +3880,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../../examples/text_summarization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Text Summarization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/text_regression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Text Regression - Rating Prediction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/question_answering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Question Answering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../examples/seq2seq/" class="md-nav__link">
         
   
@@ -3889,6 +4000,90 @@
     
   
     Sentiment Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/content_safety/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Content Safety & Toxicity Detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/multilingual_nlp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multilingual NLP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/code_intelligence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Intelligence
   
 
     
@@ -3965,6 +4160,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../examples/document_understanding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Document Understanding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../examples/speech_recognition/" class="md-nav__link">
         
   
@@ -4001,6 +4224,34 @@
     
   
     Speaker Verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/audio_classification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audio Classification
   
 
     
@@ -5315,6 +5566,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#lazy-preprocessing-for-audio-and-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lazy Preprocessing for Audio and Image
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -5527,6 +5789,36 @@ an output text feature with a row that has 15 tokens. Then:</p>
 <h2 id="feature-specific-preprocessing">Feature-specific preprocessing<a class="headerlink" href="#feature-specific-preprocessing" title="Permanent link">&para;</a></h2>
 <p>To configure feature-specific preprocessing, please check
 <a href="../features/supported_data_types/">datatype-specific documentation</a>.</p>
+<h2 id="lazy-preprocessing-for-audio-and-image">Lazy Preprocessing for Audio and Image<a class="headerlink" href="#lazy-preprocessing-for-audio-and-image" title="Permanent link">&para;</a></h2>
+<p>Audio and image features support <strong>lazy preprocessing</strong> — decoding files on-the-fly per batch
+during training instead of decoding everything upfront.  This is the default behaviour
+(<code>lazy: true</code>) and is strongly recommended for large datasets.</p>
+<p>Key benefits:</p>
+<ul>
+<li><strong>Bounded peak memory</strong>: only <code>batch_size</code> decoded samples live in memory at once, regardless
+  of dataset size.</li>
+<li><strong>Faster preprocessing</strong>: the preprocessing phase only copies paths, not decoded tensors.</li>
+<li><strong>HuggingFace streaming support</strong>: in-memory PIL Images and audio dicts (from <code>datasets.load_dataset</code>)
+  are cached to a local directory so the same lazy path is used for training.</li>
+</ul>
+<p>Configure lazy preprocessing per feature:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio</span>
+<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">lazy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">              </span><span class="c1"># default</span>
+<span class="w">      </span><span class="nt">lazy_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w">    </span><span class="c1"># default: ~/.cache/ludwig/lazy_media/&lt;feature_name&gt;/</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image</span>
+<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">lazy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">lazy_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/fast/nvme/my_project/cache</span>
+</code></pre></div>
+<p>For a full explanation of how lazy preprocessing works, the memory trade-offs, supported input
+types (HF dicts, PIL Images, numpy arrays, raw bytes), and cache directory configuration, see
+<a href="../../user_guide/datasets/data_preprocessing/#lazy-preprocessing-for-audio-and-image">Lazy Preprocessing for Audio and Image</a>
+in the User Guide.</p>
 
 
 

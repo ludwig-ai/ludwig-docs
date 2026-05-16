@@ -38,95 +38,73 @@ Parameters:
 
 Preprocessing parameters can also be defined once and applied to all image input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 
-## Lazy Preprocessing
+## Preprocessing Modes
 
-By default (`mode: lazy`), Ludwig does **not** decode image files during the preprocessing phase.
-Instead, it stores file paths in the processed dataset and decodes images on-the-fly, one batch
-at a time, during training. This approach dramatically reduces peak memory usage for large image
-datasets.
+Ludwig supports three preprocessing modes for image features, controlled by the `mode` parameter:
 
-### Why Lazy Preprocessing?
+| Mode | Preprocessing memory | Training epoch 1 | Training epoch 2+ | Best for |
+|------|----------------------|------------------|---------------------|----------|
+| `eager` | High (O(N×tensor)) | Fast | Fast | Small datasets that fit in RAM |
+| `lazy` (default) | Low (O(batch)) | Slower (decode-bound) | Slower | Large datasets |
+| `lazy_cached` | Low (O(batch)) | Fast (GPU pipelined) | Very fast (memmap) | Large datasets, any GPU speed |
 
-The traditional eager approach decodes every image upfront and stores the resulting tensors in
-the processed dataset (Parquet file). For a dataset of N images at H×W resolution with C channels,
-the peak preprocessing memory is roughly:
+### `mode: lazy` (default)
 
-```
-N × C × H × W × 4 bytes  (float32)
-```
+Ludwig stores file paths in the processed dataset and decodes images on-the-fly, one batch at a
+time, during training.  Decoding runs in a `ThreadPoolExecutor` that overlaps with the GPU forward
+pass, matching the throughput of the eager decode path.
 
-For 1 million 224×224 RGB images, that is ~600 GB — completely impractical. With lazy preprocessing,
-only file paths are stored during preprocessing (essentially zero additional memory), and only
-`batch_size` decoded images live in memory at any one time during training.
+### `mode: lazy_cached`
 
-Decoding happens in a `ThreadPoolExecutor` that overlaps with the GPU forward pass, matching the
-throughput of the existing eager decode path.
+On the first training epoch, images are decoded per batch (same as `lazy`) and written to a numpy
+memmap alongside the Parquet cache.  From epoch 2 onward, the memmap is read directly
+(~0.1 ms/batch), eliminating decode overhead entirely.
 
-### Preprocessing Modes
+### `mode: eager`
 
-Ludwig supports three preprocessing modes, controlled by the `mode` parameter:
+All images are decoded during preprocessing and stored as tensors in the Parquet cache.  Use this
+only when the full decoded dataset fits comfortably in memory.
 
-| Mode | Behaviour |
-|------|-----------|
-| `lazy` (default) | Stores file paths; decodes one batch at a time during training. Lowest memory footprint. |
-| `eager` | Decodes all files during preprocessing and stores the resulting tensors in the Parquet cache. Fastest training once preprocessing is done, but requires enough RAM to hold the entire decoded dataset. |
-| `lazy_cached` | Behaves like `lazy` on the first training epoch (decoding each sample once and writing it to a numpy memmap alongside the Parquet cache). Subsequent epochs read from the memmap directly, eliminating per-batch decode overhead while keeping peak memory bounded during preprocessing. |
-
-### Configuration
+### Configuration Examples
 
 ```yaml
 input_features:
   - name: image
     type: image
     preprocessing:
-      mode: lazy              # "lazy" (default), "eager", or "lazy_cached"
-      prefetch_size: null     # null = auto (0 for eager, 4 for lazy/lazy_cached epoch 1)
-      lazy_cache_dir: null    # where to cache PNG files when source is in-memory (HF datasets)
+      mode: lazy              # default
+      prefetch_size: null     # auto (4 for lazy/lazy_cached, 0 for eager)
+      lazy_cache_dir: null    # default: ~/.cache/ludwig/lazy_media/<feature_name>/
       height: 224
       width: 224
       num_channels: 3
       resize_method: interpolate
 ```
 
-#### `prefetch_size`
-
-Controls how many batches are decoded in a background thread while the GPU processes the current
-batch. `null` (default) selects automatically:
-
-- `0` for `eager` mode (tensors already in memory — no prefetch needed)
-- `4` for `lazy` and the first epoch of `lazy_cached`
-- `0` automatically after epoch 1 in `lazy_cached` mode once the memmap is fully written (memmap
-  reads are fast enough that background pipelining adds no measurable benefit)
-
-Set to `0` to disable prefetch entirely, or to a positive integer to override.
-
-#### `lazy_cached` — persistent decode cache
-
-`lazy_cached` is ideal when you want to pay the decode cost once and get near-eager training speed
-from epoch 2 onward. The decoded memmap is placed next to the Parquet cache file:
-
+```yaml
+input_features:
+  - name: image
+    type: image
+    preprocessing:
+      mode: lazy_cached       # decode+cache on epoch 1; memmap from epoch 2+
+      lazy_cache_dir: /fast/nvme/image_cache
 ```
-<parquet_cache_dir>/<proc_col>_decoded_n<N>_<shape>_f32.npy
-```
-
-If the cache file already exists (from a previous run), the first epoch also reads from it directly.
 
 ```yaml
 input_features:
   - name: image
     type: image
     preprocessing:
-      mode: lazy_cached
-      height: 224
-      width: 224
-      num_channels: 3
+      mode: eager             # decode everything upfront
 ```
 
 !!! note
     Lazy preprocessing is automatically **disabled** when using a TorchVision pretrained encoder
     (e.g. `resnet`, `efficientnet`, `vit`). Those encoders apply their own normalization pipeline
-    which requires images to be decoded upfront. Set `mode: eager` explicitly or switch to a
-    non-pretrained encoder to control this behavior.
+    which requires images to be decoded upfront.
+
+See [Choosing a Preprocessing Mode](../../user_guide/datasets/data_preprocessing.md#choosing-a-preprocessing-mode)
+for a full comparison.
 
 ### Lazy Preprocessing with HuggingFace Datasets
 
@@ -150,50 +128,23 @@ Raw `bytes` and `numpy.ndarray` inputs (both HWC and CHW channel orderings) are 
 The cache is persistent and idempotent: subsequent runs with the same dataset skip the write step
 entirely.
 
-### Controlling the File Cache Directory
+### Controlling the Cache Directory
 
-`lazy_cache_dir` controls where PNG files are written when the source data is **in-memory** (e.g.
-a HuggingFace dataset). It has no effect when the input column already contains local file paths.
-
-By default, cached PNG files are written to:
-
-```
-~/.cache/ludwig/lazy_media/<feature_name>/
-```
-
-To use a different location:
+`lazy_cache_dir` controls where PNG files are written for in-memory sources (HuggingFace datasets).
+The decoded memmap for `lazy_cached` mode is placed next to the Parquet cache, not inside
+`lazy_cache_dir`.
 
 ```yaml
 input_features:
   - name: photo
     type: image
     preprocessing:
-      mode: lazy
+      mode: lazy_cached
       lazy_cache_dir: /fast/nvme/my_project/image_cache
 ```
 
 The per-feature subdirectory is created automatically. Multiple image features each get their own
 subdirectory named after the feature, even if they share the same `lazy_cache_dir`.
-
-!!! note
-    `lazy_cache_dir` controls the file cache for in-memory sources. The decoded memmap used by
-    `lazy_cached` mode is placed next to the Parquet cache, not in `lazy_cache_dir`.
-
-### When to Use `eager` Mode
-
-Set `mode: eager` when:
-
-- Your dataset is small enough to fit in memory and you want the fastest possible training start.
-- You are using a TorchVision pretrained encoder (lazy is disabled automatically in this case).
-- You are running on a system without a persistent local filesystem and cannot write a cache.
-
-```yaml
-input_features:
-  - name: image
-    type: image
-    preprocessing:
-      mode: eager   # decode everything at preprocessing time
-```
 
 # Input Features
 
@@ -669,7 +620,7 @@ Implements ResNet V2 as described in [Identity Mappings in Deep Residual Network
 
 The ResNet encoder takes the following optional parameters:
 
-{% set image_encoder = get_encoder_schema("image", "_resnet_legacy") %}
+{% set image_encoder = get_encoder_schema("image", "resnet") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
 
 Parameters:
@@ -689,7 +640,7 @@ patch, then applies a deep transformer architecture to the sequence of encoded p
 
 The Vision Transformer Encoder takes the following optional parameters:
 
-{% set image_encoder = get_encoder_schema("image", "_vit_legacy") %}
+{% set image_encoder = get_encoder_schema("image", "vit") %}
 {{ render_yaml(image_encoder, parent="encoder") }}
 
 Parameters:

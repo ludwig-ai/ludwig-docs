@@ -18,94 +18,68 @@ Parameters:
 
 Preprocessing parameters can also be defined once and applied to all audio input features using the [Type-Global Preprocessing](../defaults.md#type-global-preprocessing) section.
 
-## Lazy Preprocessing
+## Preprocessing Modes
 
-By default (`mode: lazy`), Ludwig does **not** decode audio files during the preprocessing phase.
-Instead, it stores file paths in the processed dataset and decodes audio clips on-the-fly, one batch
-at a time, during training. This approach has significant memory advantages for large audio datasets.
+Ludwig supports three preprocessing modes for audio features, controlled by the `mode` parameter:
 
-### Why Lazy Preprocessing?
+| Mode | Preprocessing memory | Training epoch 1 | Training epoch 2+ | Best for |
+|------|----------------------|------------------|---------------------|----------|
+| `eager` | High (O(N×tensor)) | Fast | Fast | Small datasets that fit in RAM |
+| `lazy` (default) | Low (O(batch)) | Slower (decode-bound) | Slower | Large datasets |
+| `lazy_cached` | Low (O(batch)) | Fast (GPU pipelined) | Very fast (memmap) | Large datasets, any GPU speed |
 
-The traditional eager approach decodes every audio file upfront and stores the resulting tensors in
-the processed dataset (Parquet file). For a dataset of N clips each lasting L seconds at sampling
-rate S, the peak preprocessing memory is roughly:
+### `mode: lazy` (default)
 
-```
-N × L × S × 4 bytes  (float32)
-```
+Ludwig stores file paths in the processed dataset and decodes audio clips on-the-fly, one batch at
+a time, during training.  Decoding runs in a `ThreadPoolExecutor` that overlaps with the GPU forward
+pass.  For FBANK features, the thread-pool size is automatically capped to avoid CPU
+over-subscription (each decode already uses PyTorch's internal thread pool).
 
-For 100,000 clips at 5 seconds / 16 kHz, that is ~32 GB — likely exceeding available RAM before
-training even starts.
+### `mode: lazy_cached`
 
-With lazy preprocessing, peak memory during preprocessing drops to near zero for the audio tensors
-(only paths are stored). During training, only one batch of decoded audio lives in memory at a time,
-so peak memory is:
+On the first training epoch, audio is decoded per batch (same as `lazy`) and written to a numpy
+memmap alongside the Parquet cache.  From epoch 2 onward, the memmap is read directly
+(~0.1 ms/batch), eliminating decode overhead entirely.
 
-```
-batch_size × L × S × 4 bytes
-```
+### `mode: eager`
 
-Decoding happens in a `ThreadPoolExecutor` that runs in parallel with the GPU forward pass, so
-throughput is not meaningfully affected compared to the eager path.
+All audio files are decoded during preprocessing and stored as tensors in the Parquet cache.
+Use this only when the full decoded dataset fits comfortably in memory.
 
-### Preprocessing Modes
-
-Ludwig supports three preprocessing modes, controlled by the `mode` parameter:
-
-| Mode | Behaviour |
-|------|-----------|
-| `lazy` (default) | Stores file paths; decodes one batch at a time during training. Lowest memory footprint. |
-| `eager` | Decodes all files during preprocessing and stores the resulting tensors in the Parquet cache. Fastest training once preprocessing is done, but requires enough RAM to hold the entire decoded dataset. |
-| `lazy_cached` | Behaves like `lazy` on the first training epoch (decoding each sample once and writing it to a numpy memmap alongside the Parquet cache). Subsequent epochs read from the memmap directly, eliminating per-batch decode overhead while keeping peak memory bounded during preprocessing. |
-
-### Configuration
+### Configuration Examples
 
 ```yaml
 input_features:
   - name: audio
     type: audio
     preprocessing:
-      mode: lazy               # "lazy" (default), "eager", or "lazy_cached"
-      prefetch_size: null      # null = auto (0 for eager, 4 for lazy/lazy_cached epoch 1)
-      lazy_cache_dir: null     # where to cache WAV files when source is in-memory (HF datasets)
+      mode: lazy               # default
+      prefetch_size: null      # auto (4 for lazy/lazy_cached, 0 for eager)
+      lazy_cache_dir: null     # default: ~/.cache/ludwig/lazy_media/<feature_name>/
       audio_file_length_limit_in_s: 7.5
       type: fbank
       num_filter_bands: 80
 ```
-
-#### `prefetch_size`
-
-Controls how many batches are decoded in a background thread while the GPU processes the current
-batch. `null` (default) selects automatically:
-
-- `0` for `eager` mode (tensors already in memory — no prefetch needed)
-- `4` for `lazy` and the first epoch of `lazy_cached`
-- `0` automatically after epoch 1 in `lazy_cached` mode once the memmap is fully written (memmap
-  reads are fast enough that background pipelining adds no measurable benefit)
-
-Set to `0` to disable prefetch entirely, or to a positive integer to override.
-
-#### `lazy_cached` — persistent decode cache
-
-`lazy_cached` is ideal when you want to pay the decode cost once and get near-eager training speed
-from epoch 2 onward. The decoded memmap is placed next to the Parquet cache file:
-
-```
-<parquet_cache_dir>/<proc_col>_decoded_n<N>_<shape>_f32.npy
-```
-
-If the cache file already exists (from a previous run), the first epoch also reads from it directly.
 
 ```yaml
 input_features:
   - name: audio
     type: audio
     preprocessing:
-      mode: lazy_cached
-      audio_file_length_limit_in_s: 7.5
-      type: fbank
-      num_filter_bands: 80
+      mode: lazy_cached        # decode+cache on epoch 1; memmap from epoch 2+
+      lazy_cache_dir: /fast/nvme/audio_cache
 ```
+
+```yaml
+input_features:
+  - name: audio
+    type: audio
+    preprocessing:
+      mode: eager              # decode everything upfront
+```
+
+See [Choosing a Preprocessing Mode](../../user_guide/datasets/data_preprocessing.md#choosing-a-preprocessing-mode)
+for a full comparison.
 
 ### Lazy Preprocessing with HuggingFace Datasets
 
@@ -126,56 +100,24 @@ Ludwig handles this transparently:
    file directly — no copy is made.
 2. **Otherwise**, Ludwig writes the waveform to a WAV file in `lazy_cache_dir` and uses that path.
 
-This means that for most HuggingFace audio datasets, the first run caches files to
-`~/.cache/ludwig/lazy_media/<feature_name>/` and subsequent runs skip the write step entirely
-(the cache is persistent and idempotent).
+The cache is persistent and idempotent — subsequent runs skip the write step entirely.
 
-### Controlling the File Cache Directory
+### Controlling the Cache Directory
 
-`lazy_cache_dir` controls where WAV files are written when the source data is **in-memory** (e.g.
-a HuggingFace dataset). It has no effect when the input column already contains local file paths.
-
-By default, cached WAV files are written to:
-
-```
-~/.cache/ludwig/lazy_media/<feature_name>/
-```
-
-To use a different location — for example, a fast NVMe drive or a shared network path — set
-`lazy_cache_dir` in the preprocessing config:
+`lazy_cache_dir` controls where WAV files are written for in-memory sources (HuggingFace datasets).
+The decoded memmap for `lazy_cached` mode is placed next to the Parquet cache, not inside
+`lazy_cache_dir`.
 
 ```yaml
 input_features:
   - name: speech
     type: audio
     preprocessing:
-      mode: lazy
+      mode: lazy_cached
       lazy_cache_dir: /fast/nvme/my_project/audio_cache
 ```
 
-The per-feature subdirectory is created automatically. If multiple audio features share the same
-`lazy_cache_dir`, each feature gets its own subdirectory named after the feature.
-
-!!! note
-    `lazy_cache_dir` controls the file cache for in-memory sources. The decoded memmap used by
-    `lazy_cached` mode is placed next to the Parquet cache, not in `lazy_cache_dir`.
-
-### When to Use `eager` Mode
-
-Set `mode: eager` when:
-
-- Your dataset is small enough to fit in memory and you want the fastest possible training start.
-- You are running on a system without a persistent filesystem (e.g. some ephemeral cloud environments)
-  and cannot write a cache.
-- You are using a remote dataset backend that cannot deliver paths to local files.
-
-```yaml
-input_features:
-  - name: audio
-    type: audio
-    preprocessing:
-      mode: eager   # decode everything at preprocessing time
-```
+The per-feature subdirectory is created automatically.
 
 ### Bare Tensor Inputs
 

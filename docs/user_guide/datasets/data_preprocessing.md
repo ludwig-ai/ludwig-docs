@@ -199,17 +199,72 @@ See [Lazy Preprocessing](#lazy-preprocessing-for-audio-and-image) below for deta
 
 # Lazy Preprocessing for Audio and Image
 
-Ludwig's lazy preprocessing mode fundamentally changes *when* audio and image data are decoded:
+Ludwig offers three preprocessing modes for audio and image features, controlled by the `mode`
+parameter in the feature's `preprocessing` config.
 
-| | Eager (legacy) | Lazy (default) |
-|---|---|---|
-| **Decode time** | Preprocessing phase | Per batch during training |
-| **Peak memory** | O(N × file_size) | O(batch_size × file_size) |
-| **Preprocessing speed** | Slow (reads all files) | Fast (copies paths only) |
-| **Subsequent runs** | Uses Parquet cache | Uses Parquet cache + file cache |
-| **HF streaming datasets** | Not supported | Supported via local cache |
+## Choosing a Preprocessing Mode
 
-## How It Works
+| Mode | Memory | Preprocessing speed | Training epoch 1 | Training epoch 2+ | Best for |
+|------|--------|---------------------|------------------|---------------------|----------|
+| `eager` | High (O(N×tensor)) | Slow | Fast | Fast | Small datasets that fit in RAM |
+| `lazy` | Low (O(batch)) | Fast | Slow (decode-bound) | Slow | Large datasets, GPU work > decode time |
+| `lazy_cached` | Low (O(batch)) | Fast | Fast (GPU pipelined) | Very fast (memmap) | Large datasets, any GPU speed |
+
+`lazy` is the default for both audio and image features.
+
+## `lazy_cached` Mode — How It Works
+
+`lazy_cached` combines the low preprocessing memory of `lazy` with the training speed of `eager`
+after the first epoch.
+
+```
+Epoch 1 (decode + cache write)
+───────────────────────────────────────────────────────────
+  batch indices
+       │
+       ▼
+  ThreadPoolExecutor                 numpy memmap
+  decode(path_0..N)  ─── write ───► col_decoded_nN_..._f32.npy
+       │
+       ▼ (decoded tensors)
+  GPU forward pass
+
+Epoch 2+ (memmap read)
+───────────────────────────────────────────────────────────
+  batch indices
+       │
+       ▼
+  memmap[indices]   (~0.1 ms/batch, no thread pool)
+       │
+       ▼ (decoded tensors)
+  GPU forward pass
+```
+
+Once every sample has been written, a `.done` sentinel file is created next to the memmap.
+`RandomAccessBatcher.set_epoch` detects this via `dataset.is_fully_cached()` and automatically
+disables prefetch for all subsequent epochs.
+
+If the `.done` file already exists (e.g. after a resumed run), the memmap is opened immediately in
+read-only mode — epoch 1 behaves as fast as epoch 2+.
+
+## `prefetch_size` Configuration
+
+`prefetch_size` controls the depth of the background producer thread queue that pipelines batch
+decode with GPU work.
+
+| Value | Behaviour |
+|-------|-----------|
+| `null` (default) | Auto: 0 for `eager`, 4 for `lazy` / `lazy_cached` epoch 1, 0 for `lazy_cached` epoch 2+ |
+| `0` | Disable prefetch (synchronous decode; useful for debugging) |
+| `N > 0` | Use exactly N slots in the prefetch queue |
+
+Override when needed:
+
+- **Set to `0`** to debug decode errors without background thread noise.
+- **Increase above 4** when storage is very slow (e.g. spinning disks, network filesystems) and
+  the GPU consistently idles waiting for decode.
+
+## How It Works (lazy mode)
 
 During preprocessing, Ludwig stores file paths (strings) in the processed dataset instead of decoded
 tensors.  When training begins, `PandasDataset` wraps each path column in a `LazyColumn` — an
@@ -274,41 +329,60 @@ The cache is persistent and idempotent — re-running with the same dataset skip
 
 ## Controlling the Cache Directory
 
-The default cache directory is `~/.cache/ludwig/lazy_media/`. To override it per feature:
+`lazy_cache_dir` controls the *file* cache for in-memory sources (HuggingFace datasets that deliver
+`dict` / `PIL.Image` / `bytes` instead of local paths). Ludwig writes WAV or PNG files here so that
+subsequent training runs can reuse them without re-writing.
+
+The decoded **memmap** for `lazy_cached` mode is placed next to the Parquet cache (i.e. the same
+directory as `data_train_*.parquet`), not inside `lazy_cache_dir`.  If no Parquet cache exists,
+the memmap falls back to `~/.cache/ludwig/lazy_media/`.
+
+To override the file cache directory per feature:
 
 ```yaml
 input_features:
   - name: speech
     type: audio
     preprocessing:
-      lazy: true
+      mode: lazy_cached
       lazy_cache_dir: /fast/nvme/my_project/audio_cache
 
   - name: photo
     type: image
     preprocessing:
-      lazy: true
+      mode: lazy_cached
       lazy_cache_dir: /fast/nvme/my_project/image_cache
 ```
 
 Each feature gets its own subdirectory (`<lazy_cache_dir>/<feature_name>/`) so that multiple
 features sharing the same root never collide.
 
-## Disabling Lazy Preprocessing
+## Mode Configuration Examples
 
-Set `lazy: false` to fall back to the eager path and decode everything during preprocessing:
+All three modes shown side-by-side:
 
 ```yaml
 input_features:
-  - name: audio
+  # Eager — decode everything upfront; fast training, high preprocessing memory
+  - name: small_audio
     type: audio
     preprocessing:
-      lazy: false
+      mode: eager
 
-  - name: image
-    type: image
+  # Lazy (default) — decode per batch; low memory, GPU may idle on slow storage
+  - name: large_audio
+    type: audio
     preprocessing:
-      lazy: false
+      mode: lazy
+      prefetch_size: null      # auto (4)
+
+  # Lazy-cached — decode + cache on epoch 1; memmap read from epoch 2+
+  - name: huge_audio
+    type: audio
+    preprocessing:
+      mode: lazy_cached
+      prefetch_size: null      # auto (4 for epoch 1, 0 for epoch 2+)
+      lazy_cache_dir: /fast/nvme/cache
 ```
 
 !!! note
@@ -321,6 +395,12 @@ input_features:
 When training with the Ray backend (`trainer.type: ray`), Ludwig attaches `map_batches` decode
 transforms directly to the Ray dataset rather than wrapping columns in `LazyColumn` objects.
 This mirrors the local behaviour while keeping decoding distributed across workers.
+
+!!! warning
+    **`lazy_cached` mode is not supported with the Ray backend.** `CachedLazyColumn` writes to a
+    local numpy memmap, which is not accessible across Ray workers on different nodes.  Use `mode:
+    lazy` (the default) when training with Ray.  The Ray backend has its own efficient decode
+    pipeline via `map_batches` and does not benefit from local memmaps.
 
 ### How It Works in Distributed Training
 
@@ -346,20 +426,23 @@ When `RayDataset.initialize_batcher()` is called:
    worker pulling each block from the object store.
 3. When `iter_batches` iterates blocks, the decode transform fires in-process, so each worker
    decodes only the audio/image files needed for its current block.
+4. The prediction path also applies lazy decode transforms — path strings in the dataset are
+   decoded before being passed to the model (previously a bug caused raw paths to reach the
+   tensor cast step).
 
 ### Memory Implications
 
-| | Eager (`lazy: false`) | Lazy (`lazy: true`, default) |
+| | Eager (`mode: eager`) | Lazy (`mode: lazy`, default) |
 |---|---|---|
 | **Object store per worker** | O(N × tensor_size) | O(N × path_size) ≈ O(N × 1 KB) |
 | **Worker heap per batch** | O(batch_size × tensor_size) | O(batch_size × tensor_size) |
 | **Total cluster memory** | proportional to dataset size | dominated by model + one batch |
 
-With `lazy: true`, the object store holds only path strings (< 1 KB each). Each worker decodes
+With `mode: lazy`, the object store holds only path strings (< 1 KB each). Each worker decodes
 `batch_size` files at a time into its own heap — there is no spike proportional to the full
 dataset size across the cluster.
 
-With `lazy: false`, decoded tensors (potentially hundreds of MB each for long audio clips) are
+With `mode: eager`, decoded tensors (potentially hundreds of MB each for long audio clips) are
 stored in the Ray object store and replicated to each worker. For large datasets this can exhaust
 object store memory, causing Ray to spill to disk or OOM.
 
@@ -379,8 +462,7 @@ each worker must be able to read the audio/image files directly. This means:
 
 ### Configuration
 
-Lazy preprocessing works transparently with the Ray backend — no extra configuration is needed.
-The same `lazy: true` / `lazy: false` flag applies:
+Lazy preprocessing works transparently with the Ray backend — no extra configuration is needed:
 
 ```yaml
 trainer:
@@ -390,12 +472,12 @@ input_features:
   - name: audio
     type: audio
     preprocessing:
-      lazy: true          # default — decode in worker, low memory
+      mode: lazy          # default — decode in worker, low memory
 
   - name: image
     type: image
     preprocessing:
-      lazy: true          # default — decode in worker, low memory
+      mode: lazy          # default — decode in worker, low memory
 ```
 
 To force all decoding to happen before distributed training (useful when files are on a slow
@@ -406,5 +488,5 @@ input_features:
   - name: audio
     type: audio
     preprocessing:
-      lazy: false         # decode upfront; tensors stored in Ray object store
+      mode: eager         # decode upfront; tensors stored in Ray object store
 ```

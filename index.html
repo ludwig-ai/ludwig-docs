@@ -939,11 +939,32 @@
     <div class="fade-up d1">
       <div class="tab-bar" role="tablist">
         <button class="tab-btn active" data-tab="classification" role="tab">Text Classification</button>
+        <button class="tab-btn" data-tab="ner" role="tab">NER</button>
+        <button class="tab-btn" data-tab="text-regression" role="tab">Text Regression</button>
+        <button class="tab-btn" data-tab="summarization" role="tab">Summarization</button>
+        <button class="tab-btn" data-tab="qa" role="tab">Question Answering</button>
+        <button class="tab-btn" data-tab="translation" role="tab">Translation</button>
+        <button class="tab-btn" data-tab="nli" role="tab">NLI</button>
+        <button class="tab-btn" data-tab="sentence-sim" role="tab">Sentence Similarity</button>
+        <button class="tab-btn" data-tab="code" role="tab">Code Intelligence</button>
+        <button class="tab-btn" data-tab="multilingual" role="tab">Multilingual</button>
+        <button class="tab-btn" data-tab="safety" role="tab">Content Safety</button>
         <button class="tab-btn" data-tab="llm" role="tab">LLM Fine-Tuning</button>
         <button class="tab-btn" data-tab="grpo" role="tab">GRPO Alignment</button>
         <button class="tab-btn" data-tab="multimodal" role="tab">Multimodal</button>
         <button class="tab-btn" data-tab="image" role="tab">Image</button>
+        <button class="tab-btn" data-tab="segmentation" role="tab">Segmentation</button>
+        <button class="tab-btn" data-tab="docvqa" role="tab">Document Q&amp;A</button>
+        <button class="tab-btn" data-tab="vqa" role="tab">Visual Q&amp;A</button>
+        <button class="tab-btn" data-tab="vlm" role="tab">VLM Fine-Tuning</button>
+        <button class="tab-btn" data-tab="audio" role="tab">Audio</button>
+        <button class="tab-btn" data-tab="asr" role="tab">Speech Recognition</button>
+        <button class="tab-btn" data-tab="speaker" role="tab">Speaker Verification</button>
         <button class="tab-btn" data-tab="tabular" role="tab">Tabular</button>
+        <button class="tab-btn" data-tab="regression" role="tab">Regression</button>
+        <button class="tab-btn" data-tab="multilabel" role="tab">Multi-label</button>
+        <button class="tab-btn" data-tab="multitask" role="tab">Multi-Task</button>
+        <button class="tab-btn" data-tab="relation" role="tab">Relation Extraction</button>
         <button class="tab-btn" data-tab="timeseries" role="tab">Time Series</button>
         <button class="tab-btn" data-tab="distributed" role="tab">Distributed</button>
         <button class="tab-btn" data-tab="python" role="tab">Python API</button>
@@ -975,6 +996,341 @@
 <span class="yb">$ ludwig train</span> <span class="yf">--config</span> text_classifier.yaml <span class="yf">--dataset</span> rotten_tomatoes.csv
 <span class="yb">$ ludwig predict</span> <span class="yf">--model_path</span> results/ <span class="yf">--dataset</span> new_reviews.csv
 <span class="yb">$ ludwig serve</span> <span class="yf">--model_path</span> results/</code></pre>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-ner">
+        <div class="code-block">
+          <div class="cb-header">
+            <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
+            <span class="cb-title">ner.yaml — named entity recognition with ModernBERT</span>
+          </div>
+          <pre><code><span class="yk">input_features</span>:
+  - <span class="yk">name</span>: <span class="ys">sentence</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">bert</span>
+      <span class="yk">pretrained_model_name_or_path</span>: <span class="ys">answerdotai/ModernBERT-base</span>
+
+<span class="yk">output_features</span>:
+  - <span class="yk">name</span>: <span class="ys">entities</span>
+    <span class="yk">type</span>: <span class="yt">sequence</span>
+    <span class="yk">decoder</span>:
+      <span class="yk">type</span>: <span class="yt">tagger</span>          <span class="yc"># token-level labels (BIO tagging)</span>
+    <span class="yk">preprocessing</span>:
+      <span class="yk">tokenizer</span>: <span class="ys">space</span>
+
+<span class="yk">trainer</span>:
+  <span class="yk">epochs</span>: <span class="yn">10</span>
+  <span class="yk">learning_rate</span>: <span class="yn">2.0e-5</span>
+
+<span class="yc">─────────────────────────────────────────────</span>
+<span class="yd">$ pip install ludwig[text]</span>
+<span class="yb">$ ludwig train</span> <span class="yf">--config</span> ner.yaml <span class="yf">--dataset</span> conll2003.csv
+<span class="yb">$ ludwig predict</span> <span class="yf">--model_path</span> results/ <span class="yf">--dataset</span> news.csv</code></pre>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-summarization">
+        <div class="code-block">
+          <div class="cb-header">
+            <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
+            <span class="cb-title">summarize.yaml — abstractive summarization with BART</span>
+          </div>
+          <pre><code><span class="yk">input_features</span>:
+  - <span class="yk">name</span>: <span class="ys">article</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">bert</span>
+      <span class="yk">pretrained_model_name_or_path</span>: <span class="ys">facebook/bart-large-cnn</span>
+      <span class="yk">reduce_output</span>: <span class="yv">null</span>   <span class="yc"># keep all token states for generation</span>
+
+<span class="yk">output_features</span>:
+  - <span class="yk">name</span>: <span class="ys">summary</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">decoder</span>:
+      <span class="yk">type</span>: <span class="yt">generator</span>
+      <span class="yk">max_new_tokens</span>: <span class="yn">128</span>
+
+<span class="yk">trainer</span>:
+  <span class="yk">epochs</span>: <span class="yn">5</span>
+  <span class="yk">learning_rate</span>: <span class="yn">3.0e-5</span>
+  <span class="yk">batch_size</span>: <span class="yn">8</span>
+
+<span class="yc">─────────────────────────────────────────────</span>
+<span class="yd">$ pip install ludwig[text]</span>
+<span class="yb">$ ludwig train</span> <span class="yf">--config</span> summarize.yaml <span class="yf">--dataset</span> <span class="ys">"ludwig://cnn_dailymail"</span></code></pre>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-text-regression">
+        <div class="code-block">
+          <div class="cb-header">
+            <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
+            <span class="cb-title">text_regression.yaml — predict star rating from review text</span>
+          </div>
+          <pre><code><span class="yk">input_features</span>:
+  - <span class="yk">name</span>: <span class="ys">review</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">bert</span>
+      <span class="yk">pretrained_model_name_or_path</span>: <span class="ys">answerdotai/ModernBERT-base</span>
+      <span class="yk">trainable</span>: <span class="yv">true</span>
+
+<span class="yk">output_features</span>:
+  - <span class="yk">name</span>: <span class="ys">star</span>
+    <span class="yk">type</span>: <span class="yt">number</span>      <span class="yc"># regression — RMSE/MAE metrics out of the box</span>
+
+<span class="yk">trainer</span>:
+  <span class="yk">epochs</span>: <span class="yn">5</span>
+  <span class="yk">learning_rate</span>: <span class="yn">1.0e-5</span>
+
+<span class="yc">─────────────────────────────────────────────</span>
+<span class="yd">$ pip install ludwig[text]</span>
+<span class="yb">$ ludwig train</span> <span class="yf">--config</span> text_regression.yaml <span class="yf">--dataset</span> app_reviews.csv</code></pre>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-qa">
+        <div class="code-block">
+          <div class="cb-header">
+            <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
+            <span class="cb-title">qa.yaml — extractive question answering on SQuAD</span>
+          </div>
+          <pre><code><span class="yk">input_features</span>:
+  - <span class="yk">name</span>: <span class="ys">context</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">auto_transformer</span>
+      <span class="yk">pretrained_model_name_or_path</span>: <span class="ys">google-bert/bert-base-uncased</span>
+      <span class="yk">trainable</span>: <span class="yv">true</span>
+  - <span class="yk">name</span>: <span class="ys">question</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">auto_transformer</span>
+      <span class="yk">pretrained_model_name_or_path</span>: <span class="ys">google-bert/bert-base-uncased</span>
+      <span class="yk">trainable</span>: <span class="yv">true</span>
+
+<span class="yk">output_features</span>:
+  - <span class="yk">name</span>: <span class="ys">answers</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">decoder</span>:
+      <span class="yk">type</span>: <span class="yt">generator</span>
+      <span class="yk">max_new_tokens</span>: <span class="yn">32</span>
+
+<span class="yk">combiner</span>:
+  <span class="yk">type</span>: <span class="yt">concat</span>
+
+<span class="yk">trainer</span>:
+  <span class="yk">epochs</span>: <span class="yn">5</span>
+  <span class="yk">learning_rate</span>: <span class="yn">2.0e-5</span>
+
+<span class="yc">─────────────────────────────────────────────</span>
+<span class="yd">$ pip install ludwig[text]</span>
+<span class="yb">$ ludwig train</span> <span class="yf">--config</span> qa.yaml <span class="yf">--dataset</span> <span class="ys">"ludwig://squad"</span></code></pre>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-translation">
+        <div class="code-block">
+          <div class="cb-header">
+            <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
+            <span class="cb-title">translation.yaml — English → German with mBART</span>
+          </div>
+          <pre><code><span class="yk">input_features</span>:
+  - <span class="yk">name</span>: <span class="ys">en</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">auto_transformer</span>
+      <span class="yk">pretrained_model_name_or_path</span>: <span class="ys">facebook/mbart-large-cc25</span>
+      <span class="yk">trainable</span>: <span class="yv">true</span>
+      <span class="yk">max_sequence_length</span>: <span class="yn">128</span>
+
+<span class="yk">output_features</span>:
+  - <span class="yk">name</span>: <span class="ys">de</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">decoder</span>:
+      <span class="yk">type</span>: <span class="yt">generator</span>
+      <span class="yk">max_new_tokens</span>: <span class="yn">128</span>
+
+<span class="yk">trainer</span>:
+  <span class="yk">epochs</span>: <span class="yn">3</span>
+  <span class="yk">batch_size</span>: <span class="yn">16</span>
+  <span class="yk">gradient_accumulation_steps</span>: <span class="yn">4</span>
+  <span class="yk">learning_rate</span>: <span class="yn">3.0e-5</span>
+
+<span class="yc">─────────────────────────────────────────────</span>
+<span class="yd">$ pip install ludwig[text]</span>
+<span class="yb">$ ludwig train</span> <span class="yf">--config</span> translation.yaml <span class="yf">--dataset</span> <span class="ys">"ludwig://opus100_en_de"</span></code></pre>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-nli">
+        <div class="code-block">
+          <div class="cb-header">
+            <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
+            <span class="cb-title">nli.yaml — natural language inference on MultiNLI</span>
+          </div>
+          <pre><code><span class="yk">input_features</span>:
+  - <span class="yk">name</span>: <span class="ys">premise</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">bert</span>
+      <span class="yk">pretrained_model_name_or_path</span>: <span class="ys">answerdotai/ModernBERT-base</span>
+      <span class="yk">trainable</span>: <span class="yv">true</span>
+  - <span class="yk">name</span>: <span class="ys">hypothesis</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">bert</span>
+      <span class="yk">pretrained_model_name_or_path</span>: <span class="ys">answerdotai/ModernBERT-base</span>
+      <span class="yk">trainable</span>: <span class="yv">true</span>
+
+<span class="yk">output_features</span>:
+  - <span class="yk">name</span>: <span class="ys">label</span>
+    <span class="yk">type</span>: <span class="yt">category</span>   <span class="yc"># entailment / neutral / contradiction</span>
+
+<span class="yk">combiner</span>:
+  <span class="yk">type</span>: <span class="yt">concat</span>
+
+<span class="yk">trainer</span>:
+  <span class="yk">epochs</span>: <span class="yn">5</span>
+  <span class="yk">learning_rate</span>: <span class="yn">2.0e-5</span>
+  <span class="yk">batch_size</span>: <span class="yn">32</span>
+
+<span class="yc">─────────────────────────────────────────────</span>
+<span class="yd">$ pip install ludwig[text]</span>
+<span class="yb">$ ludwig train</span> <span class="yf">--config</span> nli.yaml <span class="yf">--dataset</span> <span class="ys">"ludwig://mnli"</span></code></pre>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-sentence-sim">
+        <div class="code-block">
+          <div class="cb-header">
+            <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
+            <span class="cb-title">sts.yaml — sentence similarity (STS-B, scored 0–5)</span>
+          </div>
+          <pre><code><span class="yk">input_features</span>:
+  - <span class="yk">name</span>: <span class="ys">sentence1</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">bert</span>
+      <span class="yk">pretrained_model_name_or_path</span>: <span class="ys">answerdotai/ModernBERT-base</span>
+      <span class="yk">trainable</span>: <span class="yv">true</span>
+  - <span class="yk">name</span>: <span class="ys">sentence2</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">bert</span>
+      <span class="yk">pretrained_model_name_or_path</span>: <span class="ys">answerdotai/ModernBERT-base</span>
+      <span class="yk">trainable</span>: <span class="yv">true</span>
+
+<span class="yk">output_features</span>:
+  - <span class="yk">name</span>: <span class="ys">score</span>
+    <span class="yk">type</span>: <span class="yt">number</span>
+
+<span class="yk">combiner</span>:
+  <span class="yk">type</span>: <span class="yt">concat</span>
+
+<span class="yk">trainer</span>:
+  <span class="yk">epochs</span>: <span class="yn">5</span>
+  <span class="yk">learning_rate</span>: <span class="yn">2.0e-5</span>
+  <span class="yk">batch_size</span>: <span class="yn">32</span>
+
+<span class="yc">─────────────────────────────────────────────</span>
+<span class="yd">$ pip install ludwig[text]</span>
+<span class="yb">$ ludwig train</span> <span class="yf">--config</span> sts.yaml <span class="yf">--dataset</span> <span class="ys">"ludwig://stsb"</span></code></pre>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-code">
+        <div class="code-block">
+          <div class="cb-header">
+            <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
+            <span class="cb-title">code.yaml — bug detection with CodeBERT</span>
+          </div>
+          <pre><code><span class="yk">input_features</span>:
+  - <span class="yk">name</span>: <span class="ys">func</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">auto_transformer</span>
+      <span class="yk">pretrained_model_name_or_path</span>: <span class="ys">microsoft/codebert-base</span>
+      <span class="yk">trainable</span>: <span class="yv">true</span>
+
+<span class="yk">output_features</span>:
+  - <span class="yk">name</span>: <span class="ys">target</span>
+    <span class="yk">type</span>: <span class="yt">binary</span>    <span class="yc"># 1 = buggy, 0 = clean</span>
+
+<span class="yk">trainer</span>:
+  <span class="yk">epochs</span>: <span class="yn">10</span>
+  <span class="yk">learning_rate</span>: <span class="yn">2.0e-5</span>
+  <span class="yk">batch_size</span>: <span class="yn">32</span>
+
+<span class="yc">─────────────────────────────────────────────</span>
+<span class="yd">$ pip install ludwig[text]</span>
+<span class="yb">$ ludwig train</span> <span class="yf">--config</span> code.yaml <span class="yf">--dataset</span> <span class="ys">"ludwig://code_defect_detection"</span></code></pre>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-multilingual">
+        <div class="code-block">
+          <div class="cb-header">
+            <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
+            <span class="cb-title">multilingual.yaml — intent classification across 51 languages</span>
+          </div>
+          <pre><code><span class="yk">input_features</span>:
+  - <span class="yk">name</span>: <span class="ys">utt</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">auto_transformer</span>
+      <span class="yk">pretrained_model_name_or_path</span>: <span class="ys">google-bert/bert-base-multilingual-cased</span>
+      <span class="yk">trainable</span>: <span class="yv">true</span>
+
+<span class="yk">output_features</span>:
+  - <span class="yk">name</span>: <span class="ys">intent</span>
+    <span class="yk">type</span>: <span class="yt">category</span>
+
+<span class="yk">trainer</span>:
+  <span class="yk">epochs</span>: <span class="yn">10</span>
+  <span class="yk">learning_rate</span>: <span class="yn">2.0e-5</span>
+  <span class="yk">batch_size</span>: <span class="yn">64</span>
+
+<span class="yc">─────────────────────────────────────────────</span>
+<span class="yd">$ pip install ludwig[text]</span>
+<span class="yb">$ ludwig train</span> <span class="yf">--config</span> multilingual.yaml <span class="yf">--dataset</span> <span class="ys">"ludwig://amazon_massive_intent"</span></code></pre>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-safety">
+        <div class="code-block">
+          <div class="cb-header">
+            <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
+            <span class="cb-title">safety.yaml — content safety classification (prompt + response)</span>
+          </div>
+          <pre><code><span class="yk">input_features</span>:
+  - <span class="yk">name</span>: <span class="ys">prompt</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">bert</span>
+      <span class="yk">pretrained_model_name_or_path</span>: <span class="ys">answerdotai/ModernBERT-base</span>
+      <span class="yk">trainable</span>: <span class="yv">true</span>
+  - <span class="yk">name</span>: <span class="ys">response</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">bert</span>
+      <span class="yk">pretrained_model_name_or_path</span>: <span class="ys">answerdotai/ModernBERT-base</span>
+      <span class="yk">trainable</span>: <span class="yv">true</span>
+
+<span class="yk">output_features</span>:
+  - <span class="yk">name</span>: <span class="ys">safety_label</span>
+    <span class="yk">type</span>: <span class="yt">category</span>
+
+<span class="yk">trainer</span>:
+  <span class="yk">epochs</span>: <span class="yn">5</span>
+  <span class="yk">learning_rate</span>: <span class="yn">2.0e-5</span>
+  <span class="yk">batch_size</span>: <span class="yn">32</span>
+
+<span class="yc">─────────────────────────────────────────────</span>
+<span class="yd">$ pip install ludwig[text]</span>
+<span class="yb">$ ludwig train</span> <span class="yf">--config</span> safety.yaml <span class="yf">--dataset</span> <span class="ys">"ludwig://aegis_safety"</span></code></pre>
         </div>
       </div>
 
@@ -1130,6 +1486,264 @@
         </div>
       </div>
 
+      <div class="tab-panel" id="tab-segmentation">
+        <div class="code-block">
+          <div class="cb-header">
+            <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
+            <span class="cb-title">segmentation.yaml — semantic segmentation with ConvNeXtV2 + U-Net</span>
+          </div>
+          <pre><code><span class="yk">input_features</span>:
+  - <span class="yk">name</span>: <span class="ys">image</span>
+    <span class="yk">type</span>: <span class="yt">image</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">convnextv2</span>
+      <span class="yk">model_name</span>: <span class="ys">convnextv2_tiny</span>
+      <span class="yk">use_pretrained</span>: <span class="yv">true</span>
+      <span class="yk">trainable</span>: <span class="yv">true</span>
+
+<span class="yk">output_features</span>:
+  - <span class="yk">name</span>: <span class="ys">mask</span>
+    <span class="yk">type</span>: <span class="yt">image</span>
+    <span class="yk">decoder</span>:
+      <span class="yk">type</span>: <span class="yt">unet</span>
+      <span class="yk">num_classes</span>: <span class="yn">2</span>
+    <span class="yk">loss</span>:
+      <span class="yk">type</span>: <span class="yt">softmax_cross_entropy</span>
+
+<span class="yk">preprocessing</span>:
+  <span class="yk">image</span>:
+    <span class="yk">height</span>: <span class="yn">256</span>
+    <span class="yk">width</span>: <span class="yn">256</span>
+
+<span class="yk">trainer</span>:
+  <span class="yk">epochs</span>: <span class="yn">30</span>
+  <span class="yk">batch_size</span>: <span class="yn">16</span>
+  <span class="yk">use_mixed_precision</span>: <span class="yv">true</span>
+
+<span class="yc">─────────────────────────────────────────────</span>
+<span class="yd">$ pip install "ludwig[vision]"</span>
+<span class="yb">$ ludwig train</span> <span class="yf">--config</span> segmentation.yaml <span class="yf">--dataset</span> satellite_buildings.csv</code></pre>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-docvqa">
+        <div class="code-block">
+          <div class="cb-header">
+            <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
+            <span class="cb-title">docvqa.yaml — document image question answering</span>
+          </div>
+          <pre><code><span class="yk">input_features</span>:
+  - <span class="yk">name</span>: <span class="ys">image_path</span>
+    <span class="yk">type</span>: <span class="yt">image</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">vit</span>
+      <span class="yk">trainable</span>: <span class="yv">true</span>
+  - <span class="yk">name</span>: <span class="ys">question</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">bert</span>
+      <span class="yk">trainable</span>: <span class="yv">true</span>
+
+<span class="yk">output_features</span>:
+  - <span class="yk">name</span>: <span class="ys">answer</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">decoder</span>:
+      <span class="yk">type</span>: <span class="yt">generator</span>
+      <span class="yk">max_new_tokens</span>: <span class="yn">64</span>
+
+<span class="yk">combiner</span>:
+  <span class="yk">type</span>: <span class="yt">concat</span>
+
+<span class="yk">trainer</span>:
+  <span class="yk">epochs</span>: <span class="yn">5</span>
+  <span class="yk">batch_size</span>: <span class="yn">8</span>
+  <span class="yk">learning_rate</span>: <span class="yn">1.0e-5</span>
+
+<span class="yc">─────────────────────────────────────────────</span>
+<span class="yd">$ pip install "ludwig[text,vision]"</span>
+<span class="yb">$ ludwig train</span> <span class="yf">--config</span> docvqa.yaml <span class="yf">--dataset</span> <span class="ys">"ludwig://docvqa"</span></code></pre>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-vqa">
+        <div class="code-block">
+          <div class="cb-header">
+            <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
+            <span class="cb-title">vqa.yaml — visual question answering (image + text → text)</span>
+          </div>
+          <pre><code><span class="yk">input_features</span>:
+  - <span class="yk">name</span>: <span class="ys">image_path</span>
+    <span class="yk">type</span>: <span class="yt">image</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">dinov2</span>
+      <span class="yk">reduce_output</span>: <span class="yv">null</span>   <span class="yc"># keep spatial tokens for cross-attention</span>
+
+  - <span class="yk">name</span>: <span class="ys">question</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">bert</span>
+      <span class="yk">pretrained_model_name_or_path</span>: <span class="ys">answerdotai/ModernBERT-base</span>
+
+<span class="yk">output_features</span>:
+  - <span class="yk">name</span>: <span class="ys">answer</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">decoder</span>:
+      <span class="yk">type</span>: <span class="yt">generator</span>
+
+<span class="yk">trainer</span>:
+  <span class="yk">epochs</span>: <span class="yn">20</span>
+  <span class="yk">learning_rate</span>: <span class="yn">1.0e-4</span>
+
+<span class="yc">─────────────────────────────────────────────</span>
+<span class="yd">$ pip install "ludwig[text,vision]"</span>
+<span class="yb">$ ludwig train</span> <span class="yf">--config</span> vqa.yaml <span class="yf">--dataset</span> vqa_v2.csv</code></pre>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-vlm">
+        <div class="code-block">
+          <div class="cb-header">
+            <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
+            <span class="cb-title">vlm.yaml — QLoRA fine-tuning of Qwen2-VL on custom VQA data</span>
+          </div>
+          <pre><code><span class="yk">model_type</span>: <span class="yt">llm</span>
+<span class="yk">base_model</span>: <span class="ys">Qwen/Qwen2-VL-7B-Instruct</span>
+<span class="yk">is_multimodal</span>: <span class="yv">true</span>
+<span class="yk">trust_remote_code</span>: <span class="yv">true</span>
+
+<span class="yk">adapter</span>:
+  <span class="yk">type</span>: <span class="yt">lora</span>
+  <span class="yk">r</span>: <span class="yn">16</span>
+  <span class="yk">alpha</span>: <span class="yn">32</span>
+  <span class="yk">target_modules</span>: [<span class="ys">"q_proj"</span>, <span class="ys">"v_proj"</span>]
+
+<span class="yk">quantization</span>:
+  <span class="yk">bits</span>: <span class="yn">4</span>
+
+<span class="yk">input_features</span>:
+  - <span class="yk">name</span>: <span class="ys">image_path</span>
+    <span class="yk">type</span>: <span class="yt">image</span>
+  - <span class="yk">name</span>: <span class="ys">question</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+
+<span class="yk">output_features</span>:
+  - <span class="yk">name</span>: <span class="ys">answer</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+
+<span class="yk">trainer</span>:
+  <span class="yk">type</span>: <span class="yt">finetune</span>
+  <span class="yk">epochs</span>: <span class="yn">3</span>
+  <span class="yk">batch_size</span>: <span class="yn">4</span>
+  <span class="yk">gradient_accumulation_steps</span>: <span class="yn">8</span>
+  <span class="yk">learning_rate</span>: <span class="yn">2.0e-5</span>
+
+<span class="yc">─────────────────────────────────────────────</span>
+<span class="yd">$ pip install "ludwig[llm,vision]"</span>
+<span class="yb">$ ludwig train</span> <span class="yf">--config</span> vlm.yaml <span class="yf">--dataset</span> <span class="ys">"ludwig://scienceqa"</span></code></pre>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-audio">
+        <div class="code-block">
+          <div class="cb-header">
+            <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
+            <span class="cb-title">audio_classifier.yaml — sound event classification</span>
+          </div>
+          <pre><code><span class="yk">input_features</span>:
+  - <span class="yk">name</span>: <span class="ys">audio_path</span>
+    <span class="yk">type</span>: <span class="yt">audio</span>
+    <span class="yk">preprocessing</span>:
+      <span class="yk">audio_feature</span>:
+        <span class="yk">type</span>: <span class="yt">fbank</span>          <span class="yc"># log-mel filterbanks</span>
+        <span class="yk">window_length_in_s</span>: <span class="yn">0.025</span>
+        <span class="yk">window_shift_in_s</span>: <span class="yn">0.010</span>
+        <span class="yk">num_filter_bands</span>: <span class="yn">80</span>
+      <span class="yk">audio_file_length_limit_in_s</span>: <span class="yn">10.0</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">cnnrnn</span>          <span class="yc"># or: stacked_cnn, bert (wav2vec2)</span>
+
+<span class="yk">output_features</span>:
+  - <span class="yk">name</span>: <span class="ys">label</span>
+    <span class="yk">type</span>: <span class="yt">category</span>
+
+<span class="yk">trainer</span>:
+  <span class="yk">epochs</span>: <span class="yn">30</span>
+  <span class="yk">learning_rate</span>: <span class="yn">1.0e-3</span>
+
+<span class="yc">─────────────────────────────────────────────</span>
+<span class="yd">$ pip install "ludwig[audio]"</span>
+<span class="yb">$ ludwig train</span> <span class="yf">--config</span> audio_classifier.yaml <span class="yf">--dataset</span> <span class="ys">"ludwig://fsd50k"</span></code></pre>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-asr">
+        <div class="code-block">
+          <div class="cb-header">
+            <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
+            <span class="cb-title">asr.yaml — automatic speech recognition (audio → text)</span>
+          </div>
+          <pre><code><span class="yk">input_features</span>:
+  - <span class="yk">name</span>: <span class="ys">audio_path</span>
+    <span class="yk">type</span>: <span class="yt">audio</span>
+    <span class="yk">preprocessing</span>:
+      <span class="yk">audio_feature</span>:
+        <span class="yk">type</span>: <span class="yt">fbank</span>
+        <span class="yk">window_length_in_s</span>: <span class="yn">0.025</span>
+        <span class="yk">window_shift_in_s</span>: <span class="yn">0.010</span>
+        <span class="yk">num_filter_bands</span>: <span class="yn">80</span>
+      <span class="yk">audio_file_length_limit_in_s</span>: <span class="yn">30.0</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">cnnrnn</span>
+      <span class="yk">reduce_output</span>: <span class="yv">null</span>   <span class="yc"># keep frame sequence for decoder</span>
+
+<span class="yk">output_features</span>:
+  - <span class="yk">name</span>: <span class="ys">transcript</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">decoder</span>:
+      <span class="yk">type</span>: <span class="yt">generator</span>
+      <span class="yk">attention</span>: <span class="yv">true</span>
+
+<span class="yk">trainer</span>:
+  <span class="yk">epochs</span>: <span class="yn">50</span>
+  <span class="yk">learning_rate</span>: <span class="yn">1.0e-3</span>
+
+<span class="yc">─────────────────────────────────────────────</span>
+<span class="yd">$ pip install "ludwig[audio,text]"</span>
+<span class="yb">$ ludwig train</span> <span class="yf">--config</span> asr.yaml <span class="yf">--dataset</span> <span class="ys">"ludwig://librispeech_asr"</span></code></pre>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-speaker">
+        <div class="code-block">
+          <div class="cb-header">
+            <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
+            <span class="cb-title">speaker.yaml — speaker verification with WavLM</span>
+          </div>
+          <pre><code><span class="yk">input_features</span>:
+  - <span class="yk">name</span>: <span class="ys">audio</span>
+    <span class="yk">type</span>: <span class="yt">audio</span>
+    <span class="yk">preprocessing</span>:
+      <span class="yk">audio_file_length_limit_in_s</span>: <span class="yn">5.0</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">auto_transformer</span>
+      <span class="yk">pretrained_model_name_or_path</span>: <span class="ys">microsoft/wavlm-base-plus</span>
+      <span class="yk">trainable</span>: <span class="yv">true</span>
+
+<span class="yk">output_features</span>:
+  - <span class="yk">name</span>: <span class="ys">speaker_id</span>
+    <span class="yk">type</span>: <span class="yt">category</span>
+
+<span class="yk">trainer</span>:
+  <span class="yk">epochs</span>: <span class="yn">20</span>
+  <span class="yk">batch_size</span>: <span class="yn">32</span>
+  <span class="yk">learning_rate</span>: <span class="yn">1.0e-5</span>
+
+<span class="yc">─────────────────────────────────────────────</span>
+<span class="yd">$ pip install "ludwig[audio]"</span>
+<span class="yb">$ ludwig train</span> <span class="yf">--config</span> speaker.yaml <span class="yf">--dataset</span> <span class="ys">"ludwig://voxceleb"</span></code></pre>
+        </div>
+      </div>
+
       <div class="tab-panel" id="tab-tabular">
         <div class="code-block">
           <div class="cb-header">
@@ -1159,6 +1773,148 @@
 <span class="yc">─────────────────────────────────────────────</span>
 <span class="yd">$ pip install ludwig</span>
 <span class="yb">$ ludwig train</span> <span class="yf">--config</span> fraud_detection.yaml <span class="yf">--dataset</span> transactions.csv</code></pre>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-regression">
+        <div class="code-block">
+          <div class="cb-header">
+            <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
+            <span class="cb-title">regression.yaml — house price prediction (numerical output)</span>
+          </div>
+          <pre><code><span class="yk">input_features</span>:
+  - <span class="yk">name</span>: <span class="ys">sqft</span>
+    <span class="yk">type</span>: <span class="yt">number</span>
+  - <span class="yk">name</span>: <span class="ys">bedrooms</span>
+    <span class="yk">type</span>: <span class="yt">number</span>
+  - <span class="yk">name</span>: <span class="ys">bathrooms</span>
+    <span class="yk">type</span>: <span class="yt">number</span>
+  - <span class="yk">name</span>: <span class="ys">neighborhood</span>
+    <span class="yk">type</span>: <span class="yt">category</span>
+  - <span class="yk">name</span>: <span class="ys">year_built</span>
+    <span class="yk">type</span>: <span class="yt">number</span>
+  - <span class="yk">name</span>: <span class="ys">description</span>
+    <span class="yk">type</span>: <span class="yt">text</span>     <span class="yc"># mix structured + unstructured naturally</span>
+
+<span class="yk">output_features</span>:
+  - <span class="yk">name</span>: <span class="ys">price</span>
+    <span class="yk">type</span>: <span class="yt">number</span>   <span class="yc"># regression — RMSE/MAE metrics out of the box</span>
+
+<span class="yk">trainer</span>:
+  <span class="yk">epochs</span>: <span class="yn">100</span>
+  <span class="yk">learning_rate</span>: <span class="yn">1.0e-3</span>
+  <span class="yk">learning_rate_scheduler</span>:
+    <span class="yk">decay</span>: <span class="yt">cosine</span>
+
+<span class="yc">─────────────────────────────────────────────</span>
+<span class="yd">$ pip install ludwig</span>
+<span class="yb">$ ludwig train</span> <span class="yf">--config</span> regression.yaml <span class="yf">--dataset</span> housing.csv
+<span class="yb">$ ludwig visualize</span> <span class="yf">--visualization</span> learning_curves <span class="yf">--model_path</span> results/</code></pre>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-multilabel">
+        <div class="code-block">
+          <div class="cb-header">
+            <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
+            <span class="cb-title">multilabel.yaml — multi-label emotion detection (GoEmotions)</span>
+          </div>
+          <pre><code><span class="yk">input_features</span>:
+  - <span class="yk">name</span>: <span class="ys">text</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">bert</span>
+      <span class="yk">pretrained_model_name_or_path</span>: <span class="ys">answerdotai/ModernBERT-base</span>
+      <span class="yk">trainable</span>: <span class="yv">true</span>
+
+<span class="yk">output_features</span>:
+  - <span class="yk">name</span>: <span class="ys">labels</span>
+    <span class="yk">type</span>: <span class="yt">set</span>       <span class="yc"># set output = multi-label; sigmoid + binary cross-entropy</span>
+
+<span class="yk">trainer</span>:
+  <span class="yk">epochs</span>: <span class="yn">10</span>
+  <span class="yk">learning_rate</span>: <span class="yn">2.0e-5</span>
+
+<span class="yc">─────────────────────────────────────────────</span>
+<span class="yd">$ pip install ludwig[text]</span>
+<span class="yb">$ ludwig train</span> <span class="yf">--config</span> multilabel.yaml <span class="yf">--dataset</span> <span class="ys">"ludwig://go_emotions"</span></code></pre>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-multitask">
+        <div class="code-block">
+          <div class="cb-header">
+            <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
+            <span class="cb-title">multitask.yaml — NER + POS + chunking from one shared encoder</span>
+          </div>
+          <pre><code><span class="yk">input_features</span>:
+  - <span class="yk">name</span>: <span class="ys">sentence</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">bert</span>
+      <span class="yk">pretrained_model_name_or_path</span>: <span class="ys">answerdotai/ModernBERT-base</span>
+      <span class="yk">trainable</span>: <span class="yv">true</span>
+      <span class="yk">reduce_output</span>: <span class="yv">null</span>
+
+<span class="yk">output_features</span>:
+  - <span class="yk">name</span>: <span class="ys">ner_tags</span>
+    <span class="yk">type</span>: <span class="yt">sequence</span>
+    <span class="yk">decoder</span>:
+      <span class="yk">type</span>: <span class="yt">tagger</span>
+  - <span class="yk">name</span>: <span class="ys">pos_tags</span>
+    <span class="yk">type</span>: <span class="yt">sequence</span>
+    <span class="yk">decoder</span>:
+      <span class="yk">type</span>: <span class="yt">tagger</span>
+  - <span class="yk">name</span>: <span class="ys">chunk_tags</span>
+    <span class="yk">type</span>: <span class="yt">sequence</span>
+    <span class="yk">decoder</span>:
+      <span class="yk">type</span>: <span class="yt">tagger</span>   <span class="yc"># 3 tasks, 1 encoder, trained jointly</span>
+
+<span class="yk">trainer</span>:
+  <span class="yk">epochs</span>: <span class="yn">10</span>
+  <span class="yk">learning_rate</span>: <span class="yn">2.0e-5</span>
+
+<span class="yc">─────────────────────────────────────────────</span>
+<span class="yd">$ pip install ludwig[text]</span>
+<span class="yb">$ ludwig train</span> <span class="yf">--config</span> multitask.yaml <span class="yf">--dataset</span> <span class="ys">"ludwig://conll2003"</span></code></pre>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-relation">
+        <div class="code-block">
+          <div class="cb-header">
+            <div class="cb-dots"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>
+            <span class="cb-title">relation.yaml — document-level relation extraction (DocRED)</span>
+          </div>
+          <pre><code><span class="yk">input_features</span>:
+  - <span class="yk">name</span>: <span class="ys">title</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">bert</span>
+      <span class="yk">pretrained_model_name_or_path</span>: <span class="ys">answerdotai/ModernBERT-base</span>
+      <span class="yk">trainable</span>: <span class="yv">true</span>
+  - <span class="yk">name</span>: <span class="ys">sents</span>
+    <span class="yk">type</span>: <span class="yt">text</span>
+    <span class="yk">encoder</span>:
+      <span class="yk">type</span>: <span class="yt">bert</span>
+      <span class="yk">pretrained_model_name_or_path</span>: <span class="ys">answerdotai/ModernBERT-base</span>
+      <span class="yk">trainable</span>: <span class="yv">true</span>
+
+<span class="yk">output_features</span>:
+  - <span class="yk">name</span>: <span class="ys">relation</span>
+    <span class="yk">type</span>: <span class="yt">category</span>
+
+<span class="yk">combiner</span>:
+  <span class="yk">type</span>: <span class="yt">concat</span>
+
+<span class="yk">trainer</span>:
+  <span class="yk">epochs</span>: <span class="yn">10</span>
+  <span class="yk">learning_rate</span>: <span class="yn">2.0e-5</span>
+  <span class="yk">batch_size</span>: <span class="yn">16</span>
+
+<span class="yc">─────────────────────────────────────────────</span>
+<span class="yd">$ pip install ludwig[text]</span>
+<span class="yb">$ ludwig train</span> <span class="yf">--config</span> relation.yaml <span class="yf">--dataset</span> <span class="ys">"ludwig://docred"</span></code></pre>
         </div>
       </div>
 

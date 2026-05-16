@@ -40,7 +40,7 @@ Preprocessing parameters can also be defined once and applied to all image input
 
 ## Lazy Preprocessing
 
-By default (`lazy: true`), Ludwig does **not** decode image files during the preprocessing phase.
+By default (`mode: lazy`), Ludwig does **not** decode image files during the preprocessing phase.
 Instead, it stores file paths in the processed dataset and decodes images on-the-fly, one batch
 at a time, during training. This approach dramatically reduces peak memory usage for large image
 datasets.
@@ -62,6 +62,16 @@ only file paths are stored during preprocessing (essentially zero additional mem
 Decoding happens in a `ThreadPoolExecutor` that overlaps with the GPU forward pass, matching the
 throughput of the existing eager decode path.
 
+### Preprocessing Modes
+
+Ludwig supports three preprocessing modes, controlled by the `mode` parameter:
+
+| Mode | Behaviour |
+|------|-----------|
+| `lazy` (default) | Stores file paths; decodes one batch at a time during training. Lowest memory footprint. |
+| `eager` | Decodes all files during preprocessing and stores the resulting tensors in the Parquet cache. Fastest training once preprocessing is done, but requires enough RAM to hold the entire decoded dataset. |
+| `lazy_cached` | Behaves like `lazy` on the first training epoch (decoding each sample once and writing it to a numpy memmap alongside the Parquet cache). Subsequent epochs read from the memmap directly, eliminating per-batch decode overhead while keeping peak memory bounded during preprocessing. |
+
 ### Configuration
 
 ```yaml
@@ -69,18 +79,53 @@ input_features:
   - name: image
     type: image
     preprocessing:
-      lazy: true              # default; set to false to decode everything upfront
-      lazy_cache_dir: null    # default; set to a path to control where files are cached
+      mode: lazy              # "lazy" (default), "eager", or "lazy_cached"
+      prefetch_size: null     # null = auto (0 for eager, 4 for lazy/lazy_cached epoch 1)
+      lazy_cache_dir: null    # where to cache PNG files when source is in-memory (HF datasets)
       height: 224
       width: 224
       num_channels: 3
       resize_method: interpolate
 ```
 
+#### `prefetch_size`
+
+Controls how many batches are decoded in a background thread while the GPU processes the current
+batch. `null` (default) selects automatically:
+
+- `0` for `eager` mode (tensors already in memory — no prefetch needed)
+- `4` for `lazy` and the first epoch of `lazy_cached`
+- `0` automatically after epoch 1 in `lazy_cached` mode once the memmap is fully written (memmap
+  reads are fast enough that background pipelining adds no measurable benefit)
+
+Set to `0` to disable prefetch entirely, or to a positive integer to override.
+
+#### `lazy_cached` — persistent decode cache
+
+`lazy_cached` is ideal when you want to pay the decode cost once and get near-eager training speed
+from epoch 2 onward. The decoded memmap is placed next to the Parquet cache file:
+
+```
+<parquet_cache_dir>/<proc_col>_decoded_n<N>_<shape>_f32.npy
+```
+
+If the cache file already exists (from a previous run), the first epoch also reads from it directly.
+
+```yaml
+input_features:
+  - name: image
+    type: image
+    preprocessing:
+      mode: lazy_cached
+      height: 224
+      width: 224
+      num_channels: 3
+```
+
 !!! note
     Lazy preprocessing is automatically **disabled** when using a TorchVision pretrained encoder
     (e.g. `resnet`, `efficientnet`, `vit`). Those encoders apply their own normalization pipeline
-    which requires images to be decoded upfront. Set `lazy: false` explicitly or switch to a
+    which requires images to be decoded upfront. Set `mode: eager` explicitly or switch to a
     non-pretrained encoder to control this behavior.
 
 ### Lazy Preprocessing with HuggingFace Datasets
@@ -105,7 +150,10 @@ Raw `bytes` and `numpy.ndarray` inputs (both HWC and CHW channel orderings) are 
 The cache is persistent and idempotent: subsequent runs with the same dataset skip the write step
 entirely.
 
-### Controlling the Cache Directory
+### Controlling the File Cache Directory
+
+`lazy_cache_dir` controls where PNG files are written when the source data is **in-memory** (e.g.
+a HuggingFace dataset). It has no effect when the input column already contains local file paths.
 
 By default, cached PNG files are written to:
 
@@ -120,16 +168,20 @@ input_features:
   - name: photo
     type: image
     preprocessing:
-      lazy: true
+      mode: lazy
       lazy_cache_dir: /fast/nvme/my_project/image_cache
 ```
 
 The per-feature subdirectory is created automatically. Multiple image features each get their own
 subdirectory named after the feature, even if they share the same `lazy_cache_dir`.
 
-### When to Disable Lazy Preprocessing
+!!! note
+    `lazy_cache_dir` controls the file cache for in-memory sources. The decoded memmap used by
+    `lazy_cached` mode is placed next to the Parquet cache, not in `lazy_cache_dir`.
 
-Set `lazy: false` when:
+### When to Use `eager` Mode
+
+Set `mode: eager` when:
 
 - Your dataset is small enough to fit in memory and you want the fastest possible training start.
 - You are using a TorchVision pretrained encoder (lazy is disabled automatically in this case).
@@ -140,7 +192,7 @@ input_features:
   - name: image
     type: image
     preprocessing:
-      lazy: false   # decode everything at preprocessing time
+      mode: eager   # decode everything at preprocessing time
 ```
 
 # Input Features

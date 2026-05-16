@@ -260,6 +260,7 @@ plugins:
       default_handler: python
       handlers:
         python:
+          paths: ["../ludwig"]
           options:
             docstring_style: google
             docstring_section_style: spacy

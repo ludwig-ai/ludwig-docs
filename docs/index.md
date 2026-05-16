@@ -351,34 +351,45 @@ Pick a task below to see the config.
       learning_rate: 5.0e-5
     ```
 
-    Other datasets: `arxiv_summarization`, `big_patent`, `aeslc`, `billsum`
+    Other datasets: `arxiv_summarization`, `big_patent`, `aeslc`, `billsum`, `dialogsum`, `xsum`
 
 === "Named Entity Recognition"
 
     Tag each token in a sentence with its entity type (person, organisation, location, …).
 
     ```yaml
-    # Dataset: wikiann_en — Wikipedia-derived NER in English (IOB2 tags)
-    # ludwig datasets download wikiann_en
+    # Dataset: conll2003 — CoNLL-2003 NER; English newspaper text with PER/ORG/LOC/MISC tags
+    # ludwig datasets download conll2003
     input_features:
       - name: sentence
         type: text
+        encoder:
+          type: bert
+          pretrained_model_name_or_path: answerdotai/ModernBERT-base
+          trainable: true
+          reduce_output: null
     output_features:
       - name: ner_tags
         type: sequence
+        decoder:
+          type: tagger
+    trainer:
+      epochs: 10
+      learning_rate: 2.0e-5
+      batch_size: 32
     ```
 
-    Other datasets: `wikiann_de`, `multinerd`, `few_nerd`, `pii_masking`
+    Other datasets: `wikiann_en`, `wikiann_de`, `multinerd`, `few_nerd`, `wnut17`, `ncbi_disease`
 
 === "Question Answering"
 
     Given a passage and a question, extract or generate the answer.
 
     ```yaml
-    # Dataset: drop — Discrete Reasoning Over Paragraphs (77K reading-comprehension examples)
-    # ludwig datasets download drop
+    # Dataset: squad — Stanford QA Dataset; 100K passage + question → answer span examples
+    # ludwig datasets download squad
     input_features:
-      - name: passage
+      - name: context
         type: text
         encoder:
           type: auto_transformer
@@ -391,7 +402,7 @@ Pick a task below to see the config.
           pretrained_model_name_or_path: google-bert/bert-base-uncased
           trainable: true
     output_features:
-      - name: answers_spans
+      - name: answers
         type: text
         decoder:
           type: generator
@@ -403,7 +414,103 @@ Pick a task below to see the config.
       learning_rate: 2.0e-5
     ```
 
-    Other datasets: `ambig_qa`, `nq_open`, `boolq`, `arc_challenge`, `arc_easy`, `cmrc2018`
+    Other datasets: `squad_v2`, `natural_questions`, `hotpot_qa`, `drop`, `ambig_qa`, `nq_open`, `arc_challenge`
+
+=== "Machine Translation"
+
+    Translate text from one language to another using sequence-to-sequence transformer models.
+
+    ```yaml
+    # Dataset: opus100_en_de — OPUS-100 English-German parallel corpus (1M sentence pairs)
+    # ludwig datasets download opus100_en_de
+    input_features:
+      - name: en
+        type: text
+        encoder:
+          type: auto_transformer
+          pretrained_model_name_or_path: facebook/mbart-large-cc25
+          trainable: true
+          max_sequence_length: 128
+    output_features:
+      - name: de
+        type: text
+        decoder:
+          type: generator
+          max_new_tokens: 128
+    trainer:
+      epochs: 3
+      batch_size: 16
+      gradient_accumulation_steps: 4
+      learning_rate: 3.0e-5
+    ```
+
+    Other datasets: `opus100_en_fr`, `opus100_en_es`, `wmt14_de_en`, `bornholm_bitext`
+
+=== "Natural Language Inference"
+
+    Classify whether a hypothesis entails, contradicts, or is neutral given a premise.
+
+    ```yaml
+    # Dataset: mnli — Multi-Genre NLI; premise + hypothesis → entailment/neutral/contradiction (393K examples)
+    # ludwig datasets download mnli
+    input_features:
+      - name: premise
+        type: text
+        encoder:
+          type: bert
+          pretrained_model_name_or_path: answerdotai/ModernBERT-base
+          trainable: true
+      - name: hypothesis
+        type: text
+        encoder:
+          type: bert
+          pretrained_model_name_or_path: answerdotai/ModernBERT-base
+          trainable: true
+    output_features:
+      - name: label
+        type: category
+    combiner:
+      type: concat
+    trainer:
+      epochs: 5
+      learning_rate: 2.0e-5
+      batch_size: 32
+    ```
+
+    Other datasets: `qnli`, `rte`, `snli`, `wnli`, `anli`, `belebele`
+
+=== "Sentence Similarity"
+
+    Score how semantically similar two sentences are on a continuous scale.
+
+    ```yaml
+    # Dataset: stsb — Semantic Textual Similarity Benchmark; sentence pairs rated 0–5 (8.6K examples)
+    # ludwig datasets download stsb
+    input_features:
+      - name: sentence1
+        type: text
+        encoder:
+          type: bert
+          pretrained_model_name_or_path: answerdotai/ModernBERT-base
+          trainable: true
+      - name: sentence2
+        type: text
+        encoder:
+          type: bert
+          pretrained_model_name_or_path: answerdotai/ModernBERT-base
+          trainable: true
+    output_features:
+      - name: score
+        type: number
+    combiner:
+      type: concat
+    trainer:
+      epochs: 5
+      learning_rate: 2.0e-5
+      batch_size: 32
+    ```
+
+    Other datasets: `qqp` (duplicate questions), `paws`, `sick`, `biosses` (biomedical)
 
 === "Code Intelligence"
 
@@ -428,37 +535,40 @@ Pick a task below to see the config.
       batch_size: 32
     ```
 
-    Other datasets: `codexglue_code_to_text`, `code_search_net`, `code_contests`, `code_alpaca`
+    Other datasets: `codexglue_code_to_text`, `code_search_net`, `mbpp`, `humaneval`, `code_alpaca`
 
 === "Audio Classification"
 
     Classify audio clips by emotion, sound type, intent, or speaker characteristics.
 
     ```yaml
-    # Dataset: emodb — Berlin Emotional Speech Database; 7 emotion classes (535 clips)
-    # ludwig datasets download emodb
+    # Dataset: fsd50k — FSD50K; 200-class audio event classification (51K clips)
+    # ludwig datasets download fsd50k
     input_features:
       - name: audio
         type: audio
         encoder:
-          type: stacked_cnn
+          type: auto_transformer
+          pretrained_model_name_or_path: facebook/wav2vec2-base
+          trainable: true
     output_features:
-      - name: emotion
-        type: category
+      - name: labels
+        type: set
     trainer:
       epochs: 20
       batch_size: 16
+      learning_rate: 1.0e-5
     ```
 
-    Other datasets: `esc50` (50 environmental sounds), `minds14` (banking intent), `speech_massive`, `abjad_kids`
+    Other datasets: `emodb` (emotions), `esc50` (50 environmental sounds), `audioset`, `birdset`, `minds14`
 
 === "Speech Recognition"
 
     Transcribe spoken audio to text.
 
     ```yaml
-    # Dataset: ami_asr — AMI Meeting Corpus audio transcription (108K train examples)
-    # ludwig datasets download ami_asr
+    # Dataset: librispeech — English speech from audiobooks; clean 100h split
+    # ludwig datasets download librispeech
     input_features:
       - name: audio
         type: audio
@@ -476,7 +586,7 @@ Pick a task below to see the config.
       learning_rate: 1.0e-5
     ```
 
-    Other datasets: `librispeech`, `peoples_speech`, `voxpopuli`, `mls_german`, `cantonese_asr`
+    Other datasets: `fleurs_en`, `multilingual_librispeech`, `voxpopuli`, `peoples_speech`, `cantonese_asr`
 
 === "Image Classification"
 
@@ -500,6 +610,47 @@ Pick a task below to see the config.
     ```
 
     Other datasets: `cifar10`, `cifar100`, `food101`, `fashion_mnist`, `gtsrb`, `beans`, `resisc45`
+
+=== "Semantic Segmentation"
+
+    Assign a class label to every pixel in an image — land use, building footprints, medical tissue.
+
+    ```yaml
+    # Dataset: satellite_building_segmentation — satellite image building footprint detection
+    # ludwig datasets download satellite_building_segmentation
+    input_features:
+      - name: image
+        type: image
+        encoder:
+          type: convnextv2
+          model_name: convnextv2_tiny
+          use_pretrained: true
+          trainable: true
+
+    output_features:
+      - name: mask
+        type: image
+        decoder:
+          type: unet
+          num_classes: 2
+        loss:
+          type: softmax_cross_entropy
+
+    preprocessing:
+      image:
+        height: 256
+        width: 256
+
+    trainer:
+      epochs: 30
+      batch_size: 16
+      optimizer:
+        type: adamw
+        lr: 3.0e-4
+      use_mixed_precision: true
+    ```
+
+    Other datasets: oxford-iiit-pet (3-class trimap), ADE20K (150 classes), Cityscapes (street scenes)
 
 === "Document Understanding"
 
@@ -534,6 +685,83 @@ Pick a task below to see the config.
     ```
 
     Other datasets: `cord_v2`, `invoice_data`, `textvqa`, `merit`, `vqa_rad`
+
+=== "Visual Question Answering"
+
+    Answer natural-language questions about an image by fusing vision and language understanding.
+
+    ```yaml
+    # Dataset: scienceqa — multimodal science questions with images and answer choices (21K examples)
+    # ludwig datasets download scienceqa
+    input_features:
+      - name: image
+        type: image
+        encoder:
+          type: vit
+          use_pretrained: true
+          trainable: true
+      - name: question
+        type: text
+        encoder:
+          type: bert
+          pretrained_model_name_or_path: answerdotai/ModernBERT-base
+          trainable: true
+    output_features:
+      - name: answer
+        type: category
+    combiner:
+      type: concat
+    trainer:
+      epochs: 10
+      batch_size: 16
+      learning_rate: 1.0e-5
+    ```
+
+    Other datasets: `mmmu`, `mathvista`, `vqa_rad`, `textvqa`
+
+=== "VLM Fine-Tuning"
+
+    Fine-tune a Vision-Language Model for open-ended image understanding using QLoRA on a single GPU.
+
+    ```yaml
+    # Fine-tune Qwen2-VL on any VQA CSV with columns: image_path, question, answer
+    model_type: llm
+    base_model: Qwen/Qwen2-VL-7B-Instruct
+
+    is_multimodal: true
+    trust_remote_code: true
+
+    adapter:
+      type: lora
+      r: 16
+      alpha: 32
+      target_modules: ["q_proj", "v_proj"]
+
+    quantization:
+      bits: 4
+
+    input_features:
+      - name: image_path
+        type: image
+      - name: question
+        type: text
+
+    output_features:
+      - name: answer
+        type: text
+
+    trainer:
+      type: finetune
+      epochs: 3
+      batch_size: 4
+      gradient_accumulation_steps: 8
+      learning_rate: 2.0e-5
+      learning_rate_scheduler:
+        decay: cosine
+        warmup_fraction: 0.03
+    ```
+
+    Other datasets: `docvqa`, `textvqa`, `mmmu`, `vqa_rad`, `cord_v2`, `scienceqa`
 
 === "Content Safety"
 
@@ -589,30 +817,37 @@ Pick a task below to see the config.
       batch_size: 64
     ```
 
-    Other datasets: `amazon_massive_scenario`, `wikiann_de`, `belebele`, `bornholm_bitext`, `mls_german`
+    Other datasets: `amazon_massive_scenario`, `wikiann_de`, `belebele`, `bornholm_bitext`, `multilingual_librispeech`
 
 === "Tabular Classification"
 
     Predict a category from structured numeric and categorical columns.
 
     ```yaml
-    # Dataset: iris_sklearn — classic 3-class flower classification (150 examples)
-    # ludwig datasets download iris_sklearn
+    # Dataset: adult_census_income — predict annual income >$50K from census features (48K examples)
+    # ludwig datasets download adult_census_income
     input_features:
-      - name: sepal length (cm)
+      - name: age
         type: number
-      - name: sepal width (cm)
-        type: number
-      - name: petal length (cm)
-        type: number
-      - name: petal width (cm)
-        type: number
-    output_features:
-      - name: target
+      - name: workclass
         type: category
+      - name: education
+        type: category
+      - name: occupation
+        type: category
+      - name: hours-per-week
+        type: number
+      - name: native-country
+        type: category
+    output_features:
+      - name: income
+        type: binary
+    trainer:
+      epochs: 20
+      batch_size: 128
     ```
 
-    Other datasets: `adult_census_income`, `forest_cover`, `otto_group_product`, `mushroom_edibility`
+    Other datasets: `heart_failure`, `breast_cancer`, `forest_cover`, `mushroom_edibility`, `otto_group_product`
 
 === "Tabular Regression"
 
@@ -637,7 +872,84 @@ Pick a task below to see the config.
         type: number
     ```
 
-    Other datasets: `california_housing`, `allstate_claims_severity`, `mercedes_benz_greener`
+    Other datasets: `california_housing`, `diabetes_regression`, `wine_quality`, `allstate_claims_severity`
+
+=== "Time Series Forecasting"
+
+    Predict future values of a numeric series from historical observations.
+
+    ```yaml
+    # Dataset: chronos_electricity — hourly electricity demand forecasting
+    # ludwig datasets download chronos_electricity
+    input_features:
+      - name: demand
+        type: timeseries
+        preprocessing:
+          window_size: 96
+        encoder:
+          type: patchtst
+          patch_size: 16
+          patch_stride: 8
+          d_model: 128
+          num_heads: 8
+          num_layers: 3
+          output_size: 256
+
+    output_features:
+      - name: demand
+        type: timeseries
+        preprocessing:
+          horizon: 24
+        loss:
+          type: huber
+
+    trainer:
+      epochs: 50
+      batch_size: 64
+      optimizer:
+        type: adamw
+        lr: 1.0e-4
+    ```
+
+    Other datasets: `gift_eval_pretrain`, ETTh1/ETTm2 (electricity transformer temperature benchmarks)
+
+=== "Fraud Detection"
+
+    Flag anomalous or fraudulent transactions from structured financial and behavioural features.
+
+    ```yaml
+    # Dataset: creditcard_fraud — 284K transactions; 28 anonymized PCA features + Amount
+    input_features:
+      - name: V1
+        type: number
+      - name: V2
+        type: number
+      - name: V3
+        type: number
+      - name: V4
+        type: number
+      - name: V14
+        type: number
+      - name: V17
+        type: number
+      - name: Amount
+        type: number
+
+    output_features:
+      - name: Class
+        type: binary
+
+    combiner:
+      type: concat
+      num_fc_layers: 2
+      output_size: 64
+
+    trainer:
+      epochs: 20
+      batch_size: 256
+    ```
+
+    Other datasets: `tabular_benchmark_clf`, `bank_marketing`, `adult_income_hf`
 
 === "Multi-label Classification"
 
@@ -660,7 +972,147 @@ Pick a task below to see the config.
       learning_rate: 2.0e-5
     ```
 
-    Other datasets: `lex_glue_ecthr`, `lex_glue_eurlex`, `go_emotions_multiclass`
+    Other datasets: `audioset` (audio events), `lex_glue_ecthr`, `lex_glue_eurlex`
+
+=== "Multi-Task Learning"
+
+    Share a single encoder across multiple output tasks — reduce training cost while improving each head.
+
+    ```yaml
+    # Dataset: conll2003 — NER + POS tagging + chunking simultaneously from one model (22K examples)
+    # ludwig datasets download conll2003
+    input_features:
+      - name: sentence
+        type: text
+        encoder:
+          type: bert
+          pretrained_model_name_or_path: answerdotai/ModernBERT-base
+          trainable: true
+          reduce_output: null
+
+    output_features:
+      - name: ner_tags
+        type: sequence
+        decoder:
+          type: tagger
+      - name: pos_tags
+        type: sequence
+        decoder:
+          type: tagger
+      - name: chunk_tags
+        type: sequence
+        decoder:
+          type: tagger
+
+    trainer:
+      epochs: 10
+      learning_rate: 2.0e-5
+      batch_size: 32
+    ```
+
+    Other datasets: any dataset with multiple label columns — e.g. NLU datasets with intent + slots
+
+=== "Multimodal Classification"
+
+    Mix images, text, numbers, and categories as inputs in one model — no custom code required.
+
+    ```yaml
+    # Example: Twitter bot detection — profile image + bio text + engagement stats → bot or human
+    input_features:
+      - name: profile_image_path
+        type: image
+        encoder:
+          type: vit
+          use_pretrained: true
+      - name: description
+        type: text
+        encoder:
+          type: bert
+          trainable: true
+      - name: followers_count
+        type: number
+      - name: statuses_count
+        type: number
+      - name: verified
+        type: binary
+
+    output_features:
+      - name: account_type
+        type: binary
+
+    combiner:
+      type: concat
+      num_fc_layers: 2
+      output_size: 128
+
+    trainer:
+      epochs: 15
+      learning_rate: 1.0e-4
+    ```
+
+    Other datasets: hateful-memes (image + caption), product listing classification, medical multimodal
+
+=== "Relation Extraction"
+
+    Identify semantic relations between entity mentions within and across sentences.
+
+    ```yaml
+    # Dataset: docred — DocRED; document-level relation extraction from Wikipedia (5053 documents)
+    # ludwig datasets download docred
+    input_features:
+      - name: title
+        type: text
+        encoder:
+          type: bert
+          pretrained_model_name_or_path: answerdotai/ModernBERT-base
+          trainable: true
+      - name: sents
+        type: text
+        encoder:
+          type: bert
+          pretrained_model_name_or_path: answerdotai/ModernBERT-base
+          trainable: true
+    output_features:
+      - name: relation
+        type: category
+    combiner:
+      type: concat
+    trainer:
+      epochs: 10
+      learning_rate: 2.0e-5
+      batch_size: 16
+    ```
+
+    Other datasets: `tacred`, `re-tacred`, `semeval_re`, `few_rel`
+
+=== "Speaker Verification"
+
+    Decide whether two audio samples belong to the same speaker.
+
+    ```yaml
+    # Dataset: voxceleb — speaker identification from celebrity interviews (100K+ utterances)
+    # ludwig datasets download voxceleb
+    input_features:
+      - name: audio
+        type: audio
+        preprocessing:
+          audio_file_length_limit_in_s: 5.0
+        encoder:
+          type: auto_transformer
+          pretrained_model_name_or_path: microsoft/wavlm-base-plus
+          trainable: true
+
+    output_features:
+      - name: speaker_id
+        type: category
+
+    trainer:
+      epochs: 20
+      batch_size: 32
+      learning_rate: 1.0e-5
+    ```
+
+    Other datasets: `librispeech` (speaker splits), `fleurs_en` (per-speaker IDs)
 
 === "Instruction Tuning"
 

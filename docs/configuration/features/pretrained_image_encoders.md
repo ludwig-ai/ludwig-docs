@@ -214,6 +214,6 @@ All three pretrained encoders set `saved_weights_in_checkpoint: false` by defaul
 
 ## Example notebook
 
-See the [Pretrained Image Encoders example notebook](../../../examples/image_encoders/image_encoders.ipynb) for a complete walkthrough comparing all four approaches on the `beans` plant disease dataset, including a few-shot experiment with only 15 training examples.
+See the Pretrained Image Encoders example notebook for a complete walkthrough comparing all four approaches on the `beans` plant disease dataset, including a few-shot experiment with only 15 training examples.
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ludwig-ai/ludwig/blob/main/examples/image_encoders/image_encoders.ipynb)

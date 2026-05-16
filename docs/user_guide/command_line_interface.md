@@ -1311,7 +1311,7 @@ ludwig benchmark --benchmarking_config my_benchmark.yaml
 
 # datasets
 
-Download and list Ludwig-ready datasets from the built-in [dataset zoo](../datasets/dataset_zoo.md).
+Download and list Ludwig-ready datasets from the built-in [dataset zoo](datasets/dataset_zoo.md).
 
 ```
 ludwig datasets <command> [options]

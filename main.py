@@ -1,6 +1,15 @@
 import json
+import os
+import sys
 import yaml
 from pydantic.fields import PydanticUndefined
+
+# Ensure the Ludwig source tree is importable when building docs outside a
+# virtualenv that has Ludwig installed (e.g. running mkdocs from a plain
+# Python 3.14 environment while Ludwig lives in a sibling directory).
+_ludwig_src = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "ludwig"))
+if os.path.isdir(_ludwig_src) and _ludwig_src not in sys.path:
+    sys.path.insert(0, _ludwig_src)
 
 # Force populate combiner registry:
 from ludwig.constants import MODEL_ECD
@@ -211,11 +220,16 @@ def define_env(env):
 
         schema_fields = cls.model_fields
         internal_fields = {n for n, f in schema_fields.items() if is_internal(f)}
-        d = {
-            k: v
-            for k, v in cls(**updates).to_dict().items()
-            if k not in internal_fields and k
-        }
+        try:
+            instance_dict = cls(**updates).to_dict()
+        except Exception:
+            # Some configs have required fields (e.g. vocab) that can't be
+            # instantiated with defaults; fall back to raw field defaults.
+            instance_dict = {
+                k: (f.default if f.default is not PydanticUndefined else None)
+                for k, f in schema_fields.items()
+            }
+        d = {k: v for k, v in instance_dict.items() if k not in internal_fields and k}
 
         if sort_by_impact:
             sorted_fields = flatten(sort_fields(schema_fields))

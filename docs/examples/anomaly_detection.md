@@ -221,4 +221,4 @@ print(f"AUC-ROC: {auc:.4f}")
 ## Full config reference
 
 For all available parameters for the `anomaly` output feature and its loss functions, see the
-[Anomaly Features configuration reference](../../configuration/features/anomaly_features.md).
+[Anomaly Features configuration reference](../configuration/features/anomaly_features.md).

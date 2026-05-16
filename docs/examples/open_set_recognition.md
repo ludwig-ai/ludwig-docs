@@ -19,7 +19,7 @@ detects the unseen classes at test time.
 <https://arxiv.org/abs/1811.04110>
 
 For full configuration reference see
-[Open-Set Recognition losses](../../configuration/features/open_set_recognition.md).
+[Open-Set Recognition losses](../configuration/features/open_set_recognition.md).
 
 ---
 

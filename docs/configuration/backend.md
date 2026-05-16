@@ -183,3 +183,37 @@ backend:
     fully_executed: false
     window_size_bytes: 500000000
 ```
+
+## Lazy Media Decoding
+
+For audio and image features, Ludwig stores file paths in the processed Parquet dataset and decodes
+them per batch during training (see [Lazy Preprocessing](../user_guide/datasets/data_preprocessing.md#lazy-preprocessing-with-the-ray-backend)).
+This keeps the Ray object store footprint proportional to the number of samples (< 1 KB per path)
+rather than the decoded tensor size.
+
+The decode step runs inside each Ray worker via a `map_batches` transform:
+
+- One `ThreadPoolExecutor` per block decodes files in parallel, overlapping I/O with the GPU
+  forward pass from the previous batch.
+- Worker memory usage is bounded to `batch_size × media_size`, not `dataset_size × media_size`.
+
+For multi-node clusters, audio and image files must be readable from every worker node.
+Use a shared filesystem or cloud storage and set `lazy_cache_dir` (per feature) to a path that
+all nodes can access:
+
+```yaml
+backend:
+  type: ray
+  cache_dir: s3://my-bucket/preprocessed
+
+input_features:
+  - name: audio_clip
+    type: audio
+    preprocessing:
+      lazy: true
+      lazy_cache_dir: /shared/nfs/audio_cache
+```
+
+To force upfront decoding (e.g., when the file system is fast and cluster memory is plentiful),
+set `lazy: false`. Note that with `lazy: false`, decoded tensors are stored in the Ray object
+store and replicated to each worker, which can consume significant memory for large datasets.

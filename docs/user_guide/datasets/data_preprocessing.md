@@ -315,3 +315,96 @@ input_features:
     Lazy preprocessing is automatically disabled for image features that use a **TorchVision
     pretrained encoder** (e.g. `resnet`, `efficientnet`, `vit`). Those encoders apply their own
     normalization pipeline which requires images to be decoded upfront.
+
+## Lazy Preprocessing with the Ray Backend
+
+When training with the Ray backend (`trainer.type: ray`), Ludwig attaches `map_batches` decode
+transforms directly to the Ray dataset rather than wrapping columns in `LazyColumn` objects.
+This mirrors the local behaviour while keeping decoding distributed across workers.
+
+### How It Works in Distributed Training
+
+```
+Preprocessing                    Training (per worker, per batch)
+─────────────────                ────────────────────────────────────────────────
+CSV / HF dataset                 Ray dataset.iter_batches(batch_size=B)
+     │                                │
+     ▼                                ▼
+store paths in Parquet           map_batches(lazy_decode_<col>)
+(< 1 KB per sample)                   │
+     │                                ├─ thread 1: decode(path_0) ─┐
+     ▼                                ├─ thread 2: decode(path_1) ─┤ → stacked tensor
+saved to object store            │   └─ thread N: decode(path_N) ─┘   to GPU
+```
+
+When `RayDataset.initialize_batcher()` is called:
+
+1. The Ray dataset is **materialized** — path strings (small, < 1 KB each) are loaded into
+   the Ray object store once per epoch instead of re-reading Parquet on every epoch.
+2. `_with_lazy_decode()` attaches a `map_batches` transform for each lazy feature.
+   The transform is a `ThreadPoolExecutor`-based decode function that runs inside the Ray
+   worker pulling each block from the object store.
+3. When `iter_batches` iterates blocks, the decode transform fires in-process, so each worker
+   decodes only the audio/image files needed for its current block.
+
+### Memory Implications
+
+| | Eager (`lazy: false`) | Lazy (`lazy: true`, default) |
+|---|---|---|
+| **Object store per worker** | O(N × tensor_size) | O(N × path_size) ≈ O(N × 1 KB) |
+| **Worker heap per batch** | O(batch_size × tensor_size) | O(batch_size × tensor_size) |
+| **Total cluster memory** | proportional to dataset size | dominated by model + one batch |
+
+With `lazy: true`, the object store holds only path strings (< 1 KB each). Each worker decodes
+`batch_size` files at a time into its own heap — there is no spike proportional to the full
+dataset size across the cluster.
+
+With `lazy: false`, decoded tensors (potentially hundreds of MB each for long audio clips) are
+stored in the Ray object store and replicated to each worker. For large datasets this can exhaust
+object store memory, causing Ray to spill to disk or OOM.
+
+### File Accessibility
+
+Because decoding happens inside the Ray workers (which may run on different nodes in a cluster),
+each worker must be able to read the audio/image files directly. This means:
+
+- **Single-node Ray clusters**: no extra setup needed — all workers share the local filesystem.
+- **Multi-node Ray clusters**: files must be accessible from every node. Use a shared filesystem
+  (NFS, Lustre, GPFS) or an object store (S3, GCS, Azure Blob Storage). The path stored in the
+  Parquet dataset must be resolvable from every node.
+
+!!! tip
+    Use `lazy_cache_dir` to point to a shared filesystem path when running multi-node training.
+    This ensures the HuggingFace lazy cache (if used) is also visible to all workers.
+
+### Configuration
+
+Lazy preprocessing works transparently with the Ray backend — no extra configuration is needed.
+The same `lazy: true` / `lazy: false` flag applies:
+
+```yaml
+trainer:
+  type: ray
+
+input_features:
+  - name: audio
+    type: audio
+    preprocessing:
+      lazy: true          # default — decode in worker, low memory
+
+  - name: image
+    type: image
+    preprocessing:
+      lazy: true          # default — decode in worker, low memory
+```
+
+To force all decoding to happen before distributed training (useful when files are on a slow
+network and you have enough cluster memory):
+
+```yaml
+input_features:
+  - name: audio
+    type: audio
+    preprocessing:
+      lazy: false         # decode upfront; tensors stored in Ray object store
+```

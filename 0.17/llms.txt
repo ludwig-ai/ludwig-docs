@@ -1,0 +1,66 @@
+# Ludwig
+
+> Ludwig is an open-source declarative deep learning framework that lets you train, fine-tune, and deploy models with a YAML config file — no custom PyTorch or TensorFlow code required. Supports LLM fine-tuning (LoRA/QLoRA), GRPO alignment, multimodal training, distributed training on Ray, and 30+ data types out of the box.
+
+Ludwig is maintained by the Linux Foundation AI & Data and has 10,000+ GitHub stars. It is designed for both researchers who want rapid experimentation and engineers who need production-grade ML pipelines. The same YAML config drives local training, Ray-distributed multi-GPU runs, and deployment via REST API.
+
+## Getting Started
+- [Introduction](https://ludwig.ai/latest/) – What Ludwig is and why to use it
+- [Installation](https://ludwig.ai/latest/getting_started/installation/) – pip install, Docker, and optional dependency groups
+- [Training your first model](https://ludwig.ai/latest/getting_started/train/) – End-to-end example: config → train → predict
+- [Dataset preparation](https://ludwig.ai/latest/getting_started/prepare_data/) – CSV, Parquet, HuggingFace datasets, Ludwig dataset zoo
+- [LLM fine-tuning quickstart](https://ludwig.ai/latest/getting_started/llm_finetuning/) – QLoRA on Llama-3 in one config file
+- [Serving a trained model](https://ludwig.ai/latest/getting_started/serve/) – REST API with `ludwig serve`
+- [Distributed training on Ray](https://ludwig.ai/latest/getting_started/ray/) – Scale to multi-GPU / multi-node with one config change
+
+## User Guide
+- [What is Ludwig?](https://ludwig.ai/latest/user_guide/what_is_ludwig/) – Core concepts: declarative ML, config-driven training, multi-task learning
+- [How Ludwig works](https://ludwig.ai/latest/user_guide/how_ludwig_works/) – Architecture: encoders, combiners, decoders, trainers
+- [Large Language Models](https://ludwig.ai/latest/user_guide/llms/) – LLM fine-tuning, in-context learning, structured output
+- [LLM fine-tuning in depth](https://ludwig.ai/latest/user_guide/llms/finetuning/) – SFT, LoRA, QLoRA, adapter merging, HF Hub upload
+- [In-context learning](https://ludwig.ai/latest/user_guide/llms/in_context_learning/) – Zero-shot and few-shot inference without training
+- [Distributed training](https://ludwig.ai/latest/user_guide/distributed_training/) – DDP, FSDP, DeepSpeed on Ray
+- [AutoML](https://ludwig.ai/latest/user_guide/automl/) – Automatic architecture search and hyperparameter optimization
+- [Hyperparameter optimization](https://ludwig.ai/latest/user_guide/hyperopt/) – Grid search, random, Bayesian with Ray Tune
+- [GPUs](https://ludwig.ai/latest/user_guide/gpus/) – Single-GPU and multi-GPU setup
+- [Model export](https://ludwig.ai/latest/user_guide/model_export/) – TorchScript, ONNX, Triton, HuggingFace Hub
+- [Third-party integrations](https://ludwig.ai/latest/user_guide/integrations/) – MLflow, Weights & Biases, Comet, DVC
+
+## Configuration Reference
+- [Configuration overview](https://ludwig.ai/latest/configuration/) – Full YAML schema reference
+- [Model types](https://ludwig.ai/latest/configuration/model_type/) – ECD (encoder-combiner-decoder) vs. LLM
+- [Large Language Model config](https://ludwig.ai/latest/configuration/large_language_model/) – base_model, quantization, adapter, PEFT
+- [Encoder selection guide](https://ludwig.ai/latest/configuration/encoder_selection_guide/) – Which encoder to use for text, image, audio, tabular
+- [Trainer config](https://ludwig.ai/latest/configuration/trainer/) – Epochs, learning rate, scheduler, optimizer
+- [Backend config](https://ludwig.ai/latest/configuration/backend/) – Ray, local, Horovod settings
+- [Preprocessing config](https://ludwig.ai/latest/configuration/preprocessing/) – Per-feature preprocessing options
+- [Combiner config](https://ludwig.ai/latest/configuration/combiner/) – concat, tabnet, transformer, project_aggregate
+
+## Input Feature Types
+- [Text features](https://ludwig.ai/latest/configuration/features/text_features/) – Encoders: BERT, ModernBERT, RoBERTa, DeBERTa, GPT-2, auto_transformer
+- [Image features](https://ludwig.ai/latest/configuration/features/image_features/) – Encoders: DINOv2, ViT, EfficientNet, ResNet, stacked_cnn
+- [Category features](https://ludwig.ai/latest/configuration/features/category_features/) – Embeddings, one-hot, sparse
+- [Number features](https://ludwig.ai/latest/configuration/features/number_features/) – Normalization, missing value handling
+- [Audio features](https://ludwig.ai/latest/configuration/features/audio_features/) – Encoders: STFT, mel, wav2vec2, encodec
+- [Time series features](https://ludwig.ai/latest/configuration/features/time_series_features/) – Transformer encoder, window size, forecasting
+- [Supported data types](https://ludwig.ai/latest/configuration/features/supported_data_types/) – All 14 supported feature types
+
+## Examples
+- [Text classification](https://ludwig.ai/latest/examples/text_classification/) – Sentiment analysis with ModernBERT
+- [LLM fine-tuning for classification](https://ludwig.ai/latest/examples/llms/llm_classification/) – Use Llama-3 for tabular classification
+- [LLM instruction tuning](https://ludwig.ai/latest/examples/llms/llm_finetuning/) – Alpaca-style SFT with LoRA
+- [Image classification](https://ludwig.ai/latest/examples/mnist/) – MNIST with DINOv2 / ResNet
+- [Multimodal classification](https://ludwig.ai/latest/examples/multimodal_classification/) – Image + text + tabular in one config
+- [Tabular data classification](https://ludwig.ai/latest/examples/adult_census_income/) – Census income prediction
+- [Hyperparameter optimization](https://ludwig.ai/latest/examples/hyperopt/) – Ray Tune integration
+- [Named entity recognition](https://ludwig.ai/latest/examples/ner_tagging/) – Sequence labeling
+- [Visual question answering](https://ludwig.ai/latest/examples/visual_qa/) – Multimodal VQA
+
+## API Reference
+- [LudwigModel Python API](https://ludwig.ai/latest/user_guide/api/LudwigModel/) – train(), predict(), evaluate(), save(), load()
+- [Command line interface](https://ludwig.ai/latest/user_guide/command_line_interface/) – ludwig train, predict, evaluate, serve, hyperopt, export
+
+## Community & Contributing
+- [FAQ](https://ludwig.ai/latest/faq/) – Common questions about Ludwig
+- [Contributing guide](https://ludwig.ai/latest/developer_guide/contributing/) – How to contribute code, docs, and examples
+- [GitHub](https://github.com/ludwig-ai/ludwig) – Source code, issues, discussions

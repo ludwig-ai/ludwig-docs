@@ -2481,6 +2481,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#preprocessing-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preprocessing Modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#configuration" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2488,6 +2499,34 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prefetch_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prefetch_size
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lazy_cached-persistent-decode-cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lazy_cached — persistent decode cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2503,10 +2542,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#controlling-the-cache-directory" class="md-nav__link">
+  <a href="#controlling-the-file-cache-directory" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Controlling the Cache Directory
+        Controlling the File Cache Directory
       
     </span>
   </a>
@@ -2514,10 +2553,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#when-to-disable-lazy-preprocessing" class="md-nav__link">
+  <a href="#when-to-use-eager-mode" class="md-nav__link">
     <span class="md-ellipsis">
       
-        When to Disable Lazy Preprocessing
+        When to Use eager Mode
       
     </span>
   </a>
@@ -5483,6 +5522,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#preprocessing-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preprocessing Modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#configuration" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5490,6 +5540,34 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prefetch_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prefetch_size
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lazy_cached-persistent-decode-cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lazy_cached — persistent decode cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -5505,10 +5583,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#controlling-the-cache-directory" class="md-nav__link">
+  <a href="#controlling-the-file-cache-directory" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Controlling the Cache Directory
+        Controlling the File Cache Directory
       
     </span>
   </a>
@@ -5516,10 +5594,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#when-to-disable-lazy-preprocessing" class="md-nav__link">
+  <a href="#when-to-use-eager-mode" class="md-nav__link">
     <span class="md-ellipsis">
       
-        When to Disable Lazy Preprocessing
+        When to Use eager Mode
       
     </span>
   </a>
@@ -5662,7 +5740,8 @@
 <span class="w">    </span><span class="nt">padding_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
 <span class="w">    </span><span class="nt">num_fft_points</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 <span class="w">    </span><span class="nt">num_filter_bands</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
-<span class="w">    </span><span class="nt">lazy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lazy</span>
+<span class="w">    </span><span class="nt">prefetch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 <span class="w">    </span><span class="nt">lazy_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 </code></pre></div>
 <p>Ludwig supports reading audio files using PyTorch's <a href="https://pytorch.org/audio/stable/index.html">Torchaudio</a> library. This library supports <code>WAV</code>, <code>AMB</code>, <code>MP3</code>, <code>FLAC</code>, <code>OGG/VORBIS</code>, <code>OPUS</code>, <code>SPHERE</code>, and <code>AMR-NB</code> formats.</p>
@@ -5683,13 +5762,14 @@
 <p><strong><code>num_filter_bands</code></strong> (default: <code>80</code>): Defines the number of filters used in the filterbank. Only needed if audio_feature_type is 'fbank'</p>
 </li>
 <li>
-<p><strong><code>lazy</code></strong> (default: <code>true</code>): If true, audio files are not decoded during preprocessing. Instead, file paths are stored in the processed dataset and audio is decoded on-the-fly per batch during training. This bounds peak memory to batch_size × clip_size instead of N × clip_size. For in-memory data sources (e.g. HuggingFace datasets delivering audio dicts), audio is first cached to local disk in lazy_cache_dir and then decoded lazily from there.</p>
+<p><strong><code>mode</code></strong> (default: <code>lazy</code>): Preprocessing mode for audio features. 'eager' decodes all files during preprocessing and stores tensors in the Parquet cache. 'lazy' stores file paths and decodes per batch during training, keeping peak memory bounded to batch_size × clip_size. 'lazy_cached' behaves like 'lazy' on the first training epoch but writes decoded tensors to a numpy memmap alongside the Parquet cache; subsequent epochs read from the memmap directly, eliminating decode overhead. Options: <code>eager</code>, <code>lazy</code>, <code>lazy_cached</code>.</p>
 </li>
-<li><strong><code>lazy_cache_dir</code></strong> (default: <code>null</code>): Directory in which to cache audio files when the source data is in-memory (e.g. a HuggingFace dataset). Only used when lazy=True and the input entries are not already paths to existing files. When None, defaults to ~/.cache/ludwig/lazy_media/<feature_name>/. Has no effect when the input column already contains local file paths.</li>
+<li><strong><code>prefetch_size</code></strong> (default: <code>null</code>): Number of batches to prefetch in a background thread while the GPU processes the current batch. None (default) selects automatically: 0 for 'eager' mode, 4 for 'lazy' and 'lazy_cached' (epoch 1). After the first epoch in 'lazy_cached' mode, prefetch is automatically disabled since memmap reads are fast enough. Set to 0 to disable prefetch entirely, or to a positive integer to override the automatic selection.</li>
+<li><strong><code>lazy_cache_dir</code></strong> (default: <code>null</code>): Directory in which to cache audio files when the source data is in-memory (e.g. a HuggingFace dataset). Only used when mode is 'lazy' or 'lazy_cached' and the input entries are not already paths to existing files. When None, defaults to ~/.cache/ludwig/lazy_media/<feature_name>/. Has no effect when the input column already contains local file paths. Note: this controls the file cache for in-memory sources; the decoded memmap for 'lazy_cached' mode is placed next to the Parquet cache instead.</li>
 </ul>
 <p>Preprocessing parameters can also be defined once and applied to all audio input features using the <a href="../../defaults/#type-global-preprocessing">Type-Global Preprocessing</a> section.</p>
 <h3 id="lazy-preprocessing">Lazy Preprocessing<a class="headerlink" href="#lazy-preprocessing" title="Permanent link">&para;</a></h3>
-<p>By default (<code>lazy: true</code>), Ludwig does <strong>not</strong> decode audio files during the preprocessing phase.
+<p>By default (<code>mode: lazy</code>), Ludwig does <strong>not</strong> decode audio files during the preprocessing phase.
 Instead, it stores file paths in the processed dataset and decodes audio clips on-the-fly, one batch
 at a time, during training. This approach has significant memory advantages for large audio datasets.</p>
 <h4 id="why-lazy-preprocessing">Why Lazy Preprocessing?<a class="headerlink" href="#why-lazy-preprocessing" title="Permanent link">&para;</a></h4>
@@ -5707,13 +5787,63 @@ so peak memory is:</p>
 </code></pre></div>
 <p>Decoding happens in a <code>ThreadPoolExecutor</code> that runs in parallel with the GPU forward pass, so
 throughput is not meaningfully affected compared to the eager path.</p>
+<h4 id="preprocessing-modes">Preprocessing Modes<a class="headerlink" href="#preprocessing-modes" title="Permanent link">&para;</a></h4>
+<p>Ludwig supports three preprocessing modes, controlled by the <code>mode</code> parameter:</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lazy</code> (default)</td>
+<td>Stores file paths; decodes one batch at a time during training. Lowest memory footprint.</td>
+</tr>
+<tr>
+<td><code>eager</code></td>
+<td>Decodes all files during preprocessing and stores the resulting tensors in the Parquet cache. Fastest training once preprocessing is done, but requires enough RAM to hold the entire decoded dataset.</td>
+</tr>
+<tr>
+<td><code>lazy_cached</code></td>
+<td>Behaves like <code>lazy</code> on the first training epoch (decoding each sample once and writing it to a numpy memmap alongside the Parquet cache). Subsequent epochs read from the memmap directly, eliminating per-batch decode overhead while keeping peak memory bounded during preprocessing.</td>
+</tr>
+</tbody>
+</table>
 <h4 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio</span>
 <span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">lazy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">               </span><span class="c1"># default; set to false to decode everything upfront</span>
-<span class="w">      </span><span class="nt">lazy_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w">     </span><span class="c1"># default; set to a path to control where files are cached</span>
+<span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lazy</span><span class="w">               </span><span class="c1"># &quot;lazy&quot; (default), &quot;eager&quot;, or &quot;lazy_cached&quot;</span>
+<span class="w">      </span><span class="nt">prefetch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w">      </span><span class="c1"># null = auto (0 for eager, 4 for lazy/lazy_cached epoch 1)</span>
+<span class="w">      </span><span class="nt">lazy_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w">     </span><span class="c1"># where to cache WAV files when source is in-memory (HF datasets)</span>
+<span class="w">      </span><span class="nt">audio_file_length_limit_in_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7.5</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fbank</span>
+<span class="w">      </span><span class="nt">num_filter_bands</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+</code></pre></div>
+<h5 id="prefetch_size"><code>prefetch_size</code><a class="headerlink" href="#prefetch_size" title="Permanent link">&para;</a></h5>
+<p>Controls how many batches are decoded in a background thread while the GPU processes the current
+batch. <code>null</code> (default) selects automatically:</p>
+<ul>
+<li><code>0</code> for <code>eager</code> mode (tensors already in memory — no prefetch needed)</li>
+<li><code>4</code> for <code>lazy</code> and the first epoch of <code>lazy_cached</code></li>
+<li><code>0</code> automatically after epoch 1 in <code>lazy_cached</code> mode once the memmap is fully written (memmap
+  reads are fast enough that background pipelining adds no measurable benefit)</li>
+</ul>
+<p>Set to <code>0</code> to disable prefetch entirely, or to a positive integer to override.</p>
+<h5 id="lazy_cached-persistent-decode-cache"><code>lazy_cached</code> — persistent decode cache<a class="headerlink" href="#lazy_cached-persistent-decode-cache" title="Permanent link">&para;</a></h5>
+<p><code>lazy_cached</code> is ideal when you want to pay the decode cost once and get near-eager training speed
+from epoch 2 onward. The decoded memmap is placed next to the Parquet cache file:</p>
+<div class="highlight"><pre><span></span><code>&lt;parquet_cache_dir&gt;/&lt;proc_col&gt;_decoded_n&lt;N&gt;_&lt;shape&gt;_f32.npy
+</code></pre></div>
+<p>If the cache file already exists (from a previous run), the first epoch also reads from it directly.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">input_features</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio</span>
+<span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lazy_cached</span>
 <span class="w">      </span><span class="nt">audio_file_length_limit_in_s</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7.5</span>
 <span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fbank</span>
 <span class="w">      </span><span class="nt">num_filter_bands</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
@@ -5736,7 +5866,9 @@ as Python dicts — not file paths:</p>
 <p>This means that for most HuggingFace audio datasets, the first run caches files to
 <code>~/.cache/ludwig/lazy_media/&lt;feature_name&gt;/</code> and subsequent runs skip the write step entirely
 (the cache is persistent and idempotent).</p>
-<h4 id="controlling-the-cache-directory">Controlling the Cache Directory<a class="headerlink" href="#controlling-the-cache-directory" title="Permanent link">&para;</a></h4>
+<h4 id="controlling-the-file-cache-directory">Controlling the File Cache Directory<a class="headerlink" href="#controlling-the-file-cache-directory" title="Permanent link">&para;</a></h4>
+<p><code>lazy_cache_dir</code> controls where WAV files are written when the source data is <strong>in-memory</strong> (e.g.
+a HuggingFace dataset). It has no effect when the input column already contains local file paths.</p>
 <p>By default, cached WAV files are written to:</p>
 <div class="highlight"><pre><span></span><code>~/.cache/ludwig/lazy_media/&lt;feature_name&gt;/
 </code></pre></div>
@@ -5746,13 +5878,18 @@ as Python dicts — not file paths:</p>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">speech</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio</span>
 <span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">lazy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lazy</span>
 <span class="w">      </span><span class="nt">lazy_cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/fast/nvme/my_project/audio_cache</span>
 </code></pre></div>
 <p>The per-feature subdirectory is created automatically. If multiple audio features share the same
 <code>lazy_cache_dir</code>, each feature gets its own subdirectory named after the feature.</p>
-<h4 id="when-to-disable-lazy-preprocessing">When to Disable Lazy Preprocessing<a class="headerlink" href="#when-to-disable-lazy-preprocessing" title="Permanent link">&para;</a></h4>
-<p>Set <code>lazy: false</code> when:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>lazy_cache_dir</code> controls the file cache for in-memory sources. The decoded memmap used by
+<code>lazy_cached</code> mode is placed next to the Parquet cache, not in <code>lazy_cache_dir</code>.</p>
+</div>
+<h4 id="when-to-use-eager-mode">When to Use <code>eager</code> Mode<a class="headerlink" href="#when-to-use-eager-mode" title="Permanent link">&para;</a></h4>
+<p>Set <code>mode: eager</code> when:</p>
 <ul>
 <li>Your dataset is small enough to fit in memory and you want the fastest possible training start.</li>
 <li>You are running on a system without a persistent filesystem (e.g. some ephemeral cloud environments)
@@ -5763,7 +5900,7 @@ as Python dicts — not file paths:</p>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">audio</span>
 <span class="w">    </span><span class="nt">preprocessing</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">lazy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">   </span><span class="c1"># decode everything at preprocessing time</span>
+<span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eager</span><span class="w">   </span><span class="c1"># decode everything at preprocessing time</span>
 </code></pre></div>
 <h4 id="bare-tensor-inputs">Bare Tensor Inputs<a class="headerlink" href="#bare-tensor-inputs" title="Permanent link">&para;</a></h4>
 <p>If your dataset delivers bare <code>torch.Tensor</code> objects (shape <code>(channels, samples)</code> or <code>(samples,)</code>)

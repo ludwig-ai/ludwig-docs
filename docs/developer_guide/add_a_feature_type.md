@@ -1,315 +1,348 @@
-# 1. Define the new feature type
+# Adding a New Feature Type to Ludwig
 
-Feature types are defined as constants in `ludwig/constants.py`.
+This guide walks through every file you need to touch when adding a brand-new feature type (e.g. a hypothetical `"widget"` type). Use `ludwig/features/binary_feature.py` and `ludwig/schema/features/binary_feature.py` as living reference implementations — they are among the simplest complete examples.
 
-Add the name of the new feature type as a constant:
+---
+
+## Conceptual overview
+
+Each feature type lives in two parallel places:
+
+| Layer              | Location                                   | Purpose                                                                       |
+| ------------------ | ------------------------------------------ | ----------------------------------------------------------------------------- |
+| **Schema**         | `ludwig/schema/features/<type>_feature.py` | Pydantic-backed config classes; declares hyperparameters and their defaults   |
+| **Feature module** | `ludwig/features/<type>_feature.py`        | PyTorch modules; implements preprocessing, encoding, decoding, postprocessing |
+
+The schema classes are used for config validation and serialization. The feature module classes are instantiated at model-build time using those configs. Neither layer knows the other exists at import time — they are wired together through the feature registry.
+
+---
+
+## Step 1 — Define the constant
+
+Add the type string to `ludwig/constants.py`:
 
 ```python
-BINARY = "binary"
-CATEGORY = "category"
-...
-NEW_FEATURE_TYPE = "new_feature_type_name"
+WIDGET = "widget"
 ```
 
-# 2. Add feature classes in a new python module
+---
 
-Source code for feature classes lives under `ludwig/features/`. Add the implementation of the new feature into a new
-python module `ludwig/feature/<new_name>_feature.py`.
+## Step 2 — Write the schema file
 
-Input and output feature classes are defined in the same file, for example `CategoryInputFeature` and
-`CategoryOutputFeature` are defined in `ludwig/features/category_feature.py`.
-
-Input features inherit from `ludwig.features.base_feature.InputFeature` and corresponding mixin feature classes:
+Create `ludwig/schema/features/widget_feature.py`. The minimal required structure is:
 
 ```python
-class CategoryInputFeature(CategoryFeatureMixin, InputFeature):
-```
-
-Similarly, output features inherit from the `ludwig.features.base_feature.OutputFeature` and corresponding mixin feature
-classes:
-
-```python
-class CategoryOutputFeature(CategoryFeatureMixin, OutputFeature):
-```
-
-Feature base classes (`InputFeature`, `OutputFeature`) inherit from `LudwigModule` which is itself a
-[torch.nn.Module](https://pytorch.org/docs/stable/generated/torch.nn.Module.html), so all the usual concerns of
-developing Torch modules apply.
-
-Mixin classes provide shared preprocessing/postprocessing state and logic, such as the mapping from categories to
-indices, which are shared by input and output feature implementations. Mixin classes are not torch modules, and do not
-need to provide a forward method.
-
-```python
-class CategoryFeatureMixin(BaseFeatureMixin):
-```
-
-# 3. Implement required methods
-
-## Input features
-
-### Constructor
-
-Feature parameters are provided in a dictionary of key-value pairs as an argument to the constructor.  The `feature`
-dictionary should usually be passed to the superclass constructor before initialization:
-
-```python
-def __init__(self, feature: [str, Any], encoder_obj=None):
-    super().__init__(feature)
-    # Initialize any modules, layers, or variable state
-```
-
-__Inputs__
-
-- __feature__: (dict) contains all feature config parameters.
-- __encoder_obj__: (Encoder, default: `None`) is an encoder object of the supported type (category encoder, binary
-encoder, etc.). Input features typically create their own encoder, `encoder_obj` is only specified when two input
-features share the same encoder.
-
-### forward
-
-All input features must implement the `forward` method with the following signature:
-
-```python
-def forward(self, inputs: torch.Tensor) -> torch.Tensor:
-    # perform forward pass
-    # ...
-    # inputs_encoded = result of encoder forward pass
-    return inputs_encoded
-```
-
-__Inputs__
-
-- __inputs__ (torch.Tensor): The input tensor.
-
-__Return__
-
-- (torch.Tensor): Input data encoded by the input feature's encoder.
-
-### input_shape
-
-```python
-@property
-def input_shape(self) -> torch.Size:
-```
-
-__Return__
-
-- (torch.Size): The fully-specified size of the feature's expected input, without batch dimension.
-
-## Output features
-
-### Constructor
-
-```python
-def __init__(self, feature: Dict[str, Any], output_features: Dict[str, OutputFeature]):
-    super().__init__(feature, output_features)
-    self.overwrite_defaults(feature)
-    # Initialize any decoder modules, layers, metrics, loss objects, etc.
-```
-
-__Inputs__
-
-- __feature__ (dict): contains all feature parameters.
-- __output_features__ (dict[Str, OutputFeature]): Dictionary of other output features, only used if this output feature
-depends on other outputs.
-
-### logits
-
-Computes feature logits from the combiner output (and any features this feature depends on).
-
-```python
-def logits(self, inputs: Dict[str, torch.Tensor], **kwargs):
-    hidden = inputs[HIDDEN]
-    # logits = results of decoder operation
-    return logits
-```
-
-__Inputs__
-
-- __inputs__ (dict): input dictionary which contains the `HIDDEN` key, whose value is the output of the combiner. Will
-contain other input keys if this feature depends on other output features.
-
-__Return__
-
-- (torch.Tensor): feature logits.
-
-### create_predict_module
-
-Creates and returns a `torch.nn.Module` that converts raw model outputs (logits) to predictions.
-This module is required for exporting models to Torchscript.
-
-```python
-def create_predict_module(self) -> PredictModule:
-```
-
-__Return__
-
-- (PredictModule): A module whose forward method convert feature logits to predictions.
-
-### output_shape
-
-```python
-@property
-def output_shape(self) -> torch.Size:
-```
-
-__Return__
-
-- (torch.Size): The fully-specified size of the feature's output, without batch dimension.
-
-## Feature Mixins
-
-If your new feature can re-use the preprocessing and postprocessing logic of an existing feature type, you do not need
-to implement a new mixin class. If your new feature does require unique pre or post-processing, add a new subclass of
-`ludwig.features.base_feature.BaseFeatureMixin`. Implement all abstract methods of `BaseFeatureMixin`.
-
-# 4. Add the new feature classes to the corresponding feature registries
-
-Input and output feature registries are defined in `ludwig/features/feature_registries.py`. Import your new feature
-classes, and add them to the appropriate registry dictionaries:
-
-```python
-base_type_registry = {
-    CATEGORY: CategoryFeatureMixin,
-...
-}
-input_type_registry = {
-    CATEGORY: CategoryInputFeature,
-...
-}
-output_type_registry = {
-    CATEGORY: CategoryOutputFeature,
-...
-}
-```
-
-# 5. Add schema class definitions for new feature types
-
-In order to validate user input against the expected inputs and input types for the new feature type you have defined,
-we need to create schema classes that will autogenerate the json schema required for validation.
-
-If the new feature type will just function as an input feature, you only need to define an input feature schema class.
-Here is an example of how the category feature schema classes are defined:
-
-### Input Feature Type
-
-```python
-from ludwig.constants import CATEGORY, MODEL_ECD
+from ludwig.constants import WIDGET, MODEL_ECD
 from ludwig.schema import utils as schema_utils
 from ludwig.schema.encoders.base import BaseEncoderConfig
 from ludwig.schema.encoders.utils import EncoderDataclassField
-from ludwig.schema.features.base import BaseInputFeatureConfig
+from ludwig.schema.features.base import BaseInputFeatureConfig, BaseOutputFeatureConfig
 from ludwig.schema.features.preprocessing.base import BasePreprocessingConfig
 from ludwig.schema.features.preprocessing.utils import PreprocessingDataclassField
-from ludwig.schema.features.utils import ecd_input_config_registry
+from ludwig.schema.features.utils import (
+    ecd_defaults_config_registry,
+    ecd_input_config_registry,
+    ecd_output_config_registry,
+    input_mixin_registry,
+    output_mixin_registry,
+)
+from ludwig.schema.utils import LudwigBaseConfig
 
 
-@ecd_input_config_registry.register(CATEGORY)
-class CategoryInputFeatureConfig(BaseInputFeatureConfig):
-    """CategoryInputFeatureConfig configures the parameters used for a category input feature."""
+@input_mixin_registry.register(WIDGET)
+class WidgetInputFeatureConfigMixin(LudwigBaseConfig):
+    preprocessing: BasePreprocessingConfig = PreprocessingDataclassField(feature_type=WIDGET)
 
-    preprocessing: BasePreprocessingConfig = PreprocessingDataclassField(feature_type=CATEGORY)
 
+class WidgetInputFeatureConfig(WidgetInputFeatureConfigMixin, BaseInputFeatureConfig):
+    type: str = schema_utils.ProtectedString(WIDGET)
+    encoder: BaseEncoderConfig = None
+
+
+@ecd_input_config_registry.register(WIDGET)
+class ECDWidgetInputFeatureConfig(WidgetInputFeatureConfig):
     encoder: BaseEncoderConfig = EncoderDataclassField(
         MODEL_ECD,
-        feature_type=CATEGORY,
-        default="dense",
+        feature_type=WIDGET,
+        default="dense",  # default encoder for this type
     )
 
-    tied: str = schema_utils.String(
-        default=None,
-        allow_none=True,
-        description="Name of input feature to tie the weights of the encoder with.  It needs to be the name of a "
-        "feature of the same type and with the same encoder parameters.",
-    )
+
+# For output features only:
+@output_mixin_registry.register(WIDGET)
+class WidgetOutputFeatureConfigMixin(LudwigBaseConfig):
+    # add loss, calibration, etc. fields here
+    pass
+
+
+class WidgetOutputFeatureConfig(WidgetOutputFeatureConfigMixin, BaseOutputFeatureConfig):
+    type: str = schema_utils.ProtectedString(WIDGET)
+    default_validation_metric: str = "some_metric"
+
+
+@ecd_output_config_registry.register(WIDGET)
+class ECDWidgetOutputFeatureConfig(WidgetOutputFeatureConfig):
+    pass
 ```
 
-If the new feature type can also be an output feature type, you will need to define an output feature schema class as
-well:
+**Key rules:**
 
-### Output Feature Type
+- `type` must be a `ProtectedString` with your constant — this prevents accidental overwrite via user YAML.
+- `@input_mixin_registry.register` / `@output_mixin_registry.register` make the preprocessing config available to `global_defaults` in Ludwig configs.
+- `@ecd_input_config_registry.register` / `@ecd_output_config_registry.register` wire the schema into the ECD model config builder.
+
+---
+
+## Step 3 — Write the preprocessing config
+
+Create `ludwig/schema/features/preprocessing/widget_feature_preprocessing.py` if your feature needs non-default preprocessing parameters, or register your type against an existing one (e.g. `number_feature` for scalars). For a new type, create the file:
 
 ```python
-from ludwig.constants import CATEGORY, MODEL_ECD, SOFTMAX_CROSS_ENTROPY
-from ludwig.schema import utils as schema_utils
-from ludwig.schema.decoders.base import BaseDecoderConfig
-from ludwig.schema.decoders.utils import DecoderDataclassField
-from ludwig.schema.features.base import BaseOutputFeatureConfig
-from ludwig.schema.features.loss.loss import BaseLossConfig
-from ludwig.schema.features.loss.utils import LossDataclassField
 from ludwig.schema.features.preprocessing.base import BasePreprocessingConfig
-from ludwig.schema.features.preprocessing.utils import PreprocessingDataclassField
-from ludwig.schema.features.utils import ecd_output_config_registry
+from ludwig.schema.features.preprocessing.utils import register_preprocessor
+from ludwig.constants import WIDGET
 
 
-@ecd_output_config_registry.register(CATEGORY)
-class CategoryOutputFeatureConfig(BaseOutputFeatureConfig):
-    """CategoryOutputFeatureConfig configures the parameters used for a category output feature."""
-
-    preprocessing: BasePreprocessingConfig = PreprocessingDataclassField(feature_type="category_output")
-
-    loss: BaseLossConfig = LossDataclassField(
-        feature_type=CATEGORY,
-        default=SOFTMAX_CROSS_ENTROPY,
-    )
-
-    decoder: BaseDecoderConfig = DecoderDataclassField(
-        MODEL_ECD,
-        feature_type=CATEGORY,
-        default="classifier",
-    )
-
-    reduce_input: str = schema_utils.ReductionOptions(
-        default="sum",
-        description="How to reduce an input that is not a vector, but a matrix or a higher order tensor, on the first "
-        "dimension (second if you count the batch dimension)",
-    )
-
-    dependencies: list = schema_utils.List(
-        default=[],
-        description="List of input features that this feature depends on.",
-    )
-
-    reduce_dependencies: str = schema_utils.ReductionOptions(
-        default="sum",
-        description="How to reduce the dependencies of the output feature.",
-    )
-
-    top_k: int = schema_utils.NonNegativeInteger(
-        default=3,
-        description="Determines the parameter k, the number of categories to consider when computing the top_k "
-        "measure. It computes accuracy but considering as a match if the true category appears in the "
-        "first k predicted categories ranked by decoder's confidence.",
-    )
-
-    calibration: bool = schema_utils.Boolean(
-        default=False,
-        description="Calibrate the model's output probabilities using temperature scaling.",
-    )
+@register_preprocessor(WIDGET)
+class WidgetPreprocessingConfig(BasePreprocessingConfig):
+    # add preprocessing hyperparameters here
+    pass
 ```
 
-Lastly, you need to add a reference to the schema class definitions on your input feature type definitions. So for
-instance, on the `CategoryInputFeature` class, we need to add a `get_schema_cls` method:
+---
+
+## Step 4 — Write the feature module
+
+Create `ludwig/features/widget_feature.py`. The required classes are:
+
+### Inner preprocessing module
 
 ```python
-class CategoryInputFeature(CategoryFeatureMixin, InputFeature):
+import torch
+from ludwig.features.base_feature import BasePreprocessingModule, FeaturePreprocessingMixin, InputFeature, OutputFeature
 
-...
+
+class _WidgetPreprocessing(BasePreprocessingModule):
+    """Runs inside the model graph during inference to preprocess raw input."""
+
+    def __init__(self, metadata: dict, preprocessing_config, is_input_feature: bool = True):
+        super().__init__()
+        # store everything needed to preprocess at inference time
+
+    def forward(self, v):
+        # v is the raw column value; return a tensor
+        raise NotImplementedError
+```
+
+### FeatureMixin (shared preprocessing logic)
+
+`FeaturePreprocessingMixin` provides the Python-side preprocessing used during dataset preparation (not inside the model graph). You must implement `add_feature_data` and `get_preprocessing_module`:
+
+```python
+class WidgetFeatureMixin(FeaturePreprocessingMixin):
+    @staticmethod
+    def type():
+        return WIDGET
+
+    @staticmethod
+    def cast_column(column, backend):
+        """Cast the raw DataFrame column to the expected dtype."""
+        return column
+
+    @staticmethod
+    def add_feature_data(
+        feature_config,
+        input_df,
+        proc_df,
+        metadata,
+        preprocessing_parameters,
+        backend,
+        skip_save_processed_input,
+    ):
+        """Populate proc_df[feature_config[PROC_COLUMN]] with preprocessed values."""
+        proc_df[feature_config[PROC_COLUMN]] = input_df[feature_config[COLUMN]].values
+        return proc_df
+
+    @staticmethod
+    def fill_missing_values(feature_config, input_df, backend):
+        """Replace NaN/None with a fill value appropriate for this type."""
+        return input_df
+
+    @staticmethod
+    def feature_meta(column, preprocessing_parameters, backend):
+        """Compute and return the training-set-level metadata dict for this feature."""
+        return {}
+
+    @staticmethod
+    def get_preprocessing_module(feature_config, metadata):
+        """Return the _WidgetPreprocessing module for use during inference."""
+        return _WidgetPreprocessing(metadata, feature_config.preprocessing)
+```
+
+### InputFeature class
+
+```python
+from ludwig.schema.features.widget_feature import WidgetInputFeatureConfig
+
+
+class WidgetInputFeature(WidgetFeatureMixin, InputFeature):
+    def __init__(self, input_feature_config: WidgetInputFeatureConfig, encoder_obj=None, **kwargs):
+        super().__init__(input_feature_config, **kwargs)
+        self._input_shape = torch.Size([1])  # set to actual encoded shape
+
+        if encoder_obj:
+            self.encoder_obj = encoder_obj
+        else:
+            self.encoder_obj = self.initialize_encoder(input_feature_config.encoder)
+
+    def forward(self, inputs, mask=None):
+        assert inputs.dtype == torch.float32
+        encoder_output = self.encoder_obj(inputs, mask=mask)
+        return {"encoder_output": encoder_output}
+
+    @property
+    def input_dtype(self):
+        return torch.float32
+
+    @property
+    def input_shape(self):
+        return self._input_shape
+
+    @property
+    def output_shape(self):
+        return self.encoder_obj.output_shape
+
+    @staticmethod
+    def update_config_with_metadata(feature_config, feature_metadata, *args, **kwargs):
+        pass
+
+    @staticmethod
+    def create_sample_input(batch_size=2):
+        return torch.zeros(batch_size, 1)
 
     @staticmethod
     def get_schema_cls():
-        return CategoryInputFeatureConfig
+        return WidgetInputFeatureConfig
 ```
 
-Likewise for the output feature class:
+### OutputFeature class (only if this type can be a target)
 
 ```python
-class CategoryOutputFeature(CategoryFeatureMixin, OutputFeature):
+from ludwig.schema.features.widget_feature import WidgetOutputFeatureConfig
 
-...
+
+class WidgetOutputFeature(WidgetFeatureMixin, OutputFeature):
+    def __init__(self, output_feature_config: WidgetOutputFeatureConfig, output_features: dict, **kwargs):
+        super().__init__(output_feature_config, output_features, **kwargs)
+        self._input_shape = torch.Size([output_feature_config.input_size])
+        self.decoder_obj = self.initialize_decoder(output_feature_config.decoder)
+        self._setup_loss()
+        self._setup_metrics()
+
+    def logits(self, inputs, target=None):
+        return self.decoder_obj(inputs)
+
+    def create_predict_module(self):
+        return _WidgetPredict()  # see PredictModule below
+
+    def get_prediction_set(self):
+        return {LOGITS, PREDICTIONS, PROBABILITIES}
+
+    @classmethod
+    def update_config_with_metadata(cls, feature_config, feature_metadata, *args, **kwargs):
+        feature_config.input_size = feature_metadata["input_size"]
 
     @staticmethod
     def get_schema_cls():
-        return CategoryOutputFeatureConfig
+        return WidgetOutputFeatureConfig
 ```
+
+### PredictModule (for output features)
+
+```python
+from ludwig.features.base_feature import PredictModule
+
+
+class _WidgetPredict(PredictModule):
+    def forward(self, inputs, feature_name):
+        logits = inputs[f"{feature_name}_{LOGITS}"]
+        predictions = (logits > 0.5).float()
+        return {PREDICTIONS: predictions, LOGITS: logits}
+```
+
+---
+
+## Step 5 — Register in the feature registries
+
+Open `ludwig/features/feature_registries.py` and add your classes to all relevant registry functions:
+
+```python
+# at the top — add import
+from ludwig.features.widget_feature import WidgetFeatureMixin, WidgetInputFeature
+
+# in get_base_type_registry(), inside the returned dict:
+#     WIDGET: WidgetFeatureMixin,
+#
+# in get_input_type_registry(), inside the returned dict:
+#     WIDGET: WidgetInputFeature,
+#
+# in get_output_type_registry() if applicable, inside the returned dict:
+#     WIDGET: WidgetOutputFeature,
+```
+
+The model builder uses `get_input_type_registry()` and `get_output_type_registry()` to instantiate feature objects from config at training time.
+
+---
+
+## Step 6 — Register the constant in constants.py (feature sets)
+
+If the feature appears in `FEATURE_TYPES`, `INPUT_FEATURE_TYPES`, or similar sets, add `WIDGET` there too.
+
+---
+
+## Step 7 — Write tests
+
+Create `tests/ludwig/features/test_widget_feature.py`. At minimum test:
+
+1. `WidgetFeatureMixin.add_feature_data` — correct column values written to `proc_df`
+1. `_WidgetPreprocessing.forward` — correct tensor shape for a known input
+1. `WidgetInputFeature.forward` — correct output keys and shapes with a random input
+1. Encoder round-trip via `create_sample_input`
+
+```python
+import torch
+import pytest
+from tests.integration_tests.utils import generate_data, run_api_test
+
+
+def test_widget_preprocessing_forward():
+    meta = {}
+    module = _WidgetPreprocessing(meta, preprocessing_config=None)
+    out = module(torch.zeros(4))
+    assert out.shape == (4, 1)
+```
+
+---
+
+## Checklist
+
+- [ ] `ludwig/constants.py` — add `WIDGET = "widget"`
+- [ ] `ludwig/schema/features/widget_feature.py` — schema classes + registry decorators
+- [ ] `ludwig/schema/features/preprocessing/` — preprocessing config class (or reuse existing)
+- [ ] `ludwig/features/widget_feature.py` — preprocessing module, mixin, input/output feature classes
+- [ ] `ludwig/features/feature_registries.py` — add to `get_base_type_registry`, `get_input_type_registry`, optionally `get_output_type_registry`
+- [ ] `tests/ludwig/features/test_widget_feature.py` — unit tests for preprocessing and forward pass
+
+---
+
+## Common pitfalls
+
+**`proc_df[PROC_COLUMN]` vs `proc_df[COLUMN]`** — always write to `PROC_COLUMN` (the internal column name), not `COLUMN` (the raw user column name). They can differ when the user renames features.
+
+**`get_preprocessing_module` vs `add_feature_data`** — `add_feature_data` runs in Python at dataset preparation time (CPU, pandas). `get_preprocessing_module` returns a `torch.nn.Module` that runs inside the model graph at inference time. Both must produce compatible representations.
+
+**`input_shape` vs `output_shape`** — `InputFeature.input_shape` is the shape of the *raw preprocessed* tensor going into the encoder. `InputFeature.output_shape` is the encoder's output shape that feeds into the combiner. Return `self.encoder_obj.output_shape` for the latter.
+
+**Registry order matters** — the registry in `feature_registries.py` is read at import time. If you import your feature class before `feature_registries.py` is loaded, the registry will be empty. The correct order is always: define constants → define schema → define feature → add to registry.
+
+**Schema `type` field** — always use `schema_utils.ProtectedString(WIDGET)` not `str = WIDGET`. The protected string raises an error if a user tries to override it in their config YAML, which prevents subtle type mismatches.

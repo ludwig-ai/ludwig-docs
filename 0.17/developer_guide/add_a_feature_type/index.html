@@ -164,7 +164,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#1-define-the-new-feature-type" class="md-skip">
+        <a href="#adding-a-new-feature-type-to-ludwig" class="md-skip">
           Skip to content
         </a>
       
@@ -4866,56 +4866,78 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-define-the-new-feature-type" class="md-nav__link">
+  <a href="#adding-a-new-feature-type-to-ludwig" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Define the new feature type
+        Adding a New Feature Type to Ludwig
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-add-feature-classes-in-a-new-python-module" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Add feature classes in a new python module
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-implement-required-methods" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Implement required methods
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. Implement required methods">
+    <nav class="md-nav" aria-label="Adding a New Feature Type to Ludwig">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#input-features" class="md-nav__link">
+  <a href="#conceptual-overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Input features
+        Conceptual overview
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Input features">
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-define-the-constant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — Define the constant
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-write-the-schema-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Write the schema file
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-write-the-preprocessing-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — Write the preprocessing config
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-write-the-feature-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — Write the feature module
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4 — Write the feature module">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#constructor" class="md-nav__link">
+  <a href="#inner-preprocessing-module" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Constructor
+        Inner preprocessing module
       
     </span>
   </a>
@@ -4923,10 +4945,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#forward" class="md-nav__link">
+  <a href="#featuremixin-shared-preprocessing-logic" class="md-nav__link">
     <span class="md-ellipsis">
       
-        forward
+        FeatureMixin (shared preprocessing logic)
       
     </span>
   </a>
@@ -4934,10 +4956,32 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#input_shape" class="md-nav__link">
+  <a href="#inputfeature-class" class="md-nav__link">
     <span class="md-ellipsis">
       
-        input_shape
+        InputFeature class
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputfeature-class-only-if-this-type-can-be-a-target" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OutputFeature class (only if this type can be a target)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#predictmodule-for-output-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PredictModule (for output features)
       
     </span>
   </a>
@@ -4950,22 +4994,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#output-features" class="md-nav__link">
+  <a href="#step-5-register-in-the-feature-registries" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Output features
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Output features">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#constructor_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Constructor
+        Step 5 — Register in the feature registries
       
     </span>
   </a>
@@ -4973,10 +5005,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#logits" class="md-nav__link">
+  <a href="#step-6-register-the-constant-in-constantspy-feature-sets" class="md-nav__link">
     <span class="md-ellipsis">
       
-        logits
+        Step 6 — Register the constant in constants.py (feature sets)
       
     </span>
   </a>
@@ -4984,10 +5016,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#create_predict_module" class="md-nav__link">
+  <a href="#step-7-write-tests" class="md-nav__link">
     <span class="md-ellipsis">
       
-        create_predict_module
+        Step 7 — Write tests
       
     </span>
   </a>
@@ -4995,65 +5027,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#output_shape" class="md-nav__link">
+  <a href="#checklist" class="md-nav__link">
     <span class="md-ellipsis">
       
-        output_shape
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#feature-mixins" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Feature Mixins
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-add-the-new-feature-classes-to-the-corresponding-feature-registries" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Add the new feature classes to the corresponding feature registries
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-add-schema-class-definitions-for-new-feature-types" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Add schema class definitions for new feature types
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="5. Add schema class definitions for new feature types">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#input-feature-type" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Input Feature Type
+        Checklist
       
     </span>
   </a>
@@ -5061,10 +5038,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#output-feature-type" class="md-nav__link">
+  <a href="#common-pitfalls" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Output Feature Type
+        Common pitfalls
       
     </span>
   </a>
@@ -5479,56 +5456,78 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-define-the-new-feature-type" class="md-nav__link">
+  <a href="#adding-a-new-feature-type-to-ludwig" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Define the new feature type
+        Adding a New Feature Type to Ludwig
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-add-feature-classes-in-a-new-python-module" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Add feature classes in a new python module
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-implement-required-methods" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Implement required methods
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. Implement required methods">
+    <nav class="md-nav" aria-label="Adding a New Feature Type to Ludwig">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#input-features" class="md-nav__link">
+  <a href="#conceptual-overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Input features
+        Conceptual overview
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Input features">
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-define-the-constant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — Define the constant
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-write-the-schema-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Write the schema file
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-write-the-preprocessing-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — Write the preprocessing config
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-write-the-feature-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — Write the feature module
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4 — Write the feature module">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#constructor" class="md-nav__link">
+  <a href="#inner-preprocessing-module" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Constructor
+        Inner preprocessing module
       
     </span>
   </a>
@@ -5536,10 +5535,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#forward" class="md-nav__link">
+  <a href="#featuremixin-shared-preprocessing-logic" class="md-nav__link">
     <span class="md-ellipsis">
       
-        forward
+        FeatureMixin (shared preprocessing logic)
       
     </span>
   </a>
@@ -5547,10 +5546,32 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#input_shape" class="md-nav__link">
+  <a href="#inputfeature-class" class="md-nav__link">
     <span class="md-ellipsis">
       
-        input_shape
+        InputFeature class
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputfeature-class-only-if-this-type-can-be-a-target" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OutputFeature class (only if this type can be a target)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#predictmodule-for-output-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PredictModule (for output features)
       
     </span>
   </a>
@@ -5563,22 +5584,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#output-features" class="md-nav__link">
+  <a href="#step-5-register-in-the-feature-registries" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Output features
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Output features">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#constructor_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Constructor
+        Step 5 — Register in the feature registries
       
     </span>
   </a>
@@ -5586,10 +5595,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#logits" class="md-nav__link">
+  <a href="#step-6-register-the-constant-in-constantspy-feature-sets" class="md-nav__link">
     <span class="md-ellipsis">
       
-        logits
+        Step 6 — Register the constant in constants.py (feature sets)
       
     </span>
   </a>
@@ -5597,10 +5606,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#create_predict_module" class="md-nav__link">
+  <a href="#step-7-write-tests" class="md-nav__link">
     <span class="md-ellipsis">
       
-        create_predict_module
+        Step 7 — Write tests
       
     </span>
   </a>
@@ -5608,65 +5617,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#output_shape" class="md-nav__link">
+  <a href="#checklist" class="md-nav__link">
     <span class="md-ellipsis">
       
-        output_shape
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#feature-mixins" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Feature Mixins
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-add-the-new-feature-classes-to-the-corresponding-feature-registries" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Add the new feature classes to the corresponding feature registries
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-add-schema-class-definitions-for-new-feature-types" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Add schema class definitions for new feature types
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="5. Add schema class definitions for new feature types">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#input-feature-type" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Input Feature Type
+        Checklist
       
     </span>
   </a>
@@ -5674,10 +5628,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#output-feature-type" class="md-nav__link">
+  <a href="#common-pitfalls" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Output Feature Type
+        Common pitfalls
       
     </span>
   </a>
@@ -5711,254 +5665,310 @@
 
   <h1>Add a Feature Type</h1>
 
-<h2 id="1-define-the-new-feature-type">1. Define the new feature type<a class="headerlink" href="#1-define-the-new-feature-type" title="Permanent link">&para;</a></h2>
-<p>Feature types are defined as constants in <code>ludwig/constants.py</code>.</p>
-<p>Add the name of the new feature type as a constant:</p>
-<div class="highlight"><pre><span></span><code><span class="n">BINARY</span> <span class="o">=</span> <span class="s2">&quot;binary&quot;</span>
-<span class="n">CATEGORY</span> <span class="o">=</span> <span class="s2">&quot;category&quot;</span>
-<span class="o">...</span>
-<span class="n">NEW_FEATURE_TYPE</span> <span class="o">=</span> <span class="s2">&quot;new_feature_type_name&quot;</span>
+<h2 id="adding-a-new-feature-type-to-ludwig">Adding a New Feature Type to Ludwig<a class="headerlink" href="#adding-a-new-feature-type-to-ludwig" title="Permanent link">&para;</a></h2>
+<p>This guide walks through every file you need to touch when adding a brand-new feature type (e.g. a hypothetical <code>"widget"</code> type). Use <code>ludwig/features/binary_feature.py</code> and <code>ludwig/schema/features/binary_feature.py</code> as living reference implementations — they are among the simplest complete examples.</p>
+<hr />
+<h3 id="conceptual-overview">Conceptual overview<a class="headerlink" href="#conceptual-overview" title="Permanent link">&para;</a></h3>
+<p>Each feature type lives in two parallel places:</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Location</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Schema</strong></td>
+<td><code>ludwig/schema/features/&lt;type&gt;_feature.py</code></td>
+<td>Pydantic-backed config classes; declares hyperparameters and their defaults</td>
+</tr>
+<tr>
+<td><strong>Feature module</strong></td>
+<td><code>ludwig/features/&lt;type&gt;_feature.py</code></td>
+<td>PyTorch modules; implements preprocessing, encoding, decoding, postprocessing</td>
+</tr>
+</tbody>
+</table>
+<p>The schema classes are used for config validation and serialization. The feature module classes are instantiated at model-build time using those configs. Neither layer knows the other exists at import time — they are wired together through the feature registry.</p>
+<hr />
+<h3 id="step-1-define-the-constant">Step 1 — Define the constant<a class="headerlink" href="#step-1-define-the-constant" title="Permanent link">&para;</a></h3>
+<p>Add the type string to <code>ludwig/constants.py</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">WIDGET</span> <span class="o">=</span> <span class="s2">&quot;widget&quot;</span>
 </code></pre></div>
-<h2 id="2-add-feature-classes-in-a-new-python-module">2. Add feature classes in a new python module<a class="headerlink" href="#2-add-feature-classes-in-a-new-python-module" title="Permanent link">&para;</a></h2>
-<p>Source code for feature classes lives under <code>ludwig/features/</code>. Add the implementation of the new feature into a new
-python module <code>ludwig/feature/&lt;new_name&gt;_feature.py</code>.</p>
-<p>Input and output feature classes are defined in the same file, for example <code>CategoryInputFeature</code> and
-<code>CategoryOutputFeature</code> are defined in <code>ludwig/features/category_feature.py</code>.</p>
-<p>Input features inherit from <code>ludwig.features.base_feature.InputFeature</code> and corresponding mixin feature classes:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CategoryInputFeature</span><span class="p">(</span><span class="n">CategoryFeatureMixin</span><span class="p">,</span> <span class="n">InputFeature</span><span class="p">):</span>
-</code></pre></div>
-<p>Similarly, output features inherit from the <code>ludwig.features.base_feature.OutputFeature</code> and corresponding mixin feature
-classes:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CategoryOutputFeature</span><span class="p">(</span><span class="n">CategoryFeatureMixin</span><span class="p">,</span> <span class="n">OutputFeature</span><span class="p">):</span>
-</code></pre></div>
-<p>Feature base classes (<code>InputFeature</code>, <code>OutputFeature</code>) inherit from <code>LudwigModule</code> which is itself a
-<a href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html">torch.nn.Module</a>, so all the usual concerns of
-developing Torch modules apply.</p>
-<p>Mixin classes provide shared preprocessing/postprocessing state and logic, such as the mapping from categories to
-indices, which are shared by input and output feature implementations. Mixin classes are not torch modules, and do not
-need to provide a forward method.</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CategoryFeatureMixin</span><span class="p">(</span><span class="n">BaseFeatureMixin</span><span class="p">):</span>
-</code></pre></div>
-<h2 id="3-implement-required-methods">3. Implement required methods<a class="headerlink" href="#3-implement-required-methods" title="Permanent link">&para;</a></h2>
-<h3 id="input-features">Input features<a class="headerlink" href="#input-features" title="Permanent link">&para;</a></h3>
-<h4 id="constructor">Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h4>
-<p>Feature parameters are provided in a dictionary of key-value pairs as an argument to the constructor.  The <code>feature</code>
-dictionary should usually be passed to the superclass constructor before initialization:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature</span><span class="p">:</span> <span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">encoder_obj</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">feature</span><span class="p">)</span>
-    <span class="c1"># Initialize any modules, layers, or variable state</span>
-</code></pre></div>
-<p><strong>Inputs</strong></p>
-<ul>
-<li><strong>feature</strong>: (dict) contains all feature config parameters.</li>
-<li><strong>encoder_obj</strong>: (Encoder, default: <code>None</code>) is an encoder object of the supported type (category encoder, binary
-encoder, etc.). Input features typically create their own encoder, <code>encoder_obj</code> is only specified when two input
-features share the same encoder.</li>
-</ul>
-<h4 id="forward">forward<a class="headerlink" href="#forward" title="Permanent link">&para;</a></h4>
-<p>All input features must implement the <code>forward</code> method with the following signature:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-    <span class="c1"># perform forward pass</span>
-    <span class="c1"># ...</span>
-    <span class="c1"># inputs_encoded = result of encoder forward pass</span>
-    <span class="k">return</span> <span class="n">inputs_encoded</span>
-</code></pre></div>
-<p><strong>Inputs</strong></p>
-<ul>
-<li><strong>inputs</strong> (torch.Tensor): The input tensor.</li>
-</ul>
-<p><strong>Return</strong></p>
-<ul>
-<li>(torch.Tensor): Input data encoded by the input feature's encoder.</li>
-</ul>
-<h4 id="input_shape">input_shape<a class="headerlink" href="#input_shape" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="nd">@property</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">input_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">:</span>
-</code></pre></div>
-<p><strong>Return</strong></p>
-<ul>
-<li>(torch.Size): The fully-specified size of the feature's expected input, without batch dimension.</li>
-</ul>
-<h3 id="output-features">Output features<a class="headerlink" href="#output-features" title="Permanent link">&para;</a></h3>
-<h4 id="constructor_1">Constructor<a class="headerlink" href="#constructor_1" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">output_features</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">OutputFeature</span><span class="p">]):</span>
-    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">feature</span><span class="p">,</span> <span class="n">output_features</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">overwrite_defaults</span><span class="p">(</span><span class="n">feature</span><span class="p">)</span>
-    <span class="c1"># Initialize any decoder modules, layers, metrics, loss objects, etc.</span>
-</code></pre></div>
-<p><strong>Inputs</strong></p>
-<ul>
-<li><strong>feature</strong> (dict): contains all feature parameters.</li>
-<li><strong>output_features</strong> (dict[Str, OutputFeature]): Dictionary of other output features, only used if this output feature
-depends on other outputs.</li>
-</ul>
-<h4 id="logits">logits<a class="headerlink" href="#logits" title="Permanent link">&para;</a></h4>
-<p>Computes feature logits from the combiner output (and any features this feature depends on).</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">logits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="n">hidden</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="n">HIDDEN</span><span class="p">]</span>
-    <span class="c1"># logits = results of decoder operation</span>
-    <span class="k">return</span> <span class="n">logits</span>
-</code></pre></div>
-<p><strong>Inputs</strong></p>
-<ul>
-<li><strong>inputs</strong> (dict): input dictionary which contains the <code>HIDDEN</code> key, whose value is the output of the combiner. Will
-contain other input keys if this feature depends on other output features.</li>
-</ul>
-<p><strong>Return</strong></p>
-<ul>
-<li>(torch.Tensor): feature logits.</li>
-</ul>
-<h4 id="create_predict_module">create_predict_module<a class="headerlink" href="#create_predict_module" title="Permanent link">&para;</a></h4>
-<p>Creates and returns a <code>torch.nn.Module</code> that converts raw model outputs (logits) to predictions.
-This module is required for exporting models to Torchscript.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_predict_module</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PredictModule</span><span class="p">:</span>
-</code></pre></div>
-<p><strong>Return</strong></p>
-<ul>
-<li>(PredictModule): A module whose forward method convert feature logits to predictions.</li>
-</ul>
-<h4 id="output_shape">output_shape<a class="headerlink" href="#output_shape" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="nd">@property</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">output_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">:</span>
-</code></pre></div>
-<p><strong>Return</strong></p>
-<ul>
-<li>(torch.Size): The fully-specified size of the feature's output, without batch dimension.</li>
-</ul>
-<h3 id="feature-mixins">Feature Mixins<a class="headerlink" href="#feature-mixins" title="Permanent link">&para;</a></h3>
-<p>If your new feature can re-use the preprocessing and postprocessing logic of an existing feature type, you do not need
-to implement a new mixin class. If your new feature does require unique pre or post-processing, add a new subclass of
-<code>ludwig.features.base_feature.BaseFeatureMixin</code>. Implement all abstract methods of <code>BaseFeatureMixin</code>.</p>
-<h2 id="4-add-the-new-feature-classes-to-the-corresponding-feature-registries">4. Add the new feature classes to the corresponding feature registries<a class="headerlink" href="#4-add-the-new-feature-classes-to-the-corresponding-feature-registries" title="Permanent link">&para;</a></h2>
-<p>Input and output feature registries are defined in <code>ludwig/features/feature_registries.py</code>. Import your new feature
-classes, and add them to the appropriate registry dictionaries:</p>
-<div class="highlight"><pre><span></span><code><span class="n">base_type_registry</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="n">CATEGORY</span><span class="p">:</span> <span class="n">CategoryFeatureMixin</span><span class="p">,</span>
-<span class="o">...</span>
-<span class="p">}</span>
-<span class="n">input_type_registry</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="n">CATEGORY</span><span class="p">:</span> <span class="n">CategoryInputFeature</span><span class="p">,</span>
-<span class="o">...</span>
-<span class="p">}</span>
-<span class="n">output_type_registry</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="n">CATEGORY</span><span class="p">:</span> <span class="n">CategoryOutputFeature</span><span class="p">,</span>
-<span class="o">...</span>
-<span class="p">}</span>
-</code></pre></div>
-<h2 id="5-add-schema-class-definitions-for-new-feature-types">5. Add schema class definitions for new feature types<a class="headerlink" href="#5-add-schema-class-definitions-for-new-feature-types" title="Permanent link">&para;</a></h2>
-<p>In order to validate user input against the expected inputs and input types for the new feature type you have defined,
-we need to create schema classes that will autogenerate the json schema required for validation.</p>
-<p>If the new feature type will just function as an input feature, you only need to define an input feature schema class.
-Here is an example of how the category feature schema classes are defined:</p>
-<h4 id="input-feature-type">Input Feature Type<a class="headerlink" href="#input-feature-type" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">CATEGORY</span><span class="p">,</span> <span class="n">MODEL_ECD</span>
+<hr />
+<h3 id="step-2-write-the-schema-file">Step 2 — Write the schema file<a class="headerlink" href="#step-2-write-the-schema-file" title="Permanent link">&para;</a></h3>
+<p>Create <code>ludwig/schema/features/widget_feature.py</code>. The minimal required structure is:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">WIDGET</span><span class="p">,</span> <span class="n">MODEL_ECD</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">utils</span> <span class="k">as</span> <span class="n">schema_utils</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.encoders.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseEncoderConfig</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.encoders.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">EncoderDataclassField</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseInputFeatureConfig</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseInputFeatureConfig</span><span class="p">,</span> <span class="n">BaseOutputFeatureConfig</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.preprocessing.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BasePreprocessingConfig</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.preprocessing.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">PreprocessingDataclassField</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">ecd_input_config_registry</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.utils</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ecd_defaults_config_registry</span><span class="p">,</span>
+    <span class="n">ecd_input_config_registry</span><span class="p">,</span>
+    <span class="n">ecd_output_config_registry</span><span class="p">,</span>
+    <span class="n">input_mixin_registry</span><span class="p">,</span>
+    <span class="n">output_mixin_registry</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">LudwigBaseConfig</span>
 
 
-<span class="nd">@ecd_input_config_registry</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">CATEGORY</span><span class="p">)</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">CategoryInputFeatureConfig</span><span class="p">(</span><span class="n">BaseInputFeatureConfig</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;CategoryInputFeatureConfig configures the parameters used for a category input feature.&quot;&quot;&quot;</span>
+<span class="nd">@input_mixin_registry</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">WIDGET</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">WidgetInputFeatureConfigMixin</span><span class="p">(</span><span class="n">LudwigBaseConfig</span><span class="p">):</span>
+    <span class="n">preprocessing</span><span class="p">:</span> <span class="n">BasePreprocessingConfig</span> <span class="o">=</span> <span class="n">PreprocessingDataclassField</span><span class="p">(</span><span class="n">feature_type</span><span class="o">=</span><span class="n">WIDGET</span><span class="p">)</span>
 
-    <span class="n">preprocessing</span><span class="p">:</span> <span class="n">BasePreprocessingConfig</span> <span class="o">=</span> <span class="n">PreprocessingDataclassField</span><span class="p">(</span><span class="n">feature_type</span><span class="o">=</span><span class="n">CATEGORY</span><span class="p">)</span>
 
+<span class="k">class</span><span class="w"> </span><span class="nc">WidgetInputFeatureConfig</span><span class="p">(</span><span class="n">WidgetInputFeatureConfigMixin</span><span class="p">,</span> <span class="n">BaseInputFeatureConfig</span><span class="p">):</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">ProtectedString</span><span class="p">(</span><span class="n">WIDGET</span><span class="p">)</span>
+    <span class="n">encoder</span><span class="p">:</span> <span class="n">BaseEncoderConfig</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="nd">@ecd_input_config_registry</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">WIDGET</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ECDWidgetInputFeatureConfig</span><span class="p">(</span><span class="n">WidgetInputFeatureConfig</span><span class="p">):</span>
     <span class="n">encoder</span><span class="p">:</span> <span class="n">BaseEncoderConfig</span> <span class="o">=</span> <span class="n">EncoderDataclassField</span><span class="p">(</span>
         <span class="n">MODEL_ECD</span><span class="p">,</span>
-        <span class="n">feature_type</span><span class="o">=</span><span class="n">CATEGORY</span><span class="p">,</span>
-        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;dense&quot;</span><span class="p">,</span>
+        <span class="n">feature_type</span><span class="o">=</span><span class="n">WIDGET</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;dense&quot;</span><span class="p">,</span>  <span class="c1"># default encoder for this type</span>
     <span class="p">)</span>
 
-    <span class="n">tied</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">String</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">allow_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Name of input feature to tie the weights of the encoder with.  It needs to be the name of a &quot;</span>
-        <span class="s2">&quot;feature of the same type and with the same encoder parameters.&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
+
+<span class="c1"># For output features only:</span>
+<span class="nd">@output_mixin_registry</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">WIDGET</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">WidgetOutputFeatureConfigMixin</span><span class="p">(</span><span class="n">LudwigBaseConfig</span><span class="p">):</span>
+    <span class="c1"># add loss, calibration, etc. fields here</span>
+    <span class="k">pass</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">WidgetOutputFeatureConfig</span><span class="p">(</span><span class="n">WidgetOutputFeatureConfigMixin</span><span class="p">,</span> <span class="n">BaseOutputFeatureConfig</span><span class="p">):</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">ProtectedString</span><span class="p">(</span><span class="n">WIDGET</span><span class="p">)</span>
+    <span class="n">default_validation_metric</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;some_metric&quot;</span>
+
+
+<span class="nd">@ecd_output_config_registry</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">WIDGET</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ECDWidgetOutputFeatureConfig</span><span class="p">(</span><span class="n">WidgetOutputFeatureConfig</span><span class="p">):</span>
+    <span class="k">pass</span>
 </code></pre></div>
-<p>If the new feature type can also be an output feature type, you will need to define an output feature schema class as
-well:</p>
-<h4 id="output-feature-type">Output Feature Type<a class="headerlink" href="#output-feature-type" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">CATEGORY</span><span class="p">,</span> <span class="n">MODEL_ECD</span><span class="p">,</span> <span class="n">SOFTMAX_CROSS_ENTROPY</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">utils</span> <span class="k">as</span> <span class="n">schema_utils</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.decoders.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseDecoderConfig</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.decoders.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecoderDataclassField</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseOutputFeatureConfig</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.loss.loss</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseLossConfig</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.loss.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">LossDataclassField</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.preprocessing.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BasePreprocessingConfig</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.preprocessing.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">PreprocessingDataclassField</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">ecd_output_config_registry</span>
+<p><strong>Key rules:</strong></p>
+<ul>
+<li><code>type</code> must be a <code>ProtectedString</code> with your constant — this prevents accidental overwrite via user YAML.</li>
+<li><code>@input_mixin_registry.register</code> / <code>@output_mixin_registry.register</code> make the preprocessing config available to <code>global_defaults</code> in Ludwig configs.</li>
+<li><code>@ecd_input_config_registry.register</code> / <code>@ecd_output_config_registry.register</code> wire the schema into the ECD model config builder.</li>
+</ul>
+<hr />
+<h3 id="step-3-write-the-preprocessing-config">Step 3 — Write the preprocessing config<a class="headerlink" href="#step-3-write-the-preprocessing-config" title="Permanent link">&para;</a></h3>
+<p>Create <code>ludwig/schema/features/preprocessing/widget_feature_preprocessing.py</code> if your feature needs non-default preprocessing parameters, or register your type against an existing one (e.g. <code>number_feature</code> for scalars). For a new type, create the file:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.preprocessing.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BasePreprocessingConfig</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.preprocessing.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">register_preprocessor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">WIDGET</span>
 
 
-<span class="nd">@ecd_output_config_registry</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">CATEGORY</span><span class="p">)</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">CategoryOutputFeatureConfig</span><span class="p">(</span><span class="n">BaseOutputFeatureConfig</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;CategoryOutputFeatureConfig configures the parameters used for a category output feature.&quot;&quot;&quot;</span>
-
-    <span class="n">preprocessing</span><span class="p">:</span> <span class="n">BasePreprocessingConfig</span> <span class="o">=</span> <span class="n">PreprocessingDataclassField</span><span class="p">(</span><span class="n">feature_type</span><span class="o">=</span><span class="s2">&quot;category_output&quot;</span><span class="p">)</span>
-
-    <span class="n">loss</span><span class="p">:</span> <span class="n">BaseLossConfig</span> <span class="o">=</span> <span class="n">LossDataclassField</span><span class="p">(</span>
-        <span class="n">feature_type</span><span class="o">=</span><span class="n">CATEGORY</span><span class="p">,</span>
-        <span class="n">default</span><span class="o">=</span><span class="n">SOFTMAX_CROSS_ENTROPY</span><span class="p">,</span>
-    <span class="p">)</span>
-
-    <span class="n">decoder</span><span class="p">:</span> <span class="n">BaseDecoderConfig</span> <span class="o">=</span> <span class="n">DecoderDataclassField</span><span class="p">(</span>
-        <span class="n">MODEL_ECD</span><span class="p">,</span>
-        <span class="n">feature_type</span><span class="o">=</span><span class="n">CATEGORY</span><span class="p">,</span>
-        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;classifier&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-
-    <span class="n">reduce_input</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">ReductionOptions</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;sum&quot;</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;How to reduce an input that is not a vector, but a matrix or a higher order tensor, on the first &quot;</span>
-        <span class="s2">&quot;dimension (second if you count the batch dimension)&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-
-    <span class="n">dependencies</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">List</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;List of input features that this feature depends on.&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-
-    <span class="n">reduce_dependencies</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">ReductionOptions</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;sum&quot;</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;How to reduce the dependencies of the output feature.&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-
-    <span class="n">top_k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">NonNegativeInteger</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Determines the parameter k, the number of categories to consider when computing the top_k &quot;</span>
-        <span class="s2">&quot;measure. It computes accuracy but considering as a match if the true category appears in the &quot;</span>
-        <span class="s2">&quot;first k predicted categories ranked by decoder&#39;s confidence.&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-
-    <span class="n">calibration</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">schema_utils</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Calibrate the model&#39;s output probabilities using temperature scaling.&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
+<span class="nd">@register_preprocessor</span><span class="p">(</span><span class="n">WIDGET</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">WidgetPreprocessingConfig</span><span class="p">(</span><span class="n">BasePreprocessingConfig</span><span class="p">):</span>
+    <span class="c1"># add preprocessing hyperparameters here</span>
+    <span class="k">pass</span>
 </code></pre></div>
-<p>Lastly, you need to add a reference to the schema class definitions on your input feature type definitions. So for
-instance, on the <code>CategoryInputFeature</code> class, we need to add a <code>get_schema_cls</code> method:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CategoryInputFeature</span><span class="p">(</span><span class="n">CategoryFeatureMixin</span><span class="p">,</span> <span class="n">InputFeature</span><span class="p">):</span>
+<hr />
+<h3 id="step-4-write-the-feature-module">Step 4 — Write the feature module<a class="headerlink" href="#step-4-write-the-feature-module" title="Permanent link">&para;</a></h3>
+<p>Create <code>ludwig/features/widget_feature.py</code>. The required classes are:</p>
+<h4 id="inner-preprocessing-module">Inner preprocessing module<a class="headerlink" href="#inner-preprocessing-module" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.features.base_feature</span><span class="w"> </span><span class="kn">import</span> <span class="n">BasePreprocessingModule</span><span class="p">,</span> <span class="n">FeaturePreprocessingMixin</span><span class="p">,</span> <span class="n">InputFeature</span><span class="p">,</span> <span class="n">OutputFeature</span>
 
-<span class="o">...</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">_WidgetPreprocessing</span><span class="p">(</span><span class="n">BasePreprocessingModule</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Runs inside the model graph during inference to preprocess raw input.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">preprocessing_config</span><span class="p">,</span> <span class="n">is_input_feature</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1"># store everything needed to preprocess at inference time</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="c1"># v is the raw column value; return a tensor</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+</code></pre></div>
+<h4 id="featuremixin-shared-preprocessing-logic">FeatureMixin (shared preprocessing logic)<a class="headerlink" href="#featuremixin-shared-preprocessing-logic" title="Permanent link">&para;</a></h4>
+<p><code>FeaturePreprocessingMixin</code> provides the Python-side preprocessing used during dataset preparation (not inside the model graph). You must implement <code>add_feature_data</code> and <code>get_preprocessing_module</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">WidgetFeatureMixin</span><span class="p">(</span><span class="n">FeaturePreprocessingMixin</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">type</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">WIDGET</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cast_column</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">backend</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Cast the raw DataFrame column to the expected dtype.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">column</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_feature_data</span><span class="p">(</span>
+        <span class="n">feature_config</span><span class="p">,</span>
+        <span class="n">input_df</span><span class="p">,</span>
+        <span class="n">proc_df</span><span class="p">,</span>
+        <span class="n">metadata</span><span class="p">,</span>
+        <span class="n">preprocessing_parameters</span><span class="p">,</span>
+        <span class="n">backend</span><span class="p">,</span>
+        <span class="n">skip_save_processed_input</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Populate proc_df[feature_config[PROC_COLUMN]] with preprocessed values.&quot;&quot;&quot;</span>
+        <span class="n">proc_df</span><span class="p">[</span><span class="n">feature_config</span><span class="p">[</span><span class="n">PROC_COLUMN</span><span class="p">]]</span> <span class="o">=</span> <span class="n">input_df</span><span class="p">[</span><span class="n">feature_config</span><span class="p">[</span><span class="n">COLUMN</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+        <span class="k">return</span> <span class="n">proc_df</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fill_missing_values</span><span class="p">(</span><span class="n">feature_config</span><span class="p">,</span> <span class="n">input_df</span><span class="p">,</span> <span class="n">backend</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Replace NaN/None with a fill value appropriate for this type.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">input_df</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">feature_meta</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">preprocessing_parameters</span><span class="p">,</span> <span class="n">backend</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute and return the training-set-level metadata dict for this feature.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_preprocessing_module</span><span class="p">(</span><span class="n">feature_config</span><span class="p">,</span> <span class="n">metadata</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the _WidgetPreprocessing module for use during inference.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">_WidgetPreprocessing</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="n">feature_config</span><span class="o">.</span><span class="n">preprocessing</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="inputfeature-class">InputFeature class<a class="headerlink" href="#inputfeature-class" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.widget_feature</span><span class="w"> </span><span class="kn">import</span> <span class="n">WidgetInputFeatureConfig</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">WidgetInputFeature</span><span class="p">(</span><span class="n">WidgetFeatureMixin</span><span class="p">,</span> <span class="n">InputFeature</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_feature_config</span><span class="p">:</span> <span class="n">WidgetInputFeatureConfig</span><span class="p">,</span> <span class="n">encoder_obj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">input_feature_config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_shape</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># set to actual encoded shape</span>
+
+        <span class="k">if</span> <span class="n">encoder_obj</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">encoder_obj</span> <span class="o">=</span> <span class="n">encoder_obj</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">encoder_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initialize_encoder</span><span class="p">(</span><span class="n">input_feature_config</span><span class="o">.</span><span class="n">encoder</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">inputs</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">float32</span>
+        <span class="n">encoder_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder_obj</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;encoder_output&quot;</span><span class="p">:</span> <span class="n">encoder_output</span><span class="p">}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">input_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">float32</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">input_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input_shape</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">output_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder_obj</span><span class="o">.</span><span class="n">output_shape</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_config_with_metadata</span><span class="p">(</span><span class="n">feature_config</span><span class="p">,</span> <span class="n">feature_metadata</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_sample_input</span><span class="p">(</span><span class="n">batch_size</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_schema_cls</span><span class="p">():</span>
-        <span class="k">return</span> <span class="n">CategoryInputFeatureConfig</span>
+        <span class="k">return</span> <span class="n">WidgetInputFeatureConfig</span>
 </code></pre></div>
-<p>Likewise for the output feature class:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CategoryOutputFeature</span><span class="p">(</span><span class="n">CategoryFeatureMixin</span><span class="p">,</span> <span class="n">OutputFeature</span><span class="p">):</span>
+<h4 id="outputfeature-class-only-if-this-type-can-be-a-target">OutputFeature class (only if this type can be a target)<a class="headerlink" href="#outputfeature-class-only-if-this-type-can-be-a-target" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.schema.features.widget_feature</span><span class="w"> </span><span class="kn">import</span> <span class="n">WidgetOutputFeatureConfig</span>
 
-<span class="o">...</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">WidgetOutputFeature</span><span class="p">(</span><span class="n">WidgetFeatureMixin</span><span class="p">,</span> <span class="n">OutputFeature</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_feature_config</span><span class="p">:</span> <span class="n">WidgetOutputFeatureConfig</span><span class="p">,</span> <span class="n">output_features</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">output_feature_config</span><span class="p">,</span> <span class="n">output_features</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_shape</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="n">output_feature_config</span><span class="o">.</span><span class="n">input_size</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">decoder_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initialize_decoder</span><span class="p">(</span><span class="n">output_feature_config</span><span class="o">.</span><span class="n">decoder</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_loss</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_metrics</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">logits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">decoder_obj</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_predict_module</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_WidgetPredict</span><span class="p">()</span>  <span class="c1"># see PredictModule below</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_prediction_set</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">LOGITS</span><span class="p">,</span> <span class="n">PREDICTIONS</span><span class="p">,</span> <span class="n">PROBABILITIES</span><span class="p">}</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_config_with_metadata</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">feature_config</span><span class="p">,</span> <span class="n">feature_metadata</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">feature_config</span><span class="o">.</span><span class="n">input_size</span> <span class="o">=</span> <span class="n">feature_metadata</span><span class="p">[</span><span class="s2">&quot;input_size&quot;</span><span class="p">]</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_schema_cls</span><span class="p">():</span>
-        <span class="k">return</span> <span class="n">CategoryOutputFeatureConfig</span>
+        <span class="k">return</span> <span class="n">WidgetOutputFeatureConfig</span>
 </code></pre></div>
+<h4 id="predictmodule-for-output-features">PredictModule (for output features)<a class="headerlink" href="#predictmodule-for-output-features" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.features.base_feature</span><span class="w"> </span><span class="kn">import</span> <span class="n">PredictModule</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">_WidgetPredict</span><span class="p">(</span><span class="n">PredictModule</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">feature_name</span><span class="p">):</span>
+        <span class="n">logits</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">feature_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">LOGITS</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="p">(</span><span class="n">logits</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">PREDICTIONS</span><span class="p">:</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">LOGITS</span><span class="p">:</span> <span class="n">logits</span><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h3 id="step-5-register-in-the-feature-registries">Step 5 — Register in the feature registries<a class="headerlink" href="#step-5-register-in-the-feature-registries" title="Permanent link">&para;</a></h3>
+<p>Open <code>ludwig/features/feature_registries.py</code> and add your classes to all relevant registry functions:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># at the top — add import</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.features.widget_feature</span><span class="w"> </span><span class="kn">import</span> <span class="n">WidgetFeatureMixin</span><span class="p">,</span> <span class="n">WidgetInputFeature</span>
+
+<span class="c1"># in get_base_type_registry(), inside the returned dict:</span>
+<span class="c1">#     WIDGET: WidgetFeatureMixin,</span>
+<span class="c1">#</span>
+<span class="c1"># in get_input_type_registry(), inside the returned dict:</span>
+<span class="c1">#     WIDGET: WidgetInputFeature,</span>
+<span class="c1">#</span>
+<span class="c1"># in get_output_type_registry() if applicable, inside the returned dict:</span>
+<span class="c1">#     WIDGET: WidgetOutputFeature,</span>
+</code></pre></div>
+<p>The model builder uses <code>get_input_type_registry()</code> and <code>get_output_type_registry()</code> to instantiate feature objects from config at training time.</p>
+<hr />
+<h3 id="step-6-register-the-constant-in-constantspy-feature-sets">Step 6 — Register the constant in constants.py (feature sets)<a class="headerlink" href="#step-6-register-the-constant-in-constantspy-feature-sets" title="Permanent link">&para;</a></h3>
+<p>If the feature appears in <code>FEATURE_TYPES</code>, <code>INPUT_FEATURE_TYPES</code>, or similar sets, add <code>WIDGET</code> there too.</p>
+<hr />
+<h3 id="step-7-write-tests">Step 7 — Write tests<a class="headerlink" href="#step-7-write-tests" title="Permanent link">&para;</a></h3>
+<p>Create <code>tests/ludwig/features/test_widget_feature.py</code>. At minimum test:</p>
+<ol>
+<li><code>WidgetFeatureMixin.add_feature_data</code> — correct column values written to <code>proc_df</code></li>
+<li><code>_WidgetPreprocessing.forward</code> — correct tensor shape for a known input</li>
+<li><code>WidgetInputFeature.forward</code> — correct output keys and shapes with a random input</li>
+<li>Encoder round-trip via <code>create_sample_input</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tests.integration_tests.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_data</span><span class="p">,</span> <span class="n">run_api_test</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_widget_preprocessing_forward</span><span class="p">():</span>
+    <span class="n">meta</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">module</span> <span class="o">=</span> <span class="n">_WidgetPreprocessing</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="n">preprocessing_config</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">module</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="n">out</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="checklist">Checklist<a class="headerlink" href="#checklist" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] <code>ludwig/constants.py</code> — add <code>WIDGET = "widget"</code></li>
+<li>[ ] <code>ludwig/schema/features/widget_feature.py</code> — schema classes + registry decorators</li>
+<li>[ ] <code>ludwig/schema/features/preprocessing/</code> — preprocessing config class (or reuse existing)</li>
+<li>[ ] <code>ludwig/features/widget_feature.py</code> — preprocessing module, mixin, input/output feature classes</li>
+<li>[ ] <code>ludwig/features/feature_registries.py</code> — add to <code>get_base_type_registry</code>, <code>get_input_type_registry</code>, optionally <code>get_output_type_registry</code></li>
+<li>[ ] <code>tests/ludwig/features/test_widget_feature.py</code> — unit tests for preprocessing and forward pass</li>
+</ul>
+<hr />
+<h3 id="common-pitfalls">Common pitfalls<a class="headerlink" href="#common-pitfalls" title="Permanent link">&para;</a></h3>
+<p><strong><code>proc_df[PROC_COLUMN]</code> vs <code>proc_df[COLUMN]</code></strong> — always write to <code>PROC_COLUMN</code> (the internal column name), not <code>COLUMN</code> (the raw user column name). They can differ when the user renames features.</p>
+<p><strong><code>get_preprocessing_module</code> vs <code>add_feature_data</code></strong> — <code>add_feature_data</code> runs in Python at dataset preparation time (CPU, pandas). <code>get_preprocessing_module</code> returns a <code>torch.nn.Module</code> that runs inside the model graph at inference time. Both must produce compatible representations.</p>
+<p><strong><code>input_shape</code> vs <code>output_shape</code></strong> — <code>InputFeature.input_shape</code> is the shape of the <em>raw preprocessed</em> tensor going into the encoder. <code>InputFeature.output_shape</code> is the encoder's output shape that feeds into the combiner. Return <code>self.encoder_obj.output_shape</code> for the latter.</p>
+<p><strong>Registry order matters</strong> — the registry in <code>feature_registries.py</code> is read at import time. If you import your feature class before <code>feature_registries.py</code> is loaded, the registry will be empty. The correct order is always: define constants → define schema → define feature → add to registry.</p>
+<p><strong>Schema <code>type</code> field</strong> — always use <code>schema_utils.ProtectedString(WIDGET)</code> not <code>str = WIDGET</code>. The protected string raises an error if a user tries to override it in their config YAML, which prevents subtle type mismatches.</p>
 
 
 

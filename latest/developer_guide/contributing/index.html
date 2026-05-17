@@ -4732,10 +4732,32 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#running-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#codebase-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Codebase Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#other-tips" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Other tips
+        Other Tips
       
     </span>
   </a>
@@ -5374,10 +5396,32 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#running-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#codebase-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Codebase Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#other-tips" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Other tips
+        Other Tips
       
     </span>
   </a>
@@ -5530,10 +5574,129 @@ git<span class="w"> </span>rebase<span class="w"> </span>upstream/master
 <li>Once you are satisfied, go the webpage of your fork on GitHub. Click on "Pull request" to send
    your contribution to the project maintainers for review.</li>
 </ol>
-<h3 id="other-tips">Other tips<a class="headerlink" href="#other-tips" title="Permanent link">&para;</a></h3>
+<h3 id="running-tests">Running Tests<a class="headerlink" href="#running-tests" title="Permanent link">&para;</a></h3>
+<p>Ludwig's test suite lives in <code>tests/</code>. The main categories are:</p>
+<table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>What it covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tests/ludwig/</code></td>
+<td>Unit tests for individual modules (fast, no GPU needed)</td>
+</tr>
+<tr>
+<td><code>tests/integration_tests/</code></td>
+<td>End-to-end training/prediction pipelines</td>
+</tr>
+<tr>
+<td><code>tests/regression_tests/</code></td>
+<td>Accuracy regression checks</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Run the full unit test suite:</strong></p>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>tests/ludwig/
+</code></pre></div>
+<p><strong>Run a single test file:</strong></p>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>tests/ludwig/encoders/test_image_encoder.py<span class="w"> </span>-v
+</code></pre></div>
+<p><strong>Run integration tests (slow, uses GPUs if available):</strong></p>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>tests/integration_tests/<span class="w"> </span>-v
+</code></pre></div>
+<p><strong>Run tests matching a keyword:</strong></p>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>tests/<span class="w"> </span>-k<span class="w"> </span><span class="s2">&quot;test_binary_feature&quot;</span><span class="w"> </span>-v
+</code></pre></div>
+<p>Tests that require GPUs, Ray, or heavy optional dependencies are marked with pytest marks
+(<code>@pytest.mark.slow</code>, <code>@pytest.mark.distributed</code>, etc.) and are automatically skipped in CI
+unless the appropriate resources are available.</p>
+<h3 id="codebase-overview">Codebase Overview<a class="headerlink" href="#codebase-overview" title="Permanent link">&para;</a></h3>
+<p>A quick map of the most important modules:</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ludwig/api.py</code></td>
+<td><code>LudwigModel</code> — the main public API (train, predict, evaluate)</td>
+</tr>
+<tr>
+<td><code>ludwig/schema/</code></td>
+<td>Pydantic v2 config schema — <code>ModelConfig</code>, feature configs, trainer configs</td>
+</tr>
+<tr>
+<td><code>ludwig/features/</code></td>
+<td>Feature types: preprocessing, encoding, decoding, metrics</td>
+</tr>
+<tr>
+<td><code>ludwig/encoders/</code></td>
+<td>Encoder implementations (text, image, audio, tabular, …)</td>
+</tr>
+<tr>
+<td><code>ludwig/decoders/</code></td>
+<td>Decoder implementations</td>
+</tr>
+<tr>
+<td><code>ludwig/models/</code></td>
+<td><code>ECD</code> (encoder–combiner–decoder) and <code>LLM</code> model classes</td>
+</tr>
+<tr>
+<td><code>ludwig/trainers/</code></td>
+<td>Trainer implementations (ECD, LLM fine-tune, inference-only)</td>
+</tr>
+<tr>
+<td><code>ludwig/data/preprocessing.py</code></td>
+<td>Tabular data loading and preprocessing pipeline</td>
+</tr>
+<tr>
+<td><code>ludwig/backend/</code></td>
+<td>Execution backends (<code>LocalBackend</code>, <code>RayBackend</code>)</td>
+</tr>
+<tr>
+<td><code>ludwig/utils/data_utils.py</code></td>
+<td>File format readers (CSV, Parquet, JSON, …)</td>
+</tr>
+<tr>
+<td><code>ludwig/collect.py</code></td>
+<td>CLI tools: collect activations, weights</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key abstractions:</strong></p>
+<ul>
+<li><code>BaseFeature</code> → <code>InputFeature</code> / <code>OutputFeature</code> — every feature type inherits from one of these.</li>
+<li><code>Encoder</code> / <code>Decoder</code> — registered via <code>@register_encoder</code> / <code>@register_decoder</code>; looked up by
+  <code>encoder.type</code> / <code>decoder.type</code> from config.</li>
+<li><code>DataFormatPreprocessor</code> — dispatches file loading per format via a strategy (reader function).
+  <code>FileBasedPreprocessor(read_fn)</code> covers all tabular file types; <code>HDF5Preprocessor</code> and the
+  in-memory <code>DictPreprocessor</code> / <code>DataFramePreprocessor</code> are separate.</li>
+<li><code>BackendCapabilities</code> — frozen dataclass of feature flags advertised by each backend.</li>
+<li><code>InferenceOnlyTrainer</code> (config type <code>"none"</code>) — runs evaluation without training; used for
+  zero-shot / few-shot LLM inference.</li>
+</ul>
+<p><strong>Adding a new feature type:</strong></p>
+<ol>
+<li>Create <code>ludwig/features/&lt;name&gt;_feature.py</code> with <code>&lt;Name&gt;FeatureMixin</code>, <code>&lt;Name&gt;InputFeature</code>,
+   and/or <code>&lt;Name&gt;OutputFeature</code>.</li>
+<li>Create <code>ludwig/schema/features/&lt;name&gt;_feature.py</code> with the Pydantic config classes.</li>
+<li>Register them with <code>@register_input_feature("&lt;name&gt;")</code> / <code>@register_output_feature("&lt;name&gt;")</code>.</li>
+<li>Add a preprocessing config class to <code>ludwig/schema/features/preprocessing/</code>.</li>
+<li>Add tests in <code>tests/ludwig/features/test_&lt;name&gt;_feature.py</code>.</li>
+</ol>
+<h3 id="other-tips">Other Tips<a class="headerlink" href="#other-tips" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Add unit tests for any new code you write.</li>
 <li>Make sure tests pass. See the <a href="https://ludwig.ai/latest/developer_guide/style_guidelines_and_tests/">Developer Guide</a> for more details.</li>
+<li>Keep <code>except Exception:</code> blocks narrow: use <code>except ImportError:</code> for optional imports and
+  <code>except pydantic.ValidationError:</code> for schema fallbacks. Broad exception swallowing makes
+  production bugs invisible.</li>
 </ul>
 <h3 id="attribution">Attribution<a class="headerlink" href="#attribution" title="Permanent link">&para;</a></h3>
 <p>This contributing guideline is adapted from <code>huggingface</code>, available at <a href="https://github.com/huggingface/datasets/blob/master/CONTRIBUTING.md">https://github.com/huggingface/datasets/blob/master/CONTRIBUTING.md</a>.</p>

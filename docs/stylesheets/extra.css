@@ -189,3 +189,42 @@ code, pre, kbd {
     font-weight: 700;
     font-style: normal;
 }
+
+/* MkDocs Material tabbed CSS only generates nth-child rules up to 20.
+   These rules extend support for tab groups with more than 20 tabs. */
+.md-typeset .tabbed-set > input:nth-child(21):checked ~ .tabbed-content > :nth-child(21),
+.md-typeset .tabbed-set > input:nth-child(22):checked ~ .tabbed-content > :nth-child(22),
+.md-typeset .tabbed-set > input:nth-child(23):checked ~ .tabbed-content > :nth-child(23),
+.md-typeset .tabbed-set > input:nth-child(24):checked ~ .tabbed-content > :nth-child(24),
+.md-typeset .tabbed-set > input:nth-child(25):checked ~ .tabbed-content > :nth-child(25),
+.md-typeset .tabbed-set > input:nth-child(26):checked ~ .tabbed-content > :nth-child(26),
+.md-typeset .tabbed-set > input:nth-child(27):checked ~ .tabbed-content > :nth-child(27),
+.md-typeset .tabbed-set > input:nth-child(28):checked ~ .tabbed-content > :nth-child(28),
+.md-typeset .tabbed-set > input:nth-child(29):checked ~ .tabbed-content > :nth-child(29),
+.md-typeset .tabbed-set > input:nth-child(30):checked ~ .tabbed-content > :nth-child(30) {
+    display: block;
+}
+
+.md-typeset .tabbed-set > input:nth-child(21):checked ~ .tabbed-labels > :nth-child(21),
+.md-typeset .tabbed-set > input:nth-child(22):checked ~ .tabbed-labels > :nth-child(22),
+.md-typeset .tabbed-set > input:nth-child(23):checked ~ .tabbed-labels > :nth-child(23),
+.md-typeset .tabbed-set > input:nth-child(24):checked ~ .tabbed-labels > :nth-child(24),
+.md-typeset .tabbed-set > input:nth-child(25):checked ~ .tabbed-labels > :nth-child(25),
+.md-typeset .tabbed-set > input:nth-child(26):checked ~ .tabbed-labels > :nth-child(26),
+.md-typeset .tabbed-set > input:nth-child(27):checked ~ .tabbed-labels > :nth-child(27),
+.md-typeset .tabbed-set > input:nth-child(28):checked ~ .tabbed-labels > :nth-child(28),
+.md-typeset .tabbed-set > input:nth-child(29):checked ~ .tabbed-labels > :nth-child(29),
+.md-typeset .tabbed-set > input:nth-child(30):checked ~ .tabbed-labels > :nth-child(30) {
+    color: var(--md-accent-fg-color);
+}
+
+.md-typeset .tabbed-labels > label:nth-child(21) { order: 21; }
+.md-typeset .tabbed-labels > label:nth-child(22) { order: 22; }
+.md-typeset .tabbed-labels > label:nth-child(23) { order: 23; }
+.md-typeset .tabbed-labels > label:nth-child(24) { order: 24; }
+.md-typeset .tabbed-labels > label:nth-child(25) { order: 25; }
+.md-typeset .tabbed-labels > label:nth-child(26) { order: 26; }
+.md-typeset .tabbed-labels > label:nth-child(27) { order: 27; }
+.md-typeset .tabbed-labels > label:nth-child(28) { order: 28; }
+.md-typeset .tabbed-labels > label:nth-child(29) { order: 29; }
+.md-typeset .tabbed-labels > label:nth-child(30) { order: 30; }

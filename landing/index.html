@@ -599,7 +599,7 @@
         <span class="stat-label">GitHub Stars</span>
       </div>
       <div class="stat-item">
-        <span class="stat-value">30+</span>
+        <span class="stat-value">50+</span>
         <span class="stat-label">Modalities &amp; Tasks</span>
       </div>
       <div class="stat-item">
@@ -2041,45 +2041,45 @@ model.export_savedmodel(<span class="ys">"./my_model_export"</span>)</code></pre
   <div class="container">
     <div class="section-header fade-up">
       <span class="section-label">Examples</span>
-      <h2>30+ ready-to-run examples.</h2>
+      <h2>50+ ready-to-run examples.</h2>
       <p>Every example ships with a config file, dataset, and expected results.</p>
     </div>
     <div class="examples-grid">
-      <a href="https://ludwig.ai/latest/examples/llm_finetuning/" class="example-card fade-up" target="_blank" rel="noopener">
-        <div class="ex-cat">LLM</div><h4>LLM Instruction Tuning</h4><p>Fine-tune Llama or Mistral with LoRA on a custom dataset.</p>
+      <a href="https://ludwig.ai/latest/examples/llms/llm_finetuning/" class="example-card fade-up" target="_blank" rel="noopener">
+        <div class="ex-cat">LLM</div><h4>LLM Instruction Tuning</h4><p>QLoRA fine-tuning of Llama or Qwen on custom instruction datasets.</p>
       </a>
-      <a href="https://ludwig.ai/latest/examples/llm_finetuning/" class="example-card fade-up d1" target="_blank" rel="noopener">
-        <div class="ex-cat">Alignment</div><h4>GRPO / DPO Training</h4><p>Reward-model-free RL and preference learning for LLMs.</p>
+      <a href="https://ludwig.ai/latest/examples/llm/alignment/" class="example-card fade-up d1" target="_blank" rel="noopener">
+        <div class="ex-cat">Alignment</div><h4>GRPO Alignment</h4><p>Reward-model-free RL with GRPO — no preference pairs needed.</p>
       </a>
-      <a href="https://ludwig.ai/latest/examples/text_classification/" class="example-card fade-up d2" target="_blank" rel="noopener">
-        <div class="ex-cat">NLP</div><h4>Sentiment Analysis</h4><p>Classify movie reviews with BERT — no PyTorch code needed.</p>
+      <a href="https://ludwig.ai/latest/examples/vlm_finetuning/" class="example-card fade-up d2" target="_blank" rel="noopener">
+        <div class="ex-cat">Vision + LLM</div><h4>VLM Fine-Tuning</h4><p>QLoRA fine-tune Qwen2-VL on custom image-question-answer data.</p>
       </a>
-      <a href="https://ludwig.ai/latest/examples/image_classification/" class="example-card fade-up d3" target="_blank" rel="noopener">
-        <div class="ex-cat">Vision</div><h4>Image Classification</h4><p>MNIST, CIFAR, custom datasets with ResNet / ViT / DINOv2.</p>
+      <a href="https://ludwig.ai/latest/examples/ner_tagging/" class="example-card fade-up d3" target="_blank" rel="noopener">
+        <div class="ex-cat">NLP</div><h4>Named Entity Recognition</h4><p>Token-level BIO tagging with ModernBERT — CoNLL-2003 and beyond.</p>
       </a>
-      <a href="https://ludwig.ai/latest/examples/semantic_segmentation/" class="example-card fade-up" target="_blank" rel="noopener">
-        <div class="ex-cat">Vision</div><h4>Semantic Segmentation</h4><p>Pixel-level classification with UNet, SegFormer, FPN.</p>
+      <a href="https://ludwig.ai/latest/examples/machine_translation/" class="example-card fade-up" target="_blank" rel="noopener">
+        <div class="ex-cat">NLP</div><h4>Machine Translation</h4><p>Seq2seq translation with mBART across 100 language pairs.</p>
       </a>
-      <a href="https://ludwig.ai/latest/examples/tabular/" class="example-card fade-up d1" target="_blank" rel="noopener">
-        <div class="ex-cat">Tabular</div><h4>Fraud Detection</h4><p>Detect anomalies in structured transaction data.</p>
+      <a href="https://ludwig.ai/latest/examples/text_summarization/" class="example-card fade-up d1" target="_blank" rel="noopener">
+        <div class="ex-cat">NLP</div><h4>Text Summarization</h4><p>Abstractive summarization with BART on CNN/DailyMail.</p>
       </a>
-      <a href="https://ludwig.ai/latest/examples/timeseries/" class="example-card fade-up d2" target="_blank" rel="noopener">
-        <div class="ex-cat">Forecasting</div><h4>Time Series Forecasting</h4><p>Multi-step forecasting with native timeseries output features.</p>
+      <a href="https://ludwig.ai/latest/examples/content_safety/" class="example-card fade-up d2" target="_blank" rel="noopener">
+        <div class="ex-cat">Safety</div><h4>Content Safety</h4><p>Classify prompt+response pairs for safety using AEGIS 2.0.</p>
       </a>
-      <a href="https://ludwig.ai/latest/examples/hyperparameter_optimization/" class="example-card fade-up d3" target="_blank" rel="noopener">
-        <div class="ex-cat">HPO</div><h4>Hyperparameter Optimization</h4><p>Automated HPO with Optuna or Ray Tune, built in.</p>
+      <a href="https://ludwig.ai/latest/examples/semantic_segmentation/" class="example-card fade-up d3" target="_blank" rel="noopener">
+        <div class="ex-cat">Vision</div><h4>Semantic Segmentation</h4><p>Pixel-level classification with ConvNeXtV2 + U-Net decoder.</p>
       </a>
-      <a href="https://ludwig.ai/latest/examples/named_entity_recognition/" class="example-card fade-up" target="_blank" rel="noopener">
-        <div class="ex-cat">NLP</div><h4>Named Entity Recognition</h4><p>Token-level tagging with sequence output features.</p>
+      <a href="https://ludwig.ai/latest/examples/visual_qa/" class="example-card fade-up" target="_blank" rel="noopener">
+        <div class="ex-cat">Multimodal</div><h4>Visual Question Answering</h4><p>Fuse ViT + ModernBERT to answer natural-language image questions.</p>
       </a>
-      <a href="https://ludwig.ai/latest/examples/audio_classification/" class="example-card fade-up d1" target="_blank" rel="noopener">
-        <div class="ex-cat">Audio</div><h4>Speech Recognition</h4><p>Transcribe and classify audio with Wave2Vec encoders.</p>
+      <a href="https://ludwig.ai/latest/examples/speech_recognition/" class="example-card fade-up d1" target="_blank" rel="noopener">
+        <div class="ex-cat">Audio</div><h4>Speech Recognition</h4><p>End-to-end ASR with wav2vec2 on LibriSpeech.</p>
       </a>
-      <a href="https://ludwig.ai/latest/examples/visual_question_answering/" class="example-card fade-up d2" target="_blank" rel="noopener">
-        <div class="ex-cat">Multimodal</div><h4>Visual Question Answering</h4><p>Answer natural-language questions about images in one model.</p>
+      <a href="https://ludwig.ai/latest/examples/multi_task/" class="example-card fade-up d2" target="_blank" rel="noopener">
+        <div class="ex-cat">Multi-output</div><h4>Multi-Task Learning</h4><p>NER + POS + chunking from one shared ModernBERT encoder.</p>
       </a>
       <a href="https://ludwig.ai/latest/examples/" class="example-card fade-up d3" target="_blank" rel="noopener" style="border-style:dashed">
-        <div class="ex-cat">All examples</div><h4>View all 30+ →</h4><p>Multi-task, anomaly detection, seq2seq, machine translation, and more.</p>
+        <div class="ex-cat">All examples</div><h4>View all 50+ →</h4><p>Translation, summarization, speaker verification, forecasting, anomaly detection, and more.</p>
       </a>
     </div>
   </div>

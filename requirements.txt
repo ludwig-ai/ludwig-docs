@@ -131,7 +131,7 @@ pygments==2.20.0
     # via
     #   mkdocs-material
     #   pytest
-pymdown-extensions==10.21
+pymdown-extensions==10.21.3
     # via
     #   -r requirements.in
     #   mkdocs-material

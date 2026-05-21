@@ -5064,6 +5064,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="3. Implement callback methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#attaching-callbacks-per-training-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Attaching callbacks per training run
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -5352,6 +5369,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="3. Implement callback methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#attaching-callbacks-per-training-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Attaching callbacks per training run
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -5768,6 +5802,26 @@ methods are optional:</p>
 <li>Write a docstring, and add it to this documentation page.</li>
 </ol>
 <p>See existing calls in <code>ludwig/callbacks.py</code> as a pattern to follow.</p>
+<h3 id="attaching-callbacks-per-training-run">Attaching callbacks per training run<a class="headerlink" href="#attaching-callbacks-per-training-run" title="Permanent link">&para;</a></h3>
+<p>Callbacks passed to <code>LudwigModel(callbacks=[...])</code> are attached for the lifetime of the model object and fire on every
+call to <code>train()</code>. If you need a callback active for only a single training run — for example, to attach a run tracker
+to one experiment without rebuilding the model — you can pass it directly to <code>model.train()</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ludwig.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">LudwigModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">my_callback</span><span class="w"> </span><span class="kn">import</span> <span class="n">MyCallback</span>
+
+<span class="c1"># Shared model, reused across experiments</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LudwigModel</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="s2">&quot;config.yaml&quot;</span><span class="p">)</span>
+
+<span class="c1"># Callback fires only for this one training run</span>
+<span class="n">run_cb</span> <span class="o">=</span> <span class="n">MyCallback</span><span class="p">(</span><span class="n">run_id</span><span class="o">=</span><span class="s2">&quot;exp-42&quot;</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="s2">&quot;data.csv&quot;</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">run_cb</span><span class="p">])</span>
+
+<span class="c1"># Subsequent train() calls are not affected</span>
+<span class="n">results2</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="s2">&quot;data2.csv&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>Per-call callbacks are merged with any callbacks already attached to the model and receive the full set of lifecycle
+events (<code>on_train_init</code>, <code>on_train_start</code>, <code>on_epoch_end</code>, <code>on_train_end</code>, etc.) for that run. They do not persist
+after <code>train()</code> returns.</p>
 <h2 id="4-import-the-new-callback">4. Import the new callback<a class="headerlink" href="#4-import-the-new-callback" title="Permanent link">&para;</a></h2>
 <p>In <code>ludwig/contribs/__init__.py</code> add an import in this pattern, using your module and class names:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">my_callback</span><span class="w"> </span><span class="kn">import</span> <span class="n">MyCallback</span>

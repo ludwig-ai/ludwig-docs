@@ -380,6 +380,31 @@ If you would like to add additional actions not already handled by the above:
 
 See existing calls in `ludwig/callbacks.py` as a pattern to follow.
 
+## Attaching callbacks per training run
+
+Callbacks passed to `LudwigModel(callbacks=[...])` are attached for the lifetime of the model object and fire on every
+call to `train()`. If you need a callback active for only a single training run — for example, to attach a run tracker
+to one experiment without rebuilding the model — you can pass it directly to `model.train()`:
+
+```python
+from ludwig.api import LudwigModel
+from my_callback import MyCallback
+
+# Shared model, reused across experiments
+model = LudwigModel(config="config.yaml")
+
+# Callback fires only for this one training run
+run_cb = MyCallback(run_id="exp-42")
+results = model.train(dataset="data.csv", callbacks=[run_cb])
+
+# Subsequent train() calls are not affected
+results2 = model.train(dataset="data2.csv")
+```
+
+Per-call callbacks are merged with any callbacks already attached to the model and receive the full set of lifecycle
+events (`on_train_init`, `on_train_start`, `on_epoch_end`, `on_train_end`, etc.) for that run. They do not persist
+after `train()` returns.
+
 # 4. Import the new callback
 
 In `ludwig/contribs/__init__.py` add an import in this pattern, using your module and class names:

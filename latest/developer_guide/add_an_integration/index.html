@@ -5742,6 +5742,20 @@ methods are optional:</p>
     <span class="k">pass</span>
 
 
+<span class="k">def</span><span class="w"> </span><span class="nf">on_preprocess_progress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">progress</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called periodically during build_data to report preprocessing progress.</span>
+
+<span class="sd">    Progress is tracked at the partition level: each completed pandas column,</span>
+<span class="sd">    Dask partition, or Ray worker task increments the counter. Works with all</span>
+<span class="sd">    backends (pandas, Ray/Dask) with no extra configuration required.</span>
+
+<span class="sd">    :param progress: Fraction of preprocessing completed, in [0.0, 1.0].</span>
+<span class="sd">                     The final call is always 1.0.</span>
+<span class="sd">    :type progress: float</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
 <span class="k">def</span><span class="w"> </span><span class="nf">on_build_data_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Called after build_data completes.</span>
 

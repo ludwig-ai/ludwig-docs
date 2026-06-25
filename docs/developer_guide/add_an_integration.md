@@ -318,6 +318,20 @@ def on_build_data_start(self, df, mode):
     pass
 
 
+def on_preprocess_progress(self, progress: float, **kwargs):
+    """Called periodically during build_data to report preprocessing progress.
+
+    Progress is tracked at the partition level: each completed pandas column,
+    Dask partition, or Ray worker task increments the counter. Works with all
+    backends (pandas, Ray/Dask) with no extra configuration required.
+
+    :param progress: Fraction of preprocessing completed, in [0.0, 1.0].
+                     The final call is always 1.0.
+    :type progress: float
+    """
+    pass
+
+
 def on_build_data_end(self, df, mode):
     """Called after build_data completes.
 

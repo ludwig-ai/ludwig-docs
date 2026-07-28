@@ -2,7 +2,7 @@ mkdocs>=1.6
 mkdocs-material>=9.5
 mike>=2.0
 Markdown>=3.0.1
-pymdown-extensions>=10.21.3
+pymdown-extensions>=11.0
 mkdocs-macros-plugin
 mkdocstrings[python]>=0.27
 ptitprince

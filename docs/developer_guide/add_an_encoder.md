@@ -146,7 +146,16 @@ class StackedRNNConfig(BaseEncoderConfig):
     max_sequence_length: int = schema_utils.Integer(default=None, description="")
     state_size: int = schema_utils.Integer(default=256, description="")
     cell_type: str = schema_utils.StringOptions(
-        options=["rnn", "lstm", "lstm_block", "ln", "lstm_cudnn", "gru", "gru_block", "gru_cudnn"],
+        options=[
+            "rnn",
+            "lstm",
+            "lstm_block",
+            "ln",
+            "lstm_cudnn",
+            "gru",
+            "gru_block",
+            "gru_cudnn",
+        ],
         default="rnn",
         description="",
     )

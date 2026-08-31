@@ -130,7 +130,10 @@ app_v2 = ModelV2.bind("results/model_v2")
 
 # Route 80% to v1, 20% to v2
 serve.run(
-    {"v1": serve.options(route_prefix="/v1")(app_v1), "v2": serve.options(route_prefix="/v2")(app_v2)},
+    {
+        "v1": serve.options(route_prefix="/v1")(app_v1),
+        "v2": serve.options(route_prefix="/v2")(app_v2),
+    },
 )
 ```
 

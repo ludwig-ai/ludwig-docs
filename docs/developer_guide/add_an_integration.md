@@ -361,7 +361,12 @@ def on_visualize_figure(self, fig):
     pass
 
 
-def prepare_ray_tune(self, train_fn: Callable, tune_config: Dict[str, Any], tune_callbacks: List[Callable]):
+def prepare_ray_tune(
+    self,
+    train_fn: Callable,
+    tune_config: Dict[str, Any],
+    tune_callbacks: List[Callable],
+):
     """Configures Ray Tune callback and config.
 
     :param train_fn: The function which runs the experiment trial.

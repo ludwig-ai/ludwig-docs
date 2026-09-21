@@ -57,7 +57,12 @@ be used for a certain data type. This can be found in [each data type's document
             {
                 "name": "french",
                 "type": "text",
-                "decoder": {"type": "generator", "cell_type": "lstm", "num_layers": 2, "max_sequence_length": 256},
+                "decoder": {
+                    "type": "generator",
+                    "cell_type": "lstm",
+                    "num_layers": 2,
+                    "max_sequence_length": 256,
+                },
             }
         ]
     }

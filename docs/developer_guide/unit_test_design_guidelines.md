@@ -43,7 +43,11 @@ correct behavior of the function under a variety of situations.
 @pytest.mark.parameterize("size", [4, 12])
 @pytest.mark.parameterize("input_size", [2, 6])
 def test_feature_transformer(
-    input_size: int, size: int, virtual_batch_size: Optional[int], num_total_blocks: int, num_shared_blocks: int
+    input_size: int,
+    size: int,
+    virtual_batch_size: Optional[int],
+    num_total_blocks: int,
+    num_shared_blocks: int,
 ) -> None:
     feature_transformer = FeatureTransformer(
         input_size,

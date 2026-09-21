@@ -40,7 +40,15 @@ Each input feature can specify its own preprocessing via the `preprocessing` sub
 === "Python Dict"
 
     ```python
-    {"input_features": [{"name": "Fare", "type": "number", "preprocessing": {"missing_value_strategy": "fill_with_mean"}}]}
+    {
+        "input_features": [
+            {
+                "name": "Fare",
+                "type": "number",
+                "preprocessing": {"missing_value_strategy": "fill_with_mean"},
+            }
+        ]
+    }
     ```
 
 It's also possible to specify preprocessing rules for all features of a certain type. See
@@ -158,7 +166,12 @@ example:
 === "Python Dict"
 
     ```python
-    {"input_features": [{"name": "sentence1", "type": "text"}, {"name": "sentence2", "type": "text", "tied": "sentence1"}]}
+    {
+        "input_features": [
+            {"name": "sentence1", "type": "text"},
+            {"name": "sentence2", "type": "text", "tied": "sentence1"},
+        ]
+    }
     ```
 
 Specifying a name of a non-existent input feature will result in an error. Also, in order to be able to have tied

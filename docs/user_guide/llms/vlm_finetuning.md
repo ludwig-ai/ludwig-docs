@@ -151,7 +151,10 @@ model = LudwigModel.load("results/experiment_run/model")
 test_data = pd.DataFrame(
     [
         {"image_path": "/data/test1.jpg", "question": "What color is the car?"},
-        {"image_path": "/data/test2.jpg", "question": "How many people are in this image?"},
+        {
+            "image_path": "/data/test2.jpg",
+            "question": "How many people are in this image?",
+        },
     ]
 )
 predictions, _ = model.predict(dataset=test_data)

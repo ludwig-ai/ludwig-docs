@@ -17,7 +17,7 @@ _SOURCE_URL = "https://raw.githubusercontent.com/ludwig-ai/ludwig/main/CONTRIBUT
 _DEST = pathlib.Path("docs/developer_guide/contributing.md")
 
 
-def on_pre_build(**kwargs) -> None:  # noqa: ARG001
+def on_pre_build(**kwargs) -> None:
     try:
         with urllib.request.urlopen(_SOURCE_URL, timeout=30) as resp:
             text = resp.read().decode()

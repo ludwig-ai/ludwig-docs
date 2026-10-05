@@ -49,7 +49,7 @@ class BERTEncoder(Encoder):
         position_embedding_type: str = "absolute",
         classifier_dropout: float = None,
         pretrained_kwargs: Dict = None,
-        **kwargs
+        **kwargs,
     ):
         super().__init__()
         try:

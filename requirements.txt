@@ -174,7 +174,7 @@ super-collections==0.6.2
     # via mkdocs-macros-plugin
 termcolor==3.3.0
     # via mkdocs-macros-plugin
-urllib3==2.7.0
+urllib3==2.8.0
     # via requests
 verspec==0.1.0
     # via mike

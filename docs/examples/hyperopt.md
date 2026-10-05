@@ -217,7 +217,12 @@ Here are example commands/function call to run Ludwig's hyperparameter optimizat
     [hyperopt() method](../user_guide/api/LudwigModel.md#ludwig.hyperopt.run.hyperopt)
 
     ```python
-    hyperopt_results = hyperopt(config, dataset=adult_census_df, output_directory="results", hyperopt_log_verbosity=1)
+    hyperopt_results = hyperopt(
+        config,
+        dataset=adult_census_df,
+        output_directory="results",
+        hyperopt_log_verbosity=1,
+    )
     ```
 
 ## Visualize Hyperparameter Optimization Results

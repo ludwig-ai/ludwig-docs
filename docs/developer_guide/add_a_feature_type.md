@@ -119,7 +119,12 @@ Create `ludwig/features/widget_feature.py`. The required classes are:
 
 ```python
 import torch
-from ludwig.features.base_feature import BasePreprocessingModule, FeaturePreprocessingMixin, InputFeature, OutputFeature
+from ludwig.features.base_feature import (
+    BasePreprocessingModule,
+    FeaturePreprocessingMixin,
+    InputFeature,
+    OutputFeature,
+)
 
 
 class _WidgetPreprocessing(BasePreprocessingModule):
@@ -232,7 +237,12 @@ from ludwig.schema.features.widget_feature import WidgetOutputFeatureConfig
 
 
 class WidgetOutputFeature(WidgetFeatureMixin, OutputFeature):
-    def __init__(self, output_feature_config: WidgetOutputFeatureConfig, output_features: dict, **kwargs):
+    def __init__(
+        self,
+        output_feature_config: WidgetOutputFeatureConfig,
+        output_features: dict,
+        **kwargs,
+    ):
         super().__init__(output_feature_config, output_features, **kwargs)
         self._input_shape = torch.Size([output_feature_config.input_size])
         self.decoder_obj = self.initialize_decoder(output_feature_config.decoder)

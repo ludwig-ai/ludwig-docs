@@ -17,7 +17,7 @@ import io
 import warnings
 
 
-def on_startup(**kwargs) -> None:  # noqa: ARG001
+def on_startup(**kwargs) -> None:
     # sentencepiece SWIG wrappers lack __module__
     warnings.filterwarnings("ignore", message="builtin type Swig.*has no __module__")
     warnings.filterwarnings(

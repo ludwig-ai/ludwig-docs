@@ -248,7 +248,9 @@ Generates predictions and performance statistics for the test set.
     ```python
     # Generates predictions and performance statistics for the test set.
     test_stats, predictions, output_directory = model.evaluate(
-        dataset_df[dataset_df.split == 1], collect_predictions=True, collect_overall_stats=True
+        dataset_df[dataset_df.split == 1],
+        collect_predictions=True,
+        collect_overall_stats=True,
     )
     ```
 

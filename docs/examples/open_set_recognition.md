@@ -60,7 +60,14 @@ def save_image(tensor, split, digit, idx):
     return str(fpath)
 
 
-def build_csv(dataset, csv_path, split, max_known=500, max_unknown=500, label_unknown_as_background=True):
+def build_csv(
+    dataset,
+    csv_path,
+    split,
+    max_known=500,
+    max_unknown=500,
+    label_unknown_as_background=True,
+):
     counts_known = defaultdict(int)
     counts_unknown = defaultdict(int)
     rows = []

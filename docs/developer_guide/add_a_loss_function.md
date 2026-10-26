@@ -90,7 +90,6 @@ in `ludiwg.schema.features.loss.loss.py`. This example adds a schema class for t
 ```python
 @dataclass
 class MAELossConfig(BaseLossConfig):
-
     type: str = schema_utils.StringOptions(
         options=[MEAN_ABSOLUTE_ERROR],
         description="Type of loss.",

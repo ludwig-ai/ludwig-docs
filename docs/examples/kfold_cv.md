@@ -26,7 +26,11 @@ config = {
     "input_features": [
         {"name": "Pclass", "type": "category"},
         {"name": "Sex", "type": "category"},
-        {"name": "Age", "type": "number", "preprocessing": {"missing_value_strategy": "fill_with_mean"}},
+        {
+            "name": "Age",
+            "type": "number",
+            "preprocessing": {"missing_value_strategy": "fill_with_mean"},
+        },
         {"name": "SibSp", "type": "number"},
         {"name": "Fare", "type": "number"},
     ],
@@ -50,7 +54,7 @@ for fold, (train_idx, val_idx) in enumerate(skf.split(df, df["Survived"])):
     )
     eval_stats, _, _ = model.evaluate(dataset=val_df)
     fold_metrics.append(eval_stats["Survived"]["accuracy"])
-    print(f"Fold {fold+1} accuracy: {fold_metrics[-1]:.4f}")
+    print(f"Fold {fold + 1} accuracy: {fold_metrics[-1]:.4f}")
 
 print(f"\nMean accuracy: {np.mean(fold_metrics):.4f} ± {np.std(fold_metrics):.4f}")
 ```

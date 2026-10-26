@@ -99,7 +99,13 @@ Example:
 ```python
 goal = "minimize"
 parameters = {
-    "trainer.learning_rate": {"type": "float", "low": 0.001, "high": 0.1, "steps": 4, "scale": "linear"},
+    "trainer.learning_rate": {
+        "type": "float",
+        "low": 0.001,
+        "high": 0.1,
+        "steps": 4,
+        "scale": "linear",
+    },
     "combiner.num_fc_layers": {"type": "int", "low": 2, "high": 6, "steps": 3},
 }
 
@@ -119,7 +125,11 @@ If `finished()` returns `True`, calling `sample` would return a `IndexError`.
 Example returned value:
 
 ```python
-{"trainer.learning_rate": 0.005, "combiner.num_fc_layers": 2, "utterance.cell_type": "gru"}
+{
+    "trainer.learning_rate": 0.005,
+    "combiner.num_fc_layers": 2,
+    "utterance.cell_type": "gru",
+}
 ```
 
 ### `sample_batch`
@@ -135,8 +145,16 @@ Example returned value:
 
 ```python
 [
-    {"trainer.learning_rate": 0.005, "combiner.num_fc_layers": 2, "utterance.cell_type": "gru"},
-    {"trainer.learning_rate": 0.015, "combiner.num_fc_layers": 3, "utterance.cell_type": "lstm"},
+    {
+        "trainer.learning_rate": 0.005,
+        "combiner.num_fc_layers": 2,
+        "utterance.cell_type": "gru",
+    },
+    {
+        "trainer.learning_rate": 0.015,
+        "combiner.num_fc_layers": 3,
+        "utterance.cell_type": "lstm",
+    },
 ]
 ```
 
@@ -160,7 +178,11 @@ It is not needed for stateless strategies like grid and random, but is needed fo
 Example:
 
 ```python
-sampled_parameters = {"trainer.learning_rate": 0.005, "combiner.num_fc_layers": 2, "utterance.cell_type": "gru"}
+sampled_parameters = {
+    "trainer.learning_rate": 0.005,
+    "combiner.num_fc_layers": 2,
+    "utterance.cell_type": "gru",
+}
 metric_score = 2.53463
 
 sampler.update(sampled_parameters, metric_score)
@@ -185,8 +207,16 @@ Example:
 
 ```python
 sampled_parameters = [
-    {"trainer.learning_rate": 0.005, "combiner.num_fc_layers": 2, "utterance.cell_type": "gru"},
-    {"trainer.learning_rate": 0.015, "combiner.num_fc_layers": 5, "utterance.cell_type": "lstm"},
+    {
+        "trainer.learning_rate": 0.005,
+        "combiner.num_fc_layers": 2,
+        "utterance.cell_type": "gru",
+    },
+    {
+        "trainer.learning_rate": 0.015,
+        "combiner.num_fc_layers": 5,
+        "utterance.cell_type": "lstm",
+    },
 ]
 metric_scores = [2.53463, 1.63869]
 
@@ -249,7 +279,13 @@ Example:
 ```python
 goal = "minimize"
 parameters = {
-    "trainer.learning_rate": {"type": "float", "low": 0.001, "high": 0.1, "steps": 4, "scale": "linear"},
+    "trainer.learning_rate": {
+        "type": "float",
+        "low": 0.001,
+        "high": 0.1,
+        "steps": 4,
+        "scale": "linear",
+    },
     "combiner.num_fc_layers": {"type": "int", "low": 2, "high": 6, "steps": 3},
 }
 output_feature = "combined"

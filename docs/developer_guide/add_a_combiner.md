@@ -136,7 +136,12 @@ combiner treats its input features as a sequence, where the sequence length is t
 the sequence length here as `self.sequence_size = len(self.input_features)`.
 
 ```python
-def __init__(self, input_features: Dict[str, InputFeature] = None, config: TransformerCombinerConfig = None, **kwargs):
+def __init__(
+    self,
+    input_features: Dict[str, InputFeature] = None,
+    config: TransformerCombinerConfig = None,
+    **kwargs,
+):
     super().__init__(input_features)
     self.name = "TransformerCombiner"
     # ...

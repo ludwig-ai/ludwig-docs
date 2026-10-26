@@ -86,10 +86,18 @@ The config can be expressed as a python dictionary (`--config_str` for
         "input_features": [
             {"name": "Pclass", "type": "category"},
             {"name": "Sex", "type": "category"},
-            {"name": "Age", "type": "number", "preprocessing": {"missing_value_strategy": "fill_with_mean"}},
+            {
+                "name": "Age",
+                "type": "number",
+                "preprocessing": {"missing_value_strategy": "fill_with_mean"},
+            },
             {"name": "SibSp", "type": "number"},
             {"name": "Parch", "type": "number"},
-            {"name": "Fare", "type": "number", "preprocessing": {"missing_value_strategy": "fill_with_mean"}},
+            {
+                "name": "Fare",
+                "type": "number",
+                "preprocessing": {"missing_value_strategy": "fill_with_mean"},
+            },
             {"name": "Embarked", "type": "category"},
         ],
         "output_features": [{"name": "Survived", "type": "binary"}],

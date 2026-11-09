@@ -35,22 +35,37 @@ review_label_pairs = [
     {"review": "The hotel room was dirty and smelled bad.", "label": "negative"},
     {"review": "I had a great experience at this restaurant.", "label": "positive"},
     {"review": "The concert was amazing!", "label": "positive"},
-    {"review": "The traffic was terrible on my way to work this morning.", "label": "negative"},
+    {
+        "review": "The traffic was terrible on my way to work this morning.",
+        "label": "negative",
+    },
     {"review": "The customer service was excellent.", "label": "positive"},
-    {"review": "I was disappointed with the quality of the product.", "label": "negative"},
+    {
+        "review": "I was disappointed with the quality of the product.",
+        "label": "negative",
+    },
     {"review": "The scenery on the hike was breathtaking.", "label": "positive"},
     {"review": "I had a terrible experience at this hotel.", "label": "negative"},
     {"review": "The coffee at this cafe was delicious.", "label": "positive"},
     {"review": "The weather was perfect for a day at the beach.", "label": "positive"},
     {"review": "I would definitely recommend this product.", "label": "positive"},
-    {"review": "The wait time at the doctor's office was ridiculous.", "label": "negative"},
+    {
+        "review": "The wait time at the doctor's office was ridiculous.",
+        "label": "negative",
+    },
     {"review": "The museum was a bit underwhelming.", "label": "neutral"},
     {"review": "I had a fantastic time at the amusement park.", "label": "positive"},
     {"review": "The staff at this store was extremely helpful.", "label": "positive"},
-    {"review": "The airline lost my luggage and was very unhelpful.", "label": "negative"},
+    {
+        "review": "The airline lost my luggage and was very unhelpful.",
+        "label": "negative",
+    },
     {"review": "This album is a must-listen for any music fan.", "label": "positive"},
     {"review": "The food at this restaurant was just okay.", "label": "neutral"},
-    {"review": "I was pleasantly surprised by how great this movie was.", "label": "positive"},
+    {
+        "review": "I was pleasantly surprised by how great this movie was.",
+        "label": "positive",
+    },
     {"review": "The car rental process was quick and easy.", "label": "positive"},
     {"review": "The service at this hotel was top-notch.", "label": "positive"},
 ]
@@ -97,7 +112,10 @@ model = LudwigModel(config=config, logging_level=logging.INFO)
 
 # initiate model training
 results = model.train(
-    dataset=df, experiment_name="simple_experiment", model_name="simple_model", skip_save_processed_input=True
+    dataset=df,
+    experiment_name="simple_experiment",
+    model_name="simple_model",
+    skip_save_processed_input=True,
 )
 train_stats = results.train_stats
 preprocessed_data = results.preprocessed_data

@@ -126,7 +126,11 @@ auto_train_results = auto_train(
     time_limit_s=3600,
     tune_for_memory=False,
     user_config={
-        "hyperopt": {"goal": "maximize", "metric": "accuracy", "output_feature": "class"},
+        "hyperopt": {
+            "goal": "maximize",
+            "metric": "accuracy",
+            "output_feature": "class",
+        },
         "preprocessing": {"split": {"column": "split", "type": "fixed"}},
     },
 )

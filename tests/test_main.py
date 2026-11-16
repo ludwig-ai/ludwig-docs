@@ -51,8 +51,9 @@ def test_define_env_registers_macros():
 
 @requires_ludwig
 def test_schema_class_to_yaml():
-    from main import define_env
     from ludwig.schema.preprocessing import PreprocessingConfig
+
+    from main import define_env
 
     env = _make_env()
     define_env(env)
@@ -63,8 +64,9 @@ def test_schema_class_to_yaml():
 
 @requires_ludwig
 def test_schema_class_to_fields():
-    from main import define_env
     from ludwig.schema.preprocessing import PreprocessingConfig
+
+    from main import define_env
 
     env = _make_env()
     define_env(env)
@@ -75,8 +77,9 @@ def test_schema_class_to_fields():
 
 @requires_ludwig
 def test_schema_class_long_description():
-    from main import define_env
     from ludwig.schema.combiners.utils import get_combiner_registry
+
+    from main import define_env
 
     env = _make_env()
     define_env(env)

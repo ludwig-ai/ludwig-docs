@@ -1,7 +1,7 @@
-# ruff: noqa: E402
 import json
 import os
 import sys
+
 import yaml
 from pydantic.fields import PydanticUndefined
 
@@ -13,15 +13,15 @@ if os.path.isdir(_ludwig_src) and _ludwig_src not in sys.path:
     sys.path.insert(0, _ludwig_src)
 
 # Force populate combiner registry:
-from ludwig.constants import MODEL_ECD  # noqa: E402
+from ludwig.constants import MODEL_ECD
 from ludwig.schema.combiners.utils import get_combiner_registry
 from ludwig.schema.decoders.utils import get_decoder_cls
 from ludwig.schema.encoders.text_encoders import HFEncoderConfig
-from ludwig.schema.encoders.utils import get_encoder_cls, get_encoder_classes
+from ludwig.schema.encoders.utils import get_encoder_classes, get_encoder_cls
 from ludwig.schema.features.augmentation.utils import get_augmentation_cls
+from ludwig.schema.features.loss import get_loss_classes, get_loss_schema_registry
 from ludwig.schema.features.preprocessing.utils import preprocessing_registry
 from ludwig.schema.features.utils import get_input_feature_cls, get_output_feature_cls
-from ludwig.schema.features.loss import get_loss_schema_registry, get_loss_classes
 from ludwig.schema.llms.generation import LLMGenerationConfig
 from ludwig.schema.llms.model_parameters import ModelParametersConfig, RoPEScalingConfig
 from ludwig.schema.llms.peft import adapter_registry
